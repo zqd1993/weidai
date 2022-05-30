@@ -1,0 +1,63 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias rootProject.ext.android.keyAlias
+            keyPassword rootProject.ext.android.keyPassword
+            storeFile file(rootProject.ext.android.storeFile)
+            storePassword rootProject.ext.android.storePassword
+        }
+    }
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+
+    defaultConfig {
+        applicationId 'com.rihdkauecgh.plihgnytrvfws'
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "weidai_v${variant.versionName}_build_${releaseTime()}.apk"
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+
+//这里是groovy的代码了，定义了一个获取时间的方法，groovy是兼容java，它可以直接使用jdk里的方法
+def releaseTime() {
+    return new Date().format("yyyyMMddHHmmss", TimeZone.getTimeZone("Asia/Shanghai"))
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    annotationProcessor rootProject.ext.dependencies["butterknife-apt"]
+    implementation rootProject.ext.dependencies["avi-loading"]
+    implementation project(":mvp")
+    implementation 'com.jaeger.statusbarutil:library:1.5.1'
+    implementation 'io.github.h07000223:flycoTabLayout:3.0.0'
+    implementation 'com.victor:lib:1.0.4'
+    implementation 'com.github.lihangleo2:ShadowLayout:3.2.4'
+    implementation  'com.umeng.umsdk:common:latest.integration'// 必选
+    implementation  'com.umeng.umsdk:asms:latest.integration'// 必选
+}

@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.rihdkauecgh.plihgnytrvfws",
+  "variantName": "release",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "versionCode": 999,
+      "versionName": "2.2.1",
+      "outputFile": "weidai_v2.2.1_build_20220530120500.apk"
+    }
+  ]
+}
