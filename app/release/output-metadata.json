@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.rihdkauecgh.plihgnytrvfws",
+  "applicationId": "com.werwerd.ertegdfg",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 999,
-      "versionName": "2.2.1",
-      "outputFile": "weidai_v2.2.1_build_20220530120500.apk"
+      "versionCode": 1,
+      "versionName": "1.0.0",
+      "outputFile": "youxin_v1.0.0_build_20220530225329.apk"
     }
   ]
 }

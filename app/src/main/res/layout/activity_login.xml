@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
@@ -25,7 +26,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:text="@string/login_title"
-            android:textColor="#f04511"
+            android:textColor="#0ea3e5"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -59,7 +60,7 @@
                 android:inputType="number"
                 android:maxLength="11"
                 android:textColor="@color/text_normal_color"
-                android:textColorHint="#c2c2c2"
+                android:textColorHint="#9a9a9a"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/textSize_16" />
 
@@ -97,7 +98,7 @@
                 android:inputType="number"
                 android:maxLength="6"
                 android:textColor="@color/text_normal_color"
-                android:textColorHint="#c2c2c2"
+                android:textColorHint="#9a9a9a"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/textSize_16" />
 
@@ -108,7 +109,7 @@
                 android:gravity="center"
                 android:paddingEnd="15dp"
                 android:text="@string/get_verification"
-                android:textColor="#f04511" />
+                android:textColor="#2974b8" />
 
         </LinearLayout>
 
@@ -142,7 +143,7 @@
                 android:layout_height="20dp"
                 android:button="@drawable/checkbox_bg" />
 
-            <com.dfgderv.erterqweq.widget.SpanTextView
+            <com.werwerd.ertegdfg.widget.SpanTextYouXinView
                 android:id="@+id/login_remind_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
