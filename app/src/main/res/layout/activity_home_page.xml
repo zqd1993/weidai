@@ -31,8 +31,8 @@
             app:tl_iconMargin="7dp"
             app:tl_iconVisible="true"
             app:tl_iconWidth="27dp"
-            app:tl_textSelectColor="#90d6ef"
-            app:tl_textUnselectColor="#dedede"
+            app:tl_textSelectColor="#f33735"
+            app:tl_textUnselectColor="#bdbdc5"
             app:tl_textsize="14sp"
             app:tl_indicator_height="0dp"/>
 

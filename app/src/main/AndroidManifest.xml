@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.werwerd.ertegdfg">
+    package="com.aklsfasad.fsjhfkk">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="com.werwerd.ertegdfg.YouXinApp"
+        android:name="com.aklsfasad.fsjhfkk.HuiMinApp"
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
@@ -19,7 +19,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.werwerd.ertegdfg.ui.QiDongActivity"
+            android:name="com.aklsfasad.fsjhfkk.ui.TanPingActivity"
             android:icon="@mipmap/app_logo"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -31,37 +31,37 @@
 
 
         <activity
-            android:name="com.werwerd.ertegdfg.ui.WebActivity"
+            android:name="com.aklsfasad.fsjhfkk.ui.WebHuiMinActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.werwerd.ertegdfg.ui.LoginYouXinActivity"
+            android:name="com.aklsfasad.fsjhfkk.ui.LoginActivityHuiMin"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.werwerd.ertegdfg.ui.HomePageYouXinActivity"
+            android:name="com.aklsfasad.fsjhfkk.ui.HomePageActivityHuiMin"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.werwerd.ertegdfg.ui.activity.FeedBackYouXinActivity"
+            android:name="com.aklsfasad.fsjhfkk.ui.activity.FeedBackActivityHuiMin"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.werwerd.ertegdfg.ui.activity.AboutYouXinActivity"
+            android:name="com.aklsfasad.fsjhfkk.ui.activity.AboutActivityHuiMin"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
 
         <activity
-            android:name="com.werwerd.ertegdfg.ui.activity.CancellationUserYouXinActivity"
+            android:name="com.aklsfasad.fsjhfkk.ui.activity.CancellationUserActivityHuiMin"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
-        <meta-data android:value="6294d3ab05844627b599750b" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="6294d48405844627b599751c" android:name="UMENG_APPKEY"/>
 
     </application>
 
