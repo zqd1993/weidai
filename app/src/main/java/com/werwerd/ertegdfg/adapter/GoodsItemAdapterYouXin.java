@@ -64,7 +64,7 @@ public class GoodsItemAdapterYouXin extends SimpleRecAdapter<GoodsWinAModel, Goo
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         GoodsWinAModel model = data.get(i);
         if (!TextUtils.isEmpty(model.getDes()) && model.getDes().length() > 2) {
-            viewHolder.cycleTv.setText("周期" + model.getDes() + "个月");
+            viewHolder.cycleTv.setText("周期" + model.getDes());
         }
         viewHolder.passingRateTv.setText(String.valueOf(model.getPassingRate()));
         viewHolder.tagTv.setText(model.getTag());
