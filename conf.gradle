@@ -6,17 +6,17 @@ ext {
             minSdkVersion    : 21,
             targetSdkVersion : 29,
 
-            versionCode      : 20220531,
-            versionName      : '1.4.0',
+            versionCode      : 20220532,
+            versionName      : '1.4.1',
 
             VSupportSdk      : '27.1.1',
             VRetrofitSdk     : "2.2.0",
             VOkhttp          : "3.4.2",
             VRxlifecycle     : "2.0.1",
-            keyAlias         : "dfgdfg",
-            keyPassword      : "123456",
-            storeFile        : "./dfgdfg",
-            storePassword    : "123456"
+            keyAlias         : "keysoutsinhkoutjsne",
+            keyPassword      : "mima112233",
+            storeFile        : "./soutsinhkoutjsne.jks",
+            storePassword    : "mima112233"
     ]
     dependencies = [
             "appcompat-v7"               : 'androidx.appcompat:appcompat:1.0.0',

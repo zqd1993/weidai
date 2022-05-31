@@ -14,6 +14,7 @@ import com.aklsfasad.fsjhfkk.ui.LoginActivityHuiMin;
 import com.aklsfasad.fsjhfkk.ui.WebHuiMinActivity;
 import com.aklsfasad.fsjhfkk.ui.activity.AboutActivityHuiMin;
 import com.aklsfasad.fsjhfkk.ui.activity.CancellationUserActivityHuiMin;
+import com.aklsfasad.fsjhfkk.ui.activity.MoreSettingActivity;
 import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
 import com.aklsfasad.fsjhfkk.utils.ToastUtilHuiMin;
 import com.aklsfasad.fsjhfkk.net.Api;
@@ -38,9 +39,9 @@ public class MineHuiMinFragment extends XFragment {
 
     private MineHuiMinAdapter miaoJieMineAdapter1;
     private List<MineItemHuiMinModel> list1;
-    private int[] imgRes = {R.drawable.wd_icon_zcxy, R.drawable.wd_icon_ysxy, R.drawable.wd_icon_yjfk, R.drawable.wd_icon_gywm,
+    private int[] imgRes = {R.drawable.wd_icon_zcxy, R.drawable.wd_icon_yjfk,
             R.drawable.wd_icon_xxts, R.drawable.wd_tsyx, R.drawable.wd_icon_zcz, R.drawable.wd_icon_zczh};
-    private String[] tvRes = {"注册协议", "隐私协议", "意见反馈", "关于我们", "个性化推荐", "投诉邮箱", "注销账户", "退出登录"};
+    private String[] tvRes = {"更多信息", "意见反馈", "个性化推荐", "投诉邮箱", "注销账户", "退出登录"};
     private Bundle bundle;
     private NormalDialogHuiMin normalDialogHuiMin;
     private String mailStr = "", phone = "";
@@ -67,34 +68,16 @@ public class MineHuiMinFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            bundle = new Bundle();
-                            bundle.putInt("tag", 1);
-                            bundle.putString("url", Api.PRIVACY_POLICY);
                             Router.newIntent(getActivity())
-                                    .to(WebHuiMinActivity.class)
-                                    .data(bundle)
+                                    .to(MoreSettingActivity.class)
                                     .launch();
                             break;
                         case 1:
-                            bundle = new Bundle();
-                            bundle.putInt("tag", 2);
-                            bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                            Router.newIntent(getActivity())
-                                    .to(WebHuiMinActivity.class)
-                                    .data(bundle)
-                                    .launch();
-                            break;
-                        case 2:
                             Router.newIntent(getActivity())
                                     .to(FeedBackActivityHuiMin.class)
                                     .launch();
                             break;
-                        case 3:
-                            Router.newIntent(getActivity())
-                                    .to(AboutActivityHuiMin.class)
-                                    .launch();
-                            break;
-                        case 4:
+                        case 2:
                             normalDialogHuiMin = new NormalDialogHuiMin(getActivity());
                             normalDialogHuiMin.setTitle("温馨提示")
                                     .setContent("关闭或开启推送")
@@ -109,18 +92,18 @@ public class MineHuiMinFragment extends XFragment {
                                         normalDialogHuiMin.dismiss();
                                     }).show();
                             break;
-                        case 5:
+                        case 3:
                             normalDialogHuiMin = new NormalDialogHuiMin(getActivity());
                             normalDialogHuiMin.setTitle("温馨提示")
                                     .setContent(mailStr)
                                     .showOnlyBtn().show();
                             break;
-                        case 6:
+                        case 4:
                             Router.newIntent(getActivity())
                                     .to(CancellationUserActivityHuiMin.class)
                                     .launch();
                             break;
-                        case 7:
+                        case 5:
                             normalDialogHuiMin = new NormalDialogHuiMin(getActivity());
                             normalDialogHuiMin.setTitle("温馨提示")
                                     .setContent("确定退出当前登录")
@@ -153,7 +136,7 @@ public class MineHuiMinFragment extends XFragment {
         mailStr = SharedPreferencesUtilisHuiMin.getStringFromPref("APP_MAIL");
         phone = SharedPreferencesUtilisHuiMin.getStringFromPref("phone");
         phoneTv.setText(phone);
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 6; i++) {
             MineItemHuiMinModel model = new MineItemHuiMinModel();
             model.setImgRes(imgRes[i]);
             model.setItemTv(tvRes[i]);

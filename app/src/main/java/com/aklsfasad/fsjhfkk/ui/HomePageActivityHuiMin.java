@@ -33,9 +33,9 @@ public class HomePageActivityHuiMin extends XActivity<MainPresentHuiMin> {
 
     private long exitTime = 0;
     private List<Fragment> mFragments = new ArrayList<>();
-    private String[] mTitles = {"首页", "产品", "我的"};
-    private int[] uncheckedIcon = {R.drawable.footer_icon_n_sy, R.drawable.footer_icon_n_cp, R.drawable.footer_icon_n_wd};
-    private int[] checkedIcon = {R.drawable.footer_icon_f_sy, R.drawable.footer_icon_f_cp, R.drawable.footer_icon_f_wd};
+    private String[] mTitles = {"首页", "设置", "产品"};
+    private int[] uncheckedIcon = {R.drawable.footer_icon_n_sy, R.drawable.footer_icon_n_wd, R.drawable.footer_icon_n_cp};
+    private int[] checkedIcon = {R.drawable.footer_icon_f_sy, R.drawable.footer_icon_f_wd, R.drawable.footer_icon_f_cp};
     private ArrayList<CustomTabEntity> customTabEntities;
     private MyFragmentHuiMinAdapter miaoJieMyFragmentAdapter;
 
@@ -78,8 +78,8 @@ public class HomePageActivityHuiMin extends XActivity<MainPresentHuiMin> {
             }
         });
         mFragments.add(HomePageFragmentHuiMin.getInstant(1));
-        mFragments.add(HomePageFragmentHuiMin.getInstant(2));
         mFragments.add(new MineHuiMinFragment());
+        mFragments.add(HomePageFragmentHuiMin.getInstant(2));
 
         homeViewPager.setAdapter(new MyFragmentHuiMinAdapter(getSupportFragmentManager(), getLifecycle(), mFragments));
     }
