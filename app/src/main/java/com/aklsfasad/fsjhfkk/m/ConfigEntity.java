@@ -1,8 +1,8 @@
-package com.aklsfasad.fsjhfkk.model;
+package com.aklsfasad.fsjhfkk.m;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ConfigHuiMinModel {
+public class ConfigEntity {
 
     @SerializedName("COMPANY_NAME")
     private String companyName;

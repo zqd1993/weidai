@@ -1,9 +1,9 @@
-package com.aklsfasad.fsjhfkk.model;
+package com.aklsfasad.fsjhfkk.m;
 
 
 import com.aklsfasad.fsjhfkk.net.IModel;
 
-public class BaseRespHuiMinModel<T> implements IModel {
+public class BaseModel<T> implements IModel {
 
     private int code;
 

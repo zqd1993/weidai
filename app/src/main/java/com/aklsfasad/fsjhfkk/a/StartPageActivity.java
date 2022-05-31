@@ -1,112 +1,100 @@
-package com.aklsfasad.fsjhfkk.ui;
+package com.aklsfasad.fsjhfkk.a;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.text.TextUtils;
-import android.view.KeyEvent;
-
 import com.aklsfasad.fsjhfkk.R;
-import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
-import com.aklsfasad.fsjhfkk.utils.StatusBarUtilHuiMin;
+import com.aklsfasad.fsjhfkk.api.HttpApi;
 import com.aklsfasad.fsjhfkk.router.Router;
+import com.aklsfasad.fsjhfkk.u.OpenUtil;
+import com.aklsfasad.fsjhfkk.u.PreferencesOpenUtil;
+import com.aklsfasad.fsjhfkk.u.StatusBarUtil;
+import com.aklsfasad.fsjhfkk.w.StartPageRemindDialog;
 
-import com.aklsfasad.fsjhfkk.net.Api;
-import com.aklsfasad.fsjhfkk.widget.WelcomeDialogHuiMin;
-
-public class TanPingActivity extends AppCompatActivity {
-
-    private WelcomeDialogHuiMin welcomeDialog;
+public class StartPageActivity extends AppCompatActivity {
 
     private Bundle bundle;
 
-    private boolean isAgree = false;
+    private boolean isSure = false;
 
-    private String loginPhone = "";
+    private String phone = "";
+
+    private StartPageRemindDialog startPageRemindDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guide);
-        StatusBarUtilHuiMin.setTransparent(this, false);
-        isAgree = SharedPreferencesUtilisHuiMin.getBoolFromPref("agree");
-        loginPhone = SharedPreferencesUtilisHuiMin.getStringFromPref("phone");
-        if (!isAgree) {
-            showDialog();
-        } else {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (!TextUtils.isEmpty(loginPhone)) {
-                        Router.newIntent(TanPingActivity.this)
-                                .to(HomePageActivityHuiMin.class)
-                                .launch();
-                    } else {
-                        Router.newIntent(TanPingActivity.this)
-                                .to(LoginActivityHuiMin.class)
-                                .launch();
-                    }
-                    finish();
-                }
-            }, 1000);
-        }
+        setContentView(R.layout.activity_start_page);
+        StatusBarUtil.setTransparent(this, false);
+        isSure = PreferencesOpenUtil.getBool("isSure");
+        phone = PreferencesOpenUtil.getString("phone");
+        jumpPage();
     }
 
-    private void showDialog() {
-        welcomeDialog = new WelcomeDialogHuiMin(this, "温馨提示");
-        welcomeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    TanPingActivity.this.finish();
-                    return false;
+    private void jumpPage() {
+        if (!isSure) {
+            startPageRemindDialog = new StartPageRemindDialog(this);
+            startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+                @Override
+                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        StartPageActivity.this.finish();
+                        return false;
+                    }
+                    return true;
                 }
-                return true;
-            }
-        });
-        welcomeDialog.setOnClickedListener(new WelcomeDialogHuiMin.OnClickedListener() {
-            @Override
-            public void topBtnClicked() {
-                SharedPreferencesUtilisHuiMin.saveStringIntoPref("uminit", "1");
-                SharedPreferencesUtilisHuiMin.saveBoolIntoPref("agree", true);
-                Router.newIntent(TanPingActivity.this)
-                        .to(LoginActivityHuiMin.class)
-                        .launch();
+            });
+            startPageRemindDialog.setOnListener(new StartPageRemindDialog.OnListener() {
+                @Override
+                public void oneBtnClicked() {
+                    PreferencesOpenUtil.saveString("uminit", "1");
+                    PreferencesOpenUtil.saveBool("isSure", true);
+                    OpenUtil.jumpPage(StartPageActivity.this, DlActivity.class);
+                    finish();
+                }
+
+                @Override
+                public void zcxyClicked() {
+                    bundle = new Bundle();
+                    bundle.putString("url", HttpApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    OpenUtil.jumpPage(StartPageActivity.this, JumpH5Activity.class, bundle);
+                }
+
+                @Override
+                public void twoBtnClicked() {
+                    finish();
+                }
+
+                @Override
+                public void ysxyClicked() {
+                    bundle = new Bundle();
+                    bundle.putString("url", HttpApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    OpenUtil.jumpPage(StartPageActivity.this, JumpH5Activity.class, bundle);
+                }
+            });
+            startPageRemindDialog.show();
+        } else {
+            new Handler().postDelayed(() -> {
+                if (TextUtils.isEmpty(phone)) {
+                    Router.newIntent(StartPageActivity.this)
+                            .to(DlActivity.class)
+                            .launch();
+                } else {
+//                    Router.newIntent(StartPageActivity.this)
+//                            .to(HomePageActivity.class)
+//                            .launch();
+                }
                 finish();
-            }
-
-            @Override
-            public void bottomBtnClicked() {
-                TanPingActivity.this.finish();
-            }
-
-            @Override
-            public void registrationAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", Api.PRIVACY_POLICY);
-                Router.newIntent(TanPingActivity.this)
-                        .to(WebHuiMinActivity.class)
-                        .data(bundle)
-                        .launch();
-            }
-
-            @Override
-            public void privacyAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                Router.newIntent(TanPingActivity.this)
-                        .to(WebHuiMinActivity.class)
-                        .data(bundle)
-                        .launch();
-            }
-        });
-        welcomeDialog.show();
+            }, 1000);
+        }
     }
 
     @Override
@@ -116,17 +104,6 @@ public class TanPingActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if (welcomeDialog != null){
-            welcomeDialog.dismiss();
-            welcomeDialog = null;
-        }
         super.onDestroy();
-    }
-
-    public String getOrderCommodityId(Object entity) {
-        if (entity == null) {
-            return null;
-        }
-        return "";
     }
 }

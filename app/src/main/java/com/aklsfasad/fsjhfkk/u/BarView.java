@@ -1,15 +1,15 @@
-package com.aklsfasad.fsjhfkk.utils;
+package com.aklsfasad.fsjhfkk.u;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class StatusBarViewHuiMin extends View {
-    public StatusBarViewHuiMin(Context context, AttributeSet attrs) {
+public class BarView extends View {
+    public BarView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public StatusBarViewHuiMin(Context context) {
+    public BarView(Context context) {
         super(context);
     }
 }

@@ -1,4 +1,4 @@
-package com.aklsfasad.fsjhfkk.utils;
+package com.aklsfasad.fsjhfkk.u;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -6,15 +6,14 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
-
-import androidx.annotation.ColorInt;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+
+import androidx.annotation.ColorInt;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.aklsfasad.fsjhfkk.R;
 
@@ -28,7 +27,7 @@ import java.lang.reflect.Method;
  * Email: chjie.jaeger@gmail.com
  * GitHub: https://github.com/laobie
  */
-public class StatusBarUtilHuiMin {
+public class StatusBarUtil {
 
     public static final int DEFAULT_STATUS_BAR_ALPHA = 112;
     public static final int FAKE_STATUS_BAR_VIEW_ID = R.id.statusbarutil_fake_status_bar_view;
@@ -510,7 +509,7 @@ public class StatusBarUtilHuiMin {
      * @param color    状态栏颜色值
      * @return 状态栏矩形条
      */
-    private static StatusBarViewHuiMin createStatusBarView(Activity activity, @ColorInt int color) {
+    private static BarView createStatusBarView(Activity activity, @ColorInt int color) {
         return createStatusBarView(activity, color, 0);
     }
 
@@ -522,9 +521,9 @@ public class StatusBarUtilHuiMin {
      * @param alpha    透明值
      * @return 状态栏矩形条
      */
-    private static StatusBarViewHuiMin createStatusBarView(Activity activity, @ColorInt int color, int alpha) {
+    private static BarView createStatusBarView(Activity activity, @ColorInt int color, int alpha) {
         // 绘制一个和状态栏一样高的矩形
-        StatusBarViewHuiMin statusBarViewHuiMin = new StatusBarViewHuiMin(activity);
+        BarView statusBarViewHuiMin = new BarView(activity);
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity));
         statusBarViewHuiMin.setLayoutParams(params);
@@ -625,9 +624,9 @@ public class StatusBarUtilHuiMin {
      * @param alpha 透明值
      * @return 半透明 View
      */
-    private static StatusBarViewHuiMin createTranslucentStatusBarView(Activity activity, int alpha) {
+    private static BarView createTranslucentStatusBarView(Activity activity, int alpha) {
         // 绘制一个和状态栏一样高的矩形
-        StatusBarViewHuiMin statusBarViewHuiMin = new StatusBarViewHuiMin(activity);
+        BarView statusBarViewHuiMin = new BarView(activity);
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity));
         statusBarViewHuiMin.setLayoutParams(params);

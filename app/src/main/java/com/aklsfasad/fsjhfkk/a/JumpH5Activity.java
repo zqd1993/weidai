@@ -1,7 +1,6 @@
-package com.rihdkauecgh.plihgnytrvfws.ui;
+package com.aklsfasad.fsjhfkk.a;
 
 import android.os.Bundle;
-
 import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -10,66 +9,53 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.rihdkauecgh.plihgnytrvfws.R;
-import com.rihdkauecgh.plihgnytrvfws.utils.StatusBarUtil;
-import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
+import com.aklsfasad.fsjhfkk.R;
+import com.aklsfasad.fsjhfkk.mvp.XActivity;
+import com.aklsfasad.fsjhfkk.u.StatusBarUtil;
 
 import butterknife.BindView;
 
-public class WebViewActivity extends XActivity {
+public class JumpH5Activity extends XActivity {
 
-    @BindView(R.id.web_view)
+    @BindView(R.id.biaoti_tv)
+    TextView biaotiTv;
+    @BindView(R.id.back_image)
+    ImageView backImage;
+    @BindView(R.id.h5_view)
     WebView webView;
-    @BindView(R.id.title_tv)
-    TextView tvTitle;
-    @BindView(R.id.back_img)
-    ImageView imgBack;
 
     private Bundle bundle;
+    private String url, biaoti;
 
-    private int tag;
-
-    private String url, title;
-
-    private WebSettings webSettings;
-
-    @Override
-    public void initData(Bundle savedInstanceState) {
-        StatusBarUtil.setTransparent(this, false);
-        bundle = getIntent().getExtras();
-        if (bundle.containsKey("tag"))
-            tag = bundle.getInt("tag");
-        if (bundle.containsKey("url"))
-            url = bundle.getString("url");
-        if (bundle.containsKey("title"))
-            title = bundle.getString("title");
-        if (tag == 1) {
-            tvTitle.setText(getResources().getString(R.string.privacy_policy));
-        } else if (tag == 2) {
-            tvTitle.setText(getResources().getString(R.string.user_service_agreement));
-        } else {
-            tvTitle.setText(title);
-        }
-        imgBack.setOnClickListener(v -> {
-            finish();
-        });
-        webSettings = webView.getSettings();
-        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK); //设置缓存
-        webSettings.setJavaScriptEnabled(true);//设置能够解析Javascript
-        webSettings.setDomStorageEnabled(true);//设置适应Html5 重点是这个设置
-        webSettings.setTextZoom(100);
-        webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl(url);
-    }
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_web_view;
+        return R.layout.activity_jump_h5;
     }
 
     @Override
     public Object newP() {
         return null;
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        StatusBarUtil.setTransparent(this, false);
+        bundle = getIntent().getExtras();
+        if (bundle.containsKey("biaoti"))
+            biaoti = bundle.getString("biaoti");
+        if (bundle.containsKey("url"))
+            url = bundle.getString("url");
+        biaotiTv.setText(biaoti);
+        backImage.setOnClickListener(v -> {
+            finish();
+        });
+        webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        webView.getSettings().setTextZoom(100);
+        webView.getSettings().setDomStorageEnabled(true);
+        webView.setWebViewClient(new WebViewClient());
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl(url);
     }
 
     @Override
@@ -88,15 +74,19 @@ public class WebViewActivity extends XActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        if (webView != null) webView.onPause();
+    protected void onResume() {
+        super.onResume();
+        if (webView != null) {
+            webView.onResume();
+        }
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        if (webView != null) webView.onResume();
+    protected void onPause() {
+        super.onPause();
+        if (webView != null) {
+            webView.onPause();
+        }
     }
 
     @Override

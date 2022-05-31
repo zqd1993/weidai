@@ -5,29 +5,29 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
-import com.umeng.commonsdk.UMConfigure;
-
 import com.aklsfasad.fsjhfkk.net.NetError;
 import com.aklsfasad.fsjhfkk.net.NetProvider;
 import com.aklsfasad.fsjhfkk.net.RequestHandler;
 import com.aklsfasad.fsjhfkk.net.XApi;
+import com.aklsfasad.fsjhfkk.u.PreferencesOpenUtil;
+import com.umeng.commonsdk.UMConfigure;
+
 import okhttp3.CookieJar;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 
-public class MyApp extends Application {
+public class MainApp extends Application {
 
     private static Context context;
 
-    protected static SharedPreferences sharedPreferences;
+    protected static SharedPreferences preferences;
 
 
     @Override
     public void onCreate() {
         super.onCreate();
         context = this;
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
         //设置LOG开关，默认为false
         UMConfigure.setLogEnabled(true);
         UMConfigure.preInit(getApplicationContext(), "6294d48405844627b599751c", "Umeng");
@@ -35,7 +35,7 @@ public class MyApp extends Application {
          * 打开app首次隐私协议授权，以及sdk初始化，判断逻辑请查看SplashTestActivity
          */
         //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
-        if (SharedPreferencesUtilisHuiMin.getStringFromPref("uminit").equals("1")) {
+        if (PreferencesOpenUtil.getString("uminit").equals("1")) {
             //友盟正式初始化
             UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
         }
@@ -92,7 +92,7 @@ public class MyApp extends Application {
         return context;
     }
 
-    public static SharedPreferences getSharedPreferences() {
-        return sharedPreferences;
+    public static SharedPreferences getPreferences() {
+        return preferences;
     }
 }
