@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
@@ -17,7 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@drawable/dl_bg" />
+            android:src="@drawable/dl_bg"
+            android:visibility="invisible"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,7 +27,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:text="@string/login_title"
-            android:textColor="@color/text_normal_color"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -59,7 +61,7 @@
                 android:inputType="number"
                 android:maxLength="11"
                 android:textColor="@color/text_normal_color"
-                android:textColorHint="@color/dividing"
+                android:textColorHint="#959595"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/textSize_16" />
 
@@ -97,7 +99,7 @@
                 android:inputType="number"
                 android:maxLength="6"
                 android:textColor="@color/text_normal_color"
-                android:textColorHint="@color/dividing"
+                android:textColorHint="#959595"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/textSize_16" />
 
@@ -108,7 +110,7 @@
                 android:gravity="center"
                 android:paddingEnd="15dp"
                 android:text="@string/get_verification"
-                android:textColor="@color/color_f5dbaa" />
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -147,7 +149,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:textColor="@color/text_normal_color"
+                android:textColor="@color/white"
                 android:textSize="@dimen/textSize_16" />
 
         </LinearLayout>
