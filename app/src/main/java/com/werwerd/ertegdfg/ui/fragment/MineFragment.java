@@ -13,6 +13,7 @@ import com.werwerd.ertegdfg.ui.LoginYouXinActivity;
 import com.werwerd.ertegdfg.ui.WebActivity;
 import com.werwerd.ertegdfg.ui.activity.AboutYouXinActivity;
 import com.werwerd.ertegdfg.ui.activity.CancellationUserYouXinActivity;
+import com.werwerd.ertegdfg.ui.activity.MoreInfoActivity;
 import com.werwerd.ertegdfg.utils.SharedPreferencesYouXinUtilis;
 import com.werwerd.ertegdfg.utils.ToastYouXinUtil;
 import com.werwerd.ertegdfg.net.Api;
@@ -40,9 +41,9 @@ public class MineFragment extends XFragment {
 
     private MineAdapterYouXin miaoJieMineAdapter1, miaoJieMineAdapter2;
     private List<MineItemModelYouXin> list1, list2;
-    private int[] imgRes = {R.drawable.wd_icon_zcxy, R.drawable.wd_icon_ysxy, R.drawable.wd_icon_yjfk, R.drawable.wd_icon_gywm,
-            R.drawable.wd_icon_xxts, R.drawable.wd_tsyx, R.drawable.wd_icon_zcz, R.drawable.wd_icon_zczh};
-    private String[] tvRes = {"注册协议", "隐私协议", "意见反馈", "关于我们", "个性化推荐", "投诉邮箱", "注销账户", "退出登录"};
+    private int[] imgRes = {R.drawable.wd_icon_yjfk,
+            R.drawable.wd_icon_xxts, R.drawable.wd_tsyx, R.drawable.wd_icon_zcz, R.drawable.wd_icon_zczh, R.drawable.wd_icon_gywm};
+    private String[] tvRes = {"意见反馈", "个性化推荐", "投诉邮箱", "注销账户", "退出登录", "更多信息"};
     private Bundle bundle;
     private NormalYouXinDialog normalYouXinDialog;
     private String mailStr = "", phone = "";
@@ -69,22 +70,24 @@ public class MineFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            bundle = new Bundle();
-                            bundle.putInt("tag", 1);
-                            bundle.putString("url", Api.PRIVACY_POLICY);
                             Router.newIntent(getActivity())
-                                    .to(WebActivity.class)
-                                    .data(bundle)
+                                    .to(FeedBackYouXinActivity.class)
                                     .launch();
                             break;
                         case 1:
-                            bundle = new Bundle();
-                            bundle.putInt("tag", 2);
-                            bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                            Router.newIntent(getActivity())
-                                    .to(WebActivity.class)
-                                    .data(bundle)
-                                    .launch();
+                            normalYouXinDialog = new NormalYouXinDialog(getActivity());
+                            normalYouXinDialog.setTitle("温馨提示")
+                                    .setContent("关闭或开启推送")
+                                    .setCancelText("开启")
+                                    .setLeftListener(v -> {
+                                        ToastYouXinUtil.showShort("开启成功");
+                                        normalYouXinDialog.dismiss();
+                                    })
+                                    .setConfirmText("关闭")
+                                    .setRightListener(v -> {
+                                        ToastYouXinUtil.showShort("关闭成功");
+                                        normalYouXinDialog.dismiss();
+                                    }).show();
                             break;
                     }
                 }
@@ -102,7 +105,7 @@ public class MineFragment extends XFragment {
         mailStr = SharedPreferencesYouXinUtilis.getStringFromPref("APP_MAIL");
         phone = SharedPreferencesYouXinUtilis.getStringFromPref("phone");
         phoneTv.setText(phone);
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 6; i++) {
             MineItemModelYouXin model = new MineItemModelYouXin();
             model.setImgRes(imgRes[i]);
             model.setItemTv(tvRes[i]);
@@ -128,42 +131,17 @@ public class MineFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            Router.newIntent(getActivity())
-                                    .to(FeedBackYouXinActivity.class)
-                                    .launch();
-                            break;
-                        case 1:
-                            Router.newIntent(getActivity())
-                                    .to(AboutYouXinActivity.class)
-                                    .launch();
-                            break;
-                        case 2:
-                            normalYouXinDialog = new NormalYouXinDialog(getActivity());
-                            normalYouXinDialog.setTitle("温馨提示")
-                                    .setContent("关闭或开启推送")
-                                    .setCancelText("开启")
-                                    .setLeftListener(v -> {
-                                        ToastYouXinUtil.showShort("开启成功");
-                                        normalYouXinDialog.dismiss();
-                                    })
-                                    .setConfirmText("关闭")
-                                    .setRightListener(v -> {
-                                        ToastYouXinUtil.showShort("关闭成功");
-                                        normalYouXinDialog.dismiss();
-                                    }).show();
-                            break;
-                        case 3:
                             normalYouXinDialog = new NormalYouXinDialog(getActivity());
                             normalYouXinDialog.setTitle("温馨提示")
                                     .setContent(mailStr)
                                     .showOnlyBtn().show();
                             break;
-                        case 4:
+                        case 1:
                             Router.newIntent(getActivity())
                                     .to(CancellationUserYouXinActivity.class)
                                     .launch();
                             break;
-                        case 5:
+                        case 2:
                             normalYouXinDialog = new NormalYouXinDialog(getActivity());
                             normalYouXinDialog.setTitle("温馨提示")
                                     .setContent("确定退出当前登录")
@@ -180,6 +158,11 @@ public class MineFragment extends XFragment {
                                                 .launch();
                                         getActivity().finish();
                                     }).show();
+                            break;
+                        case 3:
+                            Router.newIntent(getActivity())
+                                    .to(MoreInfoActivity.class)
+                                    .launch();
                             break;
                     }
                 }

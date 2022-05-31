@@ -32,7 +32,7 @@ public class HomePageYouXinActivity extends XActivity<MainYouXinPresent> {
 
     private long exitTime = 0;
     private List<Fragment> mFragments = new ArrayList<>();
-    private String[] mTitles = {"首页", "产品", "我的"};
+    private String[] mTitles = {"首页", "个人中心","产品",};
     private int[] uncheckedIcon = {R.drawable.footer_icon_n_sy, R.drawable.footer_icon_n_cp, R.drawable.footer_icon_n_wd};
     private int[] checkedIcon = {R.drawable.footer_icon_f_sy, R.drawable.footer_icon_f_cp, R.drawable.footer_icon_f_wd};
     private ArrayList<CustomTabEntity> customTabEntities;
@@ -77,8 +77,8 @@ public class HomePageYouXinActivity extends XActivity<MainYouXinPresent> {
             }
         });
         mFragments.add(HomePageYouXinFragment.getInstant(1));
-        mFragments.add(HomePageYouXinFragment.getInstant(2));
         mFragments.add(new MineFragment());
+        mFragments.add(HomePageYouXinFragment.getInstant(2));
 
         homeViewPager.setAdapter(new MyFragmentAdapterYouXin(getSupportFragmentManager(), getLifecycle(), mFragments));
     }
