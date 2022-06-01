@@ -3,11 +3,11 @@ package com.aklsfasad.fsjhfkk.u;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.aklsfasad.fsjhfkk.MainApp;
+
 public class MyToast {
 
     private static long lastClick = 0;
-
-    public static Context mContext;
 
     public static boolean isFast() {
         boolean flag = true;
@@ -27,6 +27,6 @@ public class MyToast {
         if (isFast()) {
             return;
         }
-        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainApp.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

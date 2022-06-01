@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.aklsfasad.fsjhfkk.MainApp;
 import com.aklsfasad.fsjhfkk.R;
 import com.aklsfasad.fsjhfkk.api.HttpApi;
 import com.aklsfasad.fsjhfkk.router.Router;
@@ -84,13 +85,9 @@ public class StartPageActivity extends AppCompatActivity {
         } else {
             new Handler().postDelayed(() -> {
                 if (TextUtils.isEmpty(phone)) {
-                    Router.newIntent(StartPageActivity.this)
-                            .to(DlActivity.class)
-                            .launch();
+                    OpenUtil.jumpPage(StartPageActivity.this, DlActivity.class);
                 } else {
-//                    Router.newIntent(StartPageActivity.this)
-//                            .to(HomePageActivity.class)
-//                            .launch();
+                    OpenUtil.jumpPage(StartPageActivity.this, MainActivity.class);
                 }
                 finish();
             }, 1000);

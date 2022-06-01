@@ -41,7 +41,7 @@ public class DlActivity extends XActivity {
     private ClickTextView readTv;
     private ShadowLayout yzmCv;
 
-    private String phoneStr, verificationStr, ip = "";
+    private String phoneStr, yzmStr, ip = "";
     private Bundle bundle;
     public boolean isChecked = true, isNeedYzm = true;
 
@@ -69,8 +69,32 @@ public class DlActivity extends XActivity {
             }
             OpenUtil.jumpPage(DlActivity.this, JumpH5Activity.class, bundle);
         });
-        getYzmTv.setOnClickListener(v -> {
 
+        getYzmTv.setOnClickListener(v -> {
+            phoneStr = mobileEt.getText().toString().trim();
+            if (phoneStr.isEmpty()) {
+                MyToast.showShort("请输入手机号");
+            } else {
+                getYzm(phoneStr);
+            }
+        });
+
+        dlBtn.setOnClickListener(v -> {
+            phoneStr = mobileEt.getText().toString().trim();
+            yzmStr = yzmEt.getText().toString().trim();
+            if (phoneStr.isEmpty()) {
+                MyToast.showShort("请输入手机号码");
+                return;
+            }
+            if (yzmStr.isEmpty()) {
+                MyToast.showShort("请输入验证码");
+                return;
+            }
+            if (!remindCb.isChecked() && isChecked){
+                MyToast.showShort("请阅读并勾选注册及隐私协议");
+                return;
+            }
+            login(phoneStr,yzmStr);
         });
     }
 
@@ -106,7 +130,6 @@ public class DlActivity extends XActivity {
                                     yzmCv.setVisibility(View.VISIBLE);
                                 }
                                 isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
-                                isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
                                 remindCb.setChecked(isChecked);
                             }
                         }
@@ -164,7 +187,7 @@ public class DlActivity extends XActivity {
                             xStateController.showContent();
                         if (dlModel != null && dlModel.getCode() == 200) {
                             if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                OpenUtil.jumpPage(DlActivity.this, DlActivity.class);
+                                OpenUtil.jumpPage(DlActivity.this, MainActivity.class);
                                 int mobileType = dlModel.getData().getMobileType();
                                 PreferencesOpenUtil.saveString("ip", ip);
                                 PreferencesOpenUtil.saveString("phone", phone);
@@ -172,7 +195,7 @@ public class DlActivity extends XActivity {
                                 finish();
                             }
                         } else {
-                            if (dlModel.getCode() == 500){
+                            if (dlModel.getCode() == 500) {
                                 MyToast.showShort(dlModel.getMsg());
                             }
                         }

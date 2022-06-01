@@ -39,6 +39,11 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".a.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
         <meta-data android:value="6294d48405844627b599751c" android:name="UMENG_APPKEY"/>
 
     </application>
