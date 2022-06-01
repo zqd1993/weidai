@@ -54,10 +54,11 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
 
     private String filePath;
 
+    private String fileUrl = "";
+
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
-        checkPermission();
         bundle = getIntent().getExtras();
         if (bundle.containsKey("tag"))
             tag = bundle.getInt("tag");
@@ -86,7 +87,8 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
             @Override
             public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
                 Log.d("WebViewActivity", "url = " + url + "--> userAgent" + userAgent + " ---> contentDisposition = " + contentDisposition + "-->mimetype = " + mimetype + "-->contentLength = " + contentLength);
-                downFile(url);
+                fileUrl = url;
+                checkPermission();
             }
         });
     }
@@ -118,6 +120,8 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
                     Uri packageURI = Uri.parse("package:" + getPackageName());
                     Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, packageURI);
                     startActivityForResult(intent, 1001);
+                } else {
+                    installApk();
                 }
 
             }
@@ -188,7 +192,9 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
 
     private void checkPermission() {
         String[] per = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
-        if (!EasyPermissions.hasPermissions(this, per)) {
+        if (EasyPermissions.hasPermissions(this, per)) {
+            downFile(fileUrl);
+        } else {
             EasyPermissions.requestPermissions(this, "需要允许读写内存卡权限",
                     RC_PERM, per);
         }
@@ -235,12 +241,21 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
     }
 
     @Override
-    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
 
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+        downFile(fileUrl);
     }
 
     @Override
     public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
-
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.addCategory(Intent.CATEGORY_BROWSABLE);
+        intent.setData(Uri.parse(fileUrl));
+        startActivity(intent);
     }
 }
