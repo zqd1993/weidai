@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.rihdkauecgh.plihgnytrvfws",
+  "applicationId": "com.qwerxcvdf.ytubvcbfg",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 999,
-      "versionName": "2.2.1",
-      "outputFile": "weidai_v2.2.1_build_20220530120500.apk"
+      "versionCode": 2,
+      "versionName": "1.0.1",
+      "outputFile": "guangming_v1.0.1_20220601145727.apk"
     }
   ]
 }

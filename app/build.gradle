@@ -12,7 +12,7 @@ android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
-        applicationId 'com.dfgderv.erterqweq'
+        applicationId 'com.qwerxcvdf.ytubvcbfg'
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
@@ -34,7 +34,7 @@ android {
     }
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "miaojie_v${variant.versionName}_build_${releaseTime()}.apk"
+            outputFileName = "guangming_v${variant.versionName}_${releaseTime()}.apk"
         }
     }
 
@@ -60,4 +60,5 @@ dependencies {
     implementation 'com.github.lihangleo2:ShadowLayout:3.2.4'
     implementation  'com.umeng.umsdk:common:latest.integration'// 必选
     implementation  'com.umeng.umsdk:asms:latest.integration'// 必选
+    implementation 'pub.devrel:easypermissions:3.0.0'
 }
