@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingTop="30dp"
     android:background="@color/colorPrimary">
 
@@ -19,5 +20,31 @@
         android:layout_gravity="center"
         android:textSize="@dimen/textSize_16"
         android:textColor="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="@dimen/textSize_16"
+            android:textStyle="bold"
+            tools:text="3月29日海鲜养生套餐限时秒杀 最多20字" />
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:gravity="right"
+            android:textSize="@dimen/textSize_16"
+            tools:text="进行中" />
+    </LinearLayout>
 
 </FrameLayout>

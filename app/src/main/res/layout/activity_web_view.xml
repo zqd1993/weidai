@@ -4,7 +4,34 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:id="@+id/rl_pwd_right"
+        android:layout_width="40dp"
+        android:layout_height="47dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerInParent="true"
+            android:contentDescription="@null" />
+    </RelativeLayout>
+
     <include layout="@layout/head_layout" />
+
+    <RelativeLayout
+        android:id="@+id/rl_eye_right"
+        android:layout_width="40dp"
+        android:layout_height="47dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_eye_right"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerInParent="true"
+            android:contentDescription="@null" />
+    </RelativeLayout>
 
     <WebView
         android:id="@+id/web_view"

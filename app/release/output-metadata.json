@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.aklsfasad.fsjhfkk",
+  "applicationId": "com.akjsdhfkjhj.kahssj",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 20220601,
-      "versionName": "1.4.2",
-      "outputFile": "huimin_v1.4.2_build_20220601164836.apk"
+      "versionCode": 20220602,
+      "versionName": "1.4.0",
+      "outputFile": "huimin_v1.4.0_build_20220602000942.apk"
     }
   ]
 }

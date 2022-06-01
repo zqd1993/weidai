@@ -6,16 +6,16 @@ ext {
             minSdkVersion    : 21,
             targetSdkVersion : 29,
 
-            versionCode      : 20220601,
-            versionName      : '1.4.2',
+            versionCode      : 20220602,
+            versionName      : '1.4.0',
 
             VSupportSdk      : '27.1.1',
             VRetrofitSdk     : "2.2.0",
             VOkhttp          : "3.4.2",
             VRxlifecycle     : "2.0.1",
-            keyAlias         : "keysoutsinhkoutjsne",
+            keyAlias         : "keysjhkadhsfkadsfasd",
             keyPassword      : "mima112233",
-            storeFile        : "./soutsinhkoutjsne.jks",
+            storeFile        : "./sjhkadhsfkadsfasd.jks",
             storePassword    : "mima112233"
     ]
     dependencies = [

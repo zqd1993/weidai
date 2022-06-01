@@ -9,6 +9,35 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="#EEEEEE" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@color/white"
+            android:paddingEnd="@dimen/dp_0"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="自定义时间" />
+
+            <CheckBox
+                android:id="@+id/cb_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="@null"
+                android:checked="false" />
+        </RelativeLayout>
+
         <include layout="@layout/head_layout" />
 
         <TextView
@@ -24,7 +53,7 @@
             android:layout_height="300dp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/shape_feedback_bg">
+            android:background="@drawable/shape_20_feedback_bg">
 
             <EditText
                 android:id="@+id/feedback_et"
@@ -40,6 +69,36 @@
 
         </FrameLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="开始日期" />
+
+            <TextView
+                android:id="@+id/tv_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
+                android:hint="请选择"/>
+
+            <ImageView
+                android:id="@+id/iv_del_start"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@null"
+                android:visibility="gone" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/commit_btn"
             android:layout_width="match_parent"
@@ -51,7 +110,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:textColor="@color/white"
-            android:background="@drawable/bg_corner_50_f5dbaa"
+            android:background="@drawable/bg_50_corner_50_f5dbaa"
             android:text="提交" />
 
     </LinearLayout>

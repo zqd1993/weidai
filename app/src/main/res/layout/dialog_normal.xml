@@ -11,7 +11,7 @@
         android:layout_centerInParent="true"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:background="@drawable/bg_corner_10_white"
+        android:background="@drawable/bg_10_corner_10_white"
         android:orientation="vertical"
         android:paddingTop="22dp">
 
@@ -22,6 +22,11 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="20dp"
             android:contentDescription="@null"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:visibility="gone" />
 
         <TextView
@@ -35,6 +40,11 @@
             android:textColor="@color/text_normal_color"
             android:textSize="@dimen/textSize_16"
             tools:text="标题单" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_content"
@@ -50,10 +60,32 @@
             android:visibility="visible"
             tools:text="说明当前状态、提示用户解决方案 ，最好不要超过两行说明当前状态、提示用户解决方案 ，最好不要" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            tools:text="页面标题"
+            android:textColor="@color/white"
+            android:visibility="gone"/>
+
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                tools:text="页面标题"
+                android:textColor="@color/white"
+                android:visibility="gone"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
 
             <View
                 android:layout_width="match_parent"
@@ -76,6 +108,14 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/white"
+                    android:visibility="gone"/>
+
+
                 <View
                     android:id="@+id/v_dividing"
                     android:layout_width="0.5dp"
@@ -92,6 +132,14 @@
                     android:textColor="@color/text_normal_color"
                     android:textSize="15sp" />
             </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                tools:text="页面标题"
+                android:textColor="@color/white"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:id="@+id/only_btn_ll"
@@ -111,6 +159,15 @@
                     android:paddingBottom="15dp"
                     android:text="确定"
                     android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/details_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    tools:text="页面标题"
+                    android:textColor="@color/white"
+                    android:visibility="gone"/>
 
 
             </LinearLayout>

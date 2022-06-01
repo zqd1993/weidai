@@ -34,6 +34,29 @@
         android:textColor="@color/text_normal_color"
         android:text="2、为了您的账号安全，将会有7天的确认期，在其期间内登陆账号，将自动取消账号申请。" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/white"
+        android:paddingEnd="@dimen/dp_0"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="全时段售卖" />
+
+        <CheckBox
+            android:id="@+id/cb_all_time"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="@null"
+            android:checked="true" />
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/commit_btn"
         android:layout_width="match_parent"
@@ -45,7 +68,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:textColor="@color/white"
-        android:background="@drawable/bg_corner_50_f5dbaa"
+        android:background="@drawable/bg_50_corner_50_f5dbaa"
         android:text="提交" />
 
 </LinearLayout>
