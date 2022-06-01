@@ -1,0 +1,39 @@
+package com.dfgderv.erterqweq.net;
+
+
+import com.dfgderv.erterqweq.model.BaseRespModel;
+import com.dfgderv.erterqweq.model.ConfigModel;
+import com.dfgderv.erterqweq.model.GoodsModel;
+import com.dfgderv.erterqweq.model.LoginRespModel;
+
+import java.util.List;
+
+import io.reactivex.Flowable;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
+
+/**
+ * Created by wanglei on 2016/12/31.
+ */
+
+public interface GankService {
+
+    @GET("/app/config/getConfig")
+    Flowable<BaseRespModel<ConfigModel>> getGankData();
+
+    @GET("/app/user/sendVerifyCode")
+    Flowable<BaseRespModel> sendVerifyCode(@Query("phone") String phone);
+
+    @GET("/app/user/login")
+    Flowable<BaseRespModel<LoginRespModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
+
+    @GET("/app/user/logins")
+    Flowable<BaseRespModel<LoginRespModel>> logins(@Query("phone") String phone, @Query("ip") String ip);
+
+    @GET("/app/product/productList")
+    Flowable<BaseRespModel<List<GoodsModel>>> productList(@Query("mobileType") int mobileType);
+
+    @GET("/app/product/productClick")
+    Flowable<BaseRespModel> productClick(@Query("productId") long productId, @Query("phone") String phone);
+
+}

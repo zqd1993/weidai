@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.qwerxcvdf.ytubvcbfg">
+    package="com.dfgderv.erterqweq">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="com.qwerxcvdf.ytubvcbfg.App"
+        android:name="com.dfgderv.erterqweq.App"
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
@@ -21,7 +21,7 @@
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.qwerxcvdf.ytubvcbfg.ui.GuideActivity"
+            android:name="com.dfgderv.erterqweq.ui.GuideActivity"
             android:icon="@mipmap/app_logo"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -33,33 +33,33 @@
 
 
         <activity
-            android:name="com.qwerxcvdf.ytubvcbfg.ui.WebViewActivity"
+            android:name="com.dfgderv.erterqweq.ui.WebViewActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.qwerxcvdf.ytubvcbfg.ui.LoginActivity"
+            android:name="com.dfgderv.erterqweq.ui.LoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.qwerxcvdf.ytubvcbfg.ui.HomePageActivity"
+            android:name="com.dfgderv.erterqweq.ui.HomePageActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.qwerxcvdf.ytubvcbfg.ui.activity.FeedBackActivity"
+            android:name="com.dfgderv.erterqweq.ui.activity.FeedBackActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.qwerxcvdf.ytubvcbfg.ui.activity.AboutMiaoJieActivity"
+            android:name="com.dfgderv.erterqweq.ui.activity.AboutMiaoJieActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
 
         <activity
-            android:name="com.qwerxcvdf.ytubvcbfg.ui.activity.CancellationUserActivity"
+            android:name="com.dfgderv.erterqweq.ui.activity.CancellationUserActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
