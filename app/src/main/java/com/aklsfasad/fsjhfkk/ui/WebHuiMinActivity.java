@@ -19,6 +19,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.aklsfasad.fsjhfkk.R;
@@ -27,11 +28,12 @@ import com.aklsfasad.fsjhfkk.mvp.XActivity;
 import com.aklsfasad.fsjhfkk.widget.DownloadUtil;
 
 import java.io.File;
+import java.util.List;
 
 import butterknife.BindView;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class WebHuiMinActivity extends XActivity {
+public class WebHuiMinActivity extends XActivity implements EasyPermissions.PermissionCallbacks{
 
     @BindView(R.id.web_view)
     WebView webView;
@@ -50,12 +52,11 @@ public class WebHuiMinActivity extends XActivity {
 
     protected static final int RC_PERM = 123;
 
-    private String filePath;
+    private String filePath, apkUrl = "";
 
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtilHuiMin.setTransparent(this, false);
-        checkPermission();
         bundle = getIntent().getExtras();
         if (bundle.containsKey("tag"))
             tag = bundle.getInt("tag");
@@ -84,7 +85,8 @@ public class WebHuiMinActivity extends XActivity {
             @Override
             public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
                 Log.d("WebViewActivity", "url = " + url + "--> userAgent" + userAgent + " ---> contentDisposition = " + contentDisposition + "-->mimetype = " + mimetype + "-->contentLength = " + contentLength);
-                downFile(url);
+                apkUrl = url;
+                checkPermission();
             }
         });
     }
@@ -118,6 +120,8 @@ public class WebHuiMinActivity extends XActivity {
                     Uri packageURI = Uri.parse("package:" + getPackageName());
                     Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, packageURI);
                     startActivityForResult(intent, 1001);
+                } else {
+                    installApk();
                 }
 
             }
@@ -179,10 +183,18 @@ public class WebHuiMinActivity extends XActivity {
 
     private void checkPermission() {
         String[] per = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
-        if (!EasyPermissions.hasPermissions(this, per)) {
+        if (EasyPermissions.hasPermissions(this, per)) {
+            downFile(apkUrl);
+        } else {
             EasyPermissions.requestPermissions(this, "需要允许读写内存卡权限",
                     RC_PERM, per);
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
     @Override
@@ -235,5 +247,17 @@ public class WebHuiMinActivity extends XActivity {
         if (webView != null) webView.onResume();
     }
 
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+        downFile(apkUrl);
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.addCategory(Intent.CATEGORY_BROWSABLE);
+        intent.setData(Uri.parse(apkUrl));
+        startActivity(intent);
+    }
 
 }
