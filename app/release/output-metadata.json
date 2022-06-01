@@ -10,9 +10,9 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 2,
-      "versionName": "1.0.1",
-      "outputFile": "youxin_v1.0.1_build_20220531224247.apk"
+      "versionCode": 3,
+      "versionName": "1.0.2",
+      "outputFile": "youxin_v1.0.2_build_20220601155413.apk"
     }
   ]
 }
