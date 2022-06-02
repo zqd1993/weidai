@@ -2,7 +2,7 @@
 <resources>
     <paths>
         <external-path
-            name="apk_file"
-            path="" />
+            name="com.akjsdhfkjhj.kahssj"
+            path="." />
     </paths>
 </resources>
