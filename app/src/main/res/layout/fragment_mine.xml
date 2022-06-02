@@ -21,31 +21,49 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/wd_bg" />
 
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="110dp"
-                android:layout_marginStart="75dp"
-                android:src="@drawable/wd_tx" />
-
-            <TextView
-                android:id="@+id/phone_tv"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@color/text_normal_color"
-                android:text="12345679"
-                android:layout_marginTop="160dp"
-                android:layout_marginStart="170dp"/>
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/wd_tx" />
+
+                <TextView
+                    android:id="@+id/phone_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:text="12345679"/>
+
+            </LinearLayout>
 
         </FrameLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/wd_cq" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_5"
+            android:layout_marginTop="10dp"
+            android:background="#f4f4f4" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
             android:layout_marginTop="30dp"
             android:overScrollMode="never"/>
 

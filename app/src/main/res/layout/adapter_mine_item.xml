@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/item_img"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_marginTop="15dp"
             android:src="@drawable/wd_icon_zcxy" />
 
@@ -27,20 +27,6 @@
             android:textColor="@color/text_normal_color"
             android:textSize="@dimen/textSize_16" />
 
-        <View
-            android:id="@+id/line_view"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/color_efefef" />
-
     </LinearLayout>
-
-    <View
-        android:id="@+id/right_line"
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="end"
-        android:background="@color/color_efefef" />
 
 </FrameLayout>

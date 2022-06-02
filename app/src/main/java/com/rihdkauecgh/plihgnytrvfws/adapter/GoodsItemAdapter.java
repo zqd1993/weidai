@@ -39,7 +39,7 @@ public class GoodsItemAdapter extends SimpleRecAdapter<GoodsModel, GoodsItemAdap
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         GoodsModel model = data.get(i);
         if (!TextUtils.isEmpty(model.getDes()) && model.getDes().length() > 2) {
-            viewHolder.cycleTv.setText("周期" + model.getDes() + "个月");
+            viewHolder.cycleTv.setText(model.getDes() + "个月");
         }
         viewHolder.passingRateTv.setText(String.valueOf(model.getPassingRate()));
         viewHolder.tagTv.setText(model.getTag());

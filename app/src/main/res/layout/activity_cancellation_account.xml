@@ -44,7 +44,7 @@
         android:gravity="center"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:textColor="@color/text_normal_color"
+        android:textColor="@color/white"
         android:background="@drawable/bg_corner_50_f5dbaa"
         android:text="提交" />
 
