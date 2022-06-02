@@ -10,9 +10,7 @@ import android.widget.TextView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.aklsfasad.fsjhfkk.R;
-import com.aklsfasad.fsjhfkk.a.DlActivity;
 import com.aklsfasad.fsjhfkk.a.JumpH5Activity;
-import com.aklsfasad.fsjhfkk.a.StartPageActivity;
 import com.aklsfasad.fsjhfkk.api.HttpApi;
 import com.aklsfasad.fsjhfkk.imageloader.ILFactory;
 import com.aklsfasad.fsjhfkk.imageloader.ILoader;
@@ -22,7 +20,6 @@ import com.aklsfasad.fsjhfkk.mvp.XFragment;
 import com.aklsfasad.fsjhfkk.net.ApiSubscriber;
 import com.aklsfasad.fsjhfkk.net.NetError;
 import com.aklsfasad.fsjhfkk.net.XApi;
-import com.aklsfasad.fsjhfkk.u.MyToast;
 import com.aklsfasad.fsjhfkk.u.OpenUtil;
 import com.aklsfasad.fsjhfkk.u.PreferencesOpenUtil;
 
@@ -30,7 +27,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class MainFragment extends XFragment {
+public class ProductFragment extends XFragment {
 
     private int mobileType;
 
@@ -46,13 +43,14 @@ public class MainFragment extends XFragment {
     View main_top_img;
     @BindView(R.id.jx_bg)
     View jx_bg;
-
     private ProductModel productModel;
 
     private Bundle bundle;
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        jx_bg.setVisibility(View.VISIBLE);
+        main_top_img.setVisibility(View.GONE);
         productList();
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -147,7 +145,7 @@ public class MainFragment extends XFragment {
     private void addProductView(List<ProductModel> mList) {
         goodsListLl.removeAllViews();
         for (ProductModel model : mList) {
-            View view = View.inflate(getActivity(), R.layout.layout_product_view, null);
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_product_view, null);
             TextView timeTv = view.findViewById(R.id.time_tv);
             TextView peopleNumberTv = view.findViewById(R.id.people_number_tv);
             ImageView pic = view.findViewById(R.id.product_img);
@@ -173,7 +171,7 @@ public class MainFragment extends XFragment {
         if (model != null) {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
-            bundle.putString("biaoti", model.getProductName());
+            bundle.putString("title", model.getProductName());
             OpenUtil.jumpPage(getActivity(), JumpH5Activity.class, bundle);
         }
     }

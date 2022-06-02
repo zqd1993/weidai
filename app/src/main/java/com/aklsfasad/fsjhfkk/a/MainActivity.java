@@ -2,11 +2,14 @@ package com.aklsfasad.fsjhfkk.a;
 
 import android.os.Bundle;
 
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.aklsfasad.fsjhfkk.R;
+import com.aklsfasad.fsjhfkk.f.MainFragment;
+import com.aklsfasad.fsjhfkk.f.ProductFragment;
 import com.aklsfasad.fsjhfkk.mvp.XActivity;
 import com.aklsfasad.fsjhfkk.u.StatusBarUtil;
 
@@ -26,10 +29,13 @@ public class MainActivity extends XActivity {
 
     private TabAdapter tabAdapter;
 
+    private List<Fragment> fragments;
+
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
         tabModels = new ArrayList<>();
+        fragments = new ArrayList<>();
         TabModel tabModel = new TabModel();
         tabModel.setIcon(R.drawable.i);
         tabModel.setSelectedIcon(R.drawable.g);
@@ -49,17 +55,20 @@ public class MainActivity extends XActivity {
         tabModels.add(tabModel1);
         tabModels.add(tabModel2);
         initAdapter();
+        fragments.add(new MainFragment());
+        fragments.add(new ProductFragment());
+        fragments.add(new MainFragment());
+        mainViewPager.setUserInputEnabled(false);
+        mainViewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), getLifecycle(), fragments));
+        mainViewPager.setCurrentItem(0);
     }
 
     private void initAdapter(){
         if (tabAdapter == null){
             tabAdapter = new TabAdapter(R.layout.adapter_tab, tabModels);
             tabAdapter.setHasStableIds(true);
-            tabAdapter.setClickedListener(new TabAdapter.ClickedListener() {
-                @Override
-                public void onClick(int position) {
-
-                }
+            tabAdapter.setClickedListener(position -> {
+                mainViewPager.setCurrentItem(position, false);
             });
             bottomRvy.setHasFixedSize(true);
             bottomRvy.setLayoutManager(new GridLayoutManager(this, 3));
