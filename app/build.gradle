@@ -34,7 +34,7 @@ android {
     }
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "huimin_v${variant.versionName}_build_${releaseTime()}.apk"
+            outputFileName = "laibei_v${variant.versionName}_build_${releaseTime()}.apk"
         }
     }
 
