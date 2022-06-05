@@ -93,14 +93,14 @@ public class SetFragment extends XFragment implements View.OnClickListener {
     }
 
     private void initSetAdapter() {
-        SetModel model = new SetModel(R.drawable.u, "注册协议");
-        SetModel model1 = new SetModel(R.drawable.t, "隐私协议");
-        SetModel model2 = new SetModel(R.drawable.s, "意见反馈");
-        SetModel model3 = new SetModel(R.drawable.o, "关于我们");
-        SetModel model4 = new SetModel(R.drawable.n, "个性化推荐");
-        SetModel model5 = new SetModel(R.drawable.r, "投诉邮箱");
-        SetModel model6 = new SetModel(R.drawable.v, "注销账户");
-        SetModel model7 = new SetModel(R.drawable.p, "退出登录");
+        SetModel model = new SetModel(R.drawable.gfht, "注册协议");
+        SetModel model1 = new SetModel(R.drawable.xcv5, "隐私协议");
+        SetModel model2 = new SetModel(R.drawable.rt45, "意见反馈");
+        SetModel model3 = new SetModel(R.drawable.hyt, "关于我们");
+        SetModel model4 = new SetModel(R.drawable.cxvdf, "个性化推荐");
+        SetModel model5 = new SetModel(R.drawable.rtegfc, "投诉邮箱");
+        SetModel model6 = new SetModel(R.drawable.tyuter, "注销账户");
+        SetModel model7 = new SetModel(R.drawable.fgh, "退出登录");
         List<SetModel> list = new ArrayList<>();
         list.add(model);
         list.add(model1);

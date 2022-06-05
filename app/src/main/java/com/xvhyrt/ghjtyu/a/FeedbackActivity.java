@@ -14,6 +14,10 @@ import com.xvhyrt.ghjtyu.R;
 import com.xvhyrt.ghjtyu.u.MyToast;
 import com.xvhyrt.ghjtyu.u.StatusBarUtil;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import cn.droidlover.xstatecontroller.XStateController;
 
 public class FeedbackActivity extends AppCompatActivity {
@@ -53,5 +57,22 @@ public class FeedbackActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public static String getYear(String src) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy");
+        Date date = null;
+        try {
+            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM");
+            date = format1.parse(src);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
+            if (date != null) {
+                return format.format(date);
+            } else {
+                return "";
+            }
+        }
     }
 }

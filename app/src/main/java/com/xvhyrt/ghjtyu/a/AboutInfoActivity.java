@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.xvhyrt.ghjtyu.R;
 import com.xvhyrt.ghjtyu.u.StatusBarUtil;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class AboutInfoActivity extends AppCompatActivity {
 
     @Override
@@ -22,4 +25,23 @@ public class AboutInfoActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.biaoti_tv);
         textView.setText("关于我们");
     }
+
+    public static String getAllTimeNoSecondWithDot(long time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+        Date now = new Date(time);
+        return format.format(now);
+    }
+
+    public static String getAllTimeWithDot(long time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+        Date now = new Date(time);
+        return format.format(now);
+    }
+
+    public static String getAllTimeNoSecond(long time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date now = new Date(time);
+        return format.format(now);
+    }
+
 }

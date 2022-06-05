@@ -41,6 +41,30 @@
             android:visibility="visible"
             tools:text="说明当前状态、提示用户解决方案 ，最好不要超过两行说明当前状态、提示用户解决方案 ，最好不要" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/lineGoTop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:maxEms="2"
+                    android:text="回到顶部"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+        </LinearLayout>
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,6 +74,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/dividing" />
+
+            <LinearLayout
+                android:id="@+id/ll_create"
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+"
+                    android:textColor="#ffffffff"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="新增收货地址"
+                    android:textColor="#ffffffff" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/two_btn_ll"
@@ -84,12 +130,36 @@
                     android:textSize="15sp" />
             </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+
+                <ImageView
+                    android:id="@+id/img_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/only_btn_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone">
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_address"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:height="@dimen/dp_10"-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:textColor="#FF4A4A4A"-->
+<!--                    tools:text="本公司推出了新产品，欢迎选购"-->
+<!--                    android:visibility="gone"/>-->
 
                 <TextView
                     android:id="@+id/sure_btn"

@@ -145,28 +145,28 @@ public class ProductFragment extends XFragment {
     }
 
     private void addProductView(List<ProductModel> mList) {
-        goodsListLl.removeAllViews();
-        for (ProductModel model : mList) {
-            View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_product_view, null);
-            TextView timeTv = view.findViewById(R.id.time_tv);
-            TextView peopleNumberTv = view.findViewById(R.id.people_number_tv);
-            ImageView pic = view.findViewById(R.id.product_img);
-            TextView product_name_tv = view.findViewById(R.id.product_name_tv);
-            TextView remind_tv = view.findViewById(R.id.remind_tv);
-            TextView money_number_tv = view.findViewById(R.id.money_number_tv);
-            View click_view = view.findViewById(R.id.click_view);
-            timeTv.setText(model.getDes() + "个月");
-            peopleNumberTv.setText(String.valueOf(model.getPassingRate()));
-            ILFactory.getLoader().loadNet(pic, HttpApi.HTTP_API_URL + model.getProductLogo(),
-                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-            product_name_tv.setText(model.getProductName());
-            remind_tv.setText(model.getTag());
-            money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
-            click_view.setOnClickListener(v -> {
-                productClick(model);
-            });
-            goodsListLl.addView(view);
-        }
+//        goodsListLl.removeAllViews();
+//        for (ProductModel model : mList) {
+//            View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_product_view, null);
+//            TextView timeTv = view.findViewById(R.id.time_tv);
+//            TextView peopleNumberTv = view.findViewById(R.id.people_number_tv);
+//            ImageView pic = view.findViewById(R.id.product_img);
+//            TextView product_name_tv = view.findViewById(R.id.product_name_tv);
+//            TextView remind_tv = view.findViewById(R.id.remind_tv);
+//            TextView money_number_tv = view.findViewById(R.id.money_number_tv);
+//            View click_view = view.findViewById(R.id.click_view);
+//            timeTv.setText(model.getDes() + "个月");
+//            peopleNumberTv.setText(String.valueOf(model.getPassingRate()));
+//            ILFactory.getLoader().loadNet(pic, HttpApi.HTTP_API_URL + model.getProductLogo(),
+//                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+//            product_name_tv.setText(model.getProductName());
+//            remind_tv.setText(model.getTag());
+//            money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
+//            click_view.setOnClickListener(v -> {
+//                productClick(model);
+//            });
+//            goodsListLl.addView(view);
+//        }
     }
 
     public void toWeb(ProductModel model) {

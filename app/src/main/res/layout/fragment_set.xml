@@ -10,42 +10,58 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:background="@color/colorPrimary" />
+
         <ImageView
             android:id="@+id/wd_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@drawable/wd_bg" />
+            android:src="@drawable/yurd" />
 
-        <com.lihang.ShadowLayout
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="-60dp"
-            android:layout_marginBottom="@dimen/dp_40"
-            app:hl_shadowLimit="2dp"
-            app:hl_cornerRadius="@dimen/dp_10">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_40"
+            android:layout_marginEnd="@dimen/dp_40"
+            android:layout_marginTop="30dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/zcvbfg" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/set_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp_40"
                 android:overScrollMode="never"/>
-
-        </com.lihang.ShadowLayout>
 
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/user_phone_tv"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginStart="230dp"
-        android:textSize="@dimen/textSize_16"
-        android:textColor="@color/colorPrimary"
-        android:text="ANNIE123" />
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wd_tx" />
+
+        <TextView
+            android:id="@+id/user_phone_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textSize_16"
+            android:textColor="@color/white"
+            android:text="ANNIE123" />
+
+    </LinearLayout>
 
 </FrameLayout>

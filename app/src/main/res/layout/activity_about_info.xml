@@ -14,12 +14,64 @@
         android:src="@mipmap/app_logo" />
 
     <TextView
+        android:id="@+id/pre_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:ellipsize="end"
+        android:maxLength="10"
+        android:singleLine="true"
+        android:text="title"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/pre_v_back"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_attention"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="14dp"
+        android:paddingTop="3dp"
+        android:paddingRight="14dp"
+        android:paddingBottom="3dp"
+        android:text="已关注"
+        android:textSize="13sp"
+        android:visibility="gone" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/app_name"
         android:textColor="@color/text_normal_color"
         android:textSize="@dimen/textSize_16" />
+
+    <TextView
+    android:id="@+id/tvTitle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <WebView
+            android:id="@+id/wv_intro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
 
     <TextView
         android:id="@+id/version_code_tv"
@@ -29,5 +81,12 @@
         android:text="当前版本号：v1.0.0"
         android:textColor="@color/text_normal_color"
         android:textSize="@dimen/textSize_16" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyImg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false"
+        android:visibility="gone"/>
 
 </LinearLayout>

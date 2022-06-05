@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
@@ -19,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                android:src="@drawable/sy_bg"/>
+                android:src="@drawable/tytterg"/>
 
             <TextView
                 android:id="@+id/jx_bg"
@@ -47,7 +48,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingStart="20dp"
-                android:orientation="vertical" />
+                android:orientation="vertical"
+                android:visibility="gone"/>
+
+            <com.youth.banner.Banner
+                android:id="@+id/banner1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
 
             <TextView
                 android:id="@+id/no_data_tv"
@@ -62,6 +70,38 @@
                 android:visibility="gone"/>
 
         </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="微信(选填)" />
+
+            <EditText
+                android:id="@+id/etWeiXin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="客服能联系到您的手机号或微信号"
+                android:inputType="number"
+                android:lines="1"
+                android:textColor="#FF333333"
+                android:textColorHint="#FF999999" />
+
+            <ImageView
+                android:id="@+id/img_clear_weixin"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:visibility="visible" />
+        </LinearLayout>
+
 
     </LinearLayout>
 

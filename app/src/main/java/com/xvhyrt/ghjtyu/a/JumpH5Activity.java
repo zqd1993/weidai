@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -25,6 +26,9 @@ import com.xvhyrt.ghjtyu.u.DownloadApkUtil;
 import com.xvhyrt.ghjtyu.u.StatusBarUtil;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -95,6 +99,23 @@ public class JumpH5Activity extends XActivity implements EasyPermissions.Permiss
         return super.onKeyDown(keyCode, event);
     }
 
+    public static String getFormatDateByChat(String src) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM月");
+        Date date = null;
+        try {
+            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM");
+            date = format1.parse(src);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
+            if (date != null) {
+                return format.format(date);
+            } else {
+                return "";
+            }
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -103,11 +124,45 @@ public class JumpH5Activity extends XActivity implements EasyPermissions.Permiss
         }
     }
 
+    public static String getFormatDateYM(String src) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
+        Date date = null;
+        try {
+            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+            date = format1.parse(src);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
+            if (date != null) {
+                return format.format(date);
+            } else {
+                return "";
+            }
+        }
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
         if (webView != null) {
             webView.onPause();
+        }
+    }
+
+    public static String getFormatDateYMD(String src) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年\nMM月dd日");
+        Date date = null;
+        try {
+            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+            date = format1.parse(src);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
+            if (date != null) {
+                return format.format(date);
+            } else {
+                return "";
+            }
         }
     }
 
@@ -168,6 +223,18 @@ public class JumpH5Activity extends XActivity implements EasyPermissions.Permiss
 
             }
         });
+    }
+
+    public static String getTime(long time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date now = new Date(time);
+        return format.format(now);
+    }
+
+    public static String getTimeNoHour(long time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date now = new Date(time);
+        return format.format(now);
     }
 
     /**

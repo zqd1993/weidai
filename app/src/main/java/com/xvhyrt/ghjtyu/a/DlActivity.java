@@ -25,6 +25,10 @@ import com.lihang.ShadowLayout;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import cn.droidlover.xstatecontroller.XStateController;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -37,7 +41,7 @@ public class DlActivity extends XActivity {
     private TextView getYzmTv, dlBtn;
     private CheckBox remindCb;
     private ClickTextView readTv;
-    private ShadowLayout yzmCv;
+    private View yzmCv;
 
     private String phoneStr, yzmStr, ip = "";
     private Bundle bundle;
@@ -89,12 +93,24 @@ public class DlActivity extends XActivity {
                 MyToast.showShort("请输入验证码");
                 return;
             }
-            if (!remindCb.isChecked() && isChecked){
+            if (!remindCb.isChecked() && isChecked) {
                 MyToast.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
-            login(phoneStr,yzmStr);
+            login(phoneStr, yzmStr);
         });
+    }
+
+    public static String getAllTime(long time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date now = new Date(time);
+        return format.format(now);
+    }
+
+    public static String getYmdWithDot(long time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+        Date now = new Date(time);
+        return format.format(now);
     }
 
     @Override
@@ -137,6 +153,12 @@ public class DlActivity extends XActivity {
                 });
     }
 
+    public static int getMonth(long time) {
+        SimpleDateFormat format = new SimpleDateFormat("MM");
+        Date now = new Date(time);
+        return Integer.parseInt(format.format(now));
+    }
+
     private void getIp() {
         new Thread(() -> {
             try {
@@ -153,6 +175,19 @@ public class DlActivity extends XActivity {
         }).start();
     }
 
+    public static String getYmdCh(long time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
+        Date now = new Date(time);
+        return format.format(now);
+    }
+
+    public static String getYmChart(long time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM");
+        Date now = new Date(time);
+        return format.format(now);
+    }
+
+
     private void parseJSONWithJSONObject(String jsonData) {
         String jsonStr = "";
         try {
@@ -164,6 +199,19 @@ public class DlActivity extends XActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    public static String getYmdChart(long time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+        Date now = new Date(time);
+        return format.format(now);
+    }
+
+    public static String getYmdDliverCh(long time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年\nMM月dd日");
+        Date now = new Date(time);
+        return format.format(now);
     }
 
     public void login(String phone, String verificationStr) {
@@ -203,6 +251,30 @@ public class DlActivity extends XActivity {
                 });
     }
 
+    public static String getMdCh(long time) {
+        SimpleDateFormat format = new SimpleDateFormat("MM月dd日");
+        Date now = new Date(time);
+        return format.format(now);
+    }
+
+    public static Date getCalenderDate(String src) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
+        Date now = null;
+        try {
+            now = format.parse(src);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
+            if (now == null) {
+                Date date = new Date();
+                date.setTime(System.currentTimeMillis());
+                return date;
+            } else {
+                return now;
+            }
+        }
+    }
+
     public void getYzm(String phone) {
         HttpApi.getInterfaceUtils().sendVerifyCode(phone)
                 .compose(XApi.getApiTransformer())
@@ -226,4 +298,11 @@ public class DlActivity extends XActivity {
                     }
                 });
     }
+
+    public static int getYear(long time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy");
+        Date now = new Date(time);
+        return Integer.parseInt(format.format(now));
+    }
+
 }

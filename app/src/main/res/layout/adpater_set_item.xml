@@ -9,6 +9,22 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:gravity="right|center"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tvSubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/dp_5"
+            android:paddingBottom="@dimen/dp_5"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -19,7 +35,7 @@
             android:id="@+id/set_pic"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:src="@drawable/f" />
+            android:src="@drawable/gfht" />
 
         <TextView
             android:id="@+id/set_name"
@@ -31,5 +47,27 @@
             android:text="注册协议"/>
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/head_root"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/pre_v_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/pre_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/pre_v_back"
+            android:maxLines="15"
+            android:text="title"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
 </FrameLayout>
