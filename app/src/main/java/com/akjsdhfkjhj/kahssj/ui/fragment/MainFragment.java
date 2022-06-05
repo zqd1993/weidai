@@ -1,6 +1,7 @@
 package com.akjsdhfkjhj.kahssj.ui.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import com.akjsdhfkjhj.kahssj.ui.WebActivity;
 import com.akjsdhfkjhj.kahssj.mvp.XFragment;
 import com.akjsdhfkjhj.kahssj.present.MainFragmentPresent;
 import com.akjsdhfkjhj.kahssj.router.Router;
+import com.victor.loading.rotate.RotateLoading;
 
 import java.util.Date;
 import java.util.List;
@@ -37,6 +39,14 @@ public class MainFragment extends XFragment<MainFragmentPresent> {
     View parentFl;
     @BindView(R.id.top_layout)
     View topLayout;
+    @BindView(R.id.one_button)
+    View oneButton;
+    @BindView(R.id.two_button)
+    View twoButton;
+    @BindView(R.id.rotate_loading)
+    public RotateLoading rotateLoading;
+    @BindView(R.id.loading_fl)
+    public View loadingFl;
 
     private Bundle bundle, webBundle;
     private int tag;
@@ -88,9 +98,13 @@ public class MainFragment extends XFragment<MainFragmentPresent> {
             if (tag == 1) {
                 productBg.setVisibility(View.GONE);
                 homePageBg.setVisibility(View.VISIBLE);
+                oneButton.setVisibility(View.VISIBLE);
+                twoButton.setVisibility(View.VISIBLE);
             } else {
                 productBg.setVisibility(View.VISIBLE);
                 homePageBg.setVisibility(View.GONE);
+                oneButton.setVisibility(View.GONE);
+                twoButton.setVisibility(View.GONE);
             }
         }
         getP().productList();
@@ -104,6 +118,30 @@ public class MainFragment extends XFragment<MainFragmentPresent> {
         });
         topLayout.setOnClickListener(v -> {
             productClick(goodsModel);
+        });
+        oneButton.setOnClickListener(v -> {
+            rotateLoading.start();
+            loadingFl.setVisibility(View.VISIBLE);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    loadingFl.setVisibility(View.GONE);
+                    rotateLoading.stop();
+                }
+            }, 1000);
+            getP().productList();
+        });
+        twoButton.setOnClickListener(v -> {
+            rotateLoading.start();
+            loadingFl.setVisibility(View.VISIBLE);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    loadingFl.setVisibility(View.GONE);
+                    rotateLoading.stop();
+                }
+            }, 1000);
+            getP().productList();
         });
     }
 

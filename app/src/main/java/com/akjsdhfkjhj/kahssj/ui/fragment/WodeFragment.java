@@ -16,6 +16,7 @@ import com.akjsdhfkjhj.kahssj.ui.LoginActivityHuiMin;
 import com.akjsdhfkjhj.kahssj.ui.WebActivity;
 import com.akjsdhfkjhj.kahssj.ui.activity.AppinfoActivity;
 import com.akjsdhfkjhj.kahssj.ui.activity.ZhuXiaoUserActivity;
+import com.akjsdhfkjhj.kahssj.utils.MainUtil;
 import com.akjsdhfkjhj.kahssj.utils.SPUtilis;
 import com.akjsdhfkjhj.kahssj.utils.ToastUtil;
 import com.akjsdhfkjhj.kahssj.router.Router;
@@ -50,7 +51,7 @@ public class WodeFragment extends XFragment {
     @BindView(R.id.biaoti_img)
     ImageView biaotiImg;
 
-    private Bundle bundle;
+    private Bundle bundle, webBundle;
     private PuTongDialog puTongDialog;
     private String mailStr = "", phone = "";
     private ProductModel productModel;
@@ -68,6 +69,9 @@ public class WodeFragment extends XFragment {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        mailStr = SPUtilis.getStringFromPref("app_mail");
+        phone = SPUtilis.getStringFromPref("phone");
+        phoneTv.setText(phone);
         productList();
         appInfo.setOnClickListener(v -> {
             Router.newIntent(getActivity())
@@ -143,19 +147,45 @@ public class WodeFragment extends XFragment {
         });
         biaotiImg.setOnClickListener(v -> {
             if (productModel != null) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("tag", 3);
-                bundle.putString("url", productModel.getUrl());
-                bundle.putString("title", productModel.getProductName());
-                Router.newIntent(getActivity())
-                        .to(WebActivity.class)
-                        .data(bundle)
-                        .launch();
+                productClick(productModel);
             }
         });
     }
 
     private int mobileType;
+
+    public void productClick(ProductModel model) {
+        phone = SPUtilis.getStringFromPref("phone");
+        Api.getGankService().productClick(model.getId(), phone)
+                .compose(XApi.<BaseModel>getApiTransformer())
+                .compose(XApi.<BaseModel>getScheduler())
+                .compose(this.<BaseModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        jumpWebYouXinActivity(model);
+                        MainUtil.showError(getActivity(), error);
+                    }
+
+                    @Override
+                    public void onNext(BaseModel gankResults) {
+                        jumpWebYouXinActivity(model);
+                    }
+                });
+    }
+
+    public void jumpWebYouXinActivity (ProductModel model){
+        if (model != null) {
+            webBundle = new Bundle();
+            webBundle.putInt("tag", 3);
+            webBundle.putString("url", model.getUrl());
+            webBundle.putString("title", model.getProductName());
+            Router.newIntent(getActivity())
+                    .to(WebActivity.class)
+                    .data(webBundle)
+                    .launch();
+        }
+    }
 
     public void productList() {
         mobileType = SPUtilis.getIntFromPref("mobileType");

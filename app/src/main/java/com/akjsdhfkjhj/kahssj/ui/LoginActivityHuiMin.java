@@ -56,7 +56,7 @@ public class LoginActivityHuiMin extends XActivity<DlPresent> {
     @BindView(R.id.verification_ll)
     public View verificationLl;
     @BindView(R.id.login_sl)
-    ShadowLayout loginSl;
+    View loginSl;
 
     private String mobileStr, verificationStr, ip = "";
     private Bundle bundle;
