@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.lihang.ShadowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:hl_cornerRadius="10dp"
+        app:hl_shadowColor="@color/text_normal_color"
+        app:hl_shadowLimit="3dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.lihang.ShadowLayout
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        app:hl_cornerRadius="10dp">
+
+                        <ImageView
+                            android:id="@+id/goods_pic"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@mipmap/app_logo" />
+
+                    </com.lihang.ShadowLayout>
+
+                    <TextView
+                        android:id="@+id/goods_name_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="好分期"
+                        android:textColor="@color/text_normal_color"
+                        android:textSize="@dimen/textSize_16"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <com.lihang.ShadowLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_15"
+                    android:layout_gravity="center_vertical|end"
+                    app:hl_cornerRadius="50dp"
+                    app:hl_strokeWith="0.5dp"
+                    app:hl_strokeColor="#9c9c9c">
+
+                    <TextView
+                        android:id="@+id/rixi_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:paddingStart="@dimen/dp_10"
+                        android:paddingEnd="@dimen/dp_10"
+                        android:text="日息低"
+                        android:textColor="#9c9c9c"
+                        android:textSize="12sp" />
+
+                </com.lihang.ShadowLayout>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/money_number_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10000-20000"
+                        android:textColor="#fa4829"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="额度申请"
+                        android:textColor="#9c9c9c"
+                        android:textSize="12sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="周期"
+                            android:textColor="#9c9c9c"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/time_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_5"
+                            android:text="3~36个月"
+                            android:textColor="@color/text_normal_color"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_15"
+                    android:layout_gravity="end|center_vertical"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/personal_number_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1232"
+                            android:textColor="#fa4829"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_5"
+                            android:text="申请人数"
+                            android:textColor="#9c9c9c"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <com.lihang.ShadowLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:hl_cornerRadius="50dp"
+                        android:layout_marginTop="@dimen/dp_10"
+                        app:hl_startColor="#ff7d71"
+                        app:hl_endColor="#ff4d3c">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="7dp"
+                            android:paddingBottom="7dp"
+                            android:paddingStart="50dp"
+                            android:paddingEnd="50dp"
+                            android:textSize="@dimen/textSize_16"
+                            android:textColor="@color/white"
+                            android:text="一键申请" />
+
+                    </com.lihang.ShadowLayout>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:visibility="gone">
+
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="39dp"
+                android:layout_marginTop="-10dp"
+                android:text="周期"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+            <com.lihang.ShadowLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="50dp"
+                android:visibility="gone"
+                app:hl_cornerRadius="50dp"
+                app:hl_endColor="#5c11ea"
+                app:hl_startColor="#e61ddd">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/dp_15"
+                    android:paddingTop="3dp"
+                    android:paddingEnd="@dimen/dp_15"
+                    android:paddingBottom="3dp"
+                    android:text="一键下款"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+            </com.lihang.ShadowLayout>
+
+        </FrameLayout>
+
+        <View
+            android:id="@+id/click_view"
+            android:layout_width="match_parent"
+            android:layout_height="160dp" />
+
+    </com.lihang.ShadowLayout>
+
+</FrameLayout>
