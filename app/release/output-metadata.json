@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.xvhyrt.ghjtyu",
+  "applicationId": "com.bghfr.yrtweb",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 20220605,
+      "versionCode": 20220607,
       "versionName": "1.0.0",
-      "outputFile": "dazhong_v1.0.0.apk"
+      "outputFile": "lejie_v1.0.0.apk"
     }
   ]
 }

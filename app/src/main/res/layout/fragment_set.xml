@@ -13,13 +13,13 @@
         <ImageView
             android:id="@+id/wd_bg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="250dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/wd_bg" />
+            android:src="@drawable/mfgh" />
 
         <com.lihang.ShadowLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="-60dp"
@@ -30,22 +30,51 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/set_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:overScrollMode="never"/>
 
         </com.lihang.ShadowLayout>
 
+        <TextView
+            android:id="@+id/logout_tv"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_50_corner_f5dbaa"
+            android:text="退出登录" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/user_phone_tv"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginStart="230dp"
-        android:textSize="@dimen/textSize_16"
-        android:textColor="@color/colorPrimary"
-        android:text="ANNIE123" />
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_40"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/erthfgh"/>
+
+        <TextView
+            android:id="@+id/user_phone_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/textSize_16"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="ANNIE123" />
+
+    </LinearLayout>
 
 </FrameLayout>

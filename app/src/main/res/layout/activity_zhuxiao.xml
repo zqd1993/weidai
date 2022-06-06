@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/top_layout" />
+    <include layout="@layout/tingbu_layout" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -14,6 +14,15 @@
         android:textSize="18sp"
         android:textColor="@color/color_red"
         android:text="申请账号注销" />
+
+    <TextView
+        android:id="@+id/tvEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:hint="说点什么..."
+        android:inputType="text"
+        android:visibility="gone"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,6 +43,20 @@
         android:textColor="@color/text_normal_color"
         android:text="2、为了您的账号安全，将会有7天的确认期，在其期间内登陆账号，将自动取消账号申请。" />
 
+    <LinearLayout
+        android:id="@+id/lineBack"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/commit_btn"
         android:layout_width="match_parent"
@@ -45,7 +68,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:textColor="@color/white"
-        android:background="@drawable/bg_corner_50_f5dbaa"
+        android:background="@drawable/bg_50_corner_f5dbaa"
         android:text="提交" />
 
 </LinearLayout>
