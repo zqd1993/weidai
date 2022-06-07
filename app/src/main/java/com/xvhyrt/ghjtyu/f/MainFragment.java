@@ -2,8 +2,6 @@ package com.xvhyrt.ghjtyu.f;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -13,8 +11,6 @@ import com.xvhyrt.ghjtyu.R;
 import com.xvhyrt.ghjtyu.a.ImageAdapter;
 import com.xvhyrt.ghjtyu.a.JumpH5Activity;
 import com.xvhyrt.ghjtyu.api.HttpApi;
-import com.xvhyrt.ghjtyu.imageloader.ILFactory;
-import com.xvhyrt.ghjtyu.imageloader.ILoader;
 import com.xvhyrt.ghjtyu.m.BaseModel;
 import com.xvhyrt.ghjtyu.m.ProductModel;
 import com.xvhyrt.ghjtyu.mvp.XFragment;
@@ -48,6 +44,8 @@ public class MainFragment extends XFragment {
     ViewFlipper viewFlipper;
     @BindView(R.id.goods_banner)
     Banner banner;
+    @BindView(R.id.msg_layout)
+    View msgLayout;
 
     private ProductModel productModel;
 
@@ -62,6 +60,7 @@ public class MainFragment extends XFragment {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        msgLayout.setVisibility(View.VISIBLE);
         productList();
         initViewData();
         setViewConfig();
@@ -167,8 +166,8 @@ public class MainFragment extends XFragment {
     }
 
     private void setViewConfig() {
-        viewFlipper.setInAnimation(getActivity(), R.anim.anim_in);
-        viewFlipper.setOutAnimation(getActivity(), R.anim.anim_out);
+        viewFlipper.setInAnimation(getActivity(), R.anim.text_anim_in);
+        viewFlipper.setOutAnimation(getActivity(), R.anim.text_anim_out);
         viewFlipper.setFlipInterval(2000);
         viewFlipper.startFlipping();
     }

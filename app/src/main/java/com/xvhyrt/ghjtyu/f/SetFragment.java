@@ -40,8 +40,6 @@ public class SetFragment extends XFragment {
     TextView userPhoneTv;
     @BindView(R.id.set_list)
     RecyclerView setList;
-    @BindView(R.id.set_list_1)
-    RecyclerView setList1;
 
     private ProductModel productModel;
 
@@ -51,7 +49,7 @@ public class SetFragment extends XFragment {
 
     private String phone;
 
-    private SetItemAdapter setItemAdapter, setItemAdapter1;
+    private SetItemAdapter setItemAdapter;
 
     private RemindDialog dialog;
 
@@ -91,12 +89,11 @@ public class SetFragment extends XFragment {
         list.add(model1);
         list.add(model2);
         list.add(model3);
-        list1.add(model4);
-        list1.add(model5);
-        list1.add(model6);
-        list1.add(model7);
+        list.add(model4);
+        list.add(model5);
+        list.add(model6);
+        list.add(model7);
         setItemAdapter = new SetItemAdapter(R.layout.adpater_set_item, list);
-        setItemAdapter1 = new SetItemAdapter(R.layout.adpater_set_item, list1);
         setItemAdapter.setOnClickListener(position -> {
             switch (position) {
                 case 0:
@@ -117,13 +114,7 @@ public class SetFragment extends XFragment {
                 case 3:
                     OpenUtil.jumpPage(getActivity(), AboutInfoActivity.class);
                     break;
-            }
-        });
-        setList.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-        setList.setAdapter(setItemAdapter);
-        setItemAdapter1.setOnClickListener(position -> {
-            switch (position) {
-                case 0:
+                case 4:
                     dialog = new RemindDialog(getActivity()).setCancelText("开启")
                             .setConfirmText("关闭").setTitle("温馨提示").setContent("关闭或开启推送");
                     dialog.setOnButtonClickListener(new RemindDialog.OnButtonClickListener() {
@@ -141,14 +132,14 @@ public class SetFragment extends XFragment {
                     });
                     dialog.show();
                     break;
-                case 1:
+                case 5:
                     dialog = new RemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
                     dialog.show();
                     break;
-                case 2:
+                case 6:
                     OpenUtil.jumpPage(getActivity(), ZhuXiaoActivity.class);
                     break;
-                case 3:
+                case 7:
                     dialog = new RemindDialog(getActivity()).setCancelText("取消")
                             .setConfirmText("退出").setTitle("温馨提示").setContent("确定退出当前登录");
                     dialog.setOnButtonClickListener(new RemindDialog.OnButtonClickListener() {
@@ -169,8 +160,8 @@ public class SetFragment extends XFragment {
                     break;
             }
         });
-        setList1.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-        setList1.setAdapter(setItemAdapter1);
+        setList.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+        setList.setAdapter(setItemAdapter);
     }
 
     public void toWeb(ProductModel model) {
