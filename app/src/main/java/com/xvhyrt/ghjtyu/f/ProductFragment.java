@@ -43,8 +43,6 @@ public class ProductFragment extends XFragment {
     View main_top_img;
     @BindView(R.id.jx_bg)
     View jx_bg;
-    @BindView(R.id.dier_layout)
-    View dierLayout;
     private ProductModel productModel;
 
     private Bundle bundle;
@@ -53,7 +51,7 @@ public class ProductFragment extends XFragment {
     public void initData(Bundle savedInstanceState) {
         jx_bg.setVisibility(View.VISIBLE);
         main_top_img.setVisibility(View.GONE);
-        dierLayout.setVisibility(View.GONE);
+        goodsListLl.setVisibility(View.VISIBLE);
         productList();
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

@@ -38,7 +38,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/jkiut" />
+                    android:src="@drawable/werbhi" />
 
                 <TextView
                     android:id="@+id/user_phone_tv"
@@ -72,23 +72,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:overScrollMode="never"/>
-
-                <com.lihang.ShadowLayout
-                    android:id="@+id/banner_sl"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="30dp"
-                    app:hl_cornerRadius="@dimen/dp_10">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/poiiu" />
-
-                </com.lihang.ShadowLayout>
 
             </LinearLayout>
 

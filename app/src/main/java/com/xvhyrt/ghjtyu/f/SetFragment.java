@@ -42,8 +42,6 @@ public class SetFragment extends XFragment {
     RecyclerView setList;
     @BindView(R.id.set_list_1)
     RecyclerView setList1;
-    @BindView(R.id.banner_sl)
-    View bannerSl;
 
     private ProductModel productModel;
 
@@ -79,14 +77,14 @@ public class SetFragment extends XFragment {
     }
 
     private void initSetAdapter() {
-        SetModel model = new SetModel(R.drawable.mqet, "注册协议");
-        SetModel model1 = new SetModel(R.drawable.jhguyt, "隐私协议");
-        SetModel model2 = new SetModel(R.drawable.xvrf, "意见反馈");
-        SetModel model3 = new SetModel(R.drawable.hhywe, "关于我们");
-        SetModel model4 = new SetModel(R.drawable.wwtrrt, "个性化推荐");
-        SetModel model5 = new SetModel(R.drawable.rryuj, "投诉邮箱");
-        SetModel model6 = new SetModel(R.drawable.gtsvc, "注销账户");
-        SetModel model7 = new SetModel(R.drawable.nngut, "退出登录");
+        SetModel model = new SetModel(R.drawable.fsd, "注册协议");
+        SetModel model1 = new SetModel(R.drawable.hdf, "隐私协议");
+        SetModel model2 = new SetModel(R.drawable.ljhk, "意见反馈");
+        SetModel model3 = new SetModel(R.drawable.ghj, "关于我们");
+        SetModel model4 = new SetModel(R.drawable.cvnvb, "个性化推荐");
+        SetModel model5 = new SetModel(R.drawable.urty, "投诉邮箱");
+        SetModel model6 = new SetModel(R.drawable.das, "注销账户");
+        SetModel model7 = new SetModel(R.drawable.pui, "退出登录");
         List<SetModel> list = new ArrayList<>();
         List<SetModel> list1 = new ArrayList<>();
         list.add(model);
@@ -173,9 +171,6 @@ public class SetFragment extends XFragment {
         });
         setList1.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         setList1.setAdapter(setItemAdapter1);
-        bannerSl.setOnClickListener(v -> {
-            productClick(productModel);
-        });
     }
 
     public void toWeb(ProductModel model) {

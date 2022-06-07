@@ -19,7 +19,7 @@
             android:id="@+id/set_pic"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:src="@drawable/mqet" />
+            android:src="@drawable/fsd" />
 
         <TextView
             android:id="@+id/set_name"
