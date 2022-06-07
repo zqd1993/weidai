@@ -2,7 +2,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#f4f4f4">
+
+    <com.lihang.ShadowLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:hl_startColor="@color/colorPrimary"
+        app:hl_endColor="#f4f4f4"
+        app:hl_angle="270"/>
 
     <LinearLayout
         android:id="@+id/parent_view"
@@ -10,42 +18,99 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/wd_bg"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:src="@drawable/wd_bg" />
+            android:layout_marginTop="80dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp"
+            android:background="@drawable/bg_corner_10_white">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/jkiut" />
+
+                <TextView
+                    android:id="@+id/user_phone_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="@dimen/textSize_16"
+                    android:textColor="@color/colorPrimary"
+                    android:text="ANNIE123" />
+
+            </LinearLayout>
+
+        </FrameLayout>
 
         <com.lihang.ShadowLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginTop="-60dp"
+            android:layout_marginTop="10dp"
+            app:hl_shadowLimit="2dp"
+            app:hl_cornerRadius="@dimen/dp_10">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/set_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never"/>
+
+                <com.lihang.ShadowLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="30dp"
+                    app:hl_cornerRadius="@dimen/dp_10">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/poiiu" />
+
+                </com.lihang.ShadowLayout>
+
+            </LinearLayout>
+
+        </com.lihang.ShadowLayout>
+
+        <com.lihang.ShadowLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="@dimen/dp_40"
             app:hl_shadowLimit="2dp"
             app:hl_cornerRadius="@dimen/dp_10">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/set_list"
+                android:id="@+id/set_list_1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:overScrollMode="never"/>
 
         </com.lihang.ShadowLayout>
 
-
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/user_phone_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginStart="230dp"
-        android:textSize="@dimen/textSize_16"
-        android:textColor="@color/colorPrimary"
-        android:text="ANNIE123" />
 
 </FrameLayout>

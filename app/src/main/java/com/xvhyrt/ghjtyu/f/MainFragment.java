@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -22,6 +23,7 @@ import com.xvhyrt.ghjtyu.net.XApi;
 import com.xvhyrt.ghjtyu.u.OpenUtil;
 import com.xvhyrt.ghjtyu.u.PreferencesOpenUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -42,14 +44,23 @@ public class MainFragment extends XFragment {
     View main_top_img;
     @BindView(R.id.jx_bg)
     View jx_bg;
+    @BindView(R.id.view_flipper)
+    ViewFlipper viewFlipper;
 
     private ProductModel productModel;
 
     private Bundle bundle;
 
+    private String[] msg = {"恭喜187****5758用户领取87000元额度", "恭喜138****5666用户领取36000元额度", "恭喜199****5009用户领取49000元额度",
+            "恭喜137****6699用户领取69000元额度", "恭喜131****8889用户领取18000元额度", "恭喜177****8899用户领取26000元额度",
+            "恭喜155****6789用户领取58000元额度", "恭喜166****5335用户领取29000元额度", "恭喜163****2299用户领取92000元额度",
+            "恭喜130****8866用户领取86000元额度"};
+
     @Override
     public void initData(Bundle savedInstanceState) {
         productList();
+        initViewData();
+        setViewConfig();
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -153,7 +164,7 @@ public class MainFragment extends XFragment {
             TextView product_name_tv = view.findViewById(R.id.product_name_tv);
             TextView remind_tv = view.findViewById(R.id.remind_tv);
             TextView money_number_tv = view.findViewById(R.id.money_number_tv);
-            View click_view = view.findViewById(R.id.click_view);
+            View parentFl = view.findViewById(R.id.parent_fl);
             timeTv.setText(model.getDes() + "个月");
             peopleNumberTv.setText(String.valueOf(model.getPassingRate()));
             ILFactory.getLoader().loadNet(pic, HttpApi.HTTP_API_URL + model.getProductLogo(),
@@ -161,10 +172,37 @@ public class MainFragment extends XFragment {
             product_name_tv.setText(model.getProductName());
             remind_tv.setText(model.getTag());
             money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
-            click_view.setOnClickListener(v -> {
+            View yjsqSl = view.findViewById(R.id.yjsq_sl);
+            parentFl.setOnClickListener(v -> {
+                productClick(model);
+            });
+            pic.setOnClickListener(v -> {
+                productClick(model);
+            });
+            yjsqSl.setOnClickListener(v -> {
                 productClick(model);
             });
             goodsListLl.addView(view);
+        }
+    }
+
+    private void setViewConfig() {
+        viewFlipper.setInAnimation(getActivity(), R.anim.anim_in);
+        viewFlipper.setOutAnimation(getActivity(), R.anim.anim_out);
+        viewFlipper.setFlipInterval(2000);
+        viewFlipper.startFlipping();
+    }
+
+    private void initViewData() {
+        List<String> datas = new ArrayList<>();
+        for (int i = 0; i < msg.length; i++) {
+            datas.add(msg[i]);
+        }
+        for (String data : datas) {
+            View view = getLayoutInflater().inflate(R.layout.view_flipper, null);
+            TextView textView = view.findViewById(R.id.msg_view);
+            textView.setText(data);
+            viewFlipper.addView(view);
         }
     }
 

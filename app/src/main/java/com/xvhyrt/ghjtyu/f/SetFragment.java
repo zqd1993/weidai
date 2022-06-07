@@ -32,16 +32,16 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class SetFragment extends XFragment implements View.OnClickListener {
+public class SetFragment extends XFragment {
 
     @BindView(R.id.parent_view)
     View parentView;
     @BindView(R.id.user_phone_tv)
     TextView userPhoneTv;
-    @BindView(R.id.wd_bg)
-    View wdBg;
     @BindView(R.id.set_list)
     RecyclerView setList;
+    @BindView(R.id.set_list_1)
+    RecyclerView setList1;
 
     private ProductModel productModel;
 
@@ -51,7 +51,7 @@ public class SetFragment extends XFragment implements View.OnClickListener {
 
     private String phone;
 
-    private SetItemAdapter setItemAdapter;
+    private SetItemAdapter setItemAdapter, setItemAdapter1;
 
     private RemindDialog dialog;
 
@@ -64,9 +64,6 @@ public class SetFragment extends XFragment implements View.OnClickListener {
         userPhoneTv.setText(phone);
         productList();
         initSetAdapter();
-        parentView.setOnClickListener(this);
-        userPhoneTv.setOnClickListener(this);
-        wdBg.setOnClickListener(this);
     }
 
     @Override
@@ -79,38 +76,27 @@ public class SetFragment extends XFragment implements View.OnClickListener {
         return null;
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.parent_view:
-            case R.id.user_phone_tv:
-            case R.id.wd_bg:
-//                if (productModel != null) {
-//                    productClick(productModel);
-//                }
-                break;
-        }
-    }
-
     private void initSetAdapter() {
-        SetModel model = new SetModel(R.drawable.u, "注册协议");
-        SetModel model1 = new SetModel(R.drawable.t, "隐私协议");
-        SetModel model2 = new SetModel(R.drawable.s, "意见反馈");
-        SetModel model3 = new SetModel(R.drawable.o, "关于我们");
-        SetModel model4 = new SetModel(R.drawable.n, "个性化推荐");
-        SetModel model5 = new SetModel(R.drawable.r, "投诉邮箱");
-        SetModel model6 = new SetModel(R.drawable.v, "注销账户");
-        SetModel model7 = new SetModel(R.drawable.p, "退出登录");
+        SetModel model = new SetModel(R.drawable.mqet, "注册协议");
+        SetModel model1 = new SetModel(R.drawable.jhguyt, "隐私协议");
+        SetModel model2 = new SetModel(R.drawable.xvrf, "意见反馈");
+        SetModel model3 = new SetModel(R.drawable.hhywe, "关于我们");
+        SetModel model4 = new SetModel(R.drawable.wwtrrt, "个性化推荐");
+        SetModel model5 = new SetModel(R.drawable.rryuj, "投诉邮箱");
+        SetModel model6 = new SetModel(R.drawable.gtsvc, "注销账户");
+        SetModel model7 = new SetModel(R.drawable.nngut, "退出登录");
         List<SetModel> list = new ArrayList<>();
+        List<SetModel> list1 = new ArrayList<>();
         list.add(model);
         list.add(model1);
         list.add(model2);
         list.add(model3);
-        list.add(model4);
-        list.add(model5);
-        list.add(model6);
-        list.add(model7);
+        list1.add(model4);
+        list1.add(model5);
+        list1.add(model6);
+        list1.add(model7);
         setItemAdapter = new SetItemAdapter(R.layout.adpater_set_item, list);
+        setItemAdapter1 = new SetItemAdapter(R.layout.adpater_set_item, list1);
         setItemAdapter.setOnClickListener(position -> {
             switch (position) {
                 case 0:
@@ -131,7 +117,13 @@ public class SetFragment extends XFragment implements View.OnClickListener {
                 case 3:
                     OpenUtil.jumpPage(getActivity(), AboutInfoActivity.class);
                     break;
-                case 4:
+            }
+        });
+        setList.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+        setList.setAdapter(setItemAdapter);
+        setItemAdapter1.setOnClickListener(position -> {
+            switch (position) {
+                case 0:
                     dialog = new RemindDialog(getActivity()).setCancelText("开启")
                             .setConfirmText("关闭").setTitle("温馨提示").setContent("关闭或开启推送");
                     dialog.setOnButtonClickListener(new RemindDialog.OnButtonClickListener() {
@@ -149,14 +141,14 @@ public class SetFragment extends XFragment implements View.OnClickListener {
                     });
                     dialog.show();
                     break;
-                case 5:
+                case 1:
                     dialog = new RemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
                     dialog.show();
                     break;
-                case 6:
+                case 2:
                     OpenUtil.jumpPage(getActivity(), ZhuXiaoActivity.class);
                     break;
-                case 7:
+                case 3:
                     dialog = new RemindDialog(getActivity()).setCancelText("取消")
                             .setConfirmText("退出").setTitle("温馨提示").setContent("确定退出当前登录");
                     dialog.setOnButtonClickListener(new RemindDialog.OnButtonClickListener() {
@@ -177,8 +169,8 @@ public class SetFragment extends XFragment implements View.OnClickListener {
                     break;
             }
         });
-        setList.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-        setList.setAdapter(setItemAdapter);
+        setList1.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+        setList1.setAdapter(setItemAdapter1);
     }
 
     public void toWeb(ProductModel model) {

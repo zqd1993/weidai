@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 
 import androidx.annotation.Nullable;
@@ -53,9 +54,9 @@ public class StartPageActivity extends AppCompatActivity {
             startPageRemindDialog.setOnListener(new StartPageRemindDialog.OnListener() {
                 @Override
                 public void oneBtnClicked() {
-                    initUm();
                     PreferencesOpenUtil.saveString("uminit", "1");
                     PreferencesOpenUtil.saveBool("isSure", true);
+                    initUm();
                     OpenUtil.jumpPage(StartPageActivity.this, DlActivity.class);
                     finish();
                 }
@@ -114,6 +115,7 @@ public class StartPageActivity extends AppCompatActivity {
          */
         //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
         if (PreferencesOpenUtil.getString("uminit").equals("1")) {
+            Log.d("youmeng", "zhuche chenggong");
             //友盟正式初始化
 //            UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
             // 在此处调用基础组件包提供的初始化函数 相应信息可在应用管理 -> 应用信息 中找到 http://message.umeng.com/list/apps
