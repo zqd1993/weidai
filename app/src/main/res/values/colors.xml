@@ -4,11 +4,8 @@
     <color name="colorPrimaryDark">#ed4b3c</color>
     <color name="colorAccent">#ed4b3c</color>
 
-    <color name="text_primary">#000000</color>
-    <color name="text_secondary">#87000000</color>
-    <color name="text_disabled">#38000000</color>
     <color name="black">#1F1F1F</color>
-    <color name="text_normal_color">#1F1F1F</color>
+    <color name="text_color">#1F1F1F</color>
     <color name="dividing">#EFEFEF</color>
     <color name="white">#ffffff</color>
     <color name="color_f5dbaa">#F5DBAA</color>

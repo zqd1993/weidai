@@ -14,17 +14,29 @@
         android:paddingTop="22dp">
 
         <TextView
+            android:layout_width="61dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:visibility="gone" />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:gravity="center"
             android:lines="1"
-            android:textColor="@color/text_normal_color"
+            android:textColor="@color/text_color"
             android:textSize="@dimen/textSize_16"
             tools:text="温馨提示" />
 
-        <com.xvhyrt.ghjtyu.w.ClickTextView
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/dividing"
+            android:visibility="gone"/>
+
+        <com.mbnmhj.poiohg.view.ClickTextView
             android:id="@+id/tv_txt"
             android:visibility="visible"
             android:layout_width="wrap_content"
@@ -33,8 +45,14 @@
             android:layout_marginTop="8dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:textColor="@color/text_normal_color"
+            android:textColor="@color/text_color"
             android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="61dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,6 +74,12 @@
                 android:background="@drawable/bg_corner_50_f5dbaa"
                 android:text="同意并继续" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/dividing"
+                android:visibility="gone"/>
+
             <TextView
                 android:id="@+id/two_btn"
                 android:layout_width="wrap_content"
@@ -64,8 +88,14 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:textColor="@color/text_normal_color"
+                android:textColor="@color/text_color"
                 android:text="不同意并退出" />
+
+            <TextView
+                android:layout_width="61dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:visibility="gone" />
 
         </LinearLayout>
 

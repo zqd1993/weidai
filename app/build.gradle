@@ -12,7 +12,7 @@ android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
-        applicationId 'com.xvhyrt.ghjtyu'
+        applicationId 'com.mbnmhj.poiohg'
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
@@ -34,7 +34,7 @@ android {
     }
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "dazhong_v${variant.versionName}.apk"
+            outputFileName = "xiaoefenqi_v${variant.versionName}.apk"
         }
     }
 
@@ -51,14 +51,14 @@ dependencies {
     implementation project(":mvp")
     implementation 'com.github.lihangleo2:ShadowLayout:3.2.4'
     implementation 'com.jaeger.statusbarutil:library:1.5.1'
+    implementation'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
     implementation 'io.github.h07000223:flycoTabLayout:3.0.0'
+    implementation 'com.victor:lib:1.0.4'
     implementation 'pub.devrel:easypermissions:3.0.0'
     implementation  'com.umeng.umsdk:common:9.4.2'// 必选
     implementation  'com.umeng.umsdk:asms:1.4.0'// 必选
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation 'io.github.youth5201314:banner:2.2.2'
     implementation 'com.umeng.umsdk:abtest:1.0.0'//使用U-App中ABTest能力，可选
     implementation 'com.umeng.umsdk:apm:1.5.2' // U-APM包依赖(必选)
-    implementation 'com.victor:lib:1.0.4'
-    implementation'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
-    implementation 'io.github.youth5201314:banner:2.2.2'
-    implementation "androidx.viewpager2:viewpager2:1.0.0"
 }

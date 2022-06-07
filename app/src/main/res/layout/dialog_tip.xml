@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@null">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/bg_corner_10_white"
+        android:orientation="vertical"
+        android:paddingTop="22dp">
+
+        <TextView
+            android:id="@+id/sms_loading_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:gravity="center"
+            android:lines="1"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/textSize_16"
+            tools:text="标题单" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="20dp"
+            android:text="请先进行身份验证"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="12dp"
+            android:gravity="center"
+            android:textColor="@color/text_color"
+            android:textSize="12sp"
+            android:visibility="visible"
+            tools:text="说明当前状态、提示用户解决方案 ，最好不要超过两行说明当前状态、提示用户解决方案 ，最好不要" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/dividing" />
+
+            <LinearLayout
+                android:id="@+id/two_btn_ll"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_left"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/cancel"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12dp"
+                    android:visibility="gone"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/v_dividing"
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/dividing" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="12dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_right"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/ok"
+                    android:textColor="@color/text_color"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/only_btn_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/support_the_business"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginBottom="17dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/sure_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="center"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="确定"
+                    android:textColor="@color/colorPrimary" />
+
+                <RadioGroup
+                    android:id="@+id/radio_rl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="53dp"
+                    android:layout_toEndOf="@id/support_the_business"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <RadioButton
+                        android:id="@+id/all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:checked="true"
+                        android:paddingHorizontal="3dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp" />
+
+                    <RadioButton
+                        android:id="@+id/company"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="29dp"
+                        android:checked="false"
+                        android:paddingHorizontal="3dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp" />
+
+                    <RadioButton
+                        android:id="@+id/personal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="29dp"
+                        android:paddingHorizontal="3dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

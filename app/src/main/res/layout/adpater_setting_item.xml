@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent_fl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="30dp"
+    android:layout_marginBottom="30dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/dividing"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/business_status_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="17dp"
+            android:text="营业中"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/set_pic"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/fsd" />
+
+        <TextView
+            android:id="@+id/business_status_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="17dp"
+            android:text="当前处于营业时间内，可接收新的订单"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/set_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/textSize_16"
+            android:textColor="@color/text_color"
+            android:text="注册协议"/>
+
+        <TextView
+            android:id="@+id/note_tv"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="53dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="53dp"
+            android:text="注：若您长时间不接单，可点击上方“暂停营业”按钮，暂停营业后需手动恢复营业状态" />
+
+    </LinearLayout>
+
+</FrameLayout>

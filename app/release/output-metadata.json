@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.xvhyrt.ghjtyu",
+  "applicationId": "com.mbnmhj.poiohg",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "versionCode": 20220607,
-      "versionName": "1.0.1",
-      "outputFile": "dazhong_v1.0.1.apk"
+      "versionName": "1.0.0",
+      "outputFile": "xiaoefenqi_v1.0.0.apk"
     }
   ]
 }
