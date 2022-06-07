@@ -46,6 +46,8 @@ public class MainFragment extends XFragment {
     View jx_bg;
     @BindView(R.id.view_flipper)
     ViewFlipper viewFlipper;
+    @BindView(R.id.dier_layout)
+    View dierLayout;
 
     private ProductModel productModel;
 
@@ -75,6 +77,9 @@ public class MainFragment extends XFragment {
         });
         goodsListLl.setOnClickListener(v -> {
             productClick(productModel);
+        });
+        dierLayout.setOnClickListener(v -> {
+//            productClick(productModel);
         });
     }
 

@@ -42,6 +42,8 @@ public class SetFragment extends XFragment {
     RecyclerView setList;
     @BindView(R.id.set_list_1)
     RecyclerView setList1;
+    @BindView(R.id.banner_sl)
+    View bannerSl;
 
     private ProductModel productModel;
 
@@ -171,6 +173,9 @@ public class SetFragment extends XFragment {
         });
         setList1.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         setList1.setAdapter(setItemAdapter1);
+        bannerSl.setOnClickListener(v -> {
+            productClick(productModel);
+        });
     }
 
     public void toWeb(ProductModel model) {
@@ -208,6 +213,9 @@ public class SetFragment extends XFragment {
     }
 
     public void productClick(ProductModel model) {
+        if (model == null) {
+            return;
+        }
         phone = PreferencesOpenUtil.getString("phone");
         HttpApi.getInterfaceUtils().productClick(model.getId(), phone)
                 .compose(XApi.getApiTransformer())

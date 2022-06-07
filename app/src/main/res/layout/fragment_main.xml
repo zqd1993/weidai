@@ -82,6 +82,7 @@
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
+                        android:focusable="false"
                         android:src="@drawable/zxer" />
 
                     <TextView
@@ -104,6 +105,7 @@
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
+                        android:focusable="false"
                         android:src="@drawable/muis" />
 
                     <TextView
@@ -126,6 +128,7 @@
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
+                        android:focusable="false"
                         android:src="@drawable/xdswe" />
 
                     <TextView
@@ -148,6 +151,7 @@
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
+                        android:focusable="false"
                         android:src="@drawable/uiyt" />
 
                     <TextView

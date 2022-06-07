@@ -69,6 +69,7 @@
                 android:background="#eaeaea" />
 
                 <LinearLayout
+                    android:id="@+id/yzm_cv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
@@ -109,7 +110,6 @@
                             android:textSize="@dimen/textSize_16" />
 
                         <com.lihang.ShadowLayout
-                            android:id="@+id/yzm_cv"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             app:hl_cornerRadius="50dp"

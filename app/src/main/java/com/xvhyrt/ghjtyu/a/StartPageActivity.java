@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.xvhyrt.ghjtyu.R;
 import com.xvhyrt.ghjtyu.api.HttpApi;
+import com.xvhyrt.ghjtyu.u.MyToast;
 import com.xvhyrt.ghjtyu.u.OpenUtil;
 import com.xvhyrt.ghjtyu.u.PreferencesOpenUtil;
 import com.xvhyrt.ghjtyu.u.StatusBarUtil;
@@ -54,9 +55,8 @@ public class StartPageActivity extends AppCompatActivity {
             startPageRemindDialog.setOnListener(new StartPageRemindDialog.OnListener() {
                 @Override
                 public void oneBtnClicked() {
-                    PreferencesOpenUtil.saveString("uminit", "1");
-                    PreferencesOpenUtil.saveBool("isSure", true);
                     initUm();
+                    PreferencesOpenUtil.saveBool("isSure", true);
                     OpenUtil.jumpPage(StartPageActivity.this, DlActivity.class);
                     finish();
                 }
@@ -107,14 +107,9 @@ public class StartPageActivity extends AppCompatActivity {
     }
 
     private void initUm(){
-        //设置LOG开关，默认为false
-        UMConfigure.setLogEnabled(true);
-        UMConfigure.preInit(getApplicationContext(), "6277e4e4d024421570e6ea0c", "Umeng");
-        /**
-         * 打开app首次隐私协议授权，以及sdk初始化，判断逻辑请查看SplashTestActivity
-         */
         //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
-        if (PreferencesOpenUtil.getString("uminit").equals("1")) {
+        if (!UMConfigure.isInit) {
+            UMConfigure.setLogEnabled(true);
             Log.d("youmeng", "zhuche chenggong");
             //友盟正式初始化
 //            UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
@@ -124,7 +119,7 @@ public class StartPageActivity extends AppCompatActivity {
             // 参数三：渠道名称；
             // 参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
             // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
-            UMConfigure.init(this, "6277e4e4d024421570e6ea0c", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+            UMConfigure.init(this, "629eff2005844627b5a41d7f", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
         }
     }
 }

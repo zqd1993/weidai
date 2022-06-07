@@ -37,7 +37,7 @@ public class DlActivity extends XActivity {
     private TextView getYzmTv, dlBtn;
     private CheckBox remindCb;
     private ClickTextView readTv;
-    private ShadowLayout yzmCv;
+    private View yzmCv;
 
     private String phoneStr, yzmStr, ip = "";
     private Bundle bundle;
