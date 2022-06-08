@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 
 import com.aklsfasad.fsjhfkk.R;
@@ -16,7 +17,9 @@ import com.aklsfasad.fsjhfkk.utils.StatusBarUtilHuiMin;
 import com.aklsfasad.fsjhfkk.router.Router;
 
 import com.aklsfasad.fsjhfkk.net.Api;
+import com.aklsfasad.fsjhfkk.utils.ToastUtilHuiMin;
 import com.aklsfasad.fsjhfkk.widget.WelcomeDialogHuiMin;
+import com.umeng.commonsdk.UMConfigure;
 
 public class TanPingActivity extends AppCompatActivity {
 
@@ -38,6 +41,7 @@ public class TanPingActivity extends AppCompatActivity {
         if (!isAgree) {
             showDialog();
         } else {
+            initUm();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -71,6 +75,7 @@ public class TanPingActivity extends AppCompatActivity {
         welcomeDialog.setOnClickedListener(new WelcomeDialogHuiMin.OnClickedListener() {
             @Override
             public void topBtnClicked() {
+                initUm();
                 SharedPreferencesUtilisHuiMin.saveStringIntoPref("uminit", "1");
                 SharedPreferencesUtilisHuiMin.saveBoolIntoPref("agree", true);
                 Router.newIntent(TanPingActivity.this)
@@ -128,5 +133,23 @@ public class TanPingActivity extends AppCompatActivity {
             return null;
         }
         return "";
+    }
+
+    private void initUm(){
+        //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
+        if (!UMConfigure.isInit) {
+            UMConfigure.setLogEnabled(true);
+            Log.d("youmeng", "zhuche chenggong");
+            ToastUtilHuiMin.showShort("zhuche chenggong");
+            //友盟正式初始化
+//            UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
+            // 在此处调用基础组件包提供的初始化函数 相应信息可在应用管理 -> 应用信息 中找到 http://message.umeng.com/list/apps
+            // 参数一：当前上下文context；
+            // 参数二：应用申请的Appkey（需替换）；
+            // 参数三：渠道名称；
+            // 参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
+            // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
+            UMConfigure.init(this, "62603ad130a4f67780ad42b4", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+        }
     }
 }
