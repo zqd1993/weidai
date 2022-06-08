@@ -1,12 +1,58 @@
 <resources>
-    <string name="app_name">小额分期贷</string>
+    <string name="app_name">贝壳贷款</string>
     <string name="cancel">取消</string>
     <string name="ok">确定</string>
     <string name="user_service_agreement">隐私政策</string>
     <string name="privacy_policy">注册协议</string>
-    <string name="login_title">欢迎使用小额分期贷</string>
+    <string name="login_title">欢迎使用贝壳贷款</string>
     <string name="input_phone_number">请输入手机号</string>
     <string name="input_verification">请输入验证码</string>
     <string name="get_verification">获取验证码</string>
     <string name="login">立即登录</string>
+    <string name="hint_forget_1">请输入登录手机号</string>
+    <string name="hint_forget_2">请输入验证码</string>
+    <string name="hint_forget_3">请输入新密码（6-10位数字字母）</string>
+    <string name="hint_forget_4">6-10位数字字母</string>
+    <string name="hint_forget_5">请再次输入新密码</string>
+    <string name="hint_forget_6">请输入原密码</string>
+    <string name="forget_pwd">忘记密码</string>
+    <string name="set_pwd">设置密码</string>
+    <string name="txt_limit" translatable="false">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="txt_limit_2" translatable="false">0123456789Xx</string>
+    <string name="txt_limit_phone" translatable="false">0123456789</string>
+    <string name="txt_limit_phone2" translatable="false">0123456789-</string>
+    <string name="enter_mobile">请输入手机号</string>
+    <string name="password_length_tips_2">请输入6-10位数密码</string>
+    <string name="password_length_tips">请输入密码</string>
+    <string name="input_right_mobile">请输入正确的手机号</string>
+    <string name="tips_forget_2">请正确输入验证码</string>
+    <string name="pwd_unlike">两次密码输入不一致</string>
+    <string name="send_verification">获取验证码</string>
+    <string name="merchandise_management">商品管理</string>
+    <string name="merchandise_search">商品搜索</string>
+    <string name="home_order">订单</string>
+    <string name="home_shop">管理</string>
+    <string name="home_set">我的</string>
+    <string name="home_search">订单查询</string>
+    <string name="home_local">点位设置</string>
+    <string name="order_tracking">订单管理</string>
+    <string name="cannot_view_earlier_months">不能查看更早的月份!</string>
+    <string name="it_is_the_last_month">已经到最后一个月份!</string>
+    <string name="view_no_wifi">无法获取网络，请检查网络设置</string>
+    <string name="view_no_wifi_setting">点击设置</string>
+    <string name="view_no_data">暂无数据</string>
+    <string name="empty_tips_0">暂无数据</string>
+    <string name="empty_tips_1">网络不给力，请稍候再试</string>
+    <string name="empty_tips_2">暂无数据</string>
+    <string name="empty_tips_3">暂无消息</string>
+    <string name="empty_tips_4">暂无商品</string>
+    <string name="empty_tips_5">暂无地址</string>
+    <string name="empty_tips_6">暂无提示信息</string>
+    <string name="empty_tips_7">暂无数据</string>
+    <string name="empty_tips_8">请输入搜索关键词</string>
+    <string name="click_refresh">点击刷新</string>
+    <string name="self_pick_up_site_management">自提点管理</string>
+    <string name="unbind_self_pick_site">未绑定自提点</string>
+    <string name="tips_time_expired">过期时间不可选</string>
+    <string name="merchandise_menu_error">店铺菜单获取失败！</string>
 </resources>

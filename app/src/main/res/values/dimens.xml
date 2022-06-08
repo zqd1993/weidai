@@ -6,4 +6,20 @@
     <dimen name="item_text_kid_textsize">15sp</dimen>
     <dimen name="item_title_message">12sp</dimen>
     <dimen name="textSize_16">16sp</dimen>
+    <dimen name="dp_30">30dp</dimen>
+    <dimen name="dp_12">12dp</dimen>
+    <dimen name="dp_25">25dp</dimen>
+    <dimen name="dp_0">0dp</dimen>
+    <dimen name="text_1">1sp</dimen>
+    <dimen name="app_bar_height">240dp</dimen>
+
+    <bool name="default_fiv_isAnimated">true</bool>
+    <bool name="default_fiv_isFlipped">false</bool>
+    <integer name="default_fiv_duration">500</integer>
+    <dimen name="status_bar_height">0dp</dimen>
+    <dimen name="bar_img_height">16dp</dimen>
+    <dimen name="bar_view_height">12dp</dimen>
+    <dimen name="app_bar">40dp</dimen>
+    <dimen name="app_bar_home">37dp</dimen>
+    <dimen name="app_bar_home2">56dp</dimen>
 </resources>
