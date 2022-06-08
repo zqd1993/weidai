@@ -114,7 +114,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             app:hl_cornerRadius="50dp"
-                            app:hl_layoutBackground="#ff584b">
+                            app:hl_layoutBackground="@color/color_ctv_bg">
 
                             <TextView
                                 android:id="@+id/get_yzm_tv"

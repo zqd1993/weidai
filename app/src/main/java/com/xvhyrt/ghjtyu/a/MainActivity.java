@@ -1,6 +1,7 @@
 package com.xvhyrt.ghjtyu.a;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -12,6 +13,7 @@ import com.xvhyrt.ghjtyu.f.MainFragment;
 import com.xvhyrt.ghjtyu.f.ProductFragment;
 import com.xvhyrt.ghjtyu.f.SetFragment;
 import com.xvhyrt.ghjtyu.mvp.XActivity;
+import com.xvhyrt.ghjtyu.u.MyToast;
 import com.xvhyrt.ghjtyu.u.StatusBarUtil;
 
 import java.util.ArrayList;
@@ -31,6 +33,8 @@ public class MainActivity extends XActivity {
     private TabAdapter tabAdapter;
 
     private List<Fragment> fragments;
+
+    private long exitTime = 0;
 
     @Override
     public void initData(Bundle savedInstanceState) {
@@ -129,4 +133,21 @@ public class MainActivity extends XActivity {
             isChecked = checked;
         }
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                MyToast.showShort("再按一次退出程序");
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 }
