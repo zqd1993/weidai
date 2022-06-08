@@ -22,7 +22,8 @@
         <activity
             android:name="com.dlproject.bkdk.act.KaiShiActivity"
             android:icon="@mipmap/app_logo"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,33 +34,39 @@
         <activity
             android:name="com.dlproject.bkdk.act.DengGeLuActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
         <activity
             android:name="com.dlproject.bkdk.act.JumpH5Activity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
         <activity
             android:name="com.dlproject.bkdk.act.ZhongYaoActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
         <activity
             android:name="com.dlproject.bkdk.act.HuiFangActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
         <activity
             android:name="com.dlproject.bkdk.act.WoMenActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
 
         <activity
             android:name="com.dlproject.bkdk.act.ZhangHaoActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
 
         <provider
