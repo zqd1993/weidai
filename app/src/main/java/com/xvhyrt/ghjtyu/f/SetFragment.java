@@ -120,13 +120,13 @@ public class SetFragment extends XFragment {
                     dialog.setOnButtonClickListener(new RemindDialog.OnButtonClickListener() {
                         @Override
                         public void onSureClicked() {
-                            MyToast.showShort("开启成功");
+                            MyToast.showShort("关闭成功");
                             dialog.dismiss();
                         }
 
                         @Override
                         public void onCancelClicked() {
-                            MyToast.showShort("关闭成功");
+                            MyToast.showShort("开启成功");
                             dialog.dismiss();
                         }
                     });
