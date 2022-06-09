@@ -1,12 +1,43 @@
 <resources>
-    <string name="app_name">小额分期贷</string>
+    <string name="app_name">急借贷款</string>
     <string name="cancel">取消</string>
     <string name="ok">确定</string>
     <string name="user_service_agreement">隐私政策</string>
     <string name="privacy_policy">注册协议</string>
-    <string name="login_title">欢迎使用小额分期贷</string>
     <string name="input_phone_number">请输入手机号</string>
     <string name="input_verification">请输入验证码</string>
     <string name="get_verification">获取验证码</string>
     <string name="login">立即登录</string>
+    <string name="wait">请稍候&#8230;</string>
+    <string name="operate_success">操作成功</string>
+    <string name="pay_Success">支付成功</string>
+    <string name="pay_failed">支付失败</string>
+    <string name="pay_canceled">支付取消</string>
+    <string name="pay_on_ensure">支付结果正在确认</string>
+    <string name="number_max">99+</string>
+    <string name="my_crowdfunding_failed_tip">众筹失败的项目，系统会自动将您的款项退回至钱包</string>
+    <string name="title_length">%1$s&#8230;</string>
+
+    <string name="chat_up_finger">手指上滑，取消发送</string>
+    <string name="confirm">确定</string>
+    <string name="chat_press_talk">按住 说话</string>
+    <string name="chat_release_send">松开 结束</string>
+    <string name="chat_image">图片</string>
+    <string name="chat_file">文件</string>
+    <string name="chat_photo">拍摄</string>
+    <string name="chat_video">视频</string>
+    <string name="chat_small_video">小视频</string>
+    <string name="chat_audio_too_long">录音过长，请重试</string>
+    <string name="chat_audio_too_short">录音过短，请重试</string>
+    <string name="chat_video_too_short">录制过短，请重试</string>
+    <string name="chat_resend">重新发送</string>
+    <string name="chat_pullback">撤回</string>
+    <string name="chat_del">删除</string>
+    <string name="chat_save">保存</string>
+    <string name="chat_file_too_large">文件过大，发送失败</string>
+    <string name="chat_file_not_exist">文件不存在，发送失败</string>
+    <string name="chat_image_preview_title">图片预览</string>
+    <string name="chat_image_preview_send">发送</string>
+    <string name="chat_image_preview_load_err">图片加载失败</string>
+    <string name="chat_image_preview_ori">原图发送</string>
 </resources>
