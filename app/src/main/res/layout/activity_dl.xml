@@ -42,7 +42,7 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:src="@drawable/bfgg" />
+                        android:src="@drawable/qwedf" />
 
                     <EditText
                         android:id="@+id/mobile_et"
@@ -91,7 +91,7 @@
                             android:layout_marginStart="15dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
-                            android:src="@drawable/zxc" />
+                            android:src="@drawable/bfghrt" />
 
                         <EditText
                             android:id="@+id/yzm_et"
@@ -148,8 +148,8 @@
                 android:layout_marginTop="70dp"
                 android:layout_marginEnd="40dp"
                 app:hl_cornerRadius="50dp"
-                app:hl_startColor="#fe4a49"
-                app:hl_endColor="#fea346">
+                app:hl_startColor="#fd4344"
+                app:hl_endColor="#fd4344">
 
                 <TextView
                     android:id="@+id/dl_btn"
@@ -180,7 +180,7 @@
                     android:layout_height="20dp"
                     android:button="@drawable/checkbox_bg" />
 
-                <com.xvhyrt.ghjtyu.w.ClickTextView
+                <com.pcierecommended.upgradedoccurrences.w.ClickTextView
                     android:id="@+id/read_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
