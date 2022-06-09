@@ -3,8 +3,8 @@
     android:id="@+id/parent_fl"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="30dp"
-    android:layout_marginBottom="30dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -14,12 +14,43 @@
         android:background="@color/dividing"
         android:visibility="gone"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/set_pic"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="@dimen/dp_15"
+                android:src="@drawable/vdfez" />
+
+            <TextView
+                android:id="@+id/set_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_15"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/text_color"
+                android:text="注册协议"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_15"
+            android:src="@drawable/bgfhtrh"
+            android:layout_gravity="end|center_vertical" />
 
         <TextView
             android:id="@+id/business_status_tv"
@@ -29,12 +60,6 @@
             android:layout_marginTop="17dp"
             android:text="营业中"
             android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/set_pic"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@drawable/fsd" />
 
         <TextView
             android:id="@+id/business_status_info"
@@ -47,15 +72,6 @@
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/set_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textSize="@dimen/textSize_16"
-            android:textColor="@color/text_color"
-            android:text="注册协议"/>
-
-        <TextView
             android:id="@+id/note_tv"
             android:visibility="gone"
             android:layout_width="wrap_content"
@@ -65,6 +81,6 @@
             android:layout_marginEnd="53dp"
             android:text="注：若您长时间不接单，可点击上方“暂停营业”按钮，暂停营业后需手动恢复营业状态" />
 
-    </LinearLayout>
+    </FrameLayout>
 
 </FrameLayout>

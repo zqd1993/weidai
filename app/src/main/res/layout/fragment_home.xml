@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                android:src="@drawable/rfv" />
+                android:src="@drawable/vbdfgt" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -78,11 +78,50 @@
         </FrameLayout>
 
         <LinearLayout
+            android:id="@+id/msg_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:gravity="center_vertical"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_15"
+                android:src="@drawable/wqwd" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:text="公告："
+                android:textColor="#f44f33"
+                android:textSize="@dimen/sp_14"/>
+
+            <TextView
+                android:id="@+id/start_time_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:gravity="center"
+                android:visibility="gone"/>
+
+            <ViewFlipper
+                android:id="@+id/view_flipper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/msg_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -115,10 +154,10 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:focusable="false"
-                        android:src="@drawable/yhder" />
+                        android:src="@drawable/bfgh" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -130,9 +169,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="注册有礼"
+                        android:text="额度灵活"
                         android:textColor="@color/text_color"
-                        android:textSize="@dimen/textSize_16" />
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -153,18 +192,47 @@
                         android:textStyle="bold" />
 
                     <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:focusable="false"
-                        android:src="@drawable/wsc" />
+                        android:src="@drawable/cxvt" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="充值中心"
+                        android:text="随借随还"
                         android:textColor="@color/text_color"
-                        android:textSize="@dimen/textSize_16" />
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:focusable="false"
+                        android:src="@drawable/vcxvd" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="申请简单"
+                        android:textColor="@color/text_color"
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -188,52 +256,20 @@
                         android:visibility="gone" />
 
                     <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:focusable="false"
-                        android:src="@drawable/okjm" />
+                        android:src="@drawable/cxvdf" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="邀请好友"
+                        android:text="多种人群"
                         android:textColor="@color/text_color"
-                        android:textSize="@dimen/textSize_16" />
+                        android:textSize="13sp" />
 
                 </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                android:background="@color/white"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_15"
-                    android:text="最新公告："
-                    android:textColor="#767674"
-                    android:textSize="@dimen/sp_14" />
-
-                <TextView
-                    android:id="@+id/start_time_tv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:gravity="center"
-                    android:visibility="gone"/>
-
-                <ViewFlipper
-                    android:id="@+id/view_flipper"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="3dp" />
 
             </LinearLayout>
 
@@ -262,7 +298,8 @@
                     android:id="@+id/goods_banner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp" />
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"/>
 
             </FrameLayout>
 

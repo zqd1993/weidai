@@ -45,6 +45,10 @@ public class TwoFragment extends XFragment {
     View main_top_img;
     @BindView(R.id.jx_bg)
     View jx_bg;
+    @BindView(R.id.msg_ll)
+    View msg_ll;
+    @BindView(R.id.msg_layout)
+    View msg_layout;
     private MoreModel moreModel;
 
     private Bundle bundle;
@@ -72,6 +76,8 @@ public class TwoFragment extends XFragment {
         jx_bg.setVisibility(View.VISIBLE);
         main_top_img.setVisibility(View.GONE);
         goodsListLl.setVisibility(View.VISIBLE);
+        msg_ll.setVisibility(View.GONE);
+        msg_layout.setVisibility(View.GONE);
         productList();
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -217,12 +223,16 @@ public class TwoFragment extends XFragment {
         goodsListLl.removeAllViews();
         for (MoreModel model : mList) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_two_product_item, null);
-            ImageView pic = view.findViewById(R.id.product_img);
-            TextView product_name_tv = view.findViewById(R.id.product_name_tv);
-            TextView remind_tv = view.findViewById(R.id.remind_tv);
-            TextView money_number_tv = view.findViewById(R.id.money_number_tv);
+            ImageView pic = view.findViewById(R.id.shangpin_pic);
+            TextView product_name_tv = view.findViewById(R.id.shangpin_name_tv);
+            TextView remind_tv = view.findViewById(R.id.tedian_tv);
+            TextView money_number_tv = view.findViewById(R.id.edu_tv);
             View parentFl = view.findViewById(R.id.parent_fl);
             View yjsqSl = view.findViewById(R.id.yjsq_sl);
+            TextView shijian_tv = view.findViewById(R.id.shijian_tv);
+            TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
+            shijian_tv.setText(model.getDes());
+            shuliang_tv.setText(String.valueOf(model.getPassingRate()));
             ILFactory.getLoader().loadNet(pic, NetApi.HTTP_API_URL + model.getProductLogo(),
                     new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
             product_name_tv.setText(model.getProductName());

@@ -33,7 +33,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/mbv" />
+        android:src="@drawable/hgftgh" />
 
     <TextView
         android:id="@+id/version_code"

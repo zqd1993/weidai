@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mbnmhj.poiohg.R;
@@ -43,6 +44,8 @@ public class ThreeFragment extends XFragment {
     TextView userPhoneTv;
     @BindView(R.id.set_list)
     RecyclerView setList;
+    @BindView(R.id.set_list_1)
+    RecyclerView setList1;
 
     private MoreModel moreModel;
 
@@ -52,7 +55,7 @@ public class ThreeFragment extends XFragment {
 
     private String phone;
 
-    private OurAdapter setItemAdapter;
+    private OurAdapter setItemAdapter, setItemAdapter1;
 
     private RemindDialog dialog;
 
@@ -106,24 +109,24 @@ public class ThreeFragment extends XFragment {
     }
 
     private void initSetAdapter() {
-        SettingModel model = new SettingModel(R.drawable.fsd, "注册协议");
-        SettingModel model1 = new SettingModel(R.drawable.hdf, "隐私协议");
-        SettingModel model2 = new SettingModel(R.drawable.ljhk, "意见反馈");
-        SettingModel model3 = new SettingModel(R.drawable.ghj, "关于我们");
-        SettingModel model4 = new SettingModel(R.drawable.cvnvb, "个性化推荐");
-        SettingModel model5 = new SettingModel(R.drawable.urty, "投诉邮箱");
-        SettingModel model6 = new SettingModel(R.drawable.das, "注销账户");
-        SettingModel model7 = new SettingModel(R.drawable.pui, "退出登录");
+        SettingModel model = new SettingModel(R.drawable.vdfez, "注册协议");
+        SettingModel model1 = new SettingModel(R.drawable.bdfgc, "隐私协议");
+        SettingModel model2 = new SettingModel(R.drawable.hkyuerv, "意见反馈");
+        SettingModel model3 = new SettingModel(R.drawable.vcerf, "关于我们");
+        SettingModel model4 = new SettingModel(R.drawable.lyufwcq, "个性化推荐");
+        SettingModel model5 = new SettingModel(R.drawable.bgsfvc, "投诉邮箱");
+        SettingModel model6 = new SettingModel(R.drawable.wefdv, "注销账户");
+        SettingModel model7 = new SettingModel(R.drawable.fefcdv, "退出登录");
         List<SettingModel> list = new ArrayList<>();
         List<SettingModel> list1 = new ArrayList<>();
         list.add(model);
         list.add(model1);
-        list.add(model2);
-        list.add(model3);
-        list.add(model4);
-        list.add(model5);
-        list.add(model6);
-        list.add(model7);
+        list1.add(model2);
+        list1.add(model3);
+        list1.add(model4);
+        list1.add(model5);
+        list1.add(model6);
+        list1.add(model7);
         setItemAdapter = new OurAdapter(R.layout.adpater_setting_item, list);
         setItemAdapter.setOnClickListener(position -> {
             switch (position) {
@@ -139,38 +142,45 @@ public class ThreeFragment extends XFragment {
                     webBundle.putString("biaoti", getResources().getString(R.string.yszc));
                     AllUtil.jumpPage(getActivity(), NetPageActivity.class, webBundle);
                     break;
-                case 2:
+            }
+        });
+        setList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        setList.setAdapter(setItemAdapter);
+        setItemAdapter1 = new OurAdapter(R.layout.adpater_setting_item, list1);
+        setItemAdapter1.setOnClickListener(position -> {
+            switch (position) {
+                case 0:
                     AllUtil.jumpPage(getActivity(), BackActivity.class);
                     break;
-                case 3:
+                case 1:
                     AllUtil.jumpPage(getActivity(), UsActivity.class);
                     break;
-                case 4:
+                case 2:
                     dialog = new RemindDialog(getActivity()).setCancelText("开启")
                             .setConfirmText("关闭").setTitle("温馨提示").setContent("关闭或开启推送");
                     dialog.setOnButtonClickListener(new RemindDialog.OnButtonClickListener() {
                         @Override
                         public void onSureClicked() {
-                            NewToast.showShort("开启成功");
+                            NewToast.showShort("关闭成功");
                             dialog.dismiss();
                         }
 
                         @Override
                         public void onCancelClicked() {
-                            NewToast.showShort("关闭成功");
+                            NewToast.showShort("开启成功");
                             dialog.dismiss();
                         }
                     });
                     dialog.show();
                     break;
-                case 5:
+                case 3:
                     dialog = new RemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
                     dialog.show();
                     break;
-                case 6:
+                case 4:
                     AllUtil.jumpPage(getActivity(), RegActivity.class);
                     break;
-                case 7:
+                case 5:
                     dialog = new RemindDialog(getActivity()).setCancelText("取消")
                             .setConfirmText("退出").setTitle("温馨提示").setContent("确定退出当前登录");
                     dialog.setOnButtonClickListener(new RemindDialog.OnButtonClickListener() {
@@ -191,8 +201,8 @@ public class ThreeFragment extends XFragment {
                     break;
             }
         });
-        setList.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-        setList.setAdapter(setItemAdapter);
+        setList1.setLayoutManager(new LinearLayoutManager(getActivity()));
+        setList1.setAdapter(setItemAdapter1);
     }
 
     /**
