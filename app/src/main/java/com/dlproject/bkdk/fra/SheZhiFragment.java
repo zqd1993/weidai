@@ -163,13 +163,13 @@ public class SheZhiFragment extends XFragment {
                     dialog.setOnButtonClickListener(new TiShiDialog.OnButtonClickListener() {
                         @Override
                         public void onSureClicked() {
-                            TiShi.showShort("开启成功");
+                            TiShi.showShort("关闭成功");
                             dialog.dismiss();
                         }
 
                         @Override
                         public void onCancelClicked() {
-                            TiShi.showShort("关闭成功");
+                            TiShi.showShort("开启成功");
                             dialog.dismiss();
                         }
                     });
