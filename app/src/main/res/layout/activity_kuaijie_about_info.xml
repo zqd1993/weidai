@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="53dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:checked="true"
+            android:paddingHorizontal="3dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/order_all" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="29dp"
+            android:checked="false"
+            android:paddingHorizontal="3dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/company" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="29dp"
+            android:paddingHorizontal="3dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/personal" />
+    </RadioGroup>
+
+    <include layout="@layout/top_kuaijie_layout" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="53dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:checked="true"
+            android:paddingHorizontal="3dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/order_all" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="29dp"
+            android:checked="false"
+            android:paddingHorizontal="3dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/company" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="29dp"
+            android:paddingHorizontal="3dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/personal" />
+    </RadioGroup>
+
+    <ImageView
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="70dp"
+        android:src="@mipmap/app_logo" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="53dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:checked="true"
+            android:paddingHorizontal="3dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/order_all" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="29dp"
+            android:checked="false"
+            android:paddingHorizontal="3dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/company" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="29dp"
+            android:paddingHorizontal="3dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/personal" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/app_name"
+        android:textColor="@color/text_normal_color"
+        android:textSize="@dimen/textSize_16" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="53dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:checked="true"
+            android:paddingHorizontal="3dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/order_all" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="29dp"
+            android:checked="false"
+            android:paddingHorizontal="3dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/company" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="29dp"
+            android:paddingHorizontal="3dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/personal" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/version_code_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="当前版本号：v1.0.0"
+        android:textColor="@color/text_normal_color"
+        android:textSize="@dimen/textSize_16" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="53dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:checked="true"
+            android:paddingHorizontal="3dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/order_all" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="29dp"
+            android:checked="false"
+            android:paddingHorizontal="3dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/company" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="29dp"
+            android:paddingHorizontal="3dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/personal" />
+    </RadioGroup>
+</LinearLayout>
