@@ -6,8 +6,8 @@ ext {
             minSdkVersion    : 21,
             targetSdkVersion : 28,
 
-            versionCode      : 20220607,
-            versionName      : '1.0.0',
+            versionCode      : 20220610,
+            versionName      : '1.0.1',
             keyAlias         : "bghrty",
             keyPassword      : "mima112233",
             storeFile        : "./bghrty.jks",

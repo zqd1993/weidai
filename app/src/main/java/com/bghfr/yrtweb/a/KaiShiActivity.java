@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -59,7 +60,7 @@ public class KaiShiActivity extends AppCompatActivity {
             startPageRemindDialog.setOnListener(new StartPageRemindDialog.OnListener() {
                 @Override
                 public void oneBtnClicked() {
-                    initYouMeng();
+                    initUm();
                     PreferencesStaticOpenUtil.saveString("uminit", "1");
                     PreferencesStaticOpenUtil.saveBool("isSure", true);
                     BaseUtil.jumpPage(KaiShiActivity.this, DengLuActivity.class);
@@ -89,7 +90,7 @@ public class KaiShiActivity extends AppCompatActivity {
             });
             startPageRemindDialog.show();
         } else {
-            initYouMeng();
+            initUm();
             new Handler().postDelayed(() -> {
                 if (TextUtils.isEmpty(phone)) {
                     BaseUtil.jumpPage(KaiShiActivity.this, DengLuActivity.class);
@@ -136,15 +137,11 @@ public class KaiShiActivity extends AppCompatActivity {
         }
     }
 
-    private void initYouMeng(){
-        //设置LOG开关，默认为false
-        UMConfigure.setLogEnabled(true);
-        UMConfigure.preInit(getApplicationContext(), "629d692e05844627b5a1152a", "Umeng");
-        /**
-         * 打开app首次隐私协议授权，以及sdk初始化，判断逻辑请查看SplashTestActivity
-         */
+    private void initUm(){
         //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
-        if (PreferencesStaticOpenUtil.getString("uminit").equals("1")) {
+        if (!UMConfigure.isInit) {
+            UMConfigure.setLogEnabled(true);
+            Log.d("youmeng", "zhuche chenggong");
             //友盟正式初始化
 //            UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
             // 在此处调用基础组件包提供的初始化函数 相应信息可在应用管理 -> 应用信息 中找到 http://message.umeng.com/list/apps
