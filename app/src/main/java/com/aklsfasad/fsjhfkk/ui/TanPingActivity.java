@@ -140,7 +140,6 @@ public class TanPingActivity extends AppCompatActivity {
         if (!UMConfigure.isInit) {
             UMConfigure.setLogEnabled(true);
             Log.d("youmeng", "zhuche chenggong");
-            ToastUtilHuiMin.showShort("zhuche chenggong");
             //友盟正式初始化
 //            UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
             // 在此处调用基础组件包提供的初始化函数 相应信息可在应用管理 -> 应用信息 中找到 http://message.umeng.com/list/apps
