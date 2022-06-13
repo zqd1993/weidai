@@ -4,35 +4,41 @@ public class GoodsModel {
 
     private long id;
 
-    private String productName;
+    private String a_b;
 
-    private int amountType;
+    private int cate;
 
-    private int productState;
+    private String title;
 
-    private int productSort;
+    private String urls;
 
-    private int productPrice;
+    private String imgs;
 
-    private int minAmount;
+    private String num;
 
-    private int maxAmount;
+    private String max_money;
 
-    private int passingRate;
+    private String day_money;
 
-    private String des;
+    private String fan_time;
 
-    private String tag;
+    private int display;
 
-    private String productLogo;
+    private int tuijian;
 
-    private String url;
+    private int sort;
 
-    private String crtTime;
+    private int status;
 
-    private String upTime;
+    private String info;
 
-    private String updTime;
+    private int uv;
+
+    private String add_time;
+
+    private String uv_money;
+
+    private String jianfang_money;
 
     public long getId() {
         return id;
@@ -42,123 +48,147 @@ public class GoodsModel {
         this.id = id;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getA_b() {
+        return a_b;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setA_b(String a_b) {
+        this.a_b = a_b;
     }
 
-    public int getAmountType() {
-        return amountType;
+    public int getCate() {
+        return cate;
     }
 
-    public void setAmountType(int amountType) {
-        this.amountType = amountType;
+    public void setCate(int cate) {
+        this.cate = cate;
     }
 
-    public int getProductState() {
-        return productState;
+    public String getTitle() {
+        return title;
     }
 
-    public void setProductState(int productState) {
-        this.productState = productState;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public int getProductSort() {
-        return productSort;
+    public String getUrls() {
+        return urls;
     }
 
-    public void setProductSort(int productSort) {
-        this.productSort = productSort;
+    public void setUrls(String urls) {
+        this.urls = urls;
     }
 
-    public int getProductPrice() {
-        return productPrice;
+    public String getImgs() {
+        return imgs;
     }
 
-    public void setProductPrice(int productPrice) {
-        this.productPrice = productPrice;
+    public void setImgs(String imgs) {
+        this.imgs = imgs;
     }
 
-    public int getMinAmount() {
-        return minAmount;
+    public String getNum() {
+        return num;
     }
 
-    public void setMinAmount(int minAmount) {
-        this.minAmount = minAmount;
+    public void setNum(String num) {
+        this.num = num;
     }
 
-    public int getMaxAmount() {
-        return maxAmount;
+    public String getMax_money() {
+        return max_money;
     }
 
-    public void setMaxAmount(int maxAmount) {
-        this.maxAmount = maxAmount;
+    public void setMax_money(String max_money) {
+        this.max_money = max_money;
     }
 
-    public int getPassingRate() {
-        return passingRate;
+    public String getDay_money() {
+        return day_money;
     }
 
-    public void setPassingRate(int passingRate) {
-        this.passingRate = passingRate;
+    public void setDay_money(String day_money) {
+        this.day_money = day_money;
     }
 
-    public String getDes() {
-        return des;
+    public String getFan_time() {
+        return fan_time;
     }
 
-    public void setDes(String des) {
-        this.des = des;
+    public void setFan_time(String fan_time) {
+        this.fan_time = fan_time;
     }
 
-    public String getTag() {
-        return tag;
+    public int getDisplay() {
+        return display;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setDisplay(int display) {
+        this.display = display;
     }
 
-    public String getProductLogo() {
-        return productLogo;
+    public int getTuijian() {
+        return tuijian;
     }
 
-    public void setProductLogo(String productLogo) {
-        this.productLogo = productLogo;
+    public void setTuijian(int tuijian) {
+        this.tuijian = tuijian;
     }
 
-    public String getUrl() {
-        return url;
+    public int getSort() {
+        return sort;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setSort(int sort) {
+        this.sort = sort;
     }
 
-    public String getCrtTime() {
-        return crtTime;
+    public int getStatus() {
+        return status;
     }
 
-    public void setCrtTime(String crtTime) {
-        this.crtTime = crtTime;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public String getUpTime() {
-        return upTime;
+    public String getInfo() {
+        return info;
     }
 
-    public void setUpTime(String upTime) {
-        this.upTime = upTime;
+    public void setInfo(String info) {
+        this.info = info;
     }
 
-    public String getUpdTime() {
-        return updTime;
+    public int getUv() {
+        return uv;
     }
 
-    public void setUpdTime(String updTime) {
-        this.updTime = updTime;
+    public void setUv(int uv) {
+        this.uv = uv;
+    }
+
+    public String getAdd_time() {
+        return add_time;
+    }
+
+    public void setAdd_time(String add_time) {
+        this.add_time = add_time;
+    }
+
+    public String getUv_money() {
+        return uv_money;
+    }
+
+    public void setUv_money(String uv_money) {
+        this.uv_money = uv_money;
+    }
+
+    public String getJianfang_money() {
+        return jianfang_money;
+    }
+
+    public void setJianfang_money(String jianfang_money) {
+        this.jianfang_money = jianfang_money;
     }
 }

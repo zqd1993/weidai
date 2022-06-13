@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/color_f4f4f4">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,41 +13,73 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
-                android:src="@drawable/wd_bg" />
-
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="110dp"
-                android:layout_marginStart="75dp"
-                android:src="@drawable/wd_tx" />
-
-            <TextView
-                android:id="@+id/phone_tv"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@color/white"
-                android:text="12345679"
                 android:layout_marginTop="80dp"
-                android:layout_marginStart="135dp"/>
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="30dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/wd_tx" />
+
+                <TextView
+                    android:id="@+id/phone_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:text="12345679"/>
+
+            </LinearLayout>
 
         </FrameLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvy"
+        <com.lihang.ShadowLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp"
-            android:overScrollMode="never"/>
+            android:layout_marginTop="10dp"
+            app:hl_cornerRadius="10dp"
+            app:hl_layoutBackground="@color/white">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:overScrollMode="never"/>
+
+        </com.lihang.ShadowLayout>
+
+        <com.lihang.ShadowLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            app:hl_cornerRadius="10dp"
+            app:hl_layoutBackground="@color/white">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvy_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:overScrollMode="never"/>
+
+        </com.lihang.ShadowLayout>
 
     </LinearLayout>
 

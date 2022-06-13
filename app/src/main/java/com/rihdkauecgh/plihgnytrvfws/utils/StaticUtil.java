@@ -7,6 +7,9 @@ import com.rihdkauecgh.plihgnytrvfws.net.NetError;
 
 import java.util.regex.Pattern;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+
 public class StaticUtil {
 
     public static void showError(Context context, NetError error) {
@@ -44,6 +47,10 @@ public class StaticUtil {
             return Pattern.matches("^1[3-9]\\d{9}$", phoneNumber);
         }
         return false;
+    }
+
+    public static RequestBody createBody(String string) {
+        return RequestBody.create(MediaType.parse("application/json"), string);
     }
 
 }

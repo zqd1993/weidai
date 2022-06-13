@@ -38,14 +38,11 @@ public class GoodsItemAdapter extends SimpleRecAdapter<GoodsModel, GoodsItemAdap
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         GoodsModel model = data.get(i);
-        if (!TextUtils.isEmpty(model.getDes()) && model.getDes().length() > 2) {
-            viewHolder.cycleTv.setText("周期" + model.getDes() + "个月");
-        }
-        viewHolder.passingRateTv.setText(String.valueOf(model.getPassingRate()));
-        viewHolder.tagTv.setText(model.getTag());
-        viewHolder.productNameTv.setText(model.getProductName());
-        ILFactory.getLoader().loadNet(viewHolder.productImg, Api.API_BASE_URL + model.getProductLogo(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-        viewHolder.limitTv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
+            viewHolder.cycleTv.setText("1-" + model.getFan_time());
+        viewHolder.tagTv.setText(model.getInfo());
+        viewHolder.productNameTv.setText(model.getTitle());
+        ILFactory.getLoader().loadNet(viewHolder.productImg, Api.API_BASE_URL + model.getImgs(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        viewHolder.limitTv.setText(model.getMax_money());
         viewHolder.clickView.setOnClickListener(v -> {
             getRecItemClick().onItemClick(i, model, 1, viewHolder);
         });

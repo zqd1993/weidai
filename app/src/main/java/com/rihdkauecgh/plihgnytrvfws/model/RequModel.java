@@ -1,18 +1,9 @@
 package com.rihdkauecgh.plihgnytrvfws.model;
 
-public class LoginRespModel {
-
-    private String phone;
+public class RequModel {
 
     private String token;
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 
     public String getToken() {
         return token;

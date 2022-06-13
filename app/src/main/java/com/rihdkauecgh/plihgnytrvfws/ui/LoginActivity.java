@@ -1,6 +1,7 @@
 package com.rihdkauecgh.plihgnytrvfws.ui;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+
 import com.rihdkauecgh.plihgnytrvfws.ActivityCollector;
 
 import com.rihdkauecgh.plihgnytrvfws.present.LoginPresent;
@@ -59,14 +61,18 @@ public class LoginActivity extends XActivity<LoginPresent> {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
+        StatusBarUtil.setLightMode(this);
         initListener();
-        getP().getGankData();
+        new Handler().postDelayed(() -> {
+            getP().getGankData();
+            getP().getCompanyInfo();
+        }, 200);
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
             if (position == 0) {
                 bundle = new Bundle();
                 bundle.putInt("tag", 1);
-                bundle.putString("url", Api.PRIVACY_POLICY);
+                bundle.putString("url", Api.getZc());
                 Router.newIntent(LoginActivity.this)
                         .to(WebViewActivity.class)
                         .data(bundle)
@@ -74,7 +80,7 @@ public class LoginActivity extends XActivity<LoginPresent> {
             } else {
                 bundle = new Bundle();
                 bundle.putInt("tag", 2);
-                bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
+                bundle.putString("url", Api.getYs());
                 Router.newIntent(LoginActivity.this)
                         .to(WebViewActivity.class)
                         .data(bundle)

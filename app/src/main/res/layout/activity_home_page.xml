@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="vertical"
-        android:background="@color/black">
+        android:background="@color/white">
 
 <!--        <View-->
 <!--            android:layout_width="match_parent"-->
@@ -27,12 +27,12 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:tl_iconGravity="LEFT"
+            app:tl_iconGravity="TOP"
             app:tl_iconHeight="27dp"
             app:tl_iconMargin="7dp"
             app:tl_iconVisible="true"
             app:tl_iconWidth="27dp"
-            app:tl_textSelectColor="@color/color_f5dbaa"
+            app:tl_textSelectColor="@color/colorPrimary"
             app:tl_textUnselectColor="#676767"
             app:tl_textsize="14sp"
             app:tl_indicator_height="0dp"/>

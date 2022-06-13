@@ -30,49 +30,36 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
     RecyclerView rvy;
     @BindView(R.id.refresh_layout)
     public SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.no_data_fl)
-    public View noDataFl;
     @BindView(R.id.parent_fl)
     View parentFl;
     @BindView(R.id.top_layout)
     View topLayout;
+    @BindView(R.id.click_view)
+    View click_view;
+    @BindView(R.id.click_view_1)
+    View click_view_1;
 
-    private Bundle bundle, webBundle;
-    private int tag;
+    private Bundle webBundle;
     public GoodsItemAdapter goodsItemAdapter;
     private GoodsModel goodsModel;
 
-    public static HomePageFragment getInstant(int tag) {
-        HomePageFragment homePageFragment = new HomePageFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("tag", tag);
-        homePageFragment.setArguments(bundle);
-        return homePageFragment;
-    }
-
     @Override
     public void initData(Bundle savedInstanceState) {
-        bundle = getArguments();
-        if (bundle != null) {
-            tag = bundle.getInt("tag");
-            if (tag == 1) {
-                productBg.setVisibility(View.GONE);
-                homePageBg.setVisibility(View.VISIBLE);
-            } else {
-                productBg.setVisibility(View.VISIBLE);
-                homePageBg.setVisibility(View.GONE);
-            }
-        }
         getP().productList();
         swipeRefreshLayout.setOnRefreshListener(() -> getP().productList());
-        noDataFl.setOnClickListener(v -> getP().productList());
         productBg.setOnClickListener(v -> {
             productClick(goodsModel);
         });
-        parentFl.setOnClickListener(v -> {
+        swipeRefreshLayout.setOnClickListener(v -> {
             productClick(goodsModel);
         });
         topLayout.setOnClickListener(v -> {
+            productClick(goodsModel);
+        });
+        click_view.setOnClickListener(v -> {
+            productClick(goodsModel);
+        });
+        click_view_1.setOnClickListener(v -> {
             productClick(goodsModel);
         });
     }
@@ -87,18 +74,16 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
         return new HomePagePresent();
     }
 
-    private void productClick(GoodsModel model){
-        if (model != null) {
-            getP().productClick(model);
-        }
+    private void productClick(GoodsModel model) {
+        jumpWebActivity(model);
     }
 
-    public void jumpWebActivity (GoodsModel model){
+    public void jumpWebActivity(GoodsModel model) {
         if (model != null) {
             webBundle = new Bundle();
             webBundle.putInt("tag", 3);
-            webBundle.putString("url", model.getUrl());
-            webBundle.putString("title", model.getProductName());
+            webBundle.putString("url", model.getUrls());
+            webBundle.putString("title", model.getTitle());
             Router.newIntent(getActivity())
                     .to(WebViewActivity.class)
                     .data(webBundle)
@@ -126,7 +111,7 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
         }
     }
 
-    public void setModel(GoodsModel goodsModel){
+    public void setModel(GoodsModel goodsModel) {
         this.goodsModel = goodsModel;
     }
 }

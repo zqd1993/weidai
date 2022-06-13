@@ -1,9 +1,11 @@
 package com.rihdkauecgh.plihgnytrvfws.ui.fragment;
 
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rihdkauecgh.plihgnytrvfws.R;
@@ -35,12 +37,14 @@ public class MineFragment extends XFragment {
     RecyclerView rvy;
     @BindView(R.id.phone_tv)
     TextView phoneTv;
+    @BindView(R.id.rvy_1)
+    RecyclerView rvy1;
 
-    private MineAdapter mineAdapter;
-    private List<MineItemModel> list;
-    private int[] imgRes = {R.drawable.wd_icon_zcxy, R.drawable.wd_icon_ysxy, R.drawable.wd_icon_yjfk, R.drawable.wd_icon_gywm,
-            R.drawable.wd_icon_xxts, R.drawable.wd_tsyx, R.drawable.wd_icon_zcz, R.drawable.wd_icon_zczh};
-    private String[] tvRes = {"注册协议", "隐私协议", "意见反馈", "关于我们", "个性化推荐", "投诉邮箱", "注销账户", "退出登录"};
+    private MineAdapter mineAdapter, mineAdapter1;
+    private List<MineItemModel> list, list1;
+    private int[] imgRes = {R.drawable.wd_tsyx, R.drawable.wd_icon_yjfk, R.drawable.wd_icon_ysxy, R.drawable.wd_icon_gywm,
+            R.drawable.wd_icon_xxts, R.drawable.wd_icon_zczh};
+    private String[] tvRes = {"投诉邮箱", "注册协议", "隐私协议", "关于我们", "关闭个性化推荐", "注销账户"};
     private Bundle bundle;
     private NormalDialog normalDialog;
     private String mailStr = "", phone = "";
@@ -48,16 +52,22 @@ public class MineFragment extends XFragment {
     @Override
     public void initData(Bundle savedInstanceState) {
         list = new ArrayList<>();
+        list1 = new ArrayList<>();
         mailStr = SharedPreferencesUtilis.getStringFromPref("APP_MAIL");
         phone = SharedPreferencesUtilis.getStringFromPref("phone");
         phoneTv.setText(phone);
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 6; i++) {
             MineItemModel model = new MineItemModel();
             model.setImgRes(imgRes[i]);
             model.setItemTv(tvRes[i]);
-            list.add(model);
+            if (i < 2) {
+                list.add(model);
+            } else {
+                list1.add(model);
+            }
         }
         initAdapter();
+        initAdapter1();
     }
 
     @Override
@@ -81,34 +91,54 @@ public class MineFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
+                            normalDialog = new NormalDialog(getActivity());
+                            normalDialog.setTitle("温馨提示")
+                                    .setContent(mailStr)
+                                    .showOnlyBtn().show();
+                            break;
+                        case 1:
                             bundle = new Bundle();
                             bundle.putInt("tag", 1);
-                            bundle.putString("url", Api.PRIVACY_POLICY);
+                            bundle.putString("url", Api.getZc());
+                            Router.newIntent(getActivity())
+                                    .to(WebViewActivity.class)
+                                    .data(bundle)
+                                    .launch();
+                            break;
+                    }
+                }
+            });
+            rvy.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rvy.setHasFixedSize(true);
+            rvy.setAdapter(mineAdapter);
+        }
+    }
+
+    private void initAdapter1() {
+        if (mineAdapter1 == null) {
+            mineAdapter1 = new MineAdapter(getActivity());
+            mineAdapter1.setData(list1);
+            mineAdapter1.setHasStableIds(true);
+            mineAdapter1.setRecItemClick(new RecyclerItemCallback<MineItemModel, MineAdapter.ViewHolder>() {
+                @Override
+                public void onItemClick(int position, MineItemModel model, int tag, MineAdapter.ViewHolder holder) {
+                    super.onItemClick(position, model, tag, holder);
+                    switch (position) {
+                        case 0:
+                            bundle = new Bundle();
+                            bundle.putInt("tag", 2);
+                            bundle.putString("url", Api.getYs());
                             Router.newIntent(getActivity())
                                     .to(WebViewActivity.class)
                                     .data(bundle)
                                     .launch();
                             break;
                         case 1:
-                            bundle = new Bundle();
-                            bundle.putInt("tag", 2);
-                            bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                            Router.newIntent(getActivity())
-                                    .to(WebViewActivity.class)
-                                    .data(bundle)
-                                    .launch();
-                            break;
-                        case 2:
-                            Router.newIntent(getActivity())
-                                    .to(FeedBackActivity.class)
-                                    .launch();
-                            break;
-                        case 3:
                             Router.newIntent(getActivity())
                                     .to(AboutUsActivity.class)
                                     .launch();
                             break;
-                        case 4:
+                        case 2:
                             normalDialog = new NormalDialog(getActivity());
                             normalDialog.setTitle("温馨提示")
                                     .setContent("关闭或开启推送")
@@ -123,26 +153,18 @@ public class MineFragment extends XFragment {
                                         normalDialog.dismiss();
                                     }).show();
                             break;
-                        case 5:
+                        case 3:
+//                            Router.newIntent(getActivity())
+//                                    .to(CancellationAccountActivity.class)
+//                                    .launch();
                             normalDialog = new NormalDialog(getActivity());
                             normalDialog.setTitle("温馨提示")
-                                    .setContent(mailStr)
-                                    .showOnlyBtn().show();
-                            break;
-                        case 6:
-                            Router.newIntent(getActivity())
-                                    .to(CancellationAccountActivity.class)
-                                    .launch();
-                            break;
-                        case 7:
-                            normalDialog = new NormalDialog(getActivity());
-                            normalDialog.setTitle("温馨提示")
-                                    .setContent("确定退出当前登录")
+                                    .setContent("确定注销账号并退出当前登录?")
                                     .setCancelText("取消")
                                     .setLeftListener(v -> {
                                         normalDialog.dismiss();
                                     })
-                                    .setConfirmText("退出")
+                                    .setConfirmText("确定")
                                     .setRightListener(v -> {
                                         normalDialog.dismiss();
                                         SharedPreferencesUtilis.saveStringIntoPref("phone", "");
@@ -155,9 +177,9 @@ public class MineFragment extends XFragment {
                     }
                 }
             });
-            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-            rvy.setHasFixedSize(true);
-            rvy.setAdapter(mineAdapter);
+            rvy1.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rvy1.setHasFixedSize(true);
+            rvy1.setAdapter(mineAdapter1);
         }
     }
 

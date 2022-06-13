@@ -4,8 +4,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.rihdkauecgh.plihgnytrvfws.model.BaseRespModel;
+import com.rihdkauecgh.plihgnytrvfws.model.CompanyInfoModel;
 import com.rihdkauecgh.plihgnytrvfws.model.ConfigModel;
 import com.rihdkauecgh.plihgnytrvfws.model.LoginRespModel;
+import com.rihdkauecgh.plihgnytrvfws.model.LoginStatusModel;
 import com.rihdkauecgh.plihgnytrvfws.ui.HomePageActivity;
 import com.rihdkauecgh.plihgnytrvfws.ui.LoginActivity;
 import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesUtilis;
@@ -23,28 +25,47 @@ public class LoginPresent extends XPresent<LoginActivity> {
 
     public void getGankData() {
         Api.getGankService().getGankData()
-                .compose(XApi.<BaseRespModel<ConfigModel>>getApiTransformer())
-                .compose(XApi.<BaseRespModel<ConfigModel>>getScheduler())
-                .compose(getV().<BaseRespModel<ConfigModel>>bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
+                .compose(XApi.<LoginStatusModel>getApiTransformer())
+                .compose(XApi.<LoginStatusModel>getScheduler())
+                .compose(getV().<LoginStatusModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<LoginStatusModel>() {
                     @Override
                     protected void onFail(NetError error) {
                         StaticUtil.showError(getV(), error);
                     }
 
                     @Override
-                    public void onNext(BaseRespModel<ConfigModel> gankResults) {
-                        if (gankResults != null) {
-                            if (gankResults.getData() != null) {
-                                SharedPreferencesUtilis.saveStringIntoPref("APP_MAIL", gankResults.getData().getAppMail());
-                                if ("0".equals(gankResults.getData().getIsCodeLogin())) {
-                                    getV().verificationLl.setVisibility(View.GONE);
-                                } else {
-                                    getV().verificationLl.setVisibility(View.VISIBLE);
-                                }
-                                getV().isNeedChecked = "1".equals(gankResults.getData().getIsSelectLogin());
-                                getV().isNeedVerification = "1".equals(gankResults.getData().getIsCodeLogin());
-                                getV().remindCb.setChecked(getV().isNeedChecked);
+                    public void onNext(LoginStatusModel loginStatusModel) {
+                        if (loginStatusModel != null) {
+                            if ("1".equals(loginStatusModel.getIs_code_register())) {
+                                getV().verificationLl.setVisibility(View.GONE);
+                            } else {
+                                getV().verificationLl.setVisibility(View.VISIBLE);
+                            }
+                            getV().isNeedChecked = "0".equals(loginStatusModel.getIs_agree_check());
+                            getV().isNeedVerification = "0".equals(loginStatusModel.getIs_code_register());
+                            getV().remindCb.setChecked(getV().isNeedChecked);
+                        }
+                    }
+                });
+    }
+
+    public void getCompanyInfo() {
+        Api.getGankService().getCompanyInfo()
+                .compose(XApi.<BaseRespModel<CompanyInfoModel>>getApiTransformer())
+                .compose(XApi.<BaseRespModel<CompanyInfoModel>>getScheduler())
+                .compose(getV().<BaseRespModel<CompanyInfoModel>>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModel<CompanyInfoModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        StaticUtil.showError(getV(), error);
+                    }
+
+                    @Override
+                    public void onNext(BaseRespModel<CompanyInfoModel> loginStatusModel) {
+                        if (loginStatusModel != null) {
+                            if (loginStatusModel.getData() != null){
+                                SharedPreferencesUtilis.saveStringIntoPref("APP_MAIL", loginStatusModel.getData().getGsmail());
                             }
                         }
                     }
@@ -69,18 +90,17 @@ public class LoginPresent extends XPresent<LoginActivity> {
                     public void onNext(BaseRespModel<LoginRespModel> gankResults) {
                         getV().loadingFl.setVisibility(View.GONE);
                         getV().rotateLoading.stop();
-                        if (gankResults != null && gankResults.getCode() == 200) {
-                            if (gankResults.getData() != null && gankResults.getCode() == 200) {
+                        if (gankResults != null && gankResults.getCode() == 0) {
+                            if (gankResults.getData() != null) {
                                 SharedPreferencesUtilis.saveStringIntoPref("phone", phone);
-                                SharedPreferencesUtilis.saveIntIntoPref("mobileType", gankResults.getData().getMobileType());
-                                SharedPreferencesUtilis.saveStringIntoPref("ip", ip);
+                                SharedPreferencesUtilis.saveStringIntoPref("token", gankResults.getData().getToken());
                                 Router.newIntent(getV())
                                         .to(HomePageActivity.class)
                                         .launch();
                                 getV().finish();
                             }
                         } else {
-                            if (gankResults.getCode() == 500){
+                            if (gankResults.getCode() == 500) {
                                 ToastUtil.showShort(gankResults.getMsg());
                             }
                         }
@@ -102,8 +122,8 @@ public class LoginPresent extends XPresent<LoginActivity> {
                     @Override
                     public void onNext(BaseRespModel gankResults) {
                         if (gankResults != null) {
-                            if (gankResults.getCode() == 200) {
-                                ToastUtil.showShort("验证码发送成功");
+                            ToastUtil.showShort("验证码" + gankResults.getMsg());
+                            if (gankResults.getMsg().contains("成功")) {
                                 CountDownTimerUtils mCountDownTimerUtils = new CountDownTimerUtils(textView, 60000, 1000);
                                 mCountDownTimerUtils.start();
                             }

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.rihdkauecgh.plihgnytrvfws.R;
+import com.rihdkauecgh.plihgnytrvfws.ui.fragment.ProductFragment;
 import com.rihdkauecgh.plihgnytrvfws.utils.StatusBarUtil;
 import com.rihdkauecgh.plihgnytrvfws.utils.ToastUtil;
 import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
@@ -41,7 +42,8 @@ public class HomePageActivity extends XActivity<MainPresent> {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
-        getP().login();
+        StatusBarUtil.setLightMode(this);
+//        getP().login();
         customTabEntities = new ArrayList<>();
         homeViewPager.setUserInputEnabled(false);
         for (int i = 0; i < 3; i++) {
@@ -76,8 +78,8 @@ public class HomePageActivity extends XActivity<MainPresent> {
 
             }
         });
-        mFragments.add(HomePageFragment.getInstant(1));
-        mFragments.add(HomePageFragment.getInstant(2));
+        mFragments.add(new HomePageFragment());
+        mFragments.add(new ProductFragment());
         mFragments.add(new MineFragment());
 
         homeViewPager.setAdapter(new MyFragmentAdapter(getSupportFragmentManager(), getLifecycle(), mFragments));

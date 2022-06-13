@@ -1,28 +1,25 @@
 package com.rihdkauecgh.plihgnytrvfws.present;
 
-import android.view.View;
-import android.widget.Toast;
-
 import com.google.gson.Gson;
 import com.rihdkauecgh.plihgnytrvfws.model.BaseRespModel;
 import com.rihdkauecgh.plihgnytrvfws.model.GoodsModel;
 import com.rihdkauecgh.plihgnytrvfws.model.RequModel;
-import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesUtilis;
-import com.rihdkauecgh.plihgnytrvfws.utils.StaticUtil;
 import com.rihdkauecgh.plihgnytrvfws.mvp.XPresent;
 import com.rihdkauecgh.plihgnytrvfws.net.Api;
 import com.rihdkauecgh.plihgnytrvfws.net.ApiSubscriber;
 import com.rihdkauecgh.plihgnytrvfws.net.NetError;
 import com.rihdkauecgh.plihgnytrvfws.net.XApi;
 import com.rihdkauecgh.plihgnytrvfws.ui.fragment.HomePageFragment;
-import com.rihdkauecgh.plihgnytrvfws.utils.ToastUtil;
+import com.rihdkauecgh.plihgnytrvfws.ui.fragment.ProductFragment;
+import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesUtilis;
+import com.rihdkauecgh.plihgnytrvfws.utils.StaticUtil;
 
 import java.util.List;
 
 import okhttp3.RequestBody;
 
 
-public class HomePagePresent extends XPresent<HomePageFragment> {
+public class ProductPresent extends XPresent<ProductFragment> {
 
     private int mobileType;
 

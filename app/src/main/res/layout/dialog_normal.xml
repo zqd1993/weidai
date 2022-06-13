@@ -73,7 +73,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/cancel"
-                    android:textColor="@color/color_f5dbaa"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="15sp" />
 
                 <View
@@ -110,7 +110,7 @@
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"
                     android:text="确定"
-                    android:textColor="@color/color_f5dbaa" />
+                    android:textColor="@color/colorPrimary" />
 
 
             </LinearLayout>
