@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.fjx.gkdcwf.weidgt.KuaiJieScrollYSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.fjxl.gkdcwf.weidgt.KuaiJieScrollYSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -294,4 +294,4 @@
 
     </LinearLayout>
 
-</com.fjx.gkdcwf.weidgt.KuaiJieScrollYSwipeRefreshLayout>
+</com.fjxl.gkdcwf.weidgt.KuaiJieScrollYSwipeRefreshLayout>
