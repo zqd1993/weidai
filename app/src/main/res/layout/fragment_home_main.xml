@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.rtvfbgfh.yuiyjghn.w.ScrollYSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.fghyugfg.mjkyhgb.w.ScrollYSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/swipeRefreshLayout"
@@ -86,7 +86,7 @@
                     android:orientation="vertical"
                     android:visibility="gone"/>
 
-                <com.rtvfbgfh.yuiyjghn.w.MyBanner
+                <com.fghyugfg.mjkyhgb.w.MyBanner
                     android:id="@+id/banner1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -142,4 +142,4 @@
 
     </LinearLayout>
 
-</com.rtvfbgfh.yuiyjghn.w.ScrollYSwipeRefreshLayout>
+</com.fghyugfg.mjkyhgb.w.ScrollYSwipeRefreshLayout>

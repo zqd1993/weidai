@@ -228,7 +228,7 @@
                     android:layout_height="20dp"
                     android:button="@drawable/checkbox_bg" />
 
-                <com.rtvfbgfh.yuiyjghn.w.ClickTextView
+                <com.fghyugfg.mjkyhgb.w.ClickTextView
                     android:id="@+id/read_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

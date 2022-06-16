@@ -53,7 +53,7 @@
             android:textSize="@dimen/textSize_16"
             tools:text="温馨提示" />
 
-        <com.rtvfbgfh.yuiyjghn.w.ClickTextView
+        <com.fghyugfg.mjkyhgb.w.ClickTextView
             android:id="@+id/tv_txt"
             android:visibility="visible"
             android:layout_width="wrap_content"

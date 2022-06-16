@@ -4,13 +4,13 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.rtvfbgfh.yuiyjghn",
+  "applicationId": "com.fghyugfg.mjkyhgb",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 20220606,
+      "versionCode": 20220616,
       "versionName": "1.0.0",
       "outputFile": "renren_v1.0.0.apk"
     }
