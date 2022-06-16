@@ -6,7 +6,7 @@ ext {
             minSdkVersion    : 21,
             targetSdkVersion : 28,
 
-            versionCode      : 20220607,
+            versionCode      : 20220616,
             versionName      : '1.0.0',
             keyAlias         : "bghrty",
             keyPassword      : "mima112233",

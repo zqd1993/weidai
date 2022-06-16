@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bghfr.yrtweb">
+    package="com.dlnsg.ytjwhbm">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
-        android:name="com.bghfr.yrtweb.BaseApp"
+        android:name="com.dlnsg.ytjwhbm.BaseApp"
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
@@ -20,7 +20,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.bghfr.yrtweb.a.KaiShiActivity"
+            android:name="com.dlnsg.ytjwhbm.a.KaiShiActivity"
             android:icon="@mipmap/app_logo"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -31,33 +31,33 @@
         </activity>
 
         <activity
-            android:name="com.bghfr.yrtweb.a.DengLuActivity"
+            android:name="com.dlnsg.ytjwhbm.a.DengLuActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.bghfr.yrtweb.a.WangYeActivity"
+            android:name="com.dlnsg.ytjwhbm.a.WangYeActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.bghfr.yrtweb.a.ZhuYeActivity"
+            android:name="com.dlnsg.ytjwhbm.a.ZhuYeActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.bghfr.yrtweb.a.FankuiActivity"
+            android:name="com.dlnsg.ytjwhbm.a.FankuiActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.bghfr.yrtweb.a.AppMsgActivity"
+            android:name="com.dlnsg.ytjwhbm.a.AppMsgActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
 
         <activity
-            android:name="com.bghfr.yrtweb.a.ZXActivity"
+            android:name="com.dlnsg.ytjwhbm.a.ZXActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
@@ -72,7 +72,7 @@
                 android:resource="@xml/file_path" />
         </provider>
 
-        <meta-data android:value="629d692e05844627b5a1152a" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="62ab036c05844627b5b53c40" android:name="UMENG_APPKEY"/>
 
     </application>
 
