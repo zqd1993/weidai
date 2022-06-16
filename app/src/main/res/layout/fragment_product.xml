@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_f4f4f4">
+
+    <TextView
+        android:id="@+id/product_bg"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/white"
+        android:gravity="bottom|center_horizontal"
+        android:paddingBottom="20dp"
+        android:text="精选商品"
+        android:textColor="@color/text_normal_color"
+        android:textSize="@dimen/textSize_16"
+        android:textStyle="bold"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
@@ -16,18 +28,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/product_bg"
-                android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:background="@color/white"
-                android:gravity="bottom|center_horizontal"
-                android:paddingBottom="30dp"
-                android:text="精选商品"
-                android:textColor="@color/text_normal_color"
-                android:textSize="@dimen/textSize_16"
-                android:textStyle="bold"/>
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvy"
                 android:layout_width="match_parent"
@@ -39,4 +39,4 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-</FrameLayout>
+</LinearLayout>

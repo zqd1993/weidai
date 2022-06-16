@@ -8,7 +8,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical">
@@ -17,8 +18,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@mipmap/app_logo"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="90dp"/>
+            android:layout_gravity="center_horizontal"/>
 
             <EditText
                 android:id="@+id/phone_et"
@@ -117,7 +117,7 @@
                 android:layout_height="20dp"
                 android:button="@drawable/checkbox_bg" />
 
-            <com.rihdkauecgh.plihgnytrvfws.widget.SpanTextView
+            <com.retgdfvfdg.hgtrgvbdfs.widget.SpanTextView
                 android:id="@+id/login_remind_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

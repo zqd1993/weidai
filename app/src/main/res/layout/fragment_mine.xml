@@ -19,11 +19,11 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="80dp"
+                android:layout_gravity="center_horizontal"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="80dp"
@@ -34,7 +34,6 @@
                     android:id="@+id/phone_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:textSize="16sp"
                     android:textColor="@color/white"
                     android:text="12345679"/>
@@ -48,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="-60dp"
             app:hl_cornerRadius="10dp"
             app:hl_layoutBackground="@color/white">
 
@@ -56,30 +55,23 @@
                 android:id="@+id/rvy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:overScrollMode="never"/>
 
         </com.lihang.ShadowLayout>
 
-        <com.lihang.ShadowLayout
+        <TextView
+            android:id="@+id/logout_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginTop="10dp"
-            app:hl_cornerRadius="10dp"
-            app:hl_layoutBackground="@color/white">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvy_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:overScrollMode="never"/>
-
-        </com.lihang.ShadowLayout>
+            android:textColor="@color/white"
+            android:background="@drawable/bg_corner_50_f5dbaa"
+            android:text="退出登录" />
 
     </LinearLayout>
 

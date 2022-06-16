@@ -8,6 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_centerInParent="true"
         android:background="@drawable/bg_corner_10_white"
         android:orientation="vertical"
@@ -20,12 +22,13 @@
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:gravity="center"
+            android:textStyle="bold"
             android:lines="1"
             android:textColor="@color/text_normal_color"
             android:textSize="@dimen/textSize_16"
             tools:text="标题单" />
 
-        <com.rihdkauecgh.plihgnytrvfws.widget.SpanTextView
+        <com.retgdfvfdg.hgtrgvbdfs.widget.SpanTextView
             android:id="@+id/tv_content"
             android:visibility="visible"
             android:layout_width="wrap_content"
@@ -34,7 +37,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:textColor="@color/text_normal_color"
+            android:textColor="#808080"
             android:textSize="14sp"
             tools:text="说明当前状态、提示用户解决方案 ，最好不要超过两行说明当前状态、提示用户解决方案 ，最好不要" />
 
@@ -67,7 +70,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:textColor="@color/text_normal_color"
-                android:text="不同意并退出" />
+                android:text="退出应用" />
 
         </LinearLayout>
 

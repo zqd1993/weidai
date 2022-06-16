@@ -189,14 +189,14 @@
                                     android:id="@+id/passing_rate_tv"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="2"
+                                    android:text="2个月"
                                     android:textColor="@color/colorPrimary"
                                     android:textSize="12sp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="免息贷款"
+                                    android:text="免息期"
                                     android:textColor="@color/color_999999"
                                     android:textSize="12sp" />
 
