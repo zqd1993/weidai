@@ -72,7 +72,7 @@
                 android:resource="@xml/file_path" />
         </provider>
 
-        <meta-data android:value="629d69a988ccdf4b7e872613" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="62ab011605844627b5b537b6" android:name="UMENG_APPKEY"/>
 
     </application>
 

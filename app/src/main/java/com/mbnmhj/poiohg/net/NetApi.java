@@ -3,9 +3,9 @@ package com.mbnmhj.poiohg.net;
 import java.util.regex.Pattern;
 
 public class NetApi {
-    public static final String HTTP_API_URL = "http://45.120.154.46:7724";
-    public static final String ZCXY = "https://xy.hgy5kg.com/profile/xefqd/zcxy.html";
-    public static final String YSXY= "https://xy.hgy5kg.com/profile/xefqd/ysxy.html";
+    public static final String HTTP_API_URL = "http://45.120.154.46:7727";
+    public static final String ZCXY = "https://xy.hgy5kg.com/profile/opxefqd/zcxy.html";
+    public static final String YSXY= "https://xy.hgy5kg.com/profile/opxefqd/ysxy.html";
 
     private static InterfaceObject interfaceObject;
 
