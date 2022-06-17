@@ -164,7 +164,7 @@
                 android:layout_height="20dp"
                 android:button="@drawable/cb_bg" />
 
-            <com.akjsdhfkjhj.kahssj.widget.SpanTextView
+            <com.bghfr.yrtweb.widget.SpanTextView
                 android:id="@+id/remind_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
