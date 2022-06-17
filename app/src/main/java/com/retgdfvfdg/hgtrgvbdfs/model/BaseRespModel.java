@@ -6,7 +6,7 @@ public class BaseRespModel<T> implements IModel {
 
     private int code;
 
-    private String message;
+    private String msg;
 
     private T data;
 
@@ -19,11 +19,11 @@ public class BaseRespModel<T> implements IModel {
     }
 
     public String getMsg() {
-        return message;
+        return msg;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public T getData() {

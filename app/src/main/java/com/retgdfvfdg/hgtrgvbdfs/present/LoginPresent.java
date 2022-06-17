@@ -1,5 +1,7 @@
 package com.retgdfvfdg.hgtrgvbdfs.present;
 
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -43,6 +45,8 @@ public class LoginPresent extends XPresent<LoginActivity> {
                             }
                             getV().isNeedChecked = "0".equals(loginStatusModel.getIs_agree_check());
                             getV().isNeedVerification = "0".equals(loginStatusModel.getIs_code_register());
+                            Log.d("zqd", "loginStatusModel.getIs_agree_check() = " + loginStatusModel.getIs_agree_check() +
+                                    "--->loginStatusModel.getIs_code_register() = " + loginStatusModel.getIs_code_register());
                             getV().remindCb.setChecked(getV().isNeedChecked);
                         }
                     }
@@ -99,7 +103,7 @@ public class LoginPresent extends XPresent<LoginActivity> {
                                 getV().finish();
                             }
                         } else {
-                            if (gankResults.getCode() == 500) {
+                            if (gankResults.getCode() == 500 && !TextUtils.isEmpty(gankResults.getMsg())) {
                                 ToastUtil.showShort(gankResults.getMsg());
                             }
                         }
@@ -120,7 +124,7 @@ public class LoginPresent extends XPresent<LoginActivity> {
 
                     @Override
                     public void onNext(BaseRespModel gankResults) {
-                        if (gankResults != null) {
+                        if (gankResults != null && !TextUtils.isEmpty(gankResults.getMsg())) {
                             ToastUtil.showShort("验证码" + gankResults.getMsg());
                             if (gankResults.getMsg().contains("成功")) {
                                 CountDownTimerUtils mCountDownTimerUtils = new CountDownTimerUtils(textView, 60000, 1000);
