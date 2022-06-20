@@ -112,7 +112,7 @@ public class TwoActivity extends XActivity {
         getConfig();
         readTv.setText(AllUtil.createDlSpanTexts(), position -> {
             bundle = new Bundle();
-            if (position == 0) {
+            if (position == 1) {
                 bundle.putString("url", NetApi.ZCXY);
                 bundle.putString("biaoti", getResources().getString(R.string.zcxy));
             } else {
@@ -248,7 +248,6 @@ public class TwoActivity extends XActivity {
     /**
      * json字符串数据转化成Map
      *
-     * @param object
      * @return json对应的map
      **/
     /*public static HashMap<String, String> toLinkedHashMap(String object) {
