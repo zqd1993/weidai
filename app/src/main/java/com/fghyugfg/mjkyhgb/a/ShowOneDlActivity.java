@@ -62,7 +62,7 @@ public class ShowOneDlActivity extends XActivity {
         getConfig();
         readTv.setText(OpenMethodUtil.createDlSpanTexts(), position -> {
             bundle = new Bundle();
-            if (position == 0) {
+            if (position == 1) {
                 bundle.putString("url", NewApi.ZCXY);
                 bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
             } else {

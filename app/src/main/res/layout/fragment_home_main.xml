@@ -76,15 +76,20 @@
                 android:layout_height="match_parent"
                 android:paddingTop="30dp">
 
-
-                <LinearLayout
-                    android:id="@+id/goods_list_ll"
+                <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:orientation="vertical"
-                    android:visibility="gone"/>
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/goods_list_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:orientation="vertical"
+                        android:visibility="gone"/>
+
+                </androidx.core.widget.NestedScrollView>
 
                 <com.fghyugfg.mjkyhgb.w.MyBanner
                     android:id="@+id/banner1"
