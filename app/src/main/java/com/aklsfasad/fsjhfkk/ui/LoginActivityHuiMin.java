@@ -153,7 +153,7 @@ public class LoginActivityHuiMin extends XActivity<LoginPresentHuiMin> {
                 ToastUtilHuiMin.showShort("验证码不能为空");
                 return;
             }
-            if (!remindCb.isChecked() && isNeedChecked) {
+            if (!remindCb.isChecked()) {
                 ToastUtilHuiMin.showShort("请阅读用户协议及隐私政策");
                 return;
             }
