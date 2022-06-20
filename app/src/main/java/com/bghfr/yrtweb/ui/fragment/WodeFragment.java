@@ -69,7 +69,7 @@ public class WodeFragment extends XFragment {
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        mailStr = SPUtilis.getStringFromPref("app_mail");
+        mailStr = SPUtilis.getStringFromPref("APP_MAIL");
         phone = SPUtilis.getStringFromPref("phone");
         phoneTv.setText(phone);
         productList();

@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+
 import com.bghfr.yrtweb.ActivityCollector;
 
 import com.bghfr.yrtweb.present.DlPresent;
@@ -70,8 +71,8 @@ public class LoginActivityHuiMin extends XActivity<DlPresent> {
         getP().getGankData();
         getIp();
         remindTv.setText(createSpanTexts(), position -> {
-            switch (position){
-                case 0:
+            switch (position) {
+                case 1:
                     bundle = new Bundle();
                     bundle.putInt("tag", 1);
                     bundle.putString("url", Api.PRIVACY_POLICY);

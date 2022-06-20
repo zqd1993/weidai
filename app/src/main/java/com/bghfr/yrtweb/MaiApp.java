@@ -79,17 +79,6 @@ public class MaiApp extends Application {
                 return false;
             }
         });
-        //设置LOG开关，默认为false
-        UMConfigure.setLogEnabled(true);
-        UMConfigure.preInit(getApplicationContext(), "62975d2705844627b59d917a", "Umeng");
-        /**
-         * 打开app首次隐私协议授权，以及sdk初始化，判断逻辑请查看SplashTestActivity
-         */
-        //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
-        if (SPUtilis.getStringFromPref("uminit").equals("1")) {
-            //友盟正式初始化
-            UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
-        }
     }
 
     public static Context getContext() {
