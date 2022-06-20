@@ -10,9 +10,9 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 20220610,
-      "versionName": "1.0.1",
-      "outputFile": "huimin_op_v1.0.1_build_20220620171237.apk"
+      "versionCode": 20220620,
+      "versionName": "1.0.2",
+      "outputFile": "huimin_op_v1.0.2_build_20220620224712.apk"
     }
   ]
 }
