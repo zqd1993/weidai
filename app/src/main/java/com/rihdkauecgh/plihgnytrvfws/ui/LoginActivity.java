@@ -63,7 +63,7 @@ public class LoginActivity extends XActivity<LoginPresent> {
         getP().getGankData();
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
-            if (position == 0) {
+            if (position == 1) {
                 bundle = new Bundle();
                 bundle.putInt("tag", 1);
                 bundle.putString("url", Api.PRIVACY_POLICY);

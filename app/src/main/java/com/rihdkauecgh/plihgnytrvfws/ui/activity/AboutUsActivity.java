@@ -6,7 +6,9 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 
+import com.rihdkauecgh.plihgnytrvfws.App;
 import com.rihdkauecgh.plihgnytrvfws.R;
+import com.rihdkauecgh.plihgnytrvfws.utils.StaticUtil;
 import com.rihdkauecgh.plihgnytrvfws.utils.StatusBarUtil;
 import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
 
@@ -16,12 +18,15 @@ public class AboutUsActivity extends XActivity {
     TextView titleTv;
     @BindView(R.id.back_img)
     ImageView backImg;
+    @BindView(R.id.version_code_tv)
+    TextView version_code_tv;
 
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("关于");
+        version_code_tv.setText(StaticUtil.getAppVersionName(App.getContext()));
     }
 
     @Override
