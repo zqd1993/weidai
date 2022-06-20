@@ -88,7 +88,7 @@ public class DlActivity extends XActivity {
                 MyToast.showShort("请输入验证码");
                 return;
             }
-            if (!remindCb.isChecked() && isChecked){
+            if (!remindCb.isChecked()){
                 MyToast.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
