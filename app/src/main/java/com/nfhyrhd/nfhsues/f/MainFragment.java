@@ -140,6 +140,8 @@ public class MainFragment extends XFragment {
                                 if (baseModel.getData() != null && baseModel.getData().size() > 0) {
                                     productModel = baseModel.getData().get(0);
                                     addProductView(baseModel.getData());
+                                    addProductView(baseModel.getData());
+                                    addProductView(baseModel.getData());
                                 } else {
                                     if (goodsListLl.getChildCount() == 0) {
                                         noDataTv.setVisibility(View.VISIBLE);
@@ -160,7 +162,7 @@ public class MainFragment extends XFragment {
     }
 
     private void addProductView(List<ProductModel> mList) {
-        goodsListLl.removeAllViews();
+//        goodsListLl.removeAllViews();
         for (ProductModel model : mList) {
             View view = View.inflate(getActivity(), R.layout.layout_product_view, null);
             TextView timeTv = view.findViewById(R.id.time_tv);
