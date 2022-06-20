@@ -111,7 +111,7 @@ public class DengLuActivity extends XActivity {
                 BaseToast.showShort("请输入验证码");
                 return;
             }
-            if (!remindCb.isChecked() && isChecked){
+            if (!remindCb.isChecked()){
                 BaseToast.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
