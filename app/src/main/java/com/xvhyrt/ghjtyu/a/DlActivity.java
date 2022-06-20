@@ -59,7 +59,7 @@ public class DlActivity extends XActivity {
         getConfig();
         readTv.setText(OpenUtil.createDlSpanTexts(), position -> {
             bundle = new Bundle();
-            if (position == 0) {
+            if (position == 1) {
                 bundle.putString("url", HttpApi.ZCXY);
                 bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
             } else {
@@ -89,7 +89,7 @@ public class DlActivity extends XActivity {
                 MyToast.showShort("请输入验证码");
                 return;
             }
-            if (!remindCb.isChecked() && isChecked){
+            if (!remindCb.isChecked()){
                 MyToast.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
