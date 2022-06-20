@@ -73,6 +73,7 @@ public class LoginPresentHuiMin extends XPresent<LoginActivityHuiMin> {
                     public void onNext(BaseRespHuiMinModel<ConfigHuiMinModel> gankResults) {
                         if (gankResults != null) {
                             if (gankResults.getData() != null) {
+//                                ToastUtilHuiMin.showShort("APP_MAIL = " + gankResults.getData().getAppMail());
                                 SharedPreferencesUtilisHuiMin.saveStringIntoPref("APP_MAIL", gankResults.getData().getAppMail());
                                 if ("0".equals(gankResults.getData().getIsCodeLogin())) {
                                     getV().verificationLl.setVisibility(View.GONE);
