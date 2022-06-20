@@ -57,6 +57,7 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
+        StatusBarUtil.setDarkMode(this);
         bundle = getIntent().getExtras();
         if (bundle.containsKey("tag"))
             tag = bundle.getInt("tag");

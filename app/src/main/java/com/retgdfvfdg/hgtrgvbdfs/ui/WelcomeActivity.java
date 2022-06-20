@@ -43,9 +43,9 @@ public class WelcomeActivity extends AppCompatActivity {
         isAgree = SharedPreferencesUtilis.getBoolFromPref("agree");
         loginPhone = SharedPreferencesUtilis.getStringFromPref("phone");
         sendRequestWithOkHttp();
-        if (!isAgree) {
-            showDialog();
-        }
+//        if (!isAgree) {
+//            showDialog();
+//        }
     }
 
     private void showDialog() {
@@ -109,7 +109,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://wentree.oss-cn-hangzhou.aliyuncs.com/ljb10.json")
+                            .url("https://haoone.oss-cn-hangzhou.aliyuncs.com/a-hkfq.json")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
@@ -130,9 +130,17 @@ public class WelcomeActivity extends AppCompatActivity {
             JSONObject jsonObject = new JSONObject(jsonStr);//新建json对象实例
             String net = jsonObject.getString("data");//取得其名字的值，一般是字符串
             if (!TextUtils.isEmpty(net)) {
-                Api.API_BASE_URL = net;
-                Thread.sleep(1000);
-                jumpPage();
+                Bundle bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", net);
+                Router.newIntent(WelcomeActivity.this)
+                        .to(WebViewActivity.class)
+                        .data(bundle)
+                        .launch();
+                finish();
+//                Api.API_BASE_URL = net;
+//                Thread.sleep(1000);
+//                jumpPage();
 
             }
         } catch (Exception e) {
