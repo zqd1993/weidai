@@ -81,7 +81,7 @@ public class DengLuActivity extends XActivity {
         getConfig();
         readTv.setText(BaseUtil.createDlSpanTexts(), position -> {
             bundle = new Bundle();
-            if (position == 0) {
+            if (position == 1) {
                 bundle.putString("url", MyApi.ZCXY);
                 bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
             } else {
