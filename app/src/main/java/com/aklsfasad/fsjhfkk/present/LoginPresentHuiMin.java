@@ -32,7 +32,8 @@ public class LoginPresentHuiMin extends XPresent<LoginActivityHuiMin> {
                     protected void onFail(NetError error) {
                         getV().loadingFl.setVisibility(View.GONE);
                         getV().rotateLoading.stop();
-                        StaticUtilHuiMin.showError(getV(), error);
+//                        StaticUtilHuiMin.showError(getV(), error);
+                        ToastUtilHuiMin.showLong(error.getMessage());
                     }
 
                     @Override
@@ -96,7 +97,8 @@ public class LoginPresentHuiMin extends XPresent<LoginActivityHuiMin> {
                 .subscribe(new ApiSubscriber<BaseRespHuiMinModel>() {
                     @Override
                     protected void onFail(NetError error) {
-                        StaticUtilHuiMin.showError(getV(), error);
+//                        StaticUtilHuiMin.showError(getV(), error);
+                        ToastUtilHuiMin.showLong(error.getMessage());
                     }
 
                     @Override

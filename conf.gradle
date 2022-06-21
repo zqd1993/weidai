@@ -6,8 +6,8 @@ ext {
             minSdkVersion    : 21,
             targetSdkVersion : 29,
 
-            versionCode      : 20220620,
-            versionName      : '1.0.2',
+            versionCode      : 20220622,
+            versionName      : '1.0.3',
 
             VSupportSdk      : '27.1.1',
             VRetrofitSdk     : "2.2.0",
