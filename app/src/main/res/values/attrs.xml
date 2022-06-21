@@ -5,4 +5,9 @@
         <attr name="buttonColor" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="ProportionFrameLayout">
+        <attr name="proporty" format="float" />
+        <attr name="isWidht" format="boolean" />
+    </declare-styleable>
+
 </resources>

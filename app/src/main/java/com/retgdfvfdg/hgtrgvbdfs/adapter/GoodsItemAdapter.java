@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.retgdfvfdg.hgtrgvbdfs.R;
 import com.retgdfvfdg.hgtrgvbdfs.base.SimpleRecAdapter;
 import com.retgdfvfdg.hgtrgvbdfs.imageloader.ILFactory;
@@ -40,8 +41,12 @@ public class GoodsItemAdapter extends SimpleRecAdapter<GoodsModel, GoodsItemAdap
             viewHolder.cycleTv.setText("1-" + model.getFan_time());
         viewHolder.tagTv.setText(model.getInfo());
         viewHolder.productNameTv.setText(model.getTitle());
-        ILFactory.getLoader().loadNet(viewHolder.productImg, Api.API_BASE_URL + model.getImgs(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        Glide.with(context).load(Api.API_BASE_URL + model.getImgs()).into(viewHolder.productImg);
+//        ILFactory.getLoader().loadNet(viewHolder.productImg, Api.API_BASE_URL + model.getImgs(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
         viewHolder.limitTv.setText(model.getMax_money());
+        viewHolder.text_1.setText("·" + model.getMax_money());
+        viewHolder.text_2.setText("·" + model.getDay_money());
+        viewHolder.text_3.setText("·" + model.getInfo());
         viewHolder.clickView.setOnClickListener(v -> {
             getRecItemClick().onItemClick(i, model, 1, viewHolder);
         });
@@ -65,6 +70,12 @@ public class GoodsItemAdapter extends SimpleRecAdapter<GoodsModel, GoodsItemAdap
         TextView cycleTv;
         @BindView(R.id.click_view)
         View clickView;
+        @BindView(R.id.text_1)
+        TextView text_1;
+        @BindView(R.id.text_2)
+        TextView text_2;
+        @BindView(R.id.text_3)
+        TextView text_3;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

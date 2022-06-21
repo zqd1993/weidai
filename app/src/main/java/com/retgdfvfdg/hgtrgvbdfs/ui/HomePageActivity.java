@@ -33,9 +33,9 @@ public class HomePageActivity extends XActivity<MainPresent> {
 
     private long exitTime = 0;
     private List<Fragment> mFragments = new ArrayList<>();
-    private String[] mTitles = {"首页", "产品", "我的"};
-    private int[] uncheckedIcon = {R.drawable.footer_icon_n_sy, R.drawable.footer_icon_n_cp, R.drawable.footer_icon_n_wd};
-    private int[] checkedIcon = {R.drawable.footer_icon_f_sy, R.drawable.footer_icon_f_cp, R.drawable.footer_icon_f_wd};
+    private String[] mTitles = {"首页", "我的"};
+    private int[] uncheckedIcon = {R.drawable.footer_icon_n_sy, R.drawable.footer_icon_n_wd};
+    private int[] checkedIcon = {R.drawable.footer_icon_f_sy, R.drawable.footer_icon_f_wd};
     private ArrayList<CustomTabEntity> customTabEntities;
     private MyFragmentAdapter myFragmentAdapter;
 
@@ -46,7 +46,7 @@ public class HomePageActivity extends XActivity<MainPresent> {
 //        getP().login();
         customTabEntities = new ArrayList<>();
         homeViewPager.setUserInputEnabled(false);
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             int position = i;
             CustomTabEntity customTabEntity = new CustomTabEntity() {
                 @Override
@@ -79,7 +79,7 @@ public class HomePageActivity extends XActivity<MainPresent> {
             }
         });
         mFragments.add(new HomePageFragment());
-        mFragments.add(new ProductFragment());
+//        mFragments.add(new ProductFragment());
         mFragments.add(new MineFragment());
 
         homeViewPager.setAdapter(new MyFragmentAdapter(getSupportFragmentManager(), getLifecycle(), mFragments));

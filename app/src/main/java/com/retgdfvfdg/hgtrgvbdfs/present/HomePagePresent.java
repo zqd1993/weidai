@@ -1,8 +1,15 @@
 package com.retgdfvfdg.hgtrgvbdfs.present;
 
+import android.text.TextUtils;
+
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.retgdfvfdg.hgtrgvbdfs.R;
+import com.retgdfvfdg.hgtrgvbdfs.imageloader.ILFactory;
+import com.retgdfvfdg.hgtrgvbdfs.imageloader.ILoader;
 import com.retgdfvfdg.hgtrgvbdfs.model.BaseRespModel;
 import com.retgdfvfdg.hgtrgvbdfs.model.GoodsModel;
+import com.retgdfvfdg.hgtrgvbdfs.model.LoginRespModel;
 import com.retgdfvfdg.hgtrgvbdfs.model.RequModel;
 import com.retgdfvfdg.hgtrgvbdfs.utils.SharedPreferencesUtilis;
 import com.retgdfvfdg.hgtrgvbdfs.utils.StaticUtil;
@@ -71,6 +78,35 @@ public class HomePagePresent extends XPresent<HomePageFragment> {
                     @Override
                     public void onNext(BaseRespModel gankResults) {
                         getV().jumpWebActivity(model);
+                    }
+                });
+    }
+
+    public void aindex() {
+        token = SharedPreferencesUtilis.getStringFromPref("token");
+        RequModel model = new RequModel();
+        model.setToken(token);
+        RequestBody body = StaticUtil.createBody(new Gson().toJson(model));
+        Api.getGankService().aindex(body)
+                .compose(XApi.<BaseRespModel>getApiTransformer())
+                .compose(XApi.<BaseRespModel>getScheduler())
+                .compose(getV().<BaseRespModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+//                        StaticUtil.showError(getV(), error);
+                    }
+
+                    @Override
+                    public void onNext(BaseRespModel gankResults) {
+                        if (gankResults != null) {
+                            if (gankResults.getTop() != null) {
+                                if (!TextUtils.isEmpty(gankResults.getTop().getImgs())) {
+                                    Glide.with(getV()).load(Api.API_BASE_URL + gankResults.getTop().getImgs()).into(getV().topImg);
+//                                    ILFactory.getLoader().loadNet(getV().topImg, Api.API_BASE_URL + gankResults.getTop().getImgs(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+                                }
+                            }
+                        }
                     }
                 });
     }

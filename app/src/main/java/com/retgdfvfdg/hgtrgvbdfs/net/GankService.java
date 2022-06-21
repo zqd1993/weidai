@@ -41,8 +41,8 @@ public interface GankService {
     @POST("/api/index/alist")
     Flowable<BaseRespModel<List<GoodsModel>>> productList(@Body RequestBody model);
 
-    @GET("/api/index/aindex")
-    Flowable<BaseRespModel> aindex(@Header("token") String token);
+    @POST("/api/index/aindex")
+    Flowable<BaseRespModel> aindex(@Body RequestBody model);
 
     @GET("/app/product/productClick")
     Flowable<BaseRespModel> productClick(@Query("productId") long productId, @Query("phone") String phone);

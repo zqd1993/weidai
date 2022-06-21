@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.DownloadListener;
 import android.webkit.WebSettings;
@@ -41,6 +42,8 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
     TextView tvTitle;
     @BindView(R.id.back_img)
     ImageView imgBack;
+    @BindView(R.id.header_layout)
+    View header_layout;
 
     private Bundle bundle;
 
@@ -58,6 +61,7 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
         StatusBarUtil.setDarkMode(this);
+        header_layout.setVisibility(View.GONE);
         bundle = getIntent().getExtras();
         if (bundle.containsKey("tag"))
             tag = bundle.getInt("tag");
@@ -70,6 +74,7 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
         } else if (tag == 2) {
             tvTitle.setText(getResources().getString(R.string.user_service_agreement));
         } else {
+            header_layout.setVisibility(View.VISIBLE);
             tvTitle.setText(title);
         }
         imgBack.setOnClickListener(v -> {

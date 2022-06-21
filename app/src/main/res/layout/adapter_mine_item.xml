@@ -18,13 +18,16 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginStart="10dp"
-            android:src="@drawable/wd_icon_yjfk" />
+            android:src="@drawable/wd_icon_yjfk"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/item_title_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginStart="10dp"
             android:text="注册协议"
             android:textColor="@color/text_normal_color"

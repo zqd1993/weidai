@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -38,14 +39,12 @@ public class MineFragment extends XFragment {
     RecyclerView rvy;
     @BindView(R.id.phone_tv)
     TextView phoneTv;
-    @BindView(R.id.logout_btn)
-    TextView logoutBtn;
 
     private MineAdapter mineAdapter;
     private List<MineItemModel> list;
     private int[] imgRes = {R.drawable.wd_icon_gywm, R.drawable.wd_icon_ysxy, R.drawable.wd_icon_yjfk,
-            R.drawable.wd_icon_xxts, R.drawable.wd_icon_zczh, R.drawable.wd_tsyx};
-    private String[] tvRes = {"关于我们", "隐私协议", "注册协议", "关闭个性化推荐", "注销账户", "投诉邮箱"};
+            R.drawable.wd_tsyx, R.drawable.wd_icon_xxts, R.drawable.wd_icon_zczh};
+    private String[] tvRes = {"关于我们", "隐私协议", "注册协议", "投诉邮箱", "系统设置", "注销账户"};
     private Bundle bundle;
     private NormalDialog normalDialog;
     private String mailStr = "", phone = "";
@@ -55,25 +54,9 @@ public class MineFragment extends XFragment {
         list = new ArrayList<>();
         mailStr = SharedPreferencesUtilis.getStringFromPref("APP_MAIL");
         phone = SharedPreferencesUtilis.getStringFromPref("phone");
-        phoneTv.setText(phone);
-        logoutBtn.setOnClickListener(v -> {
-            normalDialog = new NormalDialog(getActivity());
-            normalDialog.setTitle("温馨提示")
-                    .setContent("确定退出当前登录")
-                    .setCancelText("取消")
-                    .setLeftListener(v1 -> {
-                        normalDialog.dismiss();
-                    })
-                    .setConfirmText("退出")
-                    .setRightListener(v2 -> {
-                        normalDialog.dismiss();
-                        SharedPreferencesUtilis.saveStringIntoPref("phone", "");
-                        Router.newIntent(getActivity())
-                                .to(LoginActivity.class)
-                                .launch();
-                        getActivity().finish();
-                    }).show();
-        });
+        if (!TextUtils.isEmpty(phone) && phone.length() > 10) {
+            phoneTv.setText(phone.replace(phone.substring(3, 7), "****"));
+        }
         for (int i = 0; i < 6; i++) {
             MineItemModel model = new MineItemModel();
             model.setImgRes(imgRes[i]);
@@ -102,9 +85,9 @@ public class MineFragment extends XFragment {
                 @Override
                 public void onItemClick(int position, MineItemModel model, int tag, MineAdapter.ViewHolder holder) {
                     super.onItemClick(position, model, tag, holder);
-                    if (tag == 2){
-                        ClipboardManager clipboard = (ClipboardManager)getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                        ClipData clipData = ClipData.newPlainText(null,mailStr);
+                    if (tag == 2) {
+                        ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clipData = ClipData.newPlainText(null, mailStr);
                         clipboard.setPrimaryClip(clipData);
                         ToastUtil.showShort("复制成功");
                         return;
@@ -132,12 +115,12 @@ public class MineFragment extends XFragment {
                                     .data(bundle)
                                     .launch();
                             break;
-                        case 3:
+                        case 4:
                             Router.newIntent(getActivity())
                                     .to(SettingActivity.class)
                                     .launch();
                             break;
-                        case 4:
+                        case 5:
                             Router.newIntent(getActivity())
                                     .to(CancellationAccountActivity.class)
                                     .launch();

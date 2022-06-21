@@ -2,6 +2,7 @@ package com.retgdfvfdg.hgtrgvbdfs.ui.fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +39,8 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
     View click_view;
     @BindView(R.id.click_view_1)
     View click_view_1;
+    @BindView(R.id.top_img)
+    public ImageView topImg;
 
     private Bundle webBundle;
     public GoodsItemAdapter goodsItemAdapter;
@@ -46,7 +49,11 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
     @Override
     public void initData(Bundle savedInstanceState) {
         getP().productList();
-        swipeRefreshLayout.setOnRefreshListener(() -> getP().productList());
+        getP().aindex();
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            getP().productList();
+            getP().aindex();
+        });
         productBg.setOnClickListener(v -> {
             productClick(goodsModel);
         });

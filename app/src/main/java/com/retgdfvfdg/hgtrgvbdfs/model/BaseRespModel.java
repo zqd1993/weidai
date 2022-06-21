@@ -10,6 +10,16 @@ public class BaseRespModel<T> implements IModel {
 
     private T data;
 
+    private GoodsModel top;
+
+    public GoodsModel getTop() {
+        return top;
+    }
+
+    public void setTop(GoodsModel top) {
+        this.top = top;
+    }
+
     public int getCode() {
         return code;
     }

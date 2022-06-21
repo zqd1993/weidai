@@ -6,9 +6,12 @@ import android.widget.TextView;
 
 import com.retgdfvfdg.hgtrgvbdfs.R;
 import com.retgdfvfdg.hgtrgvbdfs.mvp.XActivity;
+import com.retgdfvfdg.hgtrgvbdfs.router.Router;
+import com.retgdfvfdg.hgtrgvbdfs.ui.LoginActivity;
 import com.retgdfvfdg.hgtrgvbdfs.utils.SharedPreferencesUtilis;
 import com.retgdfvfdg.hgtrgvbdfs.utils.StatusBarUtil;
 import com.retgdfvfdg.hgtrgvbdfs.utils.ToastUtil;
+import com.retgdfvfdg.hgtrgvbdfs.widget.NormalDialog;
 import com.retgdfvfdg.hgtrgvbdfs.widget.SwitchButton;
 
 import butterknife.BindView;
@@ -23,9 +26,13 @@ public class SettingActivity extends XActivity {
     TextView titleTv;
     @BindView(R.id.back_img)
     ImageView backImg;
+    @BindView(R.id.logout_btn)
+    TextView logoutBtn;
 
     private String phone = "";
     private boolean isPush = false;
+
+    private NormalDialog normalDialog;
 
     @Override
     public void initData(Bundle savedInstanceState) {
@@ -42,6 +49,24 @@ public class SettingActivity extends XActivity {
                 SharedPreferencesUtilis.saveBoolIntoPref("push", isChecked);
                 ToastUtil.showShort(isChecked ? "开启成功" : "关闭成功");
             }
+        });
+        logoutBtn.setOnClickListener(v -> {
+            normalDialog = new NormalDialog(this);
+            normalDialog.setTitle("温馨提示")
+                    .setContent("确定退出当前登录")
+                    .setCancelText("取消")
+                    .setLeftListener(v1 -> {
+                        normalDialog.dismiss();
+                    })
+                    .setConfirmText("退出")
+                    .setRightListener(v2 -> {
+                        normalDialog.dismiss();
+                        SharedPreferencesUtilis.saveStringIntoPref("phone", "");
+                        Router.newIntent(this)
+                                .to(LoginActivity.class)
+                                .launch();
+                        this.finish();
+                    }).show();
         });
     }
 
