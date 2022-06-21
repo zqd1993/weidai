@@ -18,6 +18,7 @@ import com.bghfr.yrtweb.net.NetError;
 import com.bghfr.yrtweb.net.XApi;
 import com.bghfr.yrtweb.router.Router;
 import com.bghfr.yrtweb.net.ApiSubscriber;
+import com.google.gson.JsonSyntaxException;
 
 public class DlPresent extends XPresent<LoginActivityHuiMin> {
 
@@ -96,7 +97,8 @@ public class DlPresent extends XPresent<LoginActivityHuiMin> {
                 .subscribe(new ApiSubscriber<BaseModel>() {
                     @Override
                     protected void onFail(NetError error) {
-                        MainUtil.showError(getV(), error);
+//                        MainUtil.showError(getV(), error);
+                        ToastUtil.showShort(error.getMessage());
                     }
 
                     @Override
