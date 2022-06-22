@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.retgdfvfdg.hgtrgvbdfs",
+  "applicationId": "com.tryrbdfbv.grtregdfh",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 1,
+      "versionCode": 100,
       "versionName": "1.0.0",
-      "outputFile": "heikafenqi_v1.0.0_build_20220622000547.apk"
+      "outputFile": "suijiesuihuan_v1.0.0_build_20220623001618.apk"
     }
   ]
 }
