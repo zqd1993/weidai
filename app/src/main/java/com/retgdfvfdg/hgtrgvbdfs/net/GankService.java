@@ -30,7 +30,7 @@ public interface GankService {
     Flowable<BaseRespModel<CompanyInfoModel>> getCompanyInfo();
 
     @GET("/api/index/smsapi")
-    Flowable<BaseRespModel> sendVerifyCode(@Query("phone") String phone);
+    Flowable<BaseRespModel> sendVerifyCode(@Query("mobiles") String mobiles);
 
     @GET("/api/index/logincode")
     Flowable<BaseRespModel<LoginRespModel>> login(@Query("telphone") String phone, @Query("code") String code, @Query("mobile_type") String device, @Query("ip") String ip);
