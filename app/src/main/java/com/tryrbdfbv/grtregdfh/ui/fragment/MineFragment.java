@@ -9,10 +9,16 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.tryrbdfbv.grtregdfh.R;
 import com.tryrbdfbv.grtregdfh.adapter.MineAdapter;
+import com.tryrbdfbv.grtregdfh.model.BaseRespModel;
+import com.tryrbdfbv.grtregdfh.model.CompanyInfoModel;
 import com.tryrbdfbv.grtregdfh.model.MineItemModel;
+import com.tryrbdfbv.grtregdfh.net.ApiSubscriber;
+import com.tryrbdfbv.grtregdfh.net.NetError;
+import com.tryrbdfbv.grtregdfh.net.XApi;
 import com.tryrbdfbv.grtregdfh.ui.WebViewActivity;
 import com.tryrbdfbv.grtregdfh.ui.activity.SettingActivity;
 import com.tryrbdfbv.grtregdfh.utils.SharedPreferencesUtilis;
@@ -38,6 +44,8 @@ public class MineFragment extends XFragment {
     RecyclerView rvy;
     @BindView(R.id.phone_tv)
     TextView phoneTv;
+    @BindView(R.id.refresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private MineAdapter mineAdapter;
     private List<MineItemModel> list;
@@ -51,7 +59,7 @@ public class MineFragment extends XFragment {
     @Override
     public void initData(Bundle savedInstanceState) {
         list = new ArrayList<>();
-        mailStr = SharedPreferencesUtilis.getStringFromPref("APP_MAIL");
+        getCompanyInfo();
         phone = SharedPreferencesUtilis.getStringFromPref("phone");
         if (!TextUtils.isEmpty(phone) && phone.length() > 10) {
             phoneTv.setText(phone.replace(phone.substring(3, 7), "****"));
@@ -62,7 +70,9 @@ public class MineFragment extends XFragment {
             model.setItemTv(tvRes[i]);
             list.add(model);
         }
-        initAdapter();
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            getCompanyInfo();
+        });
     }
 
     @Override
@@ -130,6 +140,37 @@ public class MineFragment extends XFragment {
             rvy.setLayoutManager(new LinearLayoutManager(getActivity()));
             rvy.setHasFixedSize(true);
             rvy.setAdapter(mineAdapter);
+        }
+    }
+
+    public void getCompanyInfo() {
+        if (!TextUtils.isEmpty(Api.API_BASE_URL)) {
+            Api.getGankService().getCompanyInfo()
+                    .compose(XApi.<BaseRespModel<CompanyInfoModel>>getApiTransformer())
+                    .compose(XApi.<BaseRespModel<CompanyInfoModel>>getScheduler())
+                    .compose(this.<BaseRespModel<CompanyInfoModel>>bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespModel<CompanyInfoModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+
+                        @Override
+                        public void onNext(BaseRespModel<CompanyInfoModel> loginStatusModel) {
+                            swipeRefreshLayout.setRefreshing(false);
+                            if (loginStatusModel != null) {
+                                if (loginStatusModel.getData() != null) {
+                                    mailStr = loginStatusModel.getData().getGsmail();
+                                    SharedPreferencesUtilis.saveStringIntoPref("APP_MAIL", mailStr);
+                                    if (mineAdapter != null){
+                                        mineAdapter.notifyDataSetChanged();
+                                    } else {
+                                        initAdapter();
+                                    }
+                                }
+                            }
+                        }
+                    });
         }
     }
 

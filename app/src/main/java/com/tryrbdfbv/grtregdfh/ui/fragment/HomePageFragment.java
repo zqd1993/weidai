@@ -44,30 +44,33 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
 
     private Bundle webBundle;
     public GoodsItemAdapter goodsItemAdapter;
-    private GoodsModel goodsModel;
+    public GoodsModel goodsModel, topGoodsModel;
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        getP().productList();
+//        getP().productList();
         getP().aindex();
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            getP().productList();
+//            getP().productList();
             getP().aindex();
         });
-        productBg.setOnClickListener(v -> {
-            productClick(goodsModel);
-        });
-        swipeRefreshLayout.setOnClickListener(v -> {
-            productClick(goodsModel);
-        });
-        topLayout.setOnClickListener(v -> {
-            productClick(goodsModel);
-        });
-        click_view.setOnClickListener(v -> {
-            productClick(goodsModel);
-        });
-        click_view_1.setOnClickListener(v -> {
-            productClick(goodsModel);
+//        productBg.setOnClickListener(v -> {
+//            productClick(goodsModel);
+//        });
+//        swipeRefreshLayout.setOnClickListener(v -> {
+//            productClick(goodsModel);
+//        });
+//        topLayout.setOnClickListener(v -> {
+//            productClick(goodsModel);
+//        });
+//        click_view.setOnClickListener(v -> {
+//            productClick(goodsModel);
+//        });
+//        click_view_1.setOnClickListener(v -> {
+//            productClick(goodsModel);
+//        });
+        topImg.setOnClickListener(v -> {
+            productClick(topGoodsModel);
         });
     }
 

@@ -1,5 +1,6 @@
 package com.tryrbdfbv.grtregdfh.net;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 /**
@@ -12,7 +13,7 @@ public class Api {
     private static GankService gankService;
 
     public static GankService getGankService() {
-        if (gankService == null) {
+        if (gankService == null && !TextUtils.isEmpty(API_BASE_URL)) {
             synchronized (Api.class) {
                 if (gankService == null) {
                     Log.d("zqd", "API_BASE_URL = " + API_BASE_URL);
