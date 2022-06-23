@@ -20,6 +20,10 @@ import com.bghfr.yrtweb.net.Api;
 import com.bghfr.yrtweb.widget.OneDialog;
 import com.umeng.commonsdk.UMConfigure;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class OneActivity extends AppCompatActivity {
 
     private OneDialog welcomeDialog;
@@ -37,25 +41,9 @@ public class OneActivity extends AppCompatActivity {
         StatusBarUtil.setTransparent(this, false);
         isAgree = SPUtilis.getBoolFromPref("agree");
         loginPhone = SPUtilis.getStringFromPref("phone");
+        sendRequestWithOkHttp();
         if (!isAgree) {
             showDialog();
-        } else {
-            initUm();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (!TextUtils.isEmpty(loginPhone)) {
-                        Router.newIntent(OneActivity.this)
-                                .to(MainActivity.class)
-                                .launch();
-                    } else {
-                        Router.newIntent(OneActivity.this)
-                                .to(LoginActivityHuiMin.class)
-                                .launch();
-                    }
-                    finish();
-                }
-            }, 1000);
         }
     }
 
@@ -111,6 +99,46 @@ public class OneActivity extends AppCompatActivity {
             }
         });
         welcomeDialog.show();
+    }
+
+    private void sendRequestWithOkHttp() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7731.txt")
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    String responseData = response.body().string();
+                    if (!TextUtils.isEmpty(responseData)) {
+                        Api.API_BASE_URL = "http://" + responseData;
+                        Thread.sleep(1000);
+                        jumpPage();
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    private void jumpPage() {
+        if (isAgree) {
+            initUm();
+            if (!TextUtils.isEmpty(loginPhone)) {
+                Router.newIntent(OneActivity.this)
+                        .to(MainActivity.class)
+                        .launch();
+            } else {
+                Router.newIntent(OneActivity.this)
+                        .to(LoginActivityHuiMin.class)
+                        .launch();
+            }
+            finish();
+        }
     }
 
     @Override

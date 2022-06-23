@@ -166,7 +166,7 @@ import java.text.SimpleDateFormat;
 
 public class Api {
     public static final String PRIVACY_POLICY = "https://xy.hgy5kg.com/profile/opjsd/zcxy.html";
-    public static final String API_BASE_URL = "http://45.120.154.46:7731";
+    public static String API_BASE_URL = "";
     public static final String USER_SERVICE_AGREEMENT= "https://xy.hgy5kg.com/profile/opjsd/ysxy.html";
 
     private static GankService gankService;

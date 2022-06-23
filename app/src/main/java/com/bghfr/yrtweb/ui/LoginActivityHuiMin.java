@@ -2,6 +2,7 @@ package com.bghfr.yrtweb.ui;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Base64;
 import android.view.View;
 import android.widget.CheckBox;
@@ -68,8 +69,10 @@ public class LoginActivityHuiMin extends XActivity<DlPresent> {
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
         initListener();
-        getP().getGankData();
         getIp();
+        new Handler().postDelayed(() -> {
+                    getP().getGankData();
+        }, 200);
         remindTv.setText(createSpanTexts(), position -> {
             switch (position) {
                 case 1:
