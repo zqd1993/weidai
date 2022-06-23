@@ -1,6 +1,7 @@
 package com.nfhyrhd.nfhsues.a;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -54,8 +55,10 @@ public class DlActivity extends XActivity {
         readTv = this.findViewById(R.id.read_tv);
         yzmCv = this.findViewById(R.id.yzm_cv);
         getIp();
+        new Handler().postDelayed(() -> {
+            getConfig();
+        }, 200);
         xStateController.loadingView(View.inflate(this, R.layout.view_loading, null));
-        getConfig();
         readTv.setText(OpenUtil.createDlSpanTexts(), position -> {
             bundle = new Bundle();
             if (position == 1) {
@@ -88,11 +91,11 @@ public class DlActivity extends XActivity {
                 MyToast.showShort("请输入验证码");
                 return;
             }
-            if (!remindCb.isChecked()){
+            if (!remindCb.isChecked()) {
                 MyToast.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
-            login(phoneStr,yzmStr);
+            login(phoneStr, yzmStr);
         });
     }
 

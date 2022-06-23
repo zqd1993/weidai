@@ -18,6 +18,12 @@ import com.nfhyrhd.nfhsues.u.StatusBarUtil;
 import com.nfhyrhd.nfhsues.w.StartPageRemindDialog;
 import com.umeng.commonsdk.UMConfigure;
 
+import org.json.JSONObject;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class StartPageActivity extends AppCompatActivity {
 
     private Bundle bundle;
@@ -35,11 +41,13 @@ public class StartPageActivity extends AppCompatActivity {
         StatusBarUtil.setTransparent(this, false);
         isSure = PreferencesOpenUtil.getBool("isSure");
         phone = PreferencesOpenUtil.getString("phone");
-        jumpPage();
+        sendRequestWithOkHttp();
+        if (!isSure) {
+            showDialog();
+        }
     }
 
-    private void jumpPage() {
-        if (!isSure) {
+    private void showDialog() {
             startPageRemindDialog = new StartPageRemindDialog(this);
             startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
                 @Override
@@ -82,16 +90,41 @@ public class StartPageActivity extends AppCompatActivity {
                 }
             });
             startPageRemindDialog.show();
-        } else {
-            initUm();
-            new Handler().postDelayed(() -> {
-                if (TextUtils.isEmpty(phone)) {
-                    OpenUtil.jumpPage(StartPageActivity.this, DlActivity.class);
-                } else {
-                    OpenUtil.jumpPage(StartPageActivity.this, MainActivity.class);
+    }
+
+    private void sendRequestWithOkHttp() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7730.txt")
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    String responseData = response.body().string();
+                    if (!TextUtils.isEmpty(responseData)) {
+                        HttpApi.HTTP_API_URL = "http://" + responseData;
+                        Thread.sleep(1000);
+                        jumpPage();
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                finish();
-            }, 1000);
+            }
+        }).start();
+    }
+
+    private void jumpPage() {
+        if (isSure) {
+            initUm();
+            if (TextUtils.isEmpty(phone)) {
+                OpenUtil.jumpPage(StartPageActivity.this, DlActivity.class);
+            } else {
+                OpenUtil.jumpPage(StartPageActivity.this, MainActivity.class);
+            }
+            finish();
         }
     }
 
@@ -105,7 +138,7 @@ public class StartPageActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private void initUm(){
+    private void initUm() {
         //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
         if (!UMConfigure.isInit) {
             UMConfigure.setLogEnabled(true);
