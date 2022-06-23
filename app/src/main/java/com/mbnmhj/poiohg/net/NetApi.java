@@ -1,23 +1,33 @@
 package com.mbnmhj.poiohg.net;
 
+import android.text.TextUtils;
+
 import java.util.regex.Pattern;
 
 public class NetApi {
-    public static final String HTTP_API_URL = "http://45.120.154.46:7727";
+    public static String HTTP_API_URL = "";
     public static final String ZCXY = "https://xy.hgy5kg.com/profile/opxefqd/zcxy.html";
-    public static final String YSXY= "https://xy.hgy5kg.com/profile/opxefqd/ysxy.html";
+    public static final String YSXY = "https://xy.hgy5kg.com/profile/opxefqd/ysxy.html";
 
     private static InterfaceObject interfaceObject;
 
-    /** 正则表达式：以0或正整数开头后跟0或1个(小数点后面跟0到2位数字) */
+    /**
+     * 正则表达式：以0或正整数开头后跟0或1个(小数点后面跟0到2位数字)
+     */
     private static final String FORMAT = "^(0|[1-9]\\d*)(\\.\\d{0,%s})?$";
-    /** 正则表达式：0-9.之外的字符 */
+    /**
+     * 正则表达式：0-9.之外的字符
+     */
     private static final Pattern SOURCE_PATTERN = Pattern.compile("[^0-9.]");
 
-    /** 默认保留小数点后2位 */
+    /**
+     * 默认保留小数点后2位
+     */
     private Pattern mPattern = Pattern.compile(String.format(FORMAT, "2"));
 
-    /** 允许输入的最大金额 */
+    /**
+     * 允许输入的最大金额
+     */
     private double maxValue = 999999;
 
     private String remindStr = "可输入最大数量";
@@ -32,7 +42,7 @@ public class NetApi {
     }
 
     public static InterfaceObject getInterfaceUtils() {
-        if (interfaceObject == null) {
+        if (interfaceObject == null && !TextUtils.isEmpty(HTTP_API_URL)) {
             synchronized (NetApi.class) {
                 if (interfaceObject == null) {
                     interfaceObject = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(InterfaceObject.class);

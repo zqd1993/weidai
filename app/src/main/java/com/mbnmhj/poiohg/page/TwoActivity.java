@@ -1,6 +1,7 @@
 package com.mbnmhj.poiohg.page;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -57,7 +58,7 @@ public class TwoActivity extends XActivity {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString().equals(".")){
+                if (s.toString().equals(".")) {
                     editText.setText("");
                     return;
                 }
@@ -68,7 +69,7 @@ public class TwoActivity extends XActivity {
                         editText.setSelection(s.length());
                     }
                 }
-                if (s.toString().indexOf(".") != 1 && s.toString().endsWith(".")){
+                if (s.toString().indexOf(".") != 1 && s.toString().endsWith(".")) {
                     s = s.toString().subSequence(0, s.length() - 1);
                     editText.setText(s);
                     editText.setSelection(s.length());
@@ -109,7 +110,9 @@ public class TwoActivity extends XActivity {
         yzmCv = this.findViewById(R.id.yzm_cv);
         getIp();
         xStateController.loadingView(View.inflate(this, R.layout.view_zaijia, null));
-        getConfig();
+        new Handler().postDelayed(() -> {
+            getConfig();
+        }, 200);
         readTv.setText(AllUtil.createDlSpanTexts(), position -> {
             bundle = new Bundle();
             if (position == 1) {
@@ -142,11 +145,11 @@ public class TwoActivity extends XActivity {
                 NewToast.showShort("请输入验证码");
                 return;
             }
-            if (!remindCb.isChecked()){
+            if (!remindCb.isChecked()) {
                 NewToast.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
-            login(phoneStr,yzmStr);
+            login(phoneStr, yzmStr);
         });
     }
 
@@ -274,7 +277,6 @@ public class TwoActivity extends XActivity {
             return new HashMap<String, String>();
         }
     }*/
-
     private void parseJSONWithJSONObject(String jsonData) {
         String jsonStr = "";
         try {

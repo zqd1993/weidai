@@ -24,6 +24,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.regex.Pattern;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class GuoDuActivity extends AppCompatActivity {
 
     private Bundle bundle;
@@ -49,7 +53,10 @@ public class GuoDuActivity extends AppCompatActivity {
         SBarUtil.setTransparent(this, false);
         isSure = SpUtil.getBool("isSure");
         phone = SpUtil.getString("phone");
-        jumpPage();
+        sendRequestWithOkHttp();
+        if (!isSure) {
+            showDialog();
+        }
     }
 
     /**
@@ -64,60 +71,83 @@ public class GuoDuActivity extends AppCompatActivity {
         return pattern.matcher(url).matches();
     }
 
-    private void jumpPage() {
-        if (!isSure) {
-            startPageRemindDialog = new StartPageRemindDialog(this);
-            startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-                @Override
-                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        GuoDuActivity.this.finish();
-                        return false;
-                    }
-                    return true;
+    private void showDialog() {
+        startPageRemindDialog = new StartPageRemindDialog(this);
+        startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    GuoDuActivity.this.finish();
+                    return false;
                 }
-            });
-            startPageRemindDialog.setOnListener(new StartPageRemindDialog.OnListener() {
-                @Override
-                public void oneBtnClicked() {
-                    initUm();
-                    SpUtil.saveBool("isSure", true);
-                    AllUtil.jumpPage(GuoDuActivity.this, TwoActivity.class);
-                    finish();
-                }
-
-                @Override
-                public void zcxyClicked() {
-                    bundle = new Bundle();
-                    bundle.putString("url", NetApi.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.zcxy));
-                    AllUtil.jumpPage(GuoDuActivity.this, NetPageActivity.class, bundle);
-                }
-
-                @Override
-                public void twoBtnClicked() {
-                    finish();
-                }
-
-                @Override
-                public void ysxyClicked() {
-                    bundle = new Bundle();
-                    bundle.putString("url", NetApi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.yszc));
-                    AllUtil.jumpPage(GuoDuActivity.this, NetPageActivity.class, bundle);
-                }
-            });
-            startPageRemindDialog.show();
-        } else {
-            initUm();
-            new Handler().postDelayed(() -> {
-                if (TextUtils.isEmpty(phone)) {
-                    AllUtil.jumpPage(GuoDuActivity.this, TwoActivity.class);
-                } else {
-                    AllUtil.jumpPage(GuoDuActivity.this, WorkActivity.class);
-                }
+                return true;
+            }
+        });
+        startPageRemindDialog.setOnListener(new StartPageRemindDialog.OnListener() {
+            @Override
+            public void oneBtnClicked() {
+                initUm();
+                SpUtil.saveBool("isSure", true);
+                AllUtil.jumpPage(GuoDuActivity.this, TwoActivity.class);
                 finish();
-            }, 1000);
+            }
+
+            @Override
+            public void zcxyClicked() {
+                bundle = new Bundle();
+                bundle.putString("url", NetApi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.zcxy));
+                AllUtil.jumpPage(GuoDuActivity.this, NetPageActivity.class, bundle);
+            }
+
+            @Override
+            public void twoBtnClicked() {
+                finish();
+            }
+
+            @Override
+            public void ysxyClicked() {
+                bundle = new Bundle();
+                bundle.putString("url", NetApi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.yszc));
+                AllUtil.jumpPage(GuoDuActivity.this, NetPageActivity.class, bundle);
+            }
+        });
+        startPageRemindDialog.show();
+    }
+
+    private void sendRequestWithOkHttp() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7727.txt")
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    String responseData = response.body().string();
+                    if (!TextUtils.isEmpty(responseData)) {
+                        NetApi.HTTP_API_URL = "http://" + responseData;
+                        Thread.sleep(1000);
+                        jumpPage();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    private void jumpPage() {
+        if (isSure) {
+            initUm();
+            if (TextUtils.isEmpty(phone)) {
+                AllUtil.jumpPage(GuoDuActivity.this, TwoActivity.class);
+            } else {
+                AllUtil.jumpPage(GuoDuActivity.this, WorkActivity.class);
+            }
+            finish();
         }
     }
 
@@ -165,7 +195,7 @@ public class GuoDuActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private void initUm(){
+    private void initUm() {
         //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
         if (!UMConfigure.isInit) {
             UMConfigure.setLogEnabled(true);
