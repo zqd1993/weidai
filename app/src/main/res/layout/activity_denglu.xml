@@ -155,7 +155,7 @@
                     android:layout_height="20dp"
                     android:button="@drawable/check_box_bg" />
 
-                <com.dlnsg.ytjwhbm.w.DianjiTextView
+                <com.ufaofqsbxo.uunllhykas.w.DianjiTextView
                     android:id="@+id/read_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

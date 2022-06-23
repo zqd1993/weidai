@@ -34,7 +34,7 @@ android {
     }
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "jinri_op_v${variant.versionName}.apk"
+            outputFileName = "mangguo_op_v${variant.versionName}.apk"
         }
     }
 
