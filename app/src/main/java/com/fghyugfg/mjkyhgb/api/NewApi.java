@@ -1,13 +1,14 @@
 package com.fghyugfg.mjkyhgb.api;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.fghyugfg.mjkyhgb.net.XApi;
 
 public class NewApi {
     public static final String ZCXY = "https://xy.hgy5kg.com/profile/op361dk/zcxy.html";
     public static final String YSXY= "https://xy.hgy5kg.com/profile/op361dk/ysxy.html";
-    public static final String HTTP_API_URL = "http://45.120.154.46:7729";
+    public static String HTTP_API_URL = "";
 
     private static RenRenInterfaceUtils interfaceUtils;
 
@@ -25,6 +26,7 @@ public class NewApi {
         if (interfaceUtils == null) {
             synchronized (NewApi.class) {
                 if (interfaceUtils == null) {
+                    Log.d("zqd", "HTTP_API_URL = " + HTTP_API_URL);
                     interfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(RenRenInterfaceUtils.class);
                 }
             }

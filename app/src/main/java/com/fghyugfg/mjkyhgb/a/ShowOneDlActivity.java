@@ -1,6 +1,7 @@
 package com.fghyugfg.mjkyhgb.a;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -59,7 +60,9 @@ public class ShowOneDlActivity extends XActivity {
         yzmCv = this.findViewById(R.id.yzm_cv);
         getIp();
         xStateController.loadingView(View.inflate(this, R.layout.loading_view, null));
-        getConfig();
+        new Handler().postDelayed(() -> {
+            getConfig();
+        }, 200);
         readTv.setText(OpenMethodUtil.createDlSpanTexts(), position -> {
             bundle = new Bundle();
             if (position == 1) {
