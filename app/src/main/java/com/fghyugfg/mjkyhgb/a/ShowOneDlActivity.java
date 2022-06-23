@@ -2,6 +2,7 @@ package com.fghyugfg.mjkyhgb.a;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -126,33 +127,35 @@ public class ShowOneDlActivity extends XActivity {
     }
 
     public void getConfig() {
-        NewApi.getInterfaceUtils().getConfig()
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(this.bindToLifecycle())
-                .subscribe(new ApiSubscriber<RenRenBaseModel<RenRenConfigEntity>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenMethodUtil.showErrorInfo(ShowOneDlActivity.this, error);
-                    }
+        if (!TextUtils.isEmpty(NewApi.HTTP_API_URL)) {
+            NewApi.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<RenRenBaseModel<RenRenConfigEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenMethodUtil.showErrorInfo(ShowOneDlActivity.this, error);
+                        }
 
-                    @Override
-                    public void onNext(RenRenBaseModel<RenRenConfigEntity> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                SPOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
-                                if ("0".equals(configEntity.getData().getIsCodeLogin())) {
-                                    yzmCv.setVisibility(View.GONE);
-                                } else {
-                                    yzmCv.setVisibility(View.VISIBLE);
+                        @Override
+                        public void onNext(RenRenBaseModel<RenRenConfigEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    SPOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
+                                    if ("0".equals(configEntity.getData().getIsCodeLogin())) {
+                                        yzmCv.setVisibility(View.GONE);
+                                    } else {
+                                        yzmCv.setVisibility(View.VISIBLE);
+                                    }
+                                    isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
+                                    isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
+                                    remindCb.setChecked(isChecked);
                                 }
-                                isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
-                                isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
-                                remindCb.setChecked(isChecked);
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public static int getMonth(long time) {
@@ -217,40 +220,42 @@ public class ShowOneDlActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (xStateController != null)
-            xStateController.showLoading();
-        NewApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<RenRenBaseModel<LoginRenRenModel>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenMethodUtil.showErrorInfo(ShowOneDlActivity.this, error);
-                        if (xStateController != null)
-                            xStateController.showContent();
-                    }
+        if (!TextUtils.isEmpty(NewApi.HTTP_API_URL)) {
+            if (xStateController != null)
+                xStateController.showLoading();
+            NewApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<RenRenBaseModel<LoginRenRenModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenMethodUtil.showErrorInfo(ShowOneDlActivity.this, error);
+                            if (xStateController != null)
+                                xStateController.showContent();
+                        }
 
-                    @Override
-                    public void onNext(RenRenBaseModel<LoginRenRenModel> dlModel) {
-                        if (xStateController != null)
-                            xStateController.showContent();
-                        if (dlModel != null && dlModel.getCode() == 200) {
-                            if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                OpenMethodUtil.jumpPage(ShowOneDlActivity.this, MainActivity.class);
-                                int mobileType = dlModel.getData().getMobileType();
-                                SPOpenUtil.saveString("ip", ip);
-                                SPOpenUtil.saveString("phone", phone);
-                                SPOpenUtil.saveInt("mobileType", mobileType);
-                                finish();
-                            }
-                        } else {
-                            if (dlModel.getCode() == 500) {
-                                NewToast.showShort(dlModel.getMsg());
+                        @Override
+                        public void onNext(RenRenBaseModel<LoginRenRenModel> dlModel) {
+                            if (xStateController != null)
+                                xStateController.showContent();
+                            if (dlModel != null && dlModel.getCode() == 200) {
+                                if (dlModel.getData() != null && dlModel.getCode() == 200) {
+                                    OpenMethodUtil.jumpPage(ShowOneDlActivity.this, MainActivity.class);
+                                    int mobileType = dlModel.getData().getMobileType();
+                                    SPOpenUtil.saveString("ip", ip);
+                                    SPOpenUtil.saveString("phone", phone);
+                                    SPOpenUtil.saveInt("mobileType", mobileType);
+                                    finish();
+                                }
+                            } else {
+                                if (dlModel.getCode() == 500) {
+                                    NewToast.showShort(dlModel.getMsg());
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public static String getMdCh(long time) {
@@ -278,27 +283,29 @@ public class ShowOneDlActivity extends XActivity {
     }
 
     public void getYzm(String phone) {
-        NewApi.getInterfaceUtils().sendVerifyCode(phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<RenRenBaseModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenMethodUtil.showErrorInfo(ShowOneDlActivity.this, error);
-                    }
+        if (!TextUtils.isEmpty(NewApi.HTTP_API_URL)) {
+            NewApi.getInterfaceUtils().sendVerifyCode(phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<RenRenBaseModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenMethodUtil.showErrorInfo(ShowOneDlActivity.this, error);
+                        }
 
-                    @Override
-                    public void onNext(RenRenBaseModel renRenBaseModel) {
-                        if (renRenBaseModel != null) {
-                            if (renRenBaseModel.getCode() == 200) {
-                                NewToast.showShort("验证码发送成功");
-                                CountDownTimer cdt = new CountDownTimer(getYzmTv, 60000, 1000);
-                                cdt.start();
+                        @Override
+                        public void onNext(RenRenBaseModel renRenBaseModel) {
+                            if (renRenBaseModel != null) {
+                                if (renRenBaseModel.getCode() == 200) {
+                                    NewToast.showShort("验证码发送成功");
+                                    CountDownTimer cdt = new CountDownTimer(getYzmTv, 60000, 1000);
+                                    cdt.start();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public static int getYear(long time) {

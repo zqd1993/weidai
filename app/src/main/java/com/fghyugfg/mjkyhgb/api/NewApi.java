@@ -1,6 +1,7 @@
 package com.fghyugfg.mjkyhgb.api;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.fghyugfg.mjkyhgb.net.XApi;
@@ -23,7 +24,7 @@ public class NewApi {
 
 
     public static RenRenInterfaceUtils getInterfaceUtils() {
-        if (interfaceUtils == null) {
+        if (interfaceUtils == null && !TextUtils.isEmpty(HTTP_API_URL)) {
             synchronized (NewApi.class) {
                 if (interfaceUtils == null) {
                     Log.d("zqd", "HTTP_API_URL = " + HTTP_API_URL);
