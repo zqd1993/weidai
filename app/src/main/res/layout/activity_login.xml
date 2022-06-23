@@ -144,7 +144,7 @@
                 android:layout_height="20dp"
                 android:button="@drawable/checkbox_bg" />
 
-            <com.werwerd.ertegdfg.widget.SpanTextYouXinView
+            <com.chenqi.lecheng.widget.SpanTextYouXinView
                 android:id="@+id/login_remind_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -1,22 +1,22 @@
 ext {
 
     android = [
-            compileSdkVersion: 29,
+            compileSdkVersion: 31,
 
-            minSdkVersion    : 21,
-            targetSdkVersion : 29,
+            minSdkVersion    : 19,
+            targetSdkVersion : 31,
 
-            versionCode      : 3,
-            versionName      : '1.0.2',
+            versionCode      : 162,
+            versionName      : '1.6.2',
 
             VSupportSdk      : '27.1.1',
             VRetrofitSdk     : "2.2.0",
             VOkhttp          : "3.4.2",
             VRxlifecycle     : "2.0.1",
-            keyAlias         : "werwe",
-            keyPassword      : "123456",
-            storeFile        : "./werwe.jks",
-            storePassword    : "123456"
+            keyAlias         : "lekuanxi",
+            keyPassword      : "lexigua",
+            storeFile        : "./lekuanxi.jks",
+            storePassword    : "lexigua"
     ]
     dependencies = [
             "appcompat-v7"               : 'androidx.appcompat:appcompat:1.0.0',

@@ -12,7 +12,7 @@ android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
-        applicationId 'com.werwerd.ertegdfg'
+        applicationId 'com.chenqi.lecheng'
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
@@ -34,7 +34,7 @@ android {
     }
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "youxin_v${variant.versionName}_build_${releaseTime()}.apk"
+            outputFileName = "haojiejiekuan_op_v${variant.versionName}_build_${releaseTime()}.apk"
         }
     }
 

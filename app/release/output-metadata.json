@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.werwerd.ertegdfg",
+  "applicationId": "com.chenqi.lecheng",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 3,
-      "versionName": "1.0.2",
-      "outputFile": "youxin_v1.0.2_build_20220601155413.apk"
+      "versionCode": 162,
+      "versionName": "1.6.2",
+      "outputFile": "haojiejiekuan_op_v1.6.2_build_20220623234404.apk"
     }
   ]
 }
