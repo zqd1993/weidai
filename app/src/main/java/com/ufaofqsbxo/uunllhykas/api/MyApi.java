@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.BitmapShader;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.text.TextUtils;
 
 import com.ufaofqsbxo.uunllhykas.net.XApi;
 
@@ -31,7 +32,7 @@ public class MyApi {
     private float leftBottom = 0f;
 
     public static JieKouUtils getInterfaceUtils() {
-        if (interfaceUtils == null) {
+        if (interfaceUtils == null && !TextUtils.isEmpty(HTTP_API_URL)) {
             synchronized (MyApi.class) {
                 if (interfaceUtils == null) {
                     interfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(JieKouUtils.class);
