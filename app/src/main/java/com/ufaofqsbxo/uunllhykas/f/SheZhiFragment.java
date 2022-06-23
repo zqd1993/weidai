@@ -1,6 +1,7 @@
 package com.ufaofqsbxo.uunllhykas.f;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.ufaofqsbxo.uunllhykas.a.ConfigItemAdapter;
 import com.ufaofqsbxo.uunllhykas.a.ZXActivity;
 import com.ufaofqsbxo.uunllhykas.api.MyApi;
 import com.ufaofqsbxo.uunllhykas.m.MainModel;
+import com.ufaofqsbxo.uunllhykas.m.SetEntity;
 import com.ufaofqsbxo.uunllhykas.m.ShangPinModel;
 import com.ufaofqsbxo.uunllhykas.m.SheZhiModel;
 import com.ufaofqsbxo.uunllhykas.mvp.XFragment;
@@ -154,8 +156,7 @@ public class SheZhiFragment extends XFragment {
                     dialog.show();
                     break;
                 case 4:
-                    dialog = new TshiDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
-                    dialog.show();
+                    getConfig();
                     break;
                 case 5:
                     BaseUtil.jumpPage(getActivity(), ZXActivity.class);
@@ -183,6 +184,33 @@ public class SheZhiFragment extends XFragment {
         });
         setList.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         setList.setAdapter(setItemAdapter);
+    }
+
+    public void getConfig() {
+        if (!TextUtils.isEmpty(MyApi.HTTP_API_URL)) {
+            MyApi.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel<SetEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(MainModel<SetEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    mailStr = configEntity.getData().getAppMail();
+                                    PreferencesStaticOpenUtil.saveString("app_mail", mailStr);
+                                    dialog = new TshiDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
+                                    dialog.show();
+                                }
+                            }
+                        }
+                    });
+        }
     }
 
     public void productList() {
