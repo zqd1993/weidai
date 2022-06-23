@@ -4,6 +4,8 @@ package com.bghfr.yrtweb.net;
  * Created by wanglei on 2016/12/31.
  */
 
+import android.text.TextUtils;
+
 import java.text.SimpleDateFormat;
 
 /**
@@ -172,7 +174,7 @@ public class Api {
     private static GankService gankService;
 
     public static GankService getGankService() {
-        if (gankService == null) {
+        if (gankService == null && !TextUtils.isEmpty(API_BASE_URL)) {
             synchronized (Api.class) {
                 if (gankService == null) {
                     gankService = XApi.getInstance().getRetrofit(API_BASE_URL, true).create(GankService.class);
