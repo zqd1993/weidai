@@ -3,6 +3,7 @@ package com.mbnmhj.poiohg.page;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.CheckBox;
@@ -190,33 +191,35 @@ public class TwoActivity extends XActivity {
     }
 
     public void getConfig() {
-        NetApi.getInterfaceUtils().getConfig()
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(this.bindToLifecycle())
-                .subscribe(new ApiSubscriber<MainModel<CFEntity>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        AllUtil.showErrorInfo(TwoActivity.this, error);
-                    }
+        if (!TextUtils.isEmpty(NetApi.HTTP_API_URL)) {
+            NetApi.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel<CFEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            AllUtil.showErrorInfo(TwoActivity.this, error);
+                        }
 
-                    @Override
-                    public void onNext(MainModel<CFEntity> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                SpUtil.saveString("app_mail", configEntity.getData().getAppMail());
-                                if ("0".equals(configEntity.getData().getIsCodeLogin())) {
-                                    yzmCv.setVisibility(View.GONE);
-                                } else {
-                                    yzmCv.setVisibility(View.VISIBLE);
+                        @Override
+                        public void onNext(MainModel<CFEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    SpUtil.saveString("app_mail", configEntity.getData().getAppMail());
+                                    if ("0".equals(configEntity.getData().getIsCodeLogin())) {
+                                        yzmCv.setVisibility(View.GONE);
+                                    } else {
+                                        yzmCv.setVisibility(View.VISIBLE);
+                                    }
+                                    isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
+                                    isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
+                                    remindCb.setChecked(isChecked);
                                 }
-                                isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
-                                isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
-                                remindCb.setChecked(isChecked);
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     /**
@@ -291,63 +294,67 @@ public class TwoActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (xStateController != null)
-            xStateController.showLoading();
-        NetApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<MainModel<DengLuModel>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        AllUtil.showErrorInfo(TwoActivity.this, error);
-                        if (xStateController != null)
-                            xStateController.showContent();
-                    }
+        if (!TextUtils.isEmpty(NetApi.HTTP_API_URL)) {
+            if (xStateController != null)
+                xStateController.showLoading();
+            NetApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel<DengLuModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            AllUtil.showErrorInfo(TwoActivity.this, error);
+                            if (xStateController != null)
+                                xStateController.showContent();
+                        }
 
-                    @Override
-                    public void onNext(MainModel<DengLuModel> dlModel) {
-                        if (xStateController != null)
-                            xStateController.showContent();
-                        if (dlModel != null && dlModel.getCode() == 200) {
-                            if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                AllUtil.jumpPage(TwoActivity.this, WorkActivity.class);
-                                int mobileType = dlModel.getData().getMobileType();
-                                SpUtil.saveString("ip", ip);
-                                SpUtil.saveString("phone", phone);
-                                SpUtil.saveInt("mobileType", mobileType);
-                                finish();
-                            }
-                        } else {
-                            if (dlModel.getCode() == 500) {
-                                NewToast.showShort(dlModel.getMsg());
+                        @Override
+                        public void onNext(MainModel<DengLuModel> dlModel) {
+                            if (xStateController != null)
+                                xStateController.showContent();
+                            if (dlModel != null && dlModel.getCode() == 200) {
+                                if (dlModel.getData() != null && dlModel.getCode() == 200) {
+                                    AllUtil.jumpPage(TwoActivity.this, WorkActivity.class);
+                                    int mobileType = dlModel.getData().getMobileType();
+                                    SpUtil.saveString("ip", ip);
+                                    SpUtil.saveString("phone", phone);
+                                    SpUtil.saveInt("mobileType", mobileType);
+                                    finish();
+                                }
+                            } else {
+                                if (dlModel.getCode() == 500) {
+                                    NewToast.showShort(dlModel.getMsg());
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void getYzm(String phone) {
-        NetApi.getInterfaceUtils().sendVerifyCode(phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<MainModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        AllUtil.showErrorInfo(TwoActivity.this, error);
-                    }
+        if (!TextUtils.isEmpty(NetApi.HTTP_API_URL)) {
+            NetApi.getInterfaceUtils().sendVerifyCode(phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            AllUtil.showErrorInfo(TwoActivity.this, error);
+                        }
 
-                    @Override
-                    public void onNext(MainModel mainModel) {
-                        if (mainModel != null) {
-                            if (mainModel.getCode() == 200) {
-                                NewToast.showShort("验证码发送成功");
-                                CountDownTimer cdt = new CountDownTimer(getYzmTv, 60000, 1000);
-                                cdt.start();
+                        @Override
+                        public void onNext(MainModel mainModel) {
+                            if (mainModel != null) {
+                                if (mainModel.getCode() == 200) {
+                                    NewToast.showShort("验证码发送成功");
+                                    CountDownTimer cdt = new CountDownTimer(getYzmTv, 60000, 1000);
+                                    cdt.start();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 }
