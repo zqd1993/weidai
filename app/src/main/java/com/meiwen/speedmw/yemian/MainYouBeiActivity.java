@@ -68,8 +68,8 @@ public class MainYouBeiActivity extends XActivity {
         mainViewPager.setCurrentItem(0);
     }
 
-    private void initAdapter(){
-        if (tabAdapter == null){
+    private void initAdapter() {
+        if (tabAdapter == null) {
             tabAdapter = new TabYouBeiAdapter(R.layout.adapter_tab, tabModels);
             tabAdapter.setHasStableIds(true);
             tabAdapter.setClickedListener(position -> {
@@ -79,6 +79,21 @@ public class MainYouBeiActivity extends XActivity {
             bottomRvy.setLayoutManager(new GridLayoutManager(this, 3));
             bottomRvy.setAdapter(tabAdapter);
         }
+    }
+
+    public void changePage() {
+        mainViewPager.setCurrentItem(1, false);
+        if (tabAdapter != null)
+            if (tabAdapter.getData() != null && tabAdapter.getData().size() > 0) {
+                for (int i = 0; i < tabAdapter.getData().size(); i++) {
+                    if (i == 1){
+                        tabAdapter.getData().get(i).setChecked(true);
+                    } else {
+                        tabAdapter.getData().get(i).setChecked(false);
+                    }
+                }
+                tabAdapter.notifyDataSetChanged();
+            }
     }
 
     @Override
@@ -91,7 +106,7 @@ public class MainYouBeiActivity extends XActivity {
         return null;
     }
 
-    public class TabModel{
+    public class TabModel {
 
         private int icon;
 

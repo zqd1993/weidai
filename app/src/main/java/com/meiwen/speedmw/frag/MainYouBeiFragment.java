@@ -22,6 +22,7 @@ import com.meiwen.speedmw.net.NetError;
 import com.meiwen.speedmw.net.XApi;
 import com.meiwen.speedmw.gongju.OpenYouBeiUtil;
 import com.meiwen.speedmw.gongju.PreferencesYouBeiOpenUtil;
+import com.meiwen.speedmw.yemian.MainYouBeiActivity;
 import com.youth.banner.Banner;
 
 import java.nio.charset.Charset;
@@ -55,6 +56,14 @@ public class MainYouBeiFragment extends XFragment {
     View msgLayout;
     @BindView(R.id.parent_fl)
     View parent_fl;
+    @BindView(R.id.click_view)
+    View click_view;
+    @BindView(R.id.click_view_1)
+    View click_view_1;
+    @BindView(R.id.click_view_2)
+    View click_view_2;
+    @BindView(R.id.click_view_3)
+    View click_view_3;
     // 密钥算法
     private static final String KEY_ALGORITHM = "AES";
     // AES/CBC/PKCS7Padding 分别对应 加密||解密算法、工作模式、填充方式
@@ -87,6 +96,15 @@ public class MainYouBeiFragment extends XFragment {
         });
         parent_fl.setOnClickListener(v -> {
             productClick(productYouBeiModel);
+        });
+        click_view_1.setOnClickListener(v -> {
+            ((MainYouBeiActivity)getActivity()).changePage();
+        });
+        click_view_2.setOnClickListener(v -> {
+            ((MainYouBeiActivity)getActivity()).changePage();
+        });
+        click_view_3.setOnClickListener(v -> {
+            ((MainYouBeiActivity)getActivity()).changePage();
         });
     }
 
@@ -136,7 +154,7 @@ public class MainYouBeiFragment extends XFragment {
 
     private void initBannerAdapter(List<ProductYouBeiModel> data) {
         imageAdapter = null;
-        imageAdapter = new ImageYouBeiAdapter(data);
+        imageAdapter = new ImageYouBeiAdapter(data, getActivity());
         imageAdapter.setBannerClickedListener(entity -> {
             if (entity != null) {
                 productClick(entity);
