@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -31,7 +33,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private Bundle bundle;
 
-    private boolean isAgree = false;
+    private boolean isAgree = false, isResume = false;
 
     private String loginPhone = "";
 
@@ -43,21 +45,31 @@ public class WelcomeActivity extends AppCompatActivity {
         isAgree = SharedPreferencesUtilis.getBoolFromPref("agree");
         loginPhone = SharedPreferencesUtilis.getStringFromPref("phone");
         sendRequestWithOkHttp();
-        if (!isAgree) {
-            showDialog();
-        }
+    }
+
+    @Override
+    protected void onResume() {
+        isResume = true;
+        super.onResume();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isResume = false;
+            }
+        }, 500);
     }
 
     private void showDialog() {
+        Looper.prepare();
         welcomeDialog = new WelcomeDialog(this, "温馨提示");
         welcomeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && !isResume) {
                     WelcomeActivity.this.finish();
-                    return false;
+                    return true;
                 }
-                return true;
+                return false;
             }
         });
         welcomeDialog.setOnClickedListener(new WelcomeDialog.OnClickedListener() {
@@ -100,6 +112,7 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
         welcomeDialog.show();
+        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -161,6 +174,8 @@ public class WelcomeActivity extends AppCompatActivity {
                         .launch();
             }
             finish();
+        } else {
+            showDialog();
         }
     }
 

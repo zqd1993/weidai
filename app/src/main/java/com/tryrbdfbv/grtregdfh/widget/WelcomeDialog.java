@@ -41,6 +41,7 @@ public class WelcomeDialog extends Dialog {
         setContentView(R.layout.dialog_welcome);
         ButterKnife.bind(this);
         setCanceledOnTouchOutside(false);
+        setCancelable(false);
         tvTitle.setVisibility(TextUtils.isEmpty(title) ? View.GONE : View.VISIBLE);
 
         tvTitle.setText(title);
