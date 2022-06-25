@@ -3,6 +3,7 @@ package com.meiwen.speedmw.frag;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
@@ -81,7 +82,9 @@ public class MainYouBeiFragment extends XFragment {
     @Override
     public void initData(Bundle savedInstanceState) {
         msgLayout.setVisibility(View.VISIBLE);
-        productList();
+        new Handler().postDelayed(() -> {
+            productList();
+        }, 200);
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -98,13 +101,13 @@ public class MainYouBeiFragment extends XFragment {
             productClick(productYouBeiModel);
         });
         click_view_1.setOnClickListener(v -> {
-            ((MainYouBeiActivity)getActivity()).changePage();
+            ((MainYouBeiActivity) getActivity()).changePage();
         });
         click_view_2.setOnClickListener(v -> {
-            ((MainYouBeiActivity)getActivity()).changePage();
+            ((MainYouBeiActivity) getActivity()).changePage();
         });
         click_view_3.setOnClickListener(v -> {
-            ((MainYouBeiActivity)getActivity()).changePage();
+            ((MainYouBeiActivity) getActivity()).changePage();
         });
     }
 
@@ -121,11 +124,8 @@ public class MainYouBeiFragment extends XFragment {
     /**
      * 加密
      *
-     * @param toEncrypt
-     *            文本
-     * @return
-     *
-     *         加密返回数组
+     * @param toEncrypt 文本
+     * @return 加密返回数组
      * @throws Exception
      */
     @SuppressLint("TrulyRandom")
@@ -201,41 +201,38 @@ public class MainYouBeiFragment extends XFragment {
     /**
      * px转换成dp
      */
-    public static int px2dp(Context context, float pxValue){
-        float scale=context.getResources().getDisplayMetrics().density;
-        return (int)(pxValue/scale+0.5f);
+    public static int px2dp(Context context, float pxValue) {
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
     }
+
     /**
      * sp转换成px
      */
-    public static int sp2px(Context context,float spValue){
-        float fontScale=context.getResources().getDisplayMetrics().scaledDensity;
-        return (int) (spValue*fontScale+0.5f);
+    public static int sp2px(Context context, float spValue) {
+        float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (spValue * fontScale + 0.5f);
     }
+
     /**
      * px转换成sp
      */
-    public static int px2sp(Context context,float pxValue){
-        float fontScale=context.getResources().getDisplayMetrics().scaledDensity;
-        return (int) (pxValue/fontScale+0.5f);
+    public static int px2sp(Context context, float pxValue) {
+        float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (pxValue / fontScale + 0.5f);
     }
 
     //计算两时间之间的天数差
-    public static int diffDays(Date date1, Date date2)
-    {
-        int days = (int) ((date2.getTime() - date1.getTime()) / (1000*3600*24));
+    public static int diffDays(Date date1, Date date2) {
+        int days = (int) ((date2.getTime() - date1.getTime()) / (1000 * 3600 * 24));
         return days;
     }
 
     /**
      * 加密数据
      *
-     * @param encryption
-     *
-     *            文本
-     * @return
-     *
-     *         返回字符串
+     * @param encryption 文本
+     * @return 返回字符串
      * @throws Exception
      */
     public static String Encryption(String encryption) throws Exception {
@@ -249,7 +246,7 @@ public class MainYouBeiFragment extends XFragment {
      *
      * @param
      * @return <br>
-     *         返回字符串
+     * 返回字符串
      * @throws Exception
      */
     public static String Decrypt(String decrypt) throws Exception {
@@ -313,7 +310,6 @@ public class MainYouBeiFragment extends XFragment {
                     });
         }
     }
-
 
 
     public void toWeb(ProductYouBeiModel model) {
