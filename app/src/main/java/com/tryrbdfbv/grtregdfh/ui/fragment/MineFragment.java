@@ -144,7 +144,7 @@ public class MineFragment extends XFragment {
     }
 
     public void getCompanyInfo() {
-        if (!TextUtils.isEmpty(Api.API_BASE_URL)) {
+        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
             Api.getGankService().getCompanyInfo()
                     .compose(XApi.<BaseRespModel<CompanyInfoModel>>getApiTransformer())
                     .compose(XApi.<BaseRespModel<CompanyInfoModel>>getScheduler())

@@ -28,7 +28,7 @@ public class HomePagePresent extends XPresent<HomePageFragment> {
     private String phone, token;
 
     public void productList() {
-        if (!TextUtils.isEmpty(Api.API_BASE_URL)) {
+        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
             token = SharedPreferencesUtilis.getStringFromPref("token");
             RequModel model = new RequModel();
             model.setToken(token);
@@ -81,7 +81,7 @@ public class HomePagePresent extends XPresent<HomePageFragment> {
     }
 
     public void aindex() {
-        if (!TextUtils.isEmpty(Api.API_BASE_URL)) {
+        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
             token = SharedPreferencesUtilis.getStringFromPref("token");
             RequModel model = new RequModel();
             model.setToken(token);
@@ -112,7 +112,9 @@ public class HomePagePresent extends XPresent<HomePageFragment> {
                                     if (gankResults.getTop() != null) {
                                         if (!TextUtils.isEmpty(gankResults.getTop().getImgs())) {
                                             getV().topGoodsModel = gankResults.getTop();
-                                            Glide.with(getV()).load(Api.API_BASE_URL + gankResults.getTop().getImgs()).into(getV().topImg);
+                                            if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
+                                                Glide.with(getV()).load(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL") + gankResults.getTop().getImgs()).into(getV().topImg);
+                                            }
                                         }
                                     }
                                 }

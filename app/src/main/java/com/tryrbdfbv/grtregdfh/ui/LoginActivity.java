@@ -3,6 +3,7 @@ package com.tryrbdfbv.grtregdfh.ui;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.tryrbdfbv.grtregdfh.R;
 import com.tryrbdfbv.grtregdfh.net.Api;
+import com.tryrbdfbv.grtregdfh.utils.SharedPreferencesUtilis;
 import com.tryrbdfbv.grtregdfh.utils.StaticUtil;
 import com.tryrbdfbv.grtregdfh.utils.StatusBarUtil;
 import com.tryrbdfbv.grtregdfh.utils.ToastUtil;
@@ -63,10 +65,10 @@ public class LoginActivity extends XActivity<LoginPresent> {
         StatusBarUtil.setTransparent(this, false);
         StatusBarUtil.setLightMode(this);
         initListener();
-        new Handler().postDelayed(() -> {
-            getP().getGankData();
-            getP().getCompanyInfo();
-        }, 200);
+//        ToastUtil.showShort("API_BASE_URL = " + SharedPreferencesUtilis.getStringFromPref("API_BASE_URL") +
+//                "API_BASE_URL_1 = " + Api.API_BASE_URL);
+        getP().getGankData();
+        getP().getCompanyInfo();
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
             if (position == 1) {
