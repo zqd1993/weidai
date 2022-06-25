@@ -7,6 +7,10 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.xvhyrt.ghjtyu.net.NetError;
 import com.xvhyrt.ghjtyu.router.Router;
 import com.xvhyrt.ghjtyu.w.ClickTextView;
@@ -16,6 +20,96 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class OpenUtil {
+
+    /**
+     * 把丢进来的recyclerview  写成纵向滑动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager nmghjty(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager manager = new LinearLayoutManager(context);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager tyurngfd(RecyclerView Rv, Context context, int num) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager tytrbfg(RecyclerView Rv, Context context, int num, int space) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        return manager;
+    }
+
+    /**
+     * 把丢进来的recyclerview  写成纵向滑动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager qweaxcasd(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager manager = new LinearLayoutManager(context);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager puiukh(RecyclerView Rv, Context context, int num) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager fgnfghrt(RecyclerView Rv, Context context, int num, int space) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        return manager;
+    }
 
     public static void showErrorInfo(Context context, NetError error) {
         if (error != null) {
@@ -35,11 +129,101 @@ public class OpenUtil {
         }
     }
 
+    /**
+     * 把丢进来的recyclerview  写成纵向滑动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager cdsfe(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager manager = new LinearLayoutManager(context);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager pioryjes(RecyclerView Rv, Context context, int num) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager vsdfrefg(RecyclerView Rv, Context context, int num, int space) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        return manager;
+    }
+
     public static boolean isMobile(String number) {
         if ((number != null) && (!number.isEmpty())) {
             return Pattern.matches("^1[3-9]\\d{9}$", number);
         }
         return false;
+    }
+
+    /**
+     * 把丢进来的recyclerview  写成纵向滑动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager puioyukmg(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager manager = new LinearLayoutManager(context);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager wersdxcz(RecyclerView Rv, Context context, int num) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager bdfggtrs(RecyclerView Rv, Context context, int num, int space) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        return manager;
     }
 
     public static String getAppVersion(Context context) {
@@ -55,6 +239,51 @@ public class OpenUtil {
             e.printStackTrace();
         }
         return version;
+    }
+
+    /**
+     * 把丢进来的recyclerview  写成纵向滑动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager uiift(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager manager = new LinearLayoutManager(context);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager zxcdsf(RecyclerView Rv, Context context, int num) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager refdxz(RecyclerView Rv, Context context, int num, int space) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        return manager;
     }
 
     public static List<ClickTextView.SpanModel> createSpanTexts(){
@@ -84,6 +313,51 @@ public class OpenUtil {
         return spanModels;
     }
 
+    /**
+     * 把丢进来的recyclerview  写成纵向滑动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager sdfsdg(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager manager = new LinearLayoutManager(context);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager retgfv(RecyclerView Rv, Context context, int num) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager bnfgh(RecyclerView Rv, Context context, int num, int space) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        return manager;
+    }
+
     public static List<ClickTextView.SpanModel> createDlSpanTexts() {
         List<ClickTextView.SpanModel> spanModels = new ArrayList<>();
         ClickTextView.ClickSpanModel spanModel = new ClickTextView.ClickSpanModel();
@@ -105,6 +379,51 @@ public class OpenUtil {
                 .to(to)
                 .data(bundle)
                 .launch();
+    }
+
+    /**
+     * 把丢进来的recyclerview  写成纵向滑动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager sdghert(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager manager = new LinearLayoutManager(context);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager yuiyrj(RecyclerView Rv, Context context, int num) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager vffdfgr(RecyclerView Rv, Context context, int num, int space) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        return manager;
     }
 
     public static void jumpPage(Activity activity, Class<?> to){

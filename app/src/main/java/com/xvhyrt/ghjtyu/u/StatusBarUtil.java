@@ -14,6 +14,9 @@ import android.widget.LinearLayout;
 import androidx.annotation.ColorInt;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.xvhyrt.ghjtyu.R;
 
@@ -41,6 +44,51 @@ public class StatusBarUtil {
      */
     public static void setColor(Activity activity, @ColorInt int color) {
         setColor(activity, color, DEFAULT_STATUS_BAR_ALPHA);
+    }
+
+    /**
+     * 把丢进来的recyclerview  写成纵向滑动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager nmghjty(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager manager = new LinearLayoutManager(context);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager tyurngfd(RecyclerView Rv, Context context, int num) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager tytrbfg(RecyclerView Rv, Context context, int num, int space) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        return manager;
     }
 
     /**
@@ -121,6 +169,51 @@ public class StatusBarUtil {
     }
 
     /**
+     * 把丢进来的recyclerview  写成纵向滑动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager fhjkrtyws(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager manager = new LinearLayoutManager(context);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager atergs(RecyclerView Rv, Context context, int num) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager fghhrtb(RecyclerView Rv, Context context, int num, int space) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        return manager;
+    }
+
+    /**
      * 设置状态栏纯色 不加半透明效果
      *
      * @param activity 需要设置的 activity
@@ -172,6 +265,51 @@ public class StatusBarUtil {
         }
         transparentStatusBar(activity);
         addTranslucentView(activity, statusBarAlpha);
+    }
+
+    /**
+     * 把丢进来的recyclerview  写成纵向滑动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager sdfew(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager manager = new LinearLayoutManager(context);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager tyujdf(RecyclerView Rv, Context context, int num) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager dfgrtys(RecyclerView Rv, Context context, int num, int space) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        return manager;
     }
 
     /**

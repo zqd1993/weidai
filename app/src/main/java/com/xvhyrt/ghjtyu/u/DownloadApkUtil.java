@@ -1,5 +1,11 @@
 package com.xvhyrt.ghjtyu.u;
 
+import android.content.Context;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,6 +28,51 @@ public class DownloadApkUtil {
         return downloadApkUtil;
     }
 
+    /**
+     * 把丢进来的recyclerview  写成纵向滑动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager nmghjty(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager manager = new LinearLayoutManager(context);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager tyurngfd(RecyclerView Rv, Context context, int num) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager tytrbfg(RecyclerView Rv, Context context, int num, int space) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        return manager;
+    }
+
     private DownloadApkUtil() {
         client = new OkHttpClient();
     }
@@ -33,6 +84,51 @@ public class DownloadApkUtil {
         void onDownloading(int progress);
 
         void onDownloadFailed(Exception e);
+    }
+
+    /**
+     * 把丢进来的recyclerview  写成纵向滑动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager dfdg(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager manager = new LinearLayoutManager(context);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager ythf(RecyclerView Rv, Context context, int num) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager bfghtrh(RecyclerView Rv, Context context, int num, int space) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        return manager;
     }
 
     public void download(final String url, final String destFileDir, final String destFileName, final OnDownloadListener listener) {
@@ -93,5 +189,50 @@ public class DownloadApkUtil {
                 }
             }
         });
+    }
+
+    /**
+     * 把丢进来的recyclerview  写成纵向滑动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager opuiiyu(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager manager = new LinearLayoutManager(context);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager wersdfa(RecyclerView Rv, Context context, int num) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        Rv.getItemAnimator().setChangeDuration(0);
+        return manager;
+    }
+
+    /**
+     * 设置recyclerview位gridview的样式
+     *
+     * @param Rv
+     * @param context
+     * @param num     每一行的列数
+     * @return
+     */
+    public static GridLayoutManager mhgjuyf(RecyclerView Rv, Context context, int num, int space) {
+        GridLayoutManager manager = new GridLayoutManager(context, num);
+        Rv.setLayoutManager(manager);
+        return manager;
     }
 }

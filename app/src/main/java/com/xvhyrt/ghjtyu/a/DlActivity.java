@@ -1,5 +1,6 @@
 package com.xvhyrt.ghjtyu.a;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -7,6 +8,9 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.xvhyrt.ghjtyu.api.HttpApi;
 import com.xvhyrt.ghjtyu.R;
@@ -27,6 +31,8 @@ import com.lihang.ShadowLayout;
 
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
+
 import cn.droidlover.xstatecontroller.XStateController;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -44,6 +50,47 @@ public class DlActivity extends XActivity {
     private String phoneStr, yzmStr, ip = "";
     private Bundle bundle;
     public boolean isChecked = true, isNeedYzm = true;
+
+    public static BigDecimal getdoubleString(double d) {
+        BigDecimal bd = new BigDecimal(d);
+        return bd.setScale(2, BigDecimal.ROUND_DOWN);
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager setRvHorizontal(RecyclerView Rv, Context context) {
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context);
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向
+     * <p>
+     * 并且不可滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager setRvHorizontalNoScroll(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
+    }
 
     @Override
     public void initData(Bundle savedInstanceState) {
@@ -101,14 +148,137 @@ public class DlActivity extends XActivity {
         });
     }
 
+    public static BigDecimal dcvsefd(double d) {
+        BigDecimal bd = new BigDecimal(d);
+        return bd.setScale(2, BigDecimal.ROUND_DOWN);
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager setRvytedvcvHorizontal(RecyclerView Rv, Context context) {
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context);
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向
+     * <p>
+     * 并且不可滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager ndfecxz(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
+    }
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_dl;
     }
 
+    public static BigDecimal bfggr(double d) {
+        BigDecimal bd = new BigDecimal(d);
+        return bd.setScale(2, BigDecimal.ROUND_DOWN);
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager qwerdcsxc(RecyclerView Rv, Context context) {
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context);
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向
+     * <p>
+     * 并且不可滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager bewdsc(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
+    }
+
     @Override
     public Object newP() {
         return null;
+    }
+
+    public static BigDecimal bbnedcas(double d) {
+        BigDecimal bd = new BigDecimal(d);
+        return bd.setScale(2, BigDecimal.ROUND_DOWN);
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager rsdca(RecyclerView Rv, Context context) {
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context);
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向
+     * <p>
+     * 并且不可滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager vsdfewd(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
     }
 
     public void getConfig() {
@@ -143,6 +313,47 @@ public class DlActivity extends XActivity {
         }
     }
 
+    public static BigDecimal rcsdc(double d) {
+        BigDecimal bd = new BigDecimal(d);
+        return bd.setScale(2, BigDecimal.ROUND_DOWN);
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager bfgrev(RecyclerView Rv, Context context) {
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context);
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向
+     * <p>
+     * 并且不可滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager qwfdscv(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
+    }
+
     private void getIp() {
         new Thread(() -> {
             try {
@@ -170,6 +381,47 @@ public class DlActivity extends XActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static BigDecimal nhgyht(double d) {
+        BigDecimal bd = new BigDecimal(d);
+        return bd.setScale(2, BigDecimal.ROUND_DOWN);
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager bgfser(RecyclerView Rv, Context context) {
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context);
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向
+     * <p>
+     * 并且不可滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager rtvbdf(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
     }
 
     public void login(String phone, String verificationStr) {
@@ -209,6 +461,47 @@ public class DlActivity extends XActivity {
                         }
                     });
         }
+    }
+
+    public static BigDecimal nhgy7uj(double d) {
+        BigDecimal bd = new BigDecimal(d);
+        return bd.setScale(2, BigDecimal.ROUND_DOWN);
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager ewrwevdv(RecyclerView Rv, Context context) {
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context);
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向
+     * <p>
+     * 并且不可滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager bgf5tgh(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
     }
 
     public void getYzm(String phone) {

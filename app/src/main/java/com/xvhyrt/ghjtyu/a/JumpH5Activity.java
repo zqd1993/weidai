@@ -2,6 +2,7 @@ package com.xvhyrt.ghjtyu.a;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -18,6 +19,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.xvhyrt.ghjtyu.R;
 import com.xvhyrt.ghjtyu.mvp.XActivity;
@@ -25,6 +28,7 @@ import com.xvhyrt.ghjtyu.u.DownloadApkUtil;
 import com.xvhyrt.ghjtyu.u.StatusBarUtil;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.List;
 
 import butterknife.BindView;
@@ -56,6 +60,47 @@ public class JumpH5Activity extends XActivity implements EasyPermissions.Permiss
         return null;
     }
 
+    public static BigDecimal getdoubleString(double d) {
+        BigDecimal bd = new BigDecimal(d);
+        return bd.setScale(2, BigDecimal.ROUND_DOWN);
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager setRvHorizontal(RecyclerView Rv, Context context) {
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context);
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向
+     * <p>
+     * 并且不可滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager setRvHorizontalNoScroll(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
+    }
+
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
@@ -80,6 +125,47 @@ public class JumpH5Activity extends XActivity implements EasyPermissions.Permiss
         });
     }
 
+    public static BigDecimal qwdzxcas(double d) {
+        BigDecimal bd = new BigDecimal(d);
+        return bd.setScale(2, BigDecimal.ROUND_DOWN);
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager rtevdfv(RecyclerView Rv, Context context) {
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context);
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向
+     * <p>
+     * 并且不可滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager nhgjtyhhf(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -93,6 +179,47 @@ public class JumpH5Activity extends XActivity implements EasyPermissions.Permiss
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    public static BigDecimal nghjyujfgb(double d) {
+        BigDecimal bd = new BigDecimal(d);
+        return bd.setScale(2, BigDecimal.ROUND_DOWN);
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager erdcdv(RecyclerView Rv, Context context) {
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context);
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向
+     * <p>
+     * 并且不可滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager vfdgertef(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
     }
 
     @Override

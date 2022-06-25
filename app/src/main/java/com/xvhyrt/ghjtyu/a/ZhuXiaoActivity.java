@@ -1,20 +1,66 @@
 package com.xvhyrt.ghjtyu.a;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.xvhyrt.ghjtyu.R;
 import com.xvhyrt.ghjtyu.u.MyToast;
 import com.xvhyrt.ghjtyu.u.StatusBarUtil;
 import com.xvhyrt.ghjtyu.w.RemindDialog;
 
+import java.math.BigDecimal;
+
 public class ZhuXiaoActivity extends AppCompatActivity {
 
     private RemindDialog dialog;
+
+    public static BigDecimal getdoubleString(double d) {
+        BigDecimal bd = new BigDecimal(d);
+        return bd.setScale(2, BigDecimal.ROUND_DOWN);
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager setRvHorizontal(RecyclerView Rv, Context context) {
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context);
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向
+     * <p>
+     * 并且不可滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager setRvHorizontalNoScroll(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +89,88 @@ public class ZhuXiaoActivity extends AppCompatActivity {
             });
             dialog.show();
         });
+    }
+
+    public static BigDecimal nhgjygu(double d) {
+        BigDecimal bd = new BigDecimal(d);
+        return bd.setScale(2, BigDecimal.ROUND_DOWN);
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager rtrhfg(RecyclerView Rv, Context context) {
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context);
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向
+     * <p>
+     * 并且不可滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager gbftgyrt(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
+    }
+
+    public static BigDecimal jjdfg(double d) {
+        BigDecimal bd = new BigDecimal(d);
+        return bd.setScale(2, BigDecimal.ROUND_DOWN);
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager pioiuk(RecyclerView Rv, Context context) {
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context);
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
+    }
+
+    /**
+     * 把丢进来的recyclerView 设置成横向
+     * <p>
+     * 并且不可滚动
+     *
+     * @param Rv
+     * @param context
+     */
+    public static LinearLayoutManager tgfbse(RecyclerView Rv, Context context) {
+
+        LinearLayoutManager layoutmanager = new LinearLayoutManager(context) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        layoutmanager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        Rv.setHasFixedSize(true);
+        Rv.setLayoutManager(layoutmanager);
+        return layoutmanager;
     }
 
 }
