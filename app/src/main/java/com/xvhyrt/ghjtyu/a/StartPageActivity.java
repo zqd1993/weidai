@@ -3,6 +3,7 @@ package com.xvhyrt.ghjtyu.a;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -27,7 +28,7 @@ public class StartPageActivity extends AppCompatActivity {
 
     private Bundle bundle;
 
-    private boolean isSure = false;
+    private boolean isSure = false, isResume = false;
 
     private String phone = "";
 
@@ -43,12 +44,25 @@ public class StartPageActivity extends AppCompatActivity {
         sendRequestWithOkHttp();
     }
 
+    @Override
+    protected void onResume() {
+        isResume = true;
+        super.onResume();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isResume = false;
+            }
+        }, 500);
+    }
+
     private void showDialog() {
+        Looper.prepare();
         startPageRemindDialog = new StartPageRemindDialog(this);
         startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && !isResume) {
                     StartPageActivity.this.finish();
                     return false;
                 }
@@ -86,6 +100,7 @@ public class StartPageActivity extends AppCompatActivity {
             }
         });
         startPageRemindDialog.show();
+        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
