@@ -2,6 +2,8 @@ package com.rihdkauecgh.plihgnytrvfws.net;
 
 import android.text.TextUtils;
 
+import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesUtilis;
+
 /**
  * Created by wanglei on 2016/12/31.
  */
@@ -14,10 +16,10 @@ public class Api {
     private static GankService gankService;
 
     public static GankService getGankService() {
-        if (gankService == null && !TextUtils.isEmpty(API_BASE_URL)) {
+        if (gankService == null && !TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
             synchronized (Api.class) {
                 if (gankService == null) {
-                    gankService = XApi.getInstance().getRetrofit(API_BASE_URL, true).create(GankService.class);
+                    gankService = XApi.getInstance().getRetrofit(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"), true).create(GankService.class);
                 }
             }
         }

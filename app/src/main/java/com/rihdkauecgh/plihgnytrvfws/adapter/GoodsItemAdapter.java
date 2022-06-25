@@ -16,6 +16,7 @@ import com.rihdkauecgh.plihgnytrvfws.imageloader.ILoader;
 import com.rihdkauecgh.plihgnytrvfws.kit.KnifeKit;
 import com.rihdkauecgh.plihgnytrvfws.model.GoodsModel;
 import com.rihdkauecgh.plihgnytrvfws.net.Api;
+import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesUtilis;
 
 import butterknife.BindView;
 
@@ -44,7 +45,9 @@ public class GoodsItemAdapter extends SimpleRecAdapter<GoodsModel, GoodsItemAdap
         viewHolder.passingRateTv.setText(String.valueOf(model.getPassingRate()));
         viewHolder.tagTv.setText(model.getTag());
         viewHolder.productNameTv.setText(model.getProductName());
-        ILFactory.getLoader().loadNet(viewHolder.productImg, Api.API_BASE_URL + model.getProductLogo(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
+            ILFactory.getLoader().loadNet(viewHolder.productImg, SharedPreferencesUtilis.getStringFromPref("API_BASE_URL") + model.getProductLogo(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        }
         viewHolder.limitTv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
         viewHolder.clickView.setOnClickListener(v -> {
             getRecItemClick().onItemClick(i, model, 1, viewHolder);

@@ -124,7 +124,8 @@ public class WelcomeActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-                        Api.API_BASE_URL = "http://" + responseData;
+//                        Api.API_BASE_URL = "http://" + responseData;
+                        SharedPreferencesUtilis.saveStringIntoPref("API_BASE_URL", "http://" + responseData);
                         Thread.sleep(1000);
                         jumpPage();
 

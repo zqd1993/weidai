@@ -10,6 +10,7 @@ import com.rihdkauecgh.plihgnytrvfws.net.Api;
 import com.rihdkauecgh.plihgnytrvfws.net.NetError;
 import com.rihdkauecgh.plihgnytrvfws.net.ApiSubscriber;
 import com.rihdkauecgh.plihgnytrvfws.net.XApi;
+import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesUtilis;
 
 /**
  * Created by wanglei on 2016/12/31.
@@ -20,7 +21,7 @@ public class PBasePager extends XPresent<BasePagerFragment> {
 
 
     public void loadData() {
-        if (!TextUtils.isEmpty(Api.API_BASE_URL)) {
+        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
             Api.getGankService().getGankData()
                     .compose(XApi.<BaseRespModel<ConfigModel>>getApiTransformer())
                     .compose(XApi.<BaseRespModel<ConfigModel>>getScheduler())

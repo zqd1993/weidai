@@ -64,9 +64,7 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
                 homePageBg.setVisibility(View.GONE);
             }
         }
-        new Handler().postDelayed(() -> {
-            getP().productList();
-        }, 200);
+        getP().productList();
         swipeRefreshLayout.setOnRefreshListener(() -> getP().productList());
         noDataFl.setOnClickListener(v -> getP().productList());
         productBg.setOnClickListener(v -> {
