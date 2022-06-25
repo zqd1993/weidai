@@ -1,6 +1,7 @@
 package com.xvhyrt.ghjtyu.f;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import com.xvhyrt.ghjtyu.a.SetItemAdapter;
 import com.xvhyrt.ghjtyu.a.ZhuXiaoActivity;
 import com.xvhyrt.ghjtyu.api.HttpApi;
 import com.xvhyrt.ghjtyu.m.BaseModel;
+import com.xvhyrt.ghjtyu.m.ConfigEntity;
 import com.xvhyrt.ghjtyu.m.ProductModel;
 import com.xvhyrt.ghjtyu.m.SetModel;
 import com.xvhyrt.ghjtyu.mvp.XFragment;
@@ -133,8 +135,7 @@ public class SetFragment extends XFragment {
                     dialog.show();
                     break;
                 case 5:
-                    dialog = new RemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
-                    dialog.show();
+                    getConfig();
                     break;
                 case 6:
                     OpenUtil.jumpPage(getActivity(), ZhuXiaoActivity.class);
@@ -174,49 +175,80 @@ public class SetFragment extends XFragment {
     }
 
     public void productList() {
-        mobileType = PreferencesOpenUtil.getInt("mobileType");
-        HttpApi.getInterfaceUtils().productList(mobileType)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModel<List<ProductModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenUtil.showErrorInfo(getActivity(), error);
-                    }
+        if (!TextUtils.isEmpty(HttpApi.HTTP_API_URL)) {
+            mobileType = PreferencesOpenUtil.getInt("mobileType");
+            HttpApi.getInterfaceUtils().productList(mobileType)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel<List<ProductModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenUtil.showErrorInfo(getActivity(), error);
+                        }
 
-                    @Override
-                    public void onNext(BaseModel<List<ProductModel>> baseModel) {
-                        if (baseModel != null) {
-                            if (baseModel.getCode() == 200 && baseModel.getData() != null) {
-                                if (baseModel.getData() != null && baseModel.getData().size() > 0) {
-                                    productModel = baseModel.getData().get(0);
+                        @Override
+                        public void onNext(BaseModel<List<ProductModel>> baseModel) {
+                            if (baseModel != null) {
+                                if (baseModel.getCode() == 200 && baseModel.getData() != null) {
+                                    if (baseModel.getData() != null && baseModel.getData().size() > 0) {
+                                        productModel = baseModel.getData().get(0);
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void productClick(ProductModel model) {
-        if (model == null) {
-            return;
-        }
-        phone = PreferencesOpenUtil.getString("phone");
-        HttpApi.getInterfaceUtils().productClick(model.getId(), phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        toWeb(model);
-                    }
+        if (!TextUtils.isEmpty(HttpApi.HTTP_API_URL)) {
+            if (model == null) {
+                return;
+            }
+            phone = PreferencesOpenUtil.getString("phone");
+            HttpApi.getInterfaceUtils().productClick(model.getId(), phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            toWeb(model);
+                        }
 
-                    @Override
-                    public void onNext(BaseModel baseModel) {
-                        toWeb(model);
-                    }
-                });
+                        @Override
+                        public void onNext(BaseModel baseModel) {
+                            toWeb(model);
+                        }
+                    });
+        }
+    }
+
+    public void getConfig() {
+        if (!TextUtils.isEmpty(HttpApi.HTTP_API_URL)) {
+            HttpApi.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(BaseModel<ConfigEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    mailStr = configEntity.getData().getAppMail();
+                                    PreferencesOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
+                                    dialog = new RemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
+                                    dialog.show();
+                                }
+                            }
+                        }
+                    });
+        }
     }
 }

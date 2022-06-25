@@ -1,6 +1,7 @@
 package com.xvhyrt.ghjtyu.f;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -81,51 +82,59 @@ public class ProductFragment extends XFragment {
     }
 
     public void productClick(ProductModel model) {
-        if (model != null) {
-            phone = PreferencesOpenUtil.getString("phone");
-            HttpApi.getInterfaceUtils().productClick(model.getId(), phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModel>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            toWeb(model);
-                        }
+        if (!TextUtils.isEmpty(HttpApi.HTTP_API_URL)) {
+            if (model != null) {
+                phone = PreferencesOpenUtil.getString("phone");
+                HttpApi.getInterfaceUtils().productClick(model.getId(), phone)
+                        .compose(XApi.getApiTransformer())
+                        .compose(XApi.getScheduler())
+                        .compose(bindToLifecycle())
+                        .subscribe(new ApiSubscriber<BaseModel>() {
+                            @Override
+                            protected void onFail(NetError error) {
+                                toWeb(model);
+                            }
 
-                        @Override
-                        public void onNext(BaseModel baseModel) {
-                            toWeb(model);
-                        }
-                    });
+                            @Override
+                            public void onNext(BaseModel baseModel) {
+                                toWeb(model);
+                            }
+                        });
+            }
         }
     }
 
 
     public void productList() {
-        mobileType = PreferencesOpenUtil.getInt("mobileType");
-        HttpApi.getInterfaceUtils().productList(mobileType)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModel<List<ProductModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        setRefreshing.setRefreshing(false);
-                        OpenUtil.showErrorInfo(getActivity(), error);
-                        if (goodsListLl.getChildCount() == 0) {
-                            noDataTv.setVisibility(View.VISIBLE);
+        if (!TextUtils.isEmpty(HttpApi.HTTP_API_URL)) {
+            mobileType = PreferencesOpenUtil.getInt("mobileType");
+            HttpApi.getInterfaceUtils().productList(mobileType)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel<List<ProductModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            setRefreshing.setRefreshing(false);
+                            OpenUtil.showErrorInfo(getActivity(), error);
+                            if (goodsListLl.getChildCount() == 0) {
+                                noDataTv.setVisibility(View.VISIBLE);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onNext(BaseModel<List<ProductModel>> baseModel) {
-                        setRefreshing.setRefreshing(false);
-                        if (baseModel != null) {
-                            if (baseModel.getCode() == 200 && baseModel.getData() != null) {
-                                if (baseModel.getData() != null && baseModel.getData().size() > 0) {
-                                    productModel = baseModel.getData().get(0);
-                                    addProductView(baseModel.getData());
+                        @Override
+                        public void onNext(BaseModel<List<ProductModel>> baseModel) {
+                            setRefreshing.setRefreshing(false);
+                            if (baseModel != null) {
+                                if (baseModel.getCode() == 200 && baseModel.getData() != null) {
+                                    if (baseModel.getData() != null && baseModel.getData().size() > 0) {
+                                        productModel = baseModel.getData().get(0);
+                                        addProductView(baseModel.getData());
+                                    } else {
+                                        if (goodsListLl.getChildCount() == 0) {
+                                            noDataTv.setVisibility(View.VISIBLE);
+                                        }
+                                    }
                                 } else {
                                     if (goodsListLl.getChildCount() == 0) {
                                         noDataTv.setVisibility(View.VISIBLE);
@@ -136,13 +145,9 @@ public class ProductFragment extends XFragment {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
                             }
-                        } else {
-                            if (goodsListLl.getChildCount() == 0) {
-                                noDataTv.setVisibility(View.VISIBLE);
-                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     private void addProductView(List<ProductModel> mList) {

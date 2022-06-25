@@ -1,6 +1,8 @@
 package com.xvhyrt.ghjtyu.a;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -56,7 +58,9 @@ public class DlActivity extends XActivity {
         yzmCv = this.findViewById(R.id.yzm_cv);
         getIp();
         xStateController.loadingView(View.inflate(this, R.layout.view_loading, null));
-        getConfig();
+        new Handler().postDelayed(() -> {
+            getConfig();
+        }, 200);
         readTv.setText(OpenUtil.createDlSpanTexts(), position -> {
             bundle = new Bundle();
             if (position == 1) {
@@ -89,11 +93,11 @@ public class DlActivity extends XActivity {
                 MyToast.showShort("请输入验证码");
                 return;
             }
-            if (!remindCb.isChecked()){
+            if (!remindCb.isChecked()) {
                 MyToast.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
-            login(phoneStr,yzmStr);
+            login(phoneStr, yzmStr);
         });
     }
 
@@ -108,33 +112,35 @@ public class DlActivity extends XActivity {
     }
 
     public void getConfig() {
-        HttpApi.getInterfaceUtils().getConfig()
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(this.bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenUtil.showErrorInfo(DlActivity.this, error);
-                    }
+        if (!TextUtils.isEmpty(HttpApi.HTTP_API_URL)) {
+            HttpApi.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenUtil.showErrorInfo(DlActivity.this, error);
+                        }
 
-                    @Override
-                    public void onNext(BaseModel<ConfigEntity> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                PreferencesOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
-                                if ("0".equals(configEntity.getData().getIsCodeLogin())) {
-                                    yzmCv.setVisibility(View.GONE);
-                                } else {
-                                    yzmCv.setVisibility(View.VISIBLE);
+                        @Override
+                        public void onNext(BaseModel<ConfigEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    PreferencesOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
+                                    if ("0".equals(configEntity.getData().getIsCodeLogin())) {
+                                        yzmCv.setVisibility(View.GONE);
+                                    } else {
+                                        yzmCv.setVisibility(View.VISIBLE);
+                                    }
+                                    isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
+                                    isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
+                                    remindCb.setChecked(isChecked);
                                 }
-                                isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
-                                isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
-                                remindCb.setChecked(isChecked);
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     private void getIp() {
@@ -167,63 +173,67 @@ public class DlActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (xStateController != null)
-            xStateController.showLoading();
-        HttpApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModel<DlModel>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenUtil.showErrorInfo(DlActivity.this, error);
-                        if (xStateController != null)
-                            xStateController.showContent();
-                    }
+        if (!TextUtils.isEmpty(HttpApi.HTTP_API_URL)) {
+            if (xStateController != null)
+                xStateController.showLoading();
+            HttpApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel<DlModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenUtil.showErrorInfo(DlActivity.this, error);
+                            if (xStateController != null)
+                                xStateController.showContent();
+                        }
 
-                    @Override
-                    public void onNext(BaseModel<DlModel> dlModel) {
-                        if (xStateController != null)
-                            xStateController.showContent();
-                        if (dlModel != null && dlModel.getCode() == 200) {
-                            if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                OpenUtil.jumpPage(DlActivity.this, MainActivity.class);
-                                int mobileType = dlModel.getData().getMobileType();
-                                PreferencesOpenUtil.saveString("ip", ip);
-                                PreferencesOpenUtil.saveString("phone", phone);
-                                PreferencesOpenUtil.saveInt("mobileType", mobileType);
-                                finish();
-                            }
-                        } else {
-                            if (dlModel.getCode() == 500) {
-                                MyToast.showShort(dlModel.getMsg());
+                        @Override
+                        public void onNext(BaseModel<DlModel> dlModel) {
+                            if (xStateController != null)
+                                xStateController.showContent();
+                            if (dlModel != null && dlModel.getCode() == 200) {
+                                if (dlModel.getData() != null && dlModel.getCode() == 200) {
+                                    OpenUtil.jumpPage(DlActivity.this, MainActivity.class);
+                                    int mobileType = dlModel.getData().getMobileType();
+                                    PreferencesOpenUtil.saveString("ip", ip);
+                                    PreferencesOpenUtil.saveString("phone", phone);
+                                    PreferencesOpenUtil.saveInt("mobileType", mobileType);
+                                    finish();
+                                }
+                            } else {
+                                if (dlModel.getCode() == 500) {
+                                    MyToast.showShort(dlModel.getMsg());
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void getYzm(String phone) {
-        HttpApi.getInterfaceUtils().sendVerifyCode(phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenUtil.showErrorInfo(DlActivity.this, error);
-                    }
+        if (!TextUtils.isEmpty(HttpApi.HTTP_API_URL)) {
+            HttpApi.getInterfaceUtils().sendVerifyCode(phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenUtil.showErrorInfo(DlActivity.this, error);
+                        }
 
-                    @Override
-                    public void onNext(BaseModel baseModel) {
-                        if (baseModel != null) {
-                            if (baseModel.getCode() == 200) {
-                                MyToast.showShort("验证码发送成功");
-                                CountDownTimer cdt = new CountDownTimer(getYzmTv, 60000, 1000);
-                                cdt.start();
+                        @Override
+                        public void onNext(BaseModel baseModel) {
+                            if (baseModel != null) {
+                                if (baseModel.getCode() == 200) {
+                                    MyToast.showShort("验证码发送成功");
+                                    CountDownTimer cdt = new CountDownTimer(getYzmTv, 60000, 1000);
+                                    cdt.start();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 }
