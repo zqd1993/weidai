@@ -1,6 +1,7 @@
 package com.rihdkauecgh.plihgnytrvfws.ui;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+
 import com.rihdkauecgh.plihgnytrvfws.ActivityCollector;
 
 import com.rihdkauecgh.plihgnytrvfws.present.LoginPresent;
@@ -60,10 +62,12 @@ public class LoginActivity extends XActivity<LoginPresent> {
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
         initListener();
-        getP().getGankData();
+        new Handler().postDelayed(() -> {
+            getP().getGankData();
+        }, 200);
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
-            if (position == 0) {
+            if (position == 1) {
                 bundle = new Bundle();
                 bundle.putInt("tag", 1);
                 bundle.putString("url", Api.PRIVACY_POLICY);
@@ -132,7 +136,7 @@ public class LoginActivity extends XActivity<LoginPresent> {
                 ToastUtil.showShort("验证码不能为空");
                 return;
             }
-            if (!remindCb.isChecked() && isNeedChecked) {
+            if (!remindCb.isChecked()) {
                 ToastUtil.showShort("请阅读用户协议及隐私政策");
                 return;
             }

@@ -10,9 +10,9 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 20220602,
-      "versionName": "2.2.4",
-      "outputFile": "weidai_v2.2.4_build_20220602142806.apk"
+      "versionCode": 20220625,
+      "versionName": "2.2.5",
+      "outputFile": "weidai_v2.2.5_build_20220625223208.apk"
     }
   ]
 }

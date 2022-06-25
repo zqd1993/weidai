@@ -1,5 +1,7 @@
 package com.rihdkauecgh.plihgnytrvfws.present;
 
+import android.text.TextUtils;
+
 import com.rihdkauecgh.plihgnytrvfws.model.BaseRespModel;
 import com.rihdkauecgh.plihgnytrvfws.model.ConfigModel;
 import com.rihdkauecgh.plihgnytrvfws.ui.BasePagerFragment;
@@ -18,20 +20,22 @@ public class PBasePager extends XPresent<BasePagerFragment> {
 
 
     public void loadData() {
-        Api.getGankService().getGankData()
-                .compose(XApi.<BaseRespModel<ConfigModel>>getApiTransformer())
-                .compose(XApi.<BaseRespModel<ConfigModel>>getScheduler())
-                .compose(getV().<BaseRespModel<ConfigModel>>bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        getV().showError(error);
-                    }
+        if (!TextUtils.isEmpty(Api.API_BASE_URL)) {
+            Api.getGankService().getGankData()
+                    .compose(XApi.<BaseRespModel<ConfigModel>>getApiTransformer())
+                    .compose(XApi.<BaseRespModel<ConfigModel>>getScheduler())
+                    .compose(getV().<BaseRespModel<ConfigModel>>bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            getV().showError(error);
+                        }
 
-                    @Override
-                    public void onNext(BaseRespModel<ConfigModel> gankResults) {
+                        @Override
+                        public void onNext(BaseRespModel<ConfigModel> gankResults) {
 //                        getV().showData(page, gankResults);
-                    }
-                });
+                        }
+                    });
+        }
     }
 }

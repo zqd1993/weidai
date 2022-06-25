@@ -1,6 +1,7 @@
 package com.rihdkauecgh.plihgnytrvfws.ui.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -63,7 +64,9 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
                 homePageBg.setVisibility(View.GONE);
             }
         }
-        getP().productList();
+        new Handler().postDelayed(() -> {
+            getP().productList();
+        }, 200);
         swipeRefreshLayout.setOnRefreshListener(() -> getP().productList());
         noDataFl.setOnClickListener(v -> getP().productList());
         productBg.setOnClickListener(v -> {
@@ -87,13 +90,13 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
         return new HomePagePresent();
     }
 
-    private void productClick(GoodsModel model){
+    private void productClick(GoodsModel model) {
         if (model != null) {
             getP().productClick(model);
         }
     }
 
-    public void jumpWebActivity (GoodsModel model){
+    public void jumpWebActivity(GoodsModel model) {
         if (model != null) {
             webBundle = new Bundle();
             webBundle.putInt("tag", 3);
@@ -126,7 +129,7 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
         }
     }
 
-    public void setModel(GoodsModel goodsModel){
+    public void setModel(GoodsModel goodsModel) {
         this.goodsModel = goodsModel;
     }
 }
