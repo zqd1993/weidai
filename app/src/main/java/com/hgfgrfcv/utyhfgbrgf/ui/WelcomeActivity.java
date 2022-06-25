@@ -148,7 +148,8 @@ public class WelcomeActivity extends AppCompatActivity {
 //                        .data(bundle)
 //                        .launch();
 //                finish();
-                Api.API_BASE_URL = net;
+//                Api.API_BASE_URL = net;
+                SharedPreferencesUtilis.saveStringIntoPref("API_BASE_URL", net);
                 Thread.sleep(1000);
                 jumpPage();
 

@@ -27,7 +27,7 @@ public class ProductPresent extends XPresent<ProductFragment> {
     private String phone, token;
 
     public void productList() {
-        if (!TextUtils.isEmpty(Api.API_BASE_URL)) {
+        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
             token = SharedPreferencesUtilis.getStringFromPref("token");
             RequModel model = new RequModel();
             model.setToken(token);
@@ -60,7 +60,7 @@ public class ProductPresent extends XPresent<ProductFragment> {
     }
 
     public void productClick(GoodsModel model) {
-        if (!TextUtils.isEmpty(Api.API_BASE_URL)) {
+        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
             phone = SharedPreferencesUtilis.getStringFromPref("phone");
             Api.getGankService().productClick(model.getId(), phone)
                     .compose(XApi.<BaseRespModel>getApiTransformer())

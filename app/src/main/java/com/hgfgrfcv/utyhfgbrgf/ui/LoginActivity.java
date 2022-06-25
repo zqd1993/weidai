@@ -63,10 +63,8 @@ public class LoginActivity extends XActivity<LoginPresent> {
         StatusBarUtil.setTransparent(this, false);
         StatusBarUtil.setLightMode(this);
         initListener();
-        new Handler().postDelayed(() -> {
-            getP().getGankData();
-            getP().getCompanyInfo();
-        }, 200);
+        getP().getGankData();
+        getP().getCompanyInfo();
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
             if (position == 1) {

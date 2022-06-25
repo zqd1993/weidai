@@ -1,6 +1,7 @@
 package com.hgfgrfcv.utyhfgbrgf.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import com.hgfgrfcv.utyhfgbrgf.base.SimpleRecAdapter;
 import com.hgfgrfcv.utyhfgbrgf.kit.KnifeKit;
 import com.hgfgrfcv.utyhfgbrgf.model.GoodsModel;
 import com.hgfgrfcv.utyhfgbrgf.net.Api;
+import com.hgfgrfcv.utyhfgbrgf.utils.SharedPreferencesUtilis;
 
 import butterknife.BindView;
 
@@ -36,10 +38,12 @@ public class GoodsItemAdapter extends SimpleRecAdapter<GoodsModel, GoodsItemAdap
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         GoodsModel model = data.get(i);
-            viewHolder.cycleTv.setText("1-" + model.getFan_time());
+        viewHolder.cycleTv.setText("1-" + model.getFan_time());
         viewHolder.tagTv.setText(model.getInfo());
         viewHolder.productNameTv.setText(model.getTitle());
-        Glide.with(context).load(Api.API_BASE_URL + model.getImgs()).into(viewHolder.productImg);
+        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
+            Glide.with(context).load(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL") + model.getImgs()).into(viewHolder.productImg);
+        }
 //        ILFactory.getLoader().loadNet(viewHolder.productImg, Api.API_BASE_URL + model.getImgs(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
         viewHolder.limitTv.setText(model.getMax_money());
         viewHolder.text_1.setText("·" + model.getMax_money());
