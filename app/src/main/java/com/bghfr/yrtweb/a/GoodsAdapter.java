@@ -1,6 +1,7 @@
 package com.bghfr.yrtweb.a;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import com.bghfr.yrtweb.imageloader.ILFactory;
 import com.bghfr.yrtweb.imageloader.ILoader;
 import com.bghfr.yrtweb.kit.KnifeKit;
 import com.bghfr.yrtweb.m.ShangPinModel;
+import com.bghfr.yrtweb.u.PreferencesStaticOpenUtil;
 
 import butterknife.BindView;
 
@@ -37,8 +39,10 @@ public class GoodsAdapter extends SimpleRecAdapter<ShangPinModel, GoodsAdapter.G
     @Override
     public void onBindViewHolder(GoodsHolder goodsHolder, int i) {
         ShangPinModel model = data.get(i);
-        ILFactory.getLoader().loadNet(goodsHolder.imgGoods, MyApi.HTTP_API_URL + model.getProductLogo(),
-                new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
+            ILFactory.getLoader().loadNet(goodsHolder.imgGoods, PreferencesStaticOpenUtil.getString("HTTP_API_URL") + model.getProductLogo(),
+                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        }
         goodsHolder.tvTime.setText(model.getDes() + "个月");
         goodsHolder.tvPeopleNumber.setText(String.valueOf(model.getPassingRate()));
         goodsHolder.goodsNameTv.setText(model.getProductName());

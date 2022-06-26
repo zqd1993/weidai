@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,7 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bghfr.yrtweb.BaseApp;
 import com.bghfr.yrtweb.R;
+import com.bghfr.yrtweb.u.BaseUtil;
 import com.bghfr.yrtweb.u.StatusBarUtil;
 
 public class AppMsgActivity extends AppCompatActivity {
@@ -24,6 +27,8 @@ public class AppMsgActivity extends AppCompatActivity {
         ImageView backImg = findViewById(R.id.back_image);
         backImg.setOnClickListener(v -> finish());
         TextView textView = findViewById(R.id.biaoti_tv);
+        TextView version_code_tv = findViewById(R.id.version_code_tv);
+        version_code_tv.setText("当前版本号：v" + BaseUtil.getAppVersion(BaseApp.getContext()));
         textView.setText("关于我们");
     }
 

@@ -1,6 +1,7 @@
 package com.bghfr.yrtweb.f;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.bghfr.yrtweb.a.ConfigItemAdapter;
 import com.bghfr.yrtweb.a.ZXActivity;
 import com.bghfr.yrtweb.api.MyApi;
 import com.bghfr.yrtweb.m.MainModel;
+import com.bghfr.yrtweb.m.SetEntity;
 import com.bghfr.yrtweb.m.ShangPinModel;
 import com.bghfr.yrtweb.m.SheZhiModel;
 import com.bghfr.yrtweb.mvp.XFragment;
@@ -154,8 +156,7 @@ public class SheZhiFragment extends XFragment {
                     dialog.show();
                     break;
                 case 4:
-                    dialog = new TshiDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
-                    dialog.show();
+                    getConfig();
                     break;
                 case 5:
                     BaseUtil.jumpPage(getActivity(), ZXActivity.class);
@@ -185,28 +186,57 @@ public class SheZhiFragment extends XFragment {
         setList.setAdapter(setItemAdapter);
     }
 
-    public void productList() {
-        mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
-        MyApi.getInterfaceUtils().productList(mobileType)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<MainModel<List<ShangPinModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        BaseUtil.showErrorInfo(getActivity(), error);
-                    }
+    public void getConfig() {
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
+            MyApi.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel<SetEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
 
-                    @Override
-                    public void onNext(MainModel<List<ShangPinModel>> mainModel) {
-                        if (mainModel != null) {
-                            if (mainModel.getCode() == 200 && mainModel.getData() != null) {
-                                if (mainModel.getData() != null && mainModel.getData().size() > 0) {
-                                    shangPinModel = mainModel.getData().get(0);
+                        }
+
+                        @Override
+                        public void onNext(MainModel<SetEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    mailStr = configEntity.getData().getAppMail();
+                                    PreferencesStaticOpenUtil.saveString("app_mail", mailStr);
+                                    dialog = new TshiDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
+                                    dialog.show();
                                 }
                             }
                         }
-                    }
-                });
+                    });
+        }
+    }
+
+    public void productList() {
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
+            mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
+            MyApi.getInterfaceUtils().productList(mobileType)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel<List<ShangPinModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            BaseUtil.showErrorInfo(getActivity(), error);
+                        }
+
+                        @Override
+                        public void onNext(MainModel<List<ShangPinModel>> mainModel) {
+                            if (mainModel != null) {
+                                if (mainModel.getCode() == 200 && mainModel.getData() != null) {
+                                    if (mainModel.getData() != null && mainModel.getData().size() > 0) {
+                                        shangPinModel = mainModel.getData().get(0);
+                                    }
+                                }
+                            }
+                        }
+                    });
+        }
     }
 }

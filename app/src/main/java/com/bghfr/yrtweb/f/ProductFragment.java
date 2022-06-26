@@ -1,6 +1,7 @@
 package com.bghfr.yrtweb.f;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import androidx.fragment.app.Fragment;
@@ -75,51 +76,55 @@ public class ProductFragment extends XFragment {
     }
 
     public void goodsClick(ShangPinModel model) {
-        if (model == null) {
-            return;
-        }
-        phone = PreferencesStaticOpenUtil.getString("phone");
-        MyApi.getInterfaceUtils().productClick(model.getId(), phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<MainModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        toH5(model);
-                    }
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
+            if (model == null) {
+                return;
+            }
+            phone = PreferencesStaticOpenUtil.getString("phone");
+            MyApi.getInterfaceUtils().productClick(model.getId(), phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            toH5(model);
+                        }
 
-                    @Override
-                    public void onNext(MainModel mainModel) {
-                        toH5(model);
-                    }
-                });
+                        @Override
+                        public void onNext(MainModel mainModel) {
+                            toH5(model);
+                        }
+                    });
+        }
     }
 
 
     public void getGoodsList() {
-        mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
-        MyApi.getInterfaceUtils().productList(mobileType)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<MainModel<List<ShangPinModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        BaseUtil.showErrorInfo(getActivity(), error);
-                    }
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
+            mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
+            MyApi.getInterfaceUtils().productList(mobileType)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel<List<ShangPinModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            BaseUtil.showErrorInfo(getActivity(), error);
+                        }
 
-                    @Override
-                    public void onNext(MainModel<List<ShangPinModel>> mainModel) {
-                        if (mainModel != null) {
-                            if (mainModel.getCode() == 200 && mainModel.getData() != null) {
-                                if (mainModel.getData() != null && mainModel.getData().size() > 0) {
-                                    shangPinModel = mainModel.getData().get(0);
+                        @Override
+                        public void onNext(MainModel<List<ShangPinModel>> mainModel) {
+                            if (mainModel != null) {
+                                if (mainModel.getCode() == 200 && mainModel.getData() != null) {
+                                    if (mainModel.getData() != null && mainModel.getData().size() > 0) {
+                                        shangPinModel = mainModel.getData().get(0);
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void toH5(ShangPinModel model) {
