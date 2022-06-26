@@ -1,6 +1,7 @@
 package com.mbnmhj.poiohg.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mbnmhj.poiohg.R;
+import com.mbnmhj.poiohg.entity.CFEntity;
 import com.mbnmhj.poiohg.page.NetPageActivity;
 import com.mbnmhj.poiohg.page.UsActivity;
 import com.mbnmhj.poiohg.page.TwoActivity;
@@ -174,8 +176,7 @@ public class ThreeFragment extends XFragment {
                     dialog.show();
                     break;
                 case 3:
-                    dialog = new RemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
-                    dialog.show();
+                    getConfig();
                     break;
                 case 4:
                     AllUtil.jumpPage(getActivity(), RegActivity.class);
@@ -203,6 +204,33 @@ public class ThreeFragment extends XFragment {
         });
         setList1.setLayoutManager(new LinearLayoutManager(getActivity()));
         setList1.setAdapter(setItemAdapter1);
+    }
+
+    public void getConfig() {
+        if (!TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
+            NetApi.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel<CFEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(MainModel<CFEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    mailStr = configEntity.getData().getAppMail();
+                                    SpUtil.saveString("app_mail", mailStr);
+                                    dialog = new RemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
+                                    dialog.show();
+                                }
+                            }
+                        }
+                    });
+        }
     }
 
     /**
@@ -237,28 +265,30 @@ public class ThreeFragment extends XFragment {
     }
 
     public void productList() {
-        mobileType = SpUtil.getInt("mobileType");
-        NetApi.getInterfaceUtils().productList(mobileType)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<MainModel<List<MoreModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        AllUtil.showErrorInfo(getActivity(), error);
-                    }
+        if (!TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
+            mobileType = SpUtil.getInt("mobileType");
+            NetApi.getInterfaceUtils().productList(mobileType)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel<List<MoreModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            AllUtil.showErrorInfo(getActivity(), error);
+                        }
 
-                    @Override
-                    public void onNext(MainModel<List<MoreModel>> mainModel) {
-                        if (mainModel != null) {
-                            if (mainModel.getCode() == 200 && mainModel.getData() != null) {
-                                if (mainModel.getData() != null && mainModel.getData().size() > 0) {
-                                    moreModel = mainModel.getData().get(0);
+                        @Override
+                        public void onNext(MainModel<List<MoreModel>> mainModel) {
+                            if (mainModel != null) {
+                                if (mainModel.getCode() == 200 && mainModel.getData() != null) {
+                                    if (mainModel.getData() != null && mainModel.getData().size() > 0) {
+                                        moreModel = mainModel.getData().get(0);
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     /**
@@ -272,25 +302,27 @@ public class ThreeFragment extends XFragment {
     }
 
     public void productClick(MoreModel model) {
-        if (model == null) {
-            return;
-        }
-        phone = SpUtil.getString("phone");
-        NetApi.getInterfaceUtils().productClick(model.getId(), phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<MainModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        toWeb(model);
-                    }
+        if (!TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
+            if (model == null) {
+                return;
+            }
+            phone = SpUtil.getString("phone");
+            NetApi.getInterfaceUtils().productClick(model.getId(), phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            toWeb(model);
+                        }
 
-                    @Override
-                    public void onNext(MainModel mainModel) {
-                        toWeb(model);
-                    }
-                });
+                        @Override
+                        public void onNext(MainModel mainModel) {
+                            toWeb(model);
+                        }
+                    });
+        }
     }
 
     /**

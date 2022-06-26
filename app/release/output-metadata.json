@@ -10,9 +10,9 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 20220607,
-      "versionName": "1.0.0",
-      "outputFile": "xiaoefenqi_v1.0.0.apk"
+      "versionCode": 20220626,
+      "versionName": "1.0.1",
+      "outputFile": "xiaoefenqi_v1.0.1.apk"
     }
   ]
 }

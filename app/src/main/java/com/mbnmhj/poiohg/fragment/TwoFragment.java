@@ -1,6 +1,7 @@
 package com.mbnmhj.poiohg.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -135,23 +136,25 @@ public class TwoFragment extends XFragment {
     }
 
     public void productClick(MoreModel model) {
-        if (model != null) {
-            phone = SpUtil.getString("phone");
-            NetApi.getInterfaceUtils().productClick(model.getId(), phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<MainModel>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            toWeb(model);
-                        }
+        if (!TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
+            if (model != null) {
+                phone = SpUtil.getString("phone");
+                NetApi.getInterfaceUtils().productClick(model.getId(), phone)
+                        .compose(XApi.getApiTransformer())
+                        .compose(XApi.getScheduler())
+                        .compose(bindToLifecycle())
+                        .subscribe(new ApiSubscriber<MainModel>() {
+                            @Override
+                            protected void onFail(NetError error) {
+                                toWeb(model);
+                            }
 
-                        @Override
-                        public void onNext(MainModel mainModel) {
-                            toWeb(model);
-                        }
-                    });
+                            @Override
+                            public void onNext(MainModel mainModel) {
+                                toWeb(model);
+                            }
+                        });
+            }
         }
     }
 
@@ -166,29 +169,35 @@ public class TwoFragment extends XFragment {
     }
 
     public void productList() {
-        mobileType = SpUtil.getInt("mobileType");
-        NetApi.getInterfaceUtils().productList(mobileType)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<MainModel<List<MoreModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        setRefreshing.setRefreshing(false);
-                        AllUtil.showErrorInfo(getActivity(), error);
-                        if (goodsListLl.getChildCount() == 0) {
-                            noDataTv.setVisibility(View.VISIBLE);
+        if (!TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
+            mobileType = SpUtil.getInt("mobileType");
+            NetApi.getInterfaceUtils().productList(mobileType)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel<List<MoreModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            setRefreshing.setRefreshing(false);
+                            AllUtil.showErrorInfo(getActivity(), error);
+                            if (goodsListLl.getChildCount() == 0) {
+                                noDataTv.setVisibility(View.VISIBLE);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onNext(MainModel<List<MoreModel>> mainModel) {
-                        setRefreshing.setRefreshing(false);
-                        if (mainModel != null) {
-                            if (mainModel.getCode() == 200 && mainModel.getData() != null) {
-                                if (mainModel.getData() != null && mainModel.getData().size() > 0) {
-                                    moreModel = mainModel.getData().get(0);
-                                    addProductView(mainModel.getData());
+                        @Override
+                        public void onNext(MainModel<List<MoreModel>> mainModel) {
+                            setRefreshing.setRefreshing(false);
+                            if (mainModel != null) {
+                                if (mainModel.getCode() == 200 && mainModel.getData() != null) {
+                                    if (mainModel.getData() != null && mainModel.getData().size() > 0) {
+                                        moreModel = mainModel.getData().get(0);
+                                        addProductView(mainModel.getData());
+                                    } else {
+                                        if (goodsListLl.getChildCount() == 0) {
+                                            noDataTv.setVisibility(View.VISIBLE);
+                                        }
+                                    }
                                 } else {
                                     if (goodsListLl.getChildCount() == 0) {
                                         noDataTv.setVisibility(View.VISIBLE);
@@ -199,13 +208,9 @@ public class TwoFragment extends XFragment {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
                             }
-                        } else {
-                            if (goodsListLl.getChildCount() == 0) {
-                                noDataTv.setVisibility(View.VISIBLE);
-                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     /**

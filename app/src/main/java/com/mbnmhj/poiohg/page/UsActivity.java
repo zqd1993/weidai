@@ -7,7 +7,9 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.mbnmhj.poiohg.BaseApp;
 import com.mbnmhj.poiohg.R;
+import com.mbnmhj.poiohg.util.AllUtil;
 import com.mbnmhj.poiohg.util.SBarUtil;
 
 import java.util.ArrayList;
@@ -50,6 +52,8 @@ public class UsActivity extends AppCompatActivity {
         ImageView backImg = findViewById(R.id.back_image);
         backImg.setOnClickListener(v -> finish());
         TextView textView = findViewById(R.id.biaoti_tv);
+        TextView version_code_tv = findViewById(R.id.version_code_tv);
+        version_code_tv.setText("当前版本号：v" + AllUtil.getAppVersion(BaseApp.getContext()));
         textView.setText("关于我们");
     }
 
