@@ -238,8 +238,10 @@ public class TwoFragment extends XFragment {
             TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
             shijian_tv.setText(model.getDes());
             shuliang_tv.setText(String.valueOf(model.getPassingRate()));
-            ILFactory.getLoader().loadNet(pic, NetApi.HTTP_API_URL + model.getProductLogo(),
-                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+            if (!TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
+                ILFactory.getLoader().loadNet(pic, SpUtil.getString("HTTP_API_URL") + model.getProductLogo(),
+                        new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+            }
             product_name_tv.setText(model.getProductName());
             remind_tv.setText(model.getTag());
             money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());

@@ -39,7 +39,7 @@ public class NetApi {
         if (interfaceObject == null && !TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
             synchronized (NetApi.class) {
                 if (interfaceObject == null) {
-                    interfaceObject = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(InterfaceObject.class);
+                    interfaceObject = XApi.getInstance().getRetrofit(SpUtil.getString("HTTP_API_URL"), true).create(InterfaceObject.class);
                 }
             }
         }
