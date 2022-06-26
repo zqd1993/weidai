@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.xvhyrt.ghjtyu",
+  "applicationId": "com.nfhyrhd.nfhsues",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 20220607,
-      "versionName": "1.0.1",
-      "outputFile": "dazhong_v1.0.1.apk"
+      "versionCode": 20220626,
+      "versionName": "1.0.2",
+      "outputFile": "beiyongjin_op_v1.0.2.apk"
     }
   ]
 }

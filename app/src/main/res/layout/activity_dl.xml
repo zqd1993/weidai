@@ -18,6 +18,38 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入您的验证码"
+                    android:inputType="number"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
+                    android:textColorHint="@color/color_999999" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="25dp"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
+                    android:text="获取验证码"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -26,6 +58,38 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入您的验证码"
+                    android:inputType="number"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
+                    android:textColorHint="@color/color_999999" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="25dp"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
+                    android:text="获取验证码"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -61,6 +125,38 @@
 
                 </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入您的验证码"
+                    android:inputType="number"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
+                    android:textColorHint="@color/color_999999" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="25dp"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
+                    android:text="获取验证码"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -93,6 +189,38 @@
                             android:layout_marginBottom="8dp"
                             android:src="@drawable/ertvdf" />
 
+                        <LinearLayout
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp_10"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="20dp"
+                                android:layout_marginRight="@dimen/dp_10"
+                                android:layout_weight="1"
+                                android:background="@null"
+                                android:gravity="center_vertical"
+                                android:hint="请输入您的验证码"
+                                android:inputType="number"
+                                android:paddingLeft="@dimen/dp_10"
+                                android:paddingRight="@dimen/dp_10"
+                                android:textColorHint="@color/color_999999" />
+
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="25dp"
+                                android:gravity="center"
+                                android:paddingLeft="@dimen/dp_10"
+                                android:paddingRight="@dimen/dp_10"
+                                android:text="获取验证码"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+
                         <EditText
                             android:id="@+id/yzm_et"
                             android:layout_width="0dp"
@@ -108,6 +236,38 @@
                             android:textColorHint="#a1a1a1"
                             android:textCursorDrawable="@null"
                             android:textSize="@dimen/textSize_16" />
+
+                        <LinearLayout
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp_10"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="20dp"
+                                android:layout_marginRight="@dimen/dp_10"
+                                android:layout_weight="1"
+                                android:background="@null"
+                                android:gravity="center_vertical"
+                                android:hint="请输入您的验证码"
+                                android:inputType="number"
+                                android:paddingLeft="@dimen/dp_10"
+                                android:paddingRight="@dimen/dp_10"
+                                android:textColorHint="@color/color_999999" />
+
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="25dp"
+                                android:gravity="center"
+                                android:paddingLeft="@dimen/dp_10"
+                                android:paddingRight="@dimen/dp_10"
+                                android:text="获取验证码"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
 
                         <com.lihang.ShadowLayout
                             android:layout_width="wrap_content"
@@ -129,6 +289,38 @@
                                 android:textColor="@color/white" />
 
                         </com.lihang.ShadowLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_height="20dp"
+                            android:layout_marginRight="@dimen/dp_10"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:gravity="center_vertical"
+                            android:hint="请输入您的验证码"
+                            android:inputType="number"
+                            android:paddingLeft="@dimen/dp_10"
+                            android:paddingRight="@dimen/dp_10"
+                            android:textColorHint="@color/color_999999" />
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="25dp"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/dp_10"
+                            android:paddingRight="@dimen/dp_10"
+                            android:text="获取验证码"
+                            android:textColor="@color/white" />
 
                     </LinearLayout>
 
@@ -173,19 +365,83 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
+                <LinearLayout
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="请输入您的验证码"
+                        android:inputType="number"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingRight="@dimen/dp_10"
+                        android:textColorHint="@color/color_999999" />
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="25dp"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingRight="@dimen/dp_10"
+                        android:text="获取验证码"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
+
                 <CheckBox
                     android:id="@+id/remind_cb"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:button="@drawable/checkbox_bg" />
 
-                <com.xvhyrt.ghjtyu.w.ClickTextView
+                <com.nfhyrhd.nfhsues.w.ClickTextViewBeiYong
                     android:id="@+id/read_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:textColor="#a0a0a0"
                     android:textSize="@dimen/textSize_16" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入您的验证码"
+                    android:inputType="number"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
+                    android:textColorHint="@color/color_999999" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="25dp"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
+                    android:text="获取验证码"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 

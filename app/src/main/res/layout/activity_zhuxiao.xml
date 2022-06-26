@@ -6,6 +6,38 @@
 
     <include layout="@layout/top_layout" />
 
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入您的验证码"
+            android:inputType="number"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:textColorHint="@color/color_999999" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:text="获取验证码"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,6 +46,38 @@
         android:textSize="18sp"
         android:textColor="@color/color_red"
         android:text="申请账号注销" />
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入您的验证码"
+            android:inputType="number"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:textColorHint="@color/color_999999" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:text="获取验证码"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,6 +88,38 @@
         android:textColor="@color/text_normal_color"
         android:text="*注 1、注销过程不可逆，且无法申请恢复" />
 
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入您的验证码"
+            android:inputType="number"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:textColorHint="@color/color_999999" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:text="获取验证码"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,6 +129,38 @@
         android:textSize="@dimen/textSize_16"
         android:textColor="@color/text_normal_color"
         android:text="2、为了您的账号安全，将会有7天的确认期，在其期间内登陆账号，将自动取消账号申请。" />
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入您的验证码"
+            android:inputType="number"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:textColorHint="@color/color_999999" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:text="获取验证码"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/commit_btn"
@@ -47,5 +175,37 @@
         android:textColor="@color/white"
         android:background="@drawable/bg_corner_50_f5dbaa"
         android:text="提交" />
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入您的验证码"
+            android:inputType="number"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:textColorHint="@color/color_999999" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:text="获取验证码"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
 
 </LinearLayout>
