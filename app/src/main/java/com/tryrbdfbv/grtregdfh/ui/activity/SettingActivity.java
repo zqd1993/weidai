@@ -4,21 +4,12 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import com.tryrbdfbv.grtregdfh.ActivityCollector;
 import com.tryrbdfbv.grtregdfh.R;
-import com.tryrbdfbv.grtregdfh.model.BaseRespModel;
-import com.tryrbdfbv.grtregdfh.model.CompanyInfoModel;
 import com.tryrbdfbv.grtregdfh.mvp.XActivity;
-import com.tryrbdfbv.grtregdfh.net.Api;
-import com.tryrbdfbv.grtregdfh.net.ApiSubscriber;
-import com.tryrbdfbv.grtregdfh.net.NetError;
-import com.tryrbdfbv.grtregdfh.net.XApi;
 import com.tryrbdfbv.grtregdfh.router.Router;
 import com.tryrbdfbv.grtregdfh.ui.LoginActivity;
 import com.tryrbdfbv.grtregdfh.utils.SharedPreferencesUtilis;
-import com.tryrbdfbv.grtregdfh.utils.StaticUtil;
 import com.tryrbdfbv.grtregdfh.utils.StatusBarUtil;
 import com.tryrbdfbv.grtregdfh.utils.ToastUtil;
 import com.tryrbdfbv.grtregdfh.widget.NormalDialog;

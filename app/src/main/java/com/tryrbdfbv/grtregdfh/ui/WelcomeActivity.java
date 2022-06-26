@@ -75,6 +75,7 @@ public class WelcomeActivity extends AppCompatActivity {
         welcomeDialog.setOnClickedListener(new WelcomeDialog.OnClickedListener() {
             @Override
             public void topBtnClicked() {
+                initUm();
                 SharedPreferencesUtilis.saveStringIntoPref("uminit", "1");
                 SharedPreferencesUtilis.saveBoolIntoPref("agree", true);
                 Router.newIntent(WelcomeActivity.this)
@@ -163,6 +164,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void jumpPage() {
         if (isAgree) {
+            initUm();
             if (!TextUtils.isEmpty(loginPhone)) {
                 Router.newIntent(WelcomeActivity.this)
                         .to(HomePageActivity.class)
@@ -190,5 +192,22 @@ public class WelcomeActivity extends AppCompatActivity {
             welcomeDialog = null;
         }
         super.onDestroy();
+    }
+
+    private void initUm() {
+        //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
+        if (!UMConfigure.isInit) {
+            UMConfigure.setLogEnabled(true);
+            Log.d("youmeng", "zhuche chenggong");
+            //友盟正式初始化
+//            UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
+            // 在此处调用基础组件包提供的初始化函数 相应信息可在应用管理 -> 应用信息 中找到 http://message.umeng.com/list/apps
+            // 参数一：当前上下文context；
+            // 参数二：应用申请的Appkey（需替换）；
+            // 参数三：渠道名称；
+            // 参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
+            // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
+            UMConfigure.init(this, "62ab36bc05844627b5b5553c", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+        }
     }
 }

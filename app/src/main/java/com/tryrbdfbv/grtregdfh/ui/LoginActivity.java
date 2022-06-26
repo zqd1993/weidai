@@ -1,9 +1,7 @@
 package com.tryrbdfbv.grtregdfh.ui;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -11,7 +9,6 @@ import android.widget.TextView;
 
 import com.tryrbdfbv.grtregdfh.R;
 import com.tryrbdfbv.grtregdfh.net.Api;
-import com.tryrbdfbv.grtregdfh.utils.SharedPreferencesUtilis;
 import com.tryrbdfbv.grtregdfh.utils.StaticUtil;
 import com.tryrbdfbv.grtregdfh.utils.StatusBarUtil;
 import com.tryrbdfbv.grtregdfh.utils.ToastUtil;

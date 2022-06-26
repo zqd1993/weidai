@@ -1,7 +1,6 @@
 package com.tryrbdfbv.grtregdfh.ui.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -12,13 +11,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.tryrbdfbv.grtregdfh.R;
 import com.tryrbdfbv.grtregdfh.adapter.GoodsItemAdapter;
 import com.tryrbdfbv.grtregdfh.model.GoodsModel;
-import com.tryrbdfbv.grtregdfh.net.Api;
 import com.tryrbdfbv.grtregdfh.ui.WebViewActivity;
 import com.tryrbdfbv.grtregdfh.mvp.XFragment;
 import com.tryrbdfbv.grtregdfh.present.HomePagePresent;
 import com.tryrbdfbv.grtregdfh.router.Router;
-import com.tryrbdfbv.grtregdfh.utils.SharedPreferencesUtilis;
-import com.tryrbdfbv.grtregdfh.utils.ToastUtil;
 
 import java.util.List;
 

@@ -25,7 +25,6 @@ import androidx.core.content.FileProvider;
 
 import com.tryrbdfbv.grtregdfh.R;
 import com.tryrbdfbv.grtregdfh.utils.DownloadUtil;
-import com.tryrbdfbv.grtregdfh.utils.StatusBarUtil;
 import com.tryrbdfbv.grtregdfh.mvp.XActivity;
 
 import java.io.File;
