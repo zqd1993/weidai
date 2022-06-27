@@ -1,6 +1,8 @@
 package com.rihdkauecgh.plihgnytrvfws.ui.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -8,10 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.rihdkauecgh.plihgnytrvfws.R;
 import com.rihdkauecgh.plihgnytrvfws.adapter.MineAdapter;
+import com.rihdkauecgh.plihgnytrvfws.model.BaseRespModel;
+import com.rihdkauecgh.plihgnytrvfws.model.ConfigModel;
 import com.rihdkauecgh.plihgnytrvfws.model.MineItemModel;
+import com.rihdkauecgh.plihgnytrvfws.net.ApiSubscriber;
+import com.rihdkauecgh.plihgnytrvfws.net.NetError;
+import com.rihdkauecgh.plihgnytrvfws.net.XApi;
 import com.rihdkauecgh.plihgnytrvfws.ui.LoginActivity;
 import com.rihdkauecgh.plihgnytrvfws.ui.WebViewActivity;
 import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesUtilis;
+import com.rihdkauecgh.plihgnytrvfws.utils.StaticUtil;
 import com.rihdkauecgh.plihgnytrvfws.utils.ToastUtil;
 import com.rihdkauecgh.plihgnytrvfws.net.Api;
 import com.rihdkauecgh.plihgnytrvfws.router.Router;
@@ -124,10 +132,7 @@ public class MineFragment extends XFragment {
                                     }).show();
                             break;
                         case 5:
-                            normalDialog = new NormalDialog(getActivity());
-                            normalDialog.setTitle("温馨提示")
-                                    .setContent(mailStr)
-                                    .showOnlyBtn().show();
+                            getGankData();
                             break;
                         case 6:
                             Router.newIntent(getActivity())
@@ -168,5 +173,34 @@ public class MineFragment extends XFragment {
             normalDialog = null;
         }
         super.onDestroy();
+    }
+
+    public void getGankData() {
+        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
+            Api.getGankService().getGankData()
+                    .compose(XApi.<BaseRespModel<ConfigModel>>getApiTransformer())
+                    .compose(XApi.<BaseRespModel<ConfigModel>>getScheduler())
+                    .compose(this.<BaseRespModel<ConfigModel>>bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(BaseRespModel<ConfigModel> gankResults) {
+                            if (gankResults != null) {
+                                if (gankResults.getData() != null) {
+                                    mailStr = gankResults.getData().getAppMail();
+                                    SharedPreferencesUtilis.saveStringIntoPref("APP_MAIL", mailStr);
+                                    normalDialog = new NormalDialog(getActivity());
+                                    normalDialog.setTitle("温馨提示")
+                                            .setContent(mailStr)
+                                            .showOnlyBtn().show();
+                                }
+                            }
+                        }
+                    });
+        }
     }
 }
