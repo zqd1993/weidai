@@ -1,7 +1,6 @@
 package com.xvhyrt.ghjtyu.a;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
@@ -58,12 +57,10 @@ public class DlActivity extends XActivity {
         yzmCv = this.findViewById(R.id.yzm_cv);
         getIp();
         xStateController.loadingView(View.inflate(this, R.layout.view_loading, null));
-        new Handler().postDelayed(() -> {
-            getConfig();
-        }, 200);
+        getConfig();
         readTv.setText(OpenUtil.createDlSpanTexts(), position -> {
             bundle = new Bundle();
-            if (position == 1) {
+            if (position == 0) {
                 bundle.putString("url", HttpApi.ZCXY);
                 bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
             } else {
@@ -85,7 +82,7 @@ public class DlActivity extends XActivity {
         dlBtn.setOnClickListener(v -> {
             phoneStr = mobileEt.getText().toString().trim();
             yzmStr = yzmEt.getText().toString().trim();
-            if (phoneStr.isEmpty() && isNeedYzm) {
+            if (phoneStr.isEmpty()) {
                 MyToast.showShort("请输入手机号码");
                 return;
             }
@@ -93,11 +90,11 @@ public class DlActivity extends XActivity {
                 MyToast.showShort("请输入验证码");
                 return;
             }
-            if (!remindCb.isChecked()) {
+            if (!remindCb.isChecked() && isChecked){
                 MyToast.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
-            login(phoneStr, yzmStr);
+            login(phoneStr,yzmStr);
         });
     }
 
@@ -112,7 +109,7 @@ public class DlActivity extends XActivity {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(HttpApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             HttpApi.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -173,7 +170,7 @@ public class DlActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (!TextUtils.isEmpty(HttpApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             if (xStateController != null)
                 xStateController.showLoading();
             HttpApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
@@ -212,7 +209,7 @@ public class DlActivity extends XActivity {
     }
 
     public void getYzm(String phone) {
-        if (!TextUtils.isEmpty(HttpApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             HttpApi.getInterfaceUtils().sendVerifyCode(phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())

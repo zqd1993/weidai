@@ -3,6 +3,7 @@ package com.xvhyrt.ghjtyu.api;
 import android.text.TextUtils;
 
 import com.xvhyrt.ghjtyu.net.XApi;
+import com.xvhyrt.ghjtyu.u.PreferencesOpenUtil;
 
 public class HttpApi {
     public static final String ZCXY = "https://xy.hgy5kg.com/profile/dzdk/zcxy.html";
@@ -12,10 +13,10 @@ public class HttpApi {
     private static InterfaceUtils interfaceUtils;
 
     public static InterfaceUtils getInterfaceUtils() {
-        if (interfaceUtils == null && !TextUtils.isEmpty(HTTP_API_URL)) {
+        if (interfaceUtils == null && !TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             synchronized (HttpApi.class) {
                 if (interfaceUtils == null) {
-                    interfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(InterfaceUtils.class);
+                    interfaceUtils = XApi.getInstance().getRetrofit(PreferencesOpenUtil.getString("HTTP_API_URL"), true).create(InterfaceUtils.class);
                 }
             }
         }

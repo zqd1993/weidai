@@ -17,7 +17,6 @@ import com.xvhyrt.ghjtyu.a.SetItemAdapter;
 import com.xvhyrt.ghjtyu.a.ZhuXiaoActivity;
 import com.xvhyrt.ghjtyu.api.HttpApi;
 import com.xvhyrt.ghjtyu.m.BaseModel;
-import com.xvhyrt.ghjtyu.m.ConfigEntity;
 import com.xvhyrt.ghjtyu.m.ProductModel;
 import com.xvhyrt.ghjtyu.m.SetModel;
 import com.xvhyrt.ghjtyu.mvp.XFragment;
@@ -135,7 +134,8 @@ public class SetFragment extends XFragment {
                     dialog.show();
                     break;
                 case 5:
-                    getConfig();
+                    dialog = new RemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
+                    dialog.show();
                     break;
                 case 6:
                     OpenUtil.jumpPage(getActivity(), ZhuXiaoActivity.class);
@@ -175,7 +175,7 @@ public class SetFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(HttpApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesOpenUtil.getInt("mobileType");
             HttpApi.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
@@ -202,7 +202,7 @@ public class SetFragment extends XFragment {
     }
 
     public void productClick(ProductModel model) {
-        if (!TextUtils.isEmpty(HttpApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -220,33 +220,6 @@ public class SetFragment extends XFragment {
                         @Override
                         public void onNext(BaseModel baseModel) {
                             toWeb(model);
-                        }
-                    });
-        }
-    }
-
-    public void getConfig() {
-        if (!TextUtils.isEmpty(HttpApi.HTTP_API_URL)) {
-            HttpApi.getInterfaceUtils().getConfig()
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(this.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-
-                        }
-
-                        @Override
-                        public void onNext(BaseModel<ConfigEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    mailStr = configEntity.getData().getAppMail();
-                                    PreferencesOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
-                                    dialog = new RemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
-                                    dialog.show();
-                                }
-                            }
                         }
                     });
         }

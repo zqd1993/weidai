@@ -1,7 +1,6 @@
 package com.xvhyrt.ghjtyu.f;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -63,9 +62,7 @@ public class MainFragment extends XFragment {
     @Override
     public void initData(Bundle savedInstanceState) {
         msgLayout.setVisibility(View.VISIBLE);
-        new Handler().postDelayed(() -> {
-            productList();
-        }, 200);
+        productList();
         initViewData();
         setViewConfig();
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -104,7 +101,7 @@ public class MainFragment extends XFragment {
     }
 
     public void productClick(ProductModel model) {
-        if (!TextUtils.isEmpty(HttpApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -129,7 +126,7 @@ public class MainFragment extends XFragment {
 
 
     public void productList() {
-        if (!TextUtils.isEmpty(HttpApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesOpenUtil.getInt("mobileType");
             HttpApi.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
