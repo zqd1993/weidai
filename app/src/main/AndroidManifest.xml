@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.rihdkauecgh.plihgnytrvfws">
+    package="com.jwcf.zdclm">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
-        android:name="com.rihdkauecgh.plihgnytrvfws.App"
+        android:name="com.jwcf.zdclm.AppYingJi"
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
@@ -21,7 +21,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.rihdkauecgh.plihgnytrvfws.ui.WelcomeActivity"
+            android:name="com.jwcf.zdclm.ui.YingJiWelcomeActivity"
             android:icon="@mipmap/app_logo"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -33,33 +33,33 @@
 
 
         <activity
-            android:name="com.rihdkauecgh.plihgnytrvfws.ui.WebViewActivity"
+            android:name="com.jwcf.zdclm.ui.WebViewYingJiActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.rihdkauecgh.plihgnytrvfws.ui.LoginActivity"
+            android:name="com.jwcf.zdclm.ui.YingJiLoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.rihdkauecgh.plihgnytrvfws.ui.HomePageActivity"
+            android:name="com.jwcf.zdclm.ui.HomePageActivityYingJi"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.rihdkauecgh.plihgnytrvfws.ui.activity.FeedBackActivity"
+            android:name="com.jwcf.zdclm.ui.activity.FeedBackYingJiActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.rihdkauecgh.plihgnytrvfws.ui.activity.AboutUsActivity"
+            android:name="com.jwcf.zdclm.ui.activity.YingJiAboutUsActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
 
         <activity
-            android:name="com.rihdkauecgh.plihgnytrvfws.ui.activity.CancellationAccountActivity"
+            android:name="com.jwcf.zdclm.ui.activity.CancellationAccountActivityYingJi"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
@@ -73,7 +73,7 @@
                 android:resource="@xml/file_path" />
         </provider>
 
-        <meta-data android:value="628d034188ccdf4b7e76524e" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="627dfc73d024421570f0eb80" android:name="UMENG_APPKEY"/>
 
     </application>
 

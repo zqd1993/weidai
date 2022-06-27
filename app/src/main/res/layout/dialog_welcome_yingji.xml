@@ -54,7 +54,7 @@
             android:textSize="@dimen/textSize_16"
             tools:text="标题单" />
 
-        <com.rihdkauecgh.plihgnytrvfws.widget.SpanTextView
+        <com.jwcf.zdclm.widget.YingJiSpanTextView
             android:id="@+id/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

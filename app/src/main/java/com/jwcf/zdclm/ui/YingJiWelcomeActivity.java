@@ -121,7 +121,7 @@ public class YingJiWelcomeActivity extends AppCompatActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7730.txt")
+                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7704.txt")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();

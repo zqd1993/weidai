@@ -33,7 +33,7 @@
 
     </FrameLayout>
 
-    <include layout="@layout/head_layout" />
+    <include layout="@layout/head_layout_yingji" />
 
     <FrameLayout
         android:layout_width="wrap_content"

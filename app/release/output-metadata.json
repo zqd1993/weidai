@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.rihdkauecgh.plihgnytrvfws",
+  "applicationId": "com.xiaoefqd",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 999,
-      "versionName": "2.2.1",
-      "outputFile": "weidai_v2.2.1_build_20220530120500.apk"
+      "versionCode": 122,
+      "versionName": "1.2.2",
+      "outputFile": "yingji_v1.2.2_build_20220628002626.apk"
     }
   ]
 }

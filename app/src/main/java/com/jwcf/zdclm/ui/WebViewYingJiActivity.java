@@ -78,7 +78,7 @@ public class WebViewYingJiActivity extends XActivity implements EasyPermissions.
         webSettings.setDomStorageEnabled(true);//设置适应Html5 重点是这个设置
         webSettings.setTextZoom(100);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("http://sakero.cn/4dqWN5");
+        webView.loadUrl(url);
         webView.setDownloadListener((url, userAgent, contentDisposition, mimetype, contentLength) -> {
             apkUrl = url;
             checkPermission();
