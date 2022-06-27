@@ -1,5 +1,6 @@
 package com.aklsfasad.fsjhfkk.present;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -22,96 +23,101 @@ import com.aklsfasad.fsjhfkk.net.ApiSubscriber;
 public class LoginPresentHuiMin extends XPresent<LoginActivityHuiMin> {
 
     public void login(String phone, String verificationStr, String ip) {
-
-        Api.getGankService().login(phone, verificationStr, "", ip)
-                .compose(XApi.<BaseRespHuiMinModel<LoginRespHuiMinModel>>getApiTransformer())
-                .compose(XApi.<BaseRespHuiMinModel<LoginRespHuiMinModel>>getScheduler())
-                .compose(getV().<BaseRespHuiMinModel<LoginRespHuiMinModel>>bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseRespHuiMinModel<LoginRespHuiMinModel>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        getV().loadingFl.setVisibility(View.GONE);
-                        getV().rotateLoading.stop();
+        if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("HTTP_API_URL"))) {
+            Api.getGankService().login(phone, verificationStr, "", ip)
+                    .compose(XApi.<BaseRespHuiMinModel<LoginRespHuiMinModel>>getApiTransformer())
+                    .compose(XApi.<BaseRespHuiMinModel<LoginRespHuiMinModel>>getScheduler())
+                    .compose(getV().<BaseRespHuiMinModel<LoginRespHuiMinModel>>bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespHuiMinModel<LoginRespHuiMinModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            getV().loadingFl.setVisibility(View.GONE);
+                            getV().rotateLoading.stop();
 //                        StaticUtilHuiMin.showError(getV(), error);
-                        ToastUtilHuiMin.showLong(error.getMessage());
-                    }
+                            ToastUtilHuiMin.showLong(error.getMessage());
+                        }
 
-                    @Override
-                    public void onNext(BaseRespHuiMinModel<LoginRespHuiMinModel> gankResults) {
-                        getV().loadingFl.setVisibility(View.GONE);
-                        getV().rotateLoading.stop();
-                        if (gankResults != null && gankResults.getCode() == 200) {
-                            if (gankResults.getData() != null && gankResults.getCode() == 200) {
-                                SharedPreferencesUtilisHuiMin.saveStringIntoPref("phone", phone);
-                                SharedPreferencesUtilisHuiMin.saveIntIntoPref("mobileType", gankResults.getData().getMobileType());
-                                SharedPreferencesUtilisHuiMin.saveStringIntoPref("ip", ip);
-                                Router.newIntent(getV())
-                                        .to(HomePageActivityHuiMin.class)
-                                        .launch();
-                                getV().finish();
-                            }
-                        } else {
-                            if (gankResults.getCode() == 500){
-                                ToastUtilHuiMin.showShort(gankResults.getMsg());
+                        @Override
+                        public void onNext(BaseRespHuiMinModel<LoginRespHuiMinModel> gankResults) {
+                            getV().loadingFl.setVisibility(View.GONE);
+                            getV().rotateLoading.stop();
+                            if (gankResults != null && gankResults.getCode() == 200) {
+                                if (gankResults.getData() != null && gankResults.getCode() == 200) {
+                                    SharedPreferencesUtilisHuiMin.saveStringIntoPref("phone", phone);
+                                    SharedPreferencesUtilisHuiMin.saveIntIntoPref("mobileType", gankResults.getData().getMobileType());
+                                    SharedPreferencesUtilisHuiMin.saveStringIntoPref("ip", ip);
+                                    Router.newIntent(getV())
+                                            .to(HomePageActivityHuiMin.class)
+                                            .launch();
+                                    getV().finish();
+                                }
+                            } else {
+                                if (gankResults.getCode() == 500) {
+                                    ToastUtilHuiMin.showShort(gankResults.getMsg());
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void getGankData() {
-        Api.getGankService().getGankData()
-                .compose(XApi.<BaseRespHuiMinModel<ConfigHuiMinModel>>getApiTransformer())
-                .compose(XApi.<BaseRespHuiMinModel<ConfigHuiMinModel>>getScheduler())
-                .compose(getV().<BaseRespHuiMinModel<ConfigHuiMinModel>>bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseRespHuiMinModel<ConfigHuiMinModel>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        StaticUtilHuiMin.showError(getV(), error);
-                    }
+        if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("HTTP_API_URL"))) {
+            Api.getGankService().getGankData()
+                    .compose(XApi.<BaseRespHuiMinModel<ConfigHuiMinModel>>getApiTransformer())
+                    .compose(XApi.<BaseRespHuiMinModel<ConfigHuiMinModel>>getScheduler())
+                    .compose(getV().<BaseRespHuiMinModel<ConfigHuiMinModel>>bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespHuiMinModel<ConfigHuiMinModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            StaticUtilHuiMin.showError(getV(), error);
+                        }
 
-                    @Override
-                    public void onNext(BaseRespHuiMinModel<ConfigHuiMinModel> gankResults) {
-                        if (gankResults != null) {
-                            if (gankResults.getData() != null) {
-                                SharedPreferencesUtilisHuiMin.saveStringIntoPref("APP_MAIL", gankResults.getData().getAppMail());
-                                if ("0".equals(gankResults.getData().getIsCodeLogin())) {
-                                    getV().verificationLl.setVisibility(View.GONE);
-                                } else {
-                                    getV().verificationLl.setVisibility(View.VISIBLE);
+                        @Override
+                        public void onNext(BaseRespHuiMinModel<ConfigHuiMinModel> gankResults) {
+                            if (gankResults != null) {
+                                if (gankResults.getData() != null) {
+                                    SharedPreferencesUtilisHuiMin.saveStringIntoPref("APP_MAIL", gankResults.getData().getAppMail());
+                                    if ("0".equals(gankResults.getData().getIsCodeLogin())) {
+                                        getV().verificationLl.setVisibility(View.GONE);
+                                    } else {
+                                        getV().verificationLl.setVisibility(View.VISIBLE);
+                                    }
+                                    getV().isNeedChecked = "1".equals(gankResults.getData().getIsSelectLogin());
+                                    getV().isNeedVerification = "1".equals(gankResults.getData().getIsCodeLogin());
+                                    getV().remindCb.setChecked(getV().isNeedChecked);
                                 }
-                                getV().isNeedChecked = "1".equals(gankResults.getData().getIsSelectLogin());
-                                getV().isNeedVerification = "1".equals(gankResults.getData().getIsCodeLogin());
-                                getV().remindCb.setChecked(getV().isNeedChecked);
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void sendVerifyCode(String phone, TextView textView) {
-        Api.getGankService().sendVerifyCode(phone)
-                .compose(XApi.<BaseRespHuiMinModel>getApiTransformer())
-                .compose(XApi.<BaseRespHuiMinModel>getScheduler())
-                .compose(getV().<BaseRespHuiMinModel>bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseRespHuiMinModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
+        if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("HTTP_API_URL"))) {
+            Api.getGankService().sendVerifyCode(phone)
+                    .compose(XApi.<BaseRespHuiMinModel>getApiTransformer())
+                    .compose(XApi.<BaseRespHuiMinModel>getScheduler())
+                    .compose(getV().<BaseRespHuiMinModel>bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespHuiMinModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
 //                        StaticUtilHuiMin.showError(getV(), error);
-                        ToastUtilHuiMin.showLong(error.getMessage());
-                    }
+                            ToastUtilHuiMin.showLong(error.getMessage());
+                        }
 
-                    @Override
-                    public void onNext(BaseRespHuiMinModel gankResults) {
-                        if (gankResults != null) {
-                            if (gankResults.getCode() == 200) {
-                                ToastUtilHuiMin.showShort("验证码发送成功");
-                                CountDownTimerUtilsHuiMin mCountDownTimerUtils = new CountDownTimerUtilsHuiMin(textView, 60000, 1000);
-                                mCountDownTimerUtils.start();
+                        @Override
+                        public void onNext(BaseRespHuiMinModel gankResults) {
+                            if (gankResults != null) {
+                                if (gankResults.getCode() == 200) {
+                                    ToastUtilHuiMin.showShort("验证码发送成功");
+                                    CountDownTimerUtilsHuiMin mCountDownTimerUtils = new CountDownTimerUtilsHuiMin(textView, 60000, 1000);
+                                    mCountDownTimerUtils.start();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
 }

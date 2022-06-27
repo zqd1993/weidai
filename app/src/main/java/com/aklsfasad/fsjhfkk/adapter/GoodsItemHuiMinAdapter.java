@@ -16,6 +16,7 @@ import com.aklsfasad.fsjhfkk.imageloader.ILoader;
 import com.aklsfasad.fsjhfkk.kit.KnifeKit;
 import com.aklsfasad.fsjhfkk.model.GoodsHuiMinModel;
 import com.aklsfasad.fsjhfkk.net.Api;
+import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
 
 import butterknife.BindView;
 
@@ -69,7 +70,9 @@ public class GoodsItemHuiMinAdapter extends SimpleRecAdapter<GoodsHuiMinModel, G
         viewHolder.passingRateTv.setText(String.valueOf(model.getPassingRate()));
         viewHolder.tagTv.setText(model.getTag());
         viewHolder.productNameTv.setText(model.getProductName());
-        ILFactory.getLoader().loadNet(viewHolder.productImg, Api.API_BASE_URL + model.getProductLogo(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("HTTP_API_URL"))) {
+            ILFactory.getLoader().loadNet(viewHolder.productImg, SharedPreferencesUtilisHuiMin.getStringFromPref("HTTP_API_URL") + model.getProductLogo(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        }
         viewHolder.limitTv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
         viewHolder.clickView.setOnClickListener(v -> {
             getRecItemClick().onItemClick(i, model, 1, viewHolder);

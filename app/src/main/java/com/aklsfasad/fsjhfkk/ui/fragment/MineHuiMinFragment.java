@@ -1,6 +1,8 @@
 package com.aklsfasad.fsjhfkk.ui.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -9,13 +11,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aklsfasad.fsjhfkk.R;
 import com.aklsfasad.fsjhfkk.adapter.MineHuiMinAdapter;
+import com.aklsfasad.fsjhfkk.model.BaseRespHuiMinModel;
+import com.aklsfasad.fsjhfkk.model.ConfigHuiMinModel;
 import com.aklsfasad.fsjhfkk.model.MineItemHuiMinModel;
+import com.aklsfasad.fsjhfkk.net.ApiSubscriber;
+import com.aklsfasad.fsjhfkk.net.NetError;
+import com.aklsfasad.fsjhfkk.net.XApi;
 import com.aklsfasad.fsjhfkk.ui.LoginActivityHuiMin;
 import com.aklsfasad.fsjhfkk.ui.WebHuiMinActivity;
 import com.aklsfasad.fsjhfkk.ui.activity.AboutActivityHuiMin;
 import com.aklsfasad.fsjhfkk.ui.activity.CancellationUserActivityHuiMin;
 import com.aklsfasad.fsjhfkk.ui.activity.MoreSettingActivity;
 import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
+import com.aklsfasad.fsjhfkk.utils.StaticUtilHuiMin;
 import com.aklsfasad.fsjhfkk.utils.ToastUtilHuiMin;
 import com.aklsfasad.fsjhfkk.net.Api;
 import com.aklsfasad.fsjhfkk.router.Router;
@@ -93,10 +101,7 @@ public class MineHuiMinFragment extends XFragment {
                                     }).show();
                             break;
                         case 3:
-                            normalDialogHuiMin = new NormalDialogHuiMin(getActivity());
-                            normalDialogHuiMin.setTitle("温馨提示")
-                                    .setContent(mailStr)
-                                    .showOnlyBtn().show();
+                            getGankData();
                             break;
                         case 4:
                             Router.newIntent(getActivity())
@@ -152,5 +157,33 @@ public class MineHuiMinFragment extends XFragment {
             normalDialogHuiMin = null;
         }
         super.onDestroy();
+    }
+
+    public void getGankData() {
+        if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("HTTP_API_URL"))) {
+            Api.getGankService().getGankData()
+                    .compose(XApi.<BaseRespHuiMinModel<ConfigHuiMinModel>>getApiTransformer())
+                    .compose(XApi.<BaseRespHuiMinModel<ConfigHuiMinModel>>getScheduler())
+                    .compose(this.<BaseRespHuiMinModel<ConfigHuiMinModel>>bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespHuiMinModel<ConfigHuiMinModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                        }
+
+                        @Override
+                        public void onNext(BaseRespHuiMinModel<ConfigHuiMinModel> gankResults) {
+                            if (gankResults != null) {
+                                if (gankResults.getData() != null) {
+                                    mailStr = gankResults.getData().getAppMail();
+                                    SharedPreferencesUtilisHuiMin.saveStringIntoPref("APP_MAIL", mailStr);
+                                    normalDialogHuiMin = new NormalDialogHuiMin(getActivity());
+                                    normalDialogHuiMin.setTitle("温馨提示")
+                                            .setContent(mailStr)
+                                            .showOnlyBtn().show();
+                                }
+                            }
+                        }
+                    });
+        }
     }
 }

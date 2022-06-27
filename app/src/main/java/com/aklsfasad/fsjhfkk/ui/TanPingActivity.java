@@ -7,6 +7,7 @@ import android.os.Handler;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -21,13 +22,17 @@ import com.aklsfasad.fsjhfkk.utils.ToastUtilHuiMin;
 import com.aklsfasad.fsjhfkk.widget.WelcomeDialogHuiMin;
 import com.umeng.commonsdk.UMConfigure;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class TanPingActivity extends AppCompatActivity {
 
     private WelcomeDialogHuiMin welcomeDialog;
 
     private Bundle bundle;
 
-    private boolean isAgree = false;
+    private boolean isAgree = false, isResume = false;
 
     private String loginPhone = "";
 
@@ -38,34 +43,28 @@ public class TanPingActivity extends AppCompatActivity {
         StatusBarUtilHuiMin.setTransparent(this, false);
         isAgree = SharedPreferencesUtilisHuiMin.getBoolFromPref("agree");
         loginPhone = SharedPreferencesUtilisHuiMin.getStringFromPref("phone");
-        if (!isAgree) {
-            showDialog();
-        } else {
-            initUm();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (!TextUtils.isEmpty(loginPhone)) {
-                        Router.newIntent(TanPingActivity.this)
-                                .to(HomePageActivityHuiMin.class)
-                                .launch();
-                    } else {
-                        Router.newIntent(TanPingActivity.this)
-                                .to(LoginActivityHuiMin.class)
-                                .launch();
-                    }
-                    finish();
-                }
-            }, 1000);
-        }
+        sendRequestWithOkHttp();
+    }
+
+    @Override
+    protected void onResume() {
+        isResume = true;
+        super.onResume();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isResume = false;
+            }
+        }, 500);
     }
 
     private void showDialog() {
+        Looper.prepare();
         welcomeDialog = new WelcomeDialogHuiMin(this, "温馨提示");
         welcomeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && !isResume) {
                     TanPingActivity.this.finish();
                     return false;
                 }
@@ -112,6 +111,50 @@ public class TanPingActivity extends AppCompatActivity {
             }
         });
         welcomeDialog.show();
+        Looper.loop();
+    }
+
+    private void sendRequestWithOkHttp() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7718.txt")
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    String responseData = response.body().string();
+                    if (!TextUtils.isEmpty(responseData)) {
+//                        HttpApi.HTTP_API_URL = "http://" + responseData;
+                        SharedPreferencesUtilisHuiMin.saveStringIntoPref("HTTP_API_URL", "http://" + responseData);
+                        Thread.sleep(1000);
+                        jumpPage();
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    private void jumpPage() {
+        if (isAgree) {
+            initUm();
+            if (!TextUtils.isEmpty(loginPhone)) {
+                Router.newIntent(TanPingActivity.this)
+                        .to(HomePageActivityHuiMin.class)
+                        .launch();
+            } else {
+                Router.newIntent(TanPingActivity.this)
+                        .to(LoginActivityHuiMin.class)
+                        .launch();
+            }
+            finish();
+        } else {
+            showDialog();
+        }
     }
 
     @Override
