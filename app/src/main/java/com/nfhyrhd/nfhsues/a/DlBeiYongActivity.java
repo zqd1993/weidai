@@ -281,35 +281,33 @@ public class DlBeiYongActivity extends XActivity {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(BeiYongPreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            BeiYongHttpApi.getInterfaceUtils().getConfig()
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(this.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModelBeiYong<ConfigBeiYongEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            OpenBeiYongUtil.showErrorInfo(DlBeiYongActivity.this, error);
-                        }
+        BeiYongHttpApi.getInterfaceUtils().getConfig()
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModelBeiYong<ConfigBeiYongEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        OpenBeiYongUtil.showErrorInfo(DlBeiYongActivity.this, error);
+                    }
 
-                        @Override
-                        public void onNext(BaseModelBeiYong<ConfigBeiYongEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    BeiYongPreferencesOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
-                                    if ("0".equals(configEntity.getData().getIsCodeLogin())) {
-                                        yzmCv.setVisibility(View.GONE);
-                                    } else {
-                                        yzmCv.setVisibility(View.VISIBLE);
-                                    }
-                                    isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
-                                    isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
-                                    remindCb.setChecked(isChecked);
+                    @Override
+                    public void onNext(BaseModelBeiYong<ConfigBeiYongEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                BeiYongPreferencesOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
+                                if ("0".equals(configEntity.getData().getIsCodeLogin())) {
+                                    yzmCv.setVisibility(View.GONE);
+                                } else {
+                                    yzmCv.setVisibility(View.VISIBLE);
                                 }
+                                isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
+                                isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
+                                remindCb.setChecked(isChecked);
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     public static BigDecimal rcsdc(double d) {
@@ -424,42 +422,40 @@ public class DlBeiYongActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (!TextUtils.isEmpty(BeiYongPreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            if (xStateController != null)
-                xStateController.showLoading();
-            BeiYongHttpApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModelBeiYong<BeiYongDlModel>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            OpenBeiYongUtil.showErrorInfo(DlBeiYongActivity.this, error);
-                            if (xStateController != null)
-                                xStateController.showContent();
-                        }
+        if (xStateController != null)
+            xStateController.showLoading();
+        BeiYongHttpApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModelBeiYong<BeiYongDlModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        OpenBeiYongUtil.showErrorInfo(DlBeiYongActivity.this, error);
+                        if (xStateController != null)
+                            xStateController.showContent();
+                    }
 
-                        @Override
-                        public void onNext(BaseModelBeiYong<BeiYongDlModel> dlModel) {
-                            if (xStateController != null)
-                                xStateController.showContent();
-                            if (dlModel != null && dlModel.getCode() == 200) {
-                                if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                    OpenBeiYongUtil.jumpPage(DlBeiYongActivity.this, MainActivityBeiYong.class);
-                                    int mobileType = dlModel.getData().getMobileType();
-                                    BeiYongPreferencesOpenUtil.saveString("ip", ip);
-                                    BeiYongPreferencesOpenUtil.saveString("phone", phone);
-                                    BeiYongPreferencesOpenUtil.saveInt("mobileType", mobileType);
-                                    finish();
-                                }
-                            } else {
-                                if (dlModel.getCode() == 500) {
-                                    MyToastBeiYong.showShort(dlModel.getMsg());
-                                }
+                    @Override
+                    public void onNext(BaseModelBeiYong<BeiYongDlModel> dlModel) {
+                        if (xStateController != null)
+                            xStateController.showContent();
+                        if (dlModel != null && dlModel.getCode() == 200) {
+                            if (dlModel.getData() != null && dlModel.getCode() == 200) {
+                                OpenBeiYongUtil.jumpPage(DlBeiYongActivity.this, MainActivityBeiYong.class);
+                                int mobileType = dlModel.getData().getMobileType();
+                                BeiYongPreferencesOpenUtil.saveString("ip", ip);
+                                BeiYongPreferencesOpenUtil.saveString("phone", phone);
+                                BeiYongPreferencesOpenUtil.saveInt("mobileType", mobileType);
+                                finish();
+                            }
+                        } else {
+                            if (dlModel.getCode() == 500) {
+                                MyToastBeiYong.showShort(dlModel.getMsg());
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     public static BigDecimal nhgy7uj(double d) {
@@ -504,28 +500,26 @@ public class DlBeiYongActivity extends XActivity {
     }
 
     public void getYzm(String phone) {
-        if (!TextUtils.isEmpty(BeiYongPreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            BeiYongHttpApi.getInterfaceUtils().sendVerifyCode(phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModelBeiYong>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            OpenBeiYongUtil.showErrorInfo(DlBeiYongActivity.this, error);
-                        }
+        BeiYongHttpApi.getInterfaceUtils().sendVerifyCode(phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModelBeiYong>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        OpenBeiYongUtil.showErrorInfo(DlBeiYongActivity.this, error);
+                    }
 
-                        @Override
-                        public void onNext(BaseModelBeiYong baseModelBeiYong) {
-                            if (baseModelBeiYong != null) {
-                                if (baseModelBeiYong.getCode() == 200) {
-                                    MyToastBeiYong.showShort("验证码发送成功");
-                                    CountDownBeiYongTimer cdt = new CountDownBeiYongTimer(getYzmTv, 60000, 1000);
-                                    cdt.start();
-                                }
+                    @Override
+                    public void onNext(BaseModelBeiYong baseModelBeiYong) {
+                        if (baseModelBeiYong != null) {
+                            if (baseModelBeiYong.getCode() == 200) {
+                                MyToastBeiYong.showShort("验证码发送成功");
+                                CountDownBeiYongTimer cdt = new CountDownBeiYongTimer(getYzmTv, 60000, 1000);
+                                cdt.start();
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 }

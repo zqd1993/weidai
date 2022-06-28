@@ -6,8 +6,8 @@ ext {
             minSdkVersion    : 21,
             targetSdkVersion : 28,
 
-            versionCode      : 20220626,
-            versionName      : '1.0.2',
+            versionCode      : 20220628,
+            versionName      : '1.0.3',
             keyAlias         : "yrhdbsj",
             keyPassword      : "irjshdn",
             storeFile        : "./yrhdbsj.jks",

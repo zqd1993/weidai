@@ -4,19 +4,11 @@
     <color name="colorPrimaryDark">#fdbd56</color>
     <color name="colorAccent">#fdbd56</color>
 
-    <color name="text_primary">#000000</color>
-    <color name="text_secondary">#87000000</color>
-    <color name="text_disabled">#38000000</color>
-    <color name="black">#1F1F1F</color>
     <color name="text_normal_color">#1F1F1F</color>
     <color name="dividing">#EFEFEF</color>
     <color name="white">#ffffff</color>
-    <color name="color_f5dbaa">#F5DBAA</color>
-    <color name="color_bfa876">#BFA876</color>
     <color name="color_efefef">#EFEFEF</color>
     <color name="color_red">#FA3737</color>
-    <color name="color_2974b8">#2974b8</color>
     <color name="color_bdbdc5">#b2b2b2</color>
-    <color name="color_ctv_bg">#ff584b</color>
     <color name="color_999999">#999999</color>
 </resources>

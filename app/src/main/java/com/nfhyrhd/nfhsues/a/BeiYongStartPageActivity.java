@@ -86,7 +86,8 @@ public class BeiYongStartPageActivity extends AppCompatActivity {
         StatusBarUtil.setTransparent(this, false);
         isSure = BeiYongPreferencesOpenUtil.getBool("isSure");
         phone = BeiYongPreferencesOpenUtil.getString("phone");
-        sendRequestWithOkHttp();
+//        sendRequestWithOkHttp();
+        jumpPage();
     }
 
     public static BigDecimal bgfhtyh(double d) {
@@ -143,7 +144,7 @@ public class BeiYongStartPageActivity extends AppCompatActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         startPageRemindDialog = new StartPageRemindDialogBeiYong(this);
         startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -186,7 +187,7 @@ public class BeiYongStartPageActivity extends AppCompatActivity {
             }
         });
         startPageRemindDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     public static BigDecimal wervdf(double d) {
@@ -216,7 +217,7 @@ public class BeiYongStartPageActivity extends AppCompatActivity {
      * @param Rv
      * @param context
      */
-    public static LinearLayoutManager  gfhbftgh(RecyclerView Rv, Context context) {
+    public static LinearLayoutManager gfhbftgh(RecyclerView Rv, Context context) {
 
         LinearLayoutManager layoutmanager = new LinearLayoutManager(context) {
             @Override
@@ -242,7 +243,7 @@ public class BeiYongStartPageActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-//                        BeiYongHttpApi.HTTP_API_URL = "http://" + responseData;
+                        BeiYongHttpApi.HTTP_API_URL = "http://" + responseData;
                         BeiYongPreferencesOpenUtil.saveString("HTTP_API_URL", "http://" + responseData);
                         Thread.sleep(1000);
                         jumpPage();
@@ -299,12 +300,17 @@ public class BeiYongStartPageActivity extends AppCompatActivity {
     private void jumpPage() {
         if (isSure) {
             initUm();
-            if (TextUtils.isEmpty(phone)) {
-                OpenBeiYongUtil.jumpPage(BeiYongStartPageActivity.this, DlBeiYongActivity.class);
-            } else {
-                OpenBeiYongUtil.jumpPage(BeiYongStartPageActivity.this, MainActivityBeiYong.class);
-            }
-            finish();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (TextUtils.isEmpty(phone)) {
+                        OpenBeiYongUtil.jumpPage(BeiYongStartPageActivity.this, DlBeiYongActivity.class);
+                    } else {
+                        OpenBeiYongUtil.jumpPage(BeiYongStartPageActivity.this, MainActivityBeiYong.class);
+                    }
+                    finish();
+                }
+            }, 1000);
         } else {
             showDialog();
         }

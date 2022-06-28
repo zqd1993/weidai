@@ -48,6 +48,8 @@ public class ProductBeiYongFragment extends XFragment {
     View main_top_img;
     @BindView(R.id.jx_bg)
     View jx_bg;
+    @BindView(R.id.content_ll)
+    View content_ll;
     private ProductModelBeiYong productModelBeiYong;
 
     private Bundle bundle;
@@ -118,6 +120,9 @@ public class ProductBeiYongFragment extends XFragment {
         goodsListLl.setOnClickListener(v -> {
             productClick(productModelBeiYong);
         });
+        content_ll.setOnClickListener(v -> {
+            productClick(productModelBeiYong);
+        });
     }
 
     /**
@@ -176,8 +181,7 @@ public class ProductBeiYongFragment extends XFragment {
     }
 
     public void productClick(ProductModelBeiYong model) {
-        if (!TextUtils.isEmpty(BeiYongPreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            if (model != null) {
+         if (model != null) {
                 phone = BeiYongPreferencesOpenUtil.getString("phone");
                 BeiYongHttpApi.getInterfaceUtils().productClick(model.getId(), phone)
                         .compose(XApi.getApiTransformer())
@@ -195,7 +199,6 @@ public class ProductBeiYongFragment extends XFragment {
                             }
                         });
             }
-        }
     }
 
     /**
@@ -244,8 +247,7 @@ public class ProductBeiYongFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(BeiYongPreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            mobileType = BeiYongPreferencesOpenUtil.getInt("mobileType");
+        mobileType = BeiYongPreferencesOpenUtil.getInt("mobileType");
             BeiYongHttpApi.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -285,7 +287,6 @@ public class ProductBeiYongFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     /**
@@ -416,7 +417,7 @@ public class ProductBeiYongFragment extends XFragment {
         if (model != null) {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
-            bundle.putString("title", model.getProductName());
+            bundle.putString("biaoti", model.getProductName());
             OpenBeiYongUtil.jumpPage(getActivity(), BeiYongJumpH5Activity.class, bundle);
         }
     }

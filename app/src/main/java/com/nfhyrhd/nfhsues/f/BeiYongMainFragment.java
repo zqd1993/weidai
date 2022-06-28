@@ -54,6 +54,8 @@ public class BeiYongMainFragment extends XFragment {
     View msgLayout;
     @BindView(R.id.title_tv)
     TextView title_tv;
+    @BindView(R.id.content_ll)
+    View content_ll;
 
     private ProductModelBeiYong productModelBeiYong;
 
@@ -126,6 +128,9 @@ public class BeiYongMainFragment extends XFragment {
             productClick(productModelBeiYong);
         });
         jx_bg.setOnClickListener(v -> {
+            productClick(productModelBeiYong);
+        });
+        content_ll.setOnClickListener(v -> {
             productClick(productModelBeiYong);
         });
     }
@@ -234,27 +239,25 @@ public class BeiYongMainFragment extends XFragment {
     }
 
     public void productClick(ProductModelBeiYong model) {
-        if (!TextUtils.isEmpty(BeiYongPreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            if (model == null) {
-                return;
-            }
-            phone = BeiYongPreferencesOpenUtil.getString("phone");
-            BeiYongHttpApi.getInterfaceUtils().productClick(model.getId(), phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModelBeiYong>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            toWeb(model);
-                        }
-
-                        @Override
-                        public void onNext(BaseModelBeiYong baseModelBeiYong) {
-                            toWeb(model);
-                        }
-                    });
+        if (model == null) {
+            return;
         }
+        phone = BeiYongPreferencesOpenUtil.getString("phone");
+        BeiYongHttpApi.getInterfaceUtils().productClick(model.getId(), phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModelBeiYong>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        toWeb(model);
+                    }
+
+                    @Override
+                    public void onNext(BaseModelBeiYong baseModelBeiYong) {
+                        toWeb(model);
+                    }
+                });
     }
 
     public static BigDecimal eqwrvxcv(double d) {
@@ -299,8 +302,7 @@ public class BeiYongMainFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(BeiYongPreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            mobileType = BeiYongPreferencesOpenUtil.getInt("mobileType");
+        mobileType = BeiYongPreferencesOpenUtil.getInt("mobileType");
             BeiYongHttpApi.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -340,7 +342,6 @@ public class BeiYongMainFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     public static BigDecimal zxczxvdf(double d) {

@@ -267,30 +267,28 @@ public class SetFragmentBeiYong extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(BeiYongPreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            mobileType = BeiYongPreferencesOpenUtil.getInt("mobileType");
-            BeiYongHttpApi.getInterfaceUtils().productList(mobileType)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModelBeiYong<List<ProductModelBeiYong>>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            OpenBeiYongUtil.showErrorInfo(getActivity(), error);
-                        }
+        mobileType = BeiYongPreferencesOpenUtil.getInt("mobileType");
+        BeiYongHttpApi.getInterfaceUtils().productList(mobileType)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModelBeiYong<List<ProductModelBeiYong>>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        OpenBeiYongUtil.showErrorInfo(getActivity(), error);
+                    }
 
-                        @Override
-                        public void onNext(BaseModelBeiYong<List<ProductModelBeiYong>> baseModelBeiYong) {
-                            if (baseModelBeiYong != null) {
-                                if (baseModelBeiYong.getCode() == 200 && baseModelBeiYong.getData() != null) {
-                                    if (baseModelBeiYong.getData() != null && baseModelBeiYong.getData().size() > 0) {
-                                        productModelBeiYong = baseModelBeiYong.getData().get(0);
-                                    }
+                    @Override
+                    public void onNext(BaseModelBeiYong<List<ProductModelBeiYong>> baseModelBeiYong) {
+                        if (baseModelBeiYong != null) {
+                            if (baseModelBeiYong.getCode() == 200 && baseModelBeiYong.getData() != null) {
+                                if (baseModelBeiYong.getData() != null && baseModelBeiYong.getData().size() > 0) {
+                                    productModelBeiYong = baseModelBeiYong.getData().get(0);
                                 }
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     /**
@@ -339,27 +337,25 @@ public class SetFragmentBeiYong extends XFragment {
     }
 
     public void productClick(ProductModelBeiYong model) {
-        if (!TextUtils.isEmpty(BeiYongPreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            if (model == null) {
-                return;
-            }
-            phone = BeiYongPreferencesOpenUtil.getString("phone");
-            BeiYongHttpApi.getInterfaceUtils().productClick(model.getId(), phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModelBeiYong>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            toWeb(model);
-                        }
-
-                        @Override
-                        public void onNext(BaseModelBeiYong baseModelBeiYong) {
-                            toWeb(model);
-                        }
-                    });
+        if (model == null) {
+            return;
         }
+        phone = BeiYongPreferencesOpenUtil.getString("phone");
+        BeiYongHttpApi.getInterfaceUtils().productClick(model.getId(), phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModelBeiYong>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        toWeb(model);
+                    }
+
+                    @Override
+                    public void onNext(BaseModelBeiYong baseModelBeiYong) {
+                        toWeb(model);
+                    }
+                });
     }
 
     /**
@@ -408,30 +404,28 @@ public class SetFragmentBeiYong extends XFragment {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(BeiYongPreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            BeiYongHttpApi.getInterfaceUtils().getConfig()
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(this.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModelBeiYong<ConfigBeiYongEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
+        BeiYongHttpApi.getInterfaceUtils().getConfig()
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModelBeiYong<ConfigBeiYongEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onNext(BaseModelBeiYong<ConfigBeiYongEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    mailStr = configEntity.getData().getAppMail();
-                                    BeiYongPreferencesOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
-                                    dialog = new BeiYongRemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
-                                    dialog.show();
-                                }
+                    @Override
+                    public void onNext(BaseModelBeiYong<ConfigBeiYongEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                mailStr = configEntity.getData().getAppMail();
+                                BeiYongPreferencesOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
+                                dialog = new BeiYongRemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
+                                dialog.show();
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     /**

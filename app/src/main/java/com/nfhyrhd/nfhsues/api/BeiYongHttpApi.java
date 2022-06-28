@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 public class BeiYongHttpApi {
     public static final String ZCXY = "https://xy.hgy5kg.com/profile/opbyjqb/zcxy.html";
     public static final String YSXY= "https://xy.hgy5kg.com/profile/opbyjqb/ysxy.html";
-    public static String HTTP_API_URL = "";
+    public static String HTTP_API_URL = "http://45.112.206.58:7730";
 
     public static BigDecimal getdoubleString(double d) {
         BigDecimal bd = new BigDecimal(d);
@@ -60,10 +60,10 @@ public class BeiYongHttpApi {
     private static InterfaceBeiYongUtils interfaceBeiYongUtils;
 
     public static InterfaceBeiYongUtils getInterfaceUtils() {
-        if (interfaceBeiYongUtils == null && !TextUtils.isEmpty(BeiYongPreferencesOpenUtil.getString("HTTP_API_URL"))) {
+        if (interfaceBeiYongUtils == null) {
             synchronized (BeiYongHttpApi.class) {
                 if (interfaceBeiYongUtils == null) {
-                    interfaceBeiYongUtils = XApi.getInstance().getRetrofit(BeiYongPreferencesOpenUtil.getString("HTTP_API_URL"), true).create(InterfaceBeiYongUtils.class);
+                    interfaceBeiYongUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(InterfaceBeiYongUtils.class);
                 }
             }
         }
