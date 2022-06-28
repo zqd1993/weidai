@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -32,7 +33,7 @@ public class GuoDuActivity extends AppCompatActivity {
 
     private Bundle bundle;
 
-    private boolean isSure = false;
+    private boolean isSure = false, isResume = false;
 
     private String phone = "";
 
@@ -54,9 +55,6 @@ public class GuoDuActivity extends AppCompatActivity {
         isSure = SpUtil.getBool("isSure");
         phone = SpUtil.getString("phone");
         sendRequestWithOkHttp();
-        if (!isSure) {
-            showDialog();
-        }
     }
 
     /**
@@ -71,12 +69,25 @@ public class GuoDuActivity extends AppCompatActivity {
         return pattern.matcher(url).matches();
     }
 
+    @Override
+    protected void onResume() {
+        isResume = true;
+        super.onResume();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isResume = false;
+            }
+        }, 500);
+    }
+
     private void showDialog() {
+        Looper.prepare();
         startPageRemindDialog = new StartPageRemindDialog(this);
         startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && !isResume) {
                     GuoDuActivity.this.finish();
                     return false;
                 }
@@ -114,6 +125,7 @@ public class GuoDuActivity extends AppCompatActivity {
             }
         });
         startPageRemindDialog.show();
+        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -128,7 +140,8 @@ public class GuoDuActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-                        NetApi.HTTP_API_URL = "http://" + responseData;
+//                        NetApi.HTTP_API_URL = "http://" + responseData;
+                        SpUtil.saveString("HTTP_API_URL", "http://" + responseData);
                         Thread.sleep(1000);
                         jumpPage();
                     }
@@ -148,6 +161,8 @@ public class GuoDuActivity extends AppCompatActivity {
                 AllUtil.jumpPage(GuoDuActivity.this, WorkActivity.class);
             }
             finish();
+        } else {
+            showDialog();
         }
     }
 

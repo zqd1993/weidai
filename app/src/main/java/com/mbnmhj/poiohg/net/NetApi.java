@@ -2,6 +2,8 @@ package com.mbnmhj.poiohg.net;
 
 import android.text.TextUtils;
 
+import com.mbnmhj.poiohg.util.SpUtil;
+
 import java.util.regex.Pattern;
 
 public class NetApi {
@@ -42,10 +44,10 @@ public class NetApi {
     }
 
     public static InterfaceObject getInterfaceUtils() {
-        if (interfaceObject == null && !TextUtils.isEmpty(HTTP_API_URL)) {
+        if (interfaceObject == null && !TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
             synchronized (NetApi.class) {
                 if (interfaceObject == null) {
-                    interfaceObject = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(InterfaceObject.class);
+                    interfaceObject = XApi.getInstance().getRetrofit(SpUtil.getString("HTTP_API_URL"), true).create(InterfaceObject.class);
                 }
             }
         }

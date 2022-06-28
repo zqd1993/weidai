@@ -18,6 +18,7 @@ import com.mbnmhj.poiohg.entity.MoreModel;
 import com.mbnmhj.poiohg.imageloader.ILFactory;
 import com.mbnmhj.poiohg.imageloader.ILoader;
 import com.mbnmhj.poiohg.net.NetApi;
+import com.mbnmhj.poiohg.util.SpUtil;
 import com.youth.banner.adapter.BannerAdapter;
 
 import java.util.List;
@@ -26,15 +27,23 @@ import java.util.regex.Pattern;
 
 public class BannerGoodsAdapter extends BannerAdapter<MoreModel, BannerGoodsAdapter.ImageHolder> {
 
-    /** 正则表达式：以0或正整数开头后跟0或1个(小数点后面跟0到2位数字) */
+    /**
+     * 正则表达式：以0或正整数开头后跟0或1个(小数点后面跟0到2位数字)
+     */
     private static final String FORMAT = "^(0|[1-9]\\d*)(\\.\\d{0,%s})?$";
-    /** 正则表达式：0-9.之外的字符 */
+    /**
+     * 正则表达式：0-9.之外的字符
+     */
     private static final Pattern SOURCE_PATTERN = Pattern.compile("[^0-9.]");
 
-    /** 默认保留小数点后2位 */
+    /**
+     * 默认保留小数点后2位
+     */
     private Pattern mPattern = Pattern.compile(String.format(FORMAT, "2"));
 
-    /** 允许输入的最大金额 */
+    /**
+     * 允许输入的最大金额
+     */
     private double maxValue = 999999;
 
     private String remindStr = "可输入最大数量";
@@ -68,15 +77,17 @@ public class BannerGoodsAdapter extends BannerAdapter<MoreModel, BannerGoodsAdap
         holder.edu_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
         holder.shijian_tv.setText(data.getDes());
         holder.shuliang_tv.setText(String.valueOf(data.getPassingRate()));
-        ILFactory.getLoader().loadNet(holder.shangpin_pic, NetApi.HTTP_API_URL + data.getProductLogo(),
-                new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        if (!TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
+            ILFactory.getLoader().loadNet(holder.shangpin_pic, SpUtil.getString("HTTP_API_URL") + data.getProductLogo(),
+                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        }
         holder.parentLl.setOnClickListener(v -> {
-            if (bannerClickedListener != null){
+            if (bannerClickedListener != null) {
                 bannerClickedListener.onBannerClicked(data);
             }
         });
         holder.yjsq_sl.setOnClickListener(v -> {
-            if (bannerClickedListener != null){
+            if (bannerClickedListener != null) {
                 bannerClickedListener.onBannerClicked(data);
             }
         });
@@ -102,7 +113,7 @@ public class BannerGoodsAdapter extends BannerAdapter<MoreModel, BannerGoodsAdap
     }
 
 
-    public class ImageHolder extends RecyclerView.ViewHolder{
+    public class ImageHolder extends RecyclerView.ViewHolder {
 
         TextView shangpin_name_tv;
         TextView tedian_tv;
@@ -126,7 +137,7 @@ public class BannerGoodsAdapter extends BannerAdapter<MoreModel, BannerGoodsAdap
         }
     }
 
-    public void setBannerClickedListener(BannerClickedListener bannerClickedListener){
+    public void setBannerClickedListener(BannerClickedListener bannerClickedListener) {
         this.bannerClickedListener = bannerClickedListener;
     }
 
@@ -134,11 +145,11 @@ public class BannerGoodsAdapter extends BannerAdapter<MoreModel, BannerGoodsAdap
      * 当系统使用source的start到end的字串替换dest字符串中的dstart到dend位置的内容时，会调用本方法
      *
      * @param source 新输入的字符串
-     * @param start 新输入的字符串起始下标，一般为0（删除时例外）
-     * @param end 新输入的字符串终点下标，一般为source长度-1（删除时例外）
-     * @param dest 输入之前文本框内容
+     * @param start  新输入的字符串起始下标，一般为0（删除时例外）
+     * @param end    新输入的字符串终点下标，一般为source长度-1（删除时例外）
+     * @param dest   输入之前文本框内容
      * @param dstart 原内容起始坐标，一般为dest长度（删除时例外）
-     * @param dend 原内容终点坐标，一般为dest长度（删除时例外）
+     * @param dend   原内容终点坐标，一般为dest长度（删除时例外）
      * @return 你希望输入的内容，比如当新输入的字符串为“恨”时，你希望把“恨”变为“爱”，则return "爱"
      */
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
@@ -172,7 +183,7 @@ public class BannerGoodsAdapter extends BannerAdapter<MoreModel, BannerGoodsAdap
         }
     }
 
-    public interface BannerClickedListener{
+    public interface BannerClickedListener {
         void onBannerClicked(MoreModel entity);
     }
 

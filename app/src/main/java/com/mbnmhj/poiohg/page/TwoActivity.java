@@ -138,7 +138,7 @@ public class TwoActivity extends XActivity {
         dlBtn.setOnClickListener(v -> {
             phoneStr = mobileEt.getText().toString().trim();
             yzmStr = yzmEt.getText().toString().trim();
-            if (phoneStr.isEmpty() && isNeedYzm) {
+            if (phoneStr.isEmpty()) {
                 NewToast.showShort("请输入手机号码");
                 return;
             }
@@ -191,7 +191,7 @@ public class TwoActivity extends XActivity {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(NetApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
             NetApi.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -294,7 +294,7 @@ public class TwoActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (!TextUtils.isEmpty(NetApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
             if (xStateController != null)
                 xStateController.showLoading();
             NetApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
@@ -333,7 +333,7 @@ public class TwoActivity extends XActivity {
     }
 
     public void getYzm(String phone) {
-        if (!TextUtils.isEmpty(NetApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
             NetApi.getInterfaceUtils().sendVerifyCode(phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
