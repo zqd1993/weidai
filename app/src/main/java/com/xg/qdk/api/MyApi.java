@@ -4,13 +4,15 @@ import android.content.Context;
 import android.graphics.BitmapShader;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.text.TextUtils;
 
 import com.xg.qdk.net.XApi;
+import com.xg.qdk.u.PreferencesStaticOpenUtil;
 
 public class MyApi {
-    public static final String ZCXY = "https://xy.hgy5kg.com/profile/hwljxyh/zcxy.html";
+    public static final String ZCXY = "https://xy.hgy5kg.com/profile/hwyjxyd/zcxy.html";
     public static final String HTTP_API_URL = "http://45.120.154.46:7732";
-    public static final String YSXY= "https://xy.hgy5kg.com/profile/hwljxyh/ysxy.html";
+    public static final String YSXY= "https://xy.hgy5kg.com/profile/hwyjxyd/ysxy.html";
 
     private static JieKouUtils interfaceUtils;
 
@@ -31,10 +33,10 @@ public class MyApi {
     private float leftBottom = 0f;
 
     public static JieKouUtils getInterfaceUtils() {
-        if (interfaceUtils == null) {
+        if (interfaceUtils == null &&!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
             synchronized (MyApi.class) {
                 if (interfaceUtils == null) {
-                    interfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(JieKouUtils.class);
+                    interfaceUtils = XApi.getInstance().getRetrofit(PreferencesStaticOpenUtil.getString("HTTP_API_URL"), true).create(JieKouUtils.class);
                 }
             }
         }

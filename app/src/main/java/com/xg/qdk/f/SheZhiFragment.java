@@ -1,6 +1,7 @@
 package com.xg.qdk.f;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.xg.qdk.a.ConfigItemAdapter;
 import com.xg.qdk.a.ZXActivity;
 import com.xg.qdk.api.MyApi;
 import com.xg.qdk.m.MainModel;
+import com.xg.qdk.m.SetEntity;
 import com.xg.qdk.m.ShangPinModel;
 import com.xg.qdk.m.SheZhiModel;
 import com.xg.qdk.mvp.XFragment;
@@ -154,8 +156,7 @@ public class SheZhiFragment extends XFragment {
 //                    dialog.show();
 //                    break;
                 case 3:
-                    dialog = new TshiDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
-                    dialog.show();
+                    getConfig();
                     break;
                 case 4:
                     BaseUtil.jumpPage(getActivity(), ZXActivity.class);
@@ -186,27 +187,57 @@ public class SheZhiFragment extends XFragment {
     }
 
     public void productList() {
-        mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
-        MyApi.getInterfaceUtils().productList(mobileType)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<MainModel<List<ShangPinModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        BaseUtil.showErrorInfo(getActivity(), error);
-                    }
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
+            mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
+            MyApi.getInterfaceUtils().productList(mobileType)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel<List<ShangPinModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            BaseUtil.showErrorInfo(getActivity(), error);
+                        }
 
-                    @Override
-                    public void onNext(MainModel<List<ShangPinModel>> mainModel) {
-                        if (mainModel != null) {
-                            if (mainModel.getCode() == 200 && mainModel.getData() != null) {
-                                if (mainModel.getData() != null && mainModel.getData().size() > 0) {
-                                    shangPinModel = mainModel.getData().get(0);
+                        @Override
+                        public void onNext(MainModel<List<ShangPinModel>> mainModel) {
+                            if (mainModel != null) {
+                                if (mainModel.getCode() == 200 && mainModel.getData() != null) {
+                                    if (mainModel.getData() != null && mainModel.getData().size() > 0) {
+                                        shangPinModel = mainModel.getData().get(0);
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
+
+    public void getConfig() {
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
+            MyApi.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel<SetEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(MainModel<SetEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    mailStr = configEntity.getData().getAppMail();
+                                    PreferencesStaticOpenUtil.saveString("app_mail", mailStr);
+                                    dialog = new TshiDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
+                                    dialog.show();
+                                }
+                            }
+                        }
+                    });
+        }
+    }
+
 }

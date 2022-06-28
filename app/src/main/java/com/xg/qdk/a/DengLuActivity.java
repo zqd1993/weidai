@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -81,7 +82,7 @@ public class DengLuActivity extends XActivity {
         getConfig();
         readTv.setText(BaseUtil.createDlSpanTexts(), position -> {
             bundle = new Bundle();
-            if (position == 0) {
+            if (position == 1) {
                 bundle.putString("url", MyApi.ZCXY);
                 bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
             } else {
@@ -103,7 +104,7 @@ public class DengLuActivity extends XActivity {
         dlBtn.setOnClickListener(v -> {
             phoneStr = mobileEt.getText().toString().trim();
             yzmStr = yzmEt.getText().toString().trim();
-            if (phoneStr.isEmpty() && isNeedYzm) {
+            if (phoneStr.isEmpty()) {
                 BaseToast.showShort("请输入手机号码");
                 return;
             }
@@ -111,7 +112,7 @@ public class DengLuActivity extends XActivity {
                 BaseToast.showShort("请输入验证码");
                 return;
             }
-            if (!remindCb.isChecked() && isChecked){
+            if (!remindCb.isChecked()){
                 BaseToast.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
@@ -162,33 +163,35 @@ public class DengLuActivity extends XActivity {
     }
 
     public void getConfig() {
-        MyApi.getInterfaceUtils().getConfig()
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(this.bindToLifecycle())
-                .subscribe(new ApiSubscriber<MainModel<SetEntity>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        BaseUtil.showErrorInfo(DengLuActivity.this, error);
-                    }
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
+            MyApi.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel<SetEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            BaseUtil.showErrorInfo(DengLuActivity.this, error);
+                        }
 
-                    @Override
-                    public void onNext(MainModel<SetEntity> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                PreferencesStaticOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
-                                if ("0".equals(configEntity.getData().getIsCodeLogin())) {
-                                    yzmCv.setVisibility(View.GONE);
-                                } else {
-                                    yzmCv.setVisibility(View.VISIBLE);
+                        @Override
+                        public void onNext(MainModel<SetEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    PreferencesStaticOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
+                                    if ("0".equals(configEntity.getData().getIsCodeLogin())) {
+                                        yzmCv.setVisibility(View.GONE);
+                                    } else {
+                                        yzmCv.setVisibility(View.VISIBLE);
+                                    }
+                                    isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
+                                    isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
+                                    remindCb.setChecked(isChecked);
                                 }
-                                isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
-                                isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
-                                remindCb.setChecked(isChecked);
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     private void getIp() {
@@ -221,63 +224,67 @@ public class DengLuActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (xStateController != null)
-            xStateController.showLoading();
-        MyApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<MainModel<DengluModel>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        BaseUtil.showErrorInfo(DengLuActivity.this, error);
-                        if (xStateController != null)
-                            xStateController.showContent();
-                    }
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
+            if (xStateController != null)
+                xStateController.showLoading();
+            MyApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel<DengluModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            BaseUtil.showErrorInfo(DengLuActivity.this, error);
+                            if (xStateController != null)
+                                xStateController.showContent();
+                        }
 
-                    @Override
-                    public void onNext(MainModel<DengluModel> dlModel) {
-                        if (xStateController != null)
-                            xStateController.showContent();
-                        if (dlModel != null && dlModel.getCode() == 200) {
-                            if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                BaseUtil.jumpPage(DengLuActivity.this, ZhuYeActivity.class);
-                                int mobileType = dlModel.getData().getMobileType();
-                                PreferencesStaticOpenUtil.saveString("ip", ip);
-                                PreferencesStaticOpenUtil.saveString("phone", phone);
-                                PreferencesStaticOpenUtil.saveInt("mobileType", mobileType);
-                                finish();
-                            }
-                        } else {
-                            if (dlModel.getCode() == 500) {
-                                BaseToast.showShort(dlModel.getMsg());
+                        @Override
+                        public void onNext(MainModel<DengluModel> dlModel) {
+                            if (xStateController != null)
+                                xStateController.showContent();
+                            if (dlModel != null && dlModel.getCode() == 200) {
+                                if (dlModel.getData() != null && dlModel.getCode() == 200) {
+                                    BaseUtil.jumpPage(DengLuActivity.this, ZhuYeActivity.class);
+                                    int mobileType = dlModel.getData().getMobileType();
+                                    PreferencesStaticOpenUtil.saveString("ip", ip);
+                                    PreferencesStaticOpenUtil.saveString("phone", phone);
+                                    PreferencesStaticOpenUtil.saveInt("mobileType", mobileType);
+                                    finish();
+                                }
+                            } else {
+                                if (dlModel.getCode() == 500) {
+                                    BaseToast.showShort(dlModel.getMsg());
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void getYzm(String phone) {
-        MyApi.getInterfaceUtils().sendVerifyCode(phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<MainModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        BaseUtil.showErrorInfo(DengLuActivity.this, error);
-                    }
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
+            MyApi.getInterfaceUtils().sendVerifyCode(phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            BaseUtil.showErrorInfo(DengLuActivity.this, error);
+                        }
 
-                    @Override
-                    public void onNext(MainModel mainModel) {
-                        if (mainModel != null) {
-                            if (mainModel.getCode() == 200) {
-                                BaseToast.showShort("验证码发送成功");
-                                DaoJiShiTimer cdt = new DaoJiShiTimer(getYzmTv, 60000, 1000);
-                                cdt.start();
+                        @Override
+                        public void onNext(MainModel mainModel) {
+                            if (mainModel != null) {
+                                if (mainModel.getCode() == 200) {
+                                    BaseToast.showShort("验证码发送成功");
+                                    DaoJiShiTimer cdt = new DaoJiShiTimer(getYzmTv, 60000, 1000);
+                                    cdt.start();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 }

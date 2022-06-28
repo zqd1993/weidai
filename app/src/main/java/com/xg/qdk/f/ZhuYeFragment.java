@@ -1,6 +1,7 @@
 package com.xg.qdk.f;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
@@ -83,52 +84,60 @@ public class ZhuYeFragment extends XFragment {
     }
 
     public void productClick(ShangPinModel model) {
-        if (model == null) {
-            return;
-        }
-        phone = PreferencesStaticOpenUtil.getString("phone");
-        MyApi.getInterfaceUtils().productClick(model.getId(), phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<MainModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        toWeb(model);
-                    }
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
+            if (model == null) {
+                return;
+            }
+            phone = PreferencesStaticOpenUtil.getString("phone");
+            MyApi.getInterfaceUtils().productClick(model.getId(), phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            toWeb(model);
+                        }
 
-                    @Override
-                    public void onNext(MainModel mainModel) {
-                        toWeb(model);
-                    }
-                });
+                        @Override
+                        public void onNext(MainModel mainModel) {
+                            toWeb(model);
+                        }
+                    });
+        }
     }
 
 
     public void productList() {
-        mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
-        MyApi.getInterfaceUtils().productList(mobileType)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<MainModel<List<ShangPinModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        setRefreshing.setRefreshing(false);
-                        BaseUtil.showErrorInfo(getActivity(), error);
-                        if (mGoodsAdapter == null) {
-                            noDataTv.setVisibility(View.VISIBLE);
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
+            mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
+            MyApi.getInterfaceUtils().productList(mobileType)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel<List<ShangPinModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            setRefreshing.setRefreshing(false);
+                            BaseUtil.showErrorInfo(getActivity(), error);
+                            if (mGoodsAdapter == null) {
+                                noDataTv.setVisibility(View.VISIBLE);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onNext(MainModel<List<ShangPinModel>> mainModel) {
-                        setRefreshing.setRefreshing(false);
-                        if (mainModel != null) {
-                            if (mainModel.getCode() == 200 && mainModel.getData() != null) {
-                                if (mainModel.getData() != null && mainModel.getData().size() > 0) {
-                                    shangPinModel = mainModel.getData().get(0);
-                                    initAdapter(mainModel.getData());
+                        @Override
+                        public void onNext(MainModel<List<ShangPinModel>> mainModel) {
+                            setRefreshing.setRefreshing(false);
+                            if (mainModel != null) {
+                                if (mainModel.getCode() == 200 && mainModel.getData() != null) {
+                                    if (mainModel.getData() != null && mainModel.getData().size() > 0) {
+                                        shangPinModel = mainModel.getData().get(0);
+                                        initAdapter(mainModel.getData());
+                                    } else {
+                                        if (mGoodsAdapter == null) {
+                                            noDataTv.setVisibility(View.VISIBLE);
+                                        }
+                                    }
                                 } else {
                                     if (mGoodsAdapter == null) {
                                         noDataTv.setVisibility(View.VISIBLE);
@@ -139,13 +148,9 @@ public class ZhuYeFragment extends XFragment {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
                             }
-                        } else {
-                            if (mGoodsAdapter == null) {
-                                noDataTv.setVisibility(View.VISIBLE);
-                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     private void initAdapter(List<ShangPinModel> mList) {
