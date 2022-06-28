@@ -84,8 +84,8 @@ public class SetFragmentMeiJie extends XFragment {
         SetMeiJieModel model1 = new SetMeiJieModel(R.drawable.liudfj, "隐私协议");
         SetMeiJieModel model2 = new SetMeiJieModel(R.drawable.liudfj, "意见反馈");
         SetMeiJieModel model3 = new SetMeiJieModel(R.drawable.liudfj, "关于我们");
-        SetMeiJieModel model4 = new SetMeiJieModel(R.drawable.qwedsc, "个性化推荐");
-        SetMeiJieModel model5 = new SetMeiJieModel(R.drawable.zdvrt4, "投诉邮箱");
+//        SetMeiJieModel model4 = new SetMeiJieModel(R.drawable.qwedsc, "个性化推荐");
+        SetMeiJieModel model5 = new SetMeiJieModel(R.drawable.zdvrt4, "联系客服");
         SetMeiJieModel model6 = new SetMeiJieModel(R.drawable.jgfb, "注销账户");
         SetMeiJieModel model7 = new SetMeiJieModel(R.drawable.vdfa, "退出登录");
         List<SetMeiJieModel> list = new ArrayList<>();
@@ -94,7 +94,7 @@ public class SetFragmentMeiJie extends XFragment {
         list1.add(model1);
         list1.add(model2);
         list.add(model3);
-        list.add(model4);
+//        list.add(model4);
         list.add(model5);
         list.add(model6);
         list.add(model7);
@@ -126,31 +126,31 @@ public class SetFragmentMeiJie extends XFragment {
                 case 0:
                     OpenMeiJieUtil.jumpPage(getActivity(), AboutInfoActivityMeiJie.class);
                     break;
+//                case 1:
+//                    dialog = new MeiJieRemindDialog(getActivity()).setCancelText("开启")
+//                            .setConfirmText("关闭").setTitle("温馨提示").setContent("关闭或开启推送");
+//                    dialog.setOnButtonClickListener(new MeiJieRemindDialog.OnButtonClickListener() {
+//                        @Override
+//                        public void onSureClicked() {
+//                            MyToastMeiJie.showShort("关闭成功");
+//                            dialog.dismiss();
+//                        }
+//
+//                        @Override
+//                        public void onCancelClicked() {
+//                            MyToastMeiJie.showShort("开启成功");
+//                            dialog.dismiss();
+//                        }
+//                    });
+//                    dialog.show();
+//                    break;
                 case 1:
-                    dialog = new MeiJieRemindDialog(getActivity()).setCancelText("开启")
-                            .setConfirmText("关闭").setTitle("温馨提示").setContent("关闭或开启推送");
-                    dialog.setOnButtonClickListener(new MeiJieRemindDialog.OnButtonClickListener() {
-                        @Override
-                        public void onSureClicked() {
-                            MyToastMeiJie.showShort("关闭成功");
-                            dialog.dismiss();
-                        }
-
-                        @Override
-                        public void onCancelClicked() {
-                            MyToastMeiJie.showShort("开启成功");
-                            dialog.dismiss();
-                        }
-                    });
-                    dialog.show();
-                    break;
-                case 2:
                     getConfig();
                     break;
-                case 3:
+                case 2:
                     OpenMeiJieUtil.jumpPage(getActivity(), ZhuXiaoActivityMeiJie.class);
                     break;
-                case 4:
+                case 3:
                     dialog = new MeiJieRemindDialog(getActivity()).setCancelText("取消")
                             .setConfirmText("退出").setTitle("温馨提示").setContent("确定退出当前登录");
                     dialog.setOnButtonClickListener(new MeiJieRemindDialog.OnButtonClickListener() {

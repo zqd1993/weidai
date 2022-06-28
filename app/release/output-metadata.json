@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.lpsydsnl.jtxqchbb",
+  "applicationId": "com.beirun.nineonedk",
   "variantName": "release",
   "elements": [
     {
@@ -12,7 +12,7 @@
       "filters": [],
       "versionCode": 20220607,
       "versionName": "1.0.0",
-      "outputFile": "meijie_v1.0.0.apk"
+      "outputFile": "weidaixinyonghua_hw_v1.0.0.apk"
     }
   ]
 }
