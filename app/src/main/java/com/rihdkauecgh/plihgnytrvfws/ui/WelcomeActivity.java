@@ -121,7 +121,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7702.txt")
+                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7733.txt")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();

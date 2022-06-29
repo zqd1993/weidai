@@ -1,20 +1,28 @@
 package com.rihdkauecgh.plihgnytrvfws.ui.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.ViewFlipper;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.rihdkauecgh.plihgnytrvfws.R;
 import com.rihdkauecgh.plihgnytrvfws.adapter.GoodsItemAdapter;
+import com.rihdkauecgh.plihgnytrvfws.adapter.ItemAdapter;
 import com.rihdkauecgh.plihgnytrvfws.model.GoodsModel;
+import com.rihdkauecgh.plihgnytrvfws.model.ItemModel;
 import com.rihdkauecgh.plihgnytrvfws.ui.WebViewActivity;
 import com.rihdkauecgh.plihgnytrvfws.mvp.XFragment;
 import com.rihdkauecgh.plihgnytrvfws.present.HomePagePresent;
 import com.rihdkauecgh.plihgnytrvfws.router.Router;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -38,11 +46,29 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
     View topLayout;
     @BindView(R.id.banner_fl)
     View banner_fl;
+    @BindView(R.id.view_flipper)
+    ViewFlipper viewFlipper;
+    @BindView(R.id.pb_progressbar)
+    SeekBar pb_progressbar;
+    @BindView(R.id.progress_tv)
+    TextView progress_tv;
+    @BindView(R.id.item_list)
+    RecyclerView item_list;
+    @BindView(R.id.click_view)
+    View click_view;
+    @BindView(R.id.shenqing_tv)
+    View shenqing_tv;
 
     private Bundle bundle, webBundle;
     private int tag;
     public GoodsItemAdapter goodsItemAdapter;
     private GoodsModel goodsModel;
+    private ItemAdapter itemAdapter;
+
+    private String[] msg = {"恭喜187****5758用户领取87000元额度", "恭喜138****5666用户领取36000元额度", "恭喜199****5009用户领取49000元额度",
+            "恭喜137****6699用户领取69000元额度", "恭喜131****8889用户领取18000元额度", "恭喜177****8899用户领取26000元额度",
+            "恭喜155****6789用户领取58000元额度", "恭喜166****5335用户领取29000元额度", "恭喜163****2299用户领取92000元额度",
+            "恭喜130****8866用户领取86000元额度"};
 
     public static HomePageFragment getInstant(int tag) {
         HomePageFragment homePageFragment = new HomePageFragment();
@@ -57,31 +83,64 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
         bundle = getArguments();
         if (bundle != null) {
             tag = bundle.getInt("tag");
-            if (tag == 1) {
-                productBg.setVisibility(View.GONE);
-                homePageBg.setVisibility(View.VISIBLE);
-                banner_fl.setVisibility(View.VISIBLE);
-            } else {
-                productBg.setVisibility(View.VISIBLE);
-                homePageBg.setVisibility(View.GONE);
-                banner_fl.setVisibility(View.GONE);
-            }
         }
         getP().productList();
+        initViewData();
+        setViewConfig();
+        initItemAdapter();
         swipeRefreshLayout.setOnRefreshListener(() -> getP().productList());
         noDataFl.setOnClickListener(v -> getP().productList());
-        productBg.setOnClickListener(v -> {
+        click_view.setOnClickListener(v -> {
             productClick(goodsModel);
         });
-        parentFl.setOnClickListener(v -> {
+        shenqing_tv.setOnClickListener(v -> {
             productClick(goodsModel);
         });
-        topLayout.setOnClickListener(v -> {
-            productClick(goodsModel);
+        pb_progressbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if ((2000 * progress) <= 5000){
+                    progress_tv.setText("5000");
+                } else {
+                    progress_tv.setText(String.valueOf(2000 * progress));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
         });
-        banner_fl.setOnClickListener(v -> {
-            productClick(goodsModel);
-        });
+    }
+
+    private void initItemAdapter(){
+        List<ItemModel> list = new ArrayList<>();
+        ItemModel model = new ItemModel();
+        model.setName("3期");
+        list.add(model);
+        ItemModel model1 = new ItemModel();
+        model1.setName("6期");
+        list.add(model1);
+        ItemModel model2 = new ItemModel();
+        model2.setName("9期");
+        list.add(model2);
+        ItemModel model3 = new ItemModel();
+        model3.setName("12期");
+        list.add(model3);
+        ItemModel model4 = new ItemModel();
+        model4.setName("24期");
+        list.add(model4);
+        itemAdapter = new ItemAdapter(getActivity());
+        itemAdapter.setHasStableIds(true);
+        itemAdapter.setData(list);
+        item_list.setLayoutManager(new GridLayoutManager(getActivity(), 5));
+        item_list.setHasFixedSize(true);
+        item_list.setAdapter(itemAdapter);
     }
 
     @Override
@@ -110,6 +169,29 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
                     .to(WebViewActivity.class)
                     .data(webBundle)
                     .launch();
+        }
+    }
+
+    /**
+     * 设置上下切换控件配置
+     */
+    private void setViewConfig() {
+        viewFlipper.setInAnimation(getActivity(), R.anim.anim_in);
+        viewFlipper.setOutAnimation(getActivity(), R.anim.anim_out);
+        viewFlipper.setFlipInterval(2000);
+        viewFlipper.startFlipping();
+    }
+
+    private void initViewData() {
+        List<String> datas = new ArrayList<>();
+        for (int i = 0; i < msg.length; i++) {
+            datas.add(msg[i]);
+        }
+        for (String data : datas) {
+            View view = getLayoutInflater().inflate(R.layout.item_view_flipper, null);
+            TextView textView = view.findViewById(R.id.item_text);
+            textView.setText(data);
+            viewFlipper.addView(view);
         }
     }
 

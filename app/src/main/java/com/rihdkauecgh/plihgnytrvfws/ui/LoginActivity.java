@@ -59,6 +59,7 @@ public class LoginActivity extends XActivity<LoginPresent> {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
+        StatusBarUtil.setLightMode(this);
         initListener();
         getP().getGankData();
         sendRequestWithOkHttp();
