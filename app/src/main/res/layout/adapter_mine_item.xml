@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -13,34 +13,21 @@
 
         <ImageView
             android:id="@+id/item_img"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
             android:src="@drawable/wd_icon_zcxy" />
 
         <TextView
             android:id="@+id/item_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="25dp"
+            android:layout_gravity="center"
             android:text="注册协议"
             android:textColor="@color/text_normal_color"
             android:textSize="@dimen/textSize_16" />
 
-        <View
-            android:id="@+id/line_view"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/color_efefef" />
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/right_line"
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="end"
-        android:background="@color/color_efefef" />
+    </FrameLayout>
 
 </FrameLayout>
