@@ -84,7 +84,6 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
         if (bundle != null) {
             tag = bundle.getInt("tag");
         }
-        getP().productList();
         initViewData();
         setViewConfig();
         initItemAdapter();
@@ -116,6 +115,12 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
 
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getP().productList();
     }
 
     private void initItemAdapter(){

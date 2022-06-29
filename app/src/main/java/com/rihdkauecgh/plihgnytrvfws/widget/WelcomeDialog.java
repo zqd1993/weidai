@@ -83,7 +83,7 @@ public class WelcomeDialog extends Dialog {
                 "我们非常重视对您个人信息的保护，您需要同意");
         spanModels.add(textSpanModel);
 
-        spanModel.setContent("《注册服务协议》");
+        spanModel.setContent("《用户注册协议》");
         spanModels.add(spanModel);
 
         textSpanModel = new SpanTextView.TextSpanModel();
@@ -91,7 +91,7 @@ public class WelcomeDialog extends Dialog {
         spanModels.add(textSpanModel);
 
         spanModel = new SpanTextView.ClickSpanModel();
-        spanModel.setContent("《用户隐私协议》");
+        spanModel.setContent("《隐私政策》");
         spanModels.add(spanModel);
 
         textSpanModel = new SpanTextView.TextSpanModel();

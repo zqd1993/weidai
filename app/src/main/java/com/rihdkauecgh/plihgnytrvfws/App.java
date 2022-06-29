@@ -5,9 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesUtilis;
-import com.umeng.commonsdk.UMConfigure;
-
 import com.rihdkauecgh.plihgnytrvfws.net.NetError;
 import com.rihdkauecgh.plihgnytrvfws.net.NetProvider;
 import com.rihdkauecgh.plihgnytrvfws.net.RequestHandler;

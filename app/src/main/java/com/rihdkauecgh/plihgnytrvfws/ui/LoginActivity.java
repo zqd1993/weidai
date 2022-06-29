@@ -175,11 +175,11 @@ public class LoginActivity extends XActivity<LoginPresent> {
         textSpanModel.setContent("我已阅读并同意");
         spanModels.add(textSpanModel);
 
-        spanModel.setContent("《注册服务协议》");
+        spanModel.setContent("《用户注册协议》");
         spanModels.add(spanModel);
 
         spanModel = new SpanTextView.ClickSpanModel();
-        spanModel.setContent("《用户隐私协议》");
+        spanModel.setContent("《隐私政策》");
         spanModels.add(spanModel);
         return spanModels;
     }

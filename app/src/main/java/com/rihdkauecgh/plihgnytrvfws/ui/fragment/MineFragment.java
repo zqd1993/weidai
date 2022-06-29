@@ -47,8 +47,8 @@ public class MineFragment extends XFragment {
     private MineAdapter mineAdapter;
     private List<MineItemModel> list;
     private int[] imgRes = {R.drawable.wd_icon_zcxy, R.drawable.wd_icon_ysxy, R.drawable.wd_icon_yjfk, R.drawable.wd_icon_gywm,
-            R.drawable.wd_icon_xxts, R.drawable.wd_tsyx, R.drawable.wd_icon_zcz, R.drawable.wd_icon_zczh};
-    private String[] tvRes = {"注册协议", "隐私协议", "意见反馈", "关于我们", "个性化推荐", "投诉邮箱", "注销账户", "退出登录"};
+            R.drawable.wd_tsyx, R.drawable.wd_icon_zcz, R.drawable.wd_icon_zczh};
+    private String[] tvRes = {"注册协议", "隐私协议", "意见反馈", "关于我们", "联系客服", "注销账户", "退出登录"};
     private Bundle bundle;
     private NormalDialog normalDialog;
     private String mailStr = "", phone = "";
@@ -59,7 +59,7 @@ public class MineFragment extends XFragment {
         mailStr = SharedPreferencesUtilis.getStringFromPref("APP_MAIL");
         phone = SharedPreferencesUtilis.getStringFromPref("phone");
         phoneTv.setText(phone);
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 7; i++) {
             MineItemModel model = new MineItemModel();
             model.setImgRes(imgRes[i]);
             model.setItemTv(tvRes[i]);
@@ -116,30 +116,30 @@ public class MineFragment extends XFragment {
                                     .to(AboutUsActivity.class)
                                     .launch();
                             break;
+//                        case 4:
+//                            normalDialog = new NormalDialog(getActivity());
+//                            normalDialog.setTitle("温馨提示")
+//                                    .setContent("关闭或开启推送")
+//                                    .setCancelText("开启")
+//                                    .setLeftListener(v -> {
+//                                        ToastUtil.showShort("开启成功");
+//                                        normalDialog.dismiss();
+//                                    })
+//                                    .setConfirmText("关闭")
+//                                    .setRightListener(v -> {
+//                                        ToastUtil.showShort("关闭成功");
+//                                        normalDialog.dismiss();
+//                                    }).show();
+//                            break;
                         case 4:
-                            normalDialog = new NormalDialog(getActivity());
-                            normalDialog.setTitle("温馨提示")
-                                    .setContent("关闭或开启推送")
-                                    .setCancelText("开启")
-                                    .setLeftListener(v -> {
-                                        ToastUtil.showShort("开启成功");
-                                        normalDialog.dismiss();
-                                    })
-                                    .setConfirmText("关闭")
-                                    .setRightListener(v -> {
-                                        ToastUtil.showShort("关闭成功");
-                                        normalDialog.dismiss();
-                                    }).show();
-                            break;
-                        case 5:
                             getGankData();
                             break;
-                        case 6:
+                        case 5:
                             Router.newIntent(getActivity())
                                     .to(CancellationAccountActivity.class)
                                     .launch();
                             break;
-                        case 7:
+                        case 6:
                             normalDialog = new NormalDialog(getActivity());
                             normalDialog.setTitle("温馨提示")
                                     .setContent("确定退出当前登录")
