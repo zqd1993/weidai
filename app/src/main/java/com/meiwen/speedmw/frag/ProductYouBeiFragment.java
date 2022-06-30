@@ -289,6 +289,8 @@ public class ProductYouBeiFragment extends XFragment {
             TextView money_number_tv = view.findViewById(R.id.edu_tv);
             View parentFl = view.findViewById(R.id.parent_fl);
             View yjsqSl = view.findViewById(R.id.yjsq_sl);
+            TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
+            shuliang_tv.setText(String.valueOf(model.getPassingRate()));
             ILFactory.getLoader().loadNet(pic, HttpYouBeiApi.HTTP_API_URL + model.getProductLogo(),
                     new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
             product_name_tv.setText(model.getProductName());
