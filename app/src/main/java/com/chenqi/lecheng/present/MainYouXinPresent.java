@@ -18,7 +18,7 @@ public class MainYouXinPresent extends XPresent<HomePageYouXinActivity> {
     private String phone, ip;
 
     public void login() {
-        if (!TextUtils.isEmpty(Api.API_BASE_URL)) {
+        if (!TextUtils.isEmpty(SharedPreferencesYouXinUtilis.getStringFromPref("API_BASE_URL"))) {
             phone = SharedPreferencesYouXinUtilis.getStringFromPref("phone");
             ip = SharedPreferencesYouXinUtilis.getStringFromPref("ip");
             Api.getGankService().logins(phone, ip)

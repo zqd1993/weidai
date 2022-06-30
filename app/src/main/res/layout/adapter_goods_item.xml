@@ -96,22 +96,6 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginEnd="30dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="人"
-                            android:textColor="#a2a2a4"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
                 </LinearLayout>
 
                 <FrameLayout

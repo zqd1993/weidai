@@ -7,6 +7,7 @@ import android.os.Handler;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -30,7 +31,7 @@ public class QiDongActivity extends AppCompatActivity {
 
     private Bundle bundle;
 
-    private boolean isAgree = false;
+    private boolean isAgree = false, isResume = false;
 
     private String loginPhone = "";
 
@@ -42,9 +43,6 @@ public class QiDongActivity extends AppCompatActivity {
         isAgree = SharedPreferencesYouXinUtilis.getBoolFromPref("agree");
         loginPhone = SharedPreferencesYouXinUtilis.getStringFromPref("phone");
         sendRequestWithOkHttp();
-        if (!isAgree) {
-            showDialog();
-        }
     }
 
 
@@ -62,12 +60,26 @@ public class QiDongActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    @Override
+    protected void onResume() {
+        isResume = true;
+        super.onResume();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isResume = false;
+            }
+        }, 500);
+    }
+
+
     private void showDialog() {
+        Looper.prepare();
         welcomeDialog = new WelcomeYouXinDialog(this, "温馨提示");
         welcomeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && !isResume) {
                     QiDongActivity.this.finish();
                     return false;
                 }
@@ -114,6 +126,7 @@ public class QiDongActivity extends AppCompatActivity {
             }
         });
         welcomeDialog.show();
+        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -123,12 +136,13 @@ public class QiDongActivity extends AppCompatActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7706.txt")
+                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7735.txt")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-                        Api.API_BASE_URL = "http://" + responseData;
+//                        Api.API_BASE_URL = "http://" + responseData;
+                        SharedPreferencesYouXinUtilis.saveStringIntoPref("API_BASE_URL", "http://" + responseData);
                         Thread.sleep(1000);
                         jumpPage();
 
@@ -153,6 +167,8 @@ public class QiDongActivity extends AppCompatActivity {
                         .launch();
             }
             finish();
+        } else  {
+            showDialog();
         }
     }
 

@@ -75,7 +75,7 @@ public class WebActivity extends XActivity implements EasyPermissions.Permission
             finish();
         });
         webSettings = webView.getSettings();
-        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT); //设置缓存
+        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE); //设置缓存
         webSettings.setJavaScriptEnabled(true);//设置能够解析Javascript
         webSettings.setDomStorageEnabled(true);//设置适应Html5 重点是这个设置
         webSettings.setTextZoom(100);
