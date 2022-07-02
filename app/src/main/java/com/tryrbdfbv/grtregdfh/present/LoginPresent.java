@@ -24,37 +24,6 @@ import com.tryrbdfbv.grtregdfh.net.ApiSubscriber;
 
 public class LoginPresent extends XPresent<LoginActivity> {
 
-    public void getGankData() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
-            Api.getGankService().getGankData()
-                    .compose(XApi.<LoginStatusModel>getApiTransformer())
-                    .compose(XApi.<LoginStatusModel>getScheduler())
-                    .compose(getV().<LoginStatusModel>bindToLifecycle())
-                    .subscribe(new ApiSubscriber<LoginStatusModel>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            StaticUtil.showError(getV(), error);
-                        }
-
-                        @Override
-                        public void onNext(LoginStatusModel loginStatusModel) {
-                            if (loginStatusModel != null) {
-                                if ("1".equals(loginStatusModel.getIs_code_register())) {
-                                    getV().verificationLl.setVisibility(View.GONE);
-                                } else {
-                                    getV().verificationLl.setVisibility(View.VISIBLE);
-                                }
-                                getV().isNeedChecked = "0".equals(loginStatusModel.getIs_agree_check());
-                                getV().isNeedVerification = "0".equals(loginStatusModel.getIs_code_register());
-                                Log.d("zqd", "loginStatusModel.getIs_agree_check() = " + loginStatusModel.getIs_agree_check() +
-                                        "--->loginStatusModel.getIs_code_register() = " + loginStatusModel.getIs_code_register());
-                                getV().remindCb.setChecked(getV().isNeedChecked);
-                            }
-                        }
-                    });
-        }
-    }
-
     public void getCompanyInfo() {
         if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
             Api.getGankService().getCompanyInfo()
@@ -64,7 +33,7 @@ public class LoginPresent extends XPresent<LoginActivity> {
                     .subscribe(new ApiSubscriber<BaseRespModel<CompanyInfoModel>>() {
                         @Override
                         protected void onFail(NetError error) {
-                            StaticUtil.showError(getV(), error);
+//                            StaticUtil.showError(getV(), error);
                         }
 
                         @Override

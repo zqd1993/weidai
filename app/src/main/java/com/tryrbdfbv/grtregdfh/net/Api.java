@@ -18,7 +18,6 @@ public class Api {
         if (gankService == null && !TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
             synchronized (Api.class) {
                 if (gankService == null) {
-                    Log.d("zqd", "API_BASE_URL = " + API_BASE_URL);
                     gankService = XApi.getInstance().getRetrofit(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"), true).create(GankService.class);
                 }
             }

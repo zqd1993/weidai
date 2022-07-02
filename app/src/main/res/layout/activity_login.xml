@@ -20,14 +20,26 @@
             android:src="@mipmap/app_logo"
             android:layout_gravity="center_horizontal"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_phone" />
+
             <EditText
                 android:id="@+id/phone_et"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginTop="50dp"
                 android:background="@null"
+                android:layout_marginStart="10dp"
                 android:cursorVisible="true"
                 android:hint="@string/input_phone_number"
                 android:inputType="number"
@@ -36,6 +48,8 @@
                 android:textColorHint="@color/color_999999"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/textSize_16" />
+
+        </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -51,13 +65,20 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="40dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="3dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_verification" />
 
             <EditText
                 android:id="@+id/verification_et"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:background="@null"
                 android:cursorVisible="true"
@@ -72,11 +93,15 @@
             <TextView
                 android:id="@+id/get_verification_tv"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/dp_5"
+                android:paddingBottom="@dimen/dp_5"
+                android:paddingStart="15dp"
+                android:background="@drawable/bg_corner_50_f5dbaa"
                 android:gravity="center"
                 android:paddingEnd="15dp"
                 android:text="@string/get_verification"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/white" />
 
         </LinearLayout>
 

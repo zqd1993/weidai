@@ -28,7 +28,7 @@ public class CountDownTimerUtils extends CountDownTimer {
     public void onFinish() {
         mTextView.setText("重新获取验证码");
         mTextView.setClickable(true);//重新获得点击
-        mTextView.setTextColor(App.getContext().getResources().getColor(R.color.colorPrimary));  //还原背景色
+        mTextView.setTextColor(App.getContext().getResources().getColor(R.color.white));  //还原背景色
     }
 
 }

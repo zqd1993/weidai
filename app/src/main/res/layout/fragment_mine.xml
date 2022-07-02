@@ -47,22 +47,37 @@
 
             </FrameLayout>
 
-            <com.lihang.ShadowLayout
+            <FrameLayout
+                android:id="@+id/mail_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                app:hl_cornerRadius="10dp"
-                app:hl_layoutBackground="@color/white">
+                android:background="@color/white">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvy"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:overScrollMode="never" />
+                    android:padding="@dimen/dp_15"
+                    android:textSize="@dimen/textSize_16"
+                    android:textColor="@color/text_normal_color"
+                    android:text="投诉邮箱" />
 
-            </com.lihang.ShadowLayout>
+                <TextView
+                    android:id="@+id/mail_str_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:padding="@dimen/dp_15"
+                    android:textSize="@dimen/textSize_16"
+                    android:textColor="@color/text_normal_color" />
+
+            </FrameLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never" />
 
         </LinearLayout>
 
