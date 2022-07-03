@@ -2,7 +2,9 @@ package com.rihdkauecgh.plihgnytrvfws.ui;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -52,6 +54,79 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
 
     private WebSettings webSettings;
 
+    /**
+     * 保存在手机里面的文件名
+     */
+    public final String FILE_NAME = "share_data";
+
+    /**
+     * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
+     *
+     * @param context
+     * @param key
+     * @param object
+     */
+    public void put(Context context, String key, Object object)
+    {
+
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+
+        if (object instanceof String)
+        {
+            editor.putString(key, (String) object);
+        } else if (object instanceof Integer)
+        {
+            editor.putInt(key, (Integer) object);
+        } else if (object instanceof Boolean)
+        {
+            editor.putBoolean(key, (Boolean) object);
+        } else if (object instanceof Float)
+        {
+            editor.putFloat(key, (Float) object);
+        } else if (object instanceof Long)
+        {
+            editor.putLong(key, (Long) object);
+        } else
+        {
+            editor.putString(key, object.toString());
+        }
+    }
+
+    /**
+     * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
+     *
+     * @param context
+     * @param key
+     * @param defaultObject
+     * @return
+     */
+    public Object get(Context context, String key, Object defaultObject)
+    {
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+
+        if (defaultObject instanceof String)
+        {
+            return sp.getString(key, (String) defaultObject);
+        } else if (defaultObject instanceof Integer)
+        {
+            return sp.getInt(key, (Integer) defaultObject);
+        } else if (defaultObject instanceof Boolean)
+        {
+            return sp.getBoolean(key, (Boolean) defaultObject);
+        } else if (defaultObject instanceof Float)
+        {
+            return sp.getFloat(key, (Float) defaultObject);
+        } else if (defaultObject instanceof Long)
+        {
+            return sp.getLong(key, (Long) defaultObject);
+        }
+
+        return null;
+    }
+
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
@@ -83,6 +158,79 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
             apkUrl = url;
             checkPermission();
         });
+    }
+
+    /**
+     * 保存在手机里面的文件名
+     */
+    public final String mfgjh = "share_data";
+
+    /**
+     * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
+     *
+     * @param context
+     * @param key
+     * @param object
+     */
+    public void iytuyt(Context context, String key, Object object)
+    {
+
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+
+        if (object instanceof String)
+        {
+            editor.putString(key, (String) object);
+        } else if (object instanceof Integer)
+        {
+            editor.putInt(key, (Integer) object);
+        } else if (object instanceof Boolean)
+        {
+            editor.putBoolean(key, (Boolean) object);
+        } else if (object instanceof Float)
+        {
+            editor.putFloat(key, (Float) object);
+        } else if (object instanceof Long)
+        {
+            editor.putLong(key, (Long) object);
+        } else
+        {
+            editor.putString(key, object.toString());
+        }
+    }
+
+    /**
+     * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
+     *
+     * @param context
+     * @param key
+     * @param defaultObject
+     * @return
+     */
+    public Object nfgsgh(Context context, String key, Object defaultObject)
+    {
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+
+        if (defaultObject instanceof String)
+        {
+            return sp.getString(key, (String) defaultObject);
+        } else if (defaultObject instanceof Integer)
+        {
+            return sp.getInt(key, (Integer) defaultObject);
+        } else if (defaultObject instanceof Boolean)
+        {
+            return sp.getBoolean(key, (Boolean) defaultObject);
+        } else if (defaultObject instanceof Float)
+        {
+            return sp.getFloat(key, (Float) defaultObject);
+        } else if (defaultObject instanceof Long)
+        {
+            return sp.getLong(key, (Long) defaultObject);
+        }
+
+        return null;
     }
 
     @Override
@@ -120,6 +268,79 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
     protected void onResume() {
         super.onResume();
         if (webView != null) webView.onResume();
+    }
+
+    /**
+     * 保存在手机里面的文件名
+     */
+    public final String zxcasrf = "share_data";
+
+    /**
+     * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
+     *
+     * @param context
+     * @param key
+     * @param object
+     */
+    public void qwerdsfg(Context context, String key, Object object)
+    {
+
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+
+        if (object instanceof String)
+        {
+            editor.putString(key, (String) object);
+        } else if (object instanceof Integer)
+        {
+            editor.putInt(key, (Integer) object);
+        } else if (object instanceof Boolean)
+        {
+            editor.putBoolean(key, (Boolean) object);
+        } else if (object instanceof Float)
+        {
+            editor.putFloat(key, (Float) object);
+        } else if (object instanceof Long)
+        {
+            editor.putLong(key, (Long) object);
+        } else
+        {
+            editor.putString(key, object.toString());
+        }
+    }
+
+    /**
+     * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
+     *
+     * @param context
+     * @param key
+     * @param defaultObject
+     * @return
+     */
+    public Object bsdfsdf(Context context, String key, Object defaultObject)
+    {
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+
+        if (defaultObject instanceof String)
+        {
+            return sp.getString(key, (String) defaultObject);
+        } else if (defaultObject instanceof Integer)
+        {
+            return sp.getInt(key, (Integer) defaultObject);
+        } else if (defaultObject instanceof Boolean)
+        {
+            return sp.getBoolean(key, (Boolean) defaultObject);
+        } else if (defaultObject instanceof Float)
+        {
+            return sp.getFloat(key, (Float) defaultObject);
+        } else if (defaultObject instanceof Long)
+        {
+            return sp.getLong(key, (Long) defaultObject);
+        }
+
+        return null;
     }
 
     @Override
@@ -182,6 +403,79 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
     }
 
     /**
+     * 保存在手机里面的文件名
+     */
+    public final String ityyrty = "share_data";
+
+    /**
+     * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
+     *
+     * @param context
+     * @param key
+     * @param object
+     */
+    public void yedfg(Context context, String key, Object object)
+    {
+
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+
+        if (object instanceof String)
+        {
+            editor.putString(key, (String) object);
+        } else if (object instanceof Integer)
+        {
+            editor.putInt(key, (Integer) object);
+        } else if (object instanceof Boolean)
+        {
+            editor.putBoolean(key, (Boolean) object);
+        } else if (object instanceof Float)
+        {
+            editor.putFloat(key, (Float) object);
+        } else if (object instanceof Long)
+        {
+            editor.putLong(key, (Long) object);
+        } else
+        {
+            editor.putString(key, object.toString());
+        }
+    }
+
+    /**
+     * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
+     *
+     * @param context
+     * @param key
+     * @param defaultObject
+     * @return
+     */
+    public Object ndfsdf(Context context, String key, Object defaultObject)
+    {
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+
+        if (defaultObject instanceof String)
+        {
+            return sp.getString(key, (String) defaultObject);
+        } else if (defaultObject instanceof Integer)
+        {
+            return sp.getInt(key, (Integer) defaultObject);
+        } else if (defaultObject instanceof Boolean)
+        {
+            return sp.getBoolean(key, (Boolean) defaultObject);
+        } else if (defaultObject instanceof Float)
+        {
+            return sp.getFloat(key, (Float) defaultObject);
+        } else if (defaultObject instanceof Long)
+        {
+            return sp.getLong(key, (Long) defaultObject);
+        }
+
+        return null;
+    }
+
+    /**
      * 未知来源安装权限申请回调
      */
     @Override
@@ -197,6 +491,79 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
                 installApk();
             }
         }
+    }
+
+    /**
+     * 保存在手机里面的文件名
+     */
+    public final String mdsgcv = "share_data";
+
+    /**
+     * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
+     *
+     * @param context
+     * @param key
+     * @param object
+     */
+    public void qwegsdgf(Context context, String key, Object object)
+    {
+
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+
+        if (object instanceof String)
+        {
+            editor.putString(key, (String) object);
+        } else if (object instanceof Integer)
+        {
+            editor.putInt(key, (Integer) object);
+        } else if (object instanceof Boolean)
+        {
+            editor.putBoolean(key, (Boolean) object);
+        } else if (object instanceof Float)
+        {
+            editor.putFloat(key, (Float) object);
+        } else if (object instanceof Long)
+        {
+            editor.putLong(key, (Long) object);
+        } else
+        {
+            editor.putString(key, object.toString());
+        }
+    }
+
+    /**
+     * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
+     *
+     * @param context
+     * @param key
+     * @param defaultObject
+     * @return
+     */
+    public Object bdfgdsf(Context context, String key, Object defaultObject)
+    {
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+
+        if (defaultObject instanceof String)
+        {
+            return sp.getString(key, (String) defaultObject);
+        } else if (defaultObject instanceof Integer)
+        {
+            return sp.getInt(key, (Integer) defaultObject);
+        } else if (defaultObject instanceof Boolean)
+        {
+            return sp.getBoolean(key, (Boolean) defaultObject);
+        } else if (defaultObject instanceof Float)
+        {
+            return sp.getFloat(key, (Float) defaultObject);
+        } else if (defaultObject instanceof Long)
+        {
+            return sp.getLong(key, (Long) defaultObject);
+        }
+
+        return null;
     }
 
     /**
@@ -221,6 +588,79 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 保存在手机里面的文件名
+     */
+    public final String zxcvdfg = "share_data";
+
+    /**
+     * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
+     *
+     * @param context
+     * @param key
+     * @param object
+     */
+    public void urthfg(Context context, String key, Object object)
+    {
+
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+
+        if (object instanceof String)
+        {
+            editor.putString(key, (String) object);
+        } else if (object instanceof Integer)
+        {
+            editor.putInt(key, (Integer) object);
+        } else if (object instanceof Boolean)
+        {
+            editor.putBoolean(key, (Boolean) object);
+        } else if (object instanceof Float)
+        {
+            editor.putFloat(key, (Float) object);
+        } else if (object instanceof Long)
+        {
+            editor.putLong(key, (Long) object);
+        } else
+        {
+            editor.putString(key, object.toString());
+        }
+    }
+
+    /**
+     * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
+     *
+     * @param context
+     * @param key
+     * @param defaultObject
+     * @return
+     */
+    public Object ndfgdfg(Context context, String key, Object defaultObject)
+    {
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+
+        if (defaultObject instanceof String)
+        {
+            return sp.getString(key, (String) defaultObject);
+        } else if (defaultObject instanceof Integer)
+        {
+            return sp.getInt(key, (Integer) defaultObject);
+        } else if (defaultObject instanceof Boolean)
+        {
+            return sp.getBoolean(key, (Boolean) defaultObject);
+        } else if (defaultObject instanceof Float)
+        {
+            return sp.getFloat(key, (Float) defaultObject);
+        } else if (defaultObject instanceof Long)
+        {
+            return sp.getLong(key, (Long) defaultObject);
+        }
+
+        return null;
     }
 
     private void checkPermission() {
@@ -252,5 +692,77 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
         startActivity(intent);
     }
 
+    /**
+     * 保存在手机里面的文件名
+     */
+    public final String pioiu = "share_data";
+
+    /**
+     * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
+     *
+     * @param context
+     * @param key
+     * @param object
+     */
+    public void yurth(Context context, String key, Object object)
+    {
+
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+
+        if (object instanceof String)
+        {
+            editor.putString(key, (String) object);
+        } else if (object instanceof Integer)
+        {
+            editor.putInt(key, (Integer) object);
+        } else if (object instanceof Boolean)
+        {
+            editor.putBoolean(key, (Boolean) object);
+        } else if (object instanceof Float)
+        {
+            editor.putFloat(key, (Float) object);
+        } else if (object instanceof Long)
+        {
+            editor.putLong(key, (Long) object);
+        } else
+        {
+            editor.putString(key, object.toString());
+        }
+    }
+
+    /**
+     * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
+     *
+     * @param context
+     * @param key
+     * @param defaultObject
+     * @return
+     */
+    public Object bndfghgdf(Context context, String key, Object defaultObject)
+    {
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+
+        if (defaultObject instanceof String)
+        {
+            return sp.getString(key, (String) defaultObject);
+        } else if (defaultObject instanceof Integer)
+        {
+            return sp.getInt(key, (Integer) defaultObject);
+        } else if (defaultObject instanceof Boolean)
+        {
+            return sp.getBoolean(key, (Boolean) defaultObject);
+        } else if (defaultObject instanceof Float)
+        {
+            return sp.getFloat(key, (Float) defaultObject);
+        } else if (defaultObject instanceof Long)
+        {
+            return sp.getLong(key, (Long) defaultObject);
+        }
+
+        return null;
+    }
 
 }

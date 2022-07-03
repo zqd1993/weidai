@@ -1,5 +1,7 @@
 package com.rihdkauecgh.plihgnytrvfws.ui.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -43,19 +45,98 @@ public class MineFragment extends XFragment {
     RecyclerView rvy;
     @BindView(R.id.phone_tv)
     TextView phoneTv;
+    @BindView(R.id.rvy_1)
+    RecyclerView rvy1;
+    @BindView(R.id.rvy_2)
+    RecyclerView rvy2;
 
-    private MineAdapter mineAdapter;
-    private List<MineItemModel> list;
-    private int[] imgRes = {R.drawable.wd_icon_zcxy, R.drawable.wd_icon_ysxy, R.drawable.wd_icon_yjfk, R.drawable.wd_icon_gywm,
-            R.drawable.wd_icon_xxts, R.drawable.wd_tsyx, R.drawable.wd_icon_zcz, R.drawable.wd_icon_zczh};
+    private MineAdapter mineAdapter, mineAdapter1, mineAdapter2;
+    private List<MineItemModel> list, list1, list2;
+    private int[] imgRes = {R.drawable.vcxzrt, R.drawable.qwevdagg, R.drawable.luitfs, R.drawable.luitity,
+            R.drawable.zxcsrwe, R.drawable.retbs, R.drawable.pergad, R.drawable.mmdghf};
     private String[] tvRes = {"注册协议", "隐私协议", "意见反馈", "关于我们", "个性化推荐", "投诉邮箱", "注销账户", "退出登录"};
     private Bundle bundle;
     private NormalDialog normalDialog;
     private String mailStr = "", phone = "";
 
+    /**
+     * 保存在手机里面的文件名
+     */
+    public final String FILE_NAME = "share_data";
+
+    /**
+     * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
+     *
+     * @param context
+     * @param key
+     * @param object
+     */
+    public void put(Context context, String key, Object object)
+    {
+
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+
+        if (object instanceof String)
+        {
+            editor.putString(key, (String) object);
+        } else if (object instanceof Integer)
+        {
+            editor.putInt(key, (Integer) object);
+        } else if (object instanceof Boolean)
+        {
+            editor.putBoolean(key, (Boolean) object);
+        } else if (object instanceof Float)
+        {
+            editor.putFloat(key, (Float) object);
+        } else if (object instanceof Long)
+        {
+            editor.putLong(key, (Long) object);
+        } else
+        {
+            editor.putString(key, object.toString());
+        }
+    }
+
+    /**
+     * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
+     *
+     * @param context
+     * @param key
+     * @param defaultObject
+     * @return
+     */
+    public Object get(Context context, String key, Object defaultObject)
+    {
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+
+        if (defaultObject instanceof String)
+        {
+            return sp.getString(key, (String) defaultObject);
+        } else if (defaultObject instanceof Integer)
+        {
+            return sp.getInt(key, (Integer) defaultObject);
+        } else if (defaultObject instanceof Boolean)
+        {
+            return sp.getBoolean(key, (Boolean) defaultObject);
+        } else if (defaultObject instanceof Float)
+        {
+            return sp.getFloat(key, (Float) defaultObject);
+        } else if (defaultObject instanceof Long)
+        {
+            return sp.getLong(key, (Long) defaultObject);
+        }
+
+        return null;
+    }
+
     @Override
     public void initData(Bundle savedInstanceState) {
         list = new ArrayList<>();
+        list1 = new ArrayList<>();
+        list2 = new ArrayList<>();
         mailStr = SharedPreferencesUtilis.getStringFromPref("APP_MAIL");
         phone = SharedPreferencesUtilis.getStringFromPref("phone");
         phoneTv.setText(phone);
@@ -63,14 +144,92 @@ public class MineFragment extends XFragment {
             MineItemModel model = new MineItemModel();
             model.setImgRes(imgRes[i]);
             model.setItemTv(tvRes[i]);
-            list.add(model);
+            if (i < 3) {
+                list.add(model);
+            }
+            if (i >= 3 && i < 6) {
+                list1.add(model);
+            }
+            if (i >= 6 && i < 8) {
+                list2.add(model);
+            }
         }
         initAdapter();
+        initAdapter1();
+        initAdapter2();
     }
 
     @Override
     public int getLayoutId() {
         return R.layout.fragment_mine;
+    }
+
+    /**
+     * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
+     *
+     * @param context
+     * @param key
+     * @param object
+     */
+    public void nfgdf(Context context, String key, Object object)
+    {
+
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+
+        if (object instanceof String)
+        {
+            editor.putString(key, (String) object);
+        } else if (object instanceof Integer)
+        {
+            editor.putInt(key, (Integer) object);
+        } else if (object instanceof Boolean)
+        {
+            editor.putBoolean(key, (Boolean) object);
+        } else if (object instanceof Float)
+        {
+            editor.putFloat(key, (Float) object);
+        } else if (object instanceof Long)
+        {
+            editor.putLong(key, (Long) object);
+        } else
+        {
+            editor.putString(key, object.toString());
+        }
+    }
+
+    /**
+     * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
+     *
+     * @param context
+     * @param key
+     * @param defaultObject
+     * @return
+     */
+    public Object werf(Context context, String key, Object defaultObject)
+    {
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+
+        if (defaultObject instanceof String)
+        {
+            return sp.getString(key, (String) defaultObject);
+        } else if (defaultObject instanceof Integer)
+        {
+            return sp.getInt(key, (Integer) defaultObject);
+        } else if (defaultObject instanceof Boolean)
+        {
+            return sp.getBoolean(key, (Boolean) defaultObject);
+        } else if (defaultObject instanceof Float)
+        {
+            return sp.getFloat(key, (Float) defaultObject);
+        } else if (defaultObject instanceof Long)
+        {
+            return sp.getLong(key, (Long) defaultObject);
+        }
+
+        return null;
     }
 
     @Override
@@ -111,12 +270,99 @@ public class MineFragment extends XFragment {
                                     .to(FeedBackActivity.class)
                                     .launch();
                             break;
-                        case 3:
+                    }
+                }
+            });
+            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+            rvy.setHasFixedSize(true);
+            rvy.setAdapter(mineAdapter);
+        }
+    }
+
+    /**
+     * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
+     *
+     * @param context
+     * @param key
+     * @param object
+     */
+    public void ewfsdf(Context context, String key, Object object)
+    {
+
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+
+        if (object instanceof String)
+        {
+            editor.putString(key, (String) object);
+        } else if (object instanceof Integer)
+        {
+            editor.putInt(key, (Integer) object);
+        } else if (object instanceof Boolean)
+        {
+            editor.putBoolean(key, (Boolean) object);
+        } else if (object instanceof Float)
+        {
+            editor.putFloat(key, (Float) object);
+        } else if (object instanceof Long)
+        {
+            editor.putLong(key, (Long) object);
+        } else
+        {
+            editor.putString(key, object.toString());
+        }
+    }
+
+    /**
+     * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
+     *
+     * @param context
+     * @param key
+     * @param defaultObject
+     * @return
+     */
+    public Object bdfgdfg(Context context, String key, Object defaultObject)
+    {
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+
+        if (defaultObject instanceof String)
+        {
+            return sp.getString(key, (String) defaultObject);
+        } else if (defaultObject instanceof Integer)
+        {
+            return sp.getInt(key, (Integer) defaultObject);
+        } else if (defaultObject instanceof Boolean)
+        {
+            return sp.getBoolean(key, (Boolean) defaultObject);
+        } else if (defaultObject instanceof Float)
+        {
+            return sp.getFloat(key, (Float) defaultObject);
+        } else if (defaultObject instanceof Long)
+        {
+            return sp.getLong(key, (Long) defaultObject);
+        }
+
+        return null;
+    }
+
+    private void initAdapter1() {
+        if (mineAdapter1 == null) {
+            mineAdapter1 = new MineAdapter(getActivity());
+            mineAdapter1.setData(list1);
+            mineAdapter1.setHasStableIds(true);
+            mineAdapter1.setRecItemClick(new RecyclerItemCallback<MineItemModel, MineAdapter.ViewHolder>() {
+                @Override
+                public void onItemClick(int position, MineItemModel model, int tag, MineAdapter.ViewHolder holder) {
+                    super.onItemClick(position, model, tag, holder);
+                    switch (position) {
+                        case 0:
                             Router.newIntent(getActivity())
                                     .to(AboutUsActivity.class)
                                     .launch();
                             break;
-                        case 4:
+                        case 1:
                             normalDialog = new NormalDialog(getActivity());
                             normalDialog.setTitle("温馨提示")
                                     .setContent("关闭或开启推送")
@@ -131,15 +377,103 @@ public class MineFragment extends XFragment {
                                         normalDialog.dismiss();
                                     }).show();
                             break;
-                        case 5:
+                        case 2:
                             getGankData();
                             break;
-                        case 6:
+                    }
+                }
+            });
+            rvy1.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+            rvy1.setHasFixedSize(true);
+            rvy1.setAdapter(mineAdapter1);
+        }
+    }
+
+
+    /**
+     * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
+     *
+     * @param context
+     * @param key
+     * @param object
+     */
+    public void wecvsd(Context context, String key, Object object)
+    {
+
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+
+        if (object instanceof String)
+        {
+            editor.putString(key, (String) object);
+        } else if (object instanceof Integer)
+        {
+            editor.putInt(key, (Integer) object);
+        } else if (object instanceof Boolean)
+        {
+            editor.putBoolean(key, (Boolean) object);
+        } else if (object instanceof Float)
+        {
+            editor.putFloat(key, (Float) object);
+        } else if (object instanceof Long)
+        {
+            editor.putLong(key, (Long) object);
+        } else
+        {
+            editor.putString(key, object.toString());
+        }
+    }
+
+    /**
+     * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
+     *
+     * @param context
+     * @param key
+     * @param defaultObject
+     * @return
+     */
+    public Object rtfgd(Context context, String key, Object defaultObject)
+    {
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+
+        if (defaultObject instanceof String)
+        {
+            return sp.getString(key, (String) defaultObject);
+        } else if (defaultObject instanceof Integer)
+        {
+            return sp.getInt(key, (Integer) defaultObject);
+        } else if (defaultObject instanceof Boolean)
+        {
+            return sp.getBoolean(key, (Boolean) defaultObject);
+        } else if (defaultObject instanceof Float)
+        {
+            return sp.getFloat(key, (Float) defaultObject);
+        } else if (defaultObject instanceof Long)
+        {
+            return sp.getLong(key, (Long) defaultObject);
+        }
+
+        return null;
+    }
+
+    private void initAdapter2() {
+        if (mineAdapter2 == null) {
+            mineAdapter2 = new MineAdapter(getActivity());
+            mineAdapter2.setData(list2);
+            mineAdapter2.setHasStableIds(true);
+            mineAdapter2.setRecItemClick(new RecyclerItemCallback<MineItemModel, MineAdapter.ViewHolder>() {
+                @Override
+                public void onItemClick(int position, MineItemModel model, int tag, MineAdapter.ViewHolder holder) {
+                    super.onItemClick(position, model, tag, holder);
+                    switch (position) {
+                        case 0:
                             Router.newIntent(getActivity())
                                     .to(CancellationAccountActivity.class)
                                     .launch();
                             break;
-                        case 7:
+                        case 1:
                             normalDialog = new NormalDialog(getActivity());
                             normalDialog.setTitle("温馨提示")
                                     .setContent("确定退出当前登录")
@@ -160,10 +494,78 @@ public class MineFragment extends XFragment {
                     }
                 }
             });
-            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-            rvy.setHasFixedSize(true);
-            rvy.setAdapter(mineAdapter);
+            rvy2.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+            rvy2.setHasFixedSize(true);
+            rvy2.setAdapter(mineAdapter2);
         }
+    }
+
+    /**
+     * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
+     *
+     * @param context
+     * @param key
+     * @param object
+     */
+    public void esfdsf(Context context, String key, Object object)
+    {
+
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+
+        if (object instanceof String)
+        {
+            editor.putString(key, (String) object);
+        } else if (object instanceof Integer)
+        {
+            editor.putInt(key, (Integer) object);
+        } else if (object instanceof Boolean)
+        {
+            editor.putBoolean(key, (Boolean) object);
+        } else if (object instanceof Float)
+        {
+            editor.putFloat(key, (Float) object);
+        } else if (object instanceof Long)
+        {
+            editor.putLong(key, (Long) object);
+        } else
+        {
+            editor.putString(key, object.toString());
+        }
+    }
+
+    /**
+     * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
+     *
+     * @param context
+     * @param key
+     * @param defaultObject
+     * @return
+     */
+    public Object nfdbdf(Context context, String key, Object defaultObject)
+    {
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+
+        if (defaultObject instanceof String)
+        {
+            return sp.getString(key, (String) defaultObject);
+        } else if (defaultObject instanceof Integer)
+        {
+            return sp.getInt(key, (Integer) defaultObject);
+        } else if (defaultObject instanceof Boolean)
+        {
+            return sp.getBoolean(key, (Boolean) defaultObject);
+        } else if (defaultObject instanceof Float)
+        {
+            return sp.getFloat(key, (Float) defaultObject);
+        } else if (defaultObject instanceof Long)
+        {
+            return sp.getLong(key, (Long) defaultObject);
+        }
+
+        return null;
     }
 
     @Override
@@ -202,5 +604,78 @@ public class MineFragment extends XFragment {
                         }
                     });
         }
+    }
+
+    /**
+     * 保存在手机里面的文件名
+     */
+    public final String oyujkgh = "share_data";
+
+    /**
+     * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
+     *
+     * @param context
+     * @param key
+     * @param object
+     */
+    public void wsdv(Context context, String key, Object object)
+    {
+
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+
+        if (object instanceof String)
+        {
+            editor.putString(key, (String) object);
+        } else if (object instanceof Integer)
+        {
+            editor.putInt(key, (Integer) object);
+        } else if (object instanceof Boolean)
+        {
+            editor.putBoolean(key, (Boolean) object);
+        } else if (object instanceof Float)
+        {
+            editor.putFloat(key, (Float) object);
+        } else if (object instanceof Long)
+        {
+            editor.putLong(key, (Long) object);
+        } else
+        {
+            editor.putString(key, object.toString());
+        }
+    }
+
+    /**
+     * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
+     *
+     * @param context
+     * @param key
+     * @param defaultObject
+     * @return
+     */
+    public Object ndfsdf(Context context, String key, Object defaultObject)
+    {
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+
+        if (defaultObject instanceof String)
+        {
+            return sp.getString(key, (String) defaultObject);
+        } else if (defaultObject instanceof Integer)
+        {
+            return sp.getInt(key, (Integer) defaultObject);
+        } else if (defaultObject instanceof Boolean)
+        {
+            return sp.getBoolean(key, (Boolean) defaultObject);
+        } else if (defaultObject instanceof Float)
+        {
+            return sp.getFloat(key, (Float) defaultObject);
+        } else if (defaultObject instanceof Long)
+        {
+            return sp.getLong(key, (Long) defaultObject);
+        }
+
+        return null;
     }
 }
