@@ -8,16 +8,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:src="@drawable/dl_bg" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,7 +20,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:text="@string/login_title"
-            android:textColor="@color/text_normal_color"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -33,9 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="40dp"
-            android:background="@drawable/shape_edit_text_bg"
             android:orientation="horizontal"
             android:padding="3dp">
 
@@ -59,11 +53,18 @@
                 android:inputType="number"
                 android:maxLength="11"
                 android:textColor="@color/text_normal_color"
-                android:textColorHint="@color/dividing"
+                android:textColorHint="@color/color_999999"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/textSize_16" />
 
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dividing"
+            android:layout_marginStart="55dp"
+            android:layout_marginEnd="40dp" />
 
         <LinearLayout
             android:id="@+id/verification_ll"
@@ -72,7 +73,6 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="40dp"
-            android:background="@drawable/shape_edit_text_bg"
             android:orientation="horizontal"
             android:padding="3dp">
 
@@ -97,20 +97,32 @@
                 android:inputType="number"
                 android:maxLength="6"
                 android:textColor="@color/text_normal_color"
-                android:textColorHint="@color/dividing"
+                android:textColorHint="@color/color_999999"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/textSize_16" />
+
 
             <TextView
                 android:id="@+id/get_verification_tv"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_corner_50_f5dbaa"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingStart="15dp"
                 android:gravity="center"
                 android:paddingEnd="15dp"
                 android:text="@string/get_verification"
-                android:textColor="@color/color_f5dbaa" />
+                android:textColor="@color/white" />
 
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dividing"
+            android:layout_marginStart="55dp"
+            android:layout_marginEnd="40dp" />
 
         <TextView
             android:id="@+id/login_btn"
@@ -119,12 +131,12 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="40dp"
-            android:background="@drawable/shape_login_btn_bg"
+            android:background="@drawable/bg_corner_50_f5dbaa"
             android:gravity="center"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
             android:text="@string/login"
-            android:textColor="@color/text_normal_color"
+            android:textColor="@color/white"
             android:textSize="@dimen/textSize_16" />
 
         <LinearLayout
@@ -147,7 +159,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:textColor="@color/text_normal_color"
+                android:textColor="@color/color_999999"
                 android:textSize="@dimen/textSize_16" />
 
         </LinearLayout>

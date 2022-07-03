@@ -36,6 +36,10 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
     View parentFl;
     @BindView(R.id.top_layout)
     View topLayout;
+    @BindView(R.id.show_ll)
+    View showLL;
+    @BindView(R.id.show_ll_2)
+    View showLL2;
 
     private Bundle bundle, webBundle;
     private int tag;
@@ -58,9 +62,13 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
             if (tag == 1) {
                 productBg.setVisibility(View.GONE);
                 homePageBg.setVisibility(View.VISIBLE);
+                showLL.setVisibility(View.VISIBLE);
+                showLL2.setVisibility(View.VISIBLE);
             } else {
                 productBg.setVisibility(View.VISIBLE);
                 homePageBg.setVisibility(View.GONE);
+                showLL.setVisibility(View.GONE);
+                showLL2.setVisibility(View.GONE);
             }
         }
         getP().productList();

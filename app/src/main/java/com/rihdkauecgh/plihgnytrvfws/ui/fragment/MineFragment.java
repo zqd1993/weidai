@@ -46,8 +46,8 @@ public class MineFragment extends XFragment {
 
     private MineAdapter mineAdapter;
     private List<MineItemModel> list;
-    private int[] imgRes = {R.drawable.wd_icon_zcxy, R.drawable.wd_icon_ysxy, R.drawable.wd_icon_yjfk, R.drawable.wd_icon_gywm,
-            R.drawable.wd_icon_xxts, R.drawable.wd_tsyx, R.drawable.wd_icon_zcz, R.drawable.wd_icon_zczh};
+    private int[] imgRes = {R.drawable.ewdfb, R.drawable.lhjjfgh, R.drawable.lhjjfgh, R.drawable.wd_icon_gywm,
+            R.drawable.kghfgh, R.drawable.wevbsdg, R.drawable.lhjkghfg, R.drawable.xzvserfs};
     private String[] tvRes = {"注册协议", "隐私协议", "意见反馈", "关于我们", "个性化推荐", "投诉邮箱", "注销账户", "退出登录"};
     private Bundle bundle;
     private NormalDialog normalDialog;
@@ -160,7 +160,7 @@ public class MineFragment extends XFragment {
                     }
                 }
             });
-            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 3));
             rvy.setHasFixedSize(true);
             rvy.setAdapter(mineAdapter);
         }
