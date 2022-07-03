@@ -13,10 +13,10 @@ ext {
             VRetrofitSdk     : "2.2.0",
             VOkhttp          : "3.4.2",
             VRxlifecycle     : "2.0.1",
-            keyAlias         : "thudfmligt",
-            keyPassword      : "mima112233",
-            storeFile        : "./thudfmligt.jks",
-            storePassword    : "mima112233"
+            keyAlias         : "hrshsdhhfhh",
+            keyPassword      : "psd112233",
+            storeFile        : "./hrshsdhhfhh.jks",
+            storePassword    : "psd112233"
     ]
     dependencies = [
             "appcompat-v7"               : 'androidx.appcompat:appcompat:1.0.0',
