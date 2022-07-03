@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/shape_feedback_bg"
+        android:visibility="gone">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:background="@null"
+            android:gravity="top"
+            android:hint="请填写意见内容"
+            android:textColor="@color/text_normal_color"
+            android:textSize="14sp"
+            android:textColorHint="@color/text_normal_color"/>
+
+    </FrameLayout>
+
+    <include layout="@layout/head_layout_xiaoniu" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/shape_feedback_bg"
+        android:visibility="gone">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:background="@null"
+            android:gravity="top"
+            android:hint="请填写意见内容"
+            android:textColor="@color/text_normal_color"
+            android:textSize="14sp"
+            android:textColorHint="@color/text_normal_color"/>
+
+    </FrameLayout>
+
+    <WebView
+        android:id="@+id/web_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/shape_feedback_bg"
+        android:visibility="gone">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:background="@null"
+            android:gravity="top"
+            android:hint="请填写意见内容"
+            android:textColor="@color/text_normal_color"
+            android:textSize="14sp"
+            android:textColorHint="@color/text_normal_color"/>
+
+    </FrameLayout>
+
+</LinearLayout>

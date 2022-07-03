@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
-        android:name="com.rihdkauecgh.plihgnytrvfws.App"
+        android:name="com.rihdkauecgh.plihgnytrvfws.AppXiaoNiu"
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
@@ -21,7 +21,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.rihdkauecgh.plihgnytrvfws.ui.WelcomeActivity"
+            android:name="com.rihdkauecgh.plihgnytrvfws.ui.WelcomeXiaoNiuActivity"
             android:icon="@mipmap/app_logo"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -33,33 +33,33 @@
 
 
         <activity
-            android:name="com.rihdkauecgh.plihgnytrvfws.ui.WebViewActivity"
+            android:name="com.rihdkauecgh.plihgnytrvfws.ui.XiaoNiuWebViewActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.rihdkauecgh.plihgnytrvfws.ui.LoginActivity"
+            android:name="com.rihdkauecgh.plihgnytrvfws.ui.LoginXiaoNiuActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.rihdkauecgh.plihgnytrvfws.ui.HomePageActivity"
+            android:name="com.rihdkauecgh.plihgnytrvfws.ui.HomePageActivityXiaoNiu"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.rihdkauecgh.plihgnytrvfws.ui.activity.FeedBackActivity"
+            android:name="com.rihdkauecgh.plihgnytrvfws.ui.activity.XiaoNiuFeedBackActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.rihdkauecgh.plihgnytrvfws.ui.activity.AboutUsActivity"
+            android:name="com.rihdkauecgh.plihgnytrvfws.ui.activity.AboutUsActivityXiaoNiu"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
 
         <activity
-            android:name="com.rihdkauecgh.plihgnytrvfws.ui.activity.CancellationAccountActivity"
+            android:name="com.rihdkauecgh.plihgnytrvfws.ui.activity.CancellationXiaoNiuAccountActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
@@ -73,7 +73,7 @@
                 android:resource="@xml/file_path" />
         </provider>
 
-        <meta-data android:value="628d034188ccdf4b7e76524e" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="62c007bb05844627b5d4d241" android:name="UMENG_APPKEY"/>
 
     </application>
 
