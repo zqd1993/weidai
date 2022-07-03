@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.tryrbdfbv.grtregdfh.R;
 import com.tryrbdfbv.grtregdfh.net.Api;
+import com.tryrbdfbv.grtregdfh.utils.SharedPreferencesUtilis;
 import com.tryrbdfbv.grtregdfh.utils.StaticUtil;
 import com.tryrbdfbv.grtregdfh.utils.StatusBarUtil;
 import com.tryrbdfbv.grtregdfh.utils.ToastUtil;
@@ -61,10 +62,13 @@ public class LoginActivity extends XActivity<LoginPresent> {
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
         StatusBarUtil.setLightMode(this);
+        isNeedChecked = SharedPreferencesUtilis.getBoolFromPref("is_agree_check");
+        isNeedVerification = SharedPreferencesUtilis.getBoolFromPref("is_code_register");
+        verificationLl.setVisibility(isNeedVerification ? View.VISIBLE : View.GONE);
+        remindCb.setChecked(isNeedChecked);
         initListener();
 //        ToastUtil.showShort("API_BASE_URL = " + SharedPreferencesUtilis.getStringFromPref("API_BASE_URL") +
 //                "API_BASE_URL_1 = " + Api.API_BASE_URL);
-        getP().getGankData();
         getP().getCompanyInfo();
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {

@@ -26,6 +26,7 @@ import androidx.core.content.FileProvider;
 import com.tryrbdfbv.grtregdfh.R;
 import com.tryrbdfbv.grtregdfh.utils.DownloadUtil;
 import com.tryrbdfbv.grtregdfh.mvp.XActivity;
+import com.tryrbdfbv.grtregdfh.utils.StatusBarUtil;
 
 import java.io.File;
 import java.util.List;
@@ -58,8 +59,6 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
 
     @Override
     public void initData(Bundle savedInstanceState) {
-//        StatusBarUtil.setTransparent(this, false);
-//        StatusBarUtil.setDarkMode(this);
         header_layout.setVisibility(View.GONE);
         bundle = getIntent().getExtras();
         if (bundle.containsKey("tag"))
@@ -73,6 +72,8 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
         } else if (tag == 2) {
             tvTitle.setText(getResources().getString(R.string.user_service_agreement));
         } else {
+            StatusBarUtil.setTransparent(this, false);
+            StatusBarUtil.setDarkMode(this);
             header_layout.setVisibility(View.VISIBLE);
             tvTitle.setText(title);
         }
@@ -80,7 +81,7 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
             finish();
         });
         webSettings = webView.getSettings();
-        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT); //设置缓存
+        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE); //设置缓存
         webSettings.setJavaScriptEnabled(true);//设置能够解析Javascript
         webSettings.setDomStorageEnabled(true);//设置适应Html5 重点是这个设置
         webSettings.setTextZoom(100);
