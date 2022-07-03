@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
-        android:name="com.chenqi.lecheng.YouXinApp"
+        android:name="com.chenqi.lecheng.HaoJieApp"
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
@@ -21,7 +21,7 @@
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.chenqi.lecheng.ui.QiDongActivity"
+            android:name="com.chenqi.lecheng.ui.QiDongHaoJieActivity"
             android:icon="@mipmap/app_logo"
             android:screenOrientation="portrait"
             android:exported="true">
@@ -34,44 +34,44 @@
 
 
         <activity
-            android:name="com.chenqi.lecheng.ui.WebActivity"
+            android:name="com.chenqi.lecheng.ui.HaoJieWebActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:exported="true"/>
 
         <activity
-            android:name="com.chenqi.lecheng.ui.LoginYouXinActivity"
+            android:name="com.chenqi.lecheng.ui.LoginHaoJieActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:exported="true"/>
 
         <activity
-            android:name="com.chenqi.lecheng.ui.HomePageYouXinActivity"
+            android:name="com.chenqi.lecheng.ui.HomePageHaoJieActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:exported="true"/>
 
         <activity
-            android:name="com.chenqi.lecheng.ui.activity.FeedBackYouXinActivity"
+            android:name="com.chenqi.lecheng.ui.activity.FeedBackHaoJieActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:exported="true"/>
 
         <activity
-            android:name="com.chenqi.lecheng.ui.activity.AboutYouXinActivity"
+            android:name="com.chenqi.lecheng.ui.activity.AboutHaoJieActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:exported="true"/>
 
 
         <activity
-            android:name="com.chenqi.lecheng.ui.activity.CancellationUserYouXinActivity"
+            android:name="com.chenqi.lecheng.ui.activity.CancellationUserHaoJieActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:exported="true"/>
 
         <activity
-            android:name="com.chenqi.lecheng.ui.activity.MoreInfoActivity"
+            android:name="com.chenqi.lecheng.ui.activity.MoreInfoHaoJieActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:exported="true"/>
@@ -86,7 +86,7 @@
                 android:resource="@xml/file_path" />
         </provider>
 
-        <meta-data android:value="626681afd024421570cf064d" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="62c00b3805844627b5d4d2ba" android:name="UMENG_APPKEY"/>
 
     </application>
 
