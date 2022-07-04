@@ -1,5 +1,9 @@
 package com.dfgderv.erterqweq.net;
 
+import android.text.TextUtils;
+
+import com.dfgderv.erterqweq.utils.SharedPreferencesUtilis;
+
 /**
  * Created by wanglei on 2016/12/31.
  */
@@ -12,10 +16,10 @@ public class Api {
     private static GankService gankService;
 
     public static GankService getGankService() {
-        if (gankService == null) {
+        if (gankService == null && !TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
             synchronized (Api.class) {
                 if (gankService == null) {
-                    gankService = XApi.getInstance().getRetrofit(API_BASE_URL, true).create(GankService.class);
+                    gankService = XApi.getInstance().getRetrofit(SharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"), true).create(GankService.class);
                 }
             }
         }
