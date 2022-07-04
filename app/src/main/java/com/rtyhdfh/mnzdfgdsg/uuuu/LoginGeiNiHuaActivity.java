@@ -285,7 +285,7 @@ public class LoginGeiNiHuaActivity extends XActivity<LoginGeiNiHuaPresent> {
                 ToastUtilGeiNiHua.showShort("验证码不能为空");
                 return;
             }
-            if (!remindCb.isChecked() && isNeedChecked) {
+            if (!remindCb.isChecked()) {
                 ToastUtilGeiNiHua.showShort("请阅读用户协议及隐私政策");
                 return;
             }
