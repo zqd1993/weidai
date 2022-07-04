@@ -1,6 +1,8 @@
 package com.dfgderv.erterqweq.ui.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,12 +10,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dfgderv.erterqweq.R;
 import com.dfgderv.erterqweq.adapter.MiaoJieMineAdapter;
+import com.dfgderv.erterqweq.model.BaseRespModel;
+import com.dfgderv.erterqweq.model.ConfigModel;
 import com.dfgderv.erterqweq.model.MineItemModel;
+import com.dfgderv.erterqweq.net.ApiSubscriber;
+import com.dfgderv.erterqweq.net.NetError;
+import com.dfgderv.erterqweq.net.XApi;
 import com.dfgderv.erterqweq.ui.LoginActivity;
 import com.dfgderv.erterqweq.ui.WebViewActivity;
 import com.dfgderv.erterqweq.ui.activity.AboutMiaoJieActivity;
 import com.dfgderv.erterqweq.ui.activity.CancellationUserActivity;
 import com.dfgderv.erterqweq.utils.SharedPreferencesUtilis;
+import com.dfgderv.erterqweq.utils.StaticUtil;
 import com.dfgderv.erterqweq.utils.ToastUtil;
 import com.dfgderv.erterqweq.net.Api;
 import com.dfgderv.erterqweq.router.Router;
@@ -151,10 +159,7 @@ public class MineFragment extends XFragment {
                                     }).show();
                             break;
                         case 3:
-                            normalDialog = new NormalDialog(getActivity());
-                            normalDialog.setTitle("温馨提示")
-                                    .setContent(mailStr)
-                                    .showOnlyBtn().show();
+                            getGankData();
                             break;
                         case 4:
                             Router.newIntent(getActivity())
@@ -185,6 +190,35 @@ public class MineFragment extends XFragment {
             rvy2.setLayoutManager(new LinearLayoutManager(getActivity()));
             rvy2.setHasFixedSize(true);
             rvy2.setAdapter(miaoJieMineAdapter2);
+        }
+    }
+
+    public void getGankData() {
+        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
+            Api.getGankService().getGankData()
+                    .compose(XApi.<BaseRespModel<ConfigModel>>getApiTransformer())
+                    .compose(XApi.<BaseRespModel<ConfigModel>>getScheduler())
+                    .compose(this.<BaseRespModel<ConfigModel>>bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(BaseRespModel<ConfigModel> gankResults) {
+                            if (gankResults != null) {
+                                if (gankResults.getData() != null) {
+                                    mailStr = gankResults.getData().getAppMail();
+                                    SharedPreferencesUtilis.saveStringIntoPref("APP_MAIL", gankResults.getData().getAppMail());
+                                    normalDialog = new NormalDialog(getActivity());
+                                    normalDialog.setTitle("温馨提示")
+                                            .setContent(mailStr)
+                                            .showOnlyBtn().show();
+                                }
+                            }
+                        }
+                    });
         }
     }
 
