@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.dfgderv.erterqweq",
+  "applicationId": "com.nrfgds.bbdadt",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 2,
-      "versionName": "1.0.1",
-      "outputFile": "guangming_v1.0.1_20220601161425.apk"
+      "versionCode": 100,
+      "versionName": "1.0.0",
+      "outputFile": "miaohuaqianbao_op_v1.0.0_20220704141015.apk"
     }
   ]
 }

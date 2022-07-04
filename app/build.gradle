@@ -12,7 +12,7 @@ android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
-        applicationId 'com.dfgderv.erterqweq'
+        applicationId 'com.nrfgds.bbdadt'
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
@@ -34,7 +34,7 @@ android {
     }
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "guangming_v${variant.versionName}_${releaseTime()}.apk"
+            outputFileName = "miaohuaqianbao_op_v${variant.versionName}_${releaseTime()}.apk"
         }
     }
 
