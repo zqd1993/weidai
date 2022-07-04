@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <include layout="@layout/head_layout_shou_ji_dai" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="15dp"
+            android:textSize="@dimen/textSize_16"
+            android:textColor="@color/text_normal_color"
+            android:text="*注 1、注销过程不可逆，且无法申请恢复" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="43dp"
+            android:textSize="@dimen/textSize_16"
+            android:textColor="@color/text_normal_color"
+            android:text="2、为了您的账号安全，将会有7天的确认期，在其期间内登陆账号，将自动取消账号申请。" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textColor="@color/text_normal_color"
+            android:background="@drawable/bg_corner_50_f5dbaa"
+            android:text="提交" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="80dp"
+        android:src="@mipmap/app_logo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="@dimen/textSize_16"
+        android:textColor="@color/text_normal_color"
+        android:text="@string/app_name" />
+
+    <TextView
+        android:id="@+id/version_code_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textSize="@dimen/textSize_16"
+        android:textColor="@color/text_normal_color"
+        android:text="当前版本号：v1.0.0" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="15dp"
+            android:textSize="@dimen/textSize_16"
+            android:textColor="@color/text_normal_color"
+            android:text="*注 1、注销过程不可逆，且无法申请恢复" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="43dp"
+            android:textSize="@dimen/textSize_16"
+            android:textColor="@color/text_normal_color"
+            android:text="2、为了您的账号安全，将会有7天的确认期，在其期间内登陆账号，将自动取消账号申请。" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textColor="@color/text_normal_color"
+            android:background="@drawable/bg_corner_50_f5dbaa"
+            android:text="提交" />
+
+    </LinearLayout>
+
+</LinearLayout>
