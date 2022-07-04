@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 
+import com.dfgderv.erterqweq.App;
 import com.dfgderv.erterqweq.R;
+import com.dfgderv.erterqweq.utils.StaticUtil;
 import com.dfgderv.erterqweq.utils.StatusBarUtil;
 import com.dfgderv.erterqweq.mvp.XActivity;
 
@@ -19,12 +21,15 @@ public class AboutMiaoJieActivity extends XActivity {
     TextView titleTv;
     @BindView(R.id.back_img)
     ImageView backImg;
+    @BindView(R.id.version_tv)
+    TextView version_tv;
 
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("关于");
+        version_tv.setText(StaticUtil.getAppVersionName(App.getContext()));
     }
 
     private NotificationManager manager;
