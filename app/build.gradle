@@ -34,7 +34,7 @@ android {
     }
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "shoujidaijiekuan_v${variant.versionName}_build_${releaseTime()}.apk"
+            outputFileName = "shoujidaijiekuan_op_v${variant.versionName}_build_${releaseTime()}.apk"
         }
     }
 
