@@ -28,7 +28,7 @@ public class CountDownTimerYouXinUtils extends CountDownTimer {
     public void onTick(long millisUntilFinished) {
         mTextView.setClickable(false); //设置不可点击
         mTextView.setText(millisUntilFinished / 1000 + "秒后可重新发送");  //设置倒计时时间
-        mTextView.setTextColor(YouXinApp.getContext().getResources().getColor(R.color.text_normal_color)); //设置按钮为灰色，这时是不能点击的
+        mTextView.setTextColor(YouXinApp.getContext().getResources().getColor(R.color.colorPrimary)); //设置按钮为灰色，这时是不能点击的
     }
 
 
