@@ -17,8 +17,8 @@ import java.util.Map;
 
 public class ApiXiaoNiu {
     public static final String API_BASE_URL = "http://45.120.154.46:7738";
-    public static final String PRIVACY_POLICY = "https://xy.hgy5kg.com/profile/xnkdk/zcxy.html";
-    public static final String USER_SERVICE_AGREEMENT= "https://xy.hgy5kg.com/profile/xnkdk/ysxy.html";
+    public static final String PRIVACY_POLICY = "https://xy.hgy5kg.com/profile/opxnkdk/zcxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "https://xy.hgy5kg.com/profile/opxnkdk/ysxy.html";
 
     // 把json字符串变成实体类Bean并对对应参数赋值
     public static <T> T changeGsonToBean(String gsonString, Class<T> cls) {
