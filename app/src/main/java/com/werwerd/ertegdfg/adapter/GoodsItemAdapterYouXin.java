@@ -16,6 +16,7 @@ import com.werwerd.ertegdfg.imageloader.ILoader;
 import com.werwerd.ertegdfg.kit.KnifeKit;
 import com.werwerd.ertegdfg.model.GoodsWinAModel;
 import com.werwerd.ertegdfg.net.Api;
+import com.werwerd.ertegdfg.utils.SharedPreferencesYouXinUtilis;
 
 import butterknife.BindView;
 
@@ -69,7 +70,9 @@ public class GoodsItemAdapterYouXin extends SimpleRecAdapter<GoodsWinAModel, Goo
         viewHolder.passingRateTv.setText(String.valueOf(model.getPassingRate()));
         viewHolder.tagTv.setText(model.getTag());
         viewHolder.productNameTv.setText(model.getProductName());
-        ILFactory.getLoader().loadNet(viewHolder.productImg, Api.API_BASE_URL + model.getProductLogo(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        if (!TextUtils.isEmpty(SharedPreferencesYouXinUtilis.getStringFromPref("HTTP_API_URL"))) {
+            ILFactory.getLoader().loadNet(viewHolder.productImg, SharedPreferencesYouXinUtilis.getStringFromPref("HTTP_API_URL") + model.getProductLogo(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        }
         viewHolder.limitTv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
         viewHolder.clickView.setOnClickListener(v -> {
             getRecItemClick().onItemClick(i, model, 1, viewHolder);

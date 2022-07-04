@@ -63,7 +63,7 @@ public class LoginYouXinActivity extends XActivity<LoginYouXinPresent> {
         getP().getGankData();
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
-            if (position == 0) {
+            if (position == 1) {
                 bundle = new Bundle();
                 bundle.putInt("tag", 1);
                 bundle.putString("url", Api.PRIVACY_POLICY);
@@ -132,7 +132,7 @@ public class LoginYouXinActivity extends XActivity<LoginYouXinPresent> {
                 ToastYouXinUtil.showShort("验证码不能为空");
                 return;
             }
-            if (!remindCb.isChecked() && isNeedChecked) {
+            if (!remindCb.isChecked()) {
                 ToastYouXinUtil.showShort("请阅读用户协议及隐私政策");
                 return;
             }

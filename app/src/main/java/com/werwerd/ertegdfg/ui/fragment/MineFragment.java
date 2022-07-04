@@ -1,6 +1,8 @@
 package com.werwerd.ertegdfg.ui.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,13 +10,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.werwerd.ertegdfg.R;
 import com.werwerd.ertegdfg.adapter.MineAdapterYouXin;
+import com.werwerd.ertegdfg.model.BaseRespYouXinModel;
+import com.werwerd.ertegdfg.model.ConfigYouXinModel;
 import com.werwerd.ertegdfg.model.MineItemModelYouXin;
+import com.werwerd.ertegdfg.net.ApiSubscriber;
+import com.werwerd.ertegdfg.net.NetError;
+import com.werwerd.ertegdfg.net.XApi;
 import com.werwerd.ertegdfg.ui.LoginYouXinActivity;
 import com.werwerd.ertegdfg.ui.WebActivity;
 import com.werwerd.ertegdfg.ui.activity.AboutYouXinActivity;
 import com.werwerd.ertegdfg.ui.activity.CancellationUserYouXinActivity;
 import com.werwerd.ertegdfg.ui.activity.MoreInfoActivity;
 import com.werwerd.ertegdfg.utils.SharedPreferencesYouXinUtilis;
+import com.werwerd.ertegdfg.utils.StaticYouXinUtil;
 import com.werwerd.ertegdfg.utils.ToastYouXinUtil;
 import com.werwerd.ertegdfg.net.Api;
 import com.werwerd.ertegdfg.router.Router;
@@ -131,10 +139,7 @@ public class MineFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            normalYouXinDialog = new NormalYouXinDialog(getActivity());
-                            normalYouXinDialog.setTitle("温馨提示")
-                                    .setContent(mailStr)
-                                    .showOnlyBtn().show();
+                            getGankData();
                             break;
                         case 1:
                             Router.newIntent(getActivity())
@@ -170,6 +175,35 @@ public class MineFragment extends XFragment {
             rvy2.setLayoutManager(new LinearLayoutManager(getActivity()));
             rvy2.setHasFixedSize(true);
             rvy2.setAdapter(miaoJieMineAdapter2);
+        }
+    }
+
+    public void getGankData() {
+        if (!TextUtils.isEmpty(SharedPreferencesYouXinUtilis.getStringFromPref("HTTP_API_URL"))) {
+            Api.getGankService().getGankData()
+                    .compose(XApi.<BaseRespYouXinModel<ConfigYouXinModel>>getApiTransformer())
+                    .compose(XApi.<BaseRespYouXinModel<ConfigYouXinModel>>getScheduler())
+                    .compose(this.<BaseRespYouXinModel<ConfigYouXinModel>>bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespYouXinModel<ConfigYouXinModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(BaseRespYouXinModel<ConfigYouXinModel> gankResults) {
+                            if (gankResults != null) {
+                                if (gankResults.getData() != null) {
+                                    mailStr = gankResults.getData().getAppMail();
+                                    SharedPreferencesYouXinUtilis.saveStringIntoPref("APP_MAIL", mailStr);
+                                    normalYouXinDialog = new NormalYouXinDialog(getActivity());
+                                    normalYouXinDialog.setTitle("温馨提示")
+                                            .setContent(mailStr)
+                                            .showOnlyBtn().show();
+                                }
+                            }
+                        }
+                    });
         }
     }
 

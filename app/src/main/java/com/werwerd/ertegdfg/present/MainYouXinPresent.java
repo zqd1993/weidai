@@ -1,5 +1,7 @@
 package com.werwerd.ertegdfg.present;
 
+import android.text.TextUtils;
+
 import com.werwerd.ertegdfg.model.BaseRespYouXinModel;
 import com.werwerd.ertegdfg.model.LoginRespYouXinModel;
 import com.werwerd.ertegdfg.ui.HomePageYouXinActivity;
@@ -16,25 +18,27 @@ public class MainYouXinPresent extends XPresent<HomePageYouXinActivity> {
     private String phone, ip;
 
     public void login() {
-        phone = SharedPreferencesYouXinUtilis.getStringFromPref("phone");
-        ip = SharedPreferencesYouXinUtilis.getStringFromPref("ip");
-        Api.getGankService().logins(phone, ip)
-                .compose(XApi.<BaseRespYouXinModel<LoginRespYouXinModel>>getApiTransformer())
-                .compose(XApi.<BaseRespYouXinModel<LoginRespYouXinModel>>getScheduler())
-                .compose(getV().<BaseRespYouXinModel<LoginRespYouXinModel>>bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseRespYouXinModel<LoginRespYouXinModel>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        StaticYouXinUtil.showError(getV(), error);
-                    }
-
-                    @Override
-                    public void onNext(BaseRespYouXinModel<LoginRespYouXinModel> gankResults) {
-                        if (gankResults != null) {
-
+        if (!TextUtils.isEmpty(SharedPreferencesYouXinUtilis.getStringFromPref("HTTP_API_URL"))) {
+            phone = SharedPreferencesYouXinUtilis.getStringFromPref("phone");
+            ip = SharedPreferencesYouXinUtilis.getStringFromPref("ip");
+            Api.getGankService().logins(phone, ip)
+                    .compose(XApi.<BaseRespYouXinModel<LoginRespYouXinModel>>getApiTransformer())
+                    .compose(XApi.<BaseRespYouXinModel<LoginRespYouXinModel>>getScheduler())
+                    .compose(getV().<BaseRespYouXinModel<LoginRespYouXinModel>>bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespYouXinModel<LoginRespYouXinModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            StaticYouXinUtil.showError(getV(), error);
                         }
-                    }
-                });
+
+                        @Override
+                        public void onNext(BaseRespYouXinModel<LoginRespYouXinModel> gankResults) {
+                            if (gankResults != null) {
+
+                            }
+                        }
+                    });
+        }
     }
 
 }
