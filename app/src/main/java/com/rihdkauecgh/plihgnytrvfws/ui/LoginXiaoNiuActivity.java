@@ -353,7 +353,7 @@ public class LoginXiaoNiuActivity extends XActivity<XiaoNiuLoginPresent> {
                 ToasXiaoNiutUtil.showShort("验证码不能为空");
                 return;
             }
-            if (!remindCb.isChecked() && isNeedChecked) {
+            if (!remindCb.isChecked()) {
                 ToasXiaoNiutUtil.showShort("请阅读用户协议及隐私政策");
                 return;
             }
