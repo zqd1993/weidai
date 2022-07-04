@@ -54,7 +54,8 @@
                     android:layout_marginStart="5dp"
                     app:hl_cornerRadius="3dp"
                     app:hl_strokeColor="#ff5577"
-                    app:hl_strokeWith="0.5dp">
+                    app:hl_strokeWith="0.5dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -75,7 +76,8 @@
                     android:layout_marginStart="5dp"
                     app:hl_cornerRadius="3dp"
                     app:hl_strokeColor="#6e86c2"
-                    app:hl_strokeWith="0.5dp">
+                    app:hl_strokeWith="0.5dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -169,6 +171,7 @@
         </FrameLayout>
 
         <TextView
+            android:id="@+id/info_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"

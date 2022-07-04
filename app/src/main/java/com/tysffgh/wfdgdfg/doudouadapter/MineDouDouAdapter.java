@@ -101,9 +101,8 @@ public class MineDouDouAdapter extends SimpleRecAdapter<MineItemModelDouDou, Min
             if (!TextUtils.isEmpty(SharedDouDouPreferencesUtilis.getStringFromPref("APP_MAIL"))) {
                 viewHolder.rightText.setText(SharedDouDouPreferencesUtilis.getStringFromPref("APP_MAIL"));
             }
-            viewHolder.parentLl.setOnLongClickListener(v -> {
+            viewHolder.parentLl.setOnClickListener(v -> {
                 getRecItemClick().onItemClick(i, data.get(i), 2, viewHolder);
-                return false;
             });
         } else {
             viewHolder.rightText.setVisibility(View.GONE);

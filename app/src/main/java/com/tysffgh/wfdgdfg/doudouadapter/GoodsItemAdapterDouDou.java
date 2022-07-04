@@ -19,6 +19,8 @@ import com.tysffgh.wfdgdfg.kit.KnifeKit;
 import com.tysffgh.wfdgdfg.doudoumodel.DouDouGoodsModel;
 import com.tysffgh.wfdgdfg.doudouutils.SharedDouDouPreferencesUtilis;
 
+import org.w3c.dom.Text;
+
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -99,6 +101,7 @@ public class GoodsItemAdapterDouDou extends SimpleRecAdapter<DouDouGoodsModel, G
         }
         viewHolder.people_num_tv.setText(model.getNum() + "人申请");
         viewHolder.productNameTv.setText(model.getTitle());
+        viewHolder.info_tv.setText(model.getInfo());
         if (!TextUtils.isEmpty(SharedDouDouPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
             Glide.with(context).load(SharedDouDouPreferencesUtilis.getStringFromPref("API_BASE_URL") + model.getImgs()).into(viewHolder.productImg);
         }
@@ -167,12 +170,14 @@ public class GoodsItemAdapterDouDou extends SimpleRecAdapter<DouDouGoodsModel, G
         ImageView productImg;
         @BindView(R.id.limit_tv)
         TextView limitTv;
-                @BindView(R.id.cycle_tv)
+        @BindView(R.id.cycle_tv)
         TextView cycleTv;
         @BindView(R.id.click_view)
         View clickView;
         @BindView(R.id.people_num_tv)
         TextView people_num_tv;
+        @BindView(R.id.info_tv)
+        TextView info_tv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
