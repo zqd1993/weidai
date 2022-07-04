@@ -1,6 +1,9 @@
 package com.dfgderv.erterqweq.utils;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.dfgderv.erterqweq.net.NetError;
@@ -44,6 +47,27 @@ public class StaticUtil {
             return Pattern.matches("^1[3-9]\\d{9}$", phoneNumber);
         }
         return false;
+    }
+
+    /**
+     * 获取版本号
+     *
+     * @return 版本号
+     */
+
+    public static String getAppVersionName(Context context) {
+        String versionName = "";
+        try {
+            PackageManager pm = context.getPackageManager();
+            PackageInfo p1 = pm.getPackageInfo(context.getPackageName(), 0);
+            versionName = p1.versionName;
+            if (TextUtils.isEmpty(versionName) || versionName.length() <= 0) {
+                return "";
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return versionName;
     }
 
 }
