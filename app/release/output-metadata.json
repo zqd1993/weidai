@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.werwerd.ertegdfg",
+  "applicationId": "com.yrtybdf.qqqwefsdg",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 3,
-      "versionName": "1.0.2",
-      "outputFile": "youxin_v1.0.2_build_20220601155413.apk"
+      "versionCode": 100,
+      "versionName": "1.0.0",
+      "outputFile": "daejisudai_op_v1.0.0_build_20220704150214.apk"
     }
   ]
 }
