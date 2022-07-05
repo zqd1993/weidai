@@ -545,36 +545,6 @@
                     android:paddingEnd="20dp"
                     android:visibility="gone" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:maxLines="15"
-                        android:text="title"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:maxLines="15"
-                        android:text="title"
-                        android:textStyle="bold" />
-                </RelativeLayout>
-
             </androidx.core.widget.NestedScrollView>
 
             <com.youth.banner.Banner
