@@ -60,7 +60,7 @@ public class DlActivity extends XActivity {
         getConfig();
         readTv.setText(OpenUtil.createDlSpanTexts(), position -> {
             bundle = new Bundle();
-            if (position == 0) {
+            if (position == 1) {
                 bundle.putString("url", HttpApi.ZCXY);
                 bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
             } else {
