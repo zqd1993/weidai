@@ -10,9 +10,9 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 20220610,
-      "versionName": "1.0.1",
-      "outputFile": "lejie_v1.0.1.apk"
+      "versionCode": 20220626,
+      "versionName": "1.0.2",
+      "outputFile": "lejie_v1.0.2.apk"
     }
   ]
 }
