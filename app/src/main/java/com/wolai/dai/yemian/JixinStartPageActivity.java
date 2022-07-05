@@ -214,7 +214,7 @@ public class JixinStartPageActivity extends AppCompatActivity {
             // 参数三：渠道名称；
             // 参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
             // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
-            UMConfigure.init(this, "6270c126d024421570db03fa", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+            UMConfigure.init(this, "62c2f39005844627b5d719ca", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
         }
     }
 
