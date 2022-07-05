@@ -17,6 +17,7 @@ import com.xvhyrt.ghjtyu.a.SetItemAdapter;
 import com.xvhyrt.ghjtyu.a.ZhuXiaoActivity;
 import com.xvhyrt.ghjtyu.api.HttpApi;
 import com.xvhyrt.ghjtyu.m.BaseModel;
+import com.xvhyrt.ghjtyu.m.ConfigEntity;
 import com.xvhyrt.ghjtyu.m.ProductModel;
 import com.xvhyrt.ghjtyu.m.SetModel;
 import com.xvhyrt.ghjtyu.mvp.XFragment;
@@ -134,8 +135,7 @@ public class SetFragment extends XFragment {
                     dialog.show();
                     break;
                 case 5:
-                    dialog = new RemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
-                    dialog.show();
+                    getConfig();
                     break;
                 case 6:
                     OpenUtil.jumpPage(getActivity(), ZhuXiaoActivity.class);
@@ -163,6 +163,33 @@ public class SetFragment extends XFragment {
         });
         setList.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         setList.setAdapter(setItemAdapter);
+    }
+
+    public void getConfig() {
+        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            HttpApi.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(BaseModel<ConfigEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    mailStr = configEntity.getData().getAppMail();
+                                    PreferencesOpenUtil.saveString("app_mail", mailStr);
+                                    dialog = new RemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
+                                    dialog.show();
+                                }
+                            }
+                        }
+                    });
+        }
     }
 
     public void toWeb(ProductModel model) {
