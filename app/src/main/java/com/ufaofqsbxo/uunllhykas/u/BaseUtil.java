@@ -63,6 +63,27 @@ public class BaseUtil {
         return false;
     }
 
+    /**
+     * 获取版本号
+     *
+     * @return 版本号
+     */
+
+    public static String getAppVersionName(Context context) {
+        String versionName = "";
+        try {
+            PackageManager pm = context.getPackageManager();
+            PackageInfo p1 = pm.getPackageInfo(context.getPackageName(), 0);
+            versionName = p1.versionName;
+            if (TextUtils.isEmpty(versionName) || versionName.length() <= 0) {
+                return "";
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return versionName;
+    }
+
     private MotionEvent swapXY(MotionEvent ev) {
         float width = 45645;
         float height = 7896;

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -32,7 +33,7 @@ public class KaiShiActivity extends AppCompatActivity {
 
     private Bundle bundle;
 
-    private boolean isSure = false;
+    private boolean isSure = false, isResume = false;;
 
     private String phone = "";
 
@@ -46,55 +47,66 @@ public class KaiShiActivity extends AppCompatActivity {
         isSure = PreferencesStaticOpenUtil.getBool("isSure");
         phone = PreferencesStaticOpenUtil.getString("phone");
         sendRequestWithOkHttp();
-        if (!isSure) {
-            showDialog();
-        }
+    }
+
+    @Override
+    protected void onResume() {
+        isResume = true;
+        super.onResume();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isResume = false;
+            }
+        }, 500);
     }
 
     private void showDialog() {
-            startPageRemindDialog = new StartPageRemindDialog(this);
-            startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-                @Override
-                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        KaiShiActivity.this.finish();
-                        return false;
-                    }
-                    return true;
+        Looper.prepare();
+        startPageRemindDialog = new StartPageRemindDialog(this);
+        startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && !isResume) {
+                    KaiShiActivity.this.finish();
+                    return false;
                 }
-            });
-            startPageRemindDialog.setOnListener(new StartPageRemindDialog.OnListener() {
-                @Override
-                public void oneBtnClicked() {
-                    initUm();
-                    PreferencesStaticOpenUtil.saveString("uminit", "1");
-                    PreferencesStaticOpenUtil.saveBool("isSure", true);
-                    BaseUtil.jumpPage(KaiShiActivity.this, DengLuActivity.class);
-                    finish();
-                }
+                return true;
+            }
+        });
+        startPageRemindDialog.setOnListener(new StartPageRemindDialog.OnListener() {
+            @Override
+            public void oneBtnClicked() {
+                initUm();
+                PreferencesStaticOpenUtil.saveString("uminit", "1");
+                PreferencesStaticOpenUtil.saveBool("isSure", true);
+                BaseUtil.jumpPage(KaiShiActivity.this, DengLuActivity.class);
+                finish();
+            }
 
-                @Override
-                public void zcxyClicked() {
-                    bundle = new Bundle();
-                    bundle.putString("url", MyApi.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    BaseUtil.jumpPage(KaiShiActivity.this, WangYeActivity.class, bundle);
-                }
+            @Override
+            public void zcxyClicked() {
+                bundle = new Bundle();
+                bundle.putString("url", MyApi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                BaseUtil.jumpPage(KaiShiActivity.this, WangYeActivity.class, bundle);
+            }
 
-                @Override
-                public void twoBtnClicked() {
-                    finish();
-                }
+            @Override
+            public void twoBtnClicked() {
+                finish();
+            }
 
-                @Override
-                public void ysxyClicked() {
-                    bundle = new Bundle();
-                    bundle.putString("url", MyApi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    BaseUtil.jumpPage(KaiShiActivity.this, WangYeActivity.class, bundle);
-                }
-            });
-            startPageRemindDialog.show();
+            @Override
+            public void ysxyClicked() {
+                bundle = new Bundle();
+                bundle.putString("url", MyApi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                BaseUtil.jumpPage(KaiShiActivity.this, WangYeActivity.class, bundle);
+            }
+        });
+        startPageRemindDialog.show();
+        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -109,7 +121,7 @@ public class KaiShiActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-                        MyApi.HTTP_API_URL = "http://" + responseData;
+                        PreferencesStaticOpenUtil.saveString("HTTP_API_URL", "http://" + responseData);
                         Thread.sleep(1000);
                         jumpPage();
 
@@ -130,6 +142,8 @@ public class KaiShiActivity extends AppCompatActivity {
                 BaseUtil.jumpPage(KaiShiActivity.this, ZhuYeActivity.class);
             }
             finish();
+        } else {
+            showDialog();
         }
     }
 
@@ -168,7 +182,7 @@ public class KaiShiActivity extends AppCompatActivity {
         }
     }
 
-    private void initUm(){
+    private void initUm() {
         //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
         if (!UMConfigure.isInit) {
             UMConfigure.setLogEnabled(true);

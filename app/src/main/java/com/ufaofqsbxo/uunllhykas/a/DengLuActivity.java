@@ -107,7 +107,7 @@ public class DengLuActivity extends XActivity {
         dlBtn.setOnClickListener(v -> {
             phoneStr = mobileEt.getText().toString().trim();
             yzmStr = yzmEt.getText().toString().trim();
-            if (phoneStr.isEmpty() && isNeedYzm) {
+            if (phoneStr.isEmpty()) {
                 BaseToast.showShort("请输入手机号码");
                 return;
             }
@@ -166,7 +166,7 @@ public class DengLuActivity extends XActivity {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(MyApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
             MyApi.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -227,7 +227,7 @@ public class DengLuActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (!TextUtils.isEmpty(MyApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
             if (xStateController != null)
                 xStateController.showLoading();
             MyApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
@@ -266,7 +266,7 @@ public class DengLuActivity extends XActivity {
     }
 
     public void getYzm(String phone) {
-        if (!TextUtils.isEmpty(MyApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
             MyApi.getInterfaceUtils().sendVerifyCode(phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())

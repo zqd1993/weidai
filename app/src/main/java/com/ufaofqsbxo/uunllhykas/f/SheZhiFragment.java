@@ -187,7 +187,7 @@ public class SheZhiFragment extends XFragment {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(MyApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
             MyApi.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -214,27 +214,29 @@ public class SheZhiFragment extends XFragment {
     }
 
     public void productList() {
-        mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
-        MyApi.getInterfaceUtils().productList(mobileType)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<MainModel<List<ShangPinModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        BaseUtil.showErrorInfo(getActivity(), error);
-                    }
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
+            mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
+            MyApi.getInterfaceUtils().productList(mobileType)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel<List<ShangPinModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            BaseUtil.showErrorInfo(getActivity(), error);
+                        }
 
-                    @Override
-                    public void onNext(MainModel<List<ShangPinModel>> mainModel) {
-                        if (mainModel != null) {
-                            if (mainModel.getCode() == 200 && mainModel.getData() != null) {
-                                if (mainModel.getData() != null && mainModel.getData().size() > 0) {
-                                    shangPinModel = mainModel.getData().get(0);
+                        @Override
+                        public void onNext(MainModel<List<ShangPinModel>> mainModel) {
+                            if (mainModel != null) {
+                                if (mainModel.getCode() == 200 && mainModel.getData() != null) {
+                                    if (mainModel.getData() != null && mainModel.getData().size() > 0) {
+                                        shangPinModel = mainModel.getData().get(0);
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 }

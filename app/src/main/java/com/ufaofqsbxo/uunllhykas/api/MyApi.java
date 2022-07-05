@@ -7,6 +7,7 @@ import android.graphics.RectF;
 import android.text.TextUtils;
 
 import com.ufaofqsbxo.uunllhykas.net.XApi;
+import com.ufaofqsbxo.uunllhykas.u.PreferencesStaticOpenUtil;
 
 public class MyApi {
     public static final String ZCXY = "https://xy.hgy5kg.com/profile/opjrdk/zcxy.html";
@@ -32,10 +33,10 @@ public class MyApi {
     private float leftBottom = 0f;
 
     public static JieKouUtils getInterfaceUtils() {
-        if (interfaceUtils == null && !TextUtils.isEmpty(HTTP_API_URL)) {
+        if (interfaceUtils == null && !TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
             synchronized (MyApi.class) {
                 if (interfaceUtils == null) {
-                    interfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(JieKouUtils.class);
+                    interfaceUtils = XApi.getInstance().getRetrofit(PreferencesStaticOpenUtil.getString("HTTP_API_URL"), true).create(JieKouUtils.class);
                 }
             }
         }

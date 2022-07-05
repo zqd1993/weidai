@@ -3,7 +3,10 @@ package com.ufaofqsbxo.uunllhykas;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 
 import com.ufaofqsbxo.uunllhykas.net.NetError;
 import com.ufaofqsbxo.uunllhykas.net.NetProvider;
