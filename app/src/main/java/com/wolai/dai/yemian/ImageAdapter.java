@@ -1,5 +1,6 @@
 package com.wolai.dai.yemian;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wolai.dai.R;
+import com.wolai.dai.gongju.JiXinPreferencesOpenUtil;
 import com.wolai.dai.jiekou.JiXinApi;
 import com.wolai.dai.imageloader.ILFactory;
 import com.wolai.dai.imageloader.ILoader;
@@ -39,26 +41,28 @@ public class ImageAdapter extends BannerAdapter<JixinProductModel, ImageAdapter.
         holder.edu_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
         holder.shijian_tv.setText(data.getDes() + "个月");
         holder.shuliang_tv.setText("已申请人数：" + String.valueOf(data.getPassingRate()));
-        ILFactory.getLoader().loadNet(holder.goods_pic_img, JiXinApi.HTTP_API_URL + data.getProductLogo(),
-                new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("API_BASE_URL"))) {
+            ILFactory.getLoader().loadNet(holder.goods_pic_img, JiXinPreferencesOpenUtil.getString("API_BASE_URL") + data.getProductLogo(),
+                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        }
         holder.parentLl.setOnClickListener(v -> {
-            if (bannerClickedListener != null){
+            if (bannerClickedListener != null) {
                 bannerClickedListener.onBannerClicked(data);
             }
         });
         holder.shenqing_sl.setOnClickListener(v -> {
-            if (bannerClickedListener != null){
+            if (bannerClickedListener != null) {
                 bannerClickedListener.onBannerClicked(data);
             }
         });
         holder.pic_sl.setOnClickListener(v -> {
-            if (bannerClickedListener != null){
+            if (bannerClickedListener != null) {
                 bannerClickedListener.onBannerClicked(data);
             }
         });
     }
 
-    public class ImageHolder extends RecyclerView.ViewHolder{
+    public class ImageHolder extends RecyclerView.ViewHolder {
 
         TextView shangpin_name_tv;
         TextView tedian_tv;
@@ -84,11 +88,11 @@ public class ImageAdapter extends BannerAdapter<JixinProductModel, ImageAdapter.
         }
     }
 
-    public void setBannerClickedListener(BannerClickedListener bannerClickedListener){
+    public void setBannerClickedListener(BannerClickedListener bannerClickedListener) {
         this.bannerClickedListener = bannerClickedListener;
     }
 
-    public interface BannerClickedListener{
+    public interface BannerClickedListener {
         void onBannerClicked(JixinProductModel entity);
     }
 

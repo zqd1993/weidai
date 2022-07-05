@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -23,11 +24,15 @@ import com.umeng.commonsdk.UMConfigure;
 
 import java.lang.reflect.Method;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class JixinStartPageActivity extends AppCompatActivity {
 
     private Bundle bundle;
 
-    private boolean isSure = false;
+    private boolean isSure = false, isResume = false;
 
     private String phone = "";
 
@@ -60,65 +65,107 @@ public class JixinStartPageActivity extends AppCompatActivity {
         JiXinStatusBarUtil.setTransparent(this, false);
         isSure = JiXinPreferencesOpenUtil.getBool("isSure");
         phone = JiXinPreferencesOpenUtil.getString("phone");
-        jumpPage();
+        sendRequestWithOkHttp();
+    }
+
+    @Override
+    protected void onResume() {
+        isResume = true;
+        super.onResume();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isResume = false;
+            }
+        }, 500);
+    }
+
+    private void showDialog() {
+        Looper.prepare();
+        startPageRemindDialog = new JixinStartPageRemindDialog(this);
+        startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && !isResume) {
+                    JixinStartPageActivity.this.finish();
+                    return false;
+                }
+                return true;
+            }
+        });
+        startPageRemindDialog.setOnListener(new JixinStartPageRemindDialog.OnListener() {
+            @Override
+            public void oneBtnClicked() {
+                initUm();
+                JiXinPreferencesOpenUtil.saveBool("isSure", true);
+                JiXinOpenUtil.jumpPage(JixinStartPageActivity.this, JixinDlActivity.class);
+                finish();
+            }
+
+            @Override
+            public void zcxyClicked() {
+                bundle = new Bundle();
+                bundle.putString("url", JiXinApi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.yryvb));
+                JiXinOpenUtil.jumpPage(JixinStartPageActivity.this, JixinJumpH5Activity.class, bundle);
+            }
+
+            @Override
+            public void twoBtnClicked() {
+                finish();
+            }
+
+            @Override
+            public void ysxyClicked() {
+                bundle = new Bundle();
+                bundle.putString("url", JiXinApi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.retert));
+                JiXinOpenUtil.jumpPage(JixinStartPageActivity.this, JixinJumpH5Activity.class, bundle);
+            }
+        });
+        startPageRemindDialog.show();
+        Looper.loop();
+    }
+
+    private void sendRequestWithOkHttp() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7701.txt")
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    String responseData = response.body().string();
+                    if (!TextUtils.isEmpty(responseData)) {
+//                        Api.API_BASE_URL = "http://" + responseData;
+                        JiXinPreferencesOpenUtil.saveString("API_BASE_URL", "http://" + responseData);
+                        Thread.sleep(1000);
+                        jumpPage();
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     private void jumpPage() {
-        if (!isSure) {
-            startPageRemindDialog = new JixinStartPageRemindDialog(this);
-            startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-                @Override
-                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        JixinStartPageActivity.this.finish();
-                        return false;
-                    }
-                    return true;
-                }
-            });
-            startPageRemindDialog.setOnListener(new JixinStartPageRemindDialog.OnListener() {
-                @Override
-                public void oneBtnClicked() {
-                    initUm();
-                    JiXinPreferencesOpenUtil.saveBool("isSure", true);
-                    JiXinOpenUtil.jumpPage(JixinStartPageActivity.this, JixinDlActivity.class);
-                    finish();
-                }
-
-                @Override
-                public void zcxyClicked() {
-                    bundle = new Bundle();
-                    bundle.putString("url", JiXinApi.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.yryvb));
-                    JiXinOpenUtil.jumpPage(JixinStartPageActivity.this, JixinJumpH5Activity.class, bundle);
-                }
-
-                @Override
-                public void twoBtnClicked() {
-                    finish();
-                }
-
-                @Override
-                public void ysxyClicked() {
-                    bundle = new Bundle();
-                    bundle.putString("url", JiXinApi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.retert));
-                    JiXinOpenUtil.jumpPage(JixinStartPageActivity.this, JixinJumpH5Activity.class, bundle);
-                }
-            });
-            startPageRemindDialog.show();
-        } else {
+        if (isSure) {
             initUm();
-            new Handler().postDelayed(() -> {
-                if (TextUtils.isEmpty(phone)) {
-                    JiXinOpenUtil.jumpPage(JixinStartPageActivity.this, JixinDlActivity.class);
-                } else {
-                    JiXinOpenUtil.jumpPage(JixinStartPageActivity.this, JixinMainActivity.class);
-                }
-                finish();
-            }, 1000);
+            if (TextUtils.isEmpty(phone)) {
+                JiXinOpenUtil.jumpPage(JixinStartPageActivity.this, JixinDlActivity.class);
+            } else {
+                JiXinOpenUtil.jumpPage(JixinStartPageActivity.this, JixinMainActivity.class);
+            }
+            finish();
+        } else {
+            showDialog();
         }
     }
+
 
     /**
      * Calling the convertToTranslucent method on platforms after Android 5.0
@@ -154,7 +201,7 @@ public class JixinStartPageActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private void initUm(){
+    private void initUm() {
         //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
         if (!UMConfigure.isInit) {
             UMConfigure.setLogEnabled(true);
@@ -170,6 +217,7 @@ public class JixinStartPageActivity extends AppCompatActivity {
             UMConfigure.init(this, "6270c126d024421570db03fa", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
         }
     }
+
     /**
      * Convert a translucent themed Activity
      * {@link android.R.attr#windowIsTranslucent} to a fullscreen opaque

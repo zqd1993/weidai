@@ -1,7 +1,9 @@
 package com.wolai.dai.jiekou;
 
+import android.text.TextUtils;
 import android.util.Log;
 
+import com.wolai.dai.gongju.JiXinPreferencesOpenUtil;
 import com.wolai.dai.net.XApi;
 
 import java.io.FileReader;
@@ -23,10 +25,10 @@ public class JiXinApi {
     }
 
     public static JiXinInterfaceUtils getInterfaceUtils() {
-        if (interfaceUtils == null) {
+        if (interfaceUtils == null && !TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("API_BASE_URL"))) {
             synchronized (JiXinApi.class) {
                 if (interfaceUtils == null) {
-                    interfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(JiXinInterfaceUtils.class);
+                    interfaceUtils = XApi.getInstance().getRetrofit(JiXinPreferencesOpenUtil.getString("API_BASE_URL"), true).create(JiXinInterfaceUtils.class);
                 }
             }
         }

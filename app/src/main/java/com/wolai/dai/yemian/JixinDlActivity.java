@@ -1,6 +1,7 @@
 package com.wolai.dai.yemian;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -60,7 +61,7 @@ public class JixinDlActivity extends XActivity {
         getConfig();
         readTv.setText(JiXinOpenUtil.createDlSpanTexts(), position -> {
             bundle = new Bundle();
-            if (position == 0) {
+            if (position == 1) {
                 bundle.putString("url", JiXinApi.ZCXY);
                 bundle.putString("biaoti", getResources().getString(R.string.yryvb));
             } else {
@@ -82,7 +83,7 @@ public class JixinDlActivity extends XActivity {
         dlBtn.setOnClickListener(v -> {
             phoneStr = mobileEt.getText().toString().trim();
             yzmStr = yzmEt.getText().toString().trim();
-            if (phoneStr.isEmpty() && isNeedYzm) {
+            if (phoneStr.isEmpty()) {
                 JiXinMyToast.showShort("请输入手机号码");
                 return;
             }
@@ -90,7 +91,7 @@ public class JixinDlActivity extends XActivity {
                 JiXinMyToast.showShort("请输入验证码");
                 return;
             }
-            if (!remindCb.isChecked() && isChecked){
+            if (!remindCb.isChecked()){
                 JiXinMyToast.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
@@ -118,33 +119,35 @@ public class JixinDlActivity extends XActivity {
     }
 
     public void getConfig() {
-        JiXinApi.getInterfaceUtils().getConfig()
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(this.bindToLifecycle())
-                .subscribe(new ApiSubscriber<JixinBaseModel<JixinConfigEntity>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        JiXinOpenUtil.showErrorInfo(JixinDlActivity.this, error);
-                    }
+        if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("API_BASE_URL"))) {
+            JiXinApi.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<JixinBaseModel<JixinConfigEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            JiXinOpenUtil.showErrorInfo(JixinDlActivity.this, error);
+                        }
 
-                    @Override
-                    public void onNext(JixinBaseModel<JixinConfigEntity> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                JiXinPreferencesOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
-                                if ("0".equals(configEntity.getData().getIsCodeLogin())) {
-                                    yzmCv.setVisibility(View.GONE);
-                                } else {
-                                    yzmCv.setVisibility(View.VISIBLE);
+                        @Override
+                        public void onNext(JixinBaseModel<JixinConfigEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    JiXinPreferencesOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
+                                    if ("0".equals(configEntity.getData().getIsCodeLogin())) {
+                                        yzmCv.setVisibility(View.GONE);
+                                    } else {
+                                        yzmCv.setVisibility(View.VISIBLE);
+                                    }
+                                    isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
+                                    isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
+                                    remindCb.setChecked(isChecked);
                                 }
-                                isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
-                                isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
-                                remindCb.setChecked(isChecked);
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public static String formatNum(String num) {
@@ -232,63 +235,67 @@ public class JixinDlActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (xStateController != null)
-            xStateController.showLoading();
-        JiXinApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<JixinBaseModel<JixinDlModel>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        JiXinOpenUtil.showErrorInfo(JixinDlActivity.this, error);
-                        if (xStateController != null)
-                            xStateController.showContent();
-                    }
+        if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("API_BASE_URL"))) {
+            if (xStateController != null)
+                xStateController.showLoading();
+            JiXinApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<JixinBaseModel<JixinDlModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            JiXinOpenUtil.showErrorInfo(JixinDlActivity.this, error);
+                            if (xStateController != null)
+                                xStateController.showContent();
+                        }
 
-                    @Override
-                    public void onNext(JixinBaseModel<JixinDlModel> dlModel) {
-                        if (xStateController != null)
-                            xStateController.showContent();
-                        if (dlModel != null && dlModel.getCode() == 200) {
-                            if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                JiXinOpenUtil.jumpPage(JixinDlActivity.this, JixinMainActivity.class);
-                                int mobileType = dlModel.getData().getMobileType();
-                                JiXinPreferencesOpenUtil.saveString("ip", ip);
-                                JiXinPreferencesOpenUtil.saveString("phone", phone);
-                                JiXinPreferencesOpenUtil.saveInt("mobileType", mobileType);
-                                finish();
-                            }
-                        } else {
-                            if (dlModel.getCode() == 500) {
-                                JiXinMyToast.showShort(dlModel.getMsg());
+                        @Override
+                        public void onNext(JixinBaseModel<JixinDlModel> dlModel) {
+                            if (xStateController != null)
+                                xStateController.showContent();
+                            if (dlModel != null && dlModel.getCode() == 200) {
+                                if (dlModel.getData() != null && dlModel.getCode() == 200) {
+                                    JiXinOpenUtil.jumpPage(JixinDlActivity.this, JixinMainActivity.class);
+                                    int mobileType = dlModel.getData().getMobileType();
+                                    JiXinPreferencesOpenUtil.saveString("ip", ip);
+                                    JiXinPreferencesOpenUtil.saveString("phone", phone);
+                                    JiXinPreferencesOpenUtil.saveInt("mobileType", mobileType);
+                                    finish();
+                                }
+                            } else {
+                                if (dlModel.getCode() == 500) {
+                                    JiXinMyToast.showShort(dlModel.getMsg());
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void getYzm(String phone) {
-        JiXinApi.getInterfaceUtils().sendVerifyCode(phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<JixinBaseModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        JiXinOpenUtil.showErrorInfo(JixinDlActivity.this, error);
-                    }
+        if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("API_BASE_URL"))) {
+            JiXinApi.getInterfaceUtils().sendVerifyCode(phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<JixinBaseModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            JiXinOpenUtil.showErrorInfo(JixinDlActivity.this, error);
+                        }
 
-                    @Override
-                    public void onNext(JixinBaseModel baseModel) {
-                        if (baseModel != null) {
-                            if (baseModel.getCode() == 200) {
-                                JiXinMyToast.showShort("验证码发送成功");
-                                JiXinCountDownTimer cdt = new JiXinCountDownTimer(getYzmTv, 60000, 1000);
-                                cdt.start();
+                        @Override
+                        public void onNext(JixinBaseModel baseModel) {
+                            if (baseModel != null) {
+                                if (baseModel.getCode() == 200) {
+                                    JiXinMyToast.showShort("验证码发送成功");
+                                    JiXinCountDownTimer cdt = new JiXinCountDownTimer(getYzmTv, 60000, 1000);
+                                    cdt.start();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 }

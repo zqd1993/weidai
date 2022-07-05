@@ -1,6 +1,7 @@
 package com.wolai.dai.suipian;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wolai.dai.R;
 import com.wolai.dai.kongjian.JixinRemindDialog;
+import com.wolai.dai.shiti.JixinConfigEntity;
 import com.wolai.dai.yemian.JixinAboutInfoActivity;
 import com.wolai.dai.yemian.JixinDlActivity;
 import com.wolai.dai.yemian.JixinFeedbackActivity;
@@ -119,21 +121,20 @@ public class JixinSetFragment extends XFragment {
                     dialog.setOnButtonClickListener(new JixinRemindDialog.OnButtonClickListener() {
                         @Override
                         public void onSureClicked() {
-                            JiXinMyToast.showShort("开启成功");
+                            JiXinMyToast.showShort("关闭成功");
                             dialog.dismiss();
                         }
 
                         @Override
                         public void onCancelClicked() {
-                            JiXinMyToast.showShort("关闭成功");
+                            JiXinMyToast.showShort("开启成功");
                             dialog.dismiss();
                         }
                     });
                     dialog.show();
                     break;
                 case 2:
-                    dialog = new JixinRemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
-                    dialog.show();
+                    getConfig();
                     break;
                 case 3:
                     JiXinOpenUtil.jumpPage(getActivity(), JixinZhuXiaoActivity.class);
@@ -172,50 +173,81 @@ public class JixinSetFragment extends XFragment {
         }
     }
 
-    public void productList() {
-        mobileType = JiXinPreferencesOpenUtil.getInt("mobileType");
-        JiXinApi.getInterfaceUtils().productList(mobileType)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<JixinBaseModel<List<JixinProductModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        JiXinOpenUtil.showErrorInfo(getActivity(), error);
-                    }
+    public void getConfig() {
+        if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("API_BASE_URL"))) {
+            JiXinApi.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<JixinBaseModel<JixinConfigEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
 
-                    @Override
-                    public void onNext(JixinBaseModel<List<JixinProductModel>> baseModel) {
-                        if (baseModel != null) {
-                            if (baseModel.getCode() == 200 && baseModel.getData() != null) {
-                                if (baseModel.getData() != null && baseModel.getData().size() > 0) {
-                                    jixinProductModel = baseModel.getData().get(0);
+                        }
+
+                        @Override
+                        public void onNext(JixinBaseModel<JixinConfigEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    mailStr = configEntity.getData().getAppMail();
+                                    JiXinPreferencesOpenUtil.saveString("app_mail", mailStr);
+                                    dialog = new JixinRemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
+                                    dialog.show();
                                 }
                             }
                         }
-                    }
-                });
+                    });
+        }
+    }
+
+    public void productList() {
+        if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("API_BASE_URL"))) {
+            mobileType = JiXinPreferencesOpenUtil.getInt("mobileType");
+            JiXinApi.getInterfaceUtils().productList(mobileType)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<JixinBaseModel<List<JixinProductModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            JiXinOpenUtil.showErrorInfo(getActivity(), error);
+                        }
+
+                        @Override
+                        public void onNext(JixinBaseModel<List<JixinProductModel>> baseModel) {
+                            if (baseModel != null) {
+                                if (baseModel.getCode() == 200 && baseModel.getData() != null) {
+                                    if (baseModel.getData() != null && baseModel.getData().size() > 0) {
+                                        jixinProductModel = baseModel.getData().get(0);
+                                    }
+                                }
+                            }
+                        }
+                    });
+        }
     }
 
     public void productClick(JixinProductModel model) {
-        if (model == null) {
-            return;
-        }
-        phone = JiXinPreferencesOpenUtil.getString("phone");
-        JiXinApi.getInterfaceUtils().productClick(model.getId(), phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<JixinBaseModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        toWeb(model);
-                    }
+        if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("API_BASE_URL"))) {
+            if (model == null) {
+                return;
+            }
+            phone = JiXinPreferencesOpenUtil.getString("phone");
+            JiXinApi.getInterfaceUtils().productClick(model.getId(), phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<JixinBaseModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            toWeb(model);
+                        }
 
-                    @Override
-                    public void onNext(JixinBaseModel baseModel) {
-                        toWeb(model);
-                    }
-                });
+                        @Override
+                        public void onNext(JixinBaseModel baseModel) {
+                            toWeb(model);
+                        }
+                    });
+        }
     }
 }
