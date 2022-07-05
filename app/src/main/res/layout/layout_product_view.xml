@@ -162,7 +162,7 @@
             </LinearLayout>
 
             <com.lihang.ShadowLayout
-                android:layout_width="80dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 app:hl_cornerRadius="50dp"
@@ -175,7 +175,9 @@
                     android:layout_gravity="center"
                     android:paddingTop="3dp"
                     android:paddingBottom="3dp"
-                    android:text="日息低"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="年利率最高不超过36%"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
 

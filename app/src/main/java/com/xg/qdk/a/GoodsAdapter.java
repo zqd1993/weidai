@@ -46,7 +46,7 @@ public class GoodsAdapter extends SimpleRecAdapter<ShangPinModel, GoodsAdapter.G
         goodsHolder.tvTime.setText(model.getDes() + "个月");
         goodsHolder.tvPeopleNumber.setText(String.valueOf(model.getPassingRate()));
         goodsHolder.goodsNameTv.setText(model.getProductName());
-        goodsHolder.tvTag.setText(model.getTag());
+//        goodsHolder.tvTag.setText(model.getTag());
         goodsHolder.tvMoneyNumber.setText(model.getMinAmount() + "-" + model.getMaxAmount());
         goodsHolder.clickView.setOnClickListener(v -> {
             getRecItemClick().onItemClick(i, model, 1, goodsHolder);
