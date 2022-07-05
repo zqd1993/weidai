@@ -86,6 +86,27 @@ public class OpenJiJieUtil {
         return flag;
     }
 
+    /**
+     * 获取版本号
+     *
+     * @return 版本号
+     */
+
+    public static String getAppVersionName(Context context) {
+        String versionName = "";
+        try {
+            PackageManager pm = context.getPackageManager();
+            PackageInfo p1 = pm.getPackageInfo(context.getPackageName(), 0);
+            versionName = p1.versionName;
+            if (TextUtils.isEmpty(versionName) || versionName.length() <= 0) {
+                return "";
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return versionName;
+    }
+
     public static void showErrorInfo(Context context, NetError error) {
         if (error != null) {
             if (error.getType() == NetError.ParseError){

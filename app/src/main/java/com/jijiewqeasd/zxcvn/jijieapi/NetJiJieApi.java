@@ -7,9 +7,9 @@ import com.jijiewqeasd.zxcvn.net.XApi;
 import com.jijiewqeasd.zxcvn.u.PreferencesJiJieOpenUtil;
 
 public class NetJiJieApi {
-    public static final String ZCXY = "https://xy.hgy5kg.com/profile/jjdk/zcxy.html";
+    public static final String ZCXY = "https://xy.hgy5kg.com/profile/ophmjk/zcxy.html";
     public static final String HTTP_API_URL = "http://45.120.154.46:7712";
-    public static final String YSXY= "https://xy.hgy5kg.com/profile/jjdk/ysxy.html";
+    public static final String YSXY= "https://xy.hgy5kg.com/profile/ophmjk/ysxy.html";
 
     // 如果想屏蔽所有log,可以设置为0
     public static final int LOG_LEVEL = 6;
