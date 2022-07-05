@@ -1,8 +1,10 @@
 package com.jijiewqeasd.zxcvn.jijieapi;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.jijiewqeasd.zxcvn.net.XApi;
+import com.jijiewqeasd.zxcvn.u.PreferencesJiJieOpenUtil;
 
 public class NetJiJieApi {
     public static final String ZCXY = "https://xy.hgy5kg.com/profile/jjdk/zcxy.html";
@@ -21,10 +23,10 @@ public class NetJiJieApi {
     private static InterfaceJiJieUtils interfaceUtils;
 
     public static InterfaceJiJieUtils getInterfaceUtils() {
-        if (interfaceUtils == null) {
+        if (interfaceUtils == null && !TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
             synchronized (NetJiJieApi.class) {
                 if (interfaceUtils == null) {
-                    interfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(InterfaceJiJieUtils.class);
+                    interfaceUtils = XApi.getInstance().getRetrofit(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"), true).create(InterfaceJiJieUtils.class);
                 }
             }
         }

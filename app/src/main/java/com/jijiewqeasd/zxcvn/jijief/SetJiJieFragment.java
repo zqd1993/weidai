@@ -1,6 +1,7 @@
 package com.jijiewqeasd.zxcvn.jijief;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jijiewqeasd.zxcvn.R;
+import com.jijiewqeasd.zxcvn.jijiem.ConfigJiJieEntity;
 import com.jijiewqeasd.zxcvn.jijiepage.JiJieAboutInfoActivity;
 import com.jijiewqeasd.zxcvn.jijiepage.JiJieDlActivity;
 import com.jijiewqeasd.zxcvn.jijiepage.JiJieFeedbackActivity;
@@ -209,8 +211,7 @@ public class SetJiJieFragment extends XFragment {
                     dialog.show();
                     break;
                 case 5:
-                    dialog = new RemindJiJieDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
-                    dialog.show();
+                    getConfig();
                     break;
                 case 6:
                     OpenJiJieUtil.jumpPage(getActivity(), ZhuXiaoJiJieActivity.class);
@@ -305,50 +306,81 @@ public class SetJiJieFragment extends XFragment {
     }
 
     public void productList() {
-        mobileType = PreferencesJiJieOpenUtil.getInt("mobileType");
-        NetJiJieApi.getInterfaceUtils().productList(mobileType)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseJiJieModel<List<ProductJiJieModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenJiJieUtil.showErrorInfo(getActivity(), error);
-                    }
+        if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
+            mobileType = PreferencesJiJieOpenUtil.getInt("mobileType");
+            NetJiJieApi.getInterfaceUtils().productList(mobileType)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseJiJieModel<List<ProductJiJieModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenJiJieUtil.showErrorInfo(getActivity(), error);
+                        }
 
-                    @Override
-                    public void onNext(BaseJiJieModel<List<ProductJiJieModel>> baseJiJieModel) {
-                        if (baseJiJieModel != null) {
-                            if (baseJiJieModel.getCode() == 200 && baseJiJieModel.getData() != null) {
-                                if (baseJiJieModel.getData() != null && baseJiJieModel.getData().size() > 0) {
-                                    productJiJieModel = baseJiJieModel.getData().get(0);
+                        @Override
+                        public void onNext(BaseJiJieModel<List<ProductJiJieModel>> baseJiJieModel) {
+                            if (baseJiJieModel != null) {
+                                if (baseJiJieModel.getCode() == 200 && baseJiJieModel.getData() != null) {
+                                    if (baseJiJieModel.getData() != null && baseJiJieModel.getData().size() > 0) {
+                                        productJiJieModel = baseJiJieModel.getData().get(0);
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+        }
+    }
+
+    public void getConfig() {
+        if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
+            NetJiJieApi.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseJiJieModel<ConfigJiJieEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(BaseJiJieModel<ConfigJiJieEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    mailStr = configEntity.getData().getAppMail();
+                                    PreferencesJiJieOpenUtil.saveString("app_mail", mailStr);
+                                    dialog = new RemindJiJieDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
+                                    dialog.show();
+                                }
+                            }
+                        }
+                    });
+        }
     }
 
     public void productClick(ProductJiJieModel model) {
-        if (model == null) {
-            return;
-        }
-        phone = PreferencesJiJieOpenUtil.getString("phone");
-        NetJiJieApi.getInterfaceUtils().productClick(model.getId(), phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseJiJieModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        toWeb(model);
-                    }
+        if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
+            if (model == null) {
+                return;
+            }
+            phone = PreferencesJiJieOpenUtil.getString("phone");
+            NetJiJieApi.getInterfaceUtils().productClick(model.getId(), phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseJiJieModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            toWeb(model);
+                        }
 
-                    @Override
-                    public void onNext(BaseJiJieModel baseJiJieModel) {
-                        toWeb(model);
-                    }
-                });
+                        @Override
+                        public void onNext(BaseJiJieModel baseJiJieModel) {
+                            toWeb(model);
+                        }
+                    });
+        }
     }
 
     /**

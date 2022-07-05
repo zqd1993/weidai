@@ -1,6 +1,7 @@
 package com.jijiewqeasd.zxcvn.jijief;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -127,23 +128,25 @@ public class ProductJiJieFragment extends XFragment {
     }
 
     public void productClick(ProductJiJieModel model) {
-        if (model != null) {
-            phone = PreferencesJiJieOpenUtil.getString("phone");
-            NetJiJieApi.getInterfaceUtils().productClick(model.getId(), phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseJiJieModel>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            toWeb(model);
-                        }
+        if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
+            if (model != null) {
+                phone = PreferencesJiJieOpenUtil.getString("phone");
+                NetJiJieApi.getInterfaceUtils().productClick(model.getId(), phone)
+                        .compose(XApi.getApiTransformer())
+                        .compose(XApi.getScheduler())
+                        .compose(bindToLifecycle())
+                        .subscribe(new ApiSubscriber<BaseJiJieModel>() {
+                            @Override
+                            protected void onFail(NetError error) {
+                                toWeb(model);
+                            }
 
-                        @Override
-                        public void onNext(BaseJiJieModel baseJiJieModel) {
-                            toWeb(model);
-                        }
-                    });
+                            @Override
+                            public void onNext(BaseJiJieModel baseJiJieModel) {
+                                toWeb(model);
+                            }
+                        });
+            }
         }
     }
 
@@ -167,29 +170,35 @@ public class ProductJiJieFragment extends XFragment {
     }
 
     public void productList() {
-        mobileType = PreferencesJiJieOpenUtil.getInt("mobileType");
-        NetJiJieApi.getInterfaceUtils().productList(mobileType)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseJiJieModel<List<ProductJiJieModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        setRefreshing.setRefreshing(false);
-                        OpenJiJieUtil.showErrorInfo(getActivity(), error);
-                        if (goodsListLl.getChildCount() == 0) {
-                            noDataTv.setVisibility(View.VISIBLE);
+        if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
+            mobileType = PreferencesJiJieOpenUtil.getInt("mobileType");
+            NetJiJieApi.getInterfaceUtils().productList(mobileType)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseJiJieModel<List<ProductJiJieModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            setRefreshing.setRefreshing(false);
+                            OpenJiJieUtil.showErrorInfo(getActivity(), error);
+                            if (goodsListLl.getChildCount() == 0) {
+                                noDataTv.setVisibility(View.VISIBLE);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onNext(BaseJiJieModel<List<ProductJiJieModel>> baseJiJieModel) {
-                        setRefreshing.setRefreshing(false);
-                        if (baseJiJieModel != null) {
-                            if (baseJiJieModel.getCode() == 200 && baseJiJieModel.getData() != null) {
-                                if (baseJiJieModel.getData() != null && baseJiJieModel.getData().size() > 0) {
-                                    productJiJieModel = baseJiJieModel.getData().get(0);
-                                    addProductView(baseJiJieModel.getData());
+                        @Override
+                        public void onNext(BaseJiJieModel<List<ProductJiJieModel>> baseJiJieModel) {
+                            setRefreshing.setRefreshing(false);
+                            if (baseJiJieModel != null) {
+                                if (baseJiJieModel.getCode() == 200 && baseJiJieModel.getData() != null) {
+                                    if (baseJiJieModel.getData() != null && baseJiJieModel.getData().size() > 0) {
+                                        productJiJieModel = baseJiJieModel.getData().get(0);
+                                        addProductView(baseJiJieModel.getData());
+                                    } else {
+                                        if (goodsListLl.getChildCount() == 0) {
+                                            noDataTv.setVisibility(View.VISIBLE);
+                                        }
+                                    }
                                 } else {
                                     if (goodsListLl.getChildCount() == 0) {
                                         noDataTv.setVisibility(View.VISIBLE);
@@ -200,19 +209,15 @@ public class ProductJiJieFragment extends XFragment {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
                             }
-                        } else {
-                            if (goodsListLl.getChildCount() == 0) {
-                                noDataTv.setVisibility(View.VISIBLE);
-                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     /**
-            * 删除单个文件
+     * 删除单个文件
      *
-             * @param file 要删除的文件对象
+     * @param file 要删除的文件对象
      * @return 文件删除成功则返回true
      */
     private static boolean deleteFile(File file) {
@@ -238,8 +243,10 @@ public class ProductJiJieFragment extends XFragment {
             View parent_layout = view.findViewById(R.id.parent_layout);
             TextView zhouqi_tv = view.findViewById(R.id.zhouqi_tv);
             TextView number_tv = view.findViewById(R.id.number_tv);
-            ILFactory.getLoader().loadNet(daikuan_icon, NetJiJieApi.HTTP_API_URL + model.getProductLogo(),
-                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+            if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
+                ILFactory.getLoader().loadNet(daikuan_icon, PreferencesJiJieOpenUtil.getString("HTTP_API_URL") + model.getProductLogo(),
+                        new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+            }
             daikuan_name_tv.setText(model.getProductName());
             zhouqi_tv.setText(model.getDes() + "个月");
             number_tv.setText(String.valueOf(model.getPassingRate()));

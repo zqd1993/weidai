@@ -3,6 +3,7 @@ package com.jijiewqeasd.zxcvn.jijiepage;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -20,11 +21,16 @@ import com.umeng.commonsdk.UMConfigure;
 
 import java.io.File;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class JiJieStartPageActivity extends AppCompatActivity {
 
     private Bundle bundle;
 
-    private boolean isSure = false;
+    private boolean isSure = false, isResume = false;
+    ;
 
     private String phone = "";
 
@@ -102,7 +108,7 @@ public class JiJieStartPageActivity extends AppCompatActivity {
         StatusJiJieBarUtil.setTransparent(this, false);
         isSure = PreferencesJiJieOpenUtil.getBool("isSure");
         phone = PreferencesJiJieOpenUtil.getString("phone");
-        jumpPage();
+        sendRequestWithOkHttp();
     }
 
     /**
@@ -136,60 +142,101 @@ public class JiJieStartPageActivity extends AppCompatActivity {
         return flag;
     }
 
-    private void jumpPage() {
-        if (!isSure) {
-            startPageJiJieRemindDialog = new StartPageJiJieRemindDialog(this);
-            startPageJiJieRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-                @Override
-                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        JiJieStartPageActivity.this.finish();
-                        return false;
-                    }
-                    return true;
-                }
-            });
-            startPageJiJieRemindDialog.setOnListener(new StartPageJiJieRemindDialog.OnListener() {
-                @Override
-                public void oneBtnClicked() {
-                    initUm();
-                    PreferencesJiJieOpenUtil.saveBool("isSure", true);
-                    OpenJiJieUtil.jumpPage(JiJieStartPageActivity.this, JiJieDlActivity.class);
-                    finish();
-                }
+    @Override
+    protected void onResume() {
+        isResume = true;
+        super.onResume();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isResume = false;
+            }
+        }, 500);
+    }
 
-                @Override
-                public void zcxyClicked() {
-                    bundle = new Bundle();
-                    bundle.putString("url", NetJiJieApi.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpenJiJieUtil.jumpPage(JiJieStartPageActivity.this, JiJieJumpH5Activity.class, bundle);
+    private void showDialog() {
+        Looper.prepare();
+        startPageJiJieRemindDialog = new StartPageJiJieRemindDialog(this);
+        startPageJiJieRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && !isResume) {
+                    JiJieStartPageActivity.this.finish();
+                    return false;
                 }
-
-                @Override
-                public void twoBtnClicked() {
-                    finish();
-                }
-
-                @Override
-                public void ysxyClicked() {
-                    bundle = new Bundle();
-                    bundle.putString("url", NetJiJieApi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpenJiJieUtil.jumpPage(JiJieStartPageActivity.this, JiJieJumpH5Activity.class, bundle);
-                }
-            });
-            startPageJiJieRemindDialog.show();
-        } else {
-            initUm();
-            new Handler().postDelayed(() -> {
-                if (TextUtils.isEmpty(phone)) {
-                    OpenJiJieUtil.jumpPage(JiJieStartPageActivity.this, JiJieDlActivity.class);
-                } else {
-                    OpenJiJieUtil.jumpPage(JiJieStartPageActivity.this, JiJieMainActivity.class);
-                }
+                return true;
+            }
+        });
+        startPageJiJieRemindDialog.setOnListener(new StartPageJiJieRemindDialog.OnListener() {
+            @Override
+            public void oneBtnClicked() {
+                initUm();
+                PreferencesJiJieOpenUtil.saveBool("isSure", true);
+                OpenJiJieUtil.jumpPage(JiJieStartPageActivity.this, JiJieDlActivity.class);
                 finish();
-            }, 1000);
+            }
+
+            @Override
+            public void zcxyClicked() {
+                bundle = new Bundle();
+                bundle.putString("url", NetJiJieApi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                OpenJiJieUtil.jumpPage(JiJieStartPageActivity.this, JiJieJumpH5Activity.class, bundle);
+            }
+
+            @Override
+            public void twoBtnClicked() {
+                finish();
+            }
+
+            @Override
+            public void ysxyClicked() {
+                bundle = new Bundle();
+                bundle.putString("url", NetJiJieApi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                OpenJiJieUtil.jumpPage(JiJieStartPageActivity.this, JiJieJumpH5Activity.class, bundle);
+            }
+        });
+        startPageJiJieRemindDialog.show();
+        Looper.loop();
+    }
+
+    private void sendRequestWithOkHttp() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7712.txt")
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    String responseData = response.body().string();
+                    if (!TextUtils.isEmpty(responseData)) {
+//                        HttpApi.HTTP_API_URL = "http://" + responseData;
+                        PreferencesJiJieOpenUtil.saveString("HTTP_API_URL", "http://" + responseData);
+                        Thread.sleep(1000);
+                        jumpPage();
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    private void jumpPage() {
+        if (isSure) {
+            initUm();
+            if (TextUtils.isEmpty(phone)) {
+                OpenJiJieUtil.jumpPage(JiJieStartPageActivity.this, JiJieDlActivity.class);
+            } else {
+                OpenJiJieUtil.jumpPage(JiJieStartPageActivity.this, JiJieMainActivity.class);
+            }
+            finish();
+        } else {
+            showDialog();
         }
     }
 

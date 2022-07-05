@@ -1,5 +1,6 @@
 package com.jijiewqeasd.zxcvn.jijiepage;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.jijiewqeasd.zxcvn.jijieapi.NetJiJieApi;
 import com.jijiewqeasd.zxcvn.imageloader.ILFactory;
 import com.jijiewqeasd.zxcvn.imageloader.ILoader;
 import com.jijiewqeasd.zxcvn.jijiem.ProductJiJieModel;
+import com.jijiewqeasd.zxcvn.u.PreferencesJiJieOpenUtil;
 import com.youth.banner.adapter.BannerAdapter;
 
 import java.io.File;
@@ -107,8 +109,10 @@ public class ImageJiJieAdapter extends BannerAdapter<ProductJiJieModel, ImageJiJ
         holder.biaoqian_tv.setText(data.getTag());
         holder.daikuanedu_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
         holder.zhouqi_tv.setText(data.getDes() + "个月");
-        ILFactory.getLoader().loadNet(holder.daikuan_icon, NetJiJieApi.HTTP_API_URL + data.getProductLogo(),
-                new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
+            ILFactory.getLoader().loadNet(holder.daikuan_icon, PreferencesJiJieOpenUtil.getString("HTTP_API_URL") + data.getProductLogo(),
+                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        }
         holder.number_tv.setText(String.valueOf(data.getPassingRate()));
         holder.parent_layout.setOnClickListener(v -> {
             if (bannerClickedListener != null){

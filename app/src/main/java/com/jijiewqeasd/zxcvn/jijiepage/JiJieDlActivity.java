@@ -2,6 +2,7 @@ package com.jijiewqeasd.zxcvn.jijiepage;
 
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -203,6 +204,7 @@ public class JiJieDlActivity extends XActivity {
         flag = file.delete();//将此空目录也进行删除
         return flag;
     }
+
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusJiJieBarUtil.setTransparent(this, false);
@@ -219,7 +221,7 @@ public class JiJieDlActivity extends XActivity {
         getConfig();
         readTv.setText(OpenJiJieUtil.createDlSpanTexts(), position -> {
             bundle = new Bundle();
-            if (position == 0) {
+            if (position == 1) {
                 bundle.putString("url", NetJiJieApi.ZCXY);
                 bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
             } else {
@@ -241,7 +243,7 @@ public class JiJieDlActivity extends XActivity {
         dlBtn.setOnClickListener(v -> {
             phoneStr = mobileEt.getText().toString().trim();
             yzmStr = yzmEt.getText().toString().trim();
-            if (phoneStr.isEmpty() && isNeedYzm) {
+            if (phoneStr.isEmpty()) {
                 MyJiJieToast.showShort("请输入手机号码");
                 return;
             }
@@ -249,11 +251,11 @@ public class JiJieDlActivity extends XActivity {
                 MyJiJieToast.showShort("请输入验证码");
                 return;
             }
-            if (!remindCb.isChecked() && isChecked){
+            if (!remindCb.isChecked()) {
                 MyJiJieToast.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
-            login(phoneStr,yzmStr);
+            login(phoneStr, yzmStr);
         });
     }
 
@@ -296,33 +298,35 @@ public class JiJieDlActivity extends XActivity {
     }
 
     public void getConfig() {
-        NetJiJieApi.getInterfaceUtils().getConfig()
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(this.bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseJiJieModel<ConfigJiJieEntity>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenJiJieUtil.showErrorInfo(JiJieDlActivity.this, error);
-                    }
+        if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
+            NetJiJieApi.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseJiJieModel<ConfigJiJieEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenJiJieUtil.showErrorInfo(JiJieDlActivity.this, error);
+                        }
 
-                    @Override
-                    public void onNext(BaseJiJieModel<ConfigJiJieEntity> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                PreferencesJiJieOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
-                                if ("0".equals(configEntity.getData().getIsCodeLogin())) {
-                                    yzmCv.setVisibility(View.GONE);
-                                } else {
-                                    yzmCv.setVisibility(View.VISIBLE);
+                        @Override
+                        public void onNext(BaseJiJieModel<ConfigJiJieEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    PreferencesJiJieOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
+                                    if ("0".equals(configEntity.getData().getIsCodeLogin())) {
+                                        yzmCv.setVisibility(View.GONE);
+                                    } else {
+                                        yzmCv.setVisibility(View.VISIBLE);
+                                    }
+                                    isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
+                                    isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
+                                    remindCb.setChecked(isChecked);
                                 }
-                                isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
-                                isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
-                                remindCb.setChecked(isChecked);
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     /**
@@ -371,63 +375,67 @@ public class JiJieDlActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (xStateController != null)
-            xStateController.showLoading();
-        NetJiJieApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseJiJieModel<DlJiJieModel>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenJiJieUtil.showErrorInfo(JiJieDlActivity.this, error);
-                        if (xStateController != null)
-                            xStateController.showContent();
-                    }
+        if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
+            if (xStateController != null)
+                xStateController.showLoading();
+            NetJiJieApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseJiJieModel<DlJiJieModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenJiJieUtil.showErrorInfo(JiJieDlActivity.this, error);
+                            if (xStateController != null)
+                                xStateController.showContent();
+                        }
 
-                    @Override
-                    public void onNext(BaseJiJieModel<DlJiJieModel> dlModel) {
-                        if (xStateController != null)
-                            xStateController.showContent();
-                        if (dlModel != null && dlModel.getCode() == 200) {
-                            if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                OpenJiJieUtil.jumpPage(JiJieDlActivity.this, JiJieMainActivity.class);
-                                int mobileType = dlModel.getData().getMobileType();
-                                PreferencesJiJieOpenUtil.saveString("ip", ip);
-                                PreferencesJiJieOpenUtil.saveString("phone", phone);
-                                PreferencesJiJieOpenUtil.saveInt("mobileType", mobileType);
-                                finish();
-                            }
-                        } else {
-                            if (dlModel.getCode() == 500) {
-                                MyJiJieToast.showShort(dlModel.getMsg());
+                        @Override
+                        public void onNext(BaseJiJieModel<DlJiJieModel> dlModel) {
+                            if (xStateController != null)
+                                xStateController.showContent();
+                            if (dlModel != null && dlModel.getCode() == 200) {
+                                if (dlModel.getData() != null && dlModel.getCode() == 200) {
+                                    OpenJiJieUtil.jumpPage(JiJieDlActivity.this, JiJieMainActivity.class);
+                                    int mobileType = dlModel.getData().getMobileType();
+                                    PreferencesJiJieOpenUtil.saveString("ip", ip);
+                                    PreferencesJiJieOpenUtil.saveString("phone", phone);
+                                    PreferencesJiJieOpenUtil.saveInt("mobileType", mobileType);
+                                    finish();
+                                }
+                            } else {
+                                if (dlModel.getCode() == 500) {
+                                    MyJiJieToast.showShort(dlModel.getMsg());
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void getYzm(String phone) {
-        NetJiJieApi.getInterfaceUtils().sendVerifyCode(phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseJiJieModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenJiJieUtil.showErrorInfo(JiJieDlActivity.this, error);
-                    }
+        if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
+            NetJiJieApi.getInterfaceUtils().sendVerifyCode(phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseJiJieModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenJiJieUtil.showErrorInfo(JiJieDlActivity.this, error);
+                        }
 
-                    @Override
-                    public void onNext(BaseJiJieModel baseJiJieModel) {
-                        if (baseJiJieModel != null) {
-                            if (baseJiJieModel.getCode() == 200) {
-                                MyJiJieToast.showShort("验证码发送成功");
-                                CountDownJiJieTimer cdt = new CountDownJiJieTimer(getYzmTv, 60000, 1000);
-                                cdt.start();
+                        @Override
+                        public void onNext(BaseJiJieModel baseJiJieModel) {
+                            if (baseJiJieModel != null) {
+                                if (baseJiJieModel.getCode() == 200) {
+                                    MyJiJieToast.showShort("验证码发送成功");
+                                    CountDownJiJieTimer cdt = new CountDownJiJieTimer(getYzmTv, 60000, 1000);
+                                    cdt.start();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 }
