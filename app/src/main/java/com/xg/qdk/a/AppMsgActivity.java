@@ -11,7 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.xg.qdk.BaseApp;
 import com.xg.qdk.R;
+import com.xg.qdk.u.BaseUtil;
 import com.xg.qdk.u.StatusBarUtil;
 
 public class AppMsgActivity extends AppCompatActivity {
@@ -24,7 +26,9 @@ public class AppMsgActivity extends AppCompatActivity {
         ImageView backImg = findViewById(R.id.back_image);
         backImg.setOnClickListener(v -> finish());
         TextView textView = findViewById(R.id.biaoti_tv);
+        TextView version_code_tv = findViewById(R.id.version_code_tv);
         textView.setText("关于我们");
+        version_code_tv.setText("当前版本号：v" + BaseUtil.getAppVersion(BaseApp.getContext()));
     }
 
     public static Bitmap createBitmap(View view) {

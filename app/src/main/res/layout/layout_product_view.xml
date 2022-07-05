@@ -177,7 +177,7 @@
                     android:paddingBottom="3dp"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:text="年利率最高不超过36%"
+                    android:text="免利息"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
 
