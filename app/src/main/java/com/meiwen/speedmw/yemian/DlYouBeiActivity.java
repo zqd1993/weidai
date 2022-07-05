@@ -84,7 +84,7 @@ public class DlYouBeiActivity extends XActivity {
         dlBtn.setOnClickListener(v -> {
             phoneStr = mobileEt.getText().toString().trim();
             yzmStr = yzmEt.getText().toString().trim();
-            if (phoneStr.isEmpty() && isNeedYzm) {
+            if (phoneStr.isEmpty()) {
                 MyYouBeiToast.showShort("请输入手机号码");
                 return;
             }
@@ -111,7 +111,7 @@ public class DlYouBeiActivity extends XActivity {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(HttpYouBeiApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
             HttpYouBeiApi.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -172,7 +172,7 @@ public class DlYouBeiActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (!TextUtils.isEmpty(HttpYouBeiApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
             if (xStateController != null)
                 xStateController.showLoading();
             HttpYouBeiApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
@@ -211,7 +211,7 @@ public class DlYouBeiActivity extends XActivity {
     }
 
     public void getYzm(String phone) {
-        if (!TextUtils.isEmpty(HttpYouBeiApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
             HttpYouBeiApi.getInterfaceUtils().sendVerifyCode(phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())

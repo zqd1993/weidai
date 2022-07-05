@@ -188,7 +188,7 @@ public class SetYouBeiFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(HttpYouBeiApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesYouBeiOpenUtil.getInt("mobileType");
             HttpYouBeiApi.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
@@ -215,7 +215,7 @@ public class SetYouBeiFragment extends XFragment {
     }
 
     public void productClick(ProductYouBeiModel model) {
-        if (!TextUtils.isEmpty(HttpYouBeiApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -239,7 +239,7 @@ public class SetYouBeiFragment extends XFragment {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(HttpYouBeiApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
             HttpYouBeiApi.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())

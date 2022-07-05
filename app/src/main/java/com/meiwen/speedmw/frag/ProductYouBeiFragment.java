@@ -145,7 +145,7 @@ public class ProductYouBeiFragment extends XFragment {
     }
 
     public void productClick(ProductYouBeiModel model) {
-        if (!TextUtils.isEmpty(HttpYouBeiApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
             if (model != null) {
                 phone = PreferencesYouBeiOpenUtil.getString("phone");
                 HttpYouBeiApi.getInterfaceUtils().productClick(model.getId(), phone)
@@ -235,7 +235,7 @@ public class ProductYouBeiFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(HttpYouBeiApi.HTTP_API_URL)) {
+        if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesYouBeiOpenUtil.getInt("mobileType");
             HttpYouBeiApi.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
@@ -291,8 +291,10 @@ public class ProductYouBeiFragment extends XFragment {
             View yjsqSl = view.findViewById(R.id.yjsq_sl);
             TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
             shuliang_tv.setText(String.valueOf(model.getPassingRate()));
-            ILFactory.getLoader().loadNet(pic, HttpYouBeiApi.HTTP_API_URL + model.getProductLogo(),
-                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+            if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
+                ILFactory.getLoader().loadNet(pic, PreferencesYouBeiOpenUtil.getString("HTTP_API_URL") + model.getProductLogo(),
+                        new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+            }
             product_name_tv.setText(model.getProductName());
             remind_tv.setText(model.getTag());
             money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());

@@ -2,6 +2,7 @@ package com.meiwen.speedmw.jiekou;
 
 import android.text.TextUtils;
 
+import com.meiwen.speedmw.gongju.PreferencesYouBeiOpenUtil;
 import com.meiwen.speedmw.net.XApi;
 
 public class HttpYouBeiApi {
@@ -12,10 +13,10 @@ public class HttpYouBeiApi {
     private static InterfaceYouBeiUtils interfaceUtils;
 
     public static InterfaceYouBeiUtils getInterfaceUtils() {
-        if (interfaceUtils == null && !TextUtils.isEmpty(HTTP_API_URL)) {
+        if (interfaceUtils == null && !TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
             synchronized (HttpYouBeiApi.class) {
                 if (interfaceUtils == null) {
-                    interfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(InterfaceYouBeiUtils.class);
+                    interfaceUtils = XApi.getInstance().getRetrofit(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"), true).create(InterfaceYouBeiUtils.class);
                 }
             }
         }

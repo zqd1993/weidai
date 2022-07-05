@@ -114,7 +114,7 @@ public class StartPageYouBeiActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-                        HttpYouBeiApi.HTTP_API_URL = "http://" + responseData;
+                        PreferencesYouBeiOpenUtil.saveString("HTTP_API_URL", "http://" + responseData);
                         Thread.sleep(1000);
                         jumpPage();
 
