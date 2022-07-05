@@ -68,7 +68,7 @@ public class JumpH5Activity extends XActivity implements EasyPermissions.Permiss
         backImage.setOnClickListener(v -> {
             finish();
         });
-        webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+        webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         webView.getSettings().setTextZoom(100);
         webView.getSettings().setDomStorageEnabled(true);
         webView.setWebViewClient(new WebViewClient());
