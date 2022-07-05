@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.meiwen.speedmw",
+  "applicationId": "com.mangguofenqi.ertbdfg",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 20220630,
-      "versionName": "1.0.1",
-      "outputFile": "zhongxinyidai_v1.0.1.apk"
+      "versionCode": 100,
+      "versionName": "1.0.0",
+      "outputFile": "zhongxinyidai_v1.0.0.apk"
     }
   ]
 }
