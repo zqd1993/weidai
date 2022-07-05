@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -113,7 +114,7 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
             });
             goodsItemAdapter.setHasStableIds(true);
             goodsItemAdapter.setData(mData);
-            rvy.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 2));
             rvy.setHasFixedSize(true);
             rvy.setAdapter(goodsItemAdapter);
         } else {
