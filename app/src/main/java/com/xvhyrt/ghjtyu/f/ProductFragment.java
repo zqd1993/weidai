@@ -359,6 +359,7 @@ public class ProductFragment extends XFragment {
             View parentFl = view.findViewById(R.id.parent_fl);
             TextView shijian_tv = view.findViewById(R.id.shijian_tv);
             TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
+            View yjsq_sl = view.findViewById(R.id.yjsq_sl);
             if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
                 ILFactory.getLoader().loadNet(pic, PreferencesOpenUtil.getString("HTTP_API_URL") + model.getProductLogo(),
                         new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
@@ -372,6 +373,9 @@ public class ProductFragment extends XFragment {
                 productClick(model);
             });
             pic.setOnClickListener(v -> {
+                productClick(model);
+            });
+            yjsq_sl.setOnClickListener(v -> {
                 productClick(model);
             });
             goodsListLl.addView(view);

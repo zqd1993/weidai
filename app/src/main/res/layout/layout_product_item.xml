@@ -81,12 +81,20 @@
                     android:textStyle="bold" />
             </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/goods_pic"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/app_logo" />
+            <com.lihang.ShadowLayout
+                android:id="@+id/yjsq_sl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:hl_cornerRadius="5dp">
+
+                <ImageView
+                    android:id="@+id/goods_pic"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/app_logo" />
+
+            </com.lihang.ShadowLayout>
 
             <TextView
                 android:id="@+id/shangpin_name_tv"
