@@ -1,13 +1,22 @@
 package com.xvhyrt.ghjtyu.a;
 
+import android.content.ContentResolver;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.view.KeyEvent;
+import android.view.View;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.appbar.AppBarLayout;
+import com.xvhyrt.ghjtyu.MainApp;
 import com.xvhyrt.ghjtyu.R;
 import com.xvhyrt.ghjtyu.f.MainFragment;
 import com.xvhyrt.ghjtyu.f.ProductFragment;
@@ -16,6 +25,10 @@ import com.xvhyrt.ghjtyu.mvp.XActivity;
 import com.xvhyrt.ghjtyu.u.MyToast;
 import com.xvhyrt.ghjtyu.u.StatusBarUtil;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,24 +49,87 @@ public class MainActivity extends XActivity {
 
     private long exitTime = 0;
 
+    /**
+     * 设置appbar偏移量
+     *
+     * @param appBar
+     * @param offset
+     */
+    public void setAppBarLayoutOffset(AppBarLayout appBar, int offset) {
+        CoordinatorLayout.Behavior behavior =
+                ((CoordinatorLayout.LayoutParams) appBar.getLayoutParams()).getBehavior();
+        if (behavior instanceof AppBarLayout.Behavior) {
+            AppBarLayout.Behavior appBarLayoutBehavior = (AppBarLayout.Behavior) behavior;
+            int topAndBottomOffset = appBarLayoutBehavior.getTopAndBottomOffset();
+            if (topAndBottomOffset != offset) {
+                appBarLayoutBehavior.setTopAndBottomOffset(offset);
+//                appBarLayoutBehavior.onNestedPreScroll(cl, appBar, view, 0, ScreenUtil.dp2px(view.getTop()), new int[]{0, 0}, 1);
+            }
+        }
+    }
+
+    /**
+     * 获取view坐标
+     *
+     * @param view
+     * @return
+     */
+    public int[] getViewLoaction(View view) {
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        return location;
+    }
+
+    public boolean isOpenVersion10NewStore() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.P /*&& Environment.isExternalStorageLegacy()*/;
+    }
+
+    public File uriToFileApiQ(Uri uri) {
+        File file = null;
+        //android10以上转换
+        if (uri.getScheme().equals(ContentResolver.SCHEME_FILE)) {
+            file = new File(uri.getPath());
+        } else if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+            //把文件复制到沙盒目录
+            ContentResolver contentResolver = MainApp.getContext().getContentResolver();
+            Cursor cursor = contentResolver.query(uri, null, null, null, null);
+            if (cursor.moveToFirst()) {
+                String displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                try {
+                    InputStream is = contentResolver.openInputStream(uri);
+                    File cache = new File(MainApp.getContext().getExternalCacheDir().getAbsolutePath(), Math.round((Math.random() + 1) * 1000) + displayName);
+                    FileOutputStream fos = new FileOutputStream(cache);
+//                    FileUtils.copy(is, fos);
+                    file = cache;
+                    fos.close();
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return file;
+    }
+
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
+        StatusBarUtil.setLightMode(this);
         tabModels = new ArrayList<>();
         fragments = new ArrayList<>();
         TabModel tabModel = new TabModel();
-        tabModel.setIcon(R.drawable.tyui);
-        tabModel.setSelectedIcon(R.drawable.dfg);
+        tabModel.setIcon(R.drawable.hyjwf);
+        tabModel.setSelectedIcon(R.drawable.dfgfdh);
         tabModel.setName("首页");
         tabModel.setChecked(true);
         TabModel tabModel1 = new TabModel();
-        tabModel1.setIcon(R.drawable.xcv);
-        tabModel1.setSelectedIcon(R.drawable.mujy);
+        tabModel1.setIcon(R.drawable.gfhrty);
+        tabModel1.setSelectedIcon(R.drawable.gfhsrty);
         tabModel1.setName("精选");
         tabModel1.setChecked(false);
         TabModel tabModel2 = new TabModel();
-        tabModel2.setIcon(R.drawable.uio);
-        tabModel2.setSelectedIcon(R.drawable.fgh);
+        tabModel2.setIcon(R.drawable.wewvf);
+        tabModel2.setSelectedIcon(R.drawable.puiyukjf);
         tabModel2.setName("我的");
         tabModel2.setChecked(false);
         tabModels.add(tabModel);
@@ -81,6 +157,68 @@ public class MainActivity extends XActivity {
         }
     }
 
+    /**
+     * 设置appbar偏移量
+     *
+     * @param appBar
+     * @param offset
+     */
+    public void ljsrtertg(AppBarLayout appBar, int offset) {
+        CoordinatorLayout.Behavior behavior =
+                ((CoordinatorLayout.LayoutParams) appBar.getLayoutParams()).getBehavior();
+        if (behavior instanceof AppBarLayout.Behavior) {
+            AppBarLayout.Behavior appBarLayoutBehavior = (AppBarLayout.Behavior) behavior;
+            int topAndBottomOffset = appBarLayoutBehavior.getTopAndBottomOffset();
+            if (topAndBottomOffset != offset) {
+                appBarLayoutBehavior.setTopAndBottomOffset(offset);
+//                appBarLayoutBehavior.onNestedPreScroll(cl, appBar, view, 0, ScreenUtil.dp2px(view.getTop()), new int[]{0, 0}, 1);
+            }
+        }
+    }
+
+    /**
+     * 获取view坐标
+     *
+     * @param view
+     * @return
+     */
+    public int[] zgrtrt(View view) {
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        return location;
+    }
+
+    public boolean retzfdh() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.P /*&& Environment.isExternalStorageLegacy()*/;
+    }
+
+    public File mdhsrtyr(Uri uri) {
+        File file = null;
+        //android10以上转换
+        if (uri.getScheme().equals(ContentResolver.SCHEME_FILE)) {
+            file = new File(uri.getPath());
+        } else if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+            //把文件复制到沙盒目录
+            ContentResolver contentResolver = MainApp.getContext().getContentResolver();
+            Cursor cursor = contentResolver.query(uri, null, null, null, null);
+            if (cursor.moveToFirst()) {
+                String displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                try {
+                    InputStream is = contentResolver.openInputStream(uri);
+                    File cache = new File(MainApp.getContext().getExternalCacheDir().getAbsolutePath(), Math.round((Math.random() + 1) * 1000) + displayName);
+                    FileOutputStream fos = new FileOutputStream(cache);
+//                    FileUtils.copy(is, fos);
+                    file = cache;
+                    fos.close();
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return file;
+    }
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
@@ -89,6 +227,68 @@ public class MainActivity extends XActivity {
     @Override
     public Object newP() {
         return null;
+    }
+
+    /**
+     * 设置appbar偏移量
+     *
+     * @param appBar
+     * @param offset
+     */
+    public void afgbfgh(AppBarLayout appBar, int offset) {
+        CoordinatorLayout.Behavior behavior =
+                ((CoordinatorLayout.LayoutParams) appBar.getLayoutParams()).getBehavior();
+        if (behavior instanceof AppBarLayout.Behavior) {
+            AppBarLayout.Behavior appBarLayoutBehavior = (AppBarLayout.Behavior) behavior;
+            int topAndBottomOffset = appBarLayoutBehavior.getTopAndBottomOffset();
+            if (topAndBottomOffset != offset) {
+                appBarLayoutBehavior.setTopAndBottomOffset(offset);
+//                appBarLayoutBehavior.onNestedPreScroll(cl, appBar, view, 0, ScreenUtil.dp2px(view.getTop()), new int[]{0, 0}, 1);
+            }
+        }
+    }
+
+    /**
+     * 获取view坐标
+     *
+     * @param view
+     * @return
+     */
+    public int[] mfjartgf(View view) {
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        return location;
+    }
+
+    public boolean sertgfzh() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.P /*&& Environment.isExternalStorageLegacy()*/;
+    }
+
+    public File mggzdtry(Uri uri) {
+        File file = null;
+        //android10以上转换
+        if (uri.getScheme().equals(ContentResolver.SCHEME_FILE)) {
+            file = new File(uri.getPath());
+        } else if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+            //把文件复制到沙盒目录
+            ContentResolver contentResolver = MainApp.getContext().getContentResolver();
+            Cursor cursor = contentResolver.query(uri, null, null, null, null);
+            if (cursor.moveToFirst()) {
+                String displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                try {
+                    InputStream is = contentResolver.openInputStream(uri);
+                    File cache = new File(MainApp.getContext().getExternalCacheDir().getAbsolutePath(), Math.round((Math.random() + 1) * 1000) + displayName);
+                    FileOutputStream fos = new FileOutputStream(cache);
+//                    FileUtils.copy(is, fos);
+                    file = cache;
+                    fos.close();
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return file;
     }
 
     public class TabModel{
@@ -148,6 +348,68 @@ public class MainActivity extends XActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     * 设置appbar偏移量
+     *
+     * @param appBar
+     * @param offset
+     */
+    public void zcvdftrt(AppBarLayout appBar, int offset) {
+        CoordinatorLayout.Behavior behavior =
+                ((CoordinatorLayout.LayoutParams) appBar.getLayoutParams()).getBehavior();
+        if (behavior instanceof AppBarLayout.Behavior) {
+            AppBarLayout.Behavior appBarLayoutBehavior = (AppBarLayout.Behavior) behavior;
+            int topAndBottomOffset = appBarLayoutBehavior.getTopAndBottomOffset();
+            if (topAndBottomOffset != offset) {
+                appBarLayoutBehavior.setTopAndBottomOffset(offset);
+//                appBarLayoutBehavior.onNestedPreScroll(cl, appBar, view, 0, ScreenUtil.dp2px(view.getTop()), new int[]{0, 0}, 1);
+            }
+        }
+    }
+
+    /**
+     * 获取view坐标
+     *
+     * @param view
+     * @return
+     */
+    public int[] lhjjgyigj(View view) {
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        return location;
+    }
+
+    public boolean zdgfdryr() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.P /*&& Environment.isExternalStorageLegacy()*/;
+    }
+
+    public File mfdtytry(Uri uri) {
+        File file = null;
+        //android10以上转换
+        if (uri.getScheme().equals(ContentResolver.SCHEME_FILE)) {
+            file = new File(uri.getPath());
+        } else if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+            //把文件复制到沙盒目录
+            ContentResolver contentResolver = MainApp.getContext().getContentResolver();
+            Cursor cursor = contentResolver.query(uri, null, null, null, null);
+            if (cursor.moveToFirst()) {
+                String displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                try {
+                    InputStream is = contentResolver.openInputStream(uri);
+                    File cache = new File(MainApp.getContext().getExternalCacheDir().getAbsolutePath(), Math.round((Math.random() + 1) * 1000) + displayName);
+                    FileOutputStream fos = new FileOutputStream(cache);
+//                    FileUtils.copy(is, fos);
+                    file = cache;
+                    fos.close();
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return file;
     }
 
 }
