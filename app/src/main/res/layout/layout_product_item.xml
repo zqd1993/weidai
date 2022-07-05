@@ -83,8 +83,8 @@
 
             <ImageView
                 android:id="@+id/goods_pic"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/app_logo" />
 
