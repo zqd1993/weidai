@@ -41,12 +41,10 @@ public class MainFragment extends XFragment {
     View main_top_img;
     @BindView(R.id.jx_bg)
     View jx_bg;
-    @BindView(R.id.view_flipper)
-    ViewFlipper viewFlipper;
     @BindView(R.id.goods_banner)
     Banner banner;
-    @BindView(R.id.msg_layout)
-    View msgLayout;
+    @BindView(R.id.banner_fl)
+    View banner_fl;
 
     private ProductModel productModel;
 
@@ -61,10 +59,8 @@ public class MainFragment extends XFragment {
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        msgLayout.setVisibility(View.VISIBLE);
         productList();
-        initViewData();
-        setViewConfig();
+        banner_fl.setVisibility(View.VISIBLE);
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -167,26 +163,6 @@ public class MainFragment extends XFragment {
                             }
                         }
                     });
-        }
-    }
-
-    private void setViewConfig() {
-        viewFlipper.setInAnimation(getActivity(), R.anim.text_anim_in);
-        viewFlipper.setOutAnimation(getActivity(), R.anim.text_anim_out);
-        viewFlipper.setFlipInterval(2000);
-        viewFlipper.startFlipping();
-    }
-
-    private void initViewData() {
-        List<String> datas = new ArrayList<>();
-        for (int i = 0; i < msg.length; i++) {
-            datas.add(msg[i]);
-        }
-        for (String data : datas) {
-            View view = getLayoutInflater().inflate(R.layout.view_flipper, null);
-            TextView textView = view.findViewById(R.id.msg_view);
-            textView.setText(data);
-            viewFlipper.addView(view);
         }
     }
 
