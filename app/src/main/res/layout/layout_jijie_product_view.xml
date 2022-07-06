@@ -110,14 +110,33 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/daikuan_name_tv"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="7dp"
-                    android:text="好分期"
-                    android:textColor="@color/text_normal_color"
-                    android:textSize="@dimen/textSize_16" />
+                    android:paddingStart="7dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/daikuan_name_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="好分期"
+                        android:textColor="@color/text_normal_color"
+                        android:textSize="@dimen/textSize_16" />
+
+                    <TextView
+                        android:id="@+id/biaoqian_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="5dp"
+                        android:paddingBottom="2dp"
+                        android:text="日息低"
+                        android:textColor="#7c7c7c"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
 
                 <com.lihang.ShadowLayout
                     android:layout_width="wrap_content"
@@ -153,18 +172,6 @@
                             android:textStyle="bold" />
 
                     </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/biaoqian_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="5dp"
-                        android:paddingTop="2dp"
-                        android:paddingEnd="5dp"
-                        android:paddingBottom="2dp"
-                        android:text="日息低"
-                        android:textColor="#7c7c7c"
-                        android:textSize="12sp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -209,9 +216,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="20dp"
+                    android:paddingStart="13dp"
                     android:paddingTop="5dp"
-                    android:paddingEnd="20dp"
+                    android:paddingEnd="13dp"
                     android:paddingBottom="5dp"
                     android:text="一键申请"
                     android:textColor="@color/white"
