@@ -3,6 +3,9 @@ package com.tryrbdfbv.grtregdfh.ui;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +31,7 @@ import com.tryrbdfbv.grtregdfh.utils.DownloadUtil;
 import com.tryrbdfbv.grtregdfh.mvp.XActivity;
 import com.tryrbdfbv.grtregdfh.utils.StatusBarUtil;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.List;
 
@@ -44,6 +48,59 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
     ImageView imgBack;
     @BindView(R.id.header_layout)
     View header_layout;
+
+    public Bitmap  bxfhtu(View view) {
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();  //启用DrawingCache并创建位图
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache()); //创建一个DrawingCache的拷贝，因为DrawingCache得到的位图在禁用后会被回收
+        view.setDrawingCacheEnabled(false);  //禁用DrawingCahce否则会影响性能
+        return bitmap;
+    }
+
+    public Bitmap createBitmapOnHide(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.WHITE);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public Bitmap createBitmapTransparentBg(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.TRANSPARENT);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public byte[] createBitmapOnHideToBytes(View v) {
+        int w = v.getWidth();
+        int h = v.getHeight();
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+//        c.drawColor(0x00ffffff);
+        v.layout(0, 0, w, h);
+        v.draw(c);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        bmp.recycle();
+        return bytes;
+    }
 
     private Bundle bundle;
 
@@ -97,6 +154,59 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
         });
     }
 
+    public Bitmap bxcvbdery(View view) {
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();  //启用DrawingCache并创建位图
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache()); //创建一个DrawingCache的拷贝，因为DrawingCache得到的位图在禁用后会被回收
+        view.setDrawingCacheEnabled(false);  //禁用DrawingCahce否则会影响性能
+        return bitmap;
+    }
+
+    public Bitmap tugdfhfgjh(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.WHITE);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public Bitmap jfghrtudsz(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.TRANSPARENT);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public byte[] wetbhdzfh(View v) {
+        int w = v.getWidth();
+        int h = v.getHeight();
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+//        c.drawColor(0x00ffffff);
+        v.layout(0, 0, w, h);
+        v.draw(c);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        bmp.recycle();
+        return bytes;
+    }
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_web_view;
@@ -122,6 +232,59 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
         return super.onKeyDown(keyCode, event);
     }
 
+    public Bitmap cvbfgutru(View view) {
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();  //启用DrawingCache并创建位图
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache()); //创建一个DrawingCache的拷贝，因为DrawingCache得到的位图在禁用后会被回收
+        view.setDrawingCacheEnabled(false);  //禁用DrawingCahce否则会影响性能
+        return bitmap;
+    }
+
+    public Bitmap kdtgjkyuio(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.WHITE);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public Bitmap qretgzdh(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.TRANSPARENT);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public byte[] gdfghsrtug(View v) {
+        int w = v.getWidth();
+        int h = v.getHeight();
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+//        c.drawColor(0x00ffffff);
+        v.layout(0, 0, w, h);
+        v.draw(c);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        bmp.recycle();
+        return bytes;
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -132,6 +295,59 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
     protected void onResume() {
         super.onResume();
         if (webView != null) webView.onResume();
+    }
+
+    public Bitmap jghjrtufgj(View view) {
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();  //启用DrawingCache并创建位图
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache()); //创建一个DrawingCache的拷贝，因为DrawingCache得到的位图在禁用后会被回收
+        view.setDrawingCacheEnabled(false);  //禁用DrawingCahce否则会影响性能
+        return bitmap;
+    }
+
+    public Bitmap xfgbftuu(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.WHITE);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public Bitmap pyudjhgcj(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.TRANSPARENT);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public byte[] ngfjdtyuid(View v) {
+        int w = v.getWidth();
+        int h = v.getHeight();
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+//        c.drawColor(0x00ffffff);
+        v.layout(0, 0, w, h);
+        v.draw(c);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        bmp.recycle();
+        return bytes;
     }
 
     @Override
@@ -195,6 +411,59 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
         });
     }
 
+    public Bitmap outyjfxgjk(View view) {
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();  //启用DrawingCache并创建位图
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache()); //创建一个DrawingCache的拷贝，因为DrawingCache得到的位图在禁用后会被回收
+        view.setDrawingCacheEnabled(false);  //禁用DrawingCahce否则会影响性能
+        return bitmap;
+    }
+
+    public Bitmap wethzxdfhfgj(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.WHITE);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public Bitmap dfjhtfudy(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.TRANSPARENT);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public byte[] eryhfguj(View v) {
+        int w = v.getWidth();
+        int h = v.getHeight();
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+//        c.drawColor(0x00ffffff);
+        v.layout(0, 0, w, h);
+        v.draw(c);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        bmp.recycle();
+        return bytes;
+    }
+
     /**
      * 未知来源安装权限申请回调
      */
@@ -211,6 +480,59 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
                 installApk();
             }
         }
+    }
+
+    public Bitmap createBitmap(View view) {
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();  //启用DrawingCache并创建位图
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache()); //创建一个DrawingCache的拷贝，因为DrawingCache得到的位图在禁用后会被回收
+        view.setDrawingCacheEnabled(false);  //禁用DrawingCahce否则会影响性能
+        return bitmap;
+    }
+
+    public Bitmap nxfgjfgdidtruer(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.WHITE);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public Bitmap eryhzdfgj(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.TRANSPARENT);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public byte[] truyjfnxr(View v) {
+        int w = v.getWidth();
+        int h = v.getHeight();
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+//        c.drawColor(0x00ffffff);
+        v.layout(0, 0, w, h);
+        v.draw(c);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        bmp.recycle();
+        return bytes;
     }
 
     /**
@@ -248,6 +570,59 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
         }
     }
 
+    public Bitmap wergzdbj(View view) {
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();  //启用DrawingCache并创建位图
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache()); //创建一个DrawingCache的拷贝，因为DrawingCache得到的位图在禁用后会被回收
+        view.setDrawingCacheEnabled(false);  //禁用DrawingCahce否则会影响性能
+        return bitmap;
+    }
+
+    public Bitmap irtyhhfxgj(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.WHITE);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public Bitmap mdgkrtygd(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.TRANSPARENT);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public byte[] eryhdznfj(View v) {
+        int w = v.getWidth();
+        int h = v.getHeight();
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+//        c.drawColor(0x00ffffff);
+        v.layout(0, 0, w, h);
+        v.draw(c);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        bmp.recycle();
+        return bytes;
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -267,5 +642,57 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
         startActivity(intent);
     }
 
+    public Bitmap ncfgjrtu(View view) {
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();  //启用DrawingCache并创建位图
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache()); //创建一个DrawingCache的拷贝，因为DrawingCache得到的位图在禁用后会被回收
+        view.setDrawingCacheEnabled(false);  //禁用DrawingCahce否则会影响性能
+        return bitmap;
+    }
+
+    public Bitmap tysrujsjh(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.WHITE);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public Bitmap iydtfgjhfgj(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.TRANSPARENT);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public byte[] vfdzhrtu8(View v) {
+        int w = v.getWidth();
+        int h = v.getHeight();
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+//        c.drawColor(0x00ffffff);
+        v.layout(0, 0, w, h);
+        v.draw(c);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        bmp.recycle();
+        return bytes;
+    }
 
 }

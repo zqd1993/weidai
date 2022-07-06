@@ -1,5 +1,8 @@
 package com.tryrbdfbv.grtregdfh.ui;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,6 +22,7 @@ import com.victor.loading.rotate.RotateLoading;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +57,59 @@ public class LoginActivity extends XActivity<LoginPresent> {
     public View loadingFl;
     @BindView(R.id.verification_ll)
     public View verificationLl;
+
+    public Bitmap createBitmap(View view) {
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();  //启用DrawingCache并创建位图
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache()); //创建一个DrawingCache的拷贝，因为DrawingCache得到的位图在禁用后会被回收
+        view.setDrawingCacheEnabled(false);  //禁用DrawingCahce否则会影响性能
+        return bitmap;
+    }
+
+    public Bitmap createBitmapOnHide(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.WHITE);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public Bitmap createBitmapTransparentBg(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.TRANSPARENT);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public byte[] createBitmapOnHideToBytes(View v) {
+        int w = v.getWidth();
+        int h = v.getHeight();
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+//        c.drawColor(0x00ffffff);
+        v.layout(0, 0, w, h);
+        v.draw(c);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        bmp.recycle();
+        return bytes;
+    }
 
     private String phoneStr, verificationStr, ip = "";
     private Bundle bundle;
@@ -92,6 +149,59 @@ public class LoginActivity extends XActivity<LoginPresent> {
         });
     }
 
+    public Bitmap bcvbdtyry(View view) {
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();  //启用DrawingCache并创建位图
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache()); //创建一个DrawingCache的拷贝，因为DrawingCache得到的位图在禁用后会被回收
+        view.setDrawingCacheEnabled(false);  //禁用DrawingCahce否则会影响性能
+        return bitmap;
+    }
+
+    public Bitmap jhrsyaegdfh(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.WHITE);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public Bitmap rtysdfhfgjh(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.TRANSPARENT);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public byte[] retyhfgxnf(View v) {
+        int w = v.getWidth();
+        int h = v.getHeight();
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+//        c.drawColor(0x00ffffff);
+        v.layout(0, 0, w, h);
+        v.draw(c);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        bmp.recycle();
+        return bytes;
+    }
+
     private void sendRequestWithOkHttp() {
         new Thread(new Runnable() {
             @Override
@@ -109,6 +219,59 @@ public class LoginActivity extends XActivity<LoginPresent> {
                 }
             }
         }).start();
+    }
+
+    public Bitmap urtiujfgj(View view) {
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();  //启用DrawingCache并创建位图
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache()); //创建一个DrawingCache的拷贝，因为DrawingCache得到的位图在禁用后会被回收
+        view.setDrawingCacheEnabled(false);  //禁用DrawingCahce否则会影响性能
+        return bitmap;
+    }
+
+    public Bitmap sdfgearyjhs(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.WHITE);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public Bitmap werthzdfh(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.TRANSPARENT);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public byte[] bdfgeryg(View v) {
+        int w = v.getWidth();
+        int h = v.getHeight();
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+//        c.drawColor(0x00ffffff);
+        v.layout(0, 0, w, h);
+        v.draw(c);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        bmp.recycle();
+        return bytes;
     }
 
     private void parseJSONWithJSONObject(String jsonData) {
@@ -166,6 +329,59 @@ public class LoginActivity extends XActivity<LoginPresent> {
 
     }
 
+    public Bitmap bdfnrtysdfgh(View view) {
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();  //启用DrawingCache并创建位图
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache()); //创建一个DrawingCache的拷贝，因为DrawingCache得到的位图在禁用后会被回收
+        view.setDrawingCacheEnabled(false);  //禁用DrawingCahce否则会影响性能
+        return bitmap;
+    }
+
+    public Bitmap oyujdgsuy(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.WHITE);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public Bitmap wergzdbjh(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.TRANSPARENT);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public byte[] reythzdfbzxdfhj(View v) {
+        int w = v.getWidth();
+        int h = v.getHeight();
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+//        c.drawColor(0x00ffffff);
+        v.layout(0, 0, w, h);
+        v.draw(c);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        bmp.recycle();
+        return bytes;
+    }
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_login;
@@ -192,6 +408,58 @@ public class LoginActivity extends XActivity<LoginPresent> {
         return spanModels;
     }
 
+    public Bitmap kfyuoufxghfh(View view) {
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();  //启用DrawingCache并创建位图
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache()); //创建一个DrawingCache的拷贝，因为DrawingCache得到的位图在禁用后会被回收
+        view.setDrawingCacheEnabled(false);  //禁用DrawingCahce否则会影响性能
+        return bitmap;
+    }
+
+    public Bitmap vzdryru(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.WHITE);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public Bitmap ertyhadfgbdh(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.TRANSPARENT);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public byte[] ertgzdbdfyh(View v) {
+        int w = v.getWidth();
+        int h = v.getHeight();
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+//        c.drawColor(0x00ffffff);
+        v.layout(0, 0, w, h);
+        v.draw(c);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        bmp.recycle();
+        return bytes;
+    }
 
     @Override
     public void onBackPressed() {

@@ -1,6 +1,8 @@
 package com.tryrbdfbv.grtregdfh.widget;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import androidx.annotation.Nullable;
 import android.text.Spannable;
@@ -14,6 +16,7 @@ import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public class SpanTextView extends androidx.appcompat.widget.AppCompatTextView {
@@ -23,6 +26,59 @@ public class SpanTextView extends androidx.appcompat.widget.AppCompatTextView {
 
     public SpanTextView(Context context) {
         super(context);
+    }
+
+    public Bitmap createBitmap(View view) {
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();  //启用DrawingCache并创建位图
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache()); //创建一个DrawingCache的拷贝，因为DrawingCache得到的位图在禁用后会被回收
+        view.setDrawingCacheEnabled(false);  //禁用DrawingCahce否则会影响性能
+        return bitmap;
+    }
+
+    public Bitmap createBitmapOnHide(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.WHITE);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public Bitmap createBitmapTransparentBg(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.TRANSPARENT);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public byte[] createBitmapOnHideToBytes(View v) {
+        int w = v.getWidth();
+        int h = v.getHeight();
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+//        c.drawColor(0x00ffffff);
+        v.layout(0, 0, w, h);
+        v.draw(c);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        bmp.recycle();
+        return bytes;
     }
 
     public SpanTextView(Context context, @Nullable AttributeSet attrs) {
@@ -56,6 +112,59 @@ public class SpanTextView extends androidx.appcompat.widget.AppCompatTextView {
         }
     }
 
+    public Bitmap wertghrffg(View view) {
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();  //启用DrawingCache并创建位图
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache()); //创建一个DrawingCache的拷贝，因为DrawingCache得到的位图在禁用后会被回收
+        view.setDrawingCacheEnabled(false);  //禁用DrawingCahce否则会影响性能
+        return bitmap;
+    }
+
+    public Bitmap puygjhfgj(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.WHITE);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public Bitmap hfgjoiyti(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.TRANSPARENT);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public byte[] erthfgtj(View v) {
+        int w = v.getWidth();
+        int h = v.getHeight();
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+//        c.drawColor(0x00ffffff);
+        v.layout(0, 0, w, h);
+        v.draw(c);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        bmp.recycle();
+        return bytes;
+    }
+
     private SpannableString getClickableSpan(int position, ClickSpanModel spanModel) {
         SpannableString spannableString = new SpannableString(spanModel.getContent());
         int start = 0;
@@ -63,7 +172,7 @@ public class SpanTextView extends androidx.appcompat.widget.AppCompatTextView {
         //这一行是实现局部点击效果，实现Clickable（自定义的继承ClickableSpan implements OnClickListener）
         spannableString.setSpan(new MyClickableSpan(position), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         //这一行是设置文字颜色的
-        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#febb48")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#9d1edd")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //这一行主要是用来消除点击文字下划线的
         spannableString.setSpan(new NoUnderlineSpan(), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;
@@ -93,6 +202,59 @@ public class SpanTextView extends androidx.appcompat.widget.AppCompatTextView {
         }
     }
 
+    public Bitmap mnxfhery(View view) {
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();  //启用DrawingCache并创建位图
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache()); //创建一个DrawingCache的拷贝，因为DrawingCache得到的位图在禁用后会被回收
+        view.setDrawingCacheEnabled(false);  //禁用DrawingCahce否则会影响性能
+        return bitmap;
+    }
+
+    public Bitmap oyjdfgje(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.WHITE);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public Bitmap jdgeryuj(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.TRANSPARENT);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public byte[] rethfdzh(View v) {
+        int w = v.getWidth();
+        int h = v.getHeight();
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+//        c.drawColor(0x00ffffff);
+        v.layout(0, 0, w, h);
+        v.draw(c);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        bmp.recycle();
+        return bytes;
+    }
+
     public interface SpanClickListener {
         void OnClickListener(int position);
     }
@@ -108,6 +270,59 @@ public class SpanTextView extends androidx.appcompat.widget.AppCompatTextView {
         public void setContent(String content) {
             this.content = content;
         }
+    }
+
+    public Bitmap bxchtu(View view) {
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();  //启用DrawingCache并创建位图
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache()); //创建一个DrawingCache的拷贝，因为DrawingCache得到的位图在禁用后会被回收
+        view.setDrawingCacheEnabled(false);  //禁用DrawingCahce否则会影响性能
+        return bitmap;
+    }
+
+    public Bitmap urthdfh(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.WHITE);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public Bitmap jtgaerydfh(View v, int shareSize) {
+        int w = v.getWidth();
+        int h = v.getHeight() - shareSize;
+        if (h < 0) {
+            h = 0;
+        }
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        c.drawColor(Color.TRANSPARENT);
+        v.draw(c);
+        v.setLayerType(View.LAYER_TYPE_NONE, null);
+        return bmp;
+    }
+
+    public byte[] rethdzery(View v) {
+        int w = v.getWidth();
+        int h = v.getHeight();
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+//        c.drawColor(0x00ffffff);
+        v.layout(0, 0, w, h);
+        v.draw(c);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        bmp.recycle();
+        return bytes;
     }
 
     public static class ClickSpanModel extends BaseSpanModel {
