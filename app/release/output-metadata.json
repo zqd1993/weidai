@@ -10,9 +10,9 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 100,
-      "versionName": "1.0.0",
-      "outputFile": "miaohuaqianbao_op_v1.0.0_20220707214619.apk"
+      "versionCode": 101,
+      "versionName": "1.0.1",
+      "outputFile": "miaohuaqianbao_op_v1.0.1_20220707232129.apk"
     }
   ]
 }
