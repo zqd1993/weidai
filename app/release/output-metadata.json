@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.fghyugfg.mjkyhgb",
+  "applicationId": "com.hojfa.tqhdkae",
   "variantName": "release",
   "elements": [
     {
@@ -12,7 +12,7 @@
       "filters": [],
       "versionCode": 100,
       "versionName": "1.0.0",
-      "outputFile": "dazhong_v1.0.0.apk"
+      "outputFile": "tiqianhuadaikuan_op_v1.0.0.apk"
     }
   ]
 }
