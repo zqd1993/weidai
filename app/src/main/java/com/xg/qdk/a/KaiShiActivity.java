@@ -86,10 +86,12 @@ public class KaiShiActivity extends AppCompatActivity {
 
             @Override
             public void zcxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", MyApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                BaseUtil.jumpPage(KaiShiActivity.this, WangYeActivity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesStaticOpenUtil.getString("AGREEMENT") + MyApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    BaseUtil.jumpPage(KaiShiActivity.this, WangYeActivity.class, bundle);
+                }
             }
 
             @Override
@@ -99,10 +101,12 @@ public class KaiShiActivity extends AppCompatActivity {
 
             @Override
             public void ysxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", MyApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                BaseUtil.jumpPage(KaiShiActivity.this, WangYeActivity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesStaticOpenUtil.getString("AGREEMENT") + MyApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    BaseUtil.jumpPage(KaiShiActivity.this, WangYeActivity.class, bundle);
+                }
             }
         });
         startPageRemindDialog.show();
@@ -121,11 +125,15 @@ public class KaiShiActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-//                        HttpApi.HTTP_API_URL = "http://" + responseData;
-                        PreferencesStaticOpenUtil.saveString("HTTP_API_URL", "http://" + responseData);
-                        Thread.sleep(1000);
-                        jumpPage();
-
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                PreferencesStaticOpenUtil.saveString("HTTP_API_URL", "http://" + net[0]);
+                                PreferencesStaticOpenUtil.saveString("AGREEMENT", net[1]);
+                                Thread.sleep(1000);
+                                jumpPage();
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

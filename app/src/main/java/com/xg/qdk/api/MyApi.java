@@ -10,9 +10,9 @@ import com.xg.qdk.net.XApi;
 import com.xg.qdk.u.PreferencesStaticOpenUtil;
 
 public class MyApi {
-    public static final String ZCXY = "https://xy.hgy5kg.com/profile/hwyjxyd/zcxy.html";
+    public static final String ZCXY = "/profile/hwyjxyd/zcxy.html";
     public static final String HTTP_API_URL = "http://45.120.154.46:7732";
-    public static final String YSXY= "https://xy.hgy5kg.com/profile/hwyjxyd/ysxy.html";
+    public static final String YSXY= "/profile/hwyjxyd/ysxy.html";
 
     private static JieKouUtils interfaceUtils;
 

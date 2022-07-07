@@ -81,15 +81,17 @@ public class DengLuActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.quanquan_loading, null));
         getConfig();
         readTv.setText(BaseUtil.createDlSpanTexts(), position -> {
-            bundle = new Bundle();
-            if (position == 1) {
-                bundle.putString("url", MyApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-            } else {
-                bundle.putString("url", MyApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+            if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("AGREEMENT"))) {
+                bundle = new Bundle();
+                if (position == 1) {
+                    bundle.putString("url", PreferencesStaticOpenUtil.getString("AGREEMENT") + MyApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                } else {
+                    bundle.putString("url", PreferencesStaticOpenUtil.getString("AGREEMENT") + MyApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                }
+                BaseUtil.jumpPage(DengLuActivity.this, WangYeActivity.class, bundle);
             }
-            BaseUtil.jumpPage(DengLuActivity.this, WangYeActivity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {

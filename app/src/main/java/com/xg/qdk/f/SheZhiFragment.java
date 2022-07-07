@@ -120,16 +120,20 @@ public class SheZhiFragment extends XFragment {
         setItemAdapter.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", MyApi.ZCXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    BaseUtil.jumpPage(getActivity(), WangYeActivity.class, webBundle);
+                    if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", PreferencesStaticOpenUtil.getString("AGREEMENT") + MyApi.ZCXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                        BaseUtil.jumpPage(getActivity(), WangYeActivity.class, webBundle);
+                    }
                     break;
                 case 1:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", MyApi.YSXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    BaseUtil.jumpPage(getActivity(), WangYeActivity.class, webBundle);
+                    if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", PreferencesStaticOpenUtil.getString("AGREEMENT") + MyApi.YSXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                        BaseUtil.jumpPage(getActivity(), WangYeActivity.class, webBundle);
+                    }
                     break;
 //                case 2:
 //                    OpenUtil.jumpPage(getActivity(), FeedbackActivity.class);
