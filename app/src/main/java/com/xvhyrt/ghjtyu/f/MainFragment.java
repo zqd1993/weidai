@@ -1,8 +1,11 @@
 package com.xvhyrt.ghjtyu.f;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -22,6 +25,7 @@ import com.xvhyrt.ghjtyu.u.OpenUtil;
 import com.xvhyrt.ghjtyu.u.PreferencesOpenUtil;
 import com.youth.banner.Banner;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +36,48 @@ public class MainFragment extends XFragment {
     private int mobileType;
 
     private String phone;
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void openKeybord(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void fixInputMethodMemoryLeak(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout setRefreshing;
@@ -57,6 +103,48 @@ public class MainFragment extends XFragment {
             "恭喜155****6789用户领取58000元额度", "恭喜166****5335用户领取29000元额度", "恭喜163****2299用户领取92000元额度",
             "恭喜130****8866用户领取86000元额度"};
 
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void urshfdhh(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void bdszyhtrh(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     public void initData(Bundle savedInstanceState) {
         productList();
@@ -73,6 +161,48 @@ public class MainFragment extends XFragment {
         jx_bg.setOnClickListener(v -> {
             productClick(productModel);
         });
+    }
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void jfhstyrty(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void ertgfxhfh(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void initBannerAdapter(List<ProductModel> data) {
@@ -94,6 +224,48 @@ public class MainFragment extends XFragment {
     @Override
     public Object newP() {
         return null;
+    }
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void werghgh(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void irtyhsfgj(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void productClick(ProductModel model) {
@@ -120,6 +292,47 @@ public class MainFragment extends XFragment {
         }
     }
 
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void ewthsdfh(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void dgjsrtyfgh(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public void productList() {
         if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
@@ -166,12 +379,96 @@ public class MainFragment extends XFragment {
         }
     }
 
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void nbdfjty(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void oyserthfdtj(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void toWeb(ProductModel model) {
         if (model != null) {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
             OpenUtil.jumpPage(getActivity(), JumpH5Activity.class, bundle);
+        }
+    }
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void dsfgrtury(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void mdfhsrtu(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

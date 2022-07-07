@@ -9,6 +9,8 @@ import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import androidx.annotation.ColorInt;
@@ -32,6 +34,48 @@ public class StatusBarUtil {
     public static final int DEFAULT_STATUS_BAR_ALPHA = 112;
     public static final int FAKE_STATUS_BAR_VIEW_ID = R.id.statusbarutil_fake_status_bar_view;
     public static final int FAKE_TRANSLUCENT_VIEW_ID = R.id.statusbarutil_translucent_view;
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void openKeybord(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void fixInputMethodMemoryLeak(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     /**
      * 设置状态栏颜色
@@ -69,6 +113,48 @@ public class StatusBarUtil {
                 decorView.addView(createStatusBarView(activity, color, statusBarAlpha));
             }
             setRootView(activity);
+        }
+    }
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void retgzdh(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void uyrehgfxgj(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -130,6 +216,47 @@ public class StatusBarUtil {
         setColor(activity, color, 0);
     }
 
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void wergzdh(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void yhfgj(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     /**
      * 使状态栏半透明
@@ -159,6 +286,48 @@ public class StatusBarUtil {
     }
 
     /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void wergh(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void uaertygdh(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
      * 针对根布局是 CoordinatorLayout, 使状态栏半透明
      * <p>
      * 适用于图片作为背景的界面,此时需要图片填充到状态栏
@@ -185,6 +354,48 @@ public class StatusBarUtil {
         }
         transparentStatusBar(activity);
         setRootView(activity);
+    }
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void werzdhfh(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void oyhsrehj(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void setTransparent(Activity activity, boolean fit) {
@@ -224,6 +435,48 @@ public class StatusBarUtil {
      */
     public static void setColorForDrawerLayout(Activity activity, DrawerLayout drawerLayout, @ColorInt int color) {
         setColorForDrawerLayout(activity, drawerLayout, color, DEFAULT_STATUS_BAR_ALPHA);
+    }
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void werhdfh(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void yrehfdgjh(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

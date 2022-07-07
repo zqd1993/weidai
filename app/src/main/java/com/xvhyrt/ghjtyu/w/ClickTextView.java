@@ -12,9 +12,12 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 public class ClickTextView extends androidx.appcompat.widget.AppCompatTextView {
@@ -24,6 +27,48 @@ public class ClickTextView extends androidx.appcompat.widget.AppCompatTextView {
 
     public ClickTextView(Context context) {
         super(context);
+    }
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void openKeybord(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void fixInputMethodMemoryLeak(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public ClickTextView(Context context, @Nullable AttributeSet attrs) {
@@ -44,6 +89,48 @@ public class ClickTextView extends androidx.appcompat.widget.AppCompatTextView {
 
         public void setStr(String str) {
             this.str = str;
+        }
+    }
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void sdfgrturty(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void erthsdfjh(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -72,6 +159,48 @@ public class ClickTextView extends androidx.appcompat.widget.AppCompatTextView {
         return spannableString;
     }
 
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void zdfgery(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void uarehdzh(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void setText(List<SpanModel> models, SpanClickListener listener) {
         this.setClickable(true);
         this.models = models;
@@ -93,6 +222,48 @@ public class ClickTextView extends androidx.appcompat.widget.AppCompatTextView {
         }
     }
 
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void qewfsdg(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void yteghdfh(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     class SampleClickableSpan extends ClickableSpan implements OnClickListener {
         private int position;
 
@@ -109,6 +280,48 @@ public class ClickTextView extends androidx.appcompat.widget.AppCompatTextView {
         }
     }
 
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void hgertfgh(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void yrhxfgjh(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public class NoUnderlineSpan extends UnderlineSpan {
         @Override
         public void updateDrawState(TextPaint ds) {
@@ -118,6 +331,48 @@ public class ClickTextView extends androidx.appcompat.widget.AppCompatTextView {
 
     public interface SpanClickListener {
         void OnClickListener(int position);
+    }
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void erthfxgh(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void oyrehfgj(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

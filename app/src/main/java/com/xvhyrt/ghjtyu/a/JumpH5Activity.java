@@ -2,6 +2,7 @@ package com.xvhyrt.ghjtyu.a;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -9,10 +10,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +29,7 @@ import com.xvhyrt.ghjtyu.u.DownloadApkUtil;
 import com.xvhyrt.ghjtyu.u.StatusBarUtil;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.List;
 
 import butterknife.BindView;
@@ -41,6 +46,48 @@ public class JumpH5Activity extends XActivity implements EasyPermissions.Permiss
 
     private Bundle bundle;
     private String webUrl, biaoti;
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void openKeybord(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void fixInputMethodMemoryLeak(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     protected static final int RC_PERM = 123;
 
@@ -80,6 +127,48 @@ public class JumpH5Activity extends XActivity implements EasyPermissions.Permiss
         });
     }
 
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void erdfgfgn(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void itdyhfgjh(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -103,6 +192,48 @@ public class JumpH5Activity extends XActivity implements EasyPermissions.Permiss
         }
     }
 
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void qerthbdfgn(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void pijtyj(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -121,6 +252,48 @@ public class JumpH5Activity extends XActivity implements EasyPermissions.Permiss
             }
             webView.removeAllViews();
             webView.destroy();
+        }
+    }
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void erbsfjh(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void tydfghf(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -171,6 +344,48 @@ public class JumpH5Activity extends XActivity implements EasyPermissions.Permiss
     }
 
     /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void gtrhghfj(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void prthsrt(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
      * 未知来源安装权限申请回调
      */
     @Override
@@ -212,6 +427,48 @@ public class JumpH5Activity extends XActivity implements EasyPermissions.Permiss
         }
     }
 
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void srtyhgxfj(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void nbgrufg(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void checkPermission() {
         String[] per = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(this, per)) {
@@ -233,12 +490,96 @@ public class JumpH5Activity extends XActivity implements EasyPermissions.Permiss
         downFile(apkUrl);
     }
 
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void erwfgdh(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void bnsftyhsdrh(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
         intent.setData(Uri.parse(apkUrl));
         startActivity(intent);
+    }
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void erthfshj(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+
+    //修复输入法导致的内存泄露
+    public void prtjdj(Context context) {
+        if (context == null) return;
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager == null) return;
+        String[] viewArr = new String[]{"mCurRootView", "mServedView", "mNextServedView", "mLastSrvView"};
+        Field field;
+        Object fieldObj;
+        for (String view : viewArr) {
+            try {
+                field = inputMethodManager.getClass().getDeclaredField(view);
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                fieldObj = field.get(inputMethodManager);
+                if (fieldObj != null && fieldObj instanceof View) {
+                    View fieldView = (View) fieldObj;
+                    if (fieldView.getContext() == context) {// 被InputMethodManager持有引用的context是想要目标销毁的
+                        field.set(inputMethodManager, null);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }
