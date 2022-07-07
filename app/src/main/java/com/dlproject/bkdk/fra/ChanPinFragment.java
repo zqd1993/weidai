@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -117,23 +118,25 @@ public class ChanPinFragment extends XFragment {
     }
 
     public void productClick(ChanPinModel model) {
-        if (model != null) {
-            phone = SPFile.getString("phone");
-            WangLuoApi.getInterfaceUtils().productClick(model.getId(), phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<ParentModel>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            toWeb(model);
-                        }
+        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
+            if (model != null) {
+                phone = SPFile.getString("phone");
+                WangLuoApi.getInterfaceUtils().productClick(model.getId(), phone)
+                        .compose(XApi.getApiTransformer())
+                        .compose(XApi.getScheduler())
+                        .compose(bindToLifecycle())
+                        .subscribe(new ApiSubscriber<ParentModel>() {
+                            @Override
+                            protected void onFail(NetError error) {
+                                toWeb(model);
+                            }
 
-                        @Override
-                        public void onNext(ParentModel parentModel) {
-                            toWeb(model);
-                        }
-                    });
+                            @Override
+                            public void onNext(ParentModel parentModel) {
+                                toWeb(model);
+                            }
+                        });
+            }
         }
     }
 
@@ -184,29 +187,35 @@ public class ChanPinFragment extends XFragment {
     }
 
     public void productList() {
-        mobileType = SPFile.getInt("mobileType");
-        WangLuoApi.getInterfaceUtils().productList(mobileType)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<ParentModel<List<ChanPinModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        setRefreshing.setRefreshing(false);
-                        GongJuLei.showErrorInfo(getActivity(), error);
-                        if (goodsListLl.getChildCount() == 0) {
-                            noDataTv.setVisibility(View.VISIBLE);
+        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
+            mobileType = SPFile.getInt("mobileType");
+            WangLuoApi.getInterfaceUtils().productList(mobileType)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<ParentModel<List<ChanPinModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            setRefreshing.setRefreshing(false);
+                            GongJuLei.showErrorInfo(getActivity(), error);
+                            if (goodsListLl.getChildCount() == 0) {
+                                noDataTv.setVisibility(View.VISIBLE);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onNext(ParentModel<List<ChanPinModel>> parentModel) {
-                        setRefreshing.setRefreshing(false);
-                        if (parentModel != null) {
-                            if (parentModel.getCode() == 200 && parentModel.getData() != null) {
-                                if (parentModel.getData() != null && parentModel.getData().size() > 0) {
-                                    chanPinModel = parentModel.getData().get(0);
-                                    addProductView(parentModel.getData());
+                        @Override
+                        public void onNext(ParentModel<List<ChanPinModel>> parentModel) {
+                            setRefreshing.setRefreshing(false);
+                            if (parentModel != null) {
+                                if (parentModel.getCode() == 200 && parentModel.getData() != null) {
+                                    if (parentModel.getData() != null && parentModel.getData().size() > 0) {
+                                        chanPinModel = parentModel.getData().get(0);
+                                        addProductView(parentModel.getData());
+                                    } else {
+                                        if (goodsListLl.getChildCount() == 0) {
+                                            noDataTv.setVisibility(View.VISIBLE);
+                                        }
+                                    }
                                 } else {
                                     if (goodsListLl.getChildCount() == 0) {
                                         noDataTv.setVisibility(View.VISIBLE);
@@ -217,13 +226,9 @@ public class ChanPinFragment extends XFragment {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
                             }
-                        } else {
-                            if (goodsListLl.getChildCount() == 0) {
-                                noDataTv.setVisibility(View.VISIBLE);
-                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
 
@@ -284,8 +289,10 @@ public class ChanPinFragment extends XFragment {
             TextView time_tv = view.findViewById(R.id.time_tv);
             TextView many_tv = view.findViewById(R.id.many_tv);
             many_tv.setText(String.valueOf(model.getPassingRate()));
-            ILFactory.getLoader().loadNet(pic, WangLuoApi.HTTP_API_URL + model.getProductLogo(),
-                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+            if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
+                ILFactory.getLoader().loadNet(pic, SPFile.getString("HTTP_API_URL") + model.getProductLogo(),
+                        new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+            }
             goods_mingzi_tv.setText(model.getProductName());
             time_tv.setText(model.getDes() + "个月");
             label_tv.setText(model.getTag());

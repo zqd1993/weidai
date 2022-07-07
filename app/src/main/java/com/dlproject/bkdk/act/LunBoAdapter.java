@@ -1,6 +1,7 @@
 package com.dlproject.bkdk.act;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.dlproject.bkdk.net.WangLuoApi;
 import com.dlproject.bkdk.imageloader.ILFactory;
 import com.dlproject.bkdk.imageloader.ILoader;
 import com.dlproject.bkdk.bean.ChanPinModel;
+import com.dlproject.bkdk.uti.SPFile;
 import com.youth.banner.adapter.BannerAdapter;
 
 import java.util.List;
@@ -69,8 +71,10 @@ public class LunBoAdapter extends BannerAdapter<ChanPinModel, LunBoAdapter.Image
         holder.price_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
         holder.time_tv.setText(data.getDes() + "个月");
         holder.many_tv.setText(String.valueOf(data.getPassingRate()));
-        ILFactory.getLoader().loadNet(holder.product_img, WangLuoApi.HTTP_API_URL + data.getProductLogo(),
-                new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
+            ILFactory.getLoader().loadNet(holder.product_img, SPFile.getString("HTTP_API_URL") + data.getProductLogo(),
+                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        }
         holder.parentLl.setOnClickListener(v -> {
             if (bannerClickedListener != null){
                 bannerClickedListener.onBannerClicked(data);

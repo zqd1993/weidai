@@ -252,15 +252,21 @@
                 android:layout_marginTop="13sp"
                 android:visibility="gone" />
 
-            <LinearLayout
-                android:id="@+id/goods_list_ll"
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:layout_marginTop="90dp"
-                android:orientation="vertical"
-                android:visibility="gone"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="90dp">
+
+                <LinearLayout
+                    android:id="@+id/goods_list_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:orientation="vertical"
+                    android:visibility="gone"/>
+
+            </androidx.core.widget.NestedScrollView>
 
             <View
                 android:layout_width="match_parent"

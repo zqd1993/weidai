@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import com.dlproject.bkdk.act.HuiFangActivity;
 import com.dlproject.bkdk.act.JumpH5Activity;
 import com.dlproject.bkdk.act.SheZhiLieBiaoAdapter;
 import com.dlproject.bkdk.act.ZhangHaoActivity;
+import com.dlproject.bkdk.bean.PeiZhiEntity;
 import com.dlproject.bkdk.net.WangLuoApi;
 import com.dlproject.bkdk.bean.ParentModel;
 import com.dlproject.bkdk.bean.ChanPinModel;
@@ -176,8 +178,7 @@ public class SheZhiFragment extends XFragment {
                     dialog.show();
                     break;
                 case 5:
-                    dialog = new TiShiDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
-                    dialog.show();
+                    getConfig();
                     break;
                 case 6:
                     GongJuLei.jumpPage(getActivity(), ZhangHaoActivity.class);
@@ -262,28 +263,30 @@ public class SheZhiFragment extends XFragment {
     }
 
     public void productList() {
-        mobileType = SPFile.getInt("mobileType");
-        WangLuoApi.getInterfaceUtils().productList(mobileType)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<ParentModel<List<ChanPinModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        GongJuLei.showErrorInfo(getActivity(), error);
-                    }
+        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
+            mobileType = SPFile.getInt("mobileType");
+            WangLuoApi.getInterfaceUtils().productList(mobileType)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<ParentModel<List<ChanPinModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            GongJuLei.showErrorInfo(getActivity(), error);
+                        }
 
-                    @Override
-                    public void onNext(ParentModel<List<ChanPinModel>> parentModel) {
-                        if (parentModel != null) {
-                            if (parentModel.getCode() == 200 && parentModel.getData() != null) {
-                                if (parentModel.getData() != null && parentModel.getData().size() > 0) {
-                                    chanPinModel = parentModel.getData().get(0);
+                        @Override
+                        public void onNext(ParentModel<List<ChanPinModel>> parentModel) {
+                            if (parentModel != null) {
+                                if (parentModel.getCode() == 200 && parentModel.getData() != null) {
+                                    if (parentModel.getData() != null && parentModel.getData().size() > 0) {
+                                        chanPinModel = parentModel.getData().get(0);
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     /**
@@ -332,25 +335,54 @@ public class SheZhiFragment extends XFragment {
 
 
     public void productClick(ChanPinModel model) {
-        if (model == null) {
-            return;
-        }
-        phone = SPFile.getString("phone");
-        WangLuoApi.getInterfaceUtils().productClick(model.getId(), phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<ParentModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        toWeb(model);
-                    }
+        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
+            if (model == null) {
+                return;
+            }
+            phone = SPFile.getString("phone");
+            WangLuoApi.getInterfaceUtils().productClick(model.getId(), phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<ParentModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            toWeb(model);
+                        }
 
-                    @Override
-                    public void onNext(ParentModel parentModel) {
-                        toWeb(model);
-                    }
-                });
+                        @Override
+                        public void onNext(ParentModel parentModel) {
+                            toWeb(model);
+                        }
+                    });
+        }
+    }
+
+    public void getConfig() {
+        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
+            WangLuoApi.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<ParentModel<PeiZhiEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(ParentModel<PeiZhiEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    mailStr = configEntity.getData().getAppMail();
+                                    SPFile.saveString("app_mail", mailStr);
+                                    dialog = new TiShiDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
+                                    dialog.show();
+                                }
+                            }
+                        }
+                    });
+        }
     }
 
     /**
