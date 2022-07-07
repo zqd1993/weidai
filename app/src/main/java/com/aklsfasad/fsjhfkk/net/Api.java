@@ -9,8 +9,8 @@ import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
  */
 
 public class Api {
-    public static final String PRIVACY_POLICY = "https://xy.hgy5kg.com/profile/ophmdk/zcxy.html";
-    public static final String USER_SERVICE_AGREEMENT= "https://xy.hgy5kg.com/profile/ophmdk/ysxy.html";
+    public static final String PRIVACY_POLICY = "/profile/ophmdk/zcxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "/profile/ophmdk/ysxy.html";
     public static final String API_BASE_URL = "http://45.120.154.46:7718";
 
     private static GankService gankService;

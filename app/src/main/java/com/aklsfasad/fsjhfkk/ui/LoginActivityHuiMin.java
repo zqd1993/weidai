@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.aklsfasad.fsjhfkk.R;
 import com.aklsfasad.fsjhfkk.net.Api;
+import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
 import com.aklsfasad.fsjhfkk.utils.StaticUtilHuiMin;
 import com.aklsfasad.fsjhfkk.utils.StatusBarUtilHuiMin;
 import com.aklsfasad.fsjhfkk.utils.ToastUtilHuiMin;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+
 import com.aklsfasad.fsjhfkk.ActivityCollector;
 
 import com.aklsfasad.fsjhfkk.present.LoginPresentHuiMin;
@@ -64,22 +66,24 @@ public class LoginActivityHuiMin extends XActivity<LoginPresentHuiMin> {
         getP().getGankData();
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
-            if (position == 1) {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", Api.PRIVACY_POLICY);
-                Router.newIntent(LoginActivityHuiMin.this)
-                        .to(WebHuiMinActivity.class)
-                        .data(bundle)
-                        .launch();
-            } else {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                Router.newIntent(LoginActivityHuiMin.this)
-                        .to(WebHuiMinActivity.class)
-                        .data(bundle)
-                        .launch();
+            if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT"))) {
+                if (position == 1) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
+                    Router.newIntent(LoginActivityHuiMin.this)
+                            .to(WebHuiMinActivity.class)
+                            .data(bundle)
+                            .launch();
+                } else {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
+                    Router.newIntent(LoginActivityHuiMin.this)
+                            .to(WebHuiMinActivity.class)
+                            .data(bundle)
+                            .launch();
+                }
             }
         });
     }

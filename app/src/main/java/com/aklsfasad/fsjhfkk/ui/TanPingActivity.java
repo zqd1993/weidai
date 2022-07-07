@@ -90,24 +90,28 @@ public class TanPingActivity extends AppCompatActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", Api.PRIVACY_POLICY);
-                Router.newIntent(TanPingActivity.this)
-                        .to(WebHuiMinActivity.class)
-                        .data(bundle)
-                        .launch();
+                if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
+                    Router.newIntent(TanPingActivity.this)
+                            .to(WebHuiMinActivity.class)
+                            .data(bundle)
+                            .launch();
+                }
             }
 
             @Override
             public void privacyAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                Router.newIntent(TanPingActivity.this)
-                        .to(WebHuiMinActivity.class)
-                        .data(bundle)
-                        .launch();
+                if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
+                    Router.newIntent(TanPingActivity.this)
+                            .to(WebHuiMinActivity.class)
+                            .data(bundle)
+                            .launch();
+                }
             }
         });
         welcomeDialog.show();
@@ -126,11 +130,15 @@ public class TanPingActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-//                        HttpApi.HTTP_API_URL = "http://" + responseData;
-                        SharedPreferencesUtilisHuiMin.saveStringIntoPref("HTTP_API_URL", "http://" + responseData);
-                        Thread.sleep(1000);
-                        jumpPage();
-
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                SharedPreferencesUtilisHuiMin.saveStringIntoPref("HTTP_API_URL", "http://" + net[0]);
+                                SharedPreferencesUtilisHuiMin.saveStringIntoPref("AGREEMENT", net[1]);
+                                Thread.sleep(1000);
+                                jumpPage();
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -164,7 +172,7 @@ public class TanPingActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if (welcomeDialog != null){
+        if (welcomeDialog != null) {
             welcomeDialog.dismiss();
             welcomeDialog = null;
         }
@@ -178,7 +186,7 @@ public class TanPingActivity extends AppCompatActivity {
         return "";
     }
 
-    private void initUm(){
+    private void initUm() {
         //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
         if (!UMConfigure.isInit) {
             UMConfigure.setLogEnabled(true);
