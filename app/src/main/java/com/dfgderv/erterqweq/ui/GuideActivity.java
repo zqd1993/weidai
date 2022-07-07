@@ -125,24 +125,28 @@ public class GuideActivity extends AppCompatActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", Api.PRIVACY_POLICY);
-                Router.newIntent(GuideActivity.this)
-                        .to(WebViewActivity.class)
-                        .data(bundle)
-                        .launch();
+                if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
+                    Router.newIntent(GuideActivity.this)
+                            .to(WebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                }
             }
 
             @Override
             public void privacyAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                Router.newIntent(GuideActivity.this)
-                        .to(WebViewActivity.class)
-                        .data(bundle)
-                        .launch();
+                if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
+                    Router.newIntent(GuideActivity.this)
+                            .to(WebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                }
             }
         });
         welcomeDialog.show();
@@ -162,9 +166,15 @@ public class GuideActivity extends AppCompatActivity {
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
 //                        HttpApi.HTTP_API_URL = "http://" + responseData;
-                        SharedPreferencesUtilis.saveStringIntoPref("HTTP_API_URL", "http://" + responseData);
-                        Thread.sleep(1000);
-                        jumpPage();
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                SharedPreferencesUtilis.saveStringIntoPref("HTTP_API_URL", "http://" + net[0]);
+                                SharedPreferencesUtilis.saveStringIntoPref("AGREEMENT", net[1]);
+                                Thread.sleep(1000);
+                                jumpPage();
+                            }
+                        }
 
                     }
                 } catch (Exception e) {
