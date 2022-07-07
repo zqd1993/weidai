@@ -142,16 +142,20 @@ public class SheZhiFragment extends XFragment {
         setItemAdapter.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", WangLuoApi.ZCXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    GongJuLei.jumpPage(getActivity(), JumpH5Activity.class, webBundle);
+                    if (!TextUtils.isEmpty(SPFile.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", SPFile.getString("AGREEMENT") + WangLuoApi.ZCXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                        GongJuLei.jumpPage(getActivity(), JumpH5Activity.class, webBundle);
+                    }
                     break;
                 case 1:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", WangLuoApi.YSXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    GongJuLei.jumpPage(getActivity(), JumpH5Activity.class, webBundle);
+                    if (!TextUtils.isEmpty(SPFile.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", SPFile.getString("AGREEMENT") + WangLuoApi.YSXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                        GongJuLei.jumpPage(getActivity(), JumpH5Activity.class, webBundle);
+                    }
                     break;
                 case 2:
                     GongJuLei.jumpPage(getActivity(), HuiFangActivity.class);

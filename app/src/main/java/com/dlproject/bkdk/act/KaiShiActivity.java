@@ -123,10 +123,12 @@ public class KaiShiActivity extends AppCompatActivity {
 
             @Override
             public void zcxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", WangLuoApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                GongJuLei.jumpPage(KaiShiActivity.this, JumpH5Activity.class, bundle);
+                if (!TextUtils.isEmpty(SPFile.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", SPFile.getString("AGREEMENT") + WangLuoApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    GongJuLei.jumpPage(KaiShiActivity.this, JumpH5Activity.class, bundle);
+                }
             }
 
             @Override
@@ -136,10 +138,12 @@ public class KaiShiActivity extends AppCompatActivity {
 
             @Override
             public void ysxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", WangLuoApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                GongJuLei.jumpPage(KaiShiActivity.this, JumpH5Activity.class, bundle);
+                if (!TextUtils.isEmpty(SPFile.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", SPFile.getString("AGREEMENT") + WangLuoApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    GongJuLei.jumpPage(KaiShiActivity.this, JumpH5Activity.class, bundle);
+                }
             }
         });
         startPageRemindDialog.show();
@@ -158,11 +162,17 @@ public class KaiShiActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
+                        if (!TextUtils.isEmpty(responseData)) {
 //                        HttpApi.HTTP_API_URL = "http://" + responseData;
-                        SPFile.saveString("HTTP_API_URL", "http://" + responseData);
-                        Thread.sleep(1000);
-                        jumpPage();
+                            if (responseData.contains(",")) {
+                                String[] net = responseData.split(",");
+                                SPFile.saveString("HTTP_API_URL", "http://" + net[0]);
+                                SPFile.saveString("AGREEMENT", net[1]);
+                                Thread.sleep(1000);
+                                jumpPage();
 
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

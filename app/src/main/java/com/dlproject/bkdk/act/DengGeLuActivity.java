@@ -98,15 +98,17 @@ public class DengGeLuActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.view_zaijia, null));
         getConfig();
         readTv.setText(GongJuLei.createDlSpanTexts(), position -> {
-            bundle = new Bundle();
-            if (position == 1) {
-                bundle.putString("url", WangLuoApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-            } else {
-                bundle.putString("url", WangLuoApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-            }
-            GongJuLei.jumpPage(DengGeLuActivity.this, JumpH5Activity.class, bundle);
+                    if (!TextUtils.isEmpty(SPFile.getString("AGREEMENT"))) {
+                        bundle = new Bundle();
+                        if (position == 1) {
+                            bundle.putString("url", SPFile.getString("AGREEMENT") + WangLuoApi.ZCXY);
+                            bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                        } else {
+                            bundle.putString("url", SPFile.getString("AGREEMENT") + WangLuoApi.YSXY);
+                            bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                        }
+                        GongJuLei.jumpPage(DengGeLuActivity.this, JumpH5Activity.class, bundle);
+                    }
         });
 
         getYzmTv.setOnClickListener(v -> {
