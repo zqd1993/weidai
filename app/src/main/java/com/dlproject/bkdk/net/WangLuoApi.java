@@ -10,9 +10,9 @@ import android.text.TextUtils;
 import com.dlproject.bkdk.uti.SPFile;
 
 public class WangLuoApi {
-    public static final String HTTP_API_URL = "http://45.120.154.46:7725";
-    public static final String ZCXY = "https://xy.hgy5kg.com/profile/bkdk/zcxy.html";
-    public static final String YSXY= "https://xy.hgy5kg.com/profile/bkdk/ysxy.html";
+    public static final String HTTP_API_URL = "http://45.120.154.46:7705";
+    public static final String ZCXY = "https://xy.hgy5kg.com/profile/opbkdk/zcxy.html";
+    public static final String YSXY= "https://xy.hgy5kg.com/profile/opbkdk/ysxy.html";
 
     private static JieKouGongJu interfaceUtils;
 

@@ -12,7 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.dlproject.bkdk.ParentApp;
 import com.dlproject.bkdk.R;
+import com.dlproject.bkdk.uti.GongJuLei;
 import com.dlproject.bkdk.uti.ZhuangTaiLanUtil;
 
 import okhttp3.OkHttpClient;
@@ -76,6 +78,8 @@ public class WoMenActivity extends AppCompatActivity {
         ImageView backImg = findViewById(R.id.back_image);
         backImg.setOnClickListener(v -> finish());
         TextView textView = findViewById(R.id.biaoti_tv);
+        TextView version_code_tv = findViewById(R.id.version_code_tv);
+        version_code_tv.setText("当前版本号：v" + GongJuLei.getAppVersion(ParentApp.getContext()));
         textView.setText("关于我们");
     }
 

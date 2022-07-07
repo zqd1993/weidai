@@ -6,8 +6,8 @@ ext {
             minSdkVersion    : 19,
             targetSdkVersion : 31,
 
-            versionCode      : 20220610,
-            versionName      : '1.4.2',
+            versionCode      : 100,
+            versionName      : '1.0.0',
             keyAlias         : "beikekuan",
             keyPassword      : "beike999",
             storeFile        : "./beikekuan.jks",

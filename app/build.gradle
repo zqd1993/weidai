@@ -34,7 +34,7 @@ android {
     }
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "beike_v${variant.versionName}.apk"
+            outputFileName = "beike_op_v${variant.versionName}.apk"
         }
     }
 
