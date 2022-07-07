@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.text.TextUtils;
+
+import com.dlproject.bkdk.uti.SPFile;
 
 public class WangLuoApi {
     public static final String HTTP_API_URL = "http://45.120.154.46:7725";
@@ -14,10 +17,10 @@ public class WangLuoApi {
     private static JieKouGongJu interfaceUtils;
 
     public static JieKouGongJu getInterfaceUtils() {
-        if (interfaceUtils == null) {
+        if (interfaceUtils == null && !TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
             synchronized (WangLuoApi.class) {
                 if (interfaceUtils == null) {
-                    interfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(JieKouGongJu.class);
+                    interfaceUtils = XApi.getInstance().getRetrofit(SPFile.getString("HTTP_API_URL"), true).create(JieKouGongJu.class);
                 }
             }
         }

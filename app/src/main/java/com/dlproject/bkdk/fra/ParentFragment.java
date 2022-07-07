@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -174,25 +175,27 @@ public class ParentFragment extends XFragment {
     }
 
     public void productClick(ChanPinModel model) {
-        if (model == null){
-            return;
-        }
-        phone = SPFile.getString("phone");
-        WangLuoApi.getInterfaceUtils().productClick(model.getId(), phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<ParentModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        toWeb(model);
-                    }
+        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
+            if (model == null) {
+                return;
+            }
+            phone = SPFile.getString("phone");
+            WangLuoApi.getInterfaceUtils().productClick(model.getId(), phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<ParentModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            toWeb(model);
+                        }
 
-                    @Override
-                    public void onNext(ParentModel parentModel) {
-                        toWeb(model);
-                    }
-                });
+                        @Override
+                        public void onNext(ParentModel parentModel) {
+                            toWeb(model);
+                        }
+                    });
+        }
     }
 
     /**
@@ -241,29 +244,35 @@ public class ParentFragment extends XFragment {
 
 
     public void productList() {
-        mobileType = SPFile.getInt("mobileType");
-        WangLuoApi.getInterfaceUtils().productList(mobileType)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<ParentModel<List<ChanPinModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        setRefreshing.setRefreshing(false);
-                        GongJuLei.showErrorInfo(getActivity(), error);
-                        if (imageAdapter == null) {
-                            noDataTv.setVisibility(View.VISIBLE);
+        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
+            mobileType = SPFile.getInt("mobileType");
+            WangLuoApi.getInterfaceUtils().productList(mobileType)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<ParentModel<List<ChanPinModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            setRefreshing.setRefreshing(false);
+                            GongJuLei.showErrorInfo(getActivity(), error);
+                            if (imageAdapter == null) {
+                                noDataTv.setVisibility(View.VISIBLE);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onNext(ParentModel<List<ChanPinModel>> parentModel) {
-                        setRefreshing.setRefreshing(false);
-                        if (parentModel != null) {
-                            if (parentModel.getCode() == 200 && parentModel.getData() != null) {
-                                if (parentModel.getData() != null && parentModel.getData().size() > 0) {
-                                    chanPinModel = parentModel.getData().get(0);
-                                    initBannerAdapter(parentModel.getData());
+                        @Override
+                        public void onNext(ParentModel<List<ChanPinModel>> parentModel) {
+                            setRefreshing.setRefreshing(false);
+                            if (parentModel != null) {
+                                if (parentModel.getCode() == 200 && parentModel.getData() != null) {
+                                    if (parentModel.getData() != null && parentModel.getData().size() > 0) {
+                                        chanPinModel = parentModel.getData().get(0);
+                                        initBannerAdapter(parentModel.getData());
+                                    } else {
+                                        if (imageAdapter == null) {
+                                            noDataTv.setVisibility(View.VISIBLE);
+                                        }
+                                    }
                                 } else {
                                     if (imageAdapter == null) {
                                         noDataTv.setVisibility(View.VISIBLE);
@@ -274,13 +283,9 @@ public class ParentFragment extends XFragment {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
                             }
-                        } else {
-                            if (imageAdapter == null) {
-                                noDataTv.setVisibility(View.VISIBLE);
-                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void toWeb(ChanPinModel model) {

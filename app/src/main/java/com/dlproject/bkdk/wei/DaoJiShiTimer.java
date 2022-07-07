@@ -100,7 +100,7 @@ public class DaoJiShiTimer extends android.os.CountDownTimer {
     @Override
     public void onFinish() {
         timeTv.setClickable(true);//重新获得点击
-        timeTv.setTextColor(ParentApp.getContext().getResources().getColor(R.color.color_ctv_bg));  //还原背景色
+        timeTv.setTextColor(ParentApp.getContext().getResources().getColor(R.color.white));  //还原背景色
         timeTv.setText("重新获取验证码");
     }
 

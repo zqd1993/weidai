@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -23,11 +24,15 @@ import com.umeng.commonsdk.UMConfigure;
 
 import java.util.LinkedHashMap;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class KaiShiActivity extends AppCompatActivity {
 
     private Bundle bundle;
 
-    private boolean isSure = false;
+    private boolean isSure = false, isResume = false;
 
     private String phone = "";
 
@@ -60,7 +65,7 @@ public class KaiShiActivity extends AppCompatActivity {
         ZhuangTaiLanUtil.setTransparent(this, false);
         isSure = SPFile.getBool("isSure");
         phone = SPFile.getString("phone");
-        jumpPage();
+        sendRequestWithOkHttp();
     }
 
     /**
@@ -82,70 +87,109 @@ public class KaiShiActivity extends AppCompatActivity {
         }
     }
 
-    private void jumpPage() {
-        if (!isSure) {
-            startPageRemindDialog = new KaiShiRemindDialog(this);
-            startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-                @Override
-                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        KaiShiActivity.this.finish();
-                        return false;
-                    }
-                    return true;
-                }
-            });
-            startPageRemindDialog.setOnListener(new KaiShiRemindDialog.OnListener() {
-                @Override
-                public void oneBtnClicked() {
-                    initUm();
-                    SPFile.saveBool("isSure", true);
-                    GongJuLei.jumpPage(KaiShiActivity.this, DengGeLuActivity.class);
-                    finish();
-                }
+    @Override
+    protected void onResume() {
+        isResume = true;
+        super.onResume();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isResume = false;
+            }
+        }, 500);
+    }
 
-                @Override
-                public void zcxyClicked() {
-                    bundle = new Bundle();
-                    bundle.putString("url", WangLuoApi.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    GongJuLei.jumpPage(KaiShiActivity.this, JumpH5Activity.class, bundle);
+    private void showDialog() {
+        Looper.prepare();
+        startPageRemindDialog = new KaiShiRemindDialog(this);
+        startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && !isResume) {
+                    KaiShiActivity.this.finish();
+                    return false;
                 }
-
-                @Override
-                public void twoBtnClicked() {
-                    finish();
-                }
-
-                @Override
-                public void ysxyClicked() {
-                    bundle = new Bundle();
-                    bundle.putString("url", WangLuoApi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    GongJuLei.jumpPage(KaiShiActivity.this, JumpH5Activity.class, bundle);
-                }
-            });
-            startPageRemindDialog.show();
-        } else {
-            initUm();
-            new Handler().postDelayed(() -> {
-                if (TextUtils.isEmpty(phone)) {
-                    GongJuLei.jumpPage(KaiShiActivity.this, DengGeLuActivity.class);
-                } else {
-                    GongJuLei.jumpPage(KaiShiActivity.this, ZhongYaoActivity.class);
-                }
+                return true;
+            }
+        });
+        startPageRemindDialog.setOnListener(new KaiShiRemindDialog.OnListener() {
+            @Override
+            public void oneBtnClicked() {
+                initUm();
+                SPFile.saveBool("isSure", true);
+                GongJuLei.jumpPage(KaiShiActivity.this, DengGeLuActivity.class);
                 finish();
-            }, 1000);
+            }
+
+            @Override
+            public void zcxyClicked() {
+                bundle = new Bundle();
+                bundle.putString("url", WangLuoApi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                GongJuLei.jumpPage(KaiShiActivity.this, JumpH5Activity.class, bundle);
+            }
+
+            @Override
+            public void twoBtnClicked() {
+                finish();
+            }
+
+            @Override
+            public void ysxyClicked() {
+                bundle = new Bundle();
+                bundle.putString("url", WangLuoApi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                GongJuLei.jumpPage(KaiShiActivity.this, JumpH5Activity.class, bundle);
+            }
+        });
+        startPageRemindDialog.show();
+        Looper.loop();
+    }
+
+    private void sendRequestWithOkHttp() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7725.txt")
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    String responseData = response.body().string();
+                    if (!TextUtils.isEmpty(responseData)) {
+//                        HttpApi.HTTP_API_URL = "http://" + responseData;
+                        SPFile.saveString("HTTP_API_URL", "http://" + responseData);
+                        Thread.sleep(1000);
+                        jumpPage();
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    private void jumpPage() {
+        if (isSure) {
+            initUm();
+            if (TextUtils.isEmpty(phone)) {
+                GongJuLei.jumpPage(KaiShiActivity.this, DengGeLuActivity.class);
+            } else {
+                GongJuLei.jumpPage(KaiShiActivity.this, ZhongYaoActivity.class);
+            }
+            finish();
+        } else {
+            showDialog();
         }
     }
 
     /**
      * 版本比较
      *
-     * @param nowVersion
-     *            app版本
-     * @param serverVersion
-     *            服务器版本
+     * @param nowVersion    app版本
+     * @param serverVersion 服务器版本
      * @return
      */
     public static boolean compareVersion(String nowVersion, String serverVersion) {
@@ -179,7 +223,7 @@ public class KaiShiActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private void initUm(){
+    private void initUm() {
         //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
         if (!UMConfigure.isInit) {
             UMConfigure.setLogEnabled(true);
