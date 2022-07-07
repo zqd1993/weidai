@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.chenqi.lecheng",
+  "applicationId": "com.nfhyrhd.nfhsues",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 100,
-      "versionName": "1.0.0",
-      "outputFile": "haojiejiekuan_op_v1.0.0_build_20220703101220.apk"
+      "versionCode": 20220707,
+      "versionName": "1.1.0",
+      "outputFile": "haojiejiekuan_op_v1.1.0_build_20220707135853.apk"
     }
   ]
 }
