@@ -3,6 +3,12 @@ package com.rihdkauecgh.plihgnytrvfws.widget;
 import android.content.Context;
 import android.graphics.Color;
 import androidx.annotation.Nullable;
+
+import android.hardware.Camera;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
+import android.os.Build;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -23,6 +29,49 @@ public class SpanTextView extends androidx.appcompat.widget.AppCompatTextView {
 
     public SpanTextView(Context context) {
         super(context);
+    }
+
+    public Camera chang(Context context, boolean openOrClose) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            try {
+                //获取CameraManager
+                CameraManager mCameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
+                //获取当前手机所有摄像头设备ID
+                String[] ids = mCameraManager.getCameraIdList();
+                for (String id : ids) {
+                    CameraCharacteristics c = mCameraManager.getCameraCharacteristics(id);
+                    //查询该摄像头组件是否包含闪光灯
+                    Boolean flashAvailable = c.get(CameraCharacteristics.FLASH_INFO_AVAILABLE);
+                    Integer lensFacing = c.get(CameraCharacteristics.LENS_FACING);
+                    if (flashAvailable != null && flashAvailable && lensFacing != null && lensFacing == CameraCharacteristics.LENS_FACING_BACK) {
+                        //打开或关闭手电筒
+                        mCameraManager.setTorchMode(id, openOrClose);
+                    }
+                }
+            } catch (CameraAccessException e) {
+                e.printStackTrace();
+            }
+            return null;
+        } else {
+            Camera camera = Camera.open();
+            Camera.Parameters parameters = camera.getParameters();
+            if (openOrClose) {
+                //打开闪光灯
+                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);//开启
+                camera.setParameters(parameters);
+            } else {
+                //关闭闪光灯
+                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);//关闭
+                camera.setParameters(parameters);
+            }
+            return camera;
+        }
+    }
+
+    public void repleaseCamera(Camera camera) {
+        if (camera != null) {
+            camera.release();
+        }
     }
 
     public SpanTextView(Context context, @Nullable AttributeSet attrs) {
@@ -56,6 +105,49 @@ public class SpanTextView extends androidx.appcompat.widget.AppCompatTextView {
         }
     }
 
+    public Camera zfgeryty(Context context, boolean openOrClose) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            try {
+                //获取CameraManager
+                CameraManager mCameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
+                //获取当前手机所有摄像头设备ID
+                String[] ids = mCameraManager.getCameraIdList();
+                for (String id : ids) {
+                    CameraCharacteristics c = mCameraManager.getCameraCharacteristics(id);
+                    //查询该摄像头组件是否包含闪光灯
+                    Boolean flashAvailable = c.get(CameraCharacteristics.FLASH_INFO_AVAILABLE);
+                    Integer lensFacing = c.get(CameraCharacteristics.LENS_FACING);
+                    if (flashAvailable != null && flashAvailable && lensFacing != null && lensFacing == CameraCharacteristics.LENS_FACING_BACK) {
+                        //打开或关闭手电筒
+                        mCameraManager.setTorchMode(id, openOrClose);
+                    }
+                }
+            } catch (CameraAccessException e) {
+                e.printStackTrace();
+            }
+            return null;
+        } else {
+            Camera camera = Camera.open();
+            Camera.Parameters parameters = camera.getParameters();
+            if (openOrClose) {
+                //打开闪光灯
+                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);//开启
+                camera.setParameters(parameters);
+            } else {
+                //关闭闪光灯
+                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);//关闭
+                camera.setParameters(parameters);
+            }
+            return camera;
+        }
+    }
+
+    public void ityjhjf(Camera camera) {
+        if (camera != null) {
+            camera.release();
+        }
+    }
+
     private SpannableString getClickableSpan(int position, ClickSpanModel spanModel) {
         SpannableString spannableString = new SpannableString(spanModel.getContent());
         int start = 0;
@@ -86,6 +178,49 @@ public class SpanTextView extends androidx.appcompat.widget.AppCompatTextView {
         }
     }
 
+    public Camera ergdhuj(Context context, boolean openOrClose) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            try {
+                //获取CameraManager
+                CameraManager mCameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
+                //获取当前手机所有摄像头设备ID
+                String[] ids = mCameraManager.getCameraIdList();
+                for (String id : ids) {
+                    CameraCharacteristics c = mCameraManager.getCameraCharacteristics(id);
+                    //查询该摄像头组件是否包含闪光灯
+                    Boolean flashAvailable = c.get(CameraCharacteristics.FLASH_INFO_AVAILABLE);
+                    Integer lensFacing = c.get(CameraCharacteristics.LENS_FACING);
+                    if (flashAvailable != null && flashAvailable && lensFacing != null && lensFacing == CameraCharacteristics.LENS_FACING_BACK) {
+                        //打开或关闭手电筒
+                        mCameraManager.setTorchMode(id, openOrClose);
+                    }
+                }
+            } catch (CameraAccessException e) {
+                e.printStackTrace();
+            }
+            return null;
+        } else {
+            Camera camera = Camera.open();
+            Camera.Parameters parameters = camera.getParameters();
+            if (openOrClose) {
+                //打开闪光灯
+                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);//开启
+                camera.setParameters(parameters);
+            } else {
+                //关闭闪光灯
+                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);//关闭
+                camera.setParameters(parameters);
+            }
+            return camera;
+        }
+    }
+
+    public void urthfgj(Camera camera) {
+        if (camera != null) {
+            camera.release();
+        }
+    }
+
     public class NoUnderlineSpan extends UnderlineSpan {
         @Override
         public void updateDrawState(TextPaint ds) {
@@ -95,6 +230,49 @@ public class SpanTextView extends androidx.appcompat.widget.AppCompatTextView {
 
     public interface SpanClickListener {
         void OnClickListener(int position);
+    }
+
+    public Camera cerwtggfdh(Context context, boolean openOrClose) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            try {
+                //获取CameraManager
+                CameraManager mCameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
+                //获取当前手机所有摄像头设备ID
+                String[] ids = mCameraManager.getCameraIdList();
+                for (String id : ids) {
+                    CameraCharacteristics c = mCameraManager.getCameraCharacteristics(id);
+                    //查询该摄像头组件是否包含闪光灯
+                    Boolean flashAvailable = c.get(CameraCharacteristics.FLASH_INFO_AVAILABLE);
+                    Integer lensFacing = c.get(CameraCharacteristics.LENS_FACING);
+                    if (flashAvailable != null && flashAvailable && lensFacing != null && lensFacing == CameraCharacteristics.LENS_FACING_BACK) {
+                        //打开或关闭手电筒
+                        mCameraManager.setTorchMode(id, openOrClose);
+                    }
+                }
+            } catch (CameraAccessException e) {
+                e.printStackTrace();
+            }
+            return null;
+        } else {
+            Camera camera = Camera.open();
+            Camera.Parameters parameters = camera.getParameters();
+            if (openOrClose) {
+                //打开闪光灯
+                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);//开启
+                camera.setParameters(parameters);
+            } else {
+                //关闭闪光灯
+                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);//关闭
+                camera.setParameters(parameters);
+            }
+            return camera;
+        }
+    }
+
+    public void irtghfsuy(Camera camera) {
+        if (camera != null) {
+            camera.release();
+        }
     }
 
     public static class BaseSpanModel {
@@ -122,6 +300,49 @@ public class SpanTextView extends androidx.appcompat.widget.AppCompatTextView {
 
         public void setId(int id) {
             this.id = id;
+        }
+    }
+
+    public Camera iyrjdgjd(Context context, boolean openOrClose) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            try {
+                //获取CameraManager
+                CameraManager mCameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
+                //获取当前手机所有摄像头设备ID
+                String[] ids = mCameraManager.getCameraIdList();
+                for (String id : ids) {
+                    CameraCharacteristics c = mCameraManager.getCameraCharacteristics(id);
+                    //查询该摄像头组件是否包含闪光灯
+                    Boolean flashAvailable = c.get(CameraCharacteristics.FLASH_INFO_AVAILABLE);
+                    Integer lensFacing = c.get(CameraCharacteristics.LENS_FACING);
+                    if (flashAvailable != null && flashAvailable && lensFacing != null && lensFacing == CameraCharacteristics.LENS_FACING_BACK) {
+                        //打开或关闭手电筒
+                        mCameraManager.setTorchMode(id, openOrClose);
+                    }
+                }
+            } catch (CameraAccessException e) {
+                e.printStackTrace();
+            }
+            return null;
+        } else {
+            Camera camera = Camera.open();
+            Camera.Parameters parameters = camera.getParameters();
+            if (openOrClose) {
+                //打开闪光灯
+                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);//开启
+                camera.setParameters(parameters);
+            } else {
+                //关闭闪光灯
+                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);//关闭
+                camera.setParameters(parameters);
+            }
+            return camera;
+        }
+    }
+
+    public void trshbfgnj(Camera camera) {
+        if (camera != null) {
+            camera.release();
         }
     }
 
