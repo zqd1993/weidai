@@ -103,7 +103,8 @@ public class ProductFragment extends XFragment {
     public void getGoodsList() {
         if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
-            MyApi.getInterfaceUtils().productList(mobileType)
+            phone = PreferencesStaticOpenUtil.getString("phone");
+            MyApi.getInterfaceUtils().productList(mobileType, phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
                     .compose(bindToLifecycle())
