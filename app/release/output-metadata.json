@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.tryrbdfbv.grtregdfh",
+  "applicationId": "com.rongyidai.eetzgfzdfh",
   "variantName": "release",
   "elements": [
     {
@@ -12,7 +12,7 @@
       "filters": [],
       "versionCode": 100,
       "versionName": "1.0.0",
-      "outputFile": "suijiesuihuan_v1.0.0_build_20220703123511.apk"
+      "outputFile": "rongyidai_v1.0.0_build_20220708174526.apk"
     }
   ]
 }
