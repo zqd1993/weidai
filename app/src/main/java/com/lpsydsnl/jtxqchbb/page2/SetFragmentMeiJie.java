@@ -102,16 +102,20 @@ public class SetFragmentMeiJie extends XFragment {
         setItemMeiJieAdapter1.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", HttpMeiJieApi.ZCXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpenMeiJieUtil.jumpPage(getActivity(), MeiJieJumpH5Activity.class, webBundle);
+                    if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", MeiJiePreferencesOpenUtil.getString("AGREEMENT") + HttpMeiJieApi.ZCXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                        OpenMeiJieUtil.jumpPage(getActivity(), MeiJieJumpH5Activity.class, webBundle);
+                    }
                     break;
                 case 1:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", HttpMeiJieApi.YSXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpenMeiJieUtil.jumpPage(getActivity(), MeiJieJumpH5Activity.class, webBundle);
+                    if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", MeiJiePreferencesOpenUtil.getString("AGREEMENT") + HttpMeiJieApi.YSXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                        OpenMeiJieUtil.jumpPage(getActivity(), MeiJieJumpH5Activity.class, webBundle);
+                    }
                     break;
                 case 2:
                     OpenMeiJieUtil.jumpPage(getActivity(), MeiJieFeedbackActivity.class);

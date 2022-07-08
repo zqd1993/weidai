@@ -4,13 +4,13 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.lpsydsnl.jtxqchbb",
+  "applicationId": "com.weidaixyh",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 20220607,
+      "versionCode": 100,
       "versionName": "1.0.0",
       "outputFile": "meijie_v1.0.0.apk"
     }
