@@ -60,15 +60,17 @@ public class JixinDlActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.jixin_view_loading, null));
         getConfig();
         readTv.setText(JiXinOpenUtil.createDlSpanTexts(), position -> {
-            bundle = new Bundle();
-            if (position == 1) {
-                bundle.putString("url", JiXinApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.yryvb));
-            } else {
-                bundle.putString("url", JiXinApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.retert));
+            if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("AGREEMENT"))) {
+                bundle = new Bundle();
+                if (position == 1) {
+                    bundle.putString("url", JiXinPreferencesOpenUtil.getString("AGREEMENT") + JiXinApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.yryvb));
+                } else {
+                    bundle.putString("url", JiXinPreferencesOpenUtil.getString("AGREEMENT") + JiXinApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.retert));
+                }
+                JiXinOpenUtil.jumpPage(JixinDlActivity.this, JixinJumpH5Activity.class, bundle);
             }
-            JiXinOpenUtil.jumpPage(JixinDlActivity.this, JixinJumpH5Activity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {

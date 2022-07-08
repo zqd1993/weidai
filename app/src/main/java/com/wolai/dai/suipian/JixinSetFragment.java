@@ -71,16 +71,20 @@ public class JixinSetFragment extends XFragment {
         productList();
         initSetAdapter();
         zcxyLl.setOnClickListener(v -> {
-            webBundle = new Bundle();
-            webBundle.putString("url", JiXinApi.ZCXY);
-            webBundle.putString("biaoti", getResources().getString(R.string.yryvb));
-            JiXinOpenUtil.jumpPage(getActivity(), JixinJumpH5Activity.class, webBundle);
+            if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("AGREEMENT"))) {
+                webBundle = new Bundle();
+                webBundle.putString("url", JiXinPreferencesOpenUtil.getString("AGREEMENT") + JiXinApi.ZCXY);
+                webBundle.putString("biaoti", getResources().getString(R.string.yryvb));
+                JiXinOpenUtil.jumpPage(getActivity(), JixinJumpH5Activity.class, webBundle);
+            }
         });
         ysxy_ll.setOnClickListener(v -> {
-            webBundle = new Bundle();
-            webBundle.putString("url", JiXinApi.YSXY);
-            webBundle.putString("biaoti", getResources().getString(R.string.retert));
-            JiXinOpenUtil.jumpPage(getActivity(), JixinJumpH5Activity.class, webBundle);
+            if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("AGREEMENT"))) {
+                webBundle = new Bundle();
+                webBundle.putString("url", JiXinPreferencesOpenUtil.getString("AGREEMENT") + JiXinApi.YSXY);
+                webBundle.putString("biaoti", getResources().getString(R.string.retert));
+                JiXinOpenUtil.jumpPage(getActivity(), JixinJumpH5Activity.class, webBundle);
+            }
         });
         yjfk_ll.setOnClickListener(v -> {
             JiXinOpenUtil.jumpPage(getActivity(), JixinFeedbackActivity.class);
