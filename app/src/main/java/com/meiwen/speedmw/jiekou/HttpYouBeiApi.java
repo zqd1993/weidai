@@ -6,8 +6,8 @@ import com.meiwen.speedmw.gongju.PreferencesYouBeiOpenUtil;
 import com.meiwen.speedmw.net.XApi;
 
 public class HttpYouBeiApi {
-    public static final String ZCXY = "https://xy.hgy5kg.com/profile/opmgfq/zcxy.html";
-    public static final String YSXY= "https://xy.hgy5kg.com/profile/opmgfq/ysxy.html";
+    public static final String ZCXY = "/profile/opmgfq/zcxy.html";
+    public static final String YSXY= "/profile/opmgfq/ysxy.html";
     public static String HTTP_API_URL = "";
 
     private static InterfaceYouBeiUtils interfaceUtils;

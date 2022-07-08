@@ -112,16 +112,20 @@ public class SetYouBeiFragment extends XFragment {
         setItemAdapter.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", HttpYouBeiApi.ZCXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpenYouBeiUtil.jumpPage(getActivity(), JumpH5YouBeiActivity.class, webBundle);
+                    if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", PreferencesYouBeiOpenUtil.getString("AGREEMENT") + HttpYouBeiApi.ZCXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                        OpenYouBeiUtil.jumpPage(getActivity(), JumpH5YouBeiActivity.class, webBundle);
+                    }
                     break;
                 case 1:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", HttpYouBeiApi.YSXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpenYouBeiUtil.jumpPage(getActivity(), JumpH5YouBeiActivity.class, webBundle);
+                    if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", PreferencesYouBeiOpenUtil.getString("AGREEMENT") + HttpYouBeiApi.YSXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                        OpenYouBeiUtil.jumpPage(getActivity(), JumpH5YouBeiActivity.class, webBundle);
+                    }
                     break;
                 case 2:
                     OpenYouBeiUtil.jumpPage(getActivity(), FeedbackYouBeiActivity.class);

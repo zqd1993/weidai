@@ -79,10 +79,12 @@ public class StartPageYouBeiActivity extends AppCompatActivity {
 
             @Override
             public void zcxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", HttpYouBeiApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                OpenYouBeiUtil.jumpPage(StartPageYouBeiActivity.this, JumpH5YouBeiActivity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesYouBeiOpenUtil.getString("AGREEMENT") + HttpYouBeiApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    OpenYouBeiUtil.jumpPage(StartPageYouBeiActivity.this, JumpH5YouBeiActivity.class, bundle);
+                }
             }
 
             @Override
@@ -92,10 +94,12 @@ public class StartPageYouBeiActivity extends AppCompatActivity {
 
             @Override
             public void ysxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", HttpYouBeiApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                OpenYouBeiUtil.jumpPage(StartPageYouBeiActivity.this, JumpH5YouBeiActivity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesYouBeiOpenUtil.getString("AGREEMENT") + HttpYouBeiApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    OpenYouBeiUtil.jumpPage(StartPageYouBeiActivity.this, JumpH5YouBeiActivity.class, bundle);
+                }
             }
         });
         startPageRemindDialog.show();
@@ -114,10 +118,15 @@ public class StartPageYouBeiActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-                        PreferencesYouBeiOpenUtil.saveString("HTTP_API_URL", "http://" + responseData);
-                        Thread.sleep(1000);
-                        jumpPage();
-
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                PreferencesYouBeiOpenUtil.saveString("HTTP_API_URL", "http://" + net[0]);
+                                PreferencesYouBeiOpenUtil.saveString("AGREEMENT", net[1]);
+                                Thread.sleep(1000);
+                                jumpPage();
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

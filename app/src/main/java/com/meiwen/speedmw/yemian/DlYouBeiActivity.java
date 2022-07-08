@@ -61,15 +61,17 @@ public class DlYouBeiActivity extends XActivity {
             getConfig();
         }, 200);
         readTv.setText(OpenYouBeiUtil.createDlSpanTexts(), position -> {
-            bundle = new Bundle();
-            if (position == 1) {
-                bundle.putString("url", HttpYouBeiApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-            } else {
-                bundle.putString("url", HttpYouBeiApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+            if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("AGREEMENT"))) {
+                bundle = new Bundle();
+                if (position == 1) {
+                    bundle.putString("url", PreferencesYouBeiOpenUtil.getString("AGREEMENT") + HttpYouBeiApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                } else {
+                    bundle.putString("url", PreferencesYouBeiOpenUtil.getString("AGREEMENT") + HttpYouBeiApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                }
+                OpenYouBeiUtil.jumpPage(DlYouBeiActivity.this, JumpH5YouBeiActivity.class, bundle);
             }
-            OpenYouBeiUtil.jumpPage(DlYouBeiActivity.this, JumpH5YouBeiActivity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
