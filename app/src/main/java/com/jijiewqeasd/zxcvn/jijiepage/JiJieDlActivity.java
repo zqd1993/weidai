@@ -220,15 +220,17 @@ public class JiJieDlActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.view_jijie_loading, null));
         getConfig();
         readTv.setText(OpenJiJieUtil.createDlSpanTexts(), position -> {
-            bundle = new Bundle();
-            if (position == 1) {
-                bundle.putString("url", NetJiJieApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-            } else {
-                bundle.putString("url", NetJiJieApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+            if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("AGREEMENT"))) {
+                bundle = new Bundle();
+                if (position == 1) {
+                    bundle.putString("url", PreferencesJiJieOpenUtil.getString("AGREEMENT") + NetJiJieApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                } else {
+                    bundle.putString("url", PreferencesJiJieOpenUtil.getString("AGREEMENT") + NetJiJieApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                }
+                OpenJiJieUtil.jumpPage(JiJieDlActivity.this, JiJieJumpH5Activity.class, bundle);
             }
-            OpenJiJieUtil.jumpPage(JiJieDlActivity.this, JiJieJumpH5Activity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {

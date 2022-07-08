@@ -175,16 +175,20 @@ public class SetJiJieFragment extends XFragment {
         setItemAdapter.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", NetJiJieApi.ZCXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpenJiJieUtil.jumpPage(getActivity(), JiJieJumpH5Activity.class, webBundle);
+                    if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", PreferencesJiJieOpenUtil.getString("AGREEMENT") + NetJiJieApi.ZCXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                        OpenJiJieUtil.jumpPage(getActivity(), JiJieJumpH5Activity.class, webBundle);
+                    }
                     break;
                 case 1:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", NetJiJieApi.YSXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpenJiJieUtil.jumpPage(getActivity(), JiJieJumpH5Activity.class, webBundle);
+                    if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", PreferencesJiJieOpenUtil.getString("AGREEMENT") + NetJiJieApi.YSXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                        OpenJiJieUtil.jumpPage(getActivity(), JiJieJumpH5Activity.class, webBundle);
+                    }
                     break;
                 case 2:
                     OpenJiJieUtil.jumpPage(getActivity(), JiJieFeedbackActivity.class);

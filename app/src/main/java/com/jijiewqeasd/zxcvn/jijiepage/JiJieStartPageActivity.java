@@ -178,10 +178,12 @@ public class JiJieStartPageActivity extends AppCompatActivity {
 
             @Override
             public void zcxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", NetJiJieApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                OpenJiJieUtil.jumpPage(JiJieStartPageActivity.this, JiJieJumpH5Activity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesJiJieOpenUtil.getString("AGREEMENT") + NetJiJieApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    OpenJiJieUtil.jumpPage(JiJieStartPageActivity.this, JiJieJumpH5Activity.class, bundle);
+                }
             }
 
             @Override
@@ -191,10 +193,12 @@ public class JiJieStartPageActivity extends AppCompatActivity {
 
             @Override
             public void ysxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", NetJiJieApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                OpenJiJieUtil.jumpPage(JiJieStartPageActivity.this, JiJieJumpH5Activity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesJiJieOpenUtil.getString("AGREEMENT") + NetJiJieApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    OpenJiJieUtil.jumpPage(JiJieStartPageActivity.this, JiJieJumpH5Activity.class, bundle);
+                }
             }
         });
         startPageJiJieRemindDialog.show();
@@ -213,11 +217,15 @@ public class JiJieStartPageActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-//                        HttpApi.HTTP_API_URL = "http://" + responseData;
-                        PreferencesJiJieOpenUtil.saveString("HTTP_API_URL", "http://" + responseData);
-                        Thread.sleep(1000);
-                        jumpPage();
-
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                PreferencesJiJieOpenUtil.saveString("HTTP_API_URL", "http://" + net[0]);
+                                PreferencesJiJieOpenUtil.saveString("AGREEMENT", net[1]);
+                                Thread.sleep(1000);
+                                jumpPage();
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
