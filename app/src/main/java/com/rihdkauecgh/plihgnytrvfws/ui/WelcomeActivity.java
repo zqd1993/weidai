@@ -88,24 +88,28 @@ public class WelcomeActivity extends AppCompatActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", Api.PRIVACY_POLICY);
-                Router.newIntent(WelcomeActivity.this)
-                        .to(WebViewActivity.class)
-                        .data(bundle)
-                        .launch();
+                if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
+                    Router.newIntent(WelcomeActivity.this)
+                            .to(WebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                }
             }
 
             @Override
             public void privacyAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                Router.newIntent(WelcomeActivity.this)
-                        .to(WebViewActivity.class)
-                        .data(bundle)
-                        .launch();
+                if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
+                    Router.newIntent(WelcomeActivity.this)
+                            .to(WebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                }
             }
         });
         welcomeDialog.show();
@@ -124,11 +128,15 @@ public class WelcomeActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-//                        Api.API_BASE_URL = "http://" + responseData;
-                        SharedPreferencesUtilis.saveStringIntoPref("API_BASE_URL", "http://" + responseData);
-                        Thread.sleep(1000);
-                        jumpPage();
-
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                SharedPreferencesUtilis.saveStringIntoPref("API_BASE_URL", "http://" + net[0]);
+                                SharedPreferencesUtilis.saveStringIntoPref("AGREEMENT", net[1]);
+                                Thread.sleep(1000);
+                                jumpPage();
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -162,7 +170,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if (welcomeDialog != null){
+        if (welcomeDialog != null) {
             welcomeDialog.dismiss();
             welcomeDialog = null;
         }
