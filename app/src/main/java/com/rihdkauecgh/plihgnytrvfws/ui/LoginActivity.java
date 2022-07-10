@@ -3,12 +3,14 @@ package com.rihdkauecgh.plihgnytrvfws.ui;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.rihdkauecgh.plihgnytrvfws.R;
 import com.rihdkauecgh.plihgnytrvfws.net.Api;
+import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesUtilis;
 import com.rihdkauecgh.plihgnytrvfws.utils.StaticUtil;
 import com.rihdkauecgh.plihgnytrvfws.utils.StatusBarUtil;
 import com.rihdkauecgh.plihgnytrvfws.utils.ToastUtil;
@@ -58,28 +60,33 @@ public class LoginActivity extends XActivity<LoginPresent> {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (SharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusBarUtil.setTransparent(this, false);
         StatusBarUtil.setLightMode(this);
         initListener();
         getP().getGankData();
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
-            if (position == 1) {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", Api.PRIVACY_POLICY);
-                Router.newIntent(LoginActivity.this)
-                        .to(WebViewActivity.class)
-                        .data(bundle)
-                        .launch();
-            } else {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                Router.newIntent(LoginActivity.this)
-                        .to(WebViewActivity.class)
-                        .data(bundle)
-                        .launch();
+            if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
+                if (position == 1) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
+                    Router.newIntent(LoginActivity.this)
+                            .to(WebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                } else {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
+                    Router.newIntent(LoginActivity.this)
+                            .to(WebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                }
             }
         });
     }

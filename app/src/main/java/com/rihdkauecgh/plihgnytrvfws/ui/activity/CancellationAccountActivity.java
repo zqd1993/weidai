@@ -1,12 +1,14 @@
 package com.rihdkauecgh.plihgnytrvfws.ui.activity;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
 
 import com.rihdkauecgh.plihgnytrvfws.R;
+import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesUtilis;
 import com.rihdkauecgh.plihgnytrvfws.utils.StatusBarUtil;
 import com.rihdkauecgh.plihgnytrvfws.widget.NormalDialog;
 import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
@@ -24,6 +26,9 @@ public class CancellationAccountActivity extends XActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (SharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusBarUtil.setTransparent(this, false);
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("账号注销");

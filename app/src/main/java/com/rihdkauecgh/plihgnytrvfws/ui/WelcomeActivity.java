@@ -11,9 +11,17 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 
 import com.rihdkauecgh.plihgnytrvfws.R;
+import com.rihdkauecgh.plihgnytrvfws.model.BaseRespModel;
+import com.rihdkauecgh.plihgnytrvfws.model.ConfigModel;
+import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
+import com.rihdkauecgh.plihgnytrvfws.net.ApiSubscriber;
+import com.rihdkauecgh.plihgnytrvfws.net.NetError;
+import com.rihdkauecgh.plihgnytrvfws.net.XApi;
 import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesUtilis;
+import com.rihdkauecgh.plihgnytrvfws.utils.StaticUtil;
 import com.rihdkauecgh.plihgnytrvfws.utils.StatusBarUtil;
 import com.rihdkauecgh.plihgnytrvfws.router.Router;
 
@@ -25,7 +33,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends XActivity {
 
     private WelcomeDialog welcomeDialog;
 
@@ -38,11 +46,6 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_weclome);
-        StatusBarUtil.setTransparent(this, false);
-        isAgree = SharedPreferencesUtilis.getBoolFromPref("agree");
-        loginPhone = SharedPreferencesUtilis.getStringFromPref("phone");
-        sendRequestWithOkHttp();
     }
 
     @Override
@@ -90,24 +93,28 @@ public class WelcomeActivity extends AppCompatActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", Api.PRIVACY_POLICY);
-                Router.newIntent(WelcomeActivity.this)
-                        .to(WebViewActivity.class)
-                        .data(bundle)
-                        .launch();
+                if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
+                    Router.newIntent(WelcomeActivity.this)
+                            .to(WebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                }
             }
 
             @Override
             public void privacyAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                Router.newIntent(WelcomeActivity.this)
-                        .to(WebViewActivity.class)
-                        .data(bundle)
-                        .launch();
+                if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
+                    Router.newIntent(WelcomeActivity.this)
+                            .to(WebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                }
             }
         });
         welcomeDialog.show();
@@ -126,11 +133,15 @@ public class WelcomeActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-//                        HttpApi.HTTP_API_URL = "http://" + responseData;
-                        SharedPreferencesUtilis.saveStringIntoPref("HTTP_API_URL", "http://" + responseData);
-                        Thread.sleep(1000);
-                        jumpPage();
-
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                SharedPreferencesUtilis.saveStringIntoPref("HTTP_API_URL", "http://" + net[0]);
+                                SharedPreferencesUtilis.saveStringIntoPref("AGREEMENT", "http://" + net[1]);
+                                Thread.sleep(1000);
+                                getGankData();
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -162,6 +173,31 @@ public class WelcomeActivity extends AppCompatActivity {
         finish();
     }
 
+    public void getGankData() {
+        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
+            Api.getGankService().getValve("VIDEOTAPE")
+                    .compose(XApi.<BaseRespModel<ConfigModel>>getApiTransformer())
+                    .compose(XApi.<BaseRespModel<ConfigModel>>getScheduler())
+                    .compose(this.<BaseRespModel<ConfigModel>>bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            jumpPage();
+                        }
+
+                        @Override
+                        public void onNext(BaseRespModel<ConfigModel> gankResults) {
+                            if (gankResults != null) {
+                                if (gankResults.getData() != null) {
+                                    SharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !gankResults.getData().getVideoTape().equals("0"));
+                                }
+                            }
+                            jumpPage();
+                        }
+                    });
+        }
+    }
+
     @Override
     protected void onDestroy() {
         if (welcomeDialog != null){
@@ -169,6 +205,24 @@ public class WelcomeActivity extends AppCompatActivity {
             welcomeDialog = null;
         }
         super.onDestroy();
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        StatusBarUtil.setTransparent(this, false);
+        isAgree = SharedPreferencesUtilis.getBoolFromPref("agree");
+        loginPhone = SharedPreferencesUtilis.getStringFromPref("phone");
+        sendRequestWithOkHttp();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_weclome;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 
 //    private void initUm() {

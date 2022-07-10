@@ -89,22 +89,26 @@ public class MineFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            bundle = new Bundle();
-                            bundle.putInt("tag", 1);
-                            bundle.putString("url", Api.PRIVACY_POLICY);
-                            Router.newIntent(getActivity())
-                                    .to(WebViewActivity.class)
-                                    .data(bundle)
-                                    .launch();
+                            if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
+                                bundle = new Bundle();
+                                bundle.putInt("tag", 1);
+                                bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
+                                Router.newIntent(getActivity())
+                                        .to(WebViewActivity.class)
+                                        .data(bundle)
+                                        .launch();
+                            }
                             break;
                         case 1:
-                            bundle = new Bundle();
-                            bundle.putInt("tag", 2);
-                            bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                            Router.newIntent(getActivity())
-                                    .to(WebViewActivity.class)
-                                    .data(bundle)
-                                    .launch();
+                            if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
+                                bundle = new Bundle();
+                                bundle.putInt("tag", 2);
+                                bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
+                                Router.newIntent(getActivity())
+                                        .to(WebViewActivity.class)
+                                        .data(bundle)
+                                        .launch();
+                            }
                             break;
                         case 2:
                             Router.newIntent(getActivity())

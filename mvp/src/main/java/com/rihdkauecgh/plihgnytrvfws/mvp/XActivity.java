@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.rihdkauecgh.plihgnytrvfws.XDroidConf;
 import com.rihdkauecgh.plihgnytrvfws.event.BusProvider;

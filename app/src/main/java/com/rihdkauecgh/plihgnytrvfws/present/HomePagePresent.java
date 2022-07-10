@@ -26,7 +26,8 @@ public class HomePagePresent extends XPresent<HomePageFragment> {
     public void productList() {
         if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
             mobileType = SharedPreferencesUtilis.getIntFromPref("mobileType");
-            Api.getGankService().productList(mobileType)
+            phone = SharedPreferencesUtilis.getStringFromPref("phone");
+            Api.getGankService().productList(mobileType, phone)
                     .compose(XApi.<BaseRespModel<List<GoodsModel>>>getApiTransformer())
                     .compose(XApi.<BaseRespModel<List<GoodsModel>>>getScheduler())
                     .compose(getV().<BaseRespModel<List<GoodsModel>>>bindToLifecycle())
@@ -46,7 +47,7 @@ public class HomePagePresent extends XPresent<HomePageFragment> {
                             if (gankResults != null) {
                                 if (gankResults.getCode() == 200 && gankResults.getData() != null) {
                                     if (gankResults.getData() != null && gankResults.getData().size() > 0) {
-                                        getV().setModel(gankResults.getData().get(0));
+                                        getV().setModel(gankResults.getData());
                                         getV().initGoodsItemAdapter(gankResults.getData());
                                     } else {
                                         if (getV().goodsItemAdapter == null) {

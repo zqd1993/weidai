@@ -2,11 +2,13 @@ package com.rihdkauecgh.plihgnytrvfws.ui;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.rihdkauecgh.plihgnytrvfws.R;
+import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesUtilis;
 import com.rihdkauecgh.plihgnytrvfws.utils.StatusBarUtil;
 import com.rihdkauecgh.plihgnytrvfws.utils.ToastUtil;
 import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
@@ -40,6 +42,9 @@ public class HomePageActivity extends XActivity<MainPresent> {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (SharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusBarUtil.setTransparent(this, false);
         StatusBarUtil.setLightMode(this);
         getP().login();

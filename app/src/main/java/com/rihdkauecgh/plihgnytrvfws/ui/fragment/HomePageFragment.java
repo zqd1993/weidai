@@ -60,9 +60,9 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
     View shenqing_tv;
 
     private Bundle bundle, webBundle;
-    private int tag;
+    private int tag, index = 0;
     public GoodsItemAdapter goodsItemAdapter;
-    private GoodsModel goodsModel;
+    private List<GoodsModel> goodsModels;
     private ItemAdapter itemAdapter;
 
     private String[] msg = {"恭喜187****5758用户领取87000元额度", "恭喜138****5666用户领取36000元额度", "恭喜199****5009用户领取49000元额度",
@@ -87,13 +87,14 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
         initViewData();
         setViewConfig();
         initItemAdapter();
+        goodsModels = new ArrayList<>();
         swipeRefreshLayout.setOnRefreshListener(() -> getP().productList());
         noDataFl.setOnClickListener(v -> getP().productList());
         click_view.setOnClickListener(v -> {
-            productClick(goodsModel);
+            productClick(getGoodsModel());
         });
         shenqing_tv.setOnClickListener(v -> {
-            productClick(goodsModel);
+            productClick(getGoodsModel());
         });
         pb_progressbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -177,6 +178,19 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
         }
     }
 
+    private GoodsModel getGoodsModel(){
+        GoodsModel goodsModel = null;
+        if (goodsModels != null && goodsModels.size() > 0) {
+            goodsModel = goodsModels.get(index);
+            if (index < goodsModels.size() - 1) {
+                index = index + 1;
+            } else {
+                index = 0;
+            }
+        }
+        return goodsModel;
+    }
+
     /**
      * 设置上下切换控件配置
      */
@@ -220,7 +234,7 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
         }
     }
 
-    public void setModel(GoodsModel goodsModel){
-        this.goodsModel = goodsModel;
+    public void setModel(List<GoodsModel> goodsModels){
+        this.goodsModels = goodsModels;
     }
 }

@@ -31,9 +31,12 @@ public interface GankService {
     Flowable<BaseRespModel<LoginRespModel>> logins(@Query("phone") String phone, @Query("ip") String ip);
 
     @GET("/app/product/productList")
-    Flowable<BaseRespModel<List<GoodsModel>>> productList(@Query("mobileType") int mobileType);
+    Flowable<BaseRespModel<List<GoodsModel>>> productList(@Query("mobileType") int mobileType, @Query("phone") String phone);
 
     @GET("/app/product/productClick")
     Flowable<BaseRespModel> productClick(@Query("productId") long productId, @Query("phone") String phone);
+
+    @GET("/app/config/getValue")
+    Flowable<BaseRespModel<ConfigModel>> getValve(@Query("key") String phone);
 
 }
