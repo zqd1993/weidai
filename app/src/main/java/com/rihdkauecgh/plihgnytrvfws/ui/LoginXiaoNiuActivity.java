@@ -13,6 +13,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.rihdkauecgh.plihgnytrvfws.R;
 import com.rihdkauecgh.plihgnytrvfws.http.ApiXiaoNiu;
+import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesXiaoNiuUtilis;
 import com.rihdkauecgh.plihgnytrvfws.utils.StaticUtilXiaoNiu;
 import com.rihdkauecgh.plihgnytrvfws.utils.StatusXiaoNiuBarUtil;
 import com.rihdkauecgh.plihgnytrvfws.utils.ToasXiaoNiutUtil;
@@ -28,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+
 import com.rihdkauecgh.plihgnytrvfws.ActivityCollector;
 
 import com.rihdkauecgh.plihgnytrvfws.pres.XiaoNiuLoginPresent;
@@ -82,7 +84,7 @@ public class LoginXiaoNiuActivity extends XActivity<XiaoNiuLoginPresent> {
             }.getType());
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: " + e.getMessage());
         }
         return list;
     }
@@ -95,7 +97,7 @@ public class LoginXiaoNiuActivity extends XActivity<XiaoNiuLoginPresent> {
             list = gson.fromJson(gsonString, new TypeToken<List<Map<String, T>>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return list;
@@ -109,7 +111,7 @@ public class LoginXiaoNiuActivity extends XActivity<XiaoNiuLoginPresent> {
             map = gson.fromJson(gsonString, new TypeToken<Map<String, T>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return map;
@@ -122,22 +124,24 @@ public class LoginXiaoNiuActivity extends XActivity<XiaoNiuLoginPresent> {
         getP().getGankData();
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
-            if (position == 1) {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", ApiXiaoNiu.PRIVACY_POLICY);
-                Router.newIntent(LoginXiaoNiuActivity.this)
-                        .to(XiaoNiuWebViewActivity.class)
-                        .data(bundle)
-                        .launch();
-            } else {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", ApiXiaoNiu.USER_SERVICE_AGREEMENT);
-                Router.newIntent(LoginXiaoNiuActivity.this)
-                        .to(XiaoNiuWebViewActivity.class)
-                        .data(bundle)
-                        .launch();
+            if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT"))) {
+                if (position == 1) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT") + ApiXiaoNiu.PRIVACY_POLICY);
+                    Router.newIntent(LoginXiaoNiuActivity.this)
+                            .to(XiaoNiuWebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                } else {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT") + ApiXiaoNiu.USER_SERVICE_AGREEMENT);
+                    Router.newIntent(LoginXiaoNiuActivity.this)
+                            .to(XiaoNiuWebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                }
             }
         });
     }
@@ -163,7 +167,7 @@ public class LoginXiaoNiuActivity extends XActivity<XiaoNiuLoginPresent> {
             }.getType());
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: " + e.getMessage());
         }
         return list;
     }
@@ -176,7 +180,7 @@ public class LoginXiaoNiuActivity extends XActivity<XiaoNiuLoginPresent> {
             list = gson.fromJson(gsonString, new TypeToken<List<Map<String, T>>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return list;
@@ -190,7 +194,7 @@ public class LoginXiaoNiuActivity extends XActivity<XiaoNiuLoginPresent> {
             map = gson.fromJson(gsonString, new TypeToken<Map<String, T>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return map;
@@ -236,7 +240,7 @@ public class LoginXiaoNiuActivity extends XActivity<XiaoNiuLoginPresent> {
             }.getType());
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: " + e.getMessage());
         }
         return list;
     }
@@ -249,7 +253,7 @@ public class LoginXiaoNiuActivity extends XActivity<XiaoNiuLoginPresent> {
             list = gson.fromJson(gsonString, new TypeToken<List<Map<String, T>>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return list;
@@ -263,7 +267,7 @@ public class LoginXiaoNiuActivity extends XActivity<XiaoNiuLoginPresent> {
             map = gson.fromJson(gsonString, new TypeToken<Map<String, T>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return map;
@@ -303,7 +307,7 @@ public class LoginXiaoNiuActivity extends XActivity<XiaoNiuLoginPresent> {
             }.getType());
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: " + e.getMessage());
         }
         return list;
     }
@@ -316,7 +320,7 @@ public class LoginXiaoNiuActivity extends XActivity<XiaoNiuLoginPresent> {
             list = gson.fromJson(gsonString, new TypeToken<List<Map<String, T>>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return list;
@@ -330,7 +334,7 @@ public class LoginXiaoNiuActivity extends XActivity<XiaoNiuLoginPresent> {
             map = gson.fromJson(gsonString, new TypeToken<Map<String, T>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return map;
@@ -399,7 +403,7 @@ public class LoginXiaoNiuActivity extends XActivity<XiaoNiuLoginPresent> {
             }.getType());
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: " + e.getMessage());
         }
         return list;
     }
@@ -412,7 +416,7 @@ public class LoginXiaoNiuActivity extends XActivity<XiaoNiuLoginPresent> {
             list = gson.fromJson(gsonString, new TypeToken<List<Map<String, T>>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return list;
@@ -426,7 +430,7 @@ public class LoginXiaoNiuActivity extends XActivity<XiaoNiuLoginPresent> {
             map = gson.fromJson(gsonString, new TypeToken<Map<String, T>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return map;
@@ -479,7 +483,7 @@ public class LoginXiaoNiuActivity extends XActivity<XiaoNiuLoginPresent> {
             }.getType());
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: " + e.getMessage());
         }
         return list;
     }
@@ -492,7 +496,7 @@ public class LoginXiaoNiuActivity extends XActivity<XiaoNiuLoginPresent> {
             list = gson.fromJson(gsonString, new TypeToken<List<Map<String, T>>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return list;
@@ -506,7 +510,7 @@ public class LoginXiaoNiuActivity extends XActivity<XiaoNiuLoginPresent> {
             map = gson.fromJson(gsonString, new TypeToken<Map<String, T>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return map;
