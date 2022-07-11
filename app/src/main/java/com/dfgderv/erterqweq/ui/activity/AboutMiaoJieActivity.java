@@ -29,7 +29,7 @@ public class AboutMiaoJieActivity extends XActivity {
         StatusBarUtil.setTransparent(this, false);
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("关于");
-        version_tv.setText(StaticUtil.getAppVersionName(App.getContext()));
+        version_tv.setText("当前版本号：v "+ StaticUtil.getAppVersionName(App.getContext()));
     }
 
     private NotificationManager manager;

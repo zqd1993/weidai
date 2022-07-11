@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.dfgderv.erterqweq.R;
 import com.dfgderv.erterqweq.net.Api;
+import com.dfgderv.erterqweq.utils.SharedPreferencesUtilis;
 import com.dfgderv.erterqweq.utils.StaticUtil;
 import com.dfgderv.erterqweq.utils.StatusBarUtil;
 import com.dfgderv.erterqweq.utils.ToastUtil;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+
 import com.dfgderv.erterqweq.ActivityCollector;
 
 import com.dfgderv.erterqweq.present.LoginPresent;
@@ -63,22 +65,24 @@ public class LoginActivity extends XActivity<LoginPresent> {
         getP().getGankData();
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
-            if (position == 1) {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", Api.PRIVACY_POLICY);
-                Router.newIntent(LoginActivity.this)
-                        .to(WebViewActivity.class)
-                        .data(bundle)
-                        .launch();
-            } else {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                Router.newIntent(LoginActivity.this)
-                        .to(WebViewActivity.class)
-                        .data(bundle)
-                        .launch();
+            if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
+                if (position == 1) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
+                    Router.newIntent(LoginActivity.this)
+                            .to(WebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                } else {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
+                    Router.newIntent(LoginActivity.this)
+                            .to(WebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                }
             }
         });
     }
