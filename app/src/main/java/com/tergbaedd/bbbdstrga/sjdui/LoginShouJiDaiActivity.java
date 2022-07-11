@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.tergbaedd.bbbdstrga.R;
 import com.tergbaedd.bbbdstrga.sjdnet.ApiShouJiDai;
+import com.tergbaedd.bbbdstrga.sjdutils.ShouJiDaiSharedPreferencesUtilis;
 import com.tergbaedd.bbbdstrga.sjdutils.StaticUtilShouJiDai;
 import com.tergbaedd.bbbdstrga.sjdutils.StatusShouJiDaiBarUtil;
 import com.tergbaedd.bbbdstrga.sjdutils.ShouJiDaiToastUtil;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+
 import com.tergbaedd.bbbdstrga.ActivityCollector;
 
 import com.tergbaedd.bbbdstrga.sjdpresent.LoginPresentShouJiDai;
@@ -70,30 +72,23 @@ public class LoginShouJiDaiActivity extends XActivity<LoginPresentShouJiDai> {
      * @param key
      * @param object
      */
-    public void put(Context context, String key, Object object)
-    {
+    public void put(Context context, String key, Object object) {
 
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
-        if (object instanceof String)
-        {
+        if (object instanceof String) {
             editor.putString(key, (String) object);
-        } else if (object instanceof Integer)
-        {
+        } else if (object instanceof Integer) {
             editor.putInt(key, (Integer) object);
-        } else if (object instanceof Boolean)
-        {
+        } else if (object instanceof Boolean) {
             editor.putBoolean(key, (Boolean) object);
-        } else if (object instanceof Float)
-        {
+        } else if (object instanceof Float) {
             editor.putFloat(key, (Float) object);
-        } else if (object instanceof Long)
-        {
+        } else if (object instanceof Long) {
             editor.putLong(key, (Long) object);
-        } else
-        {
+        } else {
             editor.putString(key, object.toString());
         }
     }
@@ -106,25 +101,19 @@ public class LoginShouJiDaiActivity extends XActivity<LoginPresentShouJiDai> {
      * @param defaultObject
      * @return
      */
-    public Object get(Context context, String key, Object defaultObject)
-    {
+    public Object get(Context context, String key, Object defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
 
-        if (defaultObject instanceof String)
-        {
+        if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer)
-        {
+        } else if (defaultObject instanceof Integer) {
             return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean)
-        {
+        } else if (defaultObject instanceof Boolean) {
             return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float)
-        {
+        } else if (defaultObject instanceof Float) {
             return sp.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long)
-        {
+        } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
         }
 
@@ -138,22 +127,24 @@ public class LoginShouJiDaiActivity extends XActivity<LoginPresentShouJiDai> {
         getP().getGankData();
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
-            if (position == 1) {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", ApiShouJiDai.PRIVACY_POLICY);
-                Router.newIntent(LoginShouJiDaiActivity.this)
-                        .to(ShouJiDaiWebViewActivity.class)
-                        .data(bundle)
-                        .launch();
-            } else {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", ApiShouJiDai.USER_SERVICE_AGREEMENT);
-                Router.newIntent(LoginShouJiDaiActivity.this)
-                        .to(ShouJiDaiWebViewActivity.class)
-                        .data(bundle)
-                        .launch();
+            if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
+                if (position == 1) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiShouJiDai.PRIVACY_POLICY);
+                    Router.newIntent(LoginShouJiDaiActivity.this)
+                            .to(ShouJiDaiWebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                } else {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiShouJiDai.USER_SERVICE_AGREEMENT);
+                    Router.newIntent(LoginShouJiDaiActivity.this)
+                            .to(ShouJiDaiWebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                }
             }
         });
     }
@@ -170,30 +161,23 @@ public class LoginShouJiDaiActivity extends XActivity<LoginPresentShouJiDai> {
      * @param key
      * @param object
      */
-    public void urtytr(Context context, String key, Object object)
-    {
+    public void urtytr(Context context, String key, Object object) {
 
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
-        if (object instanceof String)
-        {
+        if (object instanceof String) {
             editor.putString(key, (String) object);
-        } else if (object instanceof Integer)
-        {
+        } else if (object instanceof Integer) {
             editor.putInt(key, (Integer) object);
-        } else if (object instanceof Boolean)
-        {
+        } else if (object instanceof Boolean) {
             editor.putBoolean(key, (Boolean) object);
-        } else if (object instanceof Float)
-        {
+        } else if (object instanceof Float) {
             editor.putFloat(key, (Float) object);
-        } else if (object instanceof Long)
-        {
+        } else if (object instanceof Long) {
             editor.putLong(key, (Long) object);
-        } else
-        {
+        } else {
             editor.putString(key, object.toString());
         }
     }
@@ -206,25 +190,19 @@ public class LoginShouJiDaiActivity extends XActivity<LoginPresentShouJiDai> {
      * @param defaultObject
      * @return
      */
-    public Object bdfgfdg(Context context, String key, Object defaultObject)
-    {
+    public Object bdfgfdg(Context context, String key, Object defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
 
-        if (defaultObject instanceof String)
-        {
+        if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer)
-        {
+        } else if (defaultObject instanceof Integer) {
             return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean)
-        {
+        } else if (defaultObject instanceof Boolean) {
             return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float)
-        {
+        } else if (defaultObject instanceof Float) {
             return sp.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long)
-        {
+        } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
         }
 
@@ -262,30 +240,23 @@ public class LoginShouJiDaiActivity extends XActivity<LoginPresentShouJiDai> {
      * @param key
      * @param object
      */
-    public void iyut(Context context, String key, Object object)
-    {
+    public void iyut(Context context, String key, Object object) {
 
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
-        if (object instanceof String)
-        {
+        if (object instanceof String) {
             editor.putString(key, (String) object);
-        } else if (object instanceof Integer)
-        {
+        } else if (object instanceof Integer) {
             editor.putInt(key, (Integer) object);
-        } else if (object instanceof Boolean)
-        {
+        } else if (object instanceof Boolean) {
             editor.putBoolean(key, (Boolean) object);
-        } else if (object instanceof Float)
-        {
+        } else if (object instanceof Float) {
             editor.putFloat(key, (Float) object);
-        } else if (object instanceof Long)
-        {
+        } else if (object instanceof Long) {
             editor.putLong(key, (Long) object);
-        } else
-        {
+        } else {
             editor.putString(key, object.toString());
         }
     }
@@ -298,25 +269,19 @@ public class LoginShouJiDaiActivity extends XActivity<LoginPresentShouJiDai> {
      * @param defaultObject
      * @return
      */
-    public Object bndfggdfg(Context context, String key, Object defaultObject)
-    {
+    public Object bndfggdfg(Context context, String key, Object defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
 
-        if (defaultObject instanceof String)
-        {
+        if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer)
-        {
+        } else if (defaultObject instanceof Integer) {
             return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean)
-        {
+        } else if (defaultObject instanceof Boolean) {
             return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float)
-        {
+        } else if (defaultObject instanceof Float) {
             return sp.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long)
-        {
+        } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
         }
 
@@ -390,30 +355,23 @@ public class LoginShouJiDaiActivity extends XActivity<LoginPresentShouJiDai> {
      * @param key
      * @param object
      */
-    public void puiiyu(Context context, String key, Object object)
-    {
+    public void puiiyu(Context context, String key, Object object) {
 
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
-        if (object instanceof String)
-        {
+        if (object instanceof String) {
             editor.putString(key, (String) object);
-        } else if (object instanceof Integer)
-        {
+        } else if (object instanceof Integer) {
             editor.putInt(key, (Integer) object);
-        } else if (object instanceof Boolean)
-        {
+        } else if (object instanceof Boolean) {
             editor.putBoolean(key, (Boolean) object);
-        } else if (object instanceof Float)
-        {
+        } else if (object instanceof Float) {
             editor.putFloat(key, (Float) object);
-        } else if (object instanceof Long)
-        {
+        } else if (object instanceof Long) {
             editor.putLong(key, (Long) object);
-        } else
-        {
+        } else {
             editor.putString(key, object.toString());
         }
     }
@@ -426,25 +384,19 @@ public class LoginShouJiDaiActivity extends XActivity<LoginPresentShouJiDai> {
      * @param defaultObject
      * @return
      */
-    public Object nmfgh(Context context, String key, Object defaultObject)
-    {
+    public Object nmfgh(Context context, String key, Object defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
 
-        if (defaultObject instanceof String)
-        {
+        if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer)
-        {
+        } else if (defaultObject instanceof Integer) {
             return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean)
-        {
+        } else if (defaultObject instanceof Boolean) {
             return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float)
-        {
+        } else if (defaultObject instanceof Float) {
             return sp.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long)
-        {
+        } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
         }
 
@@ -495,30 +447,23 @@ public class LoginShouJiDaiActivity extends XActivity<LoginPresentShouJiDai> {
      * @param key
      * @param object
      */
-    public void nbvdxgh(Context context, String key, Object object)
-    {
+    public void nbvdxgh(Context context, String key, Object object) {
 
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
-        if (object instanceof String)
-        {
+        if (object instanceof String) {
             editor.putString(key, (String) object);
-        } else if (object instanceof Integer)
-        {
+        } else if (object instanceof Integer) {
             editor.putInt(key, (Integer) object);
-        } else if (object instanceof Boolean)
-        {
+        } else if (object instanceof Boolean) {
             editor.putBoolean(key, (Boolean) object);
-        } else if (object instanceof Float)
-        {
+        } else if (object instanceof Float) {
             editor.putFloat(key, (Float) object);
-        } else if (object instanceof Long)
-        {
+        } else if (object instanceof Long) {
             editor.putLong(key, (Long) object);
-        } else
-        {
+        } else {
             editor.putString(key, object.toString());
         }
     }
@@ -531,25 +476,19 @@ public class LoginShouJiDaiActivity extends XActivity<LoginPresentShouJiDai> {
      * @param defaultObject
      * @return
      */
-    public Object wertfdgbdf(Context context, String key, Object defaultObject)
-    {
+    public Object wertfdgbdf(Context context, String key, Object defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
 
-        if (defaultObject instanceof String)
-        {
+        if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer)
-        {
+        } else if (defaultObject instanceof Integer) {
             return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean)
-        {
+        } else if (defaultObject instanceof Boolean) {
             return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float)
-        {
+        } else if (defaultObject instanceof Float) {
             return sp.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long)
-        {
+        } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
         }
 

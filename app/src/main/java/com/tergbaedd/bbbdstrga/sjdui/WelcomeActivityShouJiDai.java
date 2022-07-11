@@ -165,24 +165,28 @@ public class WelcomeActivityShouJiDai extends AppCompatActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", ApiShouJiDai.PRIVACY_POLICY);
-                Router.newIntent(WelcomeActivityShouJiDai.this)
-                        .to(ShouJiDaiWebViewActivity.class)
-                        .data(bundle)
-                        .launch();
+                if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiShouJiDai.PRIVACY_POLICY);
+                    Router.newIntent(WelcomeActivityShouJiDai.this)
+                            .to(ShouJiDaiWebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                }
             }
 
             @Override
             public void privacyAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", ApiShouJiDai.USER_SERVICE_AGREEMENT);
-                Router.newIntent(WelcomeActivityShouJiDai.this)
-                        .to(ShouJiDaiWebViewActivity.class)
-                        .data(bundle)
-                        .launch();
+                if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiShouJiDai.USER_SERVICE_AGREEMENT);
+                    Router.newIntent(WelcomeActivityShouJiDai.this)
+                            .to(ShouJiDaiWebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                }
             }
         });
         welcomeDialog.show();
@@ -274,11 +278,15 @@ public class WelcomeActivityShouJiDai extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-//                        HttpApi.HTTP_API_URL = "http://" + responseData;
-                        ShouJiDaiSharedPreferencesUtilis.saveStringIntoPref("HTTP_API_URL", "http://" + responseData);
-                        Thread.sleep(1000);
-                        jumpPage();
-
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                ShouJiDaiSharedPreferencesUtilis.saveStringIntoPref("HTTP_API_URL", "http://" + net[0]);
+                                ShouJiDaiSharedPreferencesUtilis.saveStringIntoPref("AGREEMENT", net[1]);
+                                Thread.sleep(1000);
+                                jumpPage();
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
