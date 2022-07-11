@@ -1,12 +1,23 @@
 package com.rihdkauecgh.plihgnytrvfws.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.rihdkauecgh.plihgnytrvfws.model.BaseRespModel;
+import com.rihdkauecgh.plihgnytrvfws.model.ConfigModel;
+import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
+import com.rihdkauecgh.plihgnytrvfws.net.Api;
+import com.rihdkauecgh.plihgnytrvfws.net.ApiSubscriber;
 import com.rihdkauecgh.plihgnytrvfws.net.NetError;
+import com.rihdkauecgh.plihgnytrvfws.net.XApi;
+import com.rihdkauecgh.plihgnytrvfws.router.Router;
+import com.rihdkauecgh.plihgnytrvfws.ui.HomePageActivity;
+import com.rihdkauecgh.plihgnytrvfws.ui.WelcomeActivity;
 
 import java.util.regex.Pattern;
 
@@ -68,6 +79,43 @@ public class StaticUtil {
             e.printStackTrace();
         }
         return versionName;
+    }
+
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle){
+        if (bundle != null){
+            Router.newIntent(activity)
+                    .to(to)
+                    .data(bundle)
+                    .launch();
+        } else {
+            Router.newIntent(activity)
+                    .to(to)
+                    .launch();
+        }
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
+        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
+            Api.getGankService().getValve("VIDEOTAPE")
+                    .compose(XApi.<BaseRespModel<ConfigModel>>getApiTransformer())
+                    .compose(XApi.<BaseRespModel<ConfigModel>>getScheduler())
+                    .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            jumpPage(activity, to, bundle);
+                        }
+
+                        @Override
+                        public void onNext(BaseRespModel<ConfigModel> gankResults) {
+                            if (gankResults != null) {
+                                if (gankResults.getData() != null) {
+                                    SharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !gankResults.getData().getVideoTape().equals("0"));
+                                }
+                            }
+                            jumpPage(activity, to, bundle);
+                        }
+                    });
+        }
     }
 
 }

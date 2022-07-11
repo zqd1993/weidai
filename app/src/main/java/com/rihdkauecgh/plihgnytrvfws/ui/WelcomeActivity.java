@@ -62,7 +62,6 @@ public class WelcomeActivity extends XActivity {
 
 
     private void showDialog() {
-        Looper.prepare();
         welcomeDialog = new WelcomeDialog(this, "温馨提示");
         welcomeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -118,7 +117,6 @@ public class WelcomeActivity extends XActivity {
             }
         });
         welcomeDialog.show();
-        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -137,7 +135,7 @@ public class WelcomeActivity extends XActivity {
                             String[] net = responseData.split(",");
                             if (net.length > 1) {
                                 SharedPreferencesUtilis.saveStringIntoPref("HTTP_API_URL", "http://" + net[0]);
-                                SharedPreferencesUtilis.saveStringIntoPref("AGREEMENT", "http://" + net[1]);
+                                SharedPreferencesUtilis.saveStringIntoPref("AGREEMENT", net[1]);
                                 Thread.sleep(1000);
                                 getGankData();
                             }

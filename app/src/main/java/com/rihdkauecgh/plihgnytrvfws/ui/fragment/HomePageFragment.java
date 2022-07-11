@@ -17,10 +17,12 @@ import com.rihdkauecgh.plihgnytrvfws.adapter.GoodsItemAdapter;
 import com.rihdkauecgh.plihgnytrvfws.adapter.ItemAdapter;
 import com.rihdkauecgh.plihgnytrvfws.model.GoodsModel;
 import com.rihdkauecgh.plihgnytrvfws.model.ItemModel;
+import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
 import com.rihdkauecgh.plihgnytrvfws.ui.WebViewActivity;
 import com.rihdkauecgh.plihgnytrvfws.mvp.XFragment;
 import com.rihdkauecgh.plihgnytrvfws.present.HomePagePresent;
 import com.rihdkauecgh.plihgnytrvfws.router.Router;
+import com.rihdkauecgh.plihgnytrvfws.utils.StaticUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -171,10 +173,7 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
             webBundle.putInt("tag", 3);
             webBundle.putString("url", model.getUrl());
             webBundle.putString("title", model.getProductName());
-            Router.newIntent(getActivity())
-                    .to(WebViewActivity.class)
-                    .data(webBundle)
-                    .launch();
+            StaticUtil.getValue((XActivity) getActivity(), WebViewActivity.class, webBundle);
         }
     }
 

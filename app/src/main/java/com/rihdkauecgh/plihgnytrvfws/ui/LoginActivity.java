@@ -74,18 +74,12 @@ public class LoginActivity extends XActivity<LoginPresent> {
                     bundle = new Bundle();
                     bundle.putInt("tag", 1);
                     bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
-                    Router.newIntent(LoginActivity.this)
-                            .to(WebViewActivity.class)
-                            .data(bundle)
-                            .launch();
+                    StaticUtil.getValue(this, WebViewActivity.class, bundle);
                 } else {
                     bundle = new Bundle();
                     bundle.putInt("tag", 2);
                     bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
-                    Router.newIntent(LoginActivity.this)
-                            .to(WebViewActivity.class)
-                            .data(bundle)
-                            .launch();
+                    StaticUtil.getValue(this, WebViewActivity.class, bundle);
                 }
             }
         });
