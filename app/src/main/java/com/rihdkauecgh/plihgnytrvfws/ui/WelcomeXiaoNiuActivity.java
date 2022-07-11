@@ -62,7 +62,7 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
             }.getType());
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: " + e.getMessage());
         }
         return list;
     }
@@ -75,7 +75,7 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
             list = gson.fromJson(gsonString, new TypeToken<List<Map<String, T>>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return list;
@@ -89,7 +89,7 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
             map = gson.fromJson(gsonString, new TypeToken<Map<String, T>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return map;
@@ -150,24 +150,28 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", ApiXiaoNiu.PRIVACY_POLICY);
-                Router.newIntent(WelcomeXiaoNiuActivity.this)
-                        .to(XiaoNiuWebViewActivity.class)
-                        .data(bundle)
-                        .launch();
+                if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT") + ApiXiaoNiu.PRIVACY_POLICY);
+                    Router.newIntent(WelcomeXiaoNiuActivity.this)
+                            .to(XiaoNiuWebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                }
             }
 
             @Override
             public void privacyAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", ApiXiaoNiu.USER_SERVICE_AGREEMENT);
-                Router.newIntent(WelcomeXiaoNiuActivity.this)
-                        .to(XiaoNiuWebViewActivity.class)
-                        .data(bundle)
-                        .launch();
+                if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT") + ApiXiaoNiu.USER_SERVICE_AGREEMENT);
+                    Router.newIntent(WelcomeXiaoNiuActivity.this)
+                            .to(XiaoNiuWebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                }
             }
         });
         welcomeXiaoNiuDialog.show();
@@ -195,7 +199,7 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
             }.getType());
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: " + e.getMessage());
         }
         return list;
     }
@@ -208,7 +212,7 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
             list = gson.fromJson(gsonString, new TypeToken<List<Map<String, T>>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return list;
@@ -222,7 +226,7 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
             map = gson.fromJson(gsonString, new TypeToken<Map<String, T>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return map;
@@ -240,11 +244,15 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-//                        HttpApi.HTTP_API_URL = "http://" + responseData;
-                        SharedPreferencesXiaoNiuUtilis.saveStringIntoPref("HTTP_API_URL", "http://" + responseData);
-                        Thread.sleep(1000);
-                        jumpPage();
-
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                SharedPreferencesXiaoNiuUtilis.saveStringIntoPref("HTTP_API_URL", "http://" + net[0]);
+                                SharedPreferencesXiaoNiuUtilis.saveStringIntoPref("AGREEMENT", net[1]);
+                                Thread.sleep(1000);
+                                jumpPage();
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -274,7 +282,7 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
             }.getType());
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: " + e.getMessage());
         }
         return list;
     }
@@ -287,7 +295,7 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
             list = gson.fromJson(gsonString, new TypeToken<List<Map<String, T>>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return list;
@@ -301,7 +309,7 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
             map = gson.fromJson(gsonString, new TypeToken<Map<String, T>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return map;
@@ -332,7 +340,7 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if (welcomeXiaoNiuDialog != null){
+        if (welcomeXiaoNiuDialog != null) {
             welcomeXiaoNiuDialog.dismiss();
             welcomeXiaoNiuDialog = null;
         }
@@ -360,7 +368,7 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
             }.getType());
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: " + e.getMessage());
         }
         return list;
     }
@@ -373,7 +381,7 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
             list = gson.fromJson(gsonString, new TypeToken<List<Map<String, T>>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return list;
@@ -387,7 +395,7 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
             map = gson.fromJson(gsonString, new TypeToken<Map<String, T>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return map;
@@ -431,7 +439,7 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
             }.getType());
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: " + e.getMessage());
         }
         return list;
     }
@@ -444,7 +452,7 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
             list = gson.fromJson(gsonString, new TypeToken<List<Map<String, T>>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return list;
@@ -458,7 +466,7 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
             map = gson.fromJson(gsonString, new TypeToken<Map<String, T>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return map;

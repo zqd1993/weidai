@@ -146,22 +146,26 @@ public class MineXiaoNiuFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            bundle = new Bundle();
-                            bundle.putInt("tag", 1);
-                            bundle.putString("url", ApiXiaoNiu.PRIVACY_POLICY);
-                            Router.newIntent(getActivity())
-                                    .to(XiaoNiuWebViewActivity.class)
-                                    .data(bundle)
-                                    .launch();
+                            if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT"))) {
+                                bundle = new Bundle();
+                                bundle.putInt("tag", 1);
+                                bundle.putString("url", SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT") + ApiXiaoNiu.PRIVACY_POLICY);
+                                Router.newIntent(getActivity())
+                                        .to(XiaoNiuWebViewActivity.class)
+                                        .data(bundle)
+                                        .launch();
+                            }
                             break;
                         case 1:
-                            bundle = new Bundle();
-                            bundle.putInt("tag", 2);
-                            bundle.putString("url", ApiXiaoNiu.USER_SERVICE_AGREEMENT);
-                            Router.newIntent(getActivity())
-                                    .to(XiaoNiuWebViewActivity.class)
-                                    .data(bundle)
-                                    .launch();
+                            if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT"))) {
+                                bundle = new Bundle();
+                                bundle.putInt("tag", 2);
+                                bundle.putString("url", SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT") + ApiXiaoNiu.USER_SERVICE_AGREEMENT);
+                                Router.newIntent(getActivity())
+                                        .to(XiaoNiuWebViewActivity.class)
+                                        .data(bundle)
+                                        .launch();
+                            }
                             break;
                         case 2:
                             Router.newIntent(getActivity())
