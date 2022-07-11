@@ -21,8 +21,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class HttpApiThreeSixOne {
-    public static final String ZCXY = "https://xy.hgy5kg.com/profile/optqhdk/zcxy.html";
-    public static final String YSXY= "https://xy.hgy5kg.com/profile/optqhdk/ysxy.html";
+    public static final String ZCXY = "/profile/optqhdk/zcxy.html";
+    public static final String YSXY= "/profile/optqhdk/ysxy.html";
     public static String HTTP_API_URL = "";
 
     /**

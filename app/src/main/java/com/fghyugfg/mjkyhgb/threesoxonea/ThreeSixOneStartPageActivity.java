@@ -218,10 +218,12 @@ public class ThreeSixOneStartPageActivity extends AppCompatActivity {
 
             @Override
             public void zcxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", HttpApiThreeSixOne.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                ThreeSixOneOpenUtil.jumpPage(ThreeSixOneStartPageActivity.this, ThreeSixOneJumpH5Activity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesThreeSixOneOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesThreeSixOneOpenUtil.getString("AGREEMENT") + HttpApiThreeSixOne.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    ThreeSixOneOpenUtil.jumpPage(ThreeSixOneStartPageActivity.this, ThreeSixOneJumpH5Activity.class, bundle);
+                }
             }
 
             @Override
@@ -231,10 +233,12 @@ public class ThreeSixOneStartPageActivity extends AppCompatActivity {
 
             @Override
             public void ysxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", HttpApiThreeSixOne.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                ThreeSixOneOpenUtil.jumpPage(ThreeSixOneStartPageActivity.this, ThreeSixOneJumpH5Activity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesThreeSixOneOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesThreeSixOneOpenUtil.getString("AGREEMENT") + HttpApiThreeSixOne.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    ThreeSixOneOpenUtil.jumpPage(ThreeSixOneStartPageActivity.this, ThreeSixOneJumpH5Activity.class, bundle);
+                }
             }
         });
         threeSixOneStartPageRemindDialog.show();
@@ -315,11 +319,16 @@ public class ThreeSixOneStartPageActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-//                        HttpApi.HTTP_API_URL = "http://" + responseData;
-                        PreferencesThreeSixOneOpenUtil.saveString("HTTP_API_URL", "http://" + responseData);
-                        Thread.sleep(1000);
-                        jumpPage();
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                PreferencesThreeSixOneOpenUtil.saveString("HTTP_API_URL", "http://" + net[0]);
+                                PreferencesThreeSixOneOpenUtil.saveString("AGREEMENT", net[1]);
+                                Thread.sleep(1000);
+                                jumpPage();
 
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
