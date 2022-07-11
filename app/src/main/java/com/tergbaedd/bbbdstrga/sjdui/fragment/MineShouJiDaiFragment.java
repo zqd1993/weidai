@@ -246,22 +246,26 @@ public class MineShouJiDaiFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            bundle = new Bundle();
-                            bundle.putInt("tag", 1);
-                            bundle.putString("url", ApiShouJiDai.PRIVACY_POLICY);
-                            Router.newIntent(getActivity())
-                                    .to(ShouJiDaiWebViewActivity.class)
-                                    .data(bundle)
-                                    .launch();
+                            if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
+                                bundle = new Bundle();
+                                bundle.putInt("tag", 1);
+                                bundle.putString("url", ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiShouJiDai.PRIVACY_POLICY);
+                                Router.newIntent(getActivity())
+                                        .to(ShouJiDaiWebViewActivity.class)
+                                        .data(bundle)
+                                        .launch();
+                            }
                             break;
                         case 1:
-                            bundle = new Bundle();
-                            bundle.putInt("tag", 2);
-                            bundle.putString("url", ApiShouJiDai.USER_SERVICE_AGREEMENT);
-                            Router.newIntent(getActivity())
-                                    .to(ShouJiDaiWebViewActivity.class)
-                                    .data(bundle)
-                                    .launch();
+                            if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
+                                bundle = new Bundle();
+                                bundle.putInt("tag", 2);
+                                bundle.putString("url", ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiShouJiDai.USER_SERVICE_AGREEMENT);
+                                Router.newIntent(getActivity())
+                                        .to(ShouJiDaiWebViewActivity.class)
+                                        .data(bundle)
+                                        .launch();
+                            }
                             break;
                         case 2:
                             Router.newIntent(getActivity())
