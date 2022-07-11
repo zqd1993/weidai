@@ -135,15 +135,17 @@ public class DlThreeSixOneActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.view_three_six_one_loading, null));
         getConfig();
         readTv.setText(ThreeSixOneOpenUtil.createDlSpanTexts(), position -> {
-            bundle = new Bundle();
-            if (position == 1) {
-                bundle.putString("url", HttpApiThreeSixOne.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-            } else {
-                bundle.putString("url", HttpApiThreeSixOne.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+            if (!TextUtils.isEmpty(PreferencesThreeSixOneOpenUtil.getString("AGREEMENT"))) {
+                bundle = new Bundle();
+                if (position == 1) {
+                    bundle.putString("url", PreferencesThreeSixOneOpenUtil.getString("AGREEMENT") + HttpApiThreeSixOne.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                } else {
+                    bundle.putString("url", PreferencesThreeSixOneOpenUtil.getString("AGREEMENT") + HttpApiThreeSixOne.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                }
+                ThreeSixOneOpenUtil.jumpPage(DlThreeSixOneActivity.this, ThreeSixOneJumpH5Activity.class, bundle);
             }
-            ThreeSixOneOpenUtil.jumpPage(DlThreeSixOneActivity.this, ThreeSixOneJumpH5Activity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -166,11 +168,11 @@ public class DlThreeSixOneActivity extends XActivity {
                 MyToastThreeSixOne.showShort("请输入验证码");
                 return;
             }
-            if (!remindCb.isChecked()){
+            if (!remindCb.isChecked()) {
                 MyToastThreeSixOne.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
-            login(phoneStr,yzmStr);
+            login(phoneStr, yzmStr);
         });
     }
 
@@ -495,6 +497,7 @@ public class DlThreeSixOneActivity extends XActivity {
                     });
         }
     }
+
     /**
      * 设置appbar偏移量
      *

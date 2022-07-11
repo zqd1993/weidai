@@ -188,16 +188,20 @@ public class ThreeSixOneSetFragment extends XFragment {
         setItemThreeSixOneAdapter.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", HttpApiThreeSixOne.ZCXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    ThreeSixOneOpenUtil.jumpPage(getActivity(), ThreeSixOneJumpH5Activity.class, webBundle);
+                    if (!TextUtils.isEmpty(PreferencesThreeSixOneOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", PreferencesThreeSixOneOpenUtil.getString("AGREEMENT") + HttpApiThreeSixOne.ZCXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                        ThreeSixOneOpenUtil.jumpPage(getActivity(), ThreeSixOneJumpH5Activity.class, webBundle);
+                    }
                     break;
                 case 1:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", HttpApiThreeSixOne.YSXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    ThreeSixOneOpenUtil.jumpPage(getActivity(), ThreeSixOneJumpH5Activity.class, webBundle);
+                    if (!TextUtils.isEmpty(PreferencesThreeSixOneOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", PreferencesThreeSixOneOpenUtil.getString("AGREEMENT") + HttpApiThreeSixOne.YSXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                        ThreeSixOneOpenUtil.jumpPage(getActivity(), ThreeSixOneJumpH5Activity.class, webBundle);
+                    }
                     break;
                 case 2:
                     ThreeSixOneOpenUtil.jumpPage(getActivity(), ThreeSixOneFeedbackActivity.class);
