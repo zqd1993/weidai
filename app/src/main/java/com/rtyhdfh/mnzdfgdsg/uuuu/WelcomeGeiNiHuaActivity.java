@@ -191,24 +191,28 @@ public class WelcomeGeiNiHuaActivity extends AppCompatActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", ApiGeiNiHua.PRIVACY_POLICY);
-                Router.newIntent(WelcomeGeiNiHuaActivity.this)
-                        .to(GeiNiHuaWebViewActivity.class)
-                        .data(bundle)
-                        .launch();
+                if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT") + ApiGeiNiHua.PRIVACY_POLICY);
+                    Router.newIntent(WelcomeGeiNiHuaActivity.this)
+                            .to(GeiNiHuaWebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                }
             }
 
             @Override
             public void privacyAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", ApiGeiNiHua.USER_SERVICE_AGREEMENT);
-                Router.newIntent(WelcomeGeiNiHuaActivity.this)
-                        .to(GeiNiHuaWebViewActivity.class)
-                        .data(bundle)
-                        .launch();
+                if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT") + ApiGeiNiHua.USER_SERVICE_AGREEMENT);
+                    Router.newIntent(WelcomeGeiNiHuaActivity.this)
+                            .to(GeiNiHuaWebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                }
             }
         });
         welcomeDialogGeiNiHua.show();
@@ -278,11 +282,15 @@ public class WelcomeGeiNiHuaActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-//                        HttpApi.HTTP_API_URL = "http://" + responseData;
-                        SharedPreferencesUtilisGeiNiHua.saveStringIntoPref("HTTP_API_URL", "http://" + responseData);
-                        Thread.sleep(1000);
-                        jumpPage();
-
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                SharedPreferencesUtilisGeiNiHua.saveStringIntoPref("HTTP_API_URL", "http://" + net[0]);
+                                SharedPreferencesUtilisGeiNiHua.saveStringIntoPref("AGREEMENT", net[1]);
+                                Thread.sleep(1000);
+                                jumpPage();
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -367,7 +375,7 @@ public class WelcomeGeiNiHuaActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if (welcomeDialogGeiNiHua != null){
+        if (welcomeDialogGeiNiHua != null) {
             welcomeDialogGeiNiHua.dismiss();
             welcomeDialogGeiNiHua = null;
         }

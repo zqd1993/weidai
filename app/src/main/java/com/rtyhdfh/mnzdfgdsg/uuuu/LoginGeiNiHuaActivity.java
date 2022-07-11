@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.rtyhdfh.mnzdfgdsg.R;
 import com.rtyhdfh.mnzdfgdsg.nnnn.ApiGeiNiHua;
 import com.rtyhdfh.mnzdfgdsg.utils.GeiNiHuaStaticUtil;
+import com.rtyhdfh.mnzdfgdsg.utils.SharedPreferencesUtilisGeiNiHua;
 import com.rtyhdfh.mnzdfgdsg.utils.StatusGeiNiHuaBarUtil;
 import com.rtyhdfh.mnzdfgdsg.utils.ToastUtilGeiNiHua;
 import com.rtyhdfh.mnzdfgdsg.mvp.XActivity;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+
 import com.rtyhdfh.mnzdfgdsg.ActivityCollector;
 
 import com.rtyhdfh.mnzdfgdsg.pppp.LoginGeiNiHuaPresent;
@@ -114,22 +116,24 @@ public class LoginGeiNiHuaActivity extends XActivity<LoginGeiNiHuaPresent> {
         getP().getGankData();
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
-            if (position == 1) {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", ApiGeiNiHua.PRIVACY_POLICY);
-                Router.newIntent(LoginGeiNiHuaActivity.this)
-                        .to(GeiNiHuaWebViewActivity.class)
-                        .data(bundle)
-                        .launch();
-            } else {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", ApiGeiNiHua.USER_SERVICE_AGREEMENT);
-                Router.newIntent(LoginGeiNiHuaActivity.this)
-                        .to(GeiNiHuaWebViewActivity.class)
-                        .data(bundle)
-                        .launch();
+            if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT"))) {
+                if (position == 1) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT") + ApiGeiNiHua.PRIVACY_POLICY);
+                    Router.newIntent(LoginGeiNiHuaActivity.this)
+                            .to(GeiNiHuaWebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                } else {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT") + ApiGeiNiHua.USER_SERVICE_AGREEMENT);
+                    Router.newIntent(LoginGeiNiHuaActivity.this)
+                            .to(GeiNiHuaWebViewActivity.class)
+                            .data(bundle)
+                            .launch();
+                }
             }
         });
     }

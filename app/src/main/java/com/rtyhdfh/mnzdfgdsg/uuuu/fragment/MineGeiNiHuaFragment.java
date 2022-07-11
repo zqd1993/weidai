@@ -138,22 +138,26 @@ public class MineGeiNiHuaFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            bundle = new Bundle();
-                            bundle.putInt("tag", 1);
-                            bundle.putString("url", ApiGeiNiHua.PRIVACY_POLICY);
-                            Router.newIntent(getActivity())
-                                    .to(GeiNiHuaWebViewActivity.class)
-                                    .data(bundle)
-                                    .launch();
+                            if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT"))) {
+                                bundle = new Bundle();
+                                bundle.putInt("tag", 1);
+                                bundle.putString("url", SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT") + ApiGeiNiHua.PRIVACY_POLICY);
+                                Router.newIntent(getActivity())
+                                        .to(GeiNiHuaWebViewActivity.class)
+                                        .data(bundle)
+                                        .launch();
+                            }
                             break;
                         case 1:
-                            bundle = new Bundle();
-                            bundle.putInt("tag", 2);
-                            bundle.putString("url", ApiGeiNiHua.USER_SERVICE_AGREEMENT);
-                            Router.newIntent(getActivity())
-                                    .to(GeiNiHuaWebViewActivity.class)
-                                    .data(bundle)
-                                    .launch();
+                            if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT"))) {
+                                bundle = new Bundle();
+                                bundle.putInt("tag", 2);
+                                bundle.putString("url", SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT") + ApiGeiNiHua.USER_SERVICE_AGREEMENT);
+                                Router.newIntent(getActivity())
+                                        .to(GeiNiHuaWebViewActivity.class)
+                                        .data(bundle)
+                                        .launch();
+                            }
                             break;
                         case 2:
                             Router.newIntent(getActivity())
