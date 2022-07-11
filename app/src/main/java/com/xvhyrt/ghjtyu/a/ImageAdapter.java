@@ -1,16 +1,21 @@
 package com.xvhyrt.ghjtyu.a;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.xvhyrt.ghjtyu.R;
+import com.xvhyrt.ghjtyu.imageloader.ILFactory;
+import com.xvhyrt.ghjtyu.imageloader.ILoader;
 import com.xvhyrt.ghjtyu.m.ProductModel;
+import com.xvhyrt.ghjtyu.u.PreferencesOpenUtil;
 import com.youth.banner.adapter.BannerAdapter;
 
 import java.util.List;
@@ -36,6 +41,10 @@ public class ImageAdapter extends BannerAdapter<ProductModel, ImageAdapter.Image
         holder.edu_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
         holder.shijian_tv.setText(data.getDes() + "个月");
         holder.shuliang_tv.setText(String.valueOf(data.getPassingRate()));
+        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            ILFactory.getLoader().loadNet(holder.product_img, PreferencesOpenUtil.getString("HTTP_API_URL") + data.getProductLogo(),
+                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        }
         holder.parentLl.setOnClickListener(v -> {
             if (bannerClickedListener != null){
                 bannerClickedListener.onBannerClicked(data);
@@ -51,6 +60,7 @@ public class ImageAdapter extends BannerAdapter<ProductModel, ImageAdapter.Image
         TextView shijian_tv;
         TextView shuliang_tv;
         View parentLl;
+        ImageView product_img;
 
         public ImageHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,6 +70,7 @@ public class ImageAdapter extends BannerAdapter<ProductModel, ImageAdapter.Image
             shijian_tv = itemView.findViewById(R.id.shijian_tv);
             shuliang_tv = itemView.findViewById(R.id.shuliang_tv);
             parentLl = itemView.findViewById(R.id.parent_ll);
+            product_img = itemView.findViewById(R.id.product_img);;
         }
     }
 

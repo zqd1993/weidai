@@ -155,11 +155,15 @@ public class ProductFragment extends XFragment {
         for (ProductModel model : mList) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_product_item, null);
             ImageView pic = view.findViewById(R.id.product_img);
-            TextView product_name_tv = view.findViewById(R.id.product_name_tv);
-            TextView remind_tv = view.findViewById(R.id.remind_tv);
-            TextView money_number_tv = view.findViewById(R.id.money_number_tv);
+            TextView product_name_tv = view.findViewById(R.id.shangpin_name_tv);
+            TextView remind_tv = view.findViewById(R.id.tedian_tv);
+            TextView money_number_tv = view.findViewById(R.id.edu_tv);
             View parentFl = view.findViewById(R.id.parent_fl);
             View yjsqSl = view.findViewById(R.id.yjsq_sl);
+            TextView shijian_tv = view.findViewById(R.id.shijian_tv);
+            TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
+            shijian_tv.setText(model.getDes() + "个月");
+            shuliang_tv.setText(String.valueOf(model.getPassingRate()));
             if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
                 ILFactory.getLoader().loadNet(pic, PreferencesOpenUtil.getString("HTTP_API_URL") + model.getProductLogo(),
                         new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));

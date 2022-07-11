@@ -77,14 +77,14 @@ public class SetFragment extends XFragment {
     }
 
     private void initSetAdapter() {
-        SetModel model = new SetModel(R.drawable.fsd, "注册协议");
-        SetModel model1 = new SetModel(R.drawable.hdf, "隐私协议");
-        SetModel model2 = new SetModel(R.drawable.ljhk, "意见反馈");
-        SetModel model3 = new SetModel(R.drawable.ghj, "关于我们");
-        SetModel model4 = new SetModel(R.drawable.cvnvb, "个性化推荐");
-        SetModel model5 = new SetModel(R.drawable.urty, "投诉邮箱");
-        SetModel model6 = new SetModel(R.drawable.das, "注销账户");
-        SetModel model7 = new SetModel(R.drawable.pui, "退出登录");
+        SetModel model = new SetModel(R.drawable.jhjartgdb, "注册协议");
+        SetModel model1 = new SetModel(R.drawable.nnsftujhtrshz, "隐私协议");
+        SetModel model2 = new SetModel(R.drawable.eegzdrhtuy, "意见反馈");
+        SetModel model3 = new SetModel(R.drawable.gggadgrehz, "关于我们");
+        SetModel model4 = new SetModel(R.drawable.mmsrthydfb, "个性化推荐");
+        SetModel model5 = new SetModel(R.drawable.jjstfghxf, "投诉邮箱");
+        SetModel model6 = new SetModel(R.drawable.zzzvdtr, "注销账户");
+        SetModel model7 = new SetModel(R.drawable.xzxxbxthf, "退出登录");
         List<SetModel> list = new ArrayList<>();
         List<SetModel> list1 = new ArrayList<>();
         list.add(model);
@@ -99,16 +99,20 @@ public class SetFragment extends XFragment {
         setItemAdapter.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", HttpApi.ZCXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpenUtil.jumpPage(getActivity(), JumpH5Activity.class, webBundle);
+                    if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", PreferencesOpenUtil.getString("AGREEMENT") + HttpApi.ZCXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                        OpenUtil.jumpPage(getActivity(), JumpH5Activity.class, webBundle);
+                    }
                     break;
                 case 1:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", HttpApi.YSXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpenUtil.jumpPage(getActivity(), JumpH5Activity.class, webBundle);
+                    if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", PreferencesOpenUtil.getString("AGREEMENT") + HttpApi.YSXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                        OpenUtil.jumpPage(getActivity(), JumpH5Activity.class, webBundle);
+                    }
                     break;
                 case 2:
                     OpenUtil.jumpPage(getActivity(), FeedbackActivity.class);
@@ -161,7 +165,7 @@ public class SetFragment extends XFragment {
                     break;
             }
         });
-        setList.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+        setList.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         setList.setAdapter(setItemAdapter);
     }
 

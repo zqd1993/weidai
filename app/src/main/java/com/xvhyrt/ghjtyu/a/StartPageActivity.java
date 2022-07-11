@@ -80,10 +80,12 @@ public class StartPageActivity extends AppCompatActivity {
 
             @Override
             public void zcxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", HttpApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                OpenUtil.jumpPage(StartPageActivity.this, JumpH5Activity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesOpenUtil.getString("AGREEMENT") + HttpApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    OpenUtil.jumpPage(StartPageActivity.this, JumpH5Activity.class, bundle);
+                }
             }
 
             @Override
@@ -93,10 +95,12 @@ public class StartPageActivity extends AppCompatActivity {
 
             @Override
             public void ysxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", HttpApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                OpenUtil.jumpPage(StartPageActivity.this, JumpH5Activity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesOpenUtil.getString("AGREEMENT") + HttpApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    OpenUtil.jumpPage(StartPageActivity.this, JumpH5Activity.class, bundle);
+                }
             }
         });
         startPageRemindDialog.show();
@@ -110,16 +114,20 @@ public class StartPageActivity extends AppCompatActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7731.txt")
+                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7733.txt")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-//                        HttpApi.HTTP_API_URL = "http://" + responseData;
-                        PreferencesOpenUtil.saveString("HTTP_API_URL", "http://" + responseData);
-                        Thread.sleep(1000);
-                        jumpPage();
-
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                PreferencesOpenUtil.saveString("HTTP_API_URL", "http://" + net[0]);
+                                PreferencesOpenUtil.saveString("AGREEMENT", net[0]);
+                                Thread.sleep(1000);
+                                jumpPage();
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

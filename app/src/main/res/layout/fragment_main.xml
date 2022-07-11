@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                android:src="@drawable/rfv" />
+                android:src="@drawable/dzxfgrtyh" />
 
             <TextView
                 android:id="@+id/jx_bg"
@@ -37,116 +37,19 @@
 
         </FrameLayout>
 
-        <LinearLayout
-            android:id="@+id/msg_layout"
+        <FrameLayout
+            android:id="@+id/banner_fl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:background="@color/white"
             android:visibility="gone">
 
-            <LinearLayout
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:orientation="horizontal">
+                android:src="@drawable/lldhxfh" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:focusable="false"
-                        android:src="@drawable/yhder" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="注册有礼"
-                        android:textColor="@color/text_normal_color"
-                        android:textSize="@dimen/textSize_16" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:focusable="false"
-                        android:src="@drawable/wsc" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="充值中心"
-                        android:textColor="@color/text_normal_color"
-                        android:textSize="@dimen/textSize_16" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:focusable="false"
-                        android:src="@drawable/okjm" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="邀请好友"
-                        android:textColor="@color/text_normal_color"
-                        android:textSize="@dimen/textSize_16" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                android:background="@color/white"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_15"
-                    android:text="最新公告："
-                    android:textColor="#767674"
-                    android:textSize="@dimen/sp_14" />
-
-                <ViewFlipper
-                    android:id="@+id/view_flipper"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="3dp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+        </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"

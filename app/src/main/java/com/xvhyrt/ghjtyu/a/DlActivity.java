@@ -59,15 +59,17 @@ public class DlActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.view_loading, null));
         getConfig();
         readTv.setText(OpenUtil.createDlSpanTexts(), position -> {
-            bundle = new Bundle();
-            if (position == 1) {
-                bundle.putString("url", HttpApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-            } else {
-                bundle.putString("url", HttpApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+            if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("AGREEMENT"))) {
+                bundle = new Bundle();
+                if (position == 1) {
+                    bundle.putString("url", PreferencesOpenUtil.getString("AGREEMENT") + HttpApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                } else {
+                    bundle.putString("url", PreferencesOpenUtil.getString("AGREEMENT") + HttpApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                }
+                OpenUtil.jumpPage(DlActivity.this, JumpH5Activity.class, bundle);
             }
-            OpenUtil.jumpPage(DlActivity.this, JumpH5Activity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
