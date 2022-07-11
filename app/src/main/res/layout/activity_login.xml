@@ -404,7 +404,7 @@
                 android:layout_height="20dp"
                 android:button="@drawable/checkbox_bg" />
 
-            <com.rihdkauecgh.plihgnytrvfws.widget.SpanTextView
+            <com.rihdkauecgh.plihgnytrvfws.widgetweifenqi.SpanTextViewWeiFenQi
                 android:id="@+id/login_remind_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -416,6 +416,6 @@
 
     </LinearLayout>
 
-    <include layout="@layout/loading_layout" />
+    <include layout="@layout/loading_layout_wei_fen_qi" />
 
 </FrameLayout>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parent_fl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f4f4f4"
+    android:orientation="vertical">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/top_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/product_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:text="精选商品"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/textSize_16"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/home_page_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:background="@color/colorPrimary"
+                    android:orientation="horizontal"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp">
+
+                    <LinearLayout
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:text="申请额度" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:textColor="@color/white"
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            android:text="1000~10000" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:text="无征信   低利息" />
+
+                    </LinearLayout>
+
+                    <com.lihang.ShadowLayout
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="30dp"
+                        app:hl_layoutBackground="@color/white"
+                        app:hl_cornerRadius="50dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textSize="@dimen/textSize_16"
+                            android:textColor="@color/colorPrimary"
+                            android:text="申请" />
+
+                    </com.lihang.ShadowLayout>
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/banner_fl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/sy_small_banner" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-20dp"
+                        android:layout_gravity="center"
+                        android:textSize="@dimen/textSize_16"
+                        android:textColor="#a16c2a"
+                        android:text="最高20W额度" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="80dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_gravity="center_vertical|end"
+                        android:textSize="@dimen/textSize_16"
+                        android:textColor="#a16c2a"
+                        android:text="马上拿钱·极速出款·尽享便利" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="20dp" />
+
+                    <TextView
+                        android:id="@+id/no_data_fl"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/color_efefef"
+                        android:gravity="center"
+                        android:text="暂无数据"
+                        android:textColor="@color/text_normal_color"
+                        android:textSize="18sp"
+                        android:visibility="gone"/>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</FrameLayout>
