@@ -41,10 +41,9 @@
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/parent_fl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/sy_hfq_bg">
+            android:background="@drawable/mtjgaiznb">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -138,7 +137,7 @@
                                     android:id="@+id/product_img"
                                     android:layout_width="45dp"
                                     android:layout_height="45dp"
-                                    android:src="@drawable/icon_head" />
+                                    android:src="@drawable/jsrthfgjh" />
 
                             </com.lihang.ShadowLayout>
 
@@ -253,7 +252,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/sy_hfq_button_bg" />
+                        android:src="@drawable/bzdrthgjose" />
 
                     <TextView
                         android:id="@+id/cycle_tv"
@@ -355,7 +354,7 @@
                 </FrameLayout>
 
                 <TextView
-                    android:id="@+id/passing_rate_tv"
+                    android:id="@+id/rate_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"

@@ -35,11 +35,11 @@
     </FrameLayout>
 
     <ImageView
-        android:id="@+id/back_img"
+        android:id="@+id/back_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="15dp"
-        android:src="@drawable/back" />
+        android:src="@drawable/fanhui" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -71,7 +71,7 @@
     </FrameLayout>
 
     <TextView
-        android:id="@+id/title_tv"
+        android:id="@+id/biaoti_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

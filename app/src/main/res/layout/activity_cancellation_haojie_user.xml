@@ -103,7 +103,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:textColor="@color/white"
-        android:background="@drawable/bg_corner_50_f5dbaa"
+        android:background="@drawable/bg_corner"
         android:text="提交" />
 
     <FrameLayout

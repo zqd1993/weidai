@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="@drawable/bg_corner_10_white"
+        android:background="@drawable/bg_white_corner_10"
         android:orientation="vertical"
         android:paddingTop="22dp">
 
@@ -83,7 +83,7 @@
 
         </FrameLayout>
 
-        <com.chenqi.lecheng.widget.SpanTextHaoJieView
+        <com.chenqi.lecheng.widgetshandai.SpanTextHaoJieView
             android:id="@+id/tv_content"
             android:visibility="visible"
             android:layout_width="wrap_content"
@@ -113,7 +113,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:textColor="@color/white"
-                android:background="@drawable/bg_corner_50_f5dbaa"
+                android:background="@drawable/bg_corner"
                 android:text="同意并继续" />
 
             <FrameLayout

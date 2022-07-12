@@ -21,7 +21,7 @@
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.chenqi.lecheng.ui.QiDongHaoJieActivity"
+            android:name="com.chenqi.lecheng.shandaipage.activityshandai.QiDongHaoJieActivity"
             android:icon="@mipmap/app_logo"
             android:screenOrientation="portrait"
             android:exported="true">
@@ -34,44 +34,39 @@
 
 
         <activity
-            android:name="com.chenqi.lecheng.ui.HaoJieWebActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:exported="true"/>
-
-        <activity
-            android:name="com.chenqi.lecheng.ui.LoginHaoJieActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:exported="true"/>
-
-        <activity
-            android:name="com.chenqi.lecheng.ui.HomePageHaoJieActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:exported="true"/>
-
-        <activity
-            android:name="com.chenqi.lecheng.ui.activity.FeedBackHaoJieActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:exported="true"/>
-
-        <activity
-            android:name="com.chenqi.lecheng.ui.activity.AboutHaoJieActivity"
+            android:name="com.chenqi.lecheng.shandaipage.activityshandai.HaoJieWebActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:exported="true"/>
 
 
         <activity
-            android:name="com.chenqi.lecheng.ui.activity.CancellationUserHaoJieActivity"
+            android:name="com.chenqi.lecheng.shandaipage.activityshandai.AboutHaoJieActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:exported="true"/>
 
         <activity
-            android:name="com.chenqi.lecheng.ui.activity.MoreInfoHaoJieActivity"
+            android:name="com.chenqi.lecheng.shandaipage.activityshandai.LoginHaoJieActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:exported="true"/>
+
+        <activity
+            android:name="com.chenqi.lecheng.shandaipage.activityshandai.HomePageHaoJieActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:exported="true"/>
+
+
+        <activity
+            android:name="com.chenqi.lecheng.shandaipage.activityshandai.MoreInfoHaoJieActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:exported="true"/>
+
+        <activity
+            android:name="com.chenqi.lecheng.shandaipage.activityshandai.FeedBackHaoJieActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:exported="true"/>
@@ -87,6 +82,12 @@
         </provider>
 
         <meta-data android:value="62c00b3805844627b5d4d2ba" android:name="UMENG_APPKEY"/>
+
+        <activity
+            android:name="com.chenqi.lecheng.shandaipage.activityshandai.CancellationUserHaoJieActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
     </application>
 

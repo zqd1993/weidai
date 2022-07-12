@@ -4,6 +4,121 @@
     <string name="ok">确定</string>
     <string name="user_service_agreement">隐私政策</string>
     <string name="privacy_policy">注册协议</string>
+    <string name="chat_up_finger">手指上滑，取消发送</string>
+    <string name="confirm">确定</string>
+    <string name="chat_press_talk">按住 说话</string>
+    <string name="chat_release_send">松开 结束</string>
+    <string name="chat_image">图片</string>
+    <string name="chat_file">文件</string>
+    <string name="chat_photo">拍摄</string>
+    <string name="chat_video">视频</string>
+    <string name="chat_small_video">小视频</string>
+    <string name="chat_audio_too_long">录音过长，请重试</string>
+    <string name="chat_audio_too_short">录音过短，请重试</string>
+    <string name="chat_video_too_short">录制过短，请重试</string>
+    <string name="chat_resend">重新发送</string>
+    <string name="chat_pullback">撤回</string>
+    <string name="chat_del">删除</string>
+    <string name="chat_save">保存</string>
+    <string name="chat_file_too_large">文件过大，发送失败</string>
+    <string name="chat_file_not_exist">文件不存在，发送失败</string>
+    <string name="chat_image_preview_title">图片预览</string>
+    <string name="chat_image_preview_send">发送</string>
+    <string name="chat_image_preview_load_err">图片加载失败</string>
+    <string name="chat_image_preview_ori">原图发送</string>
+
+    <!-- time -->
+    <string name="time_yesterday">昨天</string>
+    <string name="time_day">日</string>
+    <string name="time_month">月</string>
+    <string name="time_year">年</string>
+    <string name="time_more">99+</string>
+    <string name="title_activity_group_chat_setting">GroupChatSettingActivity</string>
+
+    <!-- message -->
+    <string name="summary_image">[图片]</string>
+    <string name="summary_voice">[语音]</string>
+    <string name="summary_video">[视频]</string>
+    <string name="summary_small_video">[小视频]</string>
+    <string name="summary_file">[文件]</string>
+    <string name="save_exist">文件已存在</string>
+    <string name="save_succ">保存成功</string>
+    <string name="download_fail">下载失败</string>
+    <string name="downloading">正在下载，请稍候</string>
+    <string name="save_fail">保存失败</string>
+    <string name="conversation_draft">[草稿]</string>
+    <string name="chat_content_bad">内容含有敏感词</string>
+    <string name="chat_typing">对方正在输入…</string>
+
+
+    <string name="dialog_title">选择颜色</string>
+
+    <string name="data_exception">数据异常,请退出重试!</string>
+
+    <string name="no_bounce_app_barlayout_behavior">com.kingyon.agate.utils.behavior.NoBounceAppBarLayoutBehavior</string>
+
+    <string name="layout_anim_name">layout_anim_name</string>
+
+    <string name="home_page">主页</string>
+    <string name="customer_service">专属顾问</string>
+    <string name="find_similar">找相似</string>
+    <string name="add_shopping_cart">加入购物袋</string>
+    <string name="buy_now">立即购买</string>
+    <string name="collect">收藏</string>
+    <string name="sell_out">已售罄</string>
+    <string name="promotion_method">优惠方式</string>
+    <string name="payment">支付方式</string>
+    <string name="ali_pay">支付宝支付</string>
+    <string name="wechat_pay">微信支付</string>
+    <string name="tally_order">结算订单</string>
+    <string name="all_checked">全选</string>
+    <string name="shopping_bag">购物袋</string>
+    <string name="edit">编辑</string>
+    <string name="recommend_goods">精选推荐</string>
+    <string name="txt_remind_1">距结束还剩</string>
+    <string name="goods_num">商品数不能少于0</string>
+    <string name="similar_goods">相似商品</string>
+    <string name="complete">完成</string>
+    <string name="settlement_txt">去结算(%1d)</string>
+    <string name="goods_details">作品详情</string>
+    <string name="hint_txt">选填，输入备注信息</string>
+    <string name="goods_number_txt">数量：%1d件</string>
+    <string name="delete_all">全部删除</string>
+    <string name="price_trend">价格走势</string>
+    <string name="goods_parameter">作品参数</string>
+    <string name="goods_history_price">历史价格</string>
+    <string name="all_goods_parameter">全部作品参数</string>
+    <string name="selected_address">请选择收货地址</string>
+    <string name="confirm_logout">确认注销账号并退出？</string>
+    <string name="share_my_vote_and_opinion">分享我的投票和观点</string>
+    <string name="publish">发布</string>
+    <string name="edit_hint_text">写下投票标题吸引投票...</string>
+    <string name="add_options">添加选项</string>
+    <string name="edit_vote">编辑投票</string>
+    <string name="vote">投票</string>
+    <string name="edit_hint_text_2">请输入投票内容...</string>
+    <string name="choose_end_time">请选择截止日期</string>
+    <string name="vote_number_txt">%d人已参与投票</string>
+    <string name="vote_number_txt_2" formatted="false">%1d人参加 还有%2s天结束</string>
+    <string name="remind_txt_2">还未添加投票选项，是否退出？</string>
+    <string name="price_interval">价格区间</string>
+    <string name="floor_price">最低价</string>
+    <string name="ceiling_price">最高价</string>
+    <string name="reset">重置</string>
+    <string name="send">赠\n送</string>
+    <string name="subscribe">已订阅</string>
+    <string name="not_subscribe">上新订阅</string>
+    <string name="jewelry_class_1">珠宝常识</string>
+    <string name="jewelry_class_2">多看多了解，一起学习珠宝知识</string>
+    <string name="picture_message_audio_max_num">你最多只能选择%1$s个音频</string>
+    <string name="picture_message_max_num">你最多只能选择%1$s张照片</string>
+    <string name="picture_message_video_max_num">你最多只能选择%1$s个视频</string>
+    <string name="picture_know">我知道了</string>
+    <string name="picture_rule">不能同时选择图片或视频</string>
+    <string name="picture_choose_min_seconds">不能选择低于 %1$ds 内的视频</string>
+    <string name="picture_choose_limit_seconds">只能选择 %1$ds 至 %2$ds内的视频</string>
+    <string name="picture_choose_max_seconds">最大只能选择 %1$ds 以内的视频</string>
+    <string name="picture_gif_tag">动图</string>
     <string name="login_title">欢迎使用闪贷备用金</string>
     <string name="input_phone_number">请输入手机号</string>
     <string name="input_verification">请输入验证码</string>

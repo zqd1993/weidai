@@ -76,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@drawable/dl_bg"
+            android:src="@drawable/dsfgeryt"
             android:visibility="invisible"/>
 
         <TextView
@@ -95,7 +95,7 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="70dp"
             android:layout_marginEnd="40dp"
-            android:background="@drawable/shape_edit_text_bg"
+            android:background="@drawable/mrmgjzg"
             android:orientation="horizontal"
             android:padding="3dp">
 
@@ -135,7 +135,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:src="@drawable/icon_phone" />
+                android:src="@drawable/otihnzflh" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -190,7 +190,7 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="40dp"
-            android:background="@drawable/shape_edit_text_bg"
+            android:background="@drawable/mrmgjzg"
             android:orientation="horizontal"
             android:padding="3dp">
 
@@ -230,7 +230,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:src="@drawable/icon_verification" />
+                android:src="@drawable/pprgkozxmfh" />
 
             <EditText
                 android:id="@+id/verification_et"
@@ -295,7 +295,7 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="40dp"
-            android:background="@drawable/shape_login_btn_bg"
+            android:background="@drawable/wwngzdr"
             android:gravity="center"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
@@ -345,9 +345,9 @@
                 android:id="@+id/remind_cb"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:button="@drawable/checkbox_bg" />
+                android:button="@drawable/checkbos_new" />
 
-            <com.chenqi.lecheng.widget.SpanTextHaoJieView
+            <com.chenqi.lecheng.widgetshandai.SpanTextHaoJieView
                 android:id="@+id/login_remind_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
