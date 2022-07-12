@@ -74,8 +74,8 @@ public class ApiHaoJie {
         return gankHaoJieService;
     }
 
-    public static final String PRIVACY_POLICY = "https://xy.hgy5kg.com/profile/vohjjk/zcxy.html";
-    public static final String USER_SERVICE_AGREEMENT= "https://xy.hgy5kg.com/profile/vohjjk/ysxy.html";
+    public static final String PRIVACY_POLICY = "/profile/vohjjk/zcxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "/profile/vohjjk/ysxy.html";
     public static String API_BASE_URL = "";
 
     /**

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.chenqi.lecheng.R;
 import com.chenqi.lecheng.shadnaihttp.ApiHaoJie;
+import com.chenqi.lecheng.utilsshandai.SharedPreferencesHaoJieUtilis;
 import com.chenqi.lecheng.utilsshandai.StaticHaoJieUtil;
 import com.chenqi.lecheng.utilsshandai.StatusBarHaoJieUtil;
 import com.chenqi.lecheng.utilsshandai.ToastHaoJieUtil;
@@ -119,22 +120,24 @@ public class LoginHaoJieActivity extends XActivity<LoginHaoJiePresent> {
         }, 200);
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
-            if (position == 1) {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", ApiHaoJie.PRIVACY_POLICY);
-                Router.newIntent(LoginHaoJieActivity.this)
-                        .to(HaoJieWebActivity.class)
-                        .data(bundle)
-                        .launch();
-            } else {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", ApiHaoJie.USER_SERVICE_AGREEMENT);
-                Router.newIntent(LoginHaoJieActivity.this)
-                        .to(HaoJieWebActivity.class)
-                        .data(bundle)
-                        .launch();
+            if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT"))) {
+                if (position == 1) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT") + ApiHaoJie.PRIVACY_POLICY);
+                    Router.newIntent(LoginHaoJieActivity.this)
+                            .to(HaoJieWebActivity.class)
+                            .data(bundle)
+                            .launch();
+                } else {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT") + ApiHaoJie.USER_SERVICE_AGREEMENT);
+                    Router.newIntent(LoginHaoJieActivity.this)
+                            .to(HaoJieWebActivity.class)
+                            .data(bundle)
+                            .launch();
+                }
             }
         });
     }
