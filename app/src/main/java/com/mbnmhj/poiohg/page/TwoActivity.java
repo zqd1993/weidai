@@ -112,15 +112,17 @@ public class TwoActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.view_zaijia, null));
         getConfig();
         readTv.setText(AllUtil.createDlSpanTexts(), position -> {
-            bundle = new Bundle();
-            if (position == 1) {
-                bundle.putString("url", NetApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.zcxy));
-            } else {
-                bundle.putString("url", NetApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.yszc));
-            }
-            AllUtil.jumpPage(TwoActivity.this, NetPageActivity.class, bundle);
+                    if (!TextUtils.isEmpty(SpUtil.getString("AGREEMENT"))) {
+                        bundle = new Bundle();
+                        if (position == 1) {
+                            bundle.putString("url", SpUtil.getString("AGREEMENT") + NetApi.ZCXY);
+                            bundle.putString("biaoti", getResources().getString(R.string.zcxy));
+                        } else {
+                            bundle.putString("url", SpUtil.getString("AGREEMENT") + NetApi.YSXY);
+                            bundle.putString("biaoti", getResources().getString(R.string.yszc));
+                        }
+                        AllUtil.jumpPage(TwoActivity.this, NetPageActivity.class, bundle);
+                    }
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -135,7 +137,7 @@ public class TwoActivity extends XActivity {
         dlBtn.setOnClickListener(v -> {
             phoneStr = mobileEt.getText().toString().trim();
             yzmStr = yzmEt.getText().toString().trim();
-            if (phoneStr.isEmpty() && isNeedYzm) {
+            if (phoneStr.isEmpty()) {
                 NewToast.showShort("请输入手机号码");
                 return;
             }
@@ -251,7 +253,6 @@ public class TwoActivity extends XActivity {
     /**
      * json字符串数据转化成Map
      *
-     * @param object
      * @return json对应的map
      **/
     /*public static HashMap<String, String> toLinkedHashMap(String object) {

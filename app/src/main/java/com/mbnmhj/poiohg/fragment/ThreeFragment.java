@@ -131,19 +131,21 @@ public class ThreeFragment extends XFragment {
         list1.add(model7);
         setItemAdapter = new OurAdapter(R.layout.adpater_setting_item, list);
         setItemAdapter.setOnClickListener(position -> {
-            switch (position) {
-                case 0:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", NetApi.ZCXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.zcxy));
-                    AllUtil.jumpPage(getActivity(), NetPageActivity.class, webBundle);
-                    break;
-                case 1:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", NetApi.YSXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.yszc));
-                    AllUtil.jumpPage(getActivity(), NetPageActivity.class, webBundle);
-                    break;
+            if (!TextUtils.isEmpty(SpUtil.getString("AGREEMENT"))) {
+                switch (position) {
+                    case 0:
+                        webBundle = new Bundle();
+                        webBundle.putString("url", SpUtil.getString("AGREEMENT") + NetApi.ZCXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.zcxy));
+                        AllUtil.jumpPage(getActivity(), NetPageActivity.class, webBundle);
+                        break;
+                    case 1:
+                        webBundle = new Bundle();
+                        webBundle.putString("url", SpUtil.getString("AGREEMENT") + NetApi.YSXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.yszc));
+                        AllUtil.jumpPage(getActivity(), NetPageActivity.class, webBundle);
+                        break;
+                }
             }
         });
         setList.setLayoutManager(new LinearLayoutManager(getActivity()));

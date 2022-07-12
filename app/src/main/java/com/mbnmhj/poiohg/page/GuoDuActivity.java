@@ -106,10 +106,12 @@ public class GuoDuActivity extends AppCompatActivity {
 
             @Override
             public void zcxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", NetApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.zcxy));
-                AllUtil.jumpPage(GuoDuActivity.this, NetPageActivity.class, bundle);
+                if (!TextUtils.isEmpty(SpUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", SpUtil.getString("AGREEMENT") + NetApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.zcxy));
+                    AllUtil.jumpPage(GuoDuActivity.this, NetPageActivity.class, bundle);
+                }
             }
 
             @Override
@@ -119,10 +121,12 @@ public class GuoDuActivity extends AppCompatActivity {
 
             @Override
             public void ysxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", NetApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.yszc));
-                AllUtil.jumpPage(GuoDuActivity.this, NetPageActivity.class, bundle);
+                if (!TextUtils.isEmpty(SpUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", SpUtil.getString("AGREEMENT") + NetApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.yszc));
+                    AllUtil.jumpPage(GuoDuActivity.this, NetPageActivity.class, bundle);
+                }
             }
         });
         startPageRemindDialog.show();
@@ -141,12 +145,15 @@ public class GuoDuActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-//                        NetApi.HTTP_API_URL = "http://" + responseData;
-                        SpUtil.saveString("HTTP_API_URL", "http://" + responseData);
-//                        BeiYongPreferencesOpenUtil.saveString("HTTP_API_URL", "http://" + responseData);
-                        Thread.sleep(1000);
-                        jumpPage();
-
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                SpUtil.saveString("HTTP_API_URL", "http://" + net[0]);
+                                SpUtil.saveString("AGREEMENT", net[1]);
+                                Thread.sleep(1000);
+                                jumpPage();
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
