@@ -163,8 +163,7 @@ public class SetFragmentMeiJie extends XFragment {
                         public void onSureClicked() {
                             dialog.dismiss();
                             MeiJiePreferencesOpenUtil.saveString("phone", "");
-                            OpenMeiJieUtil.getValue((XActivity) getActivity(), DlMeiJieActivity.class, null);
-                            getActivity().finish();
+                            OpenMeiJieUtil.getValue((XActivity) getActivity(), DlMeiJieActivity.class, null, true);
                         }
 
                         @Override
@@ -192,7 +191,8 @@ public class SetFragmentMeiJie extends XFragment {
     public void productList() {
         if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = MeiJiePreferencesOpenUtil.getInt("mobileType");
-            HttpMeiJieApi.getInterfaceUtils().productList(mobileType)
+            phone = MeiJiePreferencesOpenUtil.getString("phone");
+            HttpMeiJieApi.getInterfaceUtils().productList(mobileType, phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
                     .compose(bindToLifecycle())

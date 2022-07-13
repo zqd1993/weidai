@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -94,6 +95,9 @@ public class DlMeiJieActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusMeiJieBarUtil.setTransparent(this, false);
+        if (MeiJiePreferencesOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         xStateController = this.findViewById(R.id.content_layout);
         mobileEt = this.findViewById(R.id.mobile_et);
         yzmEt = this.findViewById(R.id.yzm_et);
@@ -374,12 +378,11 @@ public class DlMeiJieActivity extends XActivity {
                                 xStateController.showContent();
                             if (dlModel != null && dlModel.getCode() == 200) {
                                 if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                    OpenMeiJieUtil.getValue(DlMeiJieActivity.this, MainActivityMeiJie.class, null);
+                                    OpenMeiJieUtil.getValue(DlMeiJieActivity.this, MainActivityMeiJie.class, null, true);
                                     int mobileType = dlModel.getData().getMobileType();
                                     MeiJiePreferencesOpenUtil.saveString("ip", ip);
                                     MeiJiePreferencesOpenUtil.saveString("phone", phone);
                                     MeiJiePreferencesOpenUtil.saveInt("mobileType", mobileType);
-                                    finish();
                                 }
                             } else {
                                 if (dlModel.getCode() == 500) {

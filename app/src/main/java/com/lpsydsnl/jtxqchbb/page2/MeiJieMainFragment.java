@@ -264,7 +264,8 @@ public class MeiJieMainFragment extends XFragment {
     public void productList() {
         if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = MeiJiePreferencesOpenUtil.getInt("mobileType");
-            HttpMeiJieApi.getInterfaceUtils().productList(mobileType)
+            phone = MeiJiePreferencesOpenUtil.getString("phone");
+            HttpMeiJieApi.getInterfaceUtils().productList(mobileType, phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
                     .compose(bindToLifecycle())

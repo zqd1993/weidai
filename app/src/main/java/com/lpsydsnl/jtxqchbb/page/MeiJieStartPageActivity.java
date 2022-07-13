@@ -161,8 +161,8 @@ public class MeiJieStartPageActivity extends XActivity {
             public void oneBtnClicked() {
 //                initUm();
                 MeiJiePreferencesOpenUtil.saveBool("isSure", true);
-                OpenMeiJieUtil.getValue(MeiJieStartPageActivity.this, DlMeiJieActivity.class, null);
-                finish();
+                startPageRemindDialog.dismiss();
+                OpenMeiJieUtil.getValue(MeiJieStartPageActivity.this, DlMeiJieActivity.class, null, true);
             }
 
             @Override
@@ -254,7 +254,7 @@ public class MeiJieStartPageActivity extends XActivity {
                             String[] net = responseData.split(",");
                             if (net.length > 1) {
                                 MeiJiePreferencesOpenUtil.saveString("HTTP_API_URL", "http://" + net[0]);
-                                MeiJiePreferencesOpenUtil.saveString("AGREEMENT", "http://" + net[1]);
+                                MeiJiePreferencesOpenUtil.saveString("AGREEMENT",  net[1]);
                                 Thread.sleep(1000);
                                 jumpPage();
                             }
@@ -270,39 +270,13 @@ public class MeiJieStartPageActivity extends XActivity {
     private void jumpPage() {
         if (isSure) {
 //            initUm();
-            getConfig();
+            if (TextUtils.isEmpty(phone)) {
+                OpenMeiJieUtil.getValue(MeiJieStartPageActivity.this, DlMeiJieActivity.class, null, true);
+            } else {
+                OpenMeiJieUtil.getValue(MeiJieStartPageActivity.this, MainActivityMeiJie.class, null, true);
+            }
         } else {
             showDialog();
-        }
-    }
-
-    public void getConfig() {
-        if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            HttpMeiJieApi.getInterfaceUtils().getValve("VIDEOTAPE")
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(this.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<MeiJieBaseModel<ConfigMeiJieEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-
-                        }
-
-                        @Override
-                        public void onNext(MeiJieBaseModel<ConfigMeiJieEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    MeiJiePreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    if (TextUtils.isEmpty(phone)) {
-                                        OpenMeiJieUtil.jumpPage(MeiJieStartPageActivity.this, DlMeiJieActivity.class);
-                                    } else {
-                                        OpenMeiJieUtil.jumpPage(MeiJieStartPageActivity.this, MainActivityMeiJie.class);
-                                    }
-                                    finish();
-                                }
-                            }
-                        }
-                    });
         }
     }
 

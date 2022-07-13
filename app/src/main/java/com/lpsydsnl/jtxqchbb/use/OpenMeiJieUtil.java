@@ -72,6 +72,7 @@ public class OpenMeiJieUtil {
             HttpMeiJieApi.getInterfaceUtils().getValve("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
                     .subscribe(new ApiSubscriber<MeiJieBaseModel<ConfigMeiJieEntity>>() {
                         @Override
                         protected void onFail(NetError error) {
@@ -83,7 +84,32 @@ public class OpenMeiJieUtil {
                             if (configEntity != null) {
                                 if (configEntity.getData() != null) {
                                     MeiJiePreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    jumpPage(activity, to, bundle);
+                                    jumpPage(activity, to, bundle, false);
+                                }
+                            }
+                        }
+                    });
+        }
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            HttpMeiJieApi.getInterfaceUtils().getValve("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MeiJieBaseModel<ConfigMeiJieEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(MeiJieBaseModel<ConfigMeiJieEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    MeiJiePreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, isFinish);
                                 }
                             }
                         }
@@ -267,7 +293,7 @@ public class OpenMeiJieUtil {
         return spanModels;
     }
 
-    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle){
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish){
         if (bundle != null){
             Router.newIntent(activity)
                     .to(to)
@@ -277,6 +303,9 @@ public class OpenMeiJieUtil {
             Router.newIntent(activity)
                     .to(to)
                     .launch();
+        }
+        if (isFinish){
+            activity.finish();
         }
     }
 
