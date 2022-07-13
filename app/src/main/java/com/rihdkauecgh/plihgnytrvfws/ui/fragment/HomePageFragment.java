@@ -64,7 +64,7 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
     private Bundle bundle, webBundle;
     private int tag, index = 0;
     public GoodsItemAdapter goodsItemAdapter;
-    private List<GoodsModel> goodsModels;
+    public List<GoodsModel> goodsModels;
     private ItemAdapter itemAdapter;
 
     private String[] msg = {"恭喜187****5758用户领取87000元额度", "恭喜138****5666用户领取36000元额度", "恭喜199****5009用户领取49000元额度",
@@ -101,7 +101,7 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
         pb_progressbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if ((2000 * progress) <= 5000){
+                if ((2000 * progress) <= 5000) {
                     progress_tv.setText("5000");
                 } else {
                     progress_tv.setText(String.valueOf(2000 * progress));
@@ -126,7 +126,7 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
         getP().productList();
     }
 
-    private void initItemAdapter(){
+    private void initItemAdapter() {
         List<ItemModel> list = new ArrayList<>();
         ItemModel model = new ItemModel();
         model.setName("3期");
@@ -161,13 +161,13 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
         return new HomePagePresent();
     }
 
-    private void productClick(GoodsModel model){
+    private void productClick(GoodsModel model) {
         if (model != null) {
             getP().productClick(model);
         }
     }
 
-    public void jumpWebActivity (GoodsModel model){
+    public void jumpWebActivity(GoodsModel model) {
         if (model != null) {
             webBundle = new Bundle();
             webBundle.putInt("tag", 3);
@@ -177,9 +177,12 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
         }
     }
 
-    private GoodsModel getGoodsModel(){
+    private GoodsModel getGoodsModel() {
         GoodsModel goodsModel = null;
-        if (goodsModels != null && goodsModels.size() > 0) {
+        if (goodsModels.size() <= index) {
+            index = 0;
+        }
+        if (goodsModels != null && goodsModels.size() > index) {
             goodsModel = goodsModels.get(index);
             if (index < goodsModels.size() - 1) {
                 index = index + 1;
@@ -233,7 +236,7 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
         }
     }
 
-    public void setModel(List<GoodsModel> goodsModels){
+    public void setModel(List<GoodsModel> goodsModels) {
         this.goodsModels = goodsModels;
     }
 }

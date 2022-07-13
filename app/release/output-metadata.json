@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.ajhjahsnjksdf.sjkslaj",
+  "applicationId": "com.sdyqwjqwias.fdpwejqwdjew",
   "variantName": "release",
   "elements": [
     {
@@ -12,7 +12,7 @@
       "filters": [],
       "versionCode": 101,
       "versionName": "1.0.1",
-      "outputFile": "lejiexinyonghua_hw_v1.0.1_build_20220711144231.apk"
+      "outputFile": "lejiexinyonghua_hw_v1.0.1_build_20220713142924.apk"
     }
   ]
 }
