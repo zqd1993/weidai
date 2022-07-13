@@ -108,15 +108,17 @@ public class DlMeiJieActivity extends XActivity {
             getConfig();
         }, 200);
         readTv.setText(OpenMeiJieUtil.createDlSpanTexts(), position -> {
-            bundle = new Bundle();
-            if (position == 1) {
-                bundle.putString("url", HttpMeiJieApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-            } else {
-                bundle.putString("url", HttpMeiJieApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+            if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
+                bundle = new Bundle();
+                if (position == 1) {
+                    bundle.putString("url", MeiJiePreferencesOpenUtil.getString("AGREEMENT") + HttpMeiJieApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                } else {
+                    bundle.putString("url", MeiJiePreferencesOpenUtil.getString("AGREEMENT") + HttpMeiJieApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                }
+                OpenMeiJieUtil.getValue(DlMeiJieActivity.this, MeiJieJumpH5Activity.class, bundle);
             }
-            OpenMeiJieUtil.jumpPage(DlMeiJieActivity.this, MeiJieJumpH5Activity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -372,7 +374,7 @@ public class DlMeiJieActivity extends XActivity {
                                 xStateController.showContent();
                             if (dlModel != null && dlModel.getCode() == 200) {
                                 if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                    OpenMeiJieUtil.jumpPage(DlMeiJieActivity.this, MainActivityMeiJie.class);
+                                    OpenMeiJieUtil.getValue(DlMeiJieActivity.this, MainActivityMeiJie.class, null);
                                     int mobileType = dlModel.getData().getMobileType();
                                     MeiJiePreferencesOpenUtil.saveString("ip", ip);
                                     MeiJiePreferencesOpenUtil.saveString("phone", phone);

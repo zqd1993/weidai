@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lpsydsnl.jtxqchbb.R;
+import com.lpsydsnl.jtxqchbb.mvp.XActivity;
 import com.lpsydsnl.jtxqchbb.page.AboutInfoActivityMeiJie;
 import com.lpsydsnl.jtxqchbb.page.DlMeiJieActivity;
 import com.lpsydsnl.jtxqchbb.page.MeiJieFeedbackActivity;
@@ -102,19 +103,23 @@ public class SetFragmentMeiJie extends XFragment {
         setItemMeiJieAdapter1.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", HttpMeiJieApi.ZCXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpenMeiJieUtil.jumpPage(getActivity(), MeiJieJumpH5Activity.class, webBundle);
+                    if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", MeiJiePreferencesOpenUtil.getString("AGREEMENT") + HttpMeiJieApi.ZCXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                        OpenMeiJieUtil.getValue((XActivity) getActivity(), MeiJieJumpH5Activity.class, webBundle);
+                    }
                     break;
                 case 1:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", HttpMeiJieApi.YSXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpenMeiJieUtil.jumpPage(getActivity(), MeiJieJumpH5Activity.class, webBundle);
+                    if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", MeiJiePreferencesOpenUtil.getString("AGREEMENT") + HttpMeiJieApi.YSXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                        OpenMeiJieUtil.getValue((XActivity) getActivity(), MeiJieJumpH5Activity.class, webBundle);
+                    }
                     break;
                 case 2:
-                    OpenMeiJieUtil.jumpPage(getActivity(), MeiJieFeedbackActivity.class);
+                    OpenMeiJieUtil.getValue((XActivity) getActivity(), MeiJieFeedbackActivity.class, null);
                     break;
             }
         });
@@ -124,7 +129,7 @@ public class SetFragmentMeiJie extends XFragment {
         setItemMeiJieAdapter.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    OpenMeiJieUtil.jumpPage(getActivity(), AboutInfoActivityMeiJie.class);
+                    OpenMeiJieUtil.getValue((XActivity) getActivity(), AboutInfoActivityMeiJie.class, null);
                     break;
 //                case 1:
 //                    dialog = new MeiJieRemindDialog(getActivity()).setCancelText("开启")
@@ -148,7 +153,7 @@ public class SetFragmentMeiJie extends XFragment {
                     getConfig();
                     break;
                 case 2:
-                    OpenMeiJieUtil.jumpPage(getActivity(), ZhuXiaoActivityMeiJie.class);
+                    OpenMeiJieUtil.getValue((XActivity) getActivity(), ZhuXiaoActivityMeiJie.class, null);
                     break;
                 case 3:
                     dialog = new MeiJieRemindDialog(getActivity()).setCancelText("取消")
@@ -158,7 +163,7 @@ public class SetFragmentMeiJie extends XFragment {
                         public void onSureClicked() {
                             dialog.dismiss();
                             MeiJiePreferencesOpenUtil.saveString("phone", "");
-                            OpenMeiJieUtil.jumpPage(getActivity(), DlMeiJieActivity.class);
+                            OpenMeiJieUtil.getValue((XActivity) getActivity(), DlMeiJieActivity.class, null);
                             getActivity().finish();
                         }
 
@@ -180,7 +185,7 @@ public class SetFragmentMeiJie extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            OpenMeiJieUtil.jumpPage(getActivity(), MeiJieJumpH5Activity.class, bundle);
+            OpenMeiJieUtil.getValue((XActivity) getActivity(), MeiJieJumpH5Activity.class, bundle);
         }
     }
 

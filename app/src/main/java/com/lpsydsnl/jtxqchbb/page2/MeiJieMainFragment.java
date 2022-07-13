@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.lpsydsnl.jtxqchbb.R;
+import com.lpsydsnl.jtxqchbb.mvp.XActivity;
 import com.lpsydsnl.jtxqchbb.page.ImageAdapterMeiJie;
 import com.lpsydsnl.jtxqchbb.page.MeiJieJumpH5Activity;
 import com.lpsydsnl.jtxqchbb.net.HttpMeiJieApi;
@@ -388,7 +389,7 @@ public class MeiJieMainFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            OpenMeiJieUtil.jumpPage(getActivity(), MeiJieJumpH5Activity.class, bundle);
+            OpenMeiJieUtil.getValue((XActivity) getActivity(), MeiJieJumpH5Activity.class, bundle);
         }
     }
 }

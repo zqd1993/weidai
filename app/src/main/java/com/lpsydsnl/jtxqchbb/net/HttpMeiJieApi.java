@@ -8,8 +8,8 @@ import android.text.TextUtils;
 import com.lpsydsnl.jtxqchbb.use.MeiJiePreferencesOpenUtil;
 
 public class HttpMeiJieApi {
-    public static final String ZCXY = "https://xy.hgy5kg.com/profile/hwwdxyh/zcxy.html";
-    public static final String YSXY= "https://xy.hgy5kg.com/profile/hwwdxyh/ysxy.html";
+    public static final String ZCXY = "/profile/hwwdxyh/zcxy.html";
+    public static final String YSXY= "/profile/hwwdxyh/ysxy.html";
     public static String HTTP_API_URL = "45.112.206.60:7705";
 
     private static InterfaceUtilsMeiJie interfaceUtilsMeiJie;

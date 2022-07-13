@@ -9,7 +9,16 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.lpsydsnl.jtxqchbb.model.ConfigMeiJieEntity;
+import com.lpsydsnl.jtxqchbb.model.MeiJieBaseModel;
+import com.lpsydsnl.jtxqchbb.mvp.XActivity;
+import com.lpsydsnl.jtxqchbb.net.ApiSubscriber;
+import com.lpsydsnl.jtxqchbb.net.HttpMeiJieApi;
 import com.lpsydsnl.jtxqchbb.net.NetError;
+import com.lpsydsnl.jtxqchbb.net.XApi;
+import com.lpsydsnl.jtxqchbb.page.DlMeiJieActivity;
+import com.lpsydsnl.jtxqchbb.page.MainActivityMeiJie;
+import com.lpsydsnl.jtxqchbb.page.MeiJieStartPageActivity;
 import com.lpsydsnl.jtxqchbb.router.Router;
 import com.lpsydsnl.jtxqchbb.view.ClickTextViewMeiJie;
 
@@ -56,6 +65,30 @@ public class OpenMeiJieUtil {
             }
         }
         return false;
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
+        if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            HttpMeiJieApi.getInterfaceUtils().getValve("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .subscribe(new ApiSubscriber<MeiJieBaseModel<ConfigMeiJieEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(MeiJieBaseModel<ConfigMeiJieEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    MeiJiePreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle);
+                                }
+                            }
+                        }
+                    });
+        }
     }
 
     /***
@@ -235,10 +268,16 @@ public class OpenMeiJieUtil {
     }
 
     public static void jumpPage(Activity activity, Class<?> to, Bundle bundle){
-        Router.newIntent(activity)
-                .to(to)
-                .data(bundle)
-                .launch();
+        if (bundle != null){
+            Router.newIntent(activity)
+                    .to(to)
+                    .data(bundle)
+                    .launch();
+        } else {
+            Router.newIntent(activity)
+                    .to(to)
+                    .launch();
+        }
     }
 
     /**

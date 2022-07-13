@@ -10,12 +10,19 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.lpsydsnl.jtxqchbb.R;
+import com.lpsydsnl.jtxqchbb.model.ConfigMeiJieEntity;
+import com.lpsydsnl.jtxqchbb.model.MeiJieBaseModel;
+import com.lpsydsnl.jtxqchbb.mvp.XActivity;
+import com.lpsydsnl.jtxqchbb.net.ApiSubscriber;
 import com.lpsydsnl.jtxqchbb.net.HttpMeiJieApi;
+import com.lpsydsnl.jtxqchbb.net.NetError;
+import com.lpsydsnl.jtxqchbb.net.XApi;
 import com.lpsydsnl.jtxqchbb.use.OpenMeiJieUtil;
 import com.lpsydsnl.jtxqchbb.use.MeiJiePreferencesOpenUtil;
 import com.lpsydsnl.jtxqchbb.use.StatusMeiJieBarUtil;
@@ -26,7 +33,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MeiJieStartPageActivity extends AppCompatActivity {
+public class MeiJieStartPageActivity extends XActivity {
 
     private Bundle bundle;
 
@@ -78,16 +85,6 @@ public class MeiJieStartPageActivity extends AppCompatActivity {
             }
         }
         return false;
-    }
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_page_meijie);
-        StatusMeiJieBarUtil.setTransparent(this, false);
-        isSure = MeiJiePreferencesOpenUtil.getBool("isSure");
-        phone = MeiJiePreferencesOpenUtil.getString("phone");
-        sendRequestWithOkHttp();
     }
 
     @Override
@@ -164,16 +161,18 @@ public class MeiJieStartPageActivity extends AppCompatActivity {
             public void oneBtnClicked() {
 //                initUm();
                 MeiJiePreferencesOpenUtil.saveBool("isSure", true);
-                OpenMeiJieUtil.jumpPage(MeiJieStartPageActivity.this, DlMeiJieActivity.class);
+                OpenMeiJieUtil.getValue(MeiJieStartPageActivity.this, DlMeiJieActivity.class, null);
                 finish();
             }
 
             @Override
             public void zcxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", HttpMeiJieApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                OpenMeiJieUtil.jumpPage(MeiJieStartPageActivity.this, MeiJieJumpH5Activity.class, bundle);
+                if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", MeiJiePreferencesOpenUtil.getString("AGREEMENT") + HttpMeiJieApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    OpenMeiJieUtil.getValue(MeiJieStartPageActivity.this, MeiJieJumpH5Activity.class, bundle);
+                }
             }
 
             @Override
@@ -183,10 +182,12 @@ public class MeiJieStartPageActivity extends AppCompatActivity {
 
             @Override
             public void ysxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", HttpMeiJieApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                OpenMeiJieUtil.jumpPage(MeiJieStartPageActivity.this, MeiJieJumpH5Activity.class, bundle);
+                if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", MeiJiePreferencesOpenUtil.getString("AGREEMENT") + HttpMeiJieApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    OpenMeiJieUtil.getValue(MeiJieStartPageActivity.this, MeiJieJumpH5Activity.class, bundle);
+                }
             }
         });
         startPageRemindDialog.show();
@@ -249,11 +250,15 @@ public class MeiJieStartPageActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-//                        HttpApi.HTTP_API_URL = "http://" + responseData;
-                        MeiJiePreferencesOpenUtil.saveString("HTTP_API_URL", "http://" + responseData);
-                        Thread.sleep(1000);
-                        jumpPage();
-
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                MeiJiePreferencesOpenUtil.saveString("HTTP_API_URL", "http://" + net[0]);
+                                MeiJiePreferencesOpenUtil.saveString("AGREEMENT", "http://" + net[1]);
+                                Thread.sleep(1000);
+                                jumpPage();
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -265,14 +270,39 @@ public class MeiJieStartPageActivity extends AppCompatActivity {
     private void jumpPage() {
         if (isSure) {
 //            initUm();
-            if (TextUtils.isEmpty(phone)) {
-                OpenMeiJieUtil.jumpPage(MeiJieStartPageActivity.this, DlMeiJieActivity.class);
-            } else {
-                OpenMeiJieUtil.jumpPage(MeiJieStartPageActivity.this, MainActivityMeiJie.class);
-            }
-            finish();
+            getConfig();
         } else {
             showDialog();
+        }
+    }
+
+    public void getConfig() {
+        if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            HttpMeiJieApi.getInterfaceUtils().getValve("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MeiJieBaseModel<ConfigMeiJieEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(MeiJieBaseModel<ConfigMeiJieEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    MeiJiePreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    if (TextUtils.isEmpty(phone)) {
+                                        OpenMeiJieUtil.jumpPage(MeiJieStartPageActivity.this, DlMeiJieActivity.class);
+                                    } else {
+                                        OpenMeiJieUtil.jumpPage(MeiJieStartPageActivity.this, MainActivityMeiJie.class);
+                                    }
+                                    finish();
+                                }
+                            }
+                        }
+                    });
         }
     }
 
@@ -389,5 +419,23 @@ public class MeiJieStartPageActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        StatusMeiJieBarUtil.setTransparent(this, false);
+        isSure = MeiJiePreferencesOpenUtil.getBool("isSure");
+        phone = MeiJiePreferencesOpenUtil.getString("phone");
+        sendRequestWithOkHttp();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_start_page_meijie;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 }
