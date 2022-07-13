@@ -24,45 +24,80 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="60dp"
                     android:layout_marginBottom="30dp"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:src="@drawable/wd_tx" />
-
-                    <TextView
-                        android:id="@+id/phone_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="12345679"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
+                        android:src="@drawable/wd_tx" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/phone_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="12345679"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:id="@+id/mail_ll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:paddingTop="10dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="5dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/mail_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="12345679@qq.com"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:background="@drawable/bg_corner_10_white"
+                                android:layout_marginStart="5dp"
+                                android:paddingEnd="7dp"
+                                android:paddingStart="7dp"
+                                android:paddingTop="3dp"
+                                android:paddingBottom="3dp"
+                                android:text="点击复制"
+                                android:textColor="#febb48"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </FrameLayout>
 
-            <com.lihang.ShadowLayout
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                app:hl_cornerRadius="10dp"
-                app:hl_layoutBackground="@color/white">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvy"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:overScrollMode="never" />
-
-            </com.lihang.ShadowLayout>
+                android:layout_marginEnd="10dp"
+                android:overScrollMode="never" />
 
         </LinearLayout>
 

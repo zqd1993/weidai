@@ -5,8 +5,10 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -46,12 +48,15 @@ public class MineFragment extends XFragment {
     TextView phoneTv;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.mail_tv)
+    TextView mail_tv;
+    @BindView(R.id.mail_ll)
+    View mail_ll;
 
     private MineAdapter mineAdapter;
     private List<MineItemModel> list;
-    private int[] imgRes = {R.drawable.wd_icon_gywm, R.drawable.wd_icon_ysxy, R.drawable.wd_icon_yjfk,
-            R.drawable.wd_tsyx, R.drawable.wd_icon_xxts, R.drawable.wd_icon_zczh};
-    private String[] tvRes = {"关于我们", "隐私协议", "注册协议", "投诉邮箱", "系统设置", "注销账户"};
+    private int[] imgRes = {R.drawable.bghnj, R.drawable.vvbfg, R.drawable.rfvnhu, R.drawable.yhgdv, R.drawable.xcvfgtert};
+    private String[] tvRes = {"关于我们", "隐私协议", "注册协议", "系统设置", "注销账户"};
     private Bundle bundle;
     private NormalDialog normalDialog;
     private String mailStr = "", phone = "";
@@ -64,14 +69,21 @@ public class MineFragment extends XFragment {
         if (!TextUtils.isEmpty(phone) && phone.length() > 10) {
             phoneTv.setText(phone.replace(phone.substring(3, 7), "****"));
         }
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 5; i++) {
             MineItemModel model = new MineItemModel();
             model.setImgRes(imgRes[i]);
             model.setItemTv(tvRes[i]);
             list.add(model);
         }
+        initAdapter();
         swipeRefreshLayout.setOnRefreshListener(() -> {
             getCompanyInfo();
+        });
+        mail_ll.setOnClickListener(v -> {
+            ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clipData = ClipData.newPlainText(null, mailStr);
+            clipboard.setPrimaryClip(clipData);
+            ToastUtil.showShort("复制成功");
         });
     }
 
@@ -94,13 +106,6 @@ public class MineFragment extends XFragment {
                 @Override
                 public void onItemClick(int position, MineItemModel model, int tag, MineAdapter.ViewHolder holder) {
                     super.onItemClick(position, model, tag, holder);
-                    if (tag == 2) {
-                        ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                        ClipData clipData = ClipData.newPlainText(null, mailStr);
-                        clipboard.setPrimaryClip(clipData);
-                        ToastUtil.showShort("复制成功");
-                        return;
-                    }
                     switch (position) {
                         case 0:
                             Router.newIntent(getActivity())
@@ -137,7 +142,7 @@ public class MineFragment extends XFragment {
                     }
                 }
             });
-            rvy.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 2));
             rvy.setHasFixedSize(true);
             rvy.setAdapter(mineAdapter);
         }
@@ -161,12 +166,8 @@ public class MineFragment extends XFragment {
                             if (loginStatusModel != null) {
                                 if (loginStatusModel.getData() != null) {
                                     mailStr = loginStatusModel.getData().getGsmail();
+                                    mail_tv.setText(mailStr);
                                     SharedPreferencesUtilis.saveStringIntoPref("APP_MAIL", mailStr);
-                                    if (mineAdapter != null){
-                                        mineAdapter.notifyDataSetChanged();
-                                    } else {
-                                        initAdapter();
-                                    }
                                 }
                             }
                         }
