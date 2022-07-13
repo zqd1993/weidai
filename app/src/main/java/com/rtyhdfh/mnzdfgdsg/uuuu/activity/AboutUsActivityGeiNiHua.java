@@ -1,6 +1,7 @@
 package com.rtyhdfh.mnzdfgdsg.uuuu.activity;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -9,6 +10,7 @@ import butterknife.BindView;
 import com.rtyhdfh.mnzdfgdsg.GeiNiHuaApp;
 import com.rtyhdfh.mnzdfgdsg.R;
 import com.rtyhdfh.mnzdfgdsg.utils.GeiNiHuaStaticUtil;
+import com.rtyhdfh.mnzdfgdsg.utils.SharedPreferencesUtilisGeiNiHua;
 import com.rtyhdfh.mnzdfgdsg.utils.StatusGeiNiHuaBarUtil;
 import com.rtyhdfh.mnzdfgdsg.mvp.XActivity;
 
@@ -75,6 +77,9 @@ public class AboutUsActivityGeiNiHua extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusGeiNiHuaBarUtil.setTransparent(this, false);
+        if (SharedPreferencesUtilisGeiNiHua.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("关于");
         version_code_tv.setText(GeiNiHuaStaticUtil.getAppVersionName(GeiNiHuaApp.getContext()));

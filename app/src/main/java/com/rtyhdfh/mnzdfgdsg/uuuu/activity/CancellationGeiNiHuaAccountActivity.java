@@ -1,12 +1,14 @@
 package com.rtyhdfh.mnzdfgdsg.uuuu.activity;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
 
 import com.rtyhdfh.mnzdfgdsg.R;
+import com.rtyhdfh.mnzdfgdsg.utils.SharedPreferencesUtilisGeiNiHua;
 import com.rtyhdfh.mnzdfgdsg.utils.StatusGeiNiHuaBarUtil;
 import com.rtyhdfh.mnzdfgdsg.wwww.NormalDialogGeiNiHua;
 import com.rtyhdfh.mnzdfgdsg.mvp.XActivity;
@@ -76,6 +78,9 @@ public class CancellationGeiNiHuaAccountActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusGeiNiHuaBarUtil.setTransparent(this, false);
+        if (SharedPreferencesUtilisGeiNiHua.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("账号注销");
         commitBtn.setOnClickListener(v -> {

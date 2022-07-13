@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -22,6 +23,7 @@ import androidx.core.content.FileProvider;
 
 import com.rtyhdfh.mnzdfgdsg.R;
 import com.rtyhdfh.mnzdfgdsg.utils.DownloadApkUtilGeiNiHua;
+import com.rtyhdfh.mnzdfgdsg.utils.SharedPreferencesUtilisGeiNiHua;
 import com.rtyhdfh.mnzdfgdsg.utils.StatusGeiNiHuaBarUtil;
 import com.rtyhdfh.mnzdfgdsg.mvp.XActivity;
 
@@ -106,6 +108,9 @@ public class GeiNiHuaWebViewActivity extends XActivity implements EasyPermission
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusGeiNiHuaBarUtil.setTransparent(this, false);
+        if (SharedPreferencesUtilisGeiNiHua.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         bundle = getIntent().getExtras();
         if (bundle.containsKey("tag"))
             tag = bundle.getInt("tag");

@@ -12,9 +12,11 @@ import com.rtyhdfh.mnzdfgdsg.aaaa.MineGeiNiHuaAdapter;
 import com.rtyhdfh.mnzdfgdsg.mmmm.BaseRespModelGeiNiHua;
 import com.rtyhdfh.mnzdfgdsg.mmmm.ConfigGeiNiHuaModel;
 import com.rtyhdfh.mnzdfgdsg.mmmm.MineItemGeiNiHuaModel;
+import com.rtyhdfh.mnzdfgdsg.mvp.XActivity;
 import com.rtyhdfh.mnzdfgdsg.nnnn.ApiSubscriber;
 import com.rtyhdfh.mnzdfgdsg.nnnn.NetError;
 import com.rtyhdfh.mnzdfgdsg.nnnn.XApi;
+import com.rtyhdfh.mnzdfgdsg.utils.GeiNiHuaStaticUtil;
 import com.rtyhdfh.mnzdfgdsg.uuuu.GeiNiHuaWebViewActivity;
 import com.rtyhdfh.mnzdfgdsg.uuuu.LoginGeiNiHuaActivity;
 import com.rtyhdfh.mnzdfgdsg.uuuu.activity.CancellationGeiNiHuaAccountActivity;
@@ -45,8 +47,8 @@ public class MineGeiNiHuaFragment extends XFragment {
     private MineGeiNiHuaAdapter mineGeiNiHuaAdapter;
     private List<MineItemGeiNiHuaModel> list;
     private int[] imgRes = {R.drawable.ewdfb, R.drawable.lhjjfgh, R.drawable.rdfhgfhsd, R.drawable.wd_icon_gywm,
-            R.drawable.kghfgh, R.drawable.wevbsdg, R.drawable.lhjkghfg, R.drawable.xzvserfs};
-    private String[] tvRes = {"注册协议", "隐私协议", "意见反馈", "关于我们", "个性化推荐", "投诉邮箱", "注销账户", "退出登录"};
+             R.drawable.wevbsdg, R.drawable.lhjkghfg, R.drawable.xzvserfs};
+    private String[] tvRes = {"注册协议", "隐私协议", "意见反馈", "关于我们", "联系客服", "注销账户", "退出登录"};
     private Bundle bundle;
     private NormalDialogGeiNiHua normalDialogGeiNiHua;
     private String mailStr = "", phone = "";
@@ -108,7 +110,7 @@ public class MineGeiNiHuaFragment extends XFragment {
         mailStr = SharedPreferencesUtilisGeiNiHua.getStringFromPref("APP_MAIL");
         phone = SharedPreferencesUtilisGeiNiHua.getStringFromPref("phone");
         phoneTv.setText(phone);
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 7; i++) {
             MineItemGeiNiHuaModel model = new MineItemGeiNiHuaModel();
             model.setImgRes(imgRes[i]);
             model.setItemTv(tvRes[i]);
@@ -142,10 +144,7 @@ public class MineGeiNiHuaFragment extends XFragment {
                                 bundle = new Bundle();
                                 bundle.putInt("tag", 1);
                                 bundle.putString("url", SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT") + ApiGeiNiHua.PRIVACY_POLICY);
-                                Router.newIntent(getActivity())
-                                        .to(GeiNiHuaWebViewActivity.class)
-                                        .data(bundle)
-                                        .launch();
+                                GeiNiHuaStaticUtil.getValue((XActivity) getActivity(), GeiNiHuaWebViewActivity.class, bundle);
                             }
                             break;
                         case 1:
@@ -153,46 +152,22 @@ public class MineGeiNiHuaFragment extends XFragment {
                                 bundle = new Bundle();
                                 bundle.putInt("tag", 2);
                                 bundle.putString("url", SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT") + ApiGeiNiHua.USER_SERVICE_AGREEMENT);
-                                Router.newIntent(getActivity())
-                                        .to(GeiNiHuaWebViewActivity.class)
-                                        .data(bundle)
-                                        .launch();
+                                GeiNiHuaStaticUtil.getValue((XActivity) getActivity(), GeiNiHuaWebViewActivity.class, bundle);
                             }
                             break;
                         case 2:
-                            Router.newIntent(getActivity())
-                                    .to(GeiNiHuaFeedBackActivity.class)
-                                    .launch();
+                            GeiNiHuaStaticUtil.getValue((XActivity) getActivity(), GeiNiHuaFeedBackActivity.class, null);
                             break;
                         case 3:
-                            Router.newIntent(getActivity())
-                                    .to(AboutUsActivityGeiNiHua.class)
-                                    .launch();
+                            GeiNiHuaStaticUtil.getValue((XActivity) getActivity(), AboutUsActivityGeiNiHua.class, null);
                             break;
                         case 4:
-                            normalDialogGeiNiHua = new NormalDialogGeiNiHua(getActivity());
-                            normalDialogGeiNiHua.setTitle("温馨提示")
-                                    .setContent("关闭或开启推送")
-                                    .setCancelText("开启")
-                                    .setLeftListener(v -> {
-                                        ToastUtilGeiNiHua.showShort("开启成功");
-                                        normalDialogGeiNiHua.dismiss();
-                                    })
-                                    .setConfirmText("关闭")
-                                    .setRightListener(v -> {
-                                        ToastUtilGeiNiHua.showShort("关闭成功");
-                                        normalDialogGeiNiHua.dismiss();
-                                    }).show();
-                            break;
-                        case 5:
                             getGankData();
                             break;
-                        case 6:
-                            Router.newIntent(getActivity())
-                                    .to(CancellationGeiNiHuaAccountActivity.class)
-                                    .launch();
+                        case 5:
+                            GeiNiHuaStaticUtil.getValue((XActivity) getActivity(), CancellationGeiNiHuaAccountActivity.class, null);
                             break;
-                        case 7:
+                        case 6:
                             normalDialogGeiNiHua = new NormalDialogGeiNiHua(getActivity());
                             normalDialogGeiNiHua.setTitle("温馨提示")
                                     .setContent("确定退出当前登录")
@@ -204,10 +179,7 @@ public class MineGeiNiHuaFragment extends XFragment {
                                     .setRightListener(v -> {
                                         normalDialogGeiNiHua.dismiss();
                                         SharedPreferencesUtilisGeiNiHua.saveStringIntoPref("phone", "");
-                                        Router.newIntent(getActivity())
-                                                .to(LoginGeiNiHuaActivity.class)
-                                                .launch();
-                                        getActivity().finish();
+                                        GeiNiHuaStaticUtil.getValue((XActivity) getActivity(), LoginGeiNiHuaActivity.class, null, true);
                                     }).show();
                             break;
                     }

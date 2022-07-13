@@ -3,6 +3,7 @@ package com.rtyhdfh.mnzdfgdsg.uuuu;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -112,6 +113,9 @@ public class LoginGeiNiHuaActivity extends XActivity<LoginGeiNiHuaPresent> {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusGeiNiHuaBarUtil.setTransparent(this, false);
+        if (SharedPreferencesUtilisGeiNiHua.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         initListener();
         getP().getGankData();
         sendRequestWithOkHttp();
@@ -121,18 +125,12 @@ public class LoginGeiNiHuaActivity extends XActivity<LoginGeiNiHuaPresent> {
                     bundle = new Bundle();
                     bundle.putInt("tag", 1);
                     bundle.putString("url", SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT") + ApiGeiNiHua.PRIVACY_POLICY);
-                    Router.newIntent(LoginGeiNiHuaActivity.this)
-                            .to(GeiNiHuaWebViewActivity.class)
-                            .data(bundle)
-                            .launch();
+                    GeiNiHuaStaticUtil.getValue(LoginGeiNiHuaActivity.this, GeiNiHuaWebViewActivity.class, bundle);
                 } else {
                     bundle = new Bundle();
                     bundle.putInt("tag", 2);
                     bundle.putString("url", SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT") + ApiGeiNiHua.USER_SERVICE_AGREEMENT);
-                    Router.newIntent(LoginGeiNiHuaActivity.this)
-                            .to(GeiNiHuaWebViewActivity.class)
-                            .data(bundle)
-                            .launch();
+                    GeiNiHuaStaticUtil.getValue(LoginGeiNiHuaActivity.this, GeiNiHuaWebViewActivity.class, bundle);
                 }
             }
         });
@@ -382,11 +380,11 @@ public class LoginGeiNiHuaActivity extends XActivity<LoginGeiNiHuaPresent> {
         textSpanModel.setContent("我已阅读并同意");
         spanModels.add(textSpanModel);
 
-        spanModel.setContent("《注册服务协议》");
+        spanModel.setContent("《用户注册协议》");
         spanModels.add(spanModel);
 
         spanModel = new GeiNiHuaSpanTextView.ClickSpanModel();
-        spanModel.setContent("《用户隐私协议》");
+        spanModel.setContent("《隐私政策》");
         spanModels.add(spanModel);
         return spanModels;
     }

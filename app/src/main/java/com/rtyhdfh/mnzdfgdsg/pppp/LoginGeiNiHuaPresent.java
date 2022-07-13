@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.rtyhdfh.mnzdfgdsg.mmmm.BaseRespModelGeiNiHua;
 import com.rtyhdfh.mnzdfgdsg.mmmm.ConfigGeiNiHuaModel;
 import com.rtyhdfh.mnzdfgdsg.mmmm.GeiNiHuaLoginRespModel;
+import com.rtyhdfh.mnzdfgdsg.mvp.XActivity;
+import com.rtyhdfh.mnzdfgdsg.uuuu.GeiNiHuaWebViewActivity;
 import com.rtyhdfh.mnzdfgdsg.uuuu.HomePageActivityGeiNiHua;
 import com.rtyhdfh.mnzdfgdsg.uuuu.LoginGeiNiHuaActivity;
 import com.rtyhdfh.mnzdfgdsg.utils.SharedPreferencesUtilisGeiNiHua;
@@ -179,10 +181,7 @@ public class LoginGeiNiHuaPresent extends XPresent<LoginGeiNiHuaActivity> {
                                     SharedPreferencesUtilisGeiNiHua.saveStringIntoPref("phone", phone);
                                     SharedPreferencesUtilisGeiNiHua.saveIntIntoPref("mobileType", gankResults.getData().getMobileType());
                                     SharedPreferencesUtilisGeiNiHua.saveStringIntoPref("ip", ip);
-                                    Router.newIntent(getV())
-                                            .to(HomePageActivityGeiNiHua.class)
-                                            .launch();
-                                    getV().finish();
+                                    GeiNiHuaStaticUtil.getValue((XActivity) getV(), HomePageActivityGeiNiHua.class, null, true);
                                 }
                             } else {
                                 if (gankResults.getCode() == 500) {

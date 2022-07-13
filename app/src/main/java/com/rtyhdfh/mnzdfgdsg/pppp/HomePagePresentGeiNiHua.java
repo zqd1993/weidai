@@ -77,7 +77,8 @@ public class HomePagePresentGeiNiHua extends XPresent<HomePageFragmentGeiNiHua> 
     public void productList() {
         if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("HTTP_API_URL"))) {
             mobileType = SharedPreferencesUtilisGeiNiHua.getIntFromPref("mobileType");
-            ApiGeiNiHua.getGankService().productList(mobileType)
+            phone = SharedPreferencesUtilisGeiNiHua.getStringFromPref("phone");
+            ApiGeiNiHua.getGankService().productList(mobileType, phone)
                     .compose(XApi.<BaseRespModelGeiNiHua<List<GeiNiHuaGoodsModel>>>getApiTransformer())
                     .compose(XApi.<BaseRespModelGeiNiHua<List<GeiNiHuaGoodsModel>>>getScheduler())
                     .compose(getV().<BaseRespModelGeiNiHua<List<GeiNiHuaGoodsModel>>>bindToLifecycle())

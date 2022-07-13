@@ -1,12 +1,21 @@
 package com.rtyhdfh.mnzdfgdsg.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.rtyhdfh.mnzdfgdsg.mmmm.BaseRespModelGeiNiHua;
+import com.rtyhdfh.mnzdfgdsg.mmmm.ConfigGeiNiHuaModel;
+import com.rtyhdfh.mnzdfgdsg.mvp.XActivity;
+import com.rtyhdfh.mnzdfgdsg.nnnn.ApiGeiNiHua;
+import com.rtyhdfh.mnzdfgdsg.nnnn.ApiSubscriber;
 import com.rtyhdfh.mnzdfgdsg.nnnn.NetError;
+import com.rtyhdfh.mnzdfgdsg.nnnn.XApi;
+import com.rtyhdfh.mnzdfgdsg.router.Router;
 
 import java.util.regex.Pattern;
 
@@ -90,6 +99,72 @@ public class GeiNiHuaStaticUtil {
                     Toast.makeText(context, "其他异常", Toast.LENGTH_SHORT).show();
                     break;
             }
+        }
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
+        if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("HTTP_API_URL"))) {
+            ApiGeiNiHua.getGankService().getValue("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespModelGeiNiHua<ConfigGeiNiHuaModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(BaseRespModelGeiNiHua<ConfigGeiNiHuaModel> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    SharedPreferencesUtilisGeiNiHua.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, false);
+                                }
+                            }
+                        }
+                    });
+        }
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("HTTP_API_URL"))) {
+            ApiGeiNiHua.getGankService().getValue("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespModelGeiNiHua<ConfigGeiNiHuaModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(BaseRespModelGeiNiHua<ConfigGeiNiHuaModel> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    SharedPreferencesUtilisGeiNiHua.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, isFinish);
+                                }
+                            }
+                        }
+                    });
+        }
+    }
+
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish){
+        if (bundle != null){
+            Router.newIntent(activity)
+                    .to(to)
+                    .data(bundle)
+                    .launch();
+        } else {
+            Router.newIntent(activity)
+                    .to(to)
+                    .launch();
+        }
+        if (isFinish){
+            activity.finish();
         }
     }
 
