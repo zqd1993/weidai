@@ -30,18 +30,15 @@ public class GoodsItemAdapter extends SimpleRecAdapter<GoodsModel, GoodsItemAdap
 
     @Override
     public int getLayoutId() {
-        return R.layout.adapter_goods_item;
+        return R.layout.layout_product_item_meijie;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         GoodsModel model = data.get(i);
-            viewHolder.cycleTv.setText("1-" + model.getFan_time());
-        viewHolder.tagTv.setText(model.getInfo());
         viewHolder.productNameTv.setText(model.getTitle());
         Glide.with(context).load(Api.API_BASE_URL + model.getImgs()).into(viewHolder.productImg);
 //        ILFactory.getLoader().loadNet(viewHolder.productImg, Api.API_BASE_URL + model.getImgs(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-        viewHolder.limitTv.setText(model.getMax_money());
         viewHolder.text_1.setText("·" + model.getMax_money());
         viewHolder.text_2.setText("·" + model.getDay_money());
         viewHolder.text_3.setText("·" + model.getInfo());
@@ -52,20 +49,10 @@ public class GoodsItemAdapter extends SimpleRecAdapter<GoodsModel, GoodsItemAdap
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.parent_fl)
-        View parentFl;
-        @BindView(R.id.passing_rate_tv)
-        TextView passingRateTv;
-        @BindView(R.id.tag_tv)
-        TextView tagTv;
         @BindView(R.id.product_name_tv)
         TextView productNameTv;
         @BindView(R.id.product_img)
         ImageView productImg;
-        @BindView(R.id.limit_tv)
-        TextView limitTv;
-        @BindView(R.id.cycle_tv)
-        TextView cycleTv;
         @BindView(R.id.click_view)
         View clickView;
         @BindView(R.id.text_1)

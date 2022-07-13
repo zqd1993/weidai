@@ -45,10 +45,6 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
-                    android:background="@drawable/bg_corner_10_white"
-                    android:paddingStart="20dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
                     android:text="推荐产品"
                     android:textColor="@color/text_normal_color"
                     android:textSize="@dimen/textSize_16"
@@ -306,7 +302,6 @@
                         android:id="@+id/rvy"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:layout_marginBottom="20dp" />
                 </FrameLayout>
 
