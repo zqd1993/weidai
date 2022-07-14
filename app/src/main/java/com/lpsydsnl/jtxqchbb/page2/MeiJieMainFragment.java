@@ -107,7 +107,6 @@ public class MeiJieMainFragment extends XFragment {
 
     @Override
     public void initData(Bundle savedInstanceState) {
-            productList();
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -126,6 +125,12 @@ public class MeiJieMainFragment extends XFragment {
         list_fl.setOnClickListener(v -> {
             productClick(productMeiJieModel);
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        productList();
     }
 
     private void initBannerAdapter(List<ProductMeiJieModel> data) {

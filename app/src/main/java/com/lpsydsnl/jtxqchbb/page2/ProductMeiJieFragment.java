@@ -105,7 +105,6 @@ public class ProductMeiJieFragment extends XFragment {
         list_fl.setLayoutParams(layoutParams);
         jx_bg.setVisibility(View.VISIBLE);
         bg_im.setVisibility(View.GONE);
-        productList();
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -121,6 +120,12 @@ public class ProductMeiJieFragment extends XFragment {
         list_fl.setOnClickListener(v -> {
             productClick(productMeiJieModel);
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        productList();
     }
 
     @Override
