@@ -124,7 +124,6 @@ public class HomePageFragmentGeiNiHua extends XFragment<HomePagePresentGeiNiHua>
                 showLL2.setVisibility(View.GONE);
             }
         }
-        getP().productList();
         swipeRefreshLayout.setOnRefreshListener(() -> getP().productList());
         noDataFl.setOnClickListener(v -> getP().productList());
         productBg.setOnClickListener(v -> {
@@ -136,6 +135,12 @@ public class HomePageFragmentGeiNiHua extends XFragment<HomePagePresentGeiNiHua>
         topLayout.setOnClickListener(v -> {
             productClick(geiNiHuaGoodsModel);
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getP().productList();
     }
 
     public static String werdgz(Object o) {
