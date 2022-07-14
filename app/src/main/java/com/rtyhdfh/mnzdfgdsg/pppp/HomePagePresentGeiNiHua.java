@@ -101,19 +101,13 @@ public class HomePagePresentGeiNiHua extends XPresent<HomePageFragmentGeiNiHua> 
                                         getV().setModel(gankResults.getData().get(0));
                                         getV().initGoodsItemAdapter(gankResults.getData());
                                     } else {
-                                        if (getV().goodsItemAdapterGeiNiHua == null) {
-                                            getV().noDataFl.setVisibility(View.VISIBLE);
-                                        }
-                                    }
-                                } else {
-                                    if (getV().goodsItemAdapterGeiNiHua == null) {
                                         getV().noDataFl.setVisibility(View.VISIBLE);
                                     }
-                                }
-                            } else {
-                                if (getV().goodsItemAdapterGeiNiHua == null) {
+                                } else {
                                     getV().noDataFl.setVisibility(View.VISIBLE);
                                 }
+                            } else {
+                                getV().noDataFl.setVisibility(View.VISIBLE);
                             }
                         }
                     });
