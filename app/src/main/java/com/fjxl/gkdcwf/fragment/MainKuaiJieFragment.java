@@ -3,12 +3,14 @@ package com.fjxl.gkdcwf.fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.fjxl.gkdcwf.R;
+import com.fjxl.gkdcwf.mvp.XActivity;
 import com.fjxl.gkdcwf.ui.KuaiJieBannerAdapter;
 import com.fjxl.gkdcwf.ui.KuaiJieWebViewActivity;
 import com.fjxl.gkdcwf.mainapi.KuaiJieApi;
@@ -231,52 +233,60 @@ public class MainKuaiJieFragment extends XFragment {
     }
 
     public void productClick(ProductModel model) {
-        if (model == null){
-            return;
-        }
-        phone = KuaiJiePreferencesOpenUtil.getString("phone");
-        KuaiJieApi.getInterfaceUtils().productClick(model.getId(), phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        toWeb(model);
-                    }
+        if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            if (model == null) {
+                return;
+            }
+            phone = KuaiJiePreferencesOpenUtil.getString("phone");
+            KuaiJieApi.getInterfaceUtils().productClick(model.getId(), phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            toWeb(model);
+                        }
 
-                    @Override
-                    public void onNext(BaseModel baseModel) {
-                        toWeb(model);
-                    }
-                });
+                        @Override
+                        public void onNext(BaseModel baseModel) {
+                            toWeb(model);
+                        }
+                    });
+        }
     }
 
 
     public void productList() {
-        mobileType = KuaiJiePreferencesOpenUtil.getInt("mobileType");
-        KuaiJieApi.getInterfaceUtils().productList(mobileType)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModel<List<ProductModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        setRefreshing.setRefreshing(false);
-                        OpenKuaiJieUtil.showErrorInfo(getActivity(), error);
-                        if (imageAdapter == null) {
-                            noDataTv.setVisibility(View.VISIBLE);
+        if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            mobileType = KuaiJiePreferencesOpenUtil.getInt("mobileType");
+            KuaiJieApi.getInterfaceUtils().productList(mobileType)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel<List<ProductModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            setRefreshing.setRefreshing(false);
+                            OpenKuaiJieUtil.showErrorInfo(getActivity(), error);
+                            if (imageAdapter == null) {
+                                noDataTv.setVisibility(View.VISIBLE);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onNext(BaseModel<List<ProductModel>> baseModel) {
-                        setRefreshing.setRefreshing(false);
-                        if (baseModel != null) {
-                            if (baseModel.getCode() == 200 && baseModel.getData() != null) {
-                                if (baseModel.getData() != null && baseModel.getData().size() > 0) {
-                                    productModel = baseModel.getData().get(0);
-                                    initBannerAdapter(baseModel.getData());
+                        @Override
+                        public void onNext(BaseModel<List<ProductModel>> baseModel) {
+                            setRefreshing.setRefreshing(false);
+                            if (baseModel != null) {
+                                if (baseModel.getCode() == 200 && baseModel.getData() != null) {
+                                    if (baseModel.getData() != null && baseModel.getData().size() > 0) {
+                                        productModel = baseModel.getData().get(0);
+                                        initBannerAdapter(baseModel.getData());
+                                    } else {
+                                        if (imageAdapter == null) {
+                                            noDataTv.setVisibility(View.VISIBLE);
+                                        }
+                                    }
                                 } else {
                                     if (imageAdapter == null) {
                                         noDataTv.setVisibility(View.VISIBLE);
@@ -287,13 +297,9 @@ public class MainKuaiJieFragment extends XFragment {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
                             }
-                        } else {
-                            if (imageAdapter == null) {
-                                noDataTv.setVisibility(View.VISIBLE);
-                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     /**
@@ -326,7 +332,7 @@ public class MainKuaiJieFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            OpenKuaiJieUtil.jumpPage(getActivity(), KuaiJieWebViewActivity.class, bundle);
+            OpenKuaiJieUtil.getValue((XActivity) getActivity(), KuaiJieWebViewActivity.class, bundle);
         }
     }
 }

@@ -203,7 +203,7 @@ public class CountDownKuaiJieTimer extends android.os.CountDownTimer {
     @Override
     public void onFinish() {
         timeTv.setClickable(true);//重新获得点击
-        timeTv.setTextColor(KuaiJieApp.getContext().getResources().getColor(R.color.white));  //还原背景色
+        timeTv.setTextColor(KuaiJieApp.getContext().getResources().getColor(R.color.colorPrimary));  //还原背景色
         timeTv.setText("重新获取验证码");
     }
 

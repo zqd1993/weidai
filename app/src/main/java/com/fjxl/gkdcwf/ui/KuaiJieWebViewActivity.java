@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -22,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.fjxl.gkdcwf.R;
+import com.fjxl.gkdcwf.gongju.KuaiJiePreferencesOpenUtil;
 import com.fjxl.gkdcwf.mvp.XActivity;
 import com.fjxl.gkdcwf.gongju.KuaiJieDownloadApkUtil;
 import com.fjxl.gkdcwf.gongju.StatusKuaiJieBarUtil;
@@ -128,6 +130,9 @@ public class KuaiJieWebViewActivity extends XActivity implements EasyPermissions
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusKuaiJieBarUtil.setTransparent(this, false);
+        if (KuaiJiePreferencesOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         bundle = getIntent().getExtras();
         if (bundle.containsKey("biaoti"))
             biaoti = bundle.getString("biaoti");
@@ -137,7 +142,7 @@ public class KuaiJieWebViewActivity extends XActivity implements EasyPermissions
         backImage.setOnClickListener(v -> {
             finish();
         });
-        webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+        webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         webView.getSettings().setTextZoom(100);
         webView.getSettings().setDomStorageEnabled(true);
         webView.setWebViewClient(new WebViewClient());

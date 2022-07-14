@@ -5,9 +5,11 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +19,7 @@ import com.fjxl.gkdcwf.mainapi.KuaiJieApi;
 import com.fjxl.gkdcwf.gongju.OpenKuaiJieUtil;
 import com.fjxl.gkdcwf.gongju.KuaiJiePreferencesOpenUtil;
 import com.fjxl.gkdcwf.gongju.StatusKuaiJieBarUtil;
+import com.fjxl.gkdcwf.mvp.XActivity;
 import com.fjxl.gkdcwf.weidgt.StartPageKuaiJieRemindDialog;
 import com.umeng.commonsdk.UMConfigure;
 
@@ -24,25 +27,19 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-public class KuaiJieStartPageActivity extends AppCompatActivity {
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+public class KuaiJieStartPageActivity extends XActivity {
 
     private Bundle bundle;
 
-    private boolean isSure = false;
+    private boolean isSure = false, isResume = false;
 
     private String phone = "";
 
     private StartPageKuaiJieRemindDialog startPageRemindDialog;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kuaijie_start_page);
-        StatusKuaiJieBarUtil.setTransparent(this, false);
-        isSure = KuaiJiePreferencesOpenUtil.getBool("isSure");
-        phone = KuaiJiePreferencesOpenUtil.getString("phone");
-        jumpPage();
-    }
 
     /**
      * 保存在手机里面的文件名
@@ -136,61 +133,88 @@ public class KuaiJieStartPageActivity extends AppCompatActivity {
         SharedPreferencesCompat.apply(editor);
     }
 
-    private void jumpPage() {
-        if (!isSure) {
-            startPageRemindDialog = new StartPageKuaiJieRemindDialog(this);
-            startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-                @Override
-                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        KuaiJieStartPageActivity.this.finish();
-                        return false;
-                    }
-                    return true;
+    private void showDialog() {
+        Looper.prepare();
+        startPageRemindDialog = new StartPageKuaiJieRemindDialog(this);
+        startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && !isResume) {
+                    KuaiJieStartPageActivity.this.finish();
+                    return false;
                 }
-            });
-            startPageRemindDialog.setOnListener(new StartPageKuaiJieRemindDialog.OnListener() {
-                @Override
-                public void oneBtnClicked() {
-                    initUm();
-                    KuaiJiePreferencesOpenUtil.saveBool("isSure", true);
-                    OpenKuaiJieUtil.jumpPage(KuaiJieStartPageActivity.this, KuaiJieDlActivity.class);
-                    finish();
-                }
+                return true;
+            }
+        });
+        startPageRemindDialog.setOnListener(new StartPageKuaiJieRemindDialog.OnListener() {
+            @Override
+            public void oneBtnClicked() {
+                initUm();
+                KuaiJiePreferencesOpenUtil.saveBool("isSure", true);
+                startPageRemindDialog.dismiss();
+                OpenKuaiJieUtil.getValue(KuaiJieStartPageActivity.this, KuaiJieDlActivity.class, null, true);
+            }
 
-                @Override
-                public void zcxyClicked() {
+            @Override
+            public void zcxyClicked() {
+                if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
                     bundle = new Bundle();
-                    bundle.putString("url", KuaiJieApi.ZCXY);
+                    bundle.putString("url", KuaiJiePreferencesOpenUtil.getString("AGREEMENT") + KuaiJieApi.ZCXY);
                     bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpenKuaiJieUtil.jumpPage(KuaiJieStartPageActivity.this, KuaiJieWebViewActivity.class, bundle);
+                    OpenKuaiJieUtil.getValue(KuaiJieStartPageActivity.this, KuaiJieWebViewActivity.class, bundle);
                 }
+            }
 
-                @Override
-                public void twoBtnClicked() {
-                    finish();
-                }
-
-                @Override
-                public void ysxyClicked() {
-                    bundle = new Bundle();
-                    bundle.putString("url", KuaiJieApi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpenKuaiJieUtil.jumpPage(KuaiJieStartPageActivity.this, KuaiJieWebViewActivity.class, bundle);
-                }
-            });
-            startPageRemindDialog.show();
-        } else {
-            initUm();
-            new Handler().postDelayed(() -> {
-                if (TextUtils.isEmpty(phone)) {
-                    OpenKuaiJieUtil.jumpPage(KuaiJieStartPageActivity.this, KuaiJieDlActivity.class);
-                } else {
-                    OpenKuaiJieUtil.jumpPage(KuaiJieStartPageActivity.this, MainKuaiJieActivity.class);
-                }
+            @Override
+            public void twoBtnClicked() {
                 finish();
-            }, 1000);
+            }
+
+            @Override
+            public void ysxyClicked() {
+                if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", KuaiJiePreferencesOpenUtil.getString("AGREEMENT") + KuaiJieApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    OpenKuaiJieUtil.getValue(KuaiJieStartPageActivity.this, KuaiJieWebViewActivity.class, bundle);
+                }
+            }
+        });
+        startPageRemindDialog.show();
+        Looper.loop();
+    }
+
+    @Override
+    protected void onResume() {
+        isResume = true;
+        super.onResume();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isResume = false;
+            }
+        }, 500);
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        if (KuaiJiePreferencesOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
         }
+        StatusKuaiJieBarUtil.setTransparent(this, false);
+        isSure = KuaiJiePreferencesOpenUtil.getBool("isSure");
+        phone = KuaiJiePreferencesOpenUtil.getString("phone");
+        sendRequestWithOkHttp();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_kuaijie_start_page;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 
     /**
@@ -240,6 +264,48 @@ public class KuaiJieStartPageActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    private void sendRequestWithOkHttp() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            .url("https://ossbj0714.oss-cn-beijing.aliyuncs.com/server7703.txt")
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    String responseData = response.body().string();
+                    if (!TextUtils.isEmpty(responseData)) {
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                KuaiJiePreferencesOpenUtil.saveString("HTTP_API_URL", "http://" + net[0]);
+                                KuaiJiePreferencesOpenUtil.saveString("AGREEMENT", net[1]);
+                                Thread.sleep(1000);
+                                jumpPage();
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    private void jumpPage() {
+        if (isSure) {
+            initUm();
+            if (TextUtils.isEmpty(phone)) {
+                OpenKuaiJieUtil.getValue(KuaiJieStartPageActivity.this, KuaiJieDlActivity.class, null, true);
+            } else {
+                OpenKuaiJieUtil.getValue(KuaiJieStartPageActivity.this, MainKuaiJieActivity.class, null, true);
+            }
+        } else {
+            showDialog();
+        }
     }
 
     @Override

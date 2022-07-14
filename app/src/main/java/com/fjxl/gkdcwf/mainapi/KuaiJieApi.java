@@ -2,7 +2,9 @@ package com.fjxl.gkdcwf.mainapi;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
+import com.fjxl.gkdcwf.gongju.KuaiJiePreferencesOpenUtil;
 import com.fjxl.gkdcwf.net.XApi;
 
 import java.lang.reflect.InvocationTargetException;
@@ -10,8 +12,8 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 public class KuaiJieApi {
-    public static final String ZCXY = "https://xy.hgy5kg.com/profile/kjk/zcxy.html";
-    public static final String YSXY= "https://xy.hgy5kg.com/profile/kjk/ysxy.html";
+    public static final String ZCXY = "/profile/kjk/zcxy.html";
+    public static final String YSXY= "/profile/kjk/ysxy.html";
     public static final String HTTP_API_URL = "http://45.120.154.46:7703";
 
     private static KuaiJieNetUtils interfaceUtils;
@@ -106,10 +108,10 @@ public class KuaiJieApi {
     }
 
     public static KuaiJieNetUtils getInterfaceUtils() {
-        if (interfaceUtils == null) {
+        if (interfaceUtils == null && !TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
             synchronized (KuaiJieApi.class) {
                 if (interfaceUtils == null) {
-                    interfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(KuaiJieNetUtils.class);
+                    interfaceUtils = XApi.getInstance().getRetrofit(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"), true).create(KuaiJieNetUtils.class);
                 }
             }
         }

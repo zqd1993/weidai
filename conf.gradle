@@ -6,8 +6,8 @@ ext {
             minSdkVersion    : 21,
             targetSdkVersion : 28,
 
-            versionCode      : 20220610,
-            versionName      : '1.2.0',
+            versionCode      : 20220714,
+            versionName      : '1.3.0',
             keyAlias         : "jwszdbxghl",
             keyPassword      : "jwszdbx-ghl",
             storeFile        : "./jwszdbxghl.jks",

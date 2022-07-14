@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -14,6 +15,7 @@ import com.fjxl.gkdcwf.R;
 import com.fjxl.gkdcwf.fragment.MainKuaiJieFragment;
 import com.fjxl.gkdcwf.fragment.ProductKuaiJieFragment;
 import com.fjxl.gkdcwf.fragment.SetKuaiJieFragment;
+import com.fjxl.gkdcwf.gongju.KuaiJiePreferencesOpenUtil;
 import com.fjxl.gkdcwf.mvp.XActivity;
 import com.fjxl.gkdcwf.gongju.MyToastKuaiJie;
 import com.fjxl.gkdcwf.gongju.StatusKuaiJieBarUtil;
@@ -109,6 +111,9 @@ public class MainKuaiJieActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusKuaiJieBarUtil.setTransparent(this, false);
+        if (KuaiJiePreferencesOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         tabModels = new ArrayList<>();
         fragments = new ArrayList<>();
         TabModel tabModel = new TabModel();

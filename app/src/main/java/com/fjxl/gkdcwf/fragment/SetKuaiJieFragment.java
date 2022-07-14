@@ -3,6 +3,7 @@ package com.fjxl.gkdcwf.fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fjxl.gkdcwf.R;
+import com.fjxl.gkdcwf.bean.ConfigEntity;
+import com.fjxl.gkdcwf.mvp.XActivity;
 import com.fjxl.gkdcwf.ui.AboutInfoKuaiJieActivity;
 import com.fjxl.gkdcwf.ui.KuaiJieDlActivity;
 import com.fjxl.gkdcwf.ui.FeedbackKuaiJieActivity;
@@ -166,22 +169,26 @@ public class SetKuaiJieFragment extends XFragment {
         setItemAdapter.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", KuaiJieApi.ZCXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpenKuaiJieUtil.jumpPage(getActivity(), KuaiJieWebViewActivity.class, webBundle);
+                    if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", KuaiJiePreferencesOpenUtil.getString("AGREEMENT") + KuaiJieApi.ZCXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                        OpenKuaiJieUtil.getValue((XActivity) getActivity(), KuaiJieWebViewActivity.class, webBundle);
+                    }
                     break;
                 case 1:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", KuaiJieApi.YSXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpenKuaiJieUtil.jumpPage(getActivity(), KuaiJieWebViewActivity.class, webBundle);
+                    if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", KuaiJiePreferencesOpenUtil.getString("AGREEMENT") + KuaiJieApi.YSXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                        OpenKuaiJieUtil.getValue((XActivity) getActivity(), KuaiJieWebViewActivity.class, webBundle);
+                    }
                     break;
                 case 2:
-                    OpenKuaiJieUtil.jumpPage(getActivity(), FeedbackKuaiJieActivity.class);
+                    OpenKuaiJieUtil.getValue((XActivity) getActivity(), FeedbackKuaiJieActivity.class, null);
                     break;
                 case 3:
-                    OpenKuaiJieUtil.jumpPage(getActivity(), AboutInfoKuaiJieActivity.class);
+                    OpenKuaiJieUtil.getValue((XActivity) getActivity(), AboutInfoKuaiJieActivity.class, null);
                     break;
                 case 4:
                     dialog = new RemindKuaiJieDialog(getActivity()).setCancelText("开启")
@@ -202,11 +209,10 @@ public class SetKuaiJieFragment extends XFragment {
                     dialog.show();
                     break;
                 case 5:
-                    dialog = new RemindKuaiJieDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
-                    dialog.show();
+                    getConfig();
                     break;
                 case 6:
-                    OpenKuaiJieUtil.jumpPage(getActivity(), ZhuXiaoActivityKuaiJie.class);
+                    OpenKuaiJieUtil.getValue((XActivity) getActivity(), ZhuXiaoActivityKuaiJie.class, null);
                     break;
                 case 7:
                     dialog = new RemindKuaiJieDialog(getActivity()).setCancelText("取消")
@@ -216,8 +222,7 @@ public class SetKuaiJieFragment extends XFragment {
                         public void onSureClicked() {
                             dialog.dismiss();
                             KuaiJiePreferencesOpenUtil.saveString("phone", "");
-                            OpenKuaiJieUtil.jumpPage(getActivity(), KuaiJieDlActivity.class);
-                            getActivity().finish();
+                            OpenKuaiJieUtil.getValue((XActivity) getActivity(), KuaiJieDlActivity.class, null, true);
                         }
 
                         @Override
@@ -231,6 +236,33 @@ public class SetKuaiJieFragment extends XFragment {
         });
         setList.setLayoutManager(new LinearLayoutManager(getActivity()));
         setList.setAdapter(setItemAdapter);
+    }
+
+    public void getConfig() {
+        if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            KuaiJieApi.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(BaseModel<ConfigEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    mailStr = configEntity.getData().getAppMail();
+                                    KuaiJiePreferencesOpenUtil.saveString("app_mail", mailStr);
+                                    dialog = new RemindKuaiJieDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
+                                    dialog.show();
+                                }
+                            }
+                        }
+                    });
+        }
     }
 
     /**
@@ -282,7 +314,7 @@ public class SetKuaiJieFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            OpenKuaiJieUtil.jumpPage(getActivity(), KuaiJieWebViewActivity.class, bundle);
+            OpenKuaiJieUtil.getValue((XActivity) getActivity(), KuaiJieDlActivity.class, bundle);
         }
     }
 
@@ -312,28 +344,30 @@ public class SetKuaiJieFragment extends XFragment {
     }
 
     public void productList() {
-        mobileType = KuaiJiePreferencesOpenUtil.getInt("mobileType");
-        KuaiJieApi.getInterfaceUtils().productList(mobileType)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModel<List<ProductModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenKuaiJieUtil.showErrorInfo(getActivity(), error);
-                    }
+        if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            mobileType = KuaiJiePreferencesOpenUtil.getInt("mobileType");
+            KuaiJieApi.getInterfaceUtils().productList(mobileType)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel<List<ProductModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenKuaiJieUtil.showErrorInfo(getActivity(), error);
+                        }
 
-                    @Override
-                    public void onNext(BaseModel<List<ProductModel>> baseModel) {
-                        if (baseModel != null) {
-                            if (baseModel.getCode() == 200 && baseModel.getData() != null) {
-                                if (baseModel.getData() != null && baseModel.getData().size() > 0) {
-                                    productModel = baseModel.getData().get(0);
+                        @Override
+                        public void onNext(BaseModel<List<ProductModel>> baseModel) {
+                            if (baseModel != null) {
+                                if (baseModel.getCode() == 200 && baseModel.getData() != null) {
+                                    if (baseModel.getData() != null && baseModel.getData().size() > 0) {
+                                        productModel = baseModel.getData().get(0);
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     /**
@@ -362,24 +396,26 @@ public class SetKuaiJieFragment extends XFragment {
     }
 
     public void productClick(ProductModel model) {
-        if (model == null) {
-            return;
-        }
-        phone = KuaiJiePreferencesOpenUtil.getString("phone");
-        KuaiJieApi.getInterfaceUtils().productClick(model.getId(), phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        toWeb(model);
-                    }
+        if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            if (model == null) {
+                return;
+            }
+            phone = KuaiJiePreferencesOpenUtil.getString("phone");
+            KuaiJieApi.getInterfaceUtils().productClick(model.getId(), phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            toWeb(model);
+                        }
 
-                    @Override
-                    public void onNext(BaseModel baseModel) {
-                        toWeb(model);
-                    }
-                });
+                        @Override
+                        public void onNext(BaseModel baseModel) {
+                            toWeb(model);
+                        }
+                    });
+        }
     }
 }

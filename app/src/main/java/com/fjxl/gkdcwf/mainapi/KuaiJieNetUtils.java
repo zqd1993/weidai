@@ -25,6 +25,9 @@ public interface KuaiJieNetUtils {
     @GET("/app/user/sendVerifyCode")
     Flowable<BaseModel> sendVerifyCode(@Query("phone") String phone);
 
+    @GET("/app/config/getValue")
+    Flowable<BaseModel<ConfigEntity>> getValue(@Query("key") String phone);
+
     @GET("/app/user/login")
     Flowable<BaseModel<DlModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
     /**

@@ -3,7 +3,9 @@ package com.fjxl.gkdcwf.ui;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -82,6 +84,9 @@ public class KuaiJieDlActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusKuaiJieBarUtil.setTransparent(this, false);
+        if (KuaiJiePreferencesOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         xStateController = this.findViewById(R.id.content_layout);
         mobileEt = this.findViewById(R.id.mobile_et);
         yzmEt = this.findViewById(R.id.yzm_et);
@@ -94,15 +99,17 @@ public class KuaiJieDlActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.view_kuaijie_loading, null));
         getConfig();
         readTv.setText(OpenKuaiJieUtil.createDlSpanTexts(), position -> {
-            bundle = new Bundle();
-            if (position == 0) {
-                bundle.putString("url", KuaiJieApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-            } else {
-                bundle.putString("url", KuaiJieApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+            if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
+                bundle = new Bundle();
+                if (position == 1) {
+                    bundle.putString("url", KuaiJiePreferencesOpenUtil.getString("AGREEMENT") + KuaiJieApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                } else {
+                    bundle.putString("url", KuaiJiePreferencesOpenUtil.getString("AGREEMENT") + KuaiJieApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                }
+                OpenKuaiJieUtil.getValue(KuaiJieDlActivity.this, KuaiJieWebViewActivity.class, bundle);
             }
-            OpenKuaiJieUtil.jumpPage(KuaiJieDlActivity.this, KuaiJieWebViewActivity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -117,7 +124,7 @@ public class KuaiJieDlActivity extends XActivity {
         dlBtn.setOnClickListener(v -> {
             phoneStr = mobileEt.getText().toString().trim();
             yzmStr = yzmEt.getText().toString().trim();
-            if (phoneStr.isEmpty() && isNeedYzm) {
+            if (phoneStr.isEmpty()) {
                 MyToastKuaiJie.showShort("请输入手机号码");
                 return;
             }
@@ -125,7 +132,7 @@ public class KuaiJieDlActivity extends XActivity {
                 MyToastKuaiJie.showShort("请输入验证码");
                 return;
             }
-            if (!remindCb.isChecked() && isChecked) {
+            if (!remindCb.isChecked()) {
                 MyToastKuaiJie.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
@@ -213,33 +220,35 @@ public class KuaiJieDlActivity extends XActivity {
     }
 
     public void getConfig() {
-        KuaiJieApi.getInterfaceUtils().getConfig()
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(this.bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenKuaiJieUtil.showErrorInfo(KuaiJieDlActivity.this, error);
-                    }
+        if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            KuaiJieApi.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenKuaiJieUtil.showErrorInfo(KuaiJieDlActivity.this, error);
+                        }
 
-                    @Override
-                    public void onNext(BaseModel<ConfigEntity> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                KuaiJiePreferencesOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
-                                if ("0".equals(configEntity.getData().getIsCodeLogin())) {
-                                    yzmCv.setVisibility(View.GONE);
-                                } else {
-                                    yzmCv.setVisibility(View.VISIBLE);
+                        @Override
+                        public void onNext(BaseModel<ConfigEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    KuaiJiePreferencesOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
+                                    if ("0".equals(configEntity.getData().getIsCodeLogin())) {
+                                        yzmCv.setVisibility(View.GONE);
+                                    } else {
+                                        yzmCv.setVisibility(View.VISIBLE);
+                                    }
+                                    isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
+                                    isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
+                                    remindCb.setChecked(isChecked);
                                 }
-                                isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
-                                isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
-                                remindCb.setChecked(isChecked);
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     private void getIp() {
@@ -306,40 +315,41 @@ public class KuaiJieDlActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (xStateController != null)
-            xStateController.showLoading();
-        KuaiJieApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModel<DlModel>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenKuaiJieUtil.showErrorInfo(KuaiJieDlActivity.this, error);
-                        if (xStateController != null)
-                            xStateController.showContent();
-                    }
+        if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            if (xStateController != null)
+                xStateController.showLoading();
+            KuaiJieApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel<DlModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenKuaiJieUtil.showErrorInfo(KuaiJieDlActivity.this, error);
+                            if (xStateController != null)
+                                xStateController.showContent();
+                        }
 
-                    @Override
-                    public void onNext(BaseModel<DlModel> dlModel) {
-                        if (xStateController != null)
-                            xStateController.showContent();
-                        if (dlModel != null && dlModel.getCode() == 200) {
-                            if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                OpenKuaiJieUtil.jumpPage(KuaiJieDlActivity.this, MainKuaiJieActivity.class);
-                                int mobileType = dlModel.getData().getMobileType();
-                                KuaiJiePreferencesOpenUtil.saveString("ip", ip);
-                                KuaiJiePreferencesOpenUtil.saveString("phone", phone);
-                                KuaiJiePreferencesOpenUtil.saveInt("mobileType", mobileType);
-                                finish();
-                            }
-                        } else {
-                            if (dlModel.getCode() == 500) {
-                                MyToastKuaiJie.showShort(dlModel.getMsg());
+                        @Override
+                        public void onNext(BaseModel<DlModel> dlModel) {
+                            if (xStateController != null)
+                                xStateController.showContent();
+                            if (dlModel != null && dlModel.getCode() == 200) {
+                                if (dlModel.getData() != null && dlModel.getCode() == 200) {
+                                    int mobileType = dlModel.getData().getMobileType();
+                                    KuaiJiePreferencesOpenUtil.saveString("ip", ip);
+                                    KuaiJiePreferencesOpenUtil.saveString("phone", phone);
+                                    KuaiJiePreferencesOpenUtil.saveInt("mobileType", mobileType);
+                                    OpenKuaiJieUtil.getValue(KuaiJieDlActivity.this, MainKuaiJieActivity.class, null, true);
+                                }
+                            } else {
+                                if (dlModel.getCode() == 500) {
+                                    MyToastKuaiJie.showShort(dlModel.getMsg());
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     /**
@@ -369,26 +379,28 @@ public class KuaiJieDlActivity extends XActivity {
     }
 
     public void getYzm(String phone) {
-        KuaiJieApi.getInterfaceUtils().sendVerifyCode(phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenKuaiJieUtil.showErrorInfo(KuaiJieDlActivity.this, error);
-                    }
+        if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            KuaiJieApi.getInterfaceUtils().sendVerifyCode(phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenKuaiJieUtil.showErrorInfo(KuaiJieDlActivity.this, error);
+                        }
 
-                    @Override
-                    public void onNext(BaseModel baseModel) {
-                        if (baseModel != null) {
-                            if (baseModel.getCode() == 200) {
-                                MyToastKuaiJie.showShort("验证码发送成功");
-                                CountDownKuaiJieTimer cdt = new CountDownKuaiJieTimer(getYzmTv, 60000, 1000);
-                                cdt.start();
+                        @Override
+                        public void onNext(BaseModel baseModel) {
+                            if (baseModel != null) {
+                                if (baseModel.getCode() == 200) {
+                                    MyToastKuaiJie.showShort("验证码发送成功");
+                                    CountDownKuaiJieTimer cdt = new CountDownKuaiJieTimer(getYzmTv, 60000, 1000);
+                                    cdt.start();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 }

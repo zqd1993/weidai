@@ -3,6 +3,7 @@ package com.fjxl.gkdcwf.ui;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.fjxl.gkdcwf.KuaiJieApp;
 import com.fjxl.gkdcwf.R;
+import com.fjxl.gkdcwf.gongju.KuaiJiePreferencesOpenUtil;
 import com.fjxl.gkdcwf.gongju.OpenKuaiJieUtil;
 import com.fjxl.gkdcwf.gongju.StatusKuaiJieBarUtil;
 
@@ -24,6 +26,9 @@ public class AboutInfoKuaiJieActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StatusKuaiJieBarUtil.setTransparent(this, false);
+        if (KuaiJiePreferencesOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         setContentView(R.layout.activity_kuaijie_about_info);
         ImageView backImg = findViewById(R.id.back_image);
         backImg.setOnClickListener(v -> finish());
