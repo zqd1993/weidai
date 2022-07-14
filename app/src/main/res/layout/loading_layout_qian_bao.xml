@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/loading_fl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:background="#60000000"
+    android:visibility="gone">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="14dp"
+        android:paddingTop="14dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minWidth="65dp"
+            android:text="有效日期"
+            android:textColor="#ff333333" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:background="@null"
+            android:cursorVisible="true"
+            android:hint="@string/input_phone_number"
+            android:inputType="number"
+            android:maxLength="11"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/color_999999"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/textSize_16" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_vertical"
+            android:textColor="#ff999999" />
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="80dp"
+            android:src="@mipmap/app_logo" />
+
+    </LinearLayout>
+
+    <com.victor.loading.rotate.RotateLoading
+        android:id="@+id/rotate_loading"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:loading_width="5dp"
+        app:loading_color="@color/colorPrimary"
+        android:layout_gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="14dp"
+        android:paddingTop="14dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minWidth="65dp"
+            android:text="有效日期"
+            android:textColor="#ff333333" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:background="@null"
+            android:cursorVisible="true"
+            android:hint="@string/input_phone_number"
+            android:inputType="number"
+            android:maxLength="11"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/color_999999"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/textSize_16" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_vertical"
+            android:textColor="#ff999999" />
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="80dp"
+            android:src="@mipmap/app_logo" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="14dp"
+        android:paddingTop="14dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minWidth="65dp"
+            android:text="有效日期"
+            android:textColor="#ff333333" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:background="@null"
+            android:cursorVisible="true"
+            android:hint="@string/input_phone_number"
+            android:inputType="number"
+            android:maxLength="11"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/color_999999"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/textSize_16" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_vertical"
+            android:textColor="#ff999999" />
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="80dp"
+            android:src="@mipmap/app_logo" />
+
+    </LinearLayout>
+
+</FrameLayout>

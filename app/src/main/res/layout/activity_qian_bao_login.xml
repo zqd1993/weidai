@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="14dp"
+        android:paddingTop="14dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minWidth="65dp"
+            android:text="有效日期"
+            android:textColor="#ff333333" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:background="@null"
+            android:cursorVisible="true"
+            android:hint="@string/input_phone_number"
+            android:inputType="number"
+            android:maxLength="11"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/color_999999"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/textSize_16" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_vertical"
+            android:textColor="#ff999999" />
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="80dp"
+            android:src="@mipmap/app_logo" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/app_logo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="14dp"
+            android:paddingTop="14dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minWidth="65dp"
+                android:text="有效日期"
+                android:textColor="#ff333333" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="15dp"
+                android:background="@null"
+                android:cursorVisible="true"
+                android:hint="@string/input_phone_number"
+                android:inputType="number"
+                android:maxLength="11"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/color_999999"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/textSize_16" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:gravity="center_vertical"
+                android:textColor="#ff999999" />
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginTop="80dp"
+                android:src="@mipmap/app_logo" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:text="@string/app_name"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <com.lihang.ShadowLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="40dp"
+            app:hl_cornerRadius="50dp"
+            app:hl_layoutBackground="@color/dividing">
+
+            <EditText
+                android:id="@+id/phone_et"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="15dp"
+                android:background="@null"
+                android:cursorVisible="true"
+                android:hint="@string/input_phone_number"
+                android:inputType="number"
+                android:maxLength="11"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/color_999999"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/textSize_16" />
+
+        </com.lihang.ShadowLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="14dp"
+            android:paddingTop="14dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minWidth="65dp"
+                android:text="有效日期"
+                android:textColor="#ff333333" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="15dp"
+                android:background="@null"
+                android:cursorVisible="true"
+                android:hint="@string/input_phone_number"
+                android:inputType="number"
+                android:maxLength="11"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/color_999999"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/textSize_16" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:gravity="center_vertical"
+                android:textColor="#ff999999" />
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginTop="80dp"
+                android:src="@mipmap/app_logo" />
+
+        </LinearLayout>
+
+        <com.lihang.ShadowLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="40dp"
+            app:hl_cornerRadius="50dp"
+            app:hl_layoutBackground="@color/dividing">
+
+            <LinearLayout
+                android:id="@+id/verification_ll"
+                android:layout_width="match_parent"
+                android:layout_marginStart="15dp"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+                <EditText
+                    android:id="@+id/verification_et"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:cursorVisible="true"
+                    android:hint="@string/input_verification"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:textColor="@color/text_normal_color"
+                    android:textColorHint="@color/color_999999"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/textSize_16" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="14dp"
+                    android:paddingTop="14dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:minWidth="65dp"
+                        android:text="有效日期"
+                        android:textColor="#ff333333" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="15dp"
+                        android:background="@null"
+                        android:cursorVisible="true"
+                        android:hint="@string/input_phone_number"
+                        android:inputType="number"
+                        android:maxLength="11"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@color/color_999999"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/textSize_16" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:gravity="center_vertical"
+                        android:textColor="#ff999999" />
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_marginTop="80dp"
+                        android:src="@mipmap/app_logo" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/get_verification_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingEnd="15dp"
+                    android:text="@string/get_verification"
+                    android:textColor="@color/colorPrimary" />
+
+            </LinearLayout>
+
+        </com.lihang.ShadowLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="14dp"
+            android:paddingTop="14dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minWidth="65dp"
+                android:text="有效日期"
+                android:textColor="#ff333333" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="15dp"
+                android:background="@null"
+                android:cursorVisible="true"
+                android:hint="@string/input_phone_number"
+                android:inputType="number"
+                android:maxLength="11"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/color_999999"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/textSize_16" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:gravity="center_vertical"
+                android:textColor="#ff999999" />
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginTop="80dp"
+                android:src="@mipmap/app_logo" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/shape_login_btn_bg"
+            android:gravity="center"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="登  录"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textSize_16" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="14dp"
+            android:paddingTop="14dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minWidth="65dp"
+                android:text="有效日期"
+                android:textColor="#ff333333" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="15dp"
+                android:background="@null"
+                android:cursorVisible="true"
+                android:hint="@string/input_phone_number"
+                android:inputType="number"
+                android:maxLength="11"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/color_999999"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/textSize_16" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:gravity="center_vertical"
+                android:textColor="#ff999999" />
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginTop="80dp"
+                android:src="@mipmap/app_logo" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="40dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/remind_cb"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:button="@drawable/checkbox_bg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="14dp"
+                android:paddingTop="14dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minWidth="65dp"
+                    android:text="有效日期"
+                    android:textColor="#ff333333" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@null"
+                    android:cursorVisible="true"
+                    android:hint="@string/input_phone_number"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/color_999999"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/textSize_16" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical"
+                    android:textColor="#ff999999" />
+
+                <ImageView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_marginTop="80dp"
+                    android:src="@mipmap/app_logo" />
+
+            </LinearLayout>
+
+            <com.gdzfgesry.nbfgnwaet.qianbaowidget.QianBaoSpanTextView
+                android:id="@+id/login_remind_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/text_normal_color"
+                android:textSize="@dimen/textSize_16" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <include layout="@layout/loading_layout_qian_bao" />
+
+</FrameLayout>
