@@ -120,6 +120,9 @@ public class ProductMeiJieFragment extends XFragment {
         list_fl.setOnClickListener(v -> {
             productClick(productMeiJieModel);
         });
+        noDataTv.setOnClickListener(v -> {
+            productList();
+        });
     }
 
     @Override
@@ -209,6 +212,7 @@ public class ProductMeiJieFragment extends XFragment {
         if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = MeiJiePreferencesOpenUtil.getInt("mobileType");
             phone = MeiJiePreferencesOpenUtil.getString("phone");
+            productMeiJieModel = null;
             HttpMeiJieApi.getInterfaceUtils().productList(mobileType, phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -226,25 +230,20 @@ public class ProductMeiJieFragment extends XFragment {
                         @Override
                         public void onNext(MeiJieBaseModel<List<ProductMeiJieModel>> meiJieBaseModel) {
                             setRefreshing.setRefreshing(false);
+                            goodsListLl.removeAllViews();
                             if (meiJieBaseModel != null) {
                                 if (meiJieBaseModel.getCode() == 200 && meiJieBaseModel.getData() != null) {
                                     if (meiJieBaseModel.getData() != null && meiJieBaseModel.getData().size() > 0) {
                                         productMeiJieModel = meiJieBaseModel.getData().get(0);
                                         addProductView(meiJieBaseModel.getData());
                                     } else {
-                                        if (goodsListLl.getChildCount() == 0) {
-                                            noDataTv.setVisibility(View.VISIBLE);
-                                        }
-                                    }
-                                } else {
-                                    if (goodsListLl.getChildCount() == 0) {
                                         noDataTv.setVisibility(View.VISIBLE);
                                     }
-                                }
-                            } else {
-                                if (goodsListLl.getChildCount() == 0) {
+                                } else {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
+                            } else {
+                                noDataTv.setVisibility(View.VISIBLE);
                             }
                         }
                     });
@@ -296,7 +295,6 @@ public class ProductMeiJieFragment extends XFragment {
     }
 
     private void addProductView(List<ProductMeiJieModel> mList) {
-        goodsListLl.removeAllViews();
         for (ProductMeiJieModel model : mList) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_product_item_meijie, null);
             ImageView pic = view.findViewById(R.id.product_img);
