@@ -19,6 +19,7 @@ import com.bghfr.yrtweb.m.MainModel;
 import com.bghfr.yrtweb.m.SetEntity;
 import com.bghfr.yrtweb.m.ShangPinModel;
 import com.bghfr.yrtweb.m.SheZhiModel;
+import com.bghfr.yrtweb.mvp.XActivity;
 import com.bghfr.yrtweb.mvp.XFragment;
 import com.bghfr.yrtweb.net.ApiSubscriber;
 import com.bghfr.yrtweb.net.NetError;
@@ -73,8 +74,8 @@ public class SheZhiFragment extends XFragment {
                 public void onSureClicked() {
                     dialog.dismiss();
                     PreferencesStaticOpenUtil.saveString("phone", "");
-                    BaseUtil.jumpPage(getActivity(), DengLuActivity.class);
-                    getActivity().finish();
+                    dialog.dismiss();
+                    BaseUtil.getValue((XActivity) getActivity(), DengLuActivity.class, null, true);
                 }
 
                 @Override
@@ -123,19 +124,19 @@ public class SheZhiFragment extends XFragment {
                     webBundle = new Bundle();
                     webBundle.putString("url", MyApi.ZCXY);
                     webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    BaseUtil.jumpPage(getActivity(), WangYeActivity.class, webBundle);
+                    BaseUtil.getValue((XActivity) getActivity(), WangYeActivity.class, webBundle);
                     break;
                 case 1:
                     webBundle = new Bundle();
                     webBundle.putString("url", MyApi.YSXY);
                     webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    BaseUtil.jumpPage(getActivity(), WangYeActivity.class, webBundle);
+                    BaseUtil.getValue((XActivity) getActivity(), WangYeActivity.class, webBundle);
                     break;
 //                case 2:
 //                    OpenUtil.jumpPage(getActivity(), FeedbackActivity.class);
 //                    break;
                 case 2:
-                    BaseUtil.jumpPage(getActivity(), AppMsgActivity.class);
+                    BaseUtil.getValue((XActivity) getActivity(), AppMsgActivity.class, null);
                     break;
                 case 3:
                     dialog = new TshiDialog(getActivity()).setCancelText("开启")
@@ -159,7 +160,7 @@ public class SheZhiFragment extends XFragment {
                     getConfig();
                     break;
                 case 5:
-                    BaseUtil.jumpPage(getActivity(), ZXActivity.class);
+                    BaseUtil.getValue((XActivity) getActivity(), ZXActivity.class, null);
                     break;
 //                case 5:
 //                    dialog = new TshiDialog(getActivity()).setCancelText("取消")

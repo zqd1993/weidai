@@ -16,6 +16,7 @@ import com.bghfr.yrtweb.a.WangYeActivity;
 import com.bghfr.yrtweb.api.MyApi;
 import com.bghfr.yrtweb.m.MainModel;
 import com.bghfr.yrtweb.m.ShangPinModel;
+import com.bghfr.yrtweb.mvp.XActivity;
 import com.bghfr.yrtweb.mvp.XFragment;
 import com.bghfr.yrtweb.net.ApiSubscriber;
 import com.bghfr.yrtweb.net.NetError;
@@ -199,7 +200,7 @@ public class ZhuYeFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            BaseUtil.jumpPage(getActivity(), WangYeActivity.class, bundle);
+            BaseUtil.getValue((XActivity) getActivity(), WangYeActivity.class, bundle);
         }
     }
 }

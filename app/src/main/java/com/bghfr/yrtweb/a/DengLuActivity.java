@@ -89,7 +89,7 @@ public class DengLuActivity extends XActivity {
                 bundle.putString("url", MyApi.YSXY);
                 bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
             }
-            BaseUtil.jumpPage(DengLuActivity.this, WangYeActivity.class, bundle);
+            BaseUtil.getValue(DengLuActivity.this, WangYeActivity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -245,12 +245,11 @@ public class DengLuActivity extends XActivity {
                                 xStateController.showContent();
                             if (dlModel != null && dlModel.getCode() == 200) {
                                 if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                    BaseUtil.jumpPage(DengLuActivity.this, ZhuYeActivity.class);
                                     int mobileType = dlModel.getData().getMobileType();
                                     PreferencesStaticOpenUtil.saveString("ip", ip);
                                     PreferencesStaticOpenUtil.saveString("phone", phone);
                                     PreferencesStaticOpenUtil.saveInt("mobileType", mobileType);
-                                    finish();
+                                    BaseUtil.getValue(DengLuActivity.this, ZhuYeActivity.class, null, true);
                                 }
                             } else {
                                 if (dlModel.getCode() == 500) {

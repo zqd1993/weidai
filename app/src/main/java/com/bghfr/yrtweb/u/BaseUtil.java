@@ -9,7 +9,13 @@ import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.bghfr.yrtweb.api.MyApi;
+import com.bghfr.yrtweb.m.MainModel;
+import com.bghfr.yrtweb.m.SetEntity;
+import com.bghfr.yrtweb.mvp.XActivity;
+import com.bghfr.yrtweb.net.ApiSubscriber;
 import com.bghfr.yrtweb.net.NetError;
+import com.bghfr.yrtweb.net.XApi;
 import com.bghfr.yrtweb.router.Router;
 import com.bghfr.yrtweb.w.DianjiTextView;
 
@@ -73,6 +79,72 @@ public class BaseUtil {
         ev.setLocation(newX, newY);
 
         return ev;
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
+            MyApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel<SetEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(MainModel<SetEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    PreferencesStaticOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, false);
+                                }
+                            }
+                        }
+                    });
+        }
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
+            MyApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel<SetEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(MainModel<SetEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    PreferencesStaticOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, isFinish);
+                                }
+                            }
+                        }
+                    });
+        }
+    }
+
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish){
+        if (bundle != null){
+            Router.newIntent(activity)
+                    .to(to)
+                    .data(bundle)
+                    .launch();
+        } else {
+            Router.newIntent(activity)
+                    .to(to)
+                    .launch();
+        }
+        if (isFinish){
+            activity.finish();
+        }
     }
 
     public static String getAppVersion(Context context) {

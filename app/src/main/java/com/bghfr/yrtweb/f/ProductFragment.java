@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bghfr.yrtweb.a.WangYeActivity;
+import com.bghfr.yrtweb.mvp.XActivity;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.bghfr.yrtweb.R;
 import com.bghfr.yrtweb.a.FragmentApader;
@@ -132,7 +133,7 @@ public class ProductFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            BaseUtil.jumpPage(getActivity(), WangYeActivity.class, bundle);
+            BaseUtil.getValue((XActivity) getActivity(), WangYeActivity.class, bundle);
         }
     }
 

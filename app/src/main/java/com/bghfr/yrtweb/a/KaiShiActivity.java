@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bghfr.yrtweb.R;
 import com.bghfr.yrtweb.api.MyApi;
+import com.bghfr.yrtweb.mvp.XActivity;
 import com.bghfr.yrtweb.u.BaseUtil;
 import com.bghfr.yrtweb.u.PreferencesStaticOpenUtil;
 import com.bghfr.yrtweb.u.StatusBarUtil;
@@ -29,7 +30,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class KaiShiActivity extends AppCompatActivity {
+public class KaiShiActivity extends XActivity {
 
     private Bundle bundle;
 
@@ -38,16 +39,6 @@ public class KaiShiActivity extends AppCompatActivity {
     private String phone = "";
 
     private StartPageRemindDialog startPageRemindDialog;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_qidong);
-        StatusBarUtil.setTransparent(this, false);
-        isSure = PreferencesStaticOpenUtil.getBool("isSure");
-        phone = PreferencesStaticOpenUtil.getString("phone");
-        sendRequestWithOkHttp();
-    }
 
     private void sendRequestWithOkHttp() {
         new Thread(new Runnable() {
@@ -79,11 +70,10 @@ public class KaiShiActivity extends AppCompatActivity {
         if (isSure) {
             initUm();
             if (TextUtils.isEmpty(phone)) {
-                BaseUtil.jumpPage(KaiShiActivity.this, DengLuActivity.class);
+                BaseUtil.getValue(KaiShiActivity.this, DengLuActivity.class, null, true);
             } else {
-                BaseUtil.jumpPage(KaiShiActivity.this, ZhuYeActivity.class);
+                BaseUtil.getValue(KaiShiActivity.this, ZhuYeActivity.class, null, true);
             }
-            finish();
         } else {
             showDialog();
         }
@@ -120,7 +110,7 @@ public class KaiShiActivity extends AppCompatActivity {
                 initUm();
                 PreferencesStaticOpenUtil.saveString("uminit", "1");
                 PreferencesStaticOpenUtil.saveBool("isSure", true);
-                BaseUtil.jumpPage(KaiShiActivity.this, DengLuActivity.class);
+                BaseUtil.getValue(KaiShiActivity.this, DengLuActivity.class, null);
                 finish();
             }
 
@@ -129,7 +119,7 @@ public class KaiShiActivity extends AppCompatActivity {
                 bundle = new Bundle();
                 bundle.putString("url", MyApi.ZCXY);
                 bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                BaseUtil.jumpPage(KaiShiActivity.this, WangYeActivity.class, bundle);
+                BaseUtil.getValue(KaiShiActivity.this, WangYeActivity.class, bundle);
             }
 
             @Override
@@ -142,7 +132,7 @@ public class KaiShiActivity extends AppCompatActivity {
                 bundle = new Bundle();
                 bundle.putString("url", MyApi.YSXY);
                 bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                BaseUtil.jumpPage(KaiShiActivity.this, WangYeActivity.class, bundle);
+                BaseUtil.getValue(KaiShiActivity.this, WangYeActivity.class, bundle);
             }
         });
         startPageRemindDialog.show();
@@ -199,5 +189,23 @@ public class KaiShiActivity extends AppCompatActivity {
             // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
             UMConfigure.init(this, "629d692e05844627b5a1152a", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
         }
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        StatusBarUtil.setTransparent(this, false);
+        isSure = PreferencesStaticOpenUtil.getBool("isSure");
+        phone = PreferencesStaticOpenUtil.getString("phone");
+        sendRequestWithOkHttp();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_qidong;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 }
