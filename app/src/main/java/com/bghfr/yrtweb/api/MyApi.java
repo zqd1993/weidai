@@ -10,9 +10,9 @@ import com.bghfr.yrtweb.net.XApi;
 import com.bghfr.yrtweb.u.PreferencesStaticOpenUtil;
 
 public class MyApi {
-    public static final String ZCXY = "https://xy.hgy5kg.com/profile/ljfq/zcxy.html";
+    public static final String ZCXY = "/profile/ljfq/zcxy.html";
     public static final String HTTP_API_URL = "http://45.120.154.46:7723";
-    public static final String YSXY = "https://xy.hgy5kg.com/profile/ljfq/ysxy.html";
+    public static final String YSXY = "/profile/ljfq/ysxy.html";
 
     private static JieKouUtils interfaceUtils;
 

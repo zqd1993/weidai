@@ -47,17 +47,20 @@ public class KaiShiActivity extends XActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7723.txt")
+                            .url("https://ossbj0714.oss-cn-beijing.aliyuncs.com/server7723.txt")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-//                        MyApi.HTTP_API_URL = "http://" + responseData;
-//                        BeiYongPreferencesOpenUtil.saveString("HTTP_API_URL", "http://" + responseData);
-                        PreferencesStaticOpenUtil.saveString("HTTP_API_URL", "http://" + responseData);
-                        Thread.sleep(1000);
-                        jumpPage();
-
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                PreferencesStaticOpenUtil.saveString("HTTP_API_URL", "http://" + net[0]);
+                                PreferencesStaticOpenUtil.saveString("AGREEMENT", net[1]);
+                                Thread.sleep(1000);
+                                jumpPage();
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -110,16 +113,18 @@ public class KaiShiActivity extends XActivity {
                 initUm();
                 PreferencesStaticOpenUtil.saveString("uminit", "1");
                 PreferencesStaticOpenUtil.saveBool("isSure", true);
-                BaseUtil.getValue(KaiShiActivity.this, DengLuActivity.class, null);
-                finish();
+                startPageRemindDialog.dismiss();
+                BaseUtil.getValue(KaiShiActivity.this, DengLuActivity.class, null, true);
             }
 
             @Override
             public void zcxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", MyApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                BaseUtil.getValue(KaiShiActivity.this, WangYeActivity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesStaticOpenUtil.getString("AGREEMENT") + MyApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    BaseUtil.getValue(KaiShiActivity.this, WangYeActivity.class, bundle);
+                }
             }
 
             @Override
@@ -129,10 +134,12 @@ public class KaiShiActivity extends XActivity {
 
             @Override
             public void ysxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", MyApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                BaseUtil.getValue(KaiShiActivity.this, WangYeActivity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesStaticOpenUtil.getString("AGREEMENT") + MyApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    BaseUtil.getValue(KaiShiActivity.this, WangYeActivity.class, bundle);
+                }
             }
         });
         startPageRemindDialog.show();

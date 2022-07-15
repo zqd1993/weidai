@@ -48,6 +48,8 @@ public class ZhuYeFragment extends XFragment {
     ViewFlipper viewFlipper;
     @BindView(R.id.click_view)
     View clickView;
+    @BindView(R.id.click_fl)
+    View click_fl;
 
     private ShangPinModel shangPinModel;
 
@@ -62,7 +64,6 @@ public class ZhuYeFragment extends XFragment {
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        productList();
         setRefreshing.setOnRefreshListener(() -> productList());
         mainTopImg.setOnClickListener(v -> {
             productClick(shangPinModel);
@@ -70,8 +71,20 @@ public class ZhuYeFragment extends XFragment {
         clickView.setOnClickListener(v -> {
             productClick(shangPinModel);
         });
+        click_fl.setOnClickListener(v -> {
+            productClick(shangPinModel);
+        });
+        noDataTv.setOnClickListener(v -> {
+            productList();
+        });
         initViewData();
         setViewConfig();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        productList();
     }
 
     @Override
@@ -112,6 +125,7 @@ public class ZhuYeFragment extends XFragment {
     public void productList() {
         if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
+            shangPinModel = null;
             MyApi.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -135,19 +149,13 @@ public class ZhuYeFragment extends XFragment {
                                         shangPinModel = mainModel.getData().get(0);
                                         initAdapter(mainModel.getData());
                                     } else {
-                                        if (mGoodsAdapter == null) {
-                                            noDataTv.setVisibility(View.VISIBLE);
-                                        }
-                                    }
-                                } else {
-                                    if (mGoodsAdapter == null) {
                                         noDataTv.setVisibility(View.VISIBLE);
                                     }
-                                }
-                            } else {
-                                if (mGoodsAdapter == null) {
+                                } else {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
+                            } else {
+                                noDataTv.setVisibility(View.VISIBLE);
                             }
                         }
                     });

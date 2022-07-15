@@ -51,11 +51,19 @@ public class ListFragment extends XFragment {
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        getGoodsList();
         setRefreshing.setOnRefreshListener(() -> getGoodsList());
         clickView.setOnClickListener(v -> {
             goodsClick(shangPinModel);
         });
+        noDataTv.setOnClickListener(v -> {
+            getGoodsList();
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getGoodsList();
     }
 
     @Override
@@ -96,6 +104,7 @@ public class ListFragment extends XFragment {
     public void getGoodsList() {
         if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
+            shangPinModel = null;
             MyApi.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -119,19 +128,13 @@ public class ListFragment extends XFragment {
                                         shangPinModel = mainModel.getData().get(0);
                                         initAdapter(mainModel.getData());
                                     } else {
-                                        if (mGoodsAdapter == null) {
-                                            noDataTv.setVisibility(View.VISIBLE);
-                                        }
-                                    }
-                                } else {
-                                    if (mGoodsAdapter == null) {
                                         noDataTv.setVisibility(View.VISIBLE);
                                     }
-                                }
-                            } else {
-                                if (mGoodsAdapter == null) {
+                                } else {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
+                            } else {
+                                noDataTv.setVisibility(View.VISIBLE);
                             }
                         }
                     });
