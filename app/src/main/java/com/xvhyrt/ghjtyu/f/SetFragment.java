@@ -20,6 +20,7 @@ import com.xvhyrt.ghjtyu.m.BaseModel;
 import com.xvhyrt.ghjtyu.m.ConfigEntity;
 import com.xvhyrt.ghjtyu.m.ProductModel;
 import com.xvhyrt.ghjtyu.m.SetModel;
+import com.xvhyrt.ghjtyu.mvp.XActivity;
 import com.xvhyrt.ghjtyu.mvp.XFragment;
 import com.xvhyrt.ghjtyu.net.ApiSubscriber;
 import com.xvhyrt.ghjtyu.net.NetError;
@@ -103,7 +104,7 @@ public class SetFragment extends XFragment {
                         webBundle = new Bundle();
                         webBundle.putString("url", PreferencesOpenUtil.getString("AGREEMENT") + HttpApi.ZCXY);
                         webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                        OpenUtil.jumpPage(getActivity(), JumpH5Activity.class, webBundle);
+                        OpenUtil.getValue((XActivity) getActivity(), JumpH5Activity.class, webBundle);
                     }
                     break;
                 case 1:
@@ -111,14 +112,14 @@ public class SetFragment extends XFragment {
                         webBundle = new Bundle();
                         webBundle.putString("url", PreferencesOpenUtil.getString("AGREEMENT") + HttpApi.YSXY);
                         webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                        OpenUtil.jumpPage(getActivity(), JumpH5Activity.class, webBundle);
+                        OpenUtil.getValue((XActivity) getActivity(), JumpH5Activity.class, webBundle);
                     }
                     break;
                 case 2:
-                    OpenUtil.jumpPage(getActivity(), FeedbackActivity.class);
+                    OpenUtil.getValue((XActivity) getActivity(), FeedbackActivity.class, null);
                     break;
                 case 3:
-                    OpenUtil.jumpPage(getActivity(), AboutInfoActivity.class);
+                    OpenUtil.getValue((XActivity) getActivity(), AboutInfoActivity.class, null);
                     break;
                 case 4:
                     dialog = new RemindDialog(getActivity()).setCancelText("开启")
@@ -142,7 +143,7 @@ public class SetFragment extends XFragment {
                     getConfig();
                     break;
                 case 6:
-                    OpenUtil.jumpPage(getActivity(), ZhuXiaoActivity.class);
+                    OpenUtil.getValue((XActivity) getActivity(), ZhuXiaoActivity.class, null);
                     break;
                 case 7:
                     dialog = new RemindDialog(getActivity()).setCancelText("取消")
@@ -152,8 +153,7 @@ public class SetFragment extends XFragment {
                         public void onSureClicked() {
                             dialog.dismiss();
                             PreferencesOpenUtil.saveString("phone", "");
-                            OpenUtil.jumpPage(getActivity(), DlActivity.class);
-                            getActivity().finish();
+                            OpenUtil.getValue((XActivity) getActivity(), DlActivity.class, null, true);
                         }
 
                         @Override
@@ -201,14 +201,15 @@ public class SetFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            OpenUtil.jumpPage(getActivity(), JumpH5Activity.class, bundle);
+            OpenUtil.getValue((XActivity) getActivity(), JumpH5Activity.class, bundle);
         }
     }
 
     public void productList() {
         if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesOpenUtil.getInt("mobileType");
-            HttpApi.getInterfaceUtils().productList(mobileType)
+            phone = PreferencesOpenUtil.getString("phone");
+            HttpApi.getInterfaceUtils().productList(mobileType, phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
                     .compose(bindToLifecycle())

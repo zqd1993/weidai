@@ -7,7 +7,13 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.xvhyrt.ghjtyu.api.HttpApi;
+import com.xvhyrt.ghjtyu.m.BaseModel;
+import com.xvhyrt.ghjtyu.m.ConfigEntity;
+import com.xvhyrt.ghjtyu.mvp.XActivity;
+import com.xvhyrt.ghjtyu.net.ApiSubscriber;
 import com.xvhyrt.ghjtyu.net.NetError;
+import com.xvhyrt.ghjtyu.net.XApi;
 import com.xvhyrt.ghjtyu.router.Router;
 import com.xvhyrt.ghjtyu.w.ClickTextView;
 
@@ -40,6 +46,72 @@ public class OpenUtil {
             return Pattern.matches("^1[3-9]\\d{9}$", number);
         }
         return false;
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
+        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            HttpApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(BaseModel<ConfigEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    PreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, false);
+                                }
+                            }
+                        }
+                    });
+        }
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            HttpApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(BaseModel<ConfigEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    PreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, isFinish);
+                                }
+                            }
+                        }
+                    });
+        }
+    }
+
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish){
+        if (bundle != null){
+            Router.newIntent(activity)
+                    .to(to)
+                    .data(bundle)
+                    .launch();
+        } else {
+            Router.newIntent(activity)
+                    .to(to)
+                    .launch();
+        }
+        if (isFinish){
+            activity.finish();
+        }
     }
 
     public static String getAppVersion(Context context) {

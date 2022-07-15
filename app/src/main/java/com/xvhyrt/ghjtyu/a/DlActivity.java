@@ -68,7 +68,7 @@ public class DlActivity extends XActivity {
                     bundle.putString("url", PreferencesOpenUtil.getString("AGREEMENT") + HttpApi.YSXY);
                     bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
                 }
-                OpenUtil.jumpPage(DlActivity.this, JumpH5Activity.class, bundle);
+                OpenUtil.getValue(DlActivity.this, JumpH5Activity.class, bundle);
             }
         });
 
@@ -193,12 +193,11 @@ public class DlActivity extends XActivity {
                                 xStateController.showContent();
                             if (dlModel != null && dlModel.getCode() == 200) {
                                 if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                    OpenUtil.jumpPage(DlActivity.this, MainActivity.class);
                                     int mobileType = dlModel.getData().getMobileType();
                                     PreferencesOpenUtil.saveString("ip", ip);
                                     PreferencesOpenUtil.saveString("phone", phone);
                                     PreferencesOpenUtil.saveInt("mobileType", mobileType);
-                                    finish();
+                                    OpenUtil.getValue(DlActivity.this, MainActivity.class, null, true);
                                 }
                             } else {
                                 if (dlModel.getCode() == 500) {

@@ -14,6 +14,7 @@ import com.xvhyrt.ghjtyu.a.JumpH5Activity;
 import com.xvhyrt.ghjtyu.api.HttpApi;
 import com.xvhyrt.ghjtyu.m.BaseModel;
 import com.xvhyrt.ghjtyu.m.ProductModel;
+import com.xvhyrt.ghjtyu.mvp.XActivity;
 import com.xvhyrt.ghjtyu.mvp.XFragment;
 import com.xvhyrt.ghjtyu.net.ApiSubscriber;
 import com.xvhyrt.ghjtyu.net.NetError;
@@ -119,7 +120,8 @@ public class MainFragment extends XFragment {
     public void productList() {
         if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesOpenUtil.getInt("mobileType");
-            HttpApi.getInterfaceUtils().productList(mobileType)
+            phone = PreferencesOpenUtil.getString("phone");
+            HttpApi.getInterfaceUtils().productList(mobileType, phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
                     .compose(bindToLifecycle())
@@ -166,7 +168,7 @@ public class MainFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            OpenUtil.jumpPage(getActivity(), JumpH5Activity.class, bundle);
+            OpenUtil.getValue((XActivity) getActivity(), JumpH5Activity.class, bundle);
         }
     }
 }
