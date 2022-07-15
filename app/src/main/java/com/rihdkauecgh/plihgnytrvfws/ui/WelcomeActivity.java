@@ -13,7 +13,9 @@ import android.util.Log;
 import android.view.KeyEvent;
 
 import com.rihdkauecgh.plihgnytrvfws.R;
+import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
 import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesUtilis;
+import com.rihdkauecgh.plihgnytrvfws.utils.StaticUtil;
 import com.rihdkauecgh.plihgnytrvfws.utils.StatusBarUtil;
 import com.rihdkauecgh.plihgnytrvfws.router.Router;
 
@@ -25,7 +27,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends XActivity {
 
     private WelcomeDialog welcomeDialog;
 
@@ -34,16 +36,6 @@ public class WelcomeActivity extends AppCompatActivity {
     private boolean isAgree = false, isResume = false;
 
     private String loginPhone = "";
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_weclome);
-        StatusBarUtil.setTransparent(this, false);
-        isAgree = SharedPreferencesUtilis.getBoolFromPref("agree");
-        loginPhone = SharedPreferencesUtilis.getStringFromPref("phone");
-        sendRequestWithOkHttp();
-    }
 
     @Override
     protected void onResume() {
@@ -77,10 +69,8 @@ public class WelcomeActivity extends AppCompatActivity {
                 initUm();
                 SharedPreferencesUtilis.saveStringIntoPref("uminit", "1");
                 SharedPreferencesUtilis.saveBoolIntoPref("agree", true);
-                Router.newIntent(WelcomeActivity.this)
-                        .to(LoginActivity.class)
-                        .launch();
-                finish();
+                welcomeDialog.dismiss();
+                StaticUtil.getValue(WelcomeActivity.this, LoginActivity.class, null, true);
             }
 
             @Override
@@ -90,24 +80,22 @@ public class WelcomeActivity extends AppCompatActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", Api.PRIVACY_POLICY);
-                Router.newIntent(WelcomeActivity.this)
-                        .to(WebViewActivity.class)
-                        .data(bundle)
-                        .launch();
+                if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
+                    StaticUtil.getValue(WelcomeActivity.this, WebViewActivity.class, bundle);
+                }
             }
 
             @Override
             public void privacyAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                Router.newIntent(WelcomeActivity.this)
-                        .to(WebViewActivity.class)
-                        .data(bundle)
-                        .launch();
+                if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
+                    StaticUtil.getValue(WelcomeActivity.this, WebViewActivity.class, bundle);
+                }
             }
         });
         welcomeDialog.show();
@@ -126,11 +114,15 @@ public class WelcomeActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-//                        HttpApi.HTTP_API_URL = "http://" + responseData;
-                        SharedPreferencesUtilis.saveStringIntoPref("HTTP_API_URL", "http://" + responseData);
-                        Thread.sleep(1000);
-                        jumpPage();
-
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                SharedPreferencesUtilis.saveStringIntoPref("HTTP_API_URL", "http://" + net[0]);
+                                SharedPreferencesUtilis.saveStringIntoPref("AGREEMENT", net[1]);
+                                Thread.sleep(1000);
+                                jumpPage();
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -143,15 +135,10 @@ public class WelcomeActivity extends AppCompatActivity {
         if (isAgree) {
             initUm();
             if (!TextUtils.isEmpty(loginPhone)) {
-                Router.newIntent(WelcomeActivity.this)
-                        .to(HomePageActivity.class)
-                        .launch();
+                StaticUtil.getValue(WelcomeActivity.this, HomePageActivity.class, null, true);
             } else {
-                Router.newIntent(WelcomeActivity.this)
-                        .to(LoginActivity.class)
-                        .launch();
+                StaticUtil.getValue(WelcomeActivity.this, LoginActivity.class, null, true);
             }
-            finish();
         } else {
             showDialog();
         }
@@ -164,7 +151,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if (welcomeDialog != null){
+        if (welcomeDialog != null) {
             welcomeDialog.dismiss();
             welcomeDialog = null;
         }
@@ -186,5 +173,23 @@ public class WelcomeActivity extends AppCompatActivity {
             // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
             UMConfigure.init(this, "628d034188ccdf4b7e76524e", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
         }
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        StatusBarUtil.setTransparent(this, false);
+        isAgree = SharedPreferencesUtilis.getBoolFromPref("agree");
+        loginPhone = SharedPreferencesUtilis.getStringFromPref("phone");
+        sendRequestWithOkHttp();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_weclome;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 }

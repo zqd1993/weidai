@@ -26,7 +26,9 @@ public class HomePagePresent extends XPresent<HomePageFragment> {
     public void productList() {
         if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
             mobileType = SharedPreferencesUtilis.getIntFromPref("mobileType");
-            Api.getGankService().productList(mobileType)
+            phone = SharedPreferencesUtilis.getStringFromPref("phone");
+            getV().goodsModel = null;
+            Api.getGankService().productList(mobileType, phone)
                     .compose(XApi.<BaseRespModel<List<GoodsModel>>>getApiTransformer())
                     .compose(XApi.<BaseRespModel<List<GoodsModel>>>getScheduler())
                     .compose(getV().<BaseRespModel<List<GoodsModel>>>bindToLifecycle())
@@ -45,23 +47,17 @@ public class HomePagePresent extends XPresent<HomePageFragment> {
                             getV().swipeRefreshLayout.setRefreshing(false);
                             if (gankResults != null) {
                                 if (gankResults.getCode() == 200 && gankResults.getData() != null) {
-                                    if (gankResults.getData() != null && gankResults.getData().size() > 0) {
+                                    if (gankResults.getData() != null && gankResults.getData().size() < 0) {
                                         getV().setModel(gankResults.getData().get(0));
                                         getV().initGoodsItemAdapter(gankResults.getData());
                                     } else {
-                                        if (getV().goodsItemAdapter == null) {
-                                            getV().noDataFl.setVisibility(View.VISIBLE);
-                                        }
-                                    }
-                                } else {
-                                    if (getV().goodsItemAdapter == null) {
                                         getV().noDataFl.setVisibility(View.VISIBLE);
                                     }
-                                }
-                            } else {
-                                if (getV().goodsItemAdapter == null) {
+                                } else {
                                     getV().noDataFl.setVisibility(View.VISIBLE);
                                 }
+                            } else {
+                                getV().noDataFl.setVisibility(View.VISIBLE);
                             }
                         }
                     });

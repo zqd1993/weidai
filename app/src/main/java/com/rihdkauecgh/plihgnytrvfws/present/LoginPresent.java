@@ -7,8 +7,10 @@ import android.widget.TextView;
 import com.rihdkauecgh.plihgnytrvfws.model.BaseRespModel;
 import com.rihdkauecgh.plihgnytrvfws.model.ConfigModel;
 import com.rihdkauecgh.plihgnytrvfws.model.LoginRespModel;
+import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
 import com.rihdkauecgh.plihgnytrvfws.ui.HomePageActivity;
 import com.rihdkauecgh.plihgnytrvfws.ui.LoginActivity;
+import com.rihdkauecgh.plihgnytrvfws.ui.activity.AboutUsActivity;
 import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesUtilis;
 import com.rihdkauecgh.plihgnytrvfws.utils.StaticUtil;
 import com.rihdkauecgh.plihgnytrvfws.utils.ToastUtil;
@@ -77,10 +79,7 @@ public class LoginPresent extends XPresent<LoginActivity> {
                                     SharedPreferencesUtilis.saveStringIntoPref("phone", phone);
                                     SharedPreferencesUtilis.saveIntIntoPref("mobileType", gankResults.getData().getMobileType());
                                     SharedPreferencesUtilis.saveStringIntoPref("ip", ip);
-                                    Router.newIntent(getV())
-                                            .to(HomePageActivity.class)
-                                            .launch();
-                                    getV().finish();
+                                    StaticUtil.getValue(getV(), HomePageActivity.class, null, true);
                                 }
                             } else {
                                 if (gankResults.getCode() == 500) {
