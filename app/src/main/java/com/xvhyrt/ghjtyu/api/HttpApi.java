@@ -6,8 +6,8 @@ import com.xvhyrt.ghjtyu.net.XApi;
 import com.xvhyrt.ghjtyu.u.PreferencesOpenUtil;
 
 public class HttpApi {
-    public static final String ZCXY = "https://xy.hgy5kg.com/profile/dzdk/zcxy.html";
-    public static final String YSXY= "https://xy.hgy5kg.com/profile/dzdk/ysxy.html";
+    public static final String ZCXY = "/profile/dzdk/zcxy.html";
+    public static final String YSXY= "/profile/dzdk/ysxy.html";
     public static String HTTP_API_URL = "";
 
     private static InterfaceUtils interfaceUtils;

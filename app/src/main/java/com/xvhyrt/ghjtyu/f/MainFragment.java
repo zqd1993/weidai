@@ -14,6 +14,7 @@ import com.xvhyrt.ghjtyu.a.JumpH5Activity;
 import com.xvhyrt.ghjtyu.api.HttpApi;
 import com.xvhyrt.ghjtyu.m.BaseModel;
 import com.xvhyrt.ghjtyu.m.ProductModel;
+import com.xvhyrt.ghjtyu.mvp.XActivity;
 import com.xvhyrt.ghjtyu.mvp.XFragment;
 import com.xvhyrt.ghjtyu.net.ApiSubscriber;
 import com.xvhyrt.ghjtyu.net.NetError;
@@ -47,6 +48,8 @@ public class MainFragment extends XFragment {
     Banner banner;
     @BindView(R.id.msg_layout)
     View msgLayout;
+    @BindView(R.id.click_fl)
+    View click_fl;
 
     private ProductModel productModel;
 
@@ -62,7 +65,6 @@ public class MainFragment extends XFragment {
     @Override
     public void initData(Bundle savedInstanceState) {
         msgLayout.setVisibility(View.VISIBLE);
-        productList();
         initViewData();
         setViewConfig();
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -77,6 +79,18 @@ public class MainFragment extends XFragment {
         jx_bg.setOnClickListener(v -> {
             productClick(productModel);
         });
+        noDataTv.setOnClickListener(v -> {
+            productList();
+        });
+        click_fl.setOnClickListener(v -> {
+            productClick(productModel);
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        productList();
     }
 
     private void initBannerAdapter(List<ProductModel> data) {
@@ -128,7 +142,9 @@ public class MainFragment extends XFragment {
     public void productList() {
         if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesOpenUtil.getInt("mobileType");
-            HttpApi.getInterfaceUtils().productList(mobileType)
+            phone = PreferencesOpenUtil.getString("phone");
+            productModel = null;
+            HttpApi.getInterfaceUtils().productList(mobileType, phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
                     .compose(bindToLifecycle())
@@ -151,19 +167,13 @@ public class MainFragment extends XFragment {
                                         productModel = baseModel.getData().get(0);
                                         initBannerAdapter(baseModel.getData());
                                     } else {
-                                        if (imageAdapter == null) {
-                                            noDataTv.setVisibility(View.VISIBLE);
-                                        }
-                                    }
-                                } else {
-                                    if (imageAdapter == null) {
                                         noDataTv.setVisibility(View.VISIBLE);
                                     }
-                                }
-                            } else {
-                                if (imageAdapter == null) {
+                                } else {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
+                            } else {
+                                noDataTv.setVisibility(View.VISIBLE);
                             }
                         }
                     });
@@ -195,7 +205,7 @@ public class MainFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            OpenUtil.jumpPage(getActivity(), JumpH5Activity.class, bundle);
+            OpenUtil.getValue((XActivity) getActivity(), JumpH5Activity.class, bundle);
         }
     }
 }

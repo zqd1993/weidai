@@ -59,15 +59,17 @@ public class DlActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.view_loading, null));
         getConfig();
         readTv.setText(OpenUtil.createDlSpanTexts(), position -> {
-            bundle = new Bundle();
-            if (position == 1) {
-                bundle.putString("url", HttpApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-            } else {
-                bundle.putString("url", HttpApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+            if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("AGREEMENT"))) {
+                bundle = new Bundle();
+                if (position == 1) {
+                    bundle.putString("url", PreferencesOpenUtil.getString("AGREEMENT") + HttpApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                } else {
+                    bundle.putString("url", PreferencesOpenUtil.getString("AGREEMENT") + HttpApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                }
+                OpenUtil.getValue(DlActivity.this, JumpH5Activity.class, bundle);
             }
-            OpenUtil.jumpPage(DlActivity.this, JumpH5Activity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -191,12 +193,11 @@ public class DlActivity extends XActivity {
                                 xStateController.showContent();
                             if (dlModel != null && dlModel.getCode() == 200) {
                                 if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                    OpenUtil.jumpPage(DlActivity.this, MainActivity.class);
                                     int mobileType = dlModel.getData().getMobileType();
                                     PreferencesOpenUtil.saveString("ip", ip);
                                     PreferencesOpenUtil.saveString("phone", phone);
                                     PreferencesOpenUtil.saveInt("mobileType", mobileType);
-                                    finish();
+                                    OpenUtil.getValue(DlActivity.this, MainActivity.class, null, true);
                                 }
                             } else {
                                 if (dlModel.getCode() == 500) {

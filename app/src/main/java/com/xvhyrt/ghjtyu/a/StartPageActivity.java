@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.xvhyrt.ghjtyu.R;
 import com.xvhyrt.ghjtyu.api.HttpApi;
+import com.xvhyrt.ghjtyu.mvp.XActivity;
 import com.xvhyrt.ghjtyu.u.MyToast;
 import com.xvhyrt.ghjtyu.u.OpenUtil;
 import com.xvhyrt.ghjtyu.u.PreferencesOpenUtil;
@@ -24,7 +25,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class StartPageActivity extends AppCompatActivity {
+public class StartPageActivity extends XActivity {
 
     private Bundle bundle;
 
@@ -33,16 +34,6 @@ public class StartPageActivity extends AppCompatActivity {
     private String phone = "";
 
     private StartPageRemindDialog startPageRemindDialog;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_page);
-        StatusBarUtil.setTransparent(this, false);
-        isSure = PreferencesOpenUtil.getBool("isSure");
-        phone = PreferencesOpenUtil.getString("phone");
-        sendRequestWithOkHttp();
-    }
 
     @Override
     protected void onResume() {
@@ -74,16 +65,18 @@ public class StartPageActivity extends AppCompatActivity {
             public void oneBtnClicked() {
                 initUm();
                 PreferencesOpenUtil.saveBool("isSure", true);
-                OpenUtil.jumpPage(StartPageActivity.this, DlActivity.class);
-                finish();
+                startPageRemindDialog.dismiss();
+                OpenUtil.getValue(StartPageActivity.this, DlActivity.class, null, true);
             }
 
             @Override
             public void zcxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", HttpApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                OpenUtil.jumpPage(StartPageActivity.this, JumpH5Activity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesOpenUtil.getString("AGREEMENT") + HttpApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    OpenUtil.getValue(StartPageActivity.this, JumpH5Activity.class, bundle);
+                }
             }
 
             @Override
@@ -93,10 +86,12 @@ public class StartPageActivity extends AppCompatActivity {
 
             @Override
             public void ysxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", HttpApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                OpenUtil.jumpPage(StartPageActivity.this, JumpH5Activity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesOpenUtil.getString("AGREEMENT") + HttpApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    OpenUtil.getValue(StartPageActivity.this, JumpH5Activity.class, bundle);
+                }
             }
         });
         startPageRemindDialog.show();
@@ -115,11 +110,15 @@ public class StartPageActivity extends AppCompatActivity {
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-//                        HttpApi.HTTP_API_URL = "http://" + responseData;
-                        PreferencesOpenUtil.saveString("HTTP_API_URL", "http://" + responseData);
-                        Thread.sleep(1000);
-                        jumpPage();
-
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                PreferencesOpenUtil.saveString("HTTP_API_URL", "http://" + net[0]);
+                                PreferencesOpenUtil.saveString("AGREEMENT", net[1]);
+                                Thread.sleep(1000);
+                                jumpPage();
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -132,11 +131,10 @@ public class StartPageActivity extends AppCompatActivity {
         if (isSure) {
             initUm();
             if (TextUtils.isEmpty(phone)) {
-                OpenUtil.jumpPage(StartPageActivity.this, DlActivity.class);
+                OpenUtil.getValue(StartPageActivity.this, DlActivity.class, null, true);
             } else {
-                OpenUtil.jumpPage(StartPageActivity.this, MainActivity.class);
+                OpenUtil.getValue(StartPageActivity.this, MainActivity.class, null, true);
             }
-            finish();
         } else {
             showDialog();
         }
@@ -167,5 +165,23 @@ public class StartPageActivity extends AppCompatActivity {
             // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
             UMConfigure.init(this, "629eff2005844627b5a41d7f", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
         }
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        StatusBarUtil.setTransparent(this, false);
+        isSure = PreferencesOpenUtil.getBool("isSure");
+        phone = PreferencesOpenUtil.getString("phone");
+        sendRequestWithOkHttp();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_start_page;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 }

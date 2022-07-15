@@ -17,6 +17,7 @@ import com.xvhyrt.ghjtyu.imageloader.ILFactory;
 import com.xvhyrt.ghjtyu.imageloader.ILoader;
 import com.xvhyrt.ghjtyu.m.BaseModel;
 import com.xvhyrt.ghjtyu.m.ProductModel;
+import com.xvhyrt.ghjtyu.mvp.XActivity;
 import com.xvhyrt.ghjtyu.mvp.XFragment;
 import com.xvhyrt.ghjtyu.net.ApiSubscriber;
 import com.xvhyrt.ghjtyu.net.NetError;
@@ -44,6 +45,8 @@ public class ProductFragment extends XFragment {
     View main_top_img;
     @BindView(R.id.jx_bg)
     View jx_bg;
+    @BindView(R.id.click_fl)
+    View click_fl;
     private ProductModel productModel;
 
     private Bundle bundle;
@@ -53,7 +56,6 @@ public class ProductFragment extends XFragment {
         jx_bg.setVisibility(View.VISIBLE);
         main_top_img.setVisibility(View.GONE);
         goodsListLl.setVisibility(View.VISIBLE);
-        productList();
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -69,6 +71,18 @@ public class ProductFragment extends XFragment {
         goodsListLl.setOnClickListener(v -> {
             productClick(productModel);
         });
+        noDataTv.setOnClickListener(v -> {
+            productList();
+        });
+        click_fl.setOnClickListener(v -> {
+            productClick(productModel);
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        productList();
     }
 
     @Override
@@ -108,7 +122,9 @@ public class ProductFragment extends XFragment {
     public void productList() {
         if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesOpenUtil.getInt("mobileType");
-            HttpApi.getInterfaceUtils().productList(mobileType)
+            phone = PreferencesOpenUtil.getString("phone");
+            productModel = null;
+            HttpApi.getInterfaceUtils().productList(mobileType, phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
                     .compose(bindToLifecycle())
@@ -125,25 +141,20 @@ public class ProductFragment extends XFragment {
                         @Override
                         public void onNext(BaseModel<List<ProductModel>> baseModel) {
                             setRefreshing.setRefreshing(false);
+                            goodsListLl.removeAllViews();
                             if (baseModel != null) {
                                 if (baseModel.getCode() == 200 && baseModel.getData() != null) {
                                     if (baseModel.getData() != null && baseModel.getData().size() > 0) {
                                         productModel = baseModel.getData().get(0);
                                         addProductView(baseModel.getData());
                                     } else {
-                                        if (goodsListLl.getChildCount() == 0) {
-                                            noDataTv.setVisibility(View.VISIBLE);
-                                        }
-                                    }
-                                } else {
-                                    if (goodsListLl.getChildCount() == 0) {
                                         noDataTv.setVisibility(View.VISIBLE);
                                     }
-                                }
-                            } else {
-                                if (goodsListLl.getChildCount() == 0) {
+                                } else {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
+                            } else {
+                                noDataTv.setVisibility(View.VISIBLE);
                             }
                         }
                     });
@@ -151,7 +162,6 @@ public class ProductFragment extends XFragment {
     }
 
     private void addProductView(List<ProductModel> mList) {
-        goodsListLl.removeAllViews();
         for (ProductModel model : mList) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_product_item, null);
             ImageView pic = view.findViewById(R.id.product_img);
@@ -185,7 +195,7 @@ public class ProductFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("title", model.getProductName());
-            OpenUtil.jumpPage(getActivity(), JumpH5Activity.class, bundle);
+            OpenUtil.getValue((XActivity) getActivity(), JumpH5Activity.class, bundle);
         }
     }
 }
