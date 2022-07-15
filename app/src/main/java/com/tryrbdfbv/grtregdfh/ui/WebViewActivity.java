@@ -2,6 +2,7 @@ package com.tryrbdfbv.grtregdfh.ui;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -13,11 +14,15 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.DownloadListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,6 +53,48 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
     private Bundle bundle;
 
     private int tag;
+
+    private void brhfxghzd(ViewGroup.LayoutParams layoutParams, int top, int bottom) {
+        if (layoutParams instanceof LinearLayout.LayoutParams) {
+            LinearLayout.LayoutParams temp = (LinearLayout.LayoutParams) layoutParams;
+            temp.bottomMargin = bottom;
+            temp.topMargin = top;
+        } else if (layoutParams instanceof RelativeLayout.LayoutParams) {
+            RelativeLayout.LayoutParams temp = (RelativeLayout.LayoutParams) layoutParams;
+            temp.bottomMargin = bottom;
+            temp.topMargin = top;
+        }
+    }
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void gdhysrtuyhfg(EditText mEditText, Context mContext, View v) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+        InputMethodManager im = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        InputMethodManager im2 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        InputMethodManager im3 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        InputMethodManager im4 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
 
     private String url, title;
 
@@ -97,6 +144,48 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
         });
     }
 
+    private void hdrtgrshdf(ViewGroup.LayoutParams layoutParams, int top, int bottom) {
+        if (layoutParams instanceof LinearLayout.LayoutParams) {
+            LinearLayout.LayoutParams temp = (LinearLayout.LayoutParams) layoutParams;
+            temp.bottomMargin = bottom;
+            temp.topMargin = top;
+        } else if (layoutParams instanceof RelativeLayout.LayoutParams) {
+            RelativeLayout.LayoutParams temp = (RelativeLayout.LayoutParams) layoutParams;
+            temp.bottomMargin = bottom;
+            temp.topMargin = top;
+        }
+    }
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void werqgzdfhrt(EditText mEditText, Context mContext, View v) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+        InputMethodManager im = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        InputMethodManager im2 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        InputMethodManager im3 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        InputMethodManager im4 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_web_view;
@@ -128,6 +217,48 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
         if (webView != null) webView.onPause();
     }
 
+    private void fzerythjfxdg(ViewGroup.LayoutParams layoutParams, int top, int bottom) {
+        if (layoutParams instanceof LinearLayout.LayoutParams) {
+            LinearLayout.LayoutParams temp = (LinearLayout.LayoutParams) layoutParams;
+            temp.bottomMargin = bottom;
+            temp.topMargin = top;
+        } else if (layoutParams instanceof RelativeLayout.LayoutParams) {
+            RelativeLayout.LayoutParams temp = (RelativeLayout.LayoutParams) layoutParams;
+            temp.bottomMargin = bottom;
+            temp.topMargin = top;
+        }
+    }
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void gerythd(EditText mEditText, Context mContext, View v) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+        InputMethodManager im = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        InputMethodManager im2 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        InputMethodManager im3 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        InputMethodManager im4 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -144,6 +275,48 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
             }
             webView.removeAllViews();
             webView.destroy();
+        }
+    }
+
+    private void tyydzfbrty(ViewGroup.LayoutParams layoutParams, int top, int bottom) {
+        if (layoutParams instanceof LinearLayout.LayoutParams) {
+            LinearLayout.LayoutParams temp = (LinearLayout.LayoutParams) layoutParams;
+            temp.bottomMargin = bottom;
+            temp.topMargin = top;
+        } else if (layoutParams instanceof RelativeLayout.LayoutParams) {
+            RelativeLayout.LayoutParams temp = (RelativeLayout.LayoutParams) layoutParams;
+            temp.bottomMargin = bottom;
+            temp.topMargin = top;
+        }
+    }
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void vzdsfgryert(EditText mEditText, Context mContext, View v) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+        InputMethodManager im = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        InputMethodManager im2 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        InputMethodManager im3 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        InputMethodManager im4 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 
@@ -195,6 +368,48 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
         });
     }
 
+    private void ujrtsgdfhgrty(ViewGroup.LayoutParams layoutParams, int top, int bottom) {
+        if (layoutParams instanceof LinearLayout.LayoutParams) {
+            LinearLayout.LayoutParams temp = (LinearLayout.LayoutParams) layoutParams;
+            temp.bottomMargin = bottom;
+            temp.topMargin = top;
+        } else if (layoutParams instanceof RelativeLayout.LayoutParams) {
+            RelativeLayout.LayoutParams temp = (RelativeLayout.LayoutParams) layoutParams;
+            temp.bottomMargin = bottom;
+            temp.topMargin = top;
+        }
+    }
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void reyhgdfbdr(EditText mEditText, Context mContext, View v) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+        InputMethodManager im = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        InputMethodManager im2 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        InputMethodManager im3 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        InputMethodManager im4 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
     /**
      * 未知来源安装权限申请回调
      */
@@ -237,6 +452,47 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
         }
     }
 
+    private void gzdrhxfhty(ViewGroup.LayoutParams layoutParams, int top, int bottom) {
+        if (layoutParams instanceof LinearLayout.LayoutParams) {
+            LinearLayout.LayoutParams temp = (LinearLayout.LayoutParams) layoutParams;
+            temp.bottomMargin = bottom;
+            temp.topMargin = top;
+        } else if (layoutParams instanceof RelativeLayout.LayoutParams) {
+            RelativeLayout.LayoutParams temp = (RelativeLayout.LayoutParams) layoutParams;
+            temp.bottomMargin = bottom;
+            temp.topMargin = top;
+        }
+    }
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void gzrehgxfghxft(EditText mEditText, Context mContext, View v) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+        InputMethodManager im = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        InputMethodManager im2 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        InputMethodManager im3 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        InputMethodManager im4 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
 
     private void checkPermission() {
         String[] per = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
@@ -252,6 +508,48 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    private void resetViewRl(ViewGroup.LayoutParams layoutParams, int top, int bottom) {
+        if (layoutParams instanceof LinearLayout.LayoutParams) {
+            LinearLayout.LayoutParams temp = (LinearLayout.LayoutParams) layoutParams;
+            temp.bottomMargin = bottom;
+            temp.topMargin = top;
+        } else if (layoutParams instanceof RelativeLayout.LayoutParams) {
+            RelativeLayout.LayoutParams temp = (RelativeLayout.LayoutParams) layoutParams;
+            temp.bottomMargin = bottom;
+            temp.topMargin = top;
+        }
+    }
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public void rgdfhtry(EditText mEditText, Context mContext, View v) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+        InputMethodManager im = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        InputMethodManager im2 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        InputMethodManager im3 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+        InputMethodManager im4 = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
     @Override

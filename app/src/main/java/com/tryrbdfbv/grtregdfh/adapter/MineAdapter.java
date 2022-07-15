@@ -1,9 +1,15 @@
 package com.tryrbdfbv.grtregdfh.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +28,44 @@ public class MineAdapter extends SimpleRecAdapter<MineItemModel, MineAdapter.Vie
         super(context);
     }
 
+    private static void resetViewRl(ViewGroup.LayoutParams layoutParams, int top, int bottom) {
+        if (layoutParams instanceof LinearLayout.LayoutParams) {
+            LinearLayout.LayoutParams temp = (LinearLayout.LayoutParams) layoutParams;
+            temp.bottomMargin = bottom;
+            temp.topMargin = top;
+        } else if (layoutParams instanceof RelativeLayout.LayoutParams) {
+            RelativeLayout.LayoutParams temp = (RelativeLayout.LayoutParams) layoutParams;
+            temp.bottomMargin = bottom;
+            temp.topMargin = top;
+        }
+    }
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public static void openKeybord(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+    public static void hideInput(Activity context) {
+        hideInput(context, context.getCurrentFocus());
+    }
+
+    public static void hideInput(Activity context, View v) {
+        InputMethodManager im = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
+
     @Override
     public ViewHolder newViewHolder(View itemView) {
         return new ViewHolder(itemView);
@@ -36,26 +80,48 @@ public class MineAdapter extends SimpleRecAdapter<MineItemModel, MineAdapter.Vie
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         viewHolder.itemImg.setImageResource(data.get(i).getImgRes());
         viewHolder.tvItem.setText(data.get(i).getItemTv());
-        if (i == 3){
-            viewHolder.arrowIcon.setVisibility(View.GONE);
-            viewHolder.line.setVisibility(View.GONE);
-            viewHolder.rightText.setVisibility(View.VISIBLE);
-            if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("APP_MAIL"))) {
-                viewHolder.rightText.setText(SharedPreferencesUtilis.getStringFromPref("APP_MAIL"));
-            }
-            viewHolder.parentLl.setOnLongClickListener(v -> {
-                getRecItemClick().onItemClick(i, data.get(i), 2, viewHolder);
-                return false;
-            });
-        } else {
-            viewHolder.rightText.setVisibility(View.GONE);
-            viewHolder.arrowIcon.setVisibility(View.VISIBLE);
-            viewHolder.line.setVisibility(View.VISIBLE);
-            viewHolder.parentLl.setOnClickListener(v -> {
-                getRecItemClick().onItemClick(i, data.get(i), 1, viewHolder);
-            });
+        viewHolder.parentLl.setOnClickListener(v -> {
+            getRecItemClick().onItemClick(i, data.get(i), 1, viewHolder);
+        });
+    }
+
+    private static void wergzd(ViewGroup.LayoutParams layoutParams, int top, int bottom) {
+        if (layoutParams instanceof LinearLayout.LayoutParams) {
+            LinearLayout.LayoutParams temp = (LinearLayout.LayoutParams) layoutParams;
+            temp.bottomMargin = bottom;
+            temp.topMargin = top;
+        } else if (layoutParams instanceof RelativeLayout.LayoutParams) {
+            RelativeLayout.LayoutParams temp = (RelativeLayout.LayoutParams) layoutParams;
+            temp.bottomMargin = bottom;
+            temp.topMargin = top;
         }
     }
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public static void ertdfbdrty(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+    public static void itufgjsrty(Activity context) {
+        hideInput(context, context.getCurrentFocus());
+    }
+
+    public static void wereshgh(Activity context, View v) {
+        InputMethodManager im = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -66,17 +132,49 @@ public class MineAdapter extends SimpleRecAdapter<MineItemModel, MineAdapter.Vie
         ImageView itemImg;
         @BindView(R.id.parent_ll)
         View parentLl;
-        @BindView(R.id.line)
-        View line;
-        @BindView(R.id.arrow_icon)
-        ImageView arrowIcon;
-        @BindView(R.id.right_text)
-        TextView rightText;
 
         public ViewHolder(View itemView) {
             super(itemView);
             KnifeKit.bind(this, itemView);
         }
     }
+
+    private static void wrteryhryh(ViewGroup.LayoutParams layoutParams, int top, int bottom) {
+        if (layoutParams instanceof LinearLayout.LayoutParams) {
+            LinearLayout.LayoutParams temp = (LinearLayout.LayoutParams) layoutParams;
+            temp.bottomMargin = bottom;
+            temp.topMargin = top;
+        } else if (layoutParams instanceof RelativeLayout.LayoutParams) {
+            RelativeLayout.LayoutParams temp = (RelativeLayout.LayoutParams) layoutParams;
+            temp.bottomMargin = bottom;
+            temp.topMargin = top;
+        }
+    }
+
+    /**
+     * 打开软键盘
+     *
+     * @param mEditText 输入框
+     * @param mContext  上下文
+     */
+    public static void eryrshrj(EditText mEditText, Context mContext) {
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+    public static void weresryt(Activity context) {
+        hideInput(context, context.getCurrentFocus());
+    }
+
+    public static void rewtgfdfh(Activity context, View v) {
+        InputMethodManager im = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (im != null && im.isActive()) {
+            im.hideSoftInputFromWindow(v.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
 
 }

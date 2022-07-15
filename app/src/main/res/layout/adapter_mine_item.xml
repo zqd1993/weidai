@@ -5,57 +5,31 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:background="@drawable/bg_corner_10_white"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/item_img"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/wd_icon_yjfk"
-            android:visibility="gone"/>
+            android:src="@drawable/wd_icon_yjfk"/>
 
         <TextView
             android:id="@+id/item_title_tv"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="10dp"
             android:text="注册协议"
             android:textColor="@color/text_normal_color"
             android:textSize="@dimen/textSize_16" />
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="25dp">
-
-            <ImageView
-                android:id="@+id/arrow_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/home_black_arrows" />
-
-            <TextView
-                android:id="@+id/right_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:textColor="@color/text_normal_color"
-                android:textSize="@dimen/textSize_16"
-                android:visibility="gone"/>
-
-        </FrameLayout>
 
     </LinearLayout>
 
