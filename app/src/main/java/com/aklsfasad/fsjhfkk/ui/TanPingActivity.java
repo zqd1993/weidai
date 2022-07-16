@@ -13,7 +13,9 @@ import android.util.Log;
 import android.view.KeyEvent;
 
 import com.aklsfasad.fsjhfkk.R;
+import com.aklsfasad.fsjhfkk.mvp.XActivity;
 import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
+import com.aklsfasad.fsjhfkk.utils.StaticUtilHuiMin;
 import com.aklsfasad.fsjhfkk.utils.StatusBarUtilHuiMin;
 import com.aklsfasad.fsjhfkk.router.Router;
 
@@ -26,7 +28,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class TanPingActivity extends AppCompatActivity {
+public class TanPingActivity extends XActivity {
 
     private WelcomeDialogHuiMin welcomeDialog;
 
@@ -35,16 +37,6 @@ public class TanPingActivity extends AppCompatActivity {
     private boolean isAgree = false, isResume = false;
 
     private String loginPhone = "";
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guide);
-        StatusBarUtilHuiMin.setTransparent(this, false);
-        isAgree = SharedPreferencesUtilisHuiMin.getBoolFromPref("agree");
-        loginPhone = SharedPreferencesUtilisHuiMin.getStringFromPref("phone");
-        sendRequestWithOkHttp();
-    }
 
     @Override
     protected void onResume() {
@@ -77,10 +69,8 @@ public class TanPingActivity extends AppCompatActivity {
                 initUm();
                 SharedPreferencesUtilisHuiMin.saveStringIntoPref("uminit", "1");
                 SharedPreferencesUtilisHuiMin.saveBoolIntoPref("agree", true);
-                Router.newIntent(TanPingActivity.this)
-                        .to(LoginActivityHuiMin.class)
-                        .launch();
-                finish();
+                welcomeDialog.dismiss();
+                StaticUtilHuiMin.getValue(TanPingActivity.this, LoginActivityHuiMin.class, null, true);
             }
 
             @Override
@@ -94,10 +84,7 @@ public class TanPingActivity extends AppCompatActivity {
                     bundle = new Bundle();
                     bundle.putInt("tag", 1);
                     bundle.putString("url", SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
-                    Router.newIntent(TanPingActivity.this)
-                            .to(WebHuiMinActivity.class)
-                            .data(bundle)
-                            .launch();
+                    StaticUtilHuiMin.getValue(TanPingActivity.this, WebHuiMinActivity.class, bundle);
                 }
             }
 
@@ -107,10 +94,7 @@ public class TanPingActivity extends AppCompatActivity {
                     bundle = new Bundle();
                     bundle.putInt("tag", 2);
                     bundle.putString("url", SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
-                    Router.newIntent(TanPingActivity.this)
-                            .to(WebHuiMinActivity.class)
-                            .data(bundle)
-                            .launch();
+                    StaticUtilHuiMin.getValue(TanPingActivity.this, WebHuiMinActivity.class, bundle);
                 }
             }
         });
@@ -125,7 +109,7 @@ public class TanPingActivity extends AppCompatActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7718.txt")
+                            .url("https://ossbj0714.oss-cn-beijing.aliyuncs.com/server7744.txt")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
@@ -151,15 +135,10 @@ public class TanPingActivity extends AppCompatActivity {
         if (isAgree) {
             initUm();
             if (!TextUtils.isEmpty(loginPhone)) {
-                Router.newIntent(TanPingActivity.this)
-                        .to(HomePageActivityHuiMin.class)
-                        .launch();
+                StaticUtilHuiMin.getValue(TanPingActivity.this, HomePageActivityHuiMin.class, null, true);
             } else {
-                Router.newIntent(TanPingActivity.this)
-                        .to(LoginActivityHuiMin.class)
-                        .launch();
+                StaticUtilHuiMin.getValue(TanPingActivity.this, HomePageActivityHuiMin.class, null, true);
             }
-            finish();
         } else {
             showDialog();
         }
@@ -201,5 +180,23 @@ public class TanPingActivity extends AppCompatActivity {
             // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
             UMConfigure.init(this, "62603ad130a4f67780ad42b4", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
         }
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        StatusBarUtilHuiMin.setTransparent(this, false);
+        isAgree = SharedPreferencesUtilisHuiMin.getBoolFromPref("agree");
+        loginPhone = SharedPreferencesUtilisHuiMin.getStringFromPref("phone");
+        sendRequestWithOkHttp();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_guide;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 }

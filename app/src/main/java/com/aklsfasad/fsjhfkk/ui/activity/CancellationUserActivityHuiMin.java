@@ -1,12 +1,14 @@
 package com.aklsfasad.fsjhfkk.ui.activity;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
 
 import com.aklsfasad.fsjhfkk.R;
+import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
 import com.aklsfasad.fsjhfkk.utils.StatusBarUtilHuiMin;
 import com.aklsfasad.fsjhfkk.widget.NormalDialogHuiMin;
 import com.aklsfasad.fsjhfkk.mvp.XActivity;
@@ -45,6 +47,9 @@ public class CancellationUserActivityHuiMin extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtilHuiMin.setTransparent(this, false);
+        if (SharedPreferencesUtilisHuiMin.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("账号注销");
         commitBtn.setOnClickListener(v -> {

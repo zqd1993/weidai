@@ -50,6 +50,7 @@ public class HomePagePresentHuiMin extends XPresent<HomePageFragmentHuiMin> {
     public void productList() {
         if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("HTTP_API_URL"))) {
             mobileType = SharedPreferencesUtilisHuiMin.getIntFromPref("mobileType");
+            getV().goodsModel = null;
             Api.getGankService().productList(mobileType)
                     .compose(XApi.<BaseRespHuiMinModel<List<GoodsHuiMinModel>>>getApiTransformer())
                     .compose(XApi.<BaseRespHuiMinModel<List<GoodsHuiMinModel>>>getScheduler())
@@ -73,19 +74,13 @@ public class HomePagePresentHuiMin extends XPresent<HomePageFragmentHuiMin> {
                                         getV().setModel(gankResults.getData().get(0));
                                         getV().initGoodsItemAdapter(gankResults.getData());
                                     } else {
-                                        if (getV().miaoJieGoodsItemAdapter == null) {
-                                            getV().noDataFl.setVisibility(View.VISIBLE);
-                                        }
-                                    }
-                                } else {
-                                    if (getV().miaoJieGoodsItemAdapter == null) {
                                         getV().noDataFl.setVisibility(View.VISIBLE);
                                     }
-                                }
-                            } else {
-                                if (getV().miaoJieGoodsItemAdapter == null) {
+                                } else {
                                     getV().noDataFl.setVisibility(View.VISIBLE);
                                 }
+                            } else {
+                                getV().noDataFl.setVisibility(View.VISIBLE);
                             }
                         }
                     });

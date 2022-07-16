@@ -10,10 +10,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.aklsfasad.fsjhfkk.R;
 import com.aklsfasad.fsjhfkk.adapter.GoodsItemHuiMinAdapter;
 import com.aklsfasad.fsjhfkk.model.GoodsHuiMinModel;
+import com.aklsfasad.fsjhfkk.mvp.XActivity;
 import com.aklsfasad.fsjhfkk.ui.WebHuiMinActivity;
 import com.aklsfasad.fsjhfkk.mvp.XFragment;
 import com.aklsfasad.fsjhfkk.present.HomePagePresentHuiMin;
 import com.aklsfasad.fsjhfkk.router.Router;
+import com.aklsfasad.fsjhfkk.ui.activity.AboutActivityHuiMin;
+import com.aklsfasad.fsjhfkk.utils.StaticUtilHuiMin;
 
 import java.util.List;
 
@@ -40,7 +43,7 @@ public class HomePageFragmentHuiMin extends XFragment<HomePagePresentHuiMin> {
     private Bundle bundle, webBundle;
     private int tag;
     public GoodsItemHuiMinAdapter miaoJieGoodsItemAdapter;
-    private GoodsHuiMinModel goodsModel;
+    public GoodsHuiMinModel goodsModel;
 
     public static HomePageFragmentHuiMin getInstant(int tag) {
         HomePageFragmentHuiMin homePageFragment = new HomePageFragmentHuiMin();
@@ -80,7 +83,6 @@ public class HomePageFragmentHuiMin extends XFragment<HomePagePresentHuiMin> {
                 homePageBg.setVisibility(View.GONE);
             }
         }
-        getP().productList();
         swipeRefreshLayout.setOnRefreshListener(() -> getP().productList());
         noDataFl.setOnClickListener(v -> getP().productList());
         productBg.setOnClickListener(v -> {
@@ -94,16 +96,19 @@ public class HomePageFragmentHuiMin extends XFragment<HomePagePresentHuiMin> {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getP().productList();
+    }
+
     public void jumpWebYouXinActivity (GoodsHuiMinModel model){
         if (model != null) {
             webBundle = new Bundle();
             webBundle.putInt("tag", 3);
             webBundle.putString("url", model.getUrl());
             webBundle.putString("title", model.getProductName());
-            Router.newIntent(getActivity())
-                    .to(WebHuiMinActivity.class)
-                    .data(webBundle)
-                    .launch();
+            StaticUtilHuiMin.getValue((XActivity) getActivity(), WebHuiMinActivity.class, webBundle);
         }
     }
 

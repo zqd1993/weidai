@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.aklsfasad.fsjhfkk.model.BaseRespHuiMinModel;
 import com.aklsfasad.fsjhfkk.model.ConfigHuiMinModel;
 import com.aklsfasad.fsjhfkk.model.LoginRespHuiMinModel;
+import com.aklsfasad.fsjhfkk.mvp.XActivity;
 import com.aklsfasad.fsjhfkk.ui.HomePageActivityHuiMin;
 import com.aklsfasad.fsjhfkk.ui.LoginActivityHuiMin;
 import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
@@ -46,10 +47,7 @@ public class LoginPresentHuiMin extends XPresent<LoginActivityHuiMin> {
                                     SharedPreferencesUtilisHuiMin.saveStringIntoPref("phone", phone);
                                     SharedPreferencesUtilisHuiMin.saveIntIntoPref("mobileType", gankResults.getData().getMobileType());
                                     SharedPreferencesUtilisHuiMin.saveStringIntoPref("ip", ip);
-                                    Router.newIntent(getV())
-                                            .to(HomePageActivityHuiMin.class)
-                                            .launch();
-                                    getV().finish();
+                                    StaticUtilHuiMin.getValue((XActivity) getV(), HomePageActivityHuiMin.class, null, true);
                                 }
                             } else {
                                 if (gankResults.getCode() == 500) {

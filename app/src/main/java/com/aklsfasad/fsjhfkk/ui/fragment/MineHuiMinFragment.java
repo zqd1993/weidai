@@ -14,6 +14,7 @@ import com.aklsfasad.fsjhfkk.adapter.MineHuiMinAdapter;
 import com.aklsfasad.fsjhfkk.model.BaseRespHuiMinModel;
 import com.aklsfasad.fsjhfkk.model.ConfigHuiMinModel;
 import com.aklsfasad.fsjhfkk.model.MineItemHuiMinModel;
+import com.aklsfasad.fsjhfkk.mvp.XActivity;
 import com.aklsfasad.fsjhfkk.net.ApiSubscriber;
 import com.aklsfasad.fsjhfkk.net.NetError;
 import com.aklsfasad.fsjhfkk.net.XApi;
@@ -76,14 +77,10 @@ public class MineHuiMinFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            Router.newIntent(getActivity())
-                                    .to(MoreSettingActivity.class)
-                                    .launch();
+                            StaticUtilHuiMin.getValue((XActivity) getActivity(), MoreSettingActivity.class, null);
                             break;
                         case 1:
-                            Router.newIntent(getActivity())
-                                    .to(FeedBackActivityHuiMin.class)
-                                    .launch();
+                            StaticUtilHuiMin.getValue((XActivity) getActivity(), FeedBackActivityHuiMin.class, null);
                             break;
                         case 2:
                             normalDialogHuiMin = new NormalDialogHuiMin(getActivity());
@@ -104,9 +101,7 @@ public class MineHuiMinFragment extends XFragment {
                             getGankData();
                             break;
                         case 4:
-                            Router.newIntent(getActivity())
-                                    .to(CancellationUserActivityHuiMin.class)
-                                    .launch();
+                            StaticUtilHuiMin.getValue((XActivity) getActivity(), CancellationUserActivityHuiMin.class, null);
                             break;
                         case 5:
                             normalDialogHuiMin = new NormalDialogHuiMin(getActivity());
@@ -120,10 +115,7 @@ public class MineHuiMinFragment extends XFragment {
                                     .setRightListener(v -> {
                                         normalDialogHuiMin.dismiss();
                                         SharedPreferencesUtilisHuiMin.saveStringIntoPref("phone", "");
-                                        Router.newIntent(getActivity())
-                                                .to(LoginActivityHuiMin.class)
-                                                .launch();
-                                        getActivity().finish();
+                                        StaticUtilHuiMin.getValue((XActivity) getActivity(), LoginActivityHuiMin.class, null, true);
                                     }).show();
                             break;
                     }
