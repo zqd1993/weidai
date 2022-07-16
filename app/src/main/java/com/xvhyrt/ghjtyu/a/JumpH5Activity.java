@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -22,6 +23,7 @@ import androidx.core.content.FileProvider;
 import com.xvhyrt.ghjtyu.R;
 import com.xvhyrt.ghjtyu.mvp.XActivity;
 import com.xvhyrt.ghjtyu.u.DownloadApkUtil;
+import com.xvhyrt.ghjtyu.u.PreferencesOpenUtil;
 import com.xvhyrt.ghjtyu.u.StatusBarUtil;
 
 import java.io.File;
@@ -59,6 +61,9 @@ public class JumpH5Activity extends XActivity implements EasyPermissions.Permiss
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
+        if (PreferencesOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         bundle = getIntent().getExtras();
         if (bundle.containsKey("biaoti"))
             biaoti = bundle.getString("biaoti");

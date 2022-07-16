@@ -2,6 +2,7 @@ package com.xvhyrt.ghjtyu.a;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -14,6 +15,7 @@ import com.xvhyrt.ghjtyu.f.ProductFragment;
 import com.xvhyrt.ghjtyu.f.SetFragment;
 import com.xvhyrt.ghjtyu.mvp.XActivity;
 import com.xvhyrt.ghjtyu.u.MyToast;
+import com.xvhyrt.ghjtyu.u.PreferencesOpenUtil;
 import com.xvhyrt.ghjtyu.u.StatusBarUtil;
 
 import java.util.ArrayList;
@@ -39,6 +41,9 @@ public class MainActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
+        if (PreferencesOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         tabModels = new ArrayList<>();
         fragments = new ArrayList<>();
         TabModel tabModel = new TabModel();

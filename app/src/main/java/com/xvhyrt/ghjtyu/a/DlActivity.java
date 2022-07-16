@@ -3,6 +3,7 @@ package com.xvhyrt.ghjtyu.a;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -47,6 +48,9 @@ public class DlActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
+        if (PreferencesOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         xStateController = this.findViewById(R.id.content_layout);
         mobileEt = this.findViewById(R.id.mobile_et);
         yzmEt = this.findViewById(R.id.yzm_et);

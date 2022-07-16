@@ -3,6 +3,7 @@ package com.xvhyrt.ghjtyu.a;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.xvhyrt.ghjtyu.R;
 import com.xvhyrt.ghjtyu.u.MyToast;
+import com.xvhyrt.ghjtyu.u.PreferencesOpenUtil;
 import com.xvhyrt.ghjtyu.u.StatusBarUtil;
 
 import cn.droidlover.xstatecontroller.XStateController;
@@ -26,6 +28,9 @@ public class FeedbackActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StatusBarUtil.setTransparent(this, false);
+        if (PreferencesOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         setContentView(R.layout.activity_feedback);
         ImageView backImg = findViewById(R.id.back_image);
         backImg.setOnClickListener(v -> finish());

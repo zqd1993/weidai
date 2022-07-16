@@ -1,6 +1,7 @@
 package com.xvhyrt.ghjtyu.a;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.xvhyrt.ghjtyu.MainApp;
 import com.xvhyrt.ghjtyu.R;
 import com.xvhyrt.ghjtyu.u.OpenUtil;
+import com.xvhyrt.ghjtyu.u.PreferencesOpenUtil;
 import com.xvhyrt.ghjtyu.u.StatusBarUtil;
 
 public class AboutInfoActivity extends AppCompatActivity {
@@ -18,6 +20,9 @@ public class AboutInfoActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StatusBarUtil.setTransparent(this, false);
+        if (PreferencesOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         setContentView(R.layout.activity_about_info);
         ImageView backImg = findViewById(R.id.back_image);
         backImg.setOnClickListener(v -> finish());
