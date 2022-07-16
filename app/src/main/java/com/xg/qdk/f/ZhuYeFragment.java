@@ -90,67 +90,63 @@ public class ZhuYeFragment extends XFragment {
     }
 
     public void productClick(ShangPinModel model) {
-        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
-            if (model == null) {
-                return;
-            }
-            phone = PreferencesStaticOpenUtil.getString("phone");
-            MyApi.getInterfaceUtils().productClick(model.getId(), phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<MainModel>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            toWeb(model);
-                        }
-
-                        @Override
-                        public void onNext(MainModel mainModel) {
-                            toWeb(model);
-                        }
-                    });
+        if (model == null) {
+            return;
         }
+        phone = PreferencesStaticOpenUtil.getString("phone");
+        MyApi.getInterfaceUtils().productClick(model.getId(), phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<MainModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        toWeb(model);
+                    }
+
+                    @Override
+                    public void onNext(MainModel mainModel) {
+                        toWeb(model);
+                    }
+                });
     }
 
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
-            mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
-            phone = PreferencesStaticOpenUtil.getString("phone");
-            shangPinModel = null;
-            MyApi.getInterfaceUtils().productList(mobileType, phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<MainModel<List<ShangPinModel>>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            setRefreshing.setRefreshing(false);
-                            BaseUtil.showErrorInfo(getActivity(), error);
-                            noDataTv.setVisibility(View.VISIBLE);
-                        }
+        mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
+        phone = PreferencesStaticOpenUtil.getString("phone");
+        shangPinModel = null;
+        MyApi.getInterfaceUtils().productList(mobileType, phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<MainModel<List<ShangPinModel>>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        setRefreshing.setRefreshing(false);
+                        BaseUtil.showErrorInfo(getActivity(), error);
+                        noDataTv.setVisibility(View.VISIBLE);
+                    }
 
-                        @Override
-                        public void onNext(MainModel<List<ShangPinModel>> mainModel) {
-                            setRefreshing.setRefreshing(false);
-                            if (mainModel != null) {
-                                if (mainModel.getCode() == 200 && mainModel.getData() != null) {
-                                    if (mainModel.getData() != null && mainModel.getData().size() > 0) {
-                                        shangPinModel = mainModel.getData().get(0);
-                                        initAdapter(mainModel.getData());
-                                    } else {
-                                        noDataTv.setVisibility(View.VISIBLE);
-                                    }
+                    @Override
+                    public void onNext(MainModel<List<ShangPinModel>> mainModel) {
+                        setRefreshing.setRefreshing(false);
+                        if (mainModel != null) {
+                            if (mainModel.getCode() == 200 && mainModel.getData() != null) {
+                                if (mainModel.getData() != null && mainModel.getData().size() > 0) {
+                                    shangPinModel = mainModel.getData().get(0);
+                                    initAdapter(mainModel.getData());
                                 } else {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
                             } else {
                                 noDataTv.setVisibility(View.VISIBLE);
                             }
+                        } else {
+                            noDataTv.setVisibility(View.VISIBLE);
                         }
-                    });
-        }
+                    }
+                });
     }
 
     private void initAdapter(List<ShangPinModel> mList) {
