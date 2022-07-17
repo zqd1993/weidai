@@ -18,6 +18,7 @@ import com.jijiewqeasd.zxcvn.imageloader.ILFactory;
 import com.jijiewqeasd.zxcvn.imageloader.ILoader;
 import com.jijiewqeasd.zxcvn.jijiem.BaseJiJieModel;
 import com.jijiewqeasd.zxcvn.jijiem.ProductJiJieModel;
+import com.jijiewqeasd.zxcvn.mvp.XActivity;
 import com.jijiewqeasd.zxcvn.mvp.XFragment;
 import com.jijiewqeasd.zxcvn.net.ApiSubscriber;
 import com.jijiewqeasd.zxcvn.net.NetError;
@@ -48,6 +49,8 @@ public class ProductJiJieFragment extends XFragment {
     View jx_bg;
     @BindView(R.id.title_tv)
     View title_tv;
+    @BindView(R.id.parent_fl)
+    View parentFl;
     private ProductJiJieModel productJiJieModel;
 
     private Bundle bundle;
@@ -91,7 +94,6 @@ public class ProductJiJieFragment extends XFragment {
         top_layout.setVisibility(View.GONE);
         title_tv.setVisibility(View.GONE);
         goodsListLl.setVisibility(View.VISIBLE);
-        productList();
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -104,6 +106,18 @@ public class ProductJiJieFragment extends XFragment {
         goodsListLl.setOnClickListener(v -> {
             productClick(productJiJieModel);
         });
+        noDataTv.setOnClickListener(v -> {
+            productList();
+        });
+        parentFl.setOnClickListener(v -> {
+            productClick(productJiJieModel);
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        productList();
     }
 
     /**
@@ -172,6 +186,7 @@ public class ProductJiJieFragment extends XFragment {
     public void productList() {
         if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesJiJieOpenUtil.getInt("mobileType");
+            productJiJieModel = null;
             NetJiJieApi.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -189,25 +204,20 @@ public class ProductJiJieFragment extends XFragment {
                         @Override
                         public void onNext(BaseJiJieModel<List<ProductJiJieModel>> baseJiJieModel) {
                             setRefreshing.setRefreshing(false);
+                            goodsListLl.removeAllViews();
                             if (baseJiJieModel != null) {
                                 if (baseJiJieModel.getCode() == 200 && baseJiJieModel.getData() != null) {
                                     if (baseJiJieModel.getData() != null && baseJiJieModel.getData().size() > 0) {
                                         productJiJieModel = baseJiJieModel.getData().get(0);
                                         addProductView(baseJiJieModel.getData());
                                     } else {
-                                        if (goodsListLl.getChildCount() == 0) {
-                                            noDataTv.setVisibility(View.VISIBLE);
-                                        }
-                                    }
-                                } else {
-                                    if (goodsListLl.getChildCount() == 0) {
                                         noDataTv.setVisibility(View.VISIBLE);
                                     }
-                                }
-                            } else {
-                                if (goodsListLl.getChildCount() == 0) {
+                                } else {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
+                            } else {
+                                noDataTv.setVisibility(View.VISIBLE);
                             }
                         }
                     });
@@ -272,7 +282,7 @@ public class ProductJiJieFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("title", model.getProductName());
-            OpenJiJieUtil.jumpPage(getActivity(), JiJieJumpH5Activity.class, bundle);
+            OpenJiJieUtil.getValue((XActivity) getActivity(), JiJieJumpH5Activity.class, bundle);
         }
     }
 }

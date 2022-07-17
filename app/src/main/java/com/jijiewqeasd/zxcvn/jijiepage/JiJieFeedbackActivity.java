@@ -3,6 +3,7 @@ package com.jijiewqeasd.zxcvn.jijiepage;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.jijiewqeasd.zxcvn.R;
 import com.jijiewqeasd.zxcvn.u.MyJiJieToast;
+import com.jijiewqeasd.zxcvn.u.PreferencesJiJieOpenUtil;
 import com.jijiewqeasd.zxcvn.u.StatusJiJieBarUtil;
 
 import java.io.File;
@@ -185,6 +187,9 @@ public class JiJieFeedbackActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StatusJiJieBarUtil.setTransparent(this, false);
+        if (PreferencesJiJieOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         setContentView(R.layout.activity_jijie_feedback);
         ImageView backImg = findViewById(R.id.back_image);
         backImg.setOnClickListener(v -> finish());

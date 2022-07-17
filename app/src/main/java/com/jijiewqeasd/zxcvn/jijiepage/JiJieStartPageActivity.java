@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.jijiewqeasd.zxcvn.R;
 import com.jijiewqeasd.zxcvn.jijieapi.NetJiJieApi;
+import com.jijiewqeasd.zxcvn.mvp.XActivity;
 import com.jijiewqeasd.zxcvn.u.OpenJiJieUtil;
 import com.jijiewqeasd.zxcvn.u.PreferencesJiJieOpenUtil;
 import com.jijiewqeasd.zxcvn.u.StatusJiJieBarUtil;
@@ -25,7 +26,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class JiJieStartPageActivity extends AppCompatActivity {
+public class JiJieStartPageActivity extends XActivity {
 
     private Bundle bundle;
 
@@ -101,16 +102,6 @@ public class JiJieStartPageActivity extends AppCompatActivity {
         return flag;
     }
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_jijie_start_page);
-        StatusJiJieBarUtil.setTransparent(this, false);
-        isSure = PreferencesJiJieOpenUtil.getBool("isSure");
-        phone = PreferencesJiJieOpenUtil.getString("phone");
-        sendRequestWithOkHttp();
-    }
-
     /**
      * 删除文件夹及其包含的所有文件(会自身循环调用)
      *
@@ -172,8 +163,8 @@ public class JiJieStartPageActivity extends AppCompatActivity {
             public void oneBtnClicked() {
                 initUm();
                 PreferencesJiJieOpenUtil.saveBool("isSure", true);
-                OpenJiJieUtil.jumpPage(JiJieStartPageActivity.this, JiJieDlActivity.class);
-                finish();
+                startPageJiJieRemindDialog.dismiss();
+                OpenJiJieUtil.getValue(JiJieStartPageActivity.this, JiJieDlActivity.class, null, true);
             }
 
             @Override
@@ -182,7 +173,7 @@ public class JiJieStartPageActivity extends AppCompatActivity {
                     bundle = new Bundle();
                     bundle.putString("url", PreferencesJiJieOpenUtil.getString("AGREEMENT") + NetJiJieApi.ZCXY);
                     bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpenJiJieUtil.jumpPage(JiJieStartPageActivity.this, JiJieJumpH5Activity.class, bundle);
+                    OpenJiJieUtil.getValue(JiJieStartPageActivity.this, JiJieJumpH5Activity.class, bundle);
                 }
             }
 
@@ -197,7 +188,7 @@ public class JiJieStartPageActivity extends AppCompatActivity {
                     bundle = new Bundle();
                     bundle.putString("url", PreferencesJiJieOpenUtil.getString("AGREEMENT") + NetJiJieApi.YSXY);
                     bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpenJiJieUtil.jumpPage(JiJieStartPageActivity.this, JiJieJumpH5Activity.class, bundle);
+                    OpenJiJieUtil.getValue(JiJieStartPageActivity.this, JiJieJumpH5Activity.class, bundle);
                 }
             }
         });
@@ -212,7 +203,7 @@ public class JiJieStartPageActivity extends AppCompatActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7744.txt")
+                            .url("https://ossbj0714.oss-cn-beijing.aliyuncs.com/server7744.txt")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
@@ -238,11 +229,10 @@ public class JiJieStartPageActivity extends AppCompatActivity {
         if (isSure) {
             initUm();
             if (TextUtils.isEmpty(phone)) {
-                OpenJiJieUtil.jumpPage(JiJieStartPageActivity.this, JiJieDlActivity.class);
+                OpenJiJieUtil.getValue(JiJieStartPageActivity.this, JiJieDlActivity.class, null, true);
             } else {
-                OpenJiJieUtil.jumpPage(JiJieStartPageActivity.this, JiJieMainActivity.class);
+                OpenJiJieUtil.getValue(JiJieStartPageActivity.this, JiJieMainActivity.class, null, true);
             }
-            finish();
         } else {
             showDialog();
         }
@@ -303,5 +293,23 @@ public class JiJieStartPageActivity extends AppCompatActivity {
             // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
             UMConfigure.init(this, "62c2f34905844627b5d719c8", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
         }
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        StatusJiJieBarUtil.setTransparent(this, false);
+        isSure = PreferencesJiJieOpenUtil.getBool("isSure");
+        phone = PreferencesJiJieOpenUtil.getString("phone");
+        sendRequestWithOkHttp();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_jijie_start_page;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 }

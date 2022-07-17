@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -208,6 +209,9 @@ public class JiJieDlActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusJiJieBarUtil.setTransparent(this, false);
+        if (PreferencesJiJieOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         xStateController = this.findViewById(R.id.content_layout);
         mobileEt = this.findViewById(R.id.mobile_et);
         yzmEt = this.findViewById(R.id.yzm_et);
@@ -229,7 +233,7 @@ public class JiJieDlActivity extends XActivity {
                     bundle.putString("url", PreferencesJiJieOpenUtil.getString("AGREEMENT") + NetJiJieApi.YSXY);
                     bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
                 }
-                OpenJiJieUtil.jumpPage(JiJieDlActivity.this, JiJieJumpH5Activity.class, bundle);
+                OpenJiJieUtil.getValue(JiJieDlActivity.this, JiJieJumpH5Activity.class, bundle);
             }
         });
 
@@ -398,12 +402,11 @@ public class JiJieDlActivity extends XActivity {
                                 xStateController.showContent();
                             if (dlModel != null && dlModel.getCode() == 200) {
                                 if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                    OpenJiJieUtil.jumpPage(JiJieDlActivity.this, JiJieMainActivity.class);
                                     int mobileType = dlModel.getData().getMobileType();
                                     PreferencesJiJieOpenUtil.saveString("ip", ip);
                                     PreferencesJiJieOpenUtil.saveString("phone", phone);
                                     PreferencesJiJieOpenUtil.saveInt("mobileType", mobileType);
-                                    finish();
+                                    OpenJiJieUtil.getValue(JiJieDlActivity.this, JiJieMainActivity.class, null, true);
                                 }
                             } else {
                                 if (dlModel.getCode() == 500) {

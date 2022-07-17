@@ -18,6 +18,18 @@ public class ConfigJiJieEntity {
     @SerializedName("APP_MAIL")
     private String appMail;
 
+    @SerializedName("VIDEOTAPE")
+    private String videoTape;
+
+    public String getVideoTape() {
+        return videoTape;
+    }
+
+    public void setVideoTape(String videoTape) {
+        this.videoTape = videoTape;
+    }
+
+
     private static final String TAG = "FileUtil";
     private static final String[][] MIME_MapTable =
             {

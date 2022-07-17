@@ -2,6 +2,7 @@ package com.jijiewqeasd.zxcvn.jijiepage;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -14,6 +15,7 @@ import com.jijiewqeasd.zxcvn.jijief.ProductJiJieFragment;
 import com.jijiewqeasd.zxcvn.jijief.SetJiJieFragment;
 import com.jijiewqeasd.zxcvn.mvp.XActivity;
 import com.jijiewqeasd.zxcvn.u.MyJiJieToast;
+import com.jijiewqeasd.zxcvn.u.PreferencesJiJieOpenUtil;
 import com.jijiewqeasd.zxcvn.u.StatusJiJieBarUtil;
 
 import java.io.File;
@@ -194,6 +196,9 @@ public class JiJieMainActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusJiJieBarUtil.setTransparent(this, false);
+        if (PreferencesJiJieOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         tabModels = new ArrayList<>();
         fragments = new ArrayList<>();
         TabModel tabModel = new TabModel();

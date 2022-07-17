@@ -1,6 +1,7 @@
 package com.jijiewqeasd.zxcvn.jijiepage;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.jijiewqeasd.zxcvn.MainJiJieApp;
 import com.jijiewqeasd.zxcvn.R;
 import com.jijiewqeasd.zxcvn.u.OpenJiJieUtil;
+import com.jijiewqeasd.zxcvn.u.PreferencesJiJieOpenUtil;
 import com.jijiewqeasd.zxcvn.u.StatusJiJieBarUtil;
 
 import java.io.File;
@@ -20,6 +22,9 @@ public class JiJieAboutInfoActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StatusJiJieBarUtil.setTransparent(this, false);
+        if (PreferencesJiJieOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         setContentView(R.layout.activity_jijie_about_info);
         ImageView backImg = findViewById(R.id.back_image);
         backImg.setOnClickListener(v -> finish());
