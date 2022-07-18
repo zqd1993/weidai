@@ -11,12 +11,14 @@ import android.text.TextUtils;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.tysffgh.wfdgdfg.R;
 import com.tysffgh.wfdgdfg.doudouadapter.MineDouDouAdapter;
+import com.tysffgh.wfdgdfg.doudouadapter.MineItemAdapter;
 import com.tysffgh.wfdgdfg.doudoumodel.BaseRespModelDouDou;
 import com.tysffgh.wfdgdfg.doudoumodel.CompanDouDouyInfoModel;
 import com.tysffgh.wfdgdfg.doudoumodel.MineItemModelDouDou;
@@ -51,12 +53,15 @@ public class DouDouMineFragment extends XFragment {
     TextView phoneTv;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.rvy_1)
+    RecyclerView rvy1;
 
     private MineDouDouAdapter mineDouDouAdapter;
-    private List<MineItemModelDouDou> list;
-    private int[] imgRes = {R.drawable.ghgartf, R.drawable.kgjduy, R.drawable.sdgtuy,
-            R.drawable.fghhjsrt, R.drawable.mmfghxfx, R.drawable.ljdhsghfh};
-    private String[] tvRes = {"关于我们", "隐私协议", "注册协议", "投诉邮箱", "系统设置", "注销账户"};
+    private MineItemAdapter mineItemAdapter;
+    private List<MineItemModelDouDou> list, list1;
+    private int[] imgRes = {R.drawable.wd_zcxy, R.drawable.wd_ysxy, R.drawable.wd_icon_gywm,
+            R.drawable.wd_icon_tsyx, R.drawable.wd_icon_gbgxhts, R.drawable.wd_icon_txdl};
+    private String[] tvRes = {"注册协议", "隐私协议", "关于我们", "投诉邮箱", "系统设置", "注销账户"};
     private Bundle bundle;
     private NormalDouDouDialog normalDouDouDialog;
     private String mailStr = "", phone = "";
@@ -64,6 +69,7 @@ public class DouDouMineFragment extends XFragment {
     @Override
     public void initData(Bundle savedInstanceState) {
         list = new ArrayList<>();
+        list1 = new ArrayList<>();
         phone = SharedDouDouPreferencesUtilis.getStringFromPref("phone");
         if (!TextUtils.isEmpty(phone) && phone.length() > 10) {
             phoneTv.setText(phone.replace(phone.substring(3, 7), "****"));
@@ -72,7 +78,11 @@ public class DouDouMineFragment extends XFragment {
             MineItemModelDouDou model = new MineItemModelDouDou();
             model.setImgRes(imgRes[i]);
             model.setItemTv(tvRes[i]);
-            list.add(model);
+            if (i < 3) {
+                list1.add(model);
+            } else {
+                list.add(model);
+            }
         }
         initAdapter();
         swipeRefreshLayout.setOnRefreshListener(() -> {
@@ -158,34 +168,12 @@ public class DouDouMineFragment extends XFragment {
                         return;
                     }
                     switch (position) {
-                        case 0:
-                            Router.newIntent(getActivity())
-                                    .to(AboutUsActivityDouDou.class)
-                                    .launch();
-                            break;
                         case 1:
-                            bundle = new Bundle();
-                            bundle.putInt("tag", 2);
-                            bundle.putString("url", ApiDouDou.getYs());
-                            Router.newIntent(getActivity())
-                                    .to(WebViewActivityDouDou.class)
-                                    .data(bundle)
-                                    .launch();
-                        case 2:
-                            bundle = new Bundle();
-                            bundle.putInt("tag", 1);
-                            bundle.putString("url", ApiDouDou.getZc());
-                            Router.newIntent(getActivity())
-                                    .to(WebViewActivityDouDou.class)
-                                    .data(bundle)
-                                    .launch();
-                            break;
-                        case 4:
                             Router.newIntent(getActivity())
                                     .to(SettingActivityDouDou.class)
                                     .launch();
                             break;
-                        case 5:
+                        case 2:
                             Router.newIntent(getActivity())
                                     .to(CancellationDouDouAccountActivity.class)
                                     .launch();
@@ -197,6 +185,45 @@ public class DouDouMineFragment extends XFragment {
             rvy.setHasFixedSize(true);
             rvy.setAdapter(mineDouDouAdapter);
             getCompanyInfo();
+        }
+        if (mineItemAdapter == null) {
+            mineItemAdapter = new MineItemAdapter(getActivity());
+            mineItemAdapter.setData(list1);
+            mineItemAdapter.setHasStableIds(true);
+            mineItemAdapter.setRecItemClick(new RecyclerItemCallback<MineItemModelDouDou, MineItemAdapter.ViewHolder>() {
+                @Override
+                public void onItemClick(int position, MineItemModelDouDou model, int tag, MineItemAdapter.ViewHolder holder) {
+                    super.onItemClick(position, model, tag, holder);
+                    switch (position) {
+                        case 0:
+                            bundle = new Bundle();
+                            bundle.putInt("tag", 1);
+                            bundle.putString("url", ApiDouDou.getZc());
+                            Router.newIntent(getActivity())
+                                    .to(WebViewActivityDouDou.class)
+                                    .data(bundle)
+                                    .launch();
+                            break;
+                        case 1:
+                            bundle = new Bundle();
+                            bundle.putInt("tag", 2);
+                            bundle.putString("url", ApiDouDou.getYs());
+                            Router.newIntent(getActivity())
+                                    .to(WebViewActivityDouDou.class)
+                                    .data(bundle)
+                                    .launch();
+                            break;
+                        case 2:
+                            Router.newIntent(getActivity())
+                                    .to(AboutUsActivityDouDou.class)
+                                    .launch();
+                            break;
+                    }
+                }
+            });
+            rvy1.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+            rvy1.setHasFixedSize(true);
+            rvy1.setAdapter(mineItemAdapter);
         }
     }
 

@@ -21,6 +21,8 @@ import com.tysffgh.wfdgdfg.mvp.XFragment;
 import com.tysffgh.wfdgdfg.doudoupresent.DouDouHomePagePresent;
 import com.tysffgh.wfdgdfg.router.Router;
 
+import org.w3c.dom.Text;
+
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -47,6 +49,8 @@ public class HomePageDouDouFragment extends XFragment<DouDouHomePagePresent> {
     public TextView time_tv;
     @BindView(R.id.rililv_tv)
     public TextView rililv_tv;
+    @BindView(R.id.people_num_tv)
+    public TextView people_num_tv;
 
     private Bundle webBundle;
     public GoodsItemAdapterDouDou goodsItemAdapterDouDou;

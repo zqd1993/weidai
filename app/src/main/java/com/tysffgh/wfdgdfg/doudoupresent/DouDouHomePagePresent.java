@@ -273,6 +273,7 @@ public class DouDouHomePagePresent extends XPresent<HomePageDouDouFragment> {
                                             getV().topDouDouGoodsModel = gankResults.getTop();
                                             getV().money_num_tv.setText(gankResults.getTop().getMax_money());
                                             getV().rililv_tv.setText("日利率最低" + gankResults.getTop().getDay_money() + "%");
+                                            getV().people_num_tv.setText("申请人数 " + gankResults.getTop().getNum() + "人");
                                             if (!TextUtils.isEmpty(gankResults.getTop().getFan_time()) && gankResults.getTop().getFan_time().length() > 2) {
                                                 getV().time_tv.setText("放款最快五分钟 | 期限最长" + gankResults.getTop().getFan_time().substring(0, 2) + "期");
                                             }

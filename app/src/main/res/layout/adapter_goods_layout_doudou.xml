@@ -4,24 +4,53 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:background="@color/white">
+    android:layout_marginTop="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_corner_10_white"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:orientation="vertical">
 
         <FrameLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.lihang.ShadowLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                app:hl_layoutBackground="@color/colorPrimary"
+                app:hl_cornerRadius_leftBottom="50dp"
+                app:hl_cornerRadius_rightTop="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="一键申请" />
+
+            </com.lihang.ShadowLayout>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -32,21 +61,37 @@
 
                     <ImageView
                         android:id="@+id/product_img"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
                         android:src="@mipmap/app_logo" />
 
                 </com.lihang.ShadowLayout>
 
-                <TextView
-                    android:id="@+id/product_name_tv"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:textSize="14sp"
-                    android:textColor="@color/text_normal_color"
-                    android:textStyle="bold"
-                    android:text="@string/app_name"/>
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/product_name_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_normal_color"
+                        android:textStyle="bold"
+                        android:text="@string/app_name"/>
+
+                    <TextView
+                        android:id="@+id/info_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/color_999999"
+                        android:text="三分钟极速放款" />
+
+                </LinearLayout>
 
                 <com.lihang.ShadowLayout
                     android:layout_width="wrap_content"
@@ -94,91 +139,62 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/people_num_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center_vertical"
-                android:textSize="12sp"
-                android:textColor="@color/color_999999"
-                android:text="3452人申请" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp">
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|center_vertical"
-                    android:textSize="12sp"
-                    android:textColor="@color/color_999999"
-                    android:text="额度" />
+                android:layout_gravity="center_vertical|end"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/limit_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
-                    android:textColor="#fc9725"
+                    android:textColor="@color/colorPrimary"
                     android:text="200000"
                     android:textSize="@dimen/textSize_16"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/cycle_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_gravity="end|center_vertical"
                     android:textSize="12sp"
                     android:textColor="@color/color_999999"
-                    android:text="最长可分期12期" />
+                    android:text="额度申请" />
 
             </LinearLayout>
 
-            <com.lihang.ShadowLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center_vertical"
-                app:hl_layoutBackground="@color/colorPrimary"
-                app:hl_cornerRadius="50dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="@color/white"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="3dp"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:text="一键申请" />
-
-            </com.lihang.ShadowLayout>
-
-
         </FrameLayout>
 
-        <TextView
-            android:id="@+id/info_tv"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="15dp"
-            android:layout_marginTop="10dp"
-            android:textSize="14sp"
-            android:textColor="#6e86c2"
-            android:text="三分钟极速放款" />
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="70dp">
+
+            <TextView
+                android:id="@+id/people_num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/color_999999"
+                android:text="3452人申请" />
+
+            <TextView
+                android:id="@+id/cycle_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:textSize="12sp"
+                android:textColor="@color/color_999999"
+                android:text="最长可分期12期" />
+
+        </FrameLayout>
 
     </LinearLayout>
 

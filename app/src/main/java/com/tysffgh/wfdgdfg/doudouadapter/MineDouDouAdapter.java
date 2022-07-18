@@ -94,7 +94,7 @@ public class MineDouDouAdapter extends SimpleRecAdapter<MineItemModelDouDou, Min
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         viewHolder.itemImg.setImageResource(data.get(i).getImgRes());
         viewHolder.tvItem.setText(data.get(i).getItemTv());
-        if (i == 3){
+        if (i == 0){
             viewHolder.arrowIcon.setVisibility(View.GONE);
             viewHolder.line.setVisibility(View.GONE);
             viewHolder.rightText.setVisibility(View.VISIBLE);
