@@ -6,6 +6,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.lpsydsnl.jtxqchbb.R;
+import com.lpsydsnl.jtxqchbb.use.MeiJiePreferencesOpenUtil;
 import com.lpsydsnl.jtxqchbb.use.MyToastMeiJie;
 import com.lpsydsnl.jtxqchbb.use.StatusMeiJieBarUtil;
 
@@ -73,6 +75,9 @@ public class MeiJieFeedbackActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StatusMeiJieBarUtil.setTransparent(this, false);
+        if (MeiJiePreferencesOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         setContentView(R.layout.activity_feedback__meijie);
         ImageView backImg = findViewById(R.id.back_image);
         backImg.setOnClickListener(v -> finish());

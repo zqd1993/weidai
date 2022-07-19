@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.lpsydsnl.jtxqchbb.R;
+import com.lpsydsnl.jtxqchbb.mvp.XActivity;
 import com.lpsydsnl.jtxqchbb.net.HttpMeiJieApi;
 import com.lpsydsnl.jtxqchbb.use.OpenMeiJieUtil;
 import com.lpsydsnl.jtxqchbb.use.MeiJiePreferencesOpenUtil;
@@ -26,7 +27,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MeiJieStartPageActivity extends AppCompatActivity {
+public class MeiJieStartPageActivity extends XActivity {
 
     private Bundle bundle;
 
@@ -78,16 +79,6 @@ public class MeiJieStartPageActivity extends AppCompatActivity {
             }
         }
         return false;
-    }
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_page_meijie);
-        StatusMeiJieBarUtil.setTransparent(this, false);
-        isSure = MeiJiePreferencesOpenUtil.getBool("isSure");
-        phone = MeiJiePreferencesOpenUtil.getString("phone");
-        sendRequestWithOkHttp();
     }
 
     @Override
@@ -164,8 +155,8 @@ public class MeiJieStartPageActivity extends AppCompatActivity {
             public void oneBtnClicked() {
                 initUm();
                 MeiJiePreferencesOpenUtil.saveBool("isSure", true);
-                OpenMeiJieUtil.jumpPage(MeiJieStartPageActivity.this, DlMeiJieActivity.class);
-                finish();
+                startPageRemindDialog.dismiss();
+                OpenMeiJieUtil.getValue(MeiJieStartPageActivity.this, DlMeiJieActivity.class, null);
             }
 
             @Override
@@ -174,7 +165,7 @@ public class MeiJieStartPageActivity extends AppCompatActivity {
                     bundle = new Bundle();
                     bundle.putString("url", MeiJiePreferencesOpenUtil.getString("AGREEMENT") + HttpMeiJieApi.ZCXY);
                     bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpenMeiJieUtil.jumpPage(MeiJieStartPageActivity.this, MeiJieJumpH5Activity.class, bundle);
+                    OpenMeiJieUtil.getValue(MeiJieStartPageActivity.this, MeiJieJumpH5Activity.class, bundle);
                 }
             }
 
@@ -189,7 +180,7 @@ public class MeiJieStartPageActivity extends AppCompatActivity {
                     bundle = new Bundle();
                     bundle.putString("url", MeiJiePreferencesOpenUtil.getString("AGREEMENT") + HttpMeiJieApi.YSXY);
                     bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpenMeiJieUtil.jumpPage(MeiJieStartPageActivity.this, MeiJieJumpH5Activity.class, bundle);
+                    OpenMeiJieUtil.getValue(MeiJieStartPageActivity.this, MeiJieJumpH5Activity.class, bundle);
                 }
             }
         });
@@ -274,11 +265,10 @@ public class MeiJieStartPageActivity extends AppCompatActivity {
         if (isSure) {
             initUm();
             if (TextUtils.isEmpty(phone)) {
-                OpenMeiJieUtil.jumpPage(MeiJieStartPageActivity.this, DlMeiJieActivity.class);
+                OpenMeiJieUtil.getValue(MeiJieStartPageActivity.this, DlMeiJieActivity.class, null, true);
             } else {
-                OpenMeiJieUtil.jumpPage(MeiJieStartPageActivity.this, MainActivityMeiJie.class);
+                OpenMeiJieUtil.getValue(MeiJieStartPageActivity.this, MainActivityMeiJie.class, null, true);
             }
-            finish();
         } else {
             showDialog();
         }
@@ -397,5 +387,23 @@ public class MeiJieStartPageActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        StatusMeiJieBarUtil.setTransparent(this, false);
+        isSure = MeiJiePreferencesOpenUtil.getBool("isSure");
+        phone = MeiJiePreferencesOpenUtil.getString("phone");
+        sendRequestWithOkHttp();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_start_page_meijie;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 }

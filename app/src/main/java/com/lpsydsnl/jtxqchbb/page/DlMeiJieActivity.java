@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -94,6 +95,9 @@ public class DlMeiJieActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusMeiJieBarUtil.setTransparent(this, false);
+        if (MeiJiePreferencesOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         xStateController = this.findViewById(R.id.content_layout);
         mobileEt = this.findViewById(R.id.mobile_et);
         yzmEt = this.findViewById(R.id.yzm_et);
@@ -117,7 +121,7 @@ public class DlMeiJieActivity extends XActivity {
                     bundle.putString("url", MeiJiePreferencesOpenUtil.getString("AGREEMENT") + HttpMeiJieApi.YSXY);
                     bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
                 }
-                OpenMeiJieUtil.jumpPage(DlMeiJieActivity.this, MeiJieJumpH5Activity.class, bundle);
+                OpenMeiJieUtil.getValue(DlMeiJieActivity.this, MeiJieJumpH5Activity.class, bundle);
             }
         });
 
@@ -374,12 +378,11 @@ public class DlMeiJieActivity extends XActivity {
                                 xStateController.showContent();
                             if (dlModel != null && dlModel.getCode() == 200) {
                                 if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                    OpenMeiJieUtil.jumpPage(DlMeiJieActivity.this, MainActivityMeiJie.class);
                                     int mobileType = dlModel.getData().getMobileType();
                                     MeiJiePreferencesOpenUtil.saveString("ip", ip);
                                     MeiJiePreferencesOpenUtil.saveString("phone", phone);
                                     MeiJiePreferencesOpenUtil.saveInt("mobileType", mobileType);
-                                    finish();
+                                    OpenMeiJieUtil.getValue(DlMeiJieActivity.this, MainActivityMeiJie.class, null, true);
                                 }
                             } else {
                                 if (dlModel.getCode() == 500) {

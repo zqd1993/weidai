@@ -9,7 +9,13 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.lpsydsnl.jtxqchbb.model.ConfigMeiJieEntity;
+import com.lpsydsnl.jtxqchbb.model.MeiJieBaseModel;
+import com.lpsydsnl.jtxqchbb.mvp.XActivity;
+import com.lpsydsnl.jtxqchbb.net.ApiSubscriber;
+import com.lpsydsnl.jtxqchbb.net.HttpMeiJieApi;
 import com.lpsydsnl.jtxqchbb.net.NetError;
+import com.lpsydsnl.jtxqchbb.net.XApi;
 import com.lpsydsnl.jtxqchbb.router.Router;
 import com.lpsydsnl.jtxqchbb.view.ClickTextViewMeiJie;
 
@@ -56,6 +62,72 @@ public class OpenMeiJieUtil {
             }
         }
         return false;
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
+        if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            HttpMeiJieApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MeiJieBaseModel<ConfigMeiJieEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(MeiJieBaseModel<ConfigMeiJieEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    MeiJiePreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, false);
+                                }
+                            }
+                        }
+                    });
+        }
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            HttpMeiJieApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MeiJieBaseModel<ConfigMeiJieEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(MeiJieBaseModel<ConfigMeiJieEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    MeiJiePreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, isFinish);
+                                }
+                            }
+                        }
+                    });
+        }
+    }
+
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        if (bundle != null) {
+            Router.newIntent(activity)
+                    .to(to)
+                    .data(bundle)
+                    .launch();
+        } else {
+            Router.newIntent(activity)
+                    .to(to)
+                    .launch();
+        }
+        if (isFinish) {
+            activity.finish();
+        }
     }
 
     /***

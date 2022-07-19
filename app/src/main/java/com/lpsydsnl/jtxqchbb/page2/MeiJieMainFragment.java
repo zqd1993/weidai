@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.lpsydsnl.jtxqchbb.R;
+import com.lpsydsnl.jtxqchbb.mvp.XActivity;
 import com.lpsydsnl.jtxqchbb.page.ImageAdapterMeiJie;
 import com.lpsydsnl.jtxqchbb.page.MeiJieJumpH5Activity;
 import com.lpsydsnl.jtxqchbb.net.HttpMeiJieApi;
@@ -106,7 +107,6 @@ public class MeiJieMainFragment extends XFragment {
 
     @Override
     public void initData(Bundle savedInstanceState) {
-            productList();
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -125,6 +125,15 @@ public class MeiJieMainFragment extends XFragment {
         list_fl.setOnClickListener(v -> {
             productClick(productMeiJieModel);
         });
+        noDataTv.setOnClickListener(v -> {
+            productList();
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        productList();
     }
 
     private void initBannerAdapter(List<ProductMeiJieModel> data) {
@@ -263,6 +272,7 @@ public class MeiJieMainFragment extends XFragment {
     public void productList() {
         if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = MeiJiePreferencesOpenUtil.getInt("mobileType");
+            productMeiJieModel = null;
             HttpMeiJieApi.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -280,25 +290,20 @@ public class MeiJieMainFragment extends XFragment {
                         @Override
                         public void onNext(MeiJieBaseModel<List<ProductMeiJieModel>> meiJieBaseModel) {
                             setRefreshing.setRefreshing(false);
+                            goodsListLl.removeAllViews();
                             if (meiJieBaseModel != null) {
                                 if (meiJieBaseModel.getCode() == 200 && meiJieBaseModel.getData() != null) {
                                     if (meiJieBaseModel.getData() != null && meiJieBaseModel.getData().size() > 0) {
                                         productMeiJieModel = meiJieBaseModel.getData().get(0);
                                         addProductView(meiJieBaseModel.getData());
                                     } else {
-                                        if (goodsListLl.getChildCount() == 0) {
-                                            noDataTv.setVisibility(View.VISIBLE);
-                                        }
-                                    }
-                                } else {
-                                    if (goodsListLl.getChildCount() == 0) {
                                         noDataTv.setVisibility(View.VISIBLE);
                                     }
-                                }
-                            } else {
-                                if (goodsListLl.getChildCount() == 0) {
+                                } else {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
+                            } else {
+                                noDataTv.setVisibility(View.VISIBLE);
                             }
                         }
                     });
@@ -350,7 +355,6 @@ public class MeiJieMainFragment extends XFragment {
     }
 
     private void addProductView(List<ProductMeiJieModel> mList) {
-        goodsListLl.removeAllViews();
         for (ProductMeiJieModel model : mList) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_product_item_meijie, null);
             ImageView pic = view.findViewById(R.id.product_img);
@@ -388,7 +392,7 @@ public class MeiJieMainFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            OpenMeiJieUtil.jumpPage(getActivity(), MeiJieJumpH5Activity.class, bundle);
+            OpenMeiJieUtil.getValue((XActivity) getActivity(), MeiJieJumpH5Activity.class, bundle);
         }
     }
 }

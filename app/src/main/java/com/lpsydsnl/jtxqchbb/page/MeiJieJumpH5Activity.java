@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -25,6 +26,7 @@ import androidx.core.content.FileProvider;
 import com.lpsydsnl.jtxqchbb.R;
 import com.lpsydsnl.jtxqchbb.mvp.XActivity;
 import com.lpsydsnl.jtxqchbb.use.DownloadMeiJieApkUtil;
+import com.lpsydsnl.jtxqchbb.use.MeiJiePreferencesOpenUtil;
 import com.lpsydsnl.jtxqchbb.use.StatusMeiJieBarUtil;
 
 import java.io.File;
@@ -106,6 +108,9 @@ public class MeiJieJumpH5Activity extends XActivity implements EasyPermissions.P
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusMeiJieBarUtil.setTransparent(this, false);
+        if (MeiJiePreferencesOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         bundle = getIntent().getExtras();
         if (bundle.containsKey("biaoti"))
             biaoti = bundle.getString("biaoti");

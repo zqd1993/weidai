@@ -197,7 +197,7 @@ public class CountMeiJieDownTimer extends android.os.CountDownTimer {
     @Override
     public void onFinish() {
         timeTv.setClickable(true);//重新获得点击
-        timeTv.setTextColor(MainAppMeiJie.getContext().getResources().getColor(R.color.white));  //还原背景色
+        timeTv.setTextColor(MainAppMeiJie.getContext().getResources().getColor(R.color.color_ffbd00));  //还原背景色
         timeTv.setText("重新获取验证码");
     }
 

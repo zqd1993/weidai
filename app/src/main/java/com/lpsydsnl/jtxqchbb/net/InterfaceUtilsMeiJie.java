@@ -19,6 +19,9 @@ public interface InterfaceUtilsMeiJie {
     @GET("/app/user/sendVerifyCode")
     Flowable<MeiJieBaseModel> sendVerifyCode(@Query("phone") String phone);
 
+    @GET("/app/config/getValue")
+    Flowable<MeiJieBaseModel<ConfigMeiJieEntity>> getValue(@Query("key") String phone);
+
     @GET("/app/user/login")
     Flowable<MeiJieBaseModel<DlModelMeiJie>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
 

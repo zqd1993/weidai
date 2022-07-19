@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -16,6 +17,7 @@ import com.lpsydsnl.jtxqchbb.page2.MeiJieMainFragment;
 import com.lpsydsnl.jtxqchbb.page2.ProductMeiJieFragment;
 import com.lpsydsnl.jtxqchbb.page2.SetFragmentMeiJie;
 import com.lpsydsnl.jtxqchbb.mvp.XActivity;
+import com.lpsydsnl.jtxqchbb.use.MeiJiePreferencesOpenUtil;
 import com.lpsydsnl.jtxqchbb.use.MyToastMeiJie;
 import com.lpsydsnl.jtxqchbb.use.StatusMeiJieBarUtil;
 
@@ -86,6 +88,9 @@ public class MainActivityMeiJie extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusMeiJieBarUtil.setTransparent(this, false);
+        if (MeiJiePreferencesOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         tabModels = new ArrayList<>();
         fragments = new ArrayList<>();
         TabModel tabModel = new TabModel();
