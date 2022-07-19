@@ -13,6 +13,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.DownloadListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -24,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.dfgderv.erterqweq.R;
+import com.dfgderv.erterqweq.utils.SharedPreferencesUtilis;
 import com.dfgderv.erterqweq.utils.StatusBarUtil;
 import com.dfgderv.erterqweq.mvp.XActivity;
 import com.dfgderv.erterqweq.widget.DownUtil;
@@ -61,6 +63,9 @@ public class WebViewActivity extends XActivity implements EasyPermissions.Permis
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
+        if (SharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         bundle = getIntent().getExtras();
         if (bundle.containsKey("tag"))
             tag = bundle.getInt("tag");

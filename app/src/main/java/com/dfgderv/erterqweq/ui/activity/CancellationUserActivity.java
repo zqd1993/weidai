@@ -1,12 +1,14 @@
 package com.dfgderv.erterqweq.ui.activity;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
 
 import com.dfgderv.erterqweq.R;
+import com.dfgderv.erterqweq.utils.SharedPreferencesUtilis;
 import com.dfgderv.erterqweq.utils.StatusBarUtil;
 import com.dfgderv.erterqweq.widget.NormalDialog;
 import com.dfgderv.erterqweq.mvp.XActivity;
@@ -27,6 +29,9 @@ public class CancellationUserActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
+        if (SharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("账号注销");
         commitBtn.setOnClickListener(v -> {

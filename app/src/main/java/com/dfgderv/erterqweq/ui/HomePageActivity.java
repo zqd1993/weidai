@@ -2,11 +2,13 @@ package com.dfgderv.erterqweq.ui;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.dfgderv.erterqweq.R;
+import com.dfgderv.erterqweq.utils.SharedPreferencesUtilis;
 import com.dfgderv.erterqweq.utils.StatusBarUtil;
 import com.dfgderv.erterqweq.utils.ToastUtil;
 import com.dfgderv.erterqweq.mvp.XActivity;
@@ -44,6 +46,9 @@ public class HomePageActivity extends XActivity<MainPresent> {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
+        if (SharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         getP().login();
         customTabEntities = new ArrayList<>();
         homeViewPager.setUserInputEnabled(false);

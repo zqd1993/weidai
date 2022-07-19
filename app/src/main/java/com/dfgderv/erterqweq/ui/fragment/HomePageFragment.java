@@ -10,10 +10,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.dfgderv.erterqweq.R;
 import com.dfgderv.erterqweq.adapter.MiaoJieGoodsItemAdapter;
 import com.dfgderv.erterqweq.model.GoodsModel;
+import com.dfgderv.erterqweq.mvp.XActivity;
 import com.dfgderv.erterqweq.ui.WebViewActivity;
 import com.dfgderv.erterqweq.mvp.XFragment;
 import com.dfgderv.erterqweq.present.HomePagePresent;
 import com.dfgderv.erterqweq.router.Router;
+import com.dfgderv.erterqweq.utils.StaticUtil;
 
 import java.util.List;
 
@@ -40,7 +42,7 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
     private Bundle bundle, webBundle;
     private int tag;
     public MiaoJieGoodsItemAdapter miaoJieGoodsItemAdapter;
-    private GoodsModel goodsModel;
+    public GoodsModel goodsModel;
 
     public static HomePageFragment getInstant(int tag) {
         HomePageFragment homePageFragment = new HomePageFragment();
@@ -63,7 +65,6 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
                 homePageBg.setVisibility(View.GONE);
             }
         }
-        getP().productList();
         swipeRefreshLayout.setOnRefreshListener(() -> getP().productList());
         noDataFl.setOnClickListener(v -> getP().productList());
         productBg.setOnClickListener(v -> {
@@ -75,6 +76,12 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
         topLayout.setOnClickListener(v -> {
             productClick(goodsModel);
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getP().productList();
     }
 
     @Override
@@ -99,10 +106,7 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
             webBundle.putInt("tag", 3);
             webBundle.putString("url", model.getUrl());
             webBundle.putString("title", model.getProductName());
-            Router.newIntent(getActivity())
-                    .to(WebViewActivity.class)
-                    .data(webBundle)
-                    .launch();
+            StaticUtil.getValue((XActivity) getActivity(), WebViewActivity.class, webBundle);
         }
     }
 

@@ -13,6 +13,7 @@ import com.dfgderv.erterqweq.adapter.MiaoJieMineAdapter;
 import com.dfgderv.erterqweq.model.BaseRespModel;
 import com.dfgderv.erterqweq.model.ConfigModel;
 import com.dfgderv.erterqweq.model.MineItemModel;
+import com.dfgderv.erterqweq.mvp.XActivity;
 import com.dfgderv.erterqweq.net.ApiSubscriber;
 import com.dfgderv.erterqweq.net.NetError;
 import com.dfgderv.erterqweq.net.XApi;
@@ -97,26 +98,16 @@ public class MineFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                                bundle = new Bundle();
-                                bundle.putInt("tag", 1);
-                                bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
-                                Router.newIntent(getActivity())
-                                        .to(WebViewActivity.class)
-                                        .data(bundle)
-                                        .launch();
-                            }
+                            bundle = new Bundle();
+                            bundle.putInt("tag", 1);
+                            bundle.putString("url", Api.PRIVACY_POLICY);
+                            StaticUtil.getValue((XActivity) getActivity(), WebViewActivity.class, bundle);
                             break;
                         case 1:
-                            if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                                bundle = new Bundle();
-                                bundle.putInt("tag", 2);
-                                bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
-                                Router.newIntent(getActivity())
-                                        .to(WebViewActivity.class)
-                                        .data(bundle)
-                                        .launch();
-                            }
+                            bundle = new Bundle();
+                            bundle.putInt("tag", 2);
+                            bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
+                            StaticUtil.getValue((XActivity) getActivity(), WebViewActivity.class, bundle);
                             break;
                     }
                 }
@@ -138,14 +129,10 @@ public class MineFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            Router.newIntent(getActivity())
-                                    .to(FeedBackActivity.class)
-                                    .launch();
+                            StaticUtil.getValue((XActivity) getActivity(), FeedBackActivity.class, null);
                             break;
                         case 1:
-                            Router.newIntent(getActivity())
-                                    .to(AboutMiaoJieActivity.class)
-                                    .launch();
+                            StaticUtil.getValue((XActivity) getActivity(), AboutMiaoJieActivity.class, null);
                             break;
                         case 2:
                             normalDialog = new NormalDialog(getActivity());
@@ -166,9 +153,7 @@ public class MineFragment extends XFragment {
                             getGankData();
                             break;
                         case 4:
-                            Router.newIntent(getActivity())
-                                    .to(CancellationUserActivity.class)
-                                    .launch();
+                            StaticUtil.getValue((XActivity) getActivity(), CancellationUserActivity.class, null);
                             break;
                         case 5:
                             normalDialog = new NormalDialog(getActivity());
@@ -182,10 +167,7 @@ public class MineFragment extends XFragment {
                                     .setRightListener(v -> {
                                         normalDialog.dismiss();
                                         SharedPreferencesUtilis.saveStringIntoPref("phone", "");
-                                        Router.newIntent(getActivity())
-                                                .to(LoginActivity.class)
-                                                .launch();
-                                        getActivity().finish();
+                                        StaticUtil.getValue((XActivity) getActivity(), LoginActivity.class, null, true);
                                     }).show();
                             break;
                     }
@@ -198,32 +180,30 @@ public class MineFragment extends XFragment {
     }
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
-            Api.getGankService().getGankData()
-                    .compose(XApi.<BaseRespModel<ConfigModel>>getApiTransformer())
-                    .compose(XApi.<BaseRespModel<ConfigModel>>getScheduler())
-                    .compose(this.<BaseRespModel<ConfigModel>>bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
-                        @Override
-                        protected void onFail(NetError error) {
+        Api.getGankService().getGankData()
+                .compose(XApi.<BaseRespModel<ConfigModel>>getApiTransformer())
+                .compose(XApi.<BaseRespModel<ConfigModel>>getScheduler())
+                .compose(this.<BaseRespModel<ConfigModel>>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onNext(BaseRespModel<ConfigModel> gankResults) {
-                            if (gankResults != null) {
-                                if (gankResults.getData() != null) {
-                                    mailStr = gankResults.getData().getAppMail();
-                                    SharedPreferencesUtilis.saveStringIntoPref("APP_MAIL", gankResults.getData().getAppMail());
-                                    normalDialog = new NormalDialog(getActivity());
-                                    normalDialog.setTitle("温馨提示")
-                                            .setContent(mailStr)
-                                            .showOnlyBtn().show();
-                                }
+                    @Override
+                    public void onNext(BaseRespModel<ConfigModel> gankResults) {
+                        if (gankResults != null) {
+                            if (gankResults.getData() != null) {
+                                mailStr = gankResults.getData().getAppMail();
+                                SharedPreferencesUtilis.saveStringIntoPref("APP_MAIL", gankResults.getData().getAppMail());
+                                normalDialog = new NormalDialog(getActivity());
+                                normalDialog.setTitle("温馨提示")
+                                        .setContent(mailStr)
+                                        .showOnlyBtn().show();
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     @Override

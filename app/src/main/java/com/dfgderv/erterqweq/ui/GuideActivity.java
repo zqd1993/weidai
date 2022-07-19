@@ -14,7 +14,9 @@ import android.util.Log;
 import android.view.KeyEvent;
 
 import com.dfgderv.erterqweq.R;
+import com.dfgderv.erterqweq.mvp.XActivity;
 import com.dfgderv.erterqweq.utils.SharedPreferencesUtilis;
+import com.dfgderv.erterqweq.utils.StaticUtil;
 import com.dfgderv.erterqweq.utils.StatusBarUtil;
 import com.dfgderv.erterqweq.router.Router;
 
@@ -28,7 +30,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class GuideActivity extends AppCompatActivity {
+public class GuideActivity extends XActivity {
 
     private WelcomeDialog welcomeDialog;
 
@@ -37,16 +39,6 @@ public class GuideActivity extends AppCompatActivity {
     private boolean isAgree = false, isResume = false;
 
     private String loginPhone = "";
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guide);
-        StatusBarUtil.setTransparent(this, false);
-        isAgree = SharedPreferencesUtilis.getBoolFromPref("agree");
-        loginPhone = SharedPreferencesUtilis.getStringFromPref("phone");
-        sendRequestWithOkHttp();
-    }
 
     public static int dp2px(Context context, float dpValue) {
         float scale = context.getResources().getDisplayMetrics().density;
@@ -96,7 +88,6 @@ public class GuideActivity extends AppCompatActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
         welcomeDialog = new WelcomeDialog(this, "温馨提示");
         welcomeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -113,10 +104,8 @@ public class GuideActivity extends AppCompatActivity {
             public void topBtnClicked() {
                 SharedPreferencesUtilis.saveStringIntoPref("uminit", "1");
                 SharedPreferencesUtilis.saveBoolIntoPref("agree", true);
-                Router.newIntent(GuideActivity.this)
-                        .to(LoginActivity.class)
-                        .launch();
-                finish();
+                welcomeDialog.dismiss();
+                StaticUtil.getValue(GuideActivity.this, LoginActivity.class, null, true);
             }
 
             @Override
@@ -126,32 +115,21 @@ public class GuideActivity extends AppCompatActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 1);
-                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
-                    Router.newIntent(GuideActivity.this)
-                            .to(WebViewActivity.class)
-                            .data(bundle)
-                            .launch();
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", Api.PRIVACY_POLICY);
+                StaticUtil.getValue(GuideActivity.this, WebViewActivity.class, bundle);
             }
 
             @Override
             public void privacyAgreementClicked() {
-                if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 2);
-                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
-                    Router.newIntent(GuideActivity.this)
-                            .to(WebViewActivity.class)
-                            .data(bundle)
-                            .launch();
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 2);
+                bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
+                StaticUtil.getValue(GuideActivity.this, WebViewActivity.class, bundle);
             }
         });
         welcomeDialog.show();
-        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -187,15 +165,10 @@ public class GuideActivity extends AppCompatActivity {
         if (isAgree) {
             initUm();
             if (!TextUtils.isEmpty(loginPhone)) {
-                Router.newIntent(GuideActivity.this)
-                        .to(HomePageActivity.class)
-                        .launch();
+                StaticUtil.getValue(GuideActivity.this, HomePageActivity.class, null, true);
             } else {
-                Router.newIntent(GuideActivity.this)
-                        .to(LoginActivity.class)
-                        .launch();
+                StaticUtil.getValue(GuideActivity.this, HomePageActivity.class, null, true);
             }
-            finish();
         } else {
             showDialog();
         }
@@ -230,5 +203,24 @@ public class GuideActivity extends AppCompatActivity {
             // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
             UMConfigure.init(this, "62c007bb05844627b5d4d241", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
         }
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        StatusBarUtil.setTransparent(this, false);
+        isAgree = SharedPreferencesUtilis.getBoolFromPref("agree");
+        loginPhone = SharedPreferencesUtilis.getStringFromPref("phone");
+//        sendRequestWithOkHttp();
+        jumpPage();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_guide;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 }

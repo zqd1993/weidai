@@ -3,6 +3,7 @@ package com.dfgderv.erterqweq.ui;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -61,28 +62,23 @@ public class LoginActivity extends XActivity<LoginPresent> {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
+        if (SharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         initListener();
         getP().getGankData();
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
-            if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                if (position == 1) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 1);
-                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
-                    Router.newIntent(LoginActivity.this)
-                            .to(WebViewActivity.class)
-                            .data(bundle)
-                            .launch();
-                } else {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 2);
-                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
-                    Router.newIntent(LoginActivity.this)
-                            .to(WebViewActivity.class)
-                            .data(bundle)
-                            .launch();
-                }
+            if (position == 1) {
+                bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", Api.PRIVACY_POLICY);
+                StaticUtil.getValue(LoginActivity.this, WebViewActivity.class, bundle);
+            } else {
+                bundle = new Bundle();
+                bundle.putInt("tag", 2);
+                bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
+                StaticUtil.getValue(LoginActivity.this, WebViewActivity.class, bundle);
             }
         });
     }

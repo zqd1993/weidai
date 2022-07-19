@@ -1,12 +1,21 @@
 package com.dfgderv.erterqweq.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.dfgderv.erterqweq.model.BaseRespModel;
+import com.dfgderv.erterqweq.model.ConfigModel;
+import com.dfgderv.erterqweq.mvp.XActivity;
+import com.dfgderv.erterqweq.net.Api;
+import com.dfgderv.erterqweq.net.ApiSubscriber;
 import com.dfgderv.erterqweq.net.NetError;
+import com.dfgderv.erterqweq.net.XApi;
+import com.dfgderv.erterqweq.router.Router;
 
 import java.util.regex.Pattern;
 
@@ -68,6 +77,68 @@ public class StaticUtil {
             e.printStackTrace();
         }
         return versionName;
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
+        Api.getGankService().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseRespModel<ConfigModel> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, false);
+                            }
+                        }
+                    }
+                });
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        Api.getGankService().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseRespModel<ConfigModel> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, isFinish);
+                            }
+                        }
+                    }
+                });
+    }
+
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        if (bundle != null) {
+            Router.newIntent(activity)
+                    .to(to)
+                    .data(bundle)
+                    .launch();
+        } else {
+            Router.newIntent(activity)
+                    .to(to)
+                    .launch();
+        }
+        if (isFinish) {
+            activity.finish();
+        }
     }
 
 }
