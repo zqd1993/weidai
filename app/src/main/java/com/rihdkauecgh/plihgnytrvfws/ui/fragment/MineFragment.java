@@ -13,6 +13,7 @@ import com.rihdkauecgh.plihgnytrvfws.adapter.MineAdapter;
 import com.rihdkauecgh.plihgnytrvfws.model.BaseRespModel;
 import com.rihdkauecgh.plihgnytrvfws.model.ConfigModel;
 import com.rihdkauecgh.plihgnytrvfws.model.MineItemModel;
+import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
 import com.rihdkauecgh.plihgnytrvfws.net.ApiSubscriber;
 import com.rihdkauecgh.plihgnytrvfws.net.NetError;
 import com.rihdkauecgh.plihgnytrvfws.net.XApi;
@@ -92,29 +93,19 @@ public class MineFragment extends XFragment {
                             bundle = new Bundle();
                             bundle.putInt("tag", 1);
                             bundle.putString("url", Api.PRIVACY_POLICY);
-                            Router.newIntent(getActivity())
-                                    .to(WebViewActivity.class)
-                                    .data(bundle)
-                                    .launch();
+                            StaticUtil.getValue((XActivity) getActivity(), WebViewActivity.class, bundle);
                             break;
                         case 1:
                             bundle = new Bundle();
                             bundle.putInt("tag", 2);
                             bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                            Router.newIntent(getActivity())
-                                    .to(WebViewActivity.class)
-                                    .data(bundle)
-                                    .launch();
+                            StaticUtil.getValue((XActivity) getActivity(), WebViewActivity.class, bundle);
                             break;
                         case 2:
-                            Router.newIntent(getActivity())
-                                    .to(FeedBackActivity.class)
-                                    .launch();
+                            StaticUtil.getValue((XActivity) getActivity(), FeedBackActivity.class, null);
                             break;
                         case 3:
-                            Router.newIntent(getActivity())
-                                    .to(AboutUsActivity.class)
-                                    .launch();
+                            StaticUtil.getValue((XActivity) getActivity(), AboutUsActivity.class, null);
                             break;
                         case 4:
                             normalDialog = new NormalDialog(getActivity());
@@ -135,9 +126,7 @@ public class MineFragment extends XFragment {
                             getGankData();
                             break;
                         case 6:
-                            Router.newIntent(getActivity())
-                                    .to(CancellationAccountActivity.class)
-                                    .launch();
+                            StaticUtil.getValue((XActivity) getActivity(), CancellationAccountActivity.class, null);
                             break;
                         case 7:
                             normalDialog = new NormalDialog(getActivity());
@@ -151,10 +140,7 @@ public class MineFragment extends XFragment {
                                     .setRightListener(v -> {
                                         normalDialog.dismiss();
                                         SharedPreferencesUtilis.saveStringIntoPref("phone", "");
-                                        Router.newIntent(getActivity())
-                                                .to(LoginActivity.class)
-                                                .launch();
-                                        getActivity().finish();
+                                        StaticUtil.getValue((XActivity) getActivity(), LoginActivity.class, null, true);
                                     }).show();
                             break;
                     }
@@ -176,31 +162,29 @@ public class MineFragment extends XFragment {
     }
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
-            Api.getGankService().getGankData()
-                    .compose(XApi.<BaseRespModel<ConfigModel>>getApiTransformer())
-                    .compose(XApi.<BaseRespModel<ConfigModel>>getScheduler())
-                    .compose(this.<BaseRespModel<ConfigModel>>bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                        }
+        Api.getGankService().getGankData()
+                .compose(XApi.<BaseRespModel<ConfigModel>>getApiTransformer())
+                .compose(XApi.<BaseRespModel<ConfigModel>>getScheduler())
+                .compose(this.<BaseRespModel<ConfigModel>>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                    }
 
-                        @Override
-                        public void onNext(BaseRespModel<ConfigModel> gankResults) {
-                            if (gankResults != null) {
-                                if (gankResults.getData() != null) {
-                                    mailStr = gankResults.getData().getAppMail();
-                                    SharedPreferencesUtilis.saveStringIntoPref("APP_MAIL", gankResults.getData().getAppMail());
-                                    normalDialog = new NormalDialog(getActivity());
-                                    normalDialog.setTitle("温馨提示")
-                                            .setContent(mailStr)
-                                            .showOnlyBtn().show();
-                                }
+                    @Override
+                    public void onNext(BaseRespModel<ConfigModel> gankResults) {
+                        if (gankResults != null) {
+                            if (gankResults.getData() != null) {
+                                mailStr = gankResults.getData().getAppMail();
+                                SharedPreferencesUtilis.saveStringIntoPref("APP_MAIL", gankResults.getData().getAppMail());
+                                normalDialog = new NormalDialog(getActivity());
+                                normalDialog.setTitle("温馨提示")
+                                        .setContent(mailStr)
+                                        .showOnlyBtn().show();
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
 }

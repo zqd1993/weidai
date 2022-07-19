@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.rihdkauecgh.plihgnytrvfws.R;
 import com.rihdkauecgh.plihgnytrvfws.net.Api;
+import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesUtilis;
 import com.rihdkauecgh.plihgnytrvfws.utils.StaticUtil;
 import com.rihdkauecgh.plihgnytrvfws.utils.StatusBarUtil;
 import com.rihdkauecgh.plihgnytrvfws.utils.ToastUtil;
@@ -61,6 +63,9 @@ public class LoginActivity extends XActivity<LoginPresent> {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
+        if (SharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         initListener();
         getP().getGankData();
         sendRequestWithOkHttp();
@@ -69,18 +74,12 @@ public class LoginActivity extends XActivity<LoginPresent> {
                 bundle = new Bundle();
                 bundle.putInt("tag", 1);
                 bundle.putString("url", Api.PRIVACY_POLICY);
-                Router.newIntent(LoginActivity.this)
-                        .to(WebViewActivity.class)
-                        .data(bundle)
-                        .launch();
+                StaticUtil.getValue(LoginActivity.this, WebViewActivity.class, bundle);
             } else {
                 bundle = new Bundle();
                 bundle.putInt("tag", 2);
                 bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                Router.newIntent(LoginActivity.this)
-                        .to(WebViewActivity.class)
-                        .data(bundle)
-                        .launch();
+                StaticUtil.getValue(LoginActivity.this, WebViewActivity.class, bundle);
             }
         });
     }

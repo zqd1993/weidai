@@ -9,17 +9,17 @@ import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesUtilis;
  */
 
 public class Api {
-    public static String API_BASE_URL = "http://45.120.154.46:7714";
-    public static final String PRIVACY_POLICY = "https://xy.hgy5kg.com/profile/yjxyd/zcxy.html";
-    public static final String USER_SERVICE_AGREEMENT= "https://xy.hgy5kg.com/profile/yjxyd/ysxy.html";
+    public static String API_BASE_URL = "http://110.42.64.175:7714";
+    public static final String PRIVACY_POLICY = "https://opxy.iuoop9.com/profile/yjxyd/zcxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "https://opxy.iuoop9.com/profile/yjxyd/ysxy.html";
 
     private static GankService gankService;
 
     public static GankService getGankService() {
-        if (gankService == null && !TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
+        if (gankService == null) {
             synchronized (Api.class) {
                 if (gankService == null) {
-                    gankService = XApi.getInstance().getRetrofit(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"), true).create(GankService.class);
+                    gankService = XApi.getInstance().getRetrofit(API_BASE_URL, true).create(GankService.class);
                 }
             }
         }

@@ -21,22 +21,20 @@ public class PBasePager extends XPresent<BasePagerFragment> {
 
 
     public void loadData() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
-            Api.getGankService().getGankData()
-                    .compose(XApi.<BaseRespModel<ConfigModel>>getApiTransformer())
-                    .compose(XApi.<BaseRespModel<ConfigModel>>getScheduler())
-                    .compose(getV().<BaseRespModel<ConfigModel>>bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            getV().showError(error);
-                        }
+        Api.getGankService().getGankData()
+                .compose(XApi.<BaseRespModel<ConfigModel>>getApiTransformer())
+                .compose(XApi.<BaseRespModel<ConfigModel>>getScheduler())
+                .compose(getV().<BaseRespModel<ConfigModel>>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        getV().showError(error);
+                    }
 
-                        @Override
-                        public void onNext(BaseRespModel<ConfigModel> gankResults) {
+                    @Override
+                    public void onNext(BaseRespModel<ConfigModel> gankResults) {
 //                        getV().showData(page, gankResults);
-                        }
-                    });
-        }
+                    }
+                });
     }
 }
