@@ -6,12 +6,14 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chenqi.lecheng.R;
+import com.chenqi.lecheng.utilsshandai.SharedPreferencesHaoJieUtilis;
 import com.google.android.material.snackbar.Snackbar;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -97,6 +99,9 @@ public class FeedBackHaoJieActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarHaoJieUtil.setTransparent(this, false);
+        if (SharedPreferencesHaoJieUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         backIv.setOnClickListener(v -> finish());
         biaotiTv.setText("意见反馈");
         commitBtn.setOnClickListener(v -> {

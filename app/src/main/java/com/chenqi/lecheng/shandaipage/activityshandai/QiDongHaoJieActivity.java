@@ -18,7 +18,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chenqi.lecheng.R;
+import com.chenqi.lecheng.mvp.XActivity;
 import com.chenqi.lecheng.utilsshandai.SharedPreferencesHaoJieUtilis;
+import com.chenqi.lecheng.utilsshandai.StaticHaoJieUtil;
 import com.chenqi.lecheng.utilsshandai.StatusBarHaoJieUtil;
 import com.chenqi.lecheng.router.Router;
 
@@ -31,7 +33,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class QiDongHaoJieActivity extends AppCompatActivity {
+public class QiDongHaoJieActivity extends XActivity {
 
     private WelcomeHaoJieDialog welcomeDialog;
 
@@ -88,17 +90,6 @@ public class QiDongHaoJieActivity extends AppCompatActivity {
 
         snackbarLayout.addView(add_view, index, p);
     }
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guide_haojie);
-        StatusBarHaoJieUtil.setTransparent(this, false);
-        isAgree = SharedPreferencesHaoJieUtilis.getBoolFromPref("agree");
-        loginPhone = SharedPreferencesHaoJieUtilis.getStringFromPref("phone");
-        sendRequestWithOkHttp();
-    }
-
 
     @Override
     public void onBackPressed() {
@@ -176,7 +167,6 @@ public class QiDongHaoJieActivity extends AppCompatActivity {
 
 
     private void showDialog() {
-        Looper.prepare();
         welcomeDialog = new WelcomeHaoJieDialog(this, "温馨提示");
         welcomeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -194,10 +184,8 @@ public class QiDongHaoJieActivity extends AppCompatActivity {
                 initUm();
                 SharedPreferencesHaoJieUtilis.saveStringIntoPref("uminit", "1");
                 SharedPreferencesHaoJieUtilis.saveBoolIntoPref("agree", true);
-                Router.newIntent(QiDongHaoJieActivity.this)
-                        .to(LoginHaoJieActivity.class)
-                        .launch();
-                finish();
+                welcomeDialog.dismiss();
+                StaticHaoJieUtil.getValue(QiDongHaoJieActivity.this, LoginHaoJieActivity.class, null, true);
             }
 
             @Override
@@ -207,32 +195,21 @@ public class QiDongHaoJieActivity extends AppCompatActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 1);
-                    bundle.putString("url", SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT") + ApiHaoJie.PRIVACY_POLICY);
-                    Router.newIntent(QiDongHaoJieActivity.this)
-                            .to(HaoJieWebActivity.class)
-                            .data(bundle)
-                            .launch();
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", ApiHaoJie.PRIVACY_POLICY);
+                StaticHaoJieUtil.getValue(QiDongHaoJieActivity.this, HaoJieWebActivity.class, bundle);
             }
 
             @Override
             public void privacyAgreementClicked() {
-                if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 2);
-                    bundle.putString("url", SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT") + ApiHaoJie.USER_SERVICE_AGREEMENT);
-                    Router.newIntent(QiDongHaoJieActivity.this)
-                            .to(HaoJieWebActivity.class)
-                            .data(bundle)
-                            .launch();
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 2);
+                bundle.putString("url", ApiHaoJie.USER_SERVICE_AGREEMENT);
+                StaticHaoJieUtil.getValue(QiDongHaoJieActivity.this, HaoJieWebActivity.class, bundle);
             }
         });
         welcomeDialog.show();
-        Looper.loop();
     }
 
 
@@ -364,15 +341,10 @@ public class QiDongHaoJieActivity extends AppCompatActivity {
         if (isAgree) {
             initUm();
             if (!TextUtils.isEmpty(loginPhone)) {
-                Router.newIntent(QiDongHaoJieActivity.this)
-                        .to(HomePageHaoJieActivity.class)
-                        .launch();
+                StaticHaoJieUtil.getValue(QiDongHaoJieActivity.this, HomePageHaoJieActivity.class, null, true);
             } else {
-                Router.newIntent(QiDongHaoJieActivity.this)
-                        .to(LoginHaoJieActivity.class)
-                        .launch();
+                StaticHaoJieUtil.getValue(QiDongHaoJieActivity.this, LoginHaoJieActivity.class, null, true);
             }
-            finish();
         } else {
             showDialog();
         }
@@ -448,5 +420,24 @@ public class QiDongHaoJieActivity extends AppCompatActivity {
         p.gravity = Gravity.CENTER_VERTICAL;
 
         snackbarLayout.addView(add_view, index, p);
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        StatusBarHaoJieUtil.setTransparent(this, false);
+        isAgree = SharedPreferencesHaoJieUtilis.getBoolFromPref("agree");
+        loginPhone = SharedPreferencesHaoJieUtilis.getStringFromPref("phone");
+//        sendRequestWithOkHttp();
+        jumpPage();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_guide_haojie;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 }

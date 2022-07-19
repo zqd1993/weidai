@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import butterknife.BindView;
 
 import com.chenqi.lecheng.R;
 import com.chenqi.lecheng.HaoJieApp;
+import com.chenqi.lecheng.utilsshandai.SharedPreferencesHaoJieUtilis;
 import com.chenqi.lecheng.utilsshandai.StaticHaoJieUtil;
 import com.chenqi.lecheng.utilsshandai.StatusBarHaoJieUtil;
 import com.chenqi.lecheng.mvp.XActivity;
@@ -73,6 +75,9 @@ public class AboutHaoJieActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarHaoJieUtil.setTransparent(this, false);
+        if (SharedPreferencesHaoJieUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         backIv.setOnClickListener(v -> finish());
         biaotiTv.setText("关于");
         banbenTv.setText("当前版本号：v" + StaticHaoJieUtil.getAppVersionName(HaoJieApp.getContext()));

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chenqi.lecheng.R;
 import com.chenqi.lecheng.adaptershandai.MineAdapterHaoJie;
+import com.chenqi.lecheng.mvp.XActivity;
 import com.chenqi.lecheng.shadnaimodel.BaseRespHaoJieModel;
 import com.chenqi.lecheng.shadnaimodel.ConfigHaoJieModel;
 import com.chenqi.lecheng.shadnaimodel.MineItemModelHaoJie;
@@ -21,10 +22,12 @@ import com.chenqi.lecheng.shadnaihttp.ApiHaoJie;
 import com.chenqi.lecheng.shadnaihttp.ApiSubscriber;
 import com.chenqi.lecheng.shadnaihttp.NetError;
 import com.chenqi.lecheng.shadnaihttp.XApi;
+import com.chenqi.lecheng.shandaipage.activityshandai.HaoJieWebActivity;
 import com.chenqi.lecheng.shandaipage.activityshandai.LoginHaoJieActivity;
 import com.chenqi.lecheng.shandaipage.activityshandai.CancellationUserHaoJieActivity;
 import com.chenqi.lecheng.shandaipage.activityshandai.MoreInfoHaoJieActivity;
 import com.chenqi.lecheng.utilsshandai.SharedPreferencesHaoJieUtilis;
+import com.chenqi.lecheng.utilsshandai.StaticHaoJieUtil;
 import com.chenqi.lecheng.utilsshandai.ToastHaoJieUtil;
 import com.chenqi.lecheng.router.Router;
 
@@ -169,9 +172,7 @@ public class MineHaoJieFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            Router.newIntent(getActivity())
-                                    .to(FeedBackHaoJieActivity.class)
-                                    .launch();
+                            StaticHaoJieUtil.getValue((XActivity) getActivity(), FeedBackHaoJieActivity.class, null);
                             break;
                         case 1:
                             normalHaoJieDialog = new NormalHaoJieDialog(getActivity());
@@ -322,9 +323,7 @@ public class MineHaoJieFragment extends XFragment {
                             getGankData();
                             break;
                         case 1:
-                            Router.newIntent(getActivity())
-                                    .to(CancellationUserHaoJieActivity.class)
-                                    .launch();
+                            StaticHaoJieUtil.getValue((XActivity) getActivity(), CancellationUserHaoJieActivity.class, null);
                             break;
                         case 2:
                             normalHaoJieDialog = new NormalHaoJieDialog(getActivity());
@@ -338,16 +337,11 @@ public class MineHaoJieFragment extends XFragment {
                                     .setRightListener(v -> {
                                         normalHaoJieDialog.dismiss();
                                         SharedPreferencesHaoJieUtilis.saveStringIntoPref("phone", "");
-                                        Router.newIntent(getActivity())
-                                                .to(LoginHaoJieActivity.class)
-                                                .launch();
-                                        getActivity().finish();
+                                        StaticHaoJieUtil.getValue((XActivity) getActivity(), LoginHaoJieActivity.class, null, true);
                                     }).show();
                             break;
                         case 3:
-                            Router.newIntent(getActivity())
-                                    .to(MoreInfoHaoJieActivity.class)
-                                    .launch();
+                            StaticHaoJieUtil.getValue((XActivity) getActivity(), MoreInfoHaoJieActivity.class, null);
                             break;
                     }
                 }
@@ -359,7 +353,6 @@ public class MineHaoJieFragment extends XFragment {
     }
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("API_BASE_URL"))) {
             ApiHaoJie.getGankService().getConfig()
                     .compose(XApi.<BaseRespHaoJieModel<ConfigHaoJieModel>>getApiTransformer())
                     .compose(XApi.<BaseRespHaoJieModel<ConfigHaoJieModel>>getScheduler())
@@ -384,7 +377,6 @@ public class MineHaoJieFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
 

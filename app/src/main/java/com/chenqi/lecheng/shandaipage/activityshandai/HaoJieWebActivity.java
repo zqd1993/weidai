@@ -15,6 +15,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.DownloadListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -27,6 +28,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.chenqi.lecheng.R;
+import com.chenqi.lecheng.utilsshandai.SharedPreferencesHaoJieUtilis;
 import com.chenqi.lecheng.utilsshandai.StatusBarHaoJieUtil;
 import com.chenqi.lecheng.mvp.XActivity;
 import com.chenqi.lecheng.widgetshandai.DownloadHaoJieUtil;
@@ -106,6 +108,9 @@ public class HaoJieWebActivity extends XActivity implements EasyPermissions.Perm
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarHaoJieUtil.setTransparent(this, false);
+        if (SharedPreferencesHaoJieUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         bundle = getIntent().getExtras();
         if (bundle.containsKey("tag"))
             tag = bundle.getInt("tag");

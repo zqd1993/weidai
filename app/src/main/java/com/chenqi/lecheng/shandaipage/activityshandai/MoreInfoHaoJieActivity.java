@@ -5,11 +5,13 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chenqi.lecheng.utilsshandai.SharedPreferencesHaoJieUtilis;
+import com.chenqi.lecheng.utilsshandai.StaticHaoJieUtil;
 import com.google.android.material.snackbar.Snackbar;
 import com.lihang.ShadowLayout;
 import com.chenqi.lecheng.R;
@@ -86,34 +88,25 @@ public class MoreInfoHaoJieActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarHaoJieUtil.setTransparent(this, false);
+        if (SharedPreferencesHaoJieUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         backIv.setOnClickListener(v -> finish());
         biaotiTv.setText("更多信息");
         appInfoSl.setOnClickListener(v -> {
-            Router.newIntent(this)
-                    .to(AboutHaoJieActivity.class)
-                    .launch();
+            StaticHaoJieUtil.getValue(this, AboutHaoJieActivity.class, null);
         });
         zcxySl.setOnClickListener(v -> {
-            if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT"))) {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT") + ApiHaoJie.PRIVACY_POLICY);
-                Router.newIntent(this)
-                        .to(HaoJieWebActivity.class)
-                        .data(bundle)
-                        .launch();
-            }
+            bundle = new Bundle();
+            bundle.putInt("tag", 1);
+            bundle.putString("url", ApiHaoJie.PRIVACY_POLICY);
+            StaticHaoJieUtil.getValue(this, HaoJieWebActivity.class, bundle);
         });
         ysxySl.setOnClickListener(v -> {
-            if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT"))) {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT") + ApiHaoJie.USER_SERVICE_AGREEMENT);
-                Router.newIntent(this)
-                        .to(HaoJieWebActivity.class)
-                        .data(bundle)
-                        .launch();
-            }
+            bundle = new Bundle();
+            bundle.putInt("tag", 2);
+            bundle.putString("url", ApiHaoJie.USER_SERVICE_AGREEMENT);
+            StaticHaoJieUtil.getValue(this, HaoJieWebActivity.class, bundle);
         });
     }
 

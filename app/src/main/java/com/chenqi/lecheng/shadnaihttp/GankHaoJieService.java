@@ -24,6 +24,9 @@ public interface GankHaoJieService {
     @GET("/app/user/logins")
     Flowable<BaseRespHaoJieModel<LoginRespHaoJieModel>> logins(@Query("phone") String phone, @Query("ip") String ip);
 
+    @GET("/app/config/getValue")
+    Flowable<BaseRespHaoJieModel<ConfigHaoJieModel>> getValue(@Query("key") String phone);
+
     @GET("/app/user/sendVerifyCode")
     Flowable<BaseRespHaoJieModel> sendVerifyCode(@Query("phone") String phone);
 

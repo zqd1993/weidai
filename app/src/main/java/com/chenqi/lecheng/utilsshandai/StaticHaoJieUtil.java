@@ -1,8 +1,10 @@
 package com.chenqi.lecheng.utilsshandai;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -12,7 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chenqi.lecheng.R;
+import com.chenqi.lecheng.mvp.XActivity;
+import com.chenqi.lecheng.router.Router;
+import com.chenqi.lecheng.shadnaihttp.ApiHaoJie;
+import com.chenqi.lecheng.shadnaihttp.ApiSubscriber;
 import com.chenqi.lecheng.shadnaihttp.NetError;
+import com.chenqi.lecheng.shadnaihttp.XApi;
+import com.chenqi.lecheng.shadnaimodel.BaseRespHaoJieModel;
+import com.chenqi.lecheng.shadnaimodel.ConfigHaoJieModel;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.regex.Pattern;
@@ -171,6 +180,68 @@ public class StaticHaoJieUtil {
         p.gravity = Gravity.CENTER_VERTICAL;
 
         snackbarLayout.addView(add_view, index, p);
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
+        ApiHaoJie.getGankService().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespHaoJieModel<ConfigHaoJieModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseRespHaoJieModel<ConfigHaoJieModel> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SharedPreferencesHaoJieUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, false);
+                            }
+                        }
+                    }
+                });
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        ApiHaoJie.getGankService().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespHaoJieModel<ConfigHaoJieModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseRespHaoJieModel<ConfigHaoJieModel> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SharedPreferencesHaoJieUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, isFinish);
+                            }
+                        }
+                    }
+                });
+    }
+
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        if (bundle != null) {
+            Router.newIntent(activity)
+                    .to(to)
+                    .data(bundle)
+                    .launch();
+        } else {
+            Router.newIntent(activity)
+                    .to(to)
+                    .launch();
+        }
+        if (isFinish) {
+            activity.finish();
+        }
     }
 
 }

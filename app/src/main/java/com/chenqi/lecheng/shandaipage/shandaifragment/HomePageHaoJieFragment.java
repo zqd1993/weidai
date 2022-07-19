@@ -14,11 +14,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chenqi.lecheng.R;
 import com.chenqi.lecheng.adaptershandai.GoodsItemAdapterHaoJie;
+import com.chenqi.lecheng.mvp.XActivity;
 import com.chenqi.lecheng.shadnaimodel.GoodsWinAHaoJieModel;
 import com.chenqi.lecheng.shandaipage.activityshandai.HaoJieWebActivity;
 import com.chenqi.lecheng.mvp.XFragment;
 import com.chenqi.lecheng.presentshandai.HomePageHaoJiePresent;
 import com.chenqi.lecheng.router.Router;
+import com.chenqi.lecheng.utilsshandai.StaticHaoJieUtil;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -91,7 +93,7 @@ public class HomePageHaoJieFragment extends XFragment<HomePageHaoJiePresent> {
     private Bundle bundle, webBundle;
     private int tag;
     public GoodsItemAdapterHaoJie miaoJieGoodsItemAdapter;
-    private GoodsWinAHaoJieModel goodsModel;
+    public GoodsWinAHaoJieModel goodsModel;
 
     public static HomePageHaoJieFragment getInstant(int tag) {
         HomePageHaoJieFragment homePageFragment = new HomePageHaoJieFragment();
@@ -175,9 +177,6 @@ public class HomePageHaoJieFragment extends XFragment<HomePageHaoJiePresent> {
                 homePageBg.setVisibility(View.GONE);
             }
         }
-        new Handler().postDelayed(() -> {
-            getP().getList();
-        }, 200);
         swipeRefreshLayout.setOnRefreshListener(() -> getP().getList());
         noDataFl.setOnClickListener(v -> getP().getList());
         productBg.setOnClickListener(v -> {
@@ -191,6 +190,11 @@ public class HomePageHaoJieFragment extends XFragment<HomePageHaoJiePresent> {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getP().getList();
+    }
 
     /**
      * 设置Snackbar背景颜色
@@ -242,10 +246,7 @@ public class HomePageHaoJieFragment extends XFragment<HomePageHaoJiePresent> {
             webBundle.putInt("tag", 3);
             webBundle.putString("url", model.getUrl());
             webBundle.putString("title", model.getProductName());
-            Router.newIntent(getActivity())
-                    .to(HaoJieWebActivity.class)
-                    .data(webBundle)
-                    .launch();
+            StaticHaoJieUtil.getValue((XActivity) getActivity(), HaoJieWebActivity.class, webBundle);
         }
     }
 

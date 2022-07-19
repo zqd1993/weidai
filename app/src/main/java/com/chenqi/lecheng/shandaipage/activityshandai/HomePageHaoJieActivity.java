@@ -5,6 +5,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.chenqi.lecheng.R;
+import com.chenqi.lecheng.utilsshandai.SharedPreferencesHaoJieUtilis;
 import com.chenqi.lecheng.utilsshandai.StatusBarHaoJieUtil;
 import com.chenqi.lecheng.utilsshandai.ToastHaoJieUtil;
 import com.chenqi.lecheng.mvp.XActivity;
@@ -95,6 +97,9 @@ public class HomePageHaoJieActivity extends XActivity<MainHaoJiePresent> {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarHaoJieUtil.setTransparent(this, false);
+        if (SharedPreferencesHaoJieUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         getP().denglu();
         customTabEntities = new ArrayList<>();
         homeViewPager.setUserInputEnabled(false);

@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -114,30 +115,25 @@ public class LoginHaoJieActivity extends XActivity<LoginHaoJiePresent> {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarHaoJieUtil.setTransparent(this, false);
+        if (SharedPreferencesHaoJieUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         initListener();
         new Handler().postDelayed(() -> {
             getP().getConfig();
         }, 200);
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
-            if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT"))) {
-                if (position == 1) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 1);
-                    bundle.putString("url", SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT") + ApiHaoJie.PRIVACY_POLICY);
-                    Router.newIntent(LoginHaoJieActivity.this)
-                            .to(HaoJieWebActivity.class)
-                            .data(bundle)
-                            .launch();
-                } else {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 2);
-                    bundle.putString("url", SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT") + ApiHaoJie.USER_SERVICE_AGREEMENT);
-                    Router.newIntent(LoginHaoJieActivity.this)
-                            .to(HaoJieWebActivity.class)
-                            .data(bundle)
-                            .launch();
-                }
+            if (position == 1) {
+                bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", ApiHaoJie.PRIVACY_POLICY);
+                StaticHaoJieUtil.getValue(LoginHaoJieActivity.this, HaoJieWebActivity.class, bundle);
+            } else {
+                bundle = new Bundle();
+                bundle.putInt("tag", 2);
+                bundle.putString("url", ApiHaoJie.USER_SERVICE_AGREEMENT);
+                StaticHaoJieUtil.getValue(LoginHaoJieActivity.this, HaoJieWebActivity.class, bundle);
             }
         });
     }

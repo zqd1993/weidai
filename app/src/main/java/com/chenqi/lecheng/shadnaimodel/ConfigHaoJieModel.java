@@ -36,6 +36,16 @@ public class ConfigHaoJieModel {
     @SerializedName("IS_CODE_LOGIN")
     private String isCodeLogin;
 
+    @SerializedName("VIDEOTAPE")
+    private String videoTape;
+
+    public String getVideoTape() {
+        return videoTape;
+    }
+
+    public void setVideoTape(String videoTape) {
+        this.videoTape = videoTape;
+    }
 
     /**
      * 设置Snackbar背景颜色
