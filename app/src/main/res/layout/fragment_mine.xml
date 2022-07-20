@@ -27,7 +27,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="60dp"
                     android:layout_marginBottom="30dp"
-                    android:gravity="center_vertical"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical">
 
                     <ImageView
@@ -41,6 +41,22 @@
                         android:layout_height="wrap_content"
                         android:text="12345679"
                         android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/mail_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_corner_10_white"
+                        android:layout_marginTop="5dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:text="12345679"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -58,6 +74,23 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never" />
+
+            </com.lihang.ShadowLayout>
+
+            <com.lihang.ShadowLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                app:hl_cornerRadius="10dp"
+                app:hl_layoutBackground="@color/white">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvy_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:overScrollMode="never" />

@@ -13,11 +13,13 @@
         android:layout_marginEnd="20dp"
         android:orientation="vertical">
 
-        <FrameLayout
+        <com.lihang.ShadowLayout
             android:id="@+id/parent_fl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white">
+            app:hl_cornerRadius="10dp"
+            app:hl_startColor="@color/colorPrimary"
+            app:hl_endColor="#F19494">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -25,17 +27,15 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dp_15"
+                    android:layout_marginTop="@dimen/dp_15"
                     android:orientation="horizontal">
 
-                    <com.tryrbdfbv.grtregdfh.widget.ProportionFrameLayout
-                        android:layout_width="@dimen/dp_0"
+                    <com.suishijie.ndjufgjhdrty.widget.ProportionFrameLayout
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="@dimen/dp_15"
-                        android:layout_weight="1"
                         app:proporty="1.65">
 
                         <com.lihang.ShadowLayout
@@ -52,7 +52,26 @@
 
                         </com.lihang.ShadowLayout>
 
-                    </com.tryrbdfbv.grtregdfh.widget.ProportionFrameLayout>
+                    </com.suishijie.ndjufgjhdrty.widget.ProportionFrameLayout>
+
+                    <TextView
+                        android:id="@+id/product_name_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:text="好分期"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_15"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -64,23 +83,14 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/product_name_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="好分期"
-                            android:textColor="@color/text_normal_color"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <TextView
                             android:id="@+id/text_1"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginTop="5dp"
                             android:maxLines="1"
                             android:ellipsize="end"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_normal_color" />
+                            android:textSize="14sp"
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/text_2"
@@ -89,8 +99,8 @@
                             android:layout_marginTop="2dp"
                             android:maxLines="1"
                             android:ellipsize="end"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_normal_color" />
+                            android:textSize="14sp"
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/text_3"
@@ -99,22 +109,7 @@
                             android:layout_marginTop="2dp"
                             android:maxLines="1"
                             android:ellipsize="end"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_normal_color" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:background="@color/color_blue"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="10dp"
-                            android:paddingTop="3dp"
-                            android:paddingBottom="3dp"
-                            android:layout_marginTop="5dp"
-                            android:maxLines="1"
-                            android:ellipsize="end"
-                            android:textSize="12sp"
-                            android:text="立即申请  >>"
+                            android:textSize="14sp"
                             android:textColor="@color/white" />
 
                         <FrameLayout
@@ -264,9 +259,33 @@
 
                 </LinearLayout>
 
+                <com.lihang.ShadowLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginBottom="15dp"
+                    app:hl_layoutBackground="@color/color_blue">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:textSize="12sp"
+                        android:text="立即申请  >>"
+                        android:textColor="@color/white" />
+
+                </com.lihang.ShadowLayout>
+
             </LinearLayout>
 
-        </FrameLayout>
+        </com.lihang.ShadowLayout>
 
     </LinearLayout>
 

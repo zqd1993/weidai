@@ -15,11 +15,10 @@
 
         <ImageView
             android:id="@+id/item_img"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginStart="10dp"
-            android:src="@drawable/wd_icon_yjfk"
-            android:visibility="gone"/>
+            android:src="@drawable/wd_icon_yjfk"/>
 
         <TextView
             android:id="@+id/item_title_tv"
