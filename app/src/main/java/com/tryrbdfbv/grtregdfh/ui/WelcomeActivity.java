@@ -115,7 +115,7 @@ public class WelcomeActivity extends XActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://haoone.oss-cn-hangzhou.aliyuncs.com/co-sjsh.json")
+                            .url("https://haoone.oss-cn-hangzhou.aliyuncs.com/720/r-hjqb.json")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();

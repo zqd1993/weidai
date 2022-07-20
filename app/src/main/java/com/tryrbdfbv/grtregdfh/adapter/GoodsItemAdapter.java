@@ -42,9 +42,9 @@ public class GoodsItemAdapter extends SimpleRecAdapter<GoodsModel, GoodsItemAdap
         Glide.with(context).load(Api.API_BASE_URL + model.getImgs()).into(viewHolder.productImg);
 //        ILFactory.getLoader().loadNet(viewHolder.productImg, Api.API_BASE_URL + model.getImgs(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
         viewHolder.limitTv.setText(model.getMax_money());
-        viewHolder.text_1.setText("·" + model.getMax_money());
-        viewHolder.text_2.setText("·" + model.getDay_money());
-        viewHolder.text_3.setText("·" + model.getInfo());
+        viewHolder.text_1.setText(model.getMax_money());
+        viewHolder.text_2.setText(model.getDay_money());
+        viewHolder.text_3.setText(model.getInfo());
         viewHolder.clickView.setOnClickListener(v -> {
             getRecItemClick().onItemClick(i, model, 1, viewHolder);
         });

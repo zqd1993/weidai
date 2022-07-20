@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,24 +37,16 @@ public class MineAdapter extends SimpleRecAdapter<MineItemModel, MineAdapter.Vie
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         viewHolder.itemImg.setImageResource(data.get(i).getImgRes());
         viewHolder.tvItem.setText(data.get(i).getItemTv());
-        if (i == 3){
-            viewHolder.arrowIcon.setVisibility(View.GONE);
-            viewHolder.line.setVisibility(View.GONE);
-            viewHolder.rightText.setVisibility(View.VISIBLE);
-            if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("APP_MAIL"))) {
-                viewHolder.rightText.setText(SharedPreferencesUtilis.getStringFromPref("APP_MAIL"));
-            }
-            viewHolder.parentLl.setOnClickListener(v -> {
-                getRecItemClick().onItemClick(i, data.get(i), 2, viewHolder);
-            });
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) viewHolder.root_ll.getLayoutParams();
+        if (data.size() == 2){
+            lp.height = (500 - 40 ) / 2;
         } else {
-            viewHolder.rightText.setVisibility(View.GONE);
-            viewHolder.arrowIcon.setVisibility(View.VISIBLE);
-            viewHolder.line.setVisibility(View.VISIBLE);
-            viewHolder.parentLl.setOnClickListener(v -> {
-                getRecItemClick().onItemClick(i, data.get(i), 1, viewHolder);
-            });
+            lp.height = (500 - 70 ) / 3;
         }
+        viewHolder.root_ll.setLayoutParams(lp);
+        viewHolder.parentLl.setOnClickListener(v -> {
+            getRecItemClick().onItemClick(i, data.get(i), 1, viewHolder);
+        });
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -65,12 +58,8 @@ public class MineAdapter extends SimpleRecAdapter<MineItemModel, MineAdapter.Vie
         ImageView itemImg;
         @BindView(R.id.parent_ll)
         View parentLl;
-        @BindView(R.id.line)
-        View line;
-        @BindView(R.id.arrow_icon)
-        ImageView arrowIcon;
-        @BindView(R.id.right_text)
-        TextView rightText;
+        @BindView(R.id.root_ll)
+        View root_ll;
 
         public ViewHolder(View itemView) {
             super(itemView);

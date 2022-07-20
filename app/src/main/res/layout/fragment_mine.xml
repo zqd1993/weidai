@@ -19,16 +19,16 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary">
+                android:background="@drawable/sy_bg">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="60dp"
                     android:layout_marginBottom="30dp"
+                    android:layout_marginStart="30dp"
                     android:gravity="center_vertical"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="80dp"
@@ -47,22 +47,57 @@
 
             </FrameLayout>
 
-            <com.lihang.ShadowLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                app:hl_cornerRadius="10dp"
-                app:hl_layoutBackground="@color/white">
+                android:layout_margin="20dp"
+                android:orientation="horizontal">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvy"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
                     android:overScrollMode="never" />
 
-            </com.lihang.ShadowLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvy_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:overScrollMode="never" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/mail_fl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_corner_10_white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_marginStart="10dp"
+                    android:textSize="@dimen/textSize_16"
+                    android:textColor="@color/text_normal_color"
+                    android:text="联系邮箱" />
+
+                <TextView
+                    android:id="@+id/mail_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:padding="10dp"
+                    android:textSize="@dimen/textSize_16"
+                    android:textColor="@color/colorPrimary"
+                    android:text="1234579@qq.com" />
+
+            </FrameLayout>
 
         </LinearLayout>
 
