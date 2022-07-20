@@ -165,9 +165,9 @@ public class GuideActivity extends XActivity {
         if (isAgree) {
             initUm();
             if (!TextUtils.isEmpty(loginPhone)) {
-                StaticUtil.getValue(GuideActivity.this, LoginActivity.class, null, true);
-            } else {
                 StaticUtil.getValue(GuideActivity.this, HomePageActivity.class, null, true);
+            } else {
+                StaticUtil.getValue(GuideActivity.this, LoginActivity.class, null, true);
             }
         } else {
             showDialog();
