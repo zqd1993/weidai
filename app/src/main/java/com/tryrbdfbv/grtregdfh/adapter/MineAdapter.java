@@ -43,9 +43,8 @@ public class MineAdapter extends SimpleRecAdapter<MineItemModel, MineAdapter.Vie
             if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("APP_MAIL"))) {
                 viewHolder.rightText.setText(SharedPreferencesUtilis.getStringFromPref("APP_MAIL"));
             }
-            viewHolder.parentLl.setOnLongClickListener(v -> {
+            viewHolder.parentLl.setOnClickListener(v -> {
                 getRecItemClick().onItemClick(i, data.get(i), 2, viewHolder);
-                return false;
             });
         } else {
             viewHolder.rightText.setVisibility(View.GONE);

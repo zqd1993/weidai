@@ -101,9 +101,6 @@ public class HomePagePresent extends XPresent<HomePageFragment> {
                         public void onNext(BaseRespModel<List<GoodsModel>> gankResults) {
                             getV().swipeRefreshLayout.setRefreshing(false);
                             if (gankResults != null) {
-
-                            }
-                            if (gankResults != null) {
                                 if (gankResults.getCode() == 0) {
                                     if (gankResults.getData() != null && gankResults.getData().size() > 0) {
                                         getV().setModel(gankResults.getData().get(0));
