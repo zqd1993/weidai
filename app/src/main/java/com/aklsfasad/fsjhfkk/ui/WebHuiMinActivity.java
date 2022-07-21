@@ -12,6 +12,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.DownloadListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -23,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.aklsfasad.fsjhfkk.R;
+import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
 import com.aklsfasad.fsjhfkk.utils.StatusBarUtilHuiMin;
 import com.aklsfasad.fsjhfkk.mvp.XActivity;
 import com.aklsfasad.fsjhfkk.widget.DownloadUtil;
@@ -57,6 +59,9 @@ public class WebHuiMinActivity extends XActivity implements EasyPermissions.Perm
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtilHuiMin.setTransparent(this, false);
+        if (SharedPreferencesUtilisHuiMin.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         bundle = getIntent().getExtras();
         if (bundle.containsKey("tag"))
             tag = bundle.getInt("tag");
@@ -75,7 +80,7 @@ public class WebHuiMinActivity extends XActivity implements EasyPermissions.Perm
             finish();
         });
         webSettings = webView.getSettings();
-        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT); //设置缓存
+        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE); //设置缓存
         webSettings.setJavaScriptEnabled(true);//设置能够解析Javascript
         webSettings.setDomStorageEnabled(true);//设置适应Html5 重点是这个设置
         webSettings.setTextZoom(100);

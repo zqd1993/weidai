@@ -1,6 +1,7 @@
 package com.aklsfasad.fsjhfkk.ui.activity;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -9,6 +10,8 @@ import com.aklsfasad.fsjhfkk.mvp.XActivity;
 import com.aklsfasad.fsjhfkk.net.Api;
 import com.aklsfasad.fsjhfkk.router.Router;
 import com.aklsfasad.fsjhfkk.ui.WebHuiMinActivity;
+import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
+import com.aklsfasad.fsjhfkk.utils.StaticUtilHuiMin;
 import com.aklsfasad.fsjhfkk.utils.StatusBarUtilHuiMin;
 import com.lihang.ShadowLayout;
 
@@ -32,32 +35,27 @@ public class MoreSettingActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtilHuiMin.setTransparent(this, false);
+        if (SharedPreferencesUtilisHuiMin.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("更多信息");
         zcxySl.setOnClickListener(v -> {
             bundle = new Bundle();
             bundle.putInt("tag", 1);
             bundle.putString("url", Api.PRIVACY_POLICY);
-            Router.newIntent(this)
-                    .to(WebHuiMinActivity.class)
-                    .data(bundle)
-                    .launch();
+            StaticUtilHuiMin.getValue(this, WebHuiMinActivity.class, bundle);
         });
 
         ysxySl.setOnClickListener(v -> {
             bundle = new Bundle();
             bundle.putInt("tag", 2);
             bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-            Router.newIntent(this)
-                    .to(WebHuiMinActivity.class)
-                    .data(bundle)
-                    .launch();
+            StaticUtilHuiMin.getValue(this, WebHuiMinActivity.class, bundle);
         });
 
         gywmSl.setOnClickListener(v -> {
-            Router.newIntent(this)
-                    .to(AboutActivityHuiMin.class)
-                    .launch();
+            StaticUtilHuiMin.getValue(this, AboutActivityHuiMin.class, null);
         });
     }
 

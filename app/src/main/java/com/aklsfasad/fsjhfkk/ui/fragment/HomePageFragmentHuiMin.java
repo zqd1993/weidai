@@ -10,10 +10,14 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.aklsfasad.fsjhfkk.R;
 import com.aklsfasad.fsjhfkk.adapter.GoodsItemHuiMinAdapter;
 import com.aklsfasad.fsjhfkk.model.GoodsHuiMinModel;
+import com.aklsfasad.fsjhfkk.mvp.XActivity;
+import com.aklsfasad.fsjhfkk.ui.LoginActivityHuiMin;
+import com.aklsfasad.fsjhfkk.ui.TanPingActivity;
 import com.aklsfasad.fsjhfkk.ui.WebHuiMinActivity;
 import com.aklsfasad.fsjhfkk.mvp.XFragment;
 import com.aklsfasad.fsjhfkk.present.HomePagePresentHuiMin;
 import com.aklsfasad.fsjhfkk.router.Router;
+import com.aklsfasad.fsjhfkk.utils.StaticUtilHuiMin;
 
 import java.util.List;
 
@@ -100,10 +104,7 @@ public class HomePageFragmentHuiMin extends XFragment<HomePagePresentHuiMin> {
             webBundle.putInt("tag", 3);
             webBundle.putString("url", model.getUrl());
             webBundle.putString("title", model.getProductName());
-            Router.newIntent(getActivity())
-                    .to(WebHuiMinActivity.class)
-                    .data(webBundle)
-                    .launch();
+            StaticUtilHuiMin.getValue((XActivity) getActivity(), WebHuiMinActivity.class, webBundle);
         }
     }
 

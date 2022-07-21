@@ -4,12 +4,14 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.aklsfasad.fsjhfkk.R;
 import com.aklsfasad.fsjhfkk.net.Api;
+import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
 import com.aklsfasad.fsjhfkk.utils.StaticUtilHuiMin;
 import com.aklsfasad.fsjhfkk.utils.StatusBarUtilHuiMin;
 import com.aklsfasad.fsjhfkk.utils.ToastUtilHuiMin;
@@ -60,6 +62,9 @@ public class LoginActivityHuiMin extends XActivity<LoginPresentHuiMin> {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtilHuiMin.setTransparent(this, false);
+        if (SharedPreferencesUtilisHuiMin.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         initListener();
         getP().getGankData();
         sendRequestWithOkHttp();
@@ -68,18 +73,12 @@ public class LoginActivityHuiMin extends XActivity<LoginPresentHuiMin> {
                 bundle = new Bundle();
                 bundle.putInt("tag", 1);
                 bundle.putString("url", Api.PRIVACY_POLICY);
-                Router.newIntent(LoginActivityHuiMin.this)
-                        .to(WebHuiMinActivity.class)
-                        .data(bundle)
-                        .launch();
+                StaticUtilHuiMin.getValue(LoginActivityHuiMin.this, WebHuiMinActivity.class, bundle);
             } else {
                 bundle = new Bundle();
                 bundle.putInt("tag", 2);
                 bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                Router.newIntent(LoginActivityHuiMin.this)
-                        .to(WebHuiMinActivity.class)
-                        .data(bundle)
-                        .launch();
+                StaticUtilHuiMin.getValue(LoginActivityHuiMin.this, WebHuiMinActivity.class, bundle);
             }
         });
     }

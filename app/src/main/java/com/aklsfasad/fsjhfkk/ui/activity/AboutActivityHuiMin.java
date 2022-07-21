@@ -2,6 +2,7 @@ package com.aklsfasad.fsjhfkk.ui.activity;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -9,6 +10,7 @@ import butterknife.BindView;
 
 import com.aklsfasad.fsjhfkk.R;
 import com.aklsfasad.fsjhfkk.HuiMinApp;
+import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
 import com.aklsfasad.fsjhfkk.utils.StaticUtilHuiMin;
 import com.aklsfasad.fsjhfkk.utils.StatusBarUtilHuiMin;
 import com.aklsfasad.fsjhfkk.mvp.XActivity;
@@ -36,6 +38,9 @@ public class AboutActivityHuiMin extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtilHuiMin.setTransparent(this, false);
+        if (SharedPreferencesUtilisHuiMin.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("关于");
         versionCodeTv.setText("当前版本号：v" + StaticUtilHuiMin.getAppVersionName(HuiMinApp.getContext()));

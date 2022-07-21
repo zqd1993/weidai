@@ -44,10 +44,7 @@ public class LoginPresentHuiMin extends XPresent<LoginActivityHuiMin> {
                                 SharedPreferencesUtilisHuiMin.saveStringIntoPref("phone", phone);
                                 SharedPreferencesUtilisHuiMin.saveIntIntoPref("mobileType", gankResults.getData().getMobileType());
                                 SharedPreferencesUtilisHuiMin.saveStringIntoPref("ip", ip);
-                                Router.newIntent(getV())
-                                        .to(HomePageActivityHuiMin.class)
-                                        .launch();
-                                getV().finish();
+                                StaticUtilHuiMin.getValue(getV(), HomePageActivityHuiMin.class, null, true);
                             }
                         } else {
                             if (gankResults.getCode() == 500){
