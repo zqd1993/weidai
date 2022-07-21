@@ -11,13 +11,64 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
+        android:background="@color/white"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/fire" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="热门"
+                    android:textColor="#d81e06"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="2"
+                android:background="@color/color_blue"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp"
+                android:text="立即申请  >>"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+        </LinearLayout>
 
         <FrameLayout
             android:id="@+id/parent_fl"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -30,37 +81,44 @@
                     android:layout_marginBottom="@dimen/dp_15"
                     android:orientation="horizontal">
 
-                    <com.tryrbdfbv.grtregdfh.widget.ProportionFrameLayout
-                        android:layout_width="@dimen/dp_0"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="@dimen/dp_15"
+                        android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        app:proporty="1.65">
+                        android:orientation="vertical">
 
-                        <com.lihang.ShadowLayout
+                        <com.tryrbdfbv.grtregdfh.widget.ProportionFrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            app:hl_cornerRadius="3dp">
+                            android:layout_height="wrap_content"
+                            app:proporty="1.65">
 
-                            <ImageView
-                                android:id="@+id/product_img"
+                            <com.lihang.ShadowLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:scaleType="fitXY"/>
+                                android:layout_weight="1"
+                                app:hl_cornerRadius="3dp">
 
-                        </com.lihang.ShadowLayout>
+                                <ImageView
+                                    android:id="@+id/product_img"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="fitXY" />
 
-                    </com.tryrbdfbv.grtregdfh.widget.ProportionFrameLayout>
+                            </com.lihang.ShadowLayout>
+
+                        </com.tryrbdfbv.grtregdfh.widget.ProportionFrameLayout>
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="@dimen/dp_15"
-                        android:layout_marginEnd="@dimen/dp_15"
-                        android:layout_weight="1"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="2"
                         android:orientation="vertical">
 
                         <TextView
@@ -77,45 +135,30 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginTop="5dp"
-                            android:maxLines="1"
                             android:ellipsize="end"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_normal_color" />
+                            android:maxLines="1"
+                            android:textColor="@color/text_normal_color"
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/text_2"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginTop="2dp"
-                            android:maxLines="1"
                             android:ellipsize="end"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_normal_color" />
+                            android:maxLines="1"
+                            android:textColor="@color/text_normal_color"
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/text_3"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginTop="2dp"
-                            android:maxLines="1"
                             android:ellipsize="end"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_normal_color" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:background="@color/color_blue"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="10dp"
-                            android:paddingTop="3dp"
-                            android:paddingBottom="3dp"
-                            android:layout_marginTop="5dp"
                             android:maxLines="1"
-                            android:ellipsize="end"
-                            android:textSize="12sp"
-                            android:text="立即申请  >>"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/text_normal_color"
+                            android:textSize="12sp" />
 
                         <FrameLayout
                             android:layout_width="match_parent"
