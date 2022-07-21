@@ -63,7 +63,7 @@ public class OpenUtilQuFenQi {
                     public void onNext(BaseQuFenQiModel<QuFenQiConfigEntity> configEntity) {
                         if (configEntity != null) {
                             if (configEntity.getData() != null) {
-                                PreferencesQuFenQiOpenUtil.saveBool("NO_RECORD", configEntity.getData().getVideoTape().equals("0"));
+                                PreferencesQuFenQiOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
                                 jumpPage(activity, to, bundle, false);
                             }
                         }
@@ -86,7 +86,7 @@ public class OpenUtilQuFenQi {
                     public void onNext(BaseQuFenQiModel<QuFenQiConfigEntity> configEntity) {
                         if (configEntity != null) {
                             if (configEntity.getData() != null) {
-                                PreferencesQuFenQiOpenUtil.saveBool("NO_RECORD", configEntity.getData().getVideoTape().equals("0"));
+                                PreferencesQuFenQiOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
                                 jumpPage(activity, to, bundle, isFinish);
                             }
                         }
