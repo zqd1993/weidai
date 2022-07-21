@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dlproject.bkdk.R;
+import com.dlproject.bkdk.mvp.XActivity;
 import com.dlproject.bkdk.net.WangLuoApi;
 import com.dlproject.bkdk.uti.GongJuLei;
 import com.dlproject.bkdk.uti.SPFile;
@@ -28,7 +29,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class KaiShiActivity extends AppCompatActivity {
+public class KaiShiActivity extends XActivity {
 
     private Bundle bundle;
 
@@ -55,17 +56,6 @@ public class KaiShiActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return null;
-    }
-
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kaishi);
-        ZhuangTaiLanUtil.setTransparent(this, false);
-        isSure = SPFile.getBool("isSure");
-        phone = SPFile.getString("phone");
-        sendRequestWithOkHttp();
     }
 
     /**
@@ -100,7 +90,6 @@ public class KaiShiActivity extends AppCompatActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
         startPageRemindDialog = new KaiShiRemindDialog(this);
         startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -117,18 +106,16 @@ public class KaiShiActivity extends AppCompatActivity {
             public void oneBtnClicked() {
                 initUm();
                 SPFile.saveBool("isSure", true);
-                GongJuLei.jumpPage(KaiShiActivity.this, DengGeLuActivity.class);
-                finish();
+                startPageRemindDialog.dismiss();
+                GongJuLei.getValue(KaiShiActivity.this, DengGeLuActivity.class, null, true);
             }
 
             @Override
             public void zcxyClicked() {
-                if (!TextUtils.isEmpty(SPFile.getString("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putString("url", SPFile.getString("AGREEMENT") + WangLuoApi.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    GongJuLei.jumpPage(KaiShiActivity.this, JumpH5Activity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putString("url", WangLuoApi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                GongJuLei.getValue(KaiShiActivity.this, JumpH5Activity.class, bundle);
             }
 
             @Override
@@ -138,16 +125,13 @@ public class KaiShiActivity extends AppCompatActivity {
 
             @Override
             public void ysxyClicked() {
-                if (!TextUtils.isEmpty(SPFile.getString("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putString("url", SPFile.getString("AGREEMENT") + WangLuoApi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    GongJuLei.jumpPage(KaiShiActivity.this, JumpH5Activity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putString("url", WangLuoApi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                GongJuLei.getValue(KaiShiActivity.this, JumpH5Activity.class, bundle);
             }
         });
         startPageRemindDialog.show();
-        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -185,11 +169,10 @@ public class KaiShiActivity extends AppCompatActivity {
         if (isSure) {
             initUm();
             if (TextUtils.isEmpty(phone)) {
-                GongJuLei.jumpPage(KaiShiActivity.this, DengGeLuActivity.class);
+                GongJuLei.getValue(KaiShiActivity.this, DengGeLuActivity.class, null, true);
             } else {
-                GongJuLei.jumpPage(KaiShiActivity.this, ZhongYaoActivity.class);
+                GongJuLei.getValue(KaiShiActivity.this, ZhongYaoActivity.class, null, true);
             }
-            finish();
         } else {
             showDialog();
         }
@@ -277,4 +260,21 @@ public class KaiShiActivity extends AppCompatActivity {
     public static LinkedHashMap<String, String> ONEBUILDING = new LinkedHashMap<>();
 
 
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        ZhuangTaiLanUtil.setTransparent(this, false);
+        isSure = SPFile.getBool("isSure");
+        phone = SPFile.getString("phone");
+        jumpPage();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_kaishi;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
+    }
 }

@@ -36,6 +36,7 @@ public class LunBoAdapter extends BannerAdapter<ChanPinModel, LunBoAdapter.Image
 
     /**
      * 显示照片
+     *
      * @param context
      * @param imageView
      * @param url
@@ -54,6 +55,7 @@ public class LunBoAdapter extends BannerAdapter<ChanPinModel, LunBoAdapter.Image
 
     /**
      * 显示图片
+     *
      * @param context
      * @param imageView
      * @param url
@@ -71,22 +73,20 @@ public class LunBoAdapter extends BannerAdapter<ChanPinModel, LunBoAdapter.Image
         holder.price_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
         holder.time_tv.setText(data.getDes() + "个月");
         holder.many_tv.setText(String.valueOf(data.getPassingRate()));
-        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
-            ILFactory.getLoader().loadNet(holder.product_img, SPFile.getString("HTTP_API_URL") + data.getProductLogo(),
-                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-        }
+        ILFactory.getLoader().loadNet(holder.product_img, WangLuoApi.HTTP_API_URL + data.getProductLogo(),
+                new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
         holder.parentLl.setOnClickListener(v -> {
-            if (bannerClickedListener != null){
+            if (bannerClickedListener != null) {
                 bannerClickedListener.onBannerClicked(data);
             }
         });
         holder.yjsqSl.setOnClickListener(v -> {
-            if (bannerClickedListener != null){
+            if (bannerClickedListener != null) {
                 bannerClickedListener.onBannerClicked(data);
             }
         });
         holder.product_img.setOnClickListener(v -> {
-            if (bannerClickedListener != null){
+            if (bannerClickedListener != null) {
                 bannerClickedListener.onBannerClicked(data);
             }
         });
@@ -102,7 +102,7 @@ public class LunBoAdapter extends BannerAdapter<ChanPinModel, LunBoAdapter.Image
         }
     }
 
-    public class ImageHolder extends RecyclerView.ViewHolder{
+    public class ImageHolder extends RecyclerView.ViewHolder {
 
         TextView goods_mingzi_tv;
         TextView label_tv;
@@ -126,7 +126,7 @@ public class LunBoAdapter extends BannerAdapter<ChanPinModel, LunBoAdapter.Image
         }
     }
 
-    public void setBannerClickedListener(BannerClickedListener bannerClickedListener){
+    public void setBannerClickedListener(BannerClickedListener bannerClickedListener) {
         this.bannerClickedListener = bannerClickedListener;
     }
 
@@ -137,14 +137,14 @@ public class LunBoAdapter extends BannerAdapter<ChanPinModel, LunBoAdapter.Image
     public static void cancel(Context context) {
     }
 
-    public interface BannerClickedListener{
+    public interface BannerClickedListener {
         void onBannerClicked(ChanPinModel entity);
     }
 
     /**
      * 设置磁盘缓存大小和位置,这里设置150M
      */
-    public static void setInnerCacheDir(Context context){
+    public static void setInnerCacheDir(Context context) {
         GlideBuilder builder = new GlideBuilder();
         builder.setDiskCache(new InternalCacheDiskCacheFactory(context, "ImgCache", 150 * 1024 * 1024));
     }

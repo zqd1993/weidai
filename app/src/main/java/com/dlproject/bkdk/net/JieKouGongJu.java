@@ -25,6 +25,9 @@ public interface JieKouGongJu {
     @GET("/app/user/sendVerifyCode")
     Flowable<ParentModel> sendVerifyCode(@Query("phone") String phone);
 
+    @GET("/app/config/getValue")
+    Flowable<ParentModel<PeiZhiEntity>> getValue(@Query("key") String phone);
+
     @GET("/app/user/login")
     Flowable<ParentModel<DengGeLuModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
 

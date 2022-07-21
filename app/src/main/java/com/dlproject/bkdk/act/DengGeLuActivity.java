@@ -98,17 +98,15 @@ public class DengGeLuActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.view_zaijia, null));
         getConfig();
         readTv.setText(GongJuLei.createDlSpanTexts(), position -> {
-                    if (!TextUtils.isEmpty(SPFile.getString("AGREEMENT"))) {
-                        bundle = new Bundle();
-                        if (position == 1) {
-                            bundle.putString("url", SPFile.getString("AGREEMENT") + WangLuoApi.ZCXY);
-                            bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                        } else {
-                            bundle.putString("url", SPFile.getString("AGREEMENT") + WangLuoApi.YSXY);
-                            bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                        }
-                        GongJuLei.jumpPage(DengGeLuActivity.this, JumpH5Activity.class, bundle);
-                    }
+            bundle = new Bundle();
+            if (position == 1) {
+                bundle.putString("url", WangLuoApi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+            } else {
+                bundle.putString("url", WangLuoApi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+            }
+            GongJuLei.getValue(DengGeLuActivity.this, JumpH5Activity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -177,35 +175,33 @@ public class DengGeLuActivity extends XActivity {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
-            WangLuoApi.getInterfaceUtils().getConfig()
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(this.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<ParentModel<PeiZhiEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            GongJuLei.showErrorInfo(DengGeLuActivity.this, error);
-                        }
+        WangLuoApi.getInterfaceUtils().getConfig()
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<ParentModel<PeiZhiEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        GongJuLei.showErrorInfo(DengGeLuActivity.this, error);
+                    }
 
-                        @Override
-                        public void onNext(ParentModel<PeiZhiEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    SPFile.saveString("app_mail", configEntity.getData().getAppMail());
-                                    if ("0".equals(configEntity.getData().getIsCodeLogin())) {
-                                        yzmCv.setVisibility(View.GONE);
-                                    } else {
-                                        yzmCv.setVisibility(View.VISIBLE);
-                                    }
-                                    isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
-                                    isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
-                                    remindCb.setChecked(isChecked);
+                    @Override
+                    public void onNext(ParentModel<PeiZhiEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SPFile.saveString("app_mail", configEntity.getData().getAppMail());
+                                if ("0".equals(configEntity.getData().getIsCodeLogin())) {
+                                    yzmCv.setVisibility(View.GONE);
+                                } else {
+                                    yzmCv.setVisibility(View.VISIBLE);
                                 }
+                                isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
+                                isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
+                                remindCb.setChecked(isChecked);
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     /**
@@ -257,8 +253,7 @@ public class DengGeLuActivity extends XActivity {
      * 判断市场是否存在的方法
      *
      * @param context
-     * @param packageName
-     *            应用市场包名
+     * @param packageName 应用市场包名
      * @return true or false
      */
     public static boolean isAvilible(Context context, String packageName) {
@@ -276,67 +271,62 @@ public class DengGeLuActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
-            if (xStateController != null)
-                xStateController.showLoading();
-            WangLuoApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<ParentModel<DengGeLuModel>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            GongJuLei.showErrorInfo(DengGeLuActivity.this, error);
-                            if (xStateController != null)
-                                xStateController.showContent();
-                        }
+        if (xStateController != null)
+            xStateController.showLoading();
+        WangLuoApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<ParentModel<DengGeLuModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        GongJuLei.showErrorInfo(DengGeLuActivity.this, error);
+                        if (xStateController != null)
+                            xStateController.showContent();
+                    }
 
-                        @Override
-                        public void onNext(ParentModel<DengGeLuModel> dlModel) {
-                            if (xStateController != null)
-                                xStateController.showContent();
-                            if (dlModel != null && dlModel.getCode() == 200) {
-                                if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                    GongJuLei.jumpPage(DengGeLuActivity.this, ZhongYaoActivity.class);
-                                    int mobileType = dlModel.getData().getMobileType();
-                                    SPFile.saveString("ip", ip);
-                                    SPFile.saveString("phone", phone);
-                                    SPFile.saveInt("mobileType", mobileType);
-                                    finish();
-                                }
-                            } else {
-                                if (dlModel.getCode() == 500) {
-                                    TiShi.showShort(dlModel.getMsg());
-                                }
+                    @Override
+                    public void onNext(ParentModel<DengGeLuModel> dlModel) {
+                        if (xStateController != null)
+                            xStateController.showContent();
+                        if (dlModel != null && dlModel.getCode() == 200) {
+                            if (dlModel.getData() != null && dlModel.getCode() == 200) {
+                                int mobileType = dlModel.getData().getMobileType();
+                                SPFile.saveString("ip", ip);
+                                SPFile.saveString("phone", phone);
+                                SPFile.saveInt("mobileType", mobileType);
+                                GongJuLei.getValue(DengGeLuActivity.this, ZhongYaoActivity.class, null, true);
+                            }
+                        } else {
+                            if (dlModel.getCode() == 500) {
+                                TiShi.showShort(dlModel.getMsg());
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     public void getYzm(String phone) {
-        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
-            WangLuoApi.getInterfaceUtils().sendVerifyCode(phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<ParentModel>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            GongJuLei.showErrorInfo(DengGeLuActivity.this, error);
-                        }
+        WangLuoApi.getInterfaceUtils().sendVerifyCode(phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<ParentModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        GongJuLei.showErrorInfo(DengGeLuActivity.this, error);
+                    }
 
-                        @Override
-                        public void onNext(ParentModel parentModel) {
-                            if (parentModel != null) {
-                                if (parentModel.getCode() == 200) {
-                                    TiShi.showShort("验证码发送成功");
-                                    DaoJiShiTimer cdt = new DaoJiShiTimer(getYzmTv, 60000, 1000);
-                                    cdt.start();
-                                }
+                    @Override
+                    public void onNext(ParentModel parentModel) {
+                        if (parentModel != null) {
+                            if (parentModel.getCode() == 200) {
+                                TiShi.showShort("验证码发送成功");
+                                DaoJiShiTimer cdt = new DaoJiShiTimer(getYzmTv, 60000, 1000);
+                                cdt.start();
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 }

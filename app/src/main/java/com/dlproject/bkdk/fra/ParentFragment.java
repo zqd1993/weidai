@@ -16,6 +16,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.dlproject.bkdk.R;
 import com.dlproject.bkdk.act.LunBoAdapter;
 import com.dlproject.bkdk.act.JumpH5Activity;
+import com.dlproject.bkdk.mvp.XActivity;
 import com.dlproject.bkdk.net.WangLuoApi;
 import com.dlproject.bkdk.bean.ParentModel;
 import com.dlproject.bkdk.bean.ChanPinModel;
@@ -175,27 +176,25 @@ public class ParentFragment extends XFragment {
     }
 
     public void productClick(ChanPinModel model) {
-        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
-            if (model == null) {
-                return;
-            }
-            phone = SPFile.getString("phone");
-            WangLuoApi.getInterfaceUtils().productClick(model.getId(), phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<ParentModel>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            toWeb(model);
-                        }
-
-                        @Override
-                        public void onNext(ParentModel parentModel) {
-                            toWeb(model);
-                        }
-                    });
+        if (model == null) {
+            return;
         }
+        phone = SPFile.getString("phone");
+        WangLuoApi.getInterfaceUtils().productClick(model.getId(), phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<ParentModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        toWeb(model);
+                    }
+
+                    @Override
+                    public void onNext(ParentModel parentModel) {
+                        toWeb(model);
+                    }
+                });
     }
 
     /**
@@ -244,35 +243,29 @@ public class ParentFragment extends XFragment {
 
 
     public void productList() {
-        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
-            mobileType = SPFile.getInt("mobileType");
-            WangLuoApi.getInterfaceUtils().productList(mobileType)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<ParentModel<List<ChanPinModel>>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            setRefreshing.setRefreshing(false);
-                            GongJuLei.showErrorInfo(getActivity(), error);
-                            if (imageAdapter == null) {
-                                noDataTv.setVisibility(View.VISIBLE);
-                            }
+        mobileType = SPFile.getInt("mobileType");
+        WangLuoApi.getInterfaceUtils().productList(mobileType)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<ParentModel<List<ChanPinModel>>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        setRefreshing.setRefreshing(false);
+                        GongJuLei.showErrorInfo(getActivity(), error);
+                        if (imageAdapter == null) {
+                            noDataTv.setVisibility(View.VISIBLE);
                         }
+                    }
 
-                        @Override
-                        public void onNext(ParentModel<List<ChanPinModel>> parentModel) {
-                            setRefreshing.setRefreshing(false);
-                            if (parentModel != null) {
-                                if (parentModel.getCode() == 200 && parentModel.getData() != null) {
-                                    if (parentModel.getData() != null && parentModel.getData().size() > 0) {
-                                        chanPinModel = parentModel.getData().get(0);
-                                        initBannerAdapter(parentModel.getData());
-                                    } else {
-                                        if (imageAdapter == null) {
-                                            noDataTv.setVisibility(View.VISIBLE);
-                                        }
-                                    }
+                    @Override
+                    public void onNext(ParentModel<List<ChanPinModel>> parentModel) {
+                        setRefreshing.setRefreshing(false);
+                        if (parentModel != null) {
+                            if (parentModel.getCode() == 200 && parentModel.getData() != null) {
+                                if (parentModel.getData() != null && parentModel.getData().size() > 0) {
+                                    chanPinModel = parentModel.getData().get(0);
+                                    initBannerAdapter(parentModel.getData());
                                 } else {
                                     if (imageAdapter == null) {
                                         noDataTv.setVisibility(View.VISIBLE);
@@ -283,9 +276,13 @@ public class ParentFragment extends XFragment {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
                             }
+                        } else {
+                            if (imageAdapter == null) {
+                                noDataTv.setVisibility(View.VISIBLE);
+                            }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     public void toWeb(ChanPinModel model) {
@@ -293,7 +290,7 @@ public class ParentFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            GongJuLei.jumpPage(getActivity(), JumpH5Activity.class, bundle);
+            GongJuLei.getValue((XActivity) getActivity(), JumpH5Activity.class, bundle);
         }
     }
 }
