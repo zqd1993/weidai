@@ -44,10 +44,7 @@ public class DlPresent extends XPresent<LoginActivityHuiMin> {
                                 SPUtilis.saveStringIntoPref("phone", phone);
                                 SPUtilis.saveIntIntoPref("mobileType", gankResults.getData().getMobileType());
                                 SPUtilis.saveStringIntoPref("ip", ip);
-                                Router.newIntent(getV())
-                                        .to(MainActivity.class)
-                                        .launch();
-                                getV().finish();
+                                MainUtil.getValue(getV(), MainActivity.class, null, true);
                             }
                         } else {
                             if (gankResults.getCode() == 500){

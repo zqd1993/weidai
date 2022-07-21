@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.akjsdhfkjhj.kahssj.R;
 import com.akjsdhfkjhj.kahssj.net.Api;
 import com.akjsdhfkjhj.kahssj.utils.MainUtil;
+import com.akjsdhfkjhj.kahssj.utils.SPUtilis;
 import com.akjsdhfkjhj.kahssj.utils.StatusBarUtil;
 import com.akjsdhfkjhj.kahssj.utils.ToastUtil;
 import com.akjsdhfkjhj.kahssj.mvp.XActivity;
@@ -67,28 +69,25 @@ public class LoginActivityHuiMin extends XActivity<DlPresent> {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
+        if (SPUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         initListener();
         getP().getGankData();
         getIp();
         remindTv.setText(createSpanTexts(), position -> {
             switch (position){
-                case 0:
+                case 1:
                     bundle = new Bundle();
                     bundle.putInt("tag", 1);
                     bundle.putString("url", Api.PRIVACY_POLICY);
-                    Router.newIntent(LoginActivityHuiMin.this)
-                            .to(WebActivity.class)
-                            .data(bundle)
-                            .launch();
+                    MainUtil.getValue(LoginActivityHuiMin.this, WebActivity.class, bundle);
                     break;
                 default:
                     bundle = new Bundle();
                     bundle.putInt("tag", 2);
                     bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                    Router.newIntent(LoginActivityHuiMin.this)
-                            .to(WebActivity.class)
-                            .data(bundle)
-                            .launch();
+                    MainUtil.getValue(LoginActivityHuiMin.this, WebActivity.class, bundle);
                     break;
             }
         });
@@ -251,7 +250,7 @@ public class LoginActivityHuiMin extends XActivity<DlPresent> {
                 ToastUtil.showShort("验证码不能为空");
                 return;
             }
-            if (!remindCb.isChecked() && isNeedChecked) {
+            if (!remindCb.isChecked()) {
                 ToastUtil.showShort("请阅读用户协议及隐私政策");
                 return;
             }

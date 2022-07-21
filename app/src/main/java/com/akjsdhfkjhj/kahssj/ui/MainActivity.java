@@ -2,12 +2,14 @@ package com.akjsdhfkjhj.kahssj.ui;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.akjsdhfkjhj.kahssj.R;
 import com.akjsdhfkjhj.kahssj.ui.fragment.MainFragment;
+import com.akjsdhfkjhj.kahssj.utils.SPUtilis;
 import com.akjsdhfkjhj.kahssj.utils.StatusBarUtil;
 import com.akjsdhfkjhj.kahssj.utils.ToastUtil;
 import com.akjsdhfkjhj.kahssj.mvp.XActivity;
@@ -40,6 +42,9 @@ public class MainActivity extends XActivity<MainHuiMin> {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
+        if (SPUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         getP().login();
         customTabEntities = new ArrayList<>();
         homeViewPager.setUserInputEnabled(false);

@@ -1,12 +1,14 @@
 package com.akjsdhfkjhj.kahssj.ui.activity;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
 
 import com.akjsdhfkjhj.kahssj.R;
+import com.akjsdhfkjhj.kahssj.utils.SPUtilis;
 import com.akjsdhfkjhj.kahssj.utils.StatusBarUtil;
 import com.akjsdhfkjhj.kahssj.widget.PuTongDialog;
 import com.akjsdhfkjhj.kahssj.mvp.XActivity;
@@ -95,6 +97,9 @@ public class ZhuXiaoUserActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
+        if (SPUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("账号注销");
         commitBtn.setOnClickListener(v -> {

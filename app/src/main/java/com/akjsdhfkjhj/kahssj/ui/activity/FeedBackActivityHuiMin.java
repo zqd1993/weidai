@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.akjsdhfkjhj.kahssj.R;
+import com.akjsdhfkjhj.kahssj.utils.SPUtilis;
 import com.victor.loading.rotate.RotateLoading;
 
 import butterknife.BindView;
@@ -56,6 +58,9 @@ public class FeedBackActivityHuiMin extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
+        if (SPUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("意见反馈");
         commitBtn.setOnClickListener(v -> {

@@ -7,7 +7,9 @@ import android.widget.TextView;
 
 import com.akjsdhfkjhj.kahssj.R;
 import com.akjsdhfkjhj.kahssj.model.BaseModel;
+import com.akjsdhfkjhj.kahssj.model.PeiZhiModel;
 import com.akjsdhfkjhj.kahssj.model.ProductModel;
+import com.akjsdhfkjhj.kahssj.mvp.XActivity;
 import com.akjsdhfkjhj.kahssj.net.Api;
 import com.akjsdhfkjhj.kahssj.net.ApiSubscriber;
 import com.akjsdhfkjhj.kahssj.net.NetError;
@@ -74,32 +76,22 @@ public class WodeFragment extends XFragment {
         phoneTv.setText(phone);
         productList();
         appInfo.setOnClickListener(v -> {
-            Router.newIntent(getActivity())
-                    .to(AppinfoActivity.class)
-                    .launch();
+            MainUtil.getValue((XActivity) getActivity(), AppinfoActivity.class, null);
         });
         zcxy.setOnClickListener(v -> {
             bundle = new Bundle();
             bundle.putInt("tag", 1);
             bundle.putString("url", Api.PRIVACY_POLICY);
-            Router.newIntent(getActivity())
-                    .to(WebActivity.class)
-                    .data(bundle)
-                    .launch();
+            MainUtil.getValue((XActivity) getActivity(), WebActivity.class, bundle);
         });
         ysxy.setOnClickListener(v -> {
             bundle = new Bundle();
             bundle.putInt("tag", 2);
             bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-            Router.newIntent(getActivity())
-                    .to(WebActivity.class)
-                    .data(bundle)
-                    .launch();
+            MainUtil.getValue((XActivity) getActivity(), WebActivity.class, bundle);
         });
         yjfk.setOnClickListener(v -> {
-            Router.newIntent(getActivity())
-                    .to(FeedBackActivityHuiMin.class)
-                    .launch();
+            MainUtil.getValue((XActivity) getActivity(), FeedBackActivityHuiMin.class, null);
         });
         gxhtj.setOnClickListener(j -> {
             puTongDialog = new PuTongDialog(getActivity());
@@ -117,15 +109,10 @@ public class WodeFragment extends XFragment {
                     }).show();
         });
         tsyx.setOnClickListener(v -> {
-            puTongDialog = new PuTongDialog(getActivity());
-            puTongDialog.setTitle("温馨提示")
-                    .setContent(mailStr)
-                    .showOnlyBtn().show();
+            getGankData();
         });
         zxzh.setOnClickListener(v -> {
-            Router.newIntent(getActivity())
-                    .to(ZhuXiaoUserActivity.class)
-                    .launch();
+            MainUtil.getValue((XActivity) getActivity(), ZhuXiaoUserActivity.class, null);
         });
         logout.setOnClickListener(j -> {
             puTongDialog = new PuTongDialog(getActivity());
@@ -139,10 +126,7 @@ public class WodeFragment extends XFragment {
                     .setRightListener(v -> {
                         puTongDialog.dismiss();
                         SPUtilis.saveStringIntoPref("phone", "");
-                        Router.newIntent(getActivity())
-                                .to(LoginActivityHuiMin.class)
-                                .launch();
-                        getActivity().finish();
+                        MainUtil.getValue((XActivity) getActivity(), LoginActivityHuiMin.class, null, true);
                     }).show();
         });
         biaotiImg.setOnClickListener(v -> {
@@ -153,6 +137,33 @@ public class WodeFragment extends XFragment {
     }
 
     private int mobileType;
+
+    public void getGankData() {
+        Api.getGankService().getGankData()
+                .compose(XApi.<BaseModel<PeiZhiModel>>getApiTransformer())
+                .compose(XApi.<BaseModel<PeiZhiModel>>getScheduler())
+                .compose(this.<BaseModel<PeiZhiModel>>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel<PeiZhiModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseModel<PeiZhiModel> gankResults) {
+                        if (gankResults != null) {
+                            if (gankResults.getData() != null) {
+                                mailStr = gankResults.getData().getAppMail();
+                                SPUtilis.saveStringIntoPref("APP_MAIL", mailStr);
+                                puTongDialog = new PuTongDialog(getActivity());
+                                puTongDialog.setTitle("温馨提示")
+                                        .setContent(mailStr)
+                                        .showOnlyBtn().show();
+                            }
+                        }
+                    }
+                });
+    }
 
     public void productClick(ProductModel model) {
         phone = SPUtilis.getStringFromPref("phone");
@@ -180,10 +191,7 @@ public class WodeFragment extends XFragment {
             webBundle.putInt("tag", 3);
             webBundle.putString("url", model.getUrl());
             webBundle.putString("title", model.getProductName());
-            Router.newIntent(getActivity())
-                    .to(WebActivity.class)
-                    .data(webBundle)
-                    .launch();
+            MainUtil.getValue((XActivity) getActivity(), WebActivity.class, webBundle);
         }
     }
 

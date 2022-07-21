@@ -11,10 +11,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.akjsdhfkjhj.kahssj.R;
 import com.akjsdhfkjhj.kahssj.adapter.GoodsAdapter;
 import com.akjsdhfkjhj.kahssj.model.ProductModel;
+import com.akjsdhfkjhj.kahssj.mvp.XActivity;
+import com.akjsdhfkjhj.kahssj.ui.OneActivity;
 import com.akjsdhfkjhj.kahssj.ui.WebActivity;
 import com.akjsdhfkjhj.kahssj.mvp.XFragment;
 import com.akjsdhfkjhj.kahssj.present.MainFragmentPresent;
 import com.akjsdhfkjhj.kahssj.router.Router;
+import com.akjsdhfkjhj.kahssj.utils.MainUtil;
 import com.victor.loading.rotate.RotateLoading;
 
 import java.util.Date;
@@ -151,10 +154,7 @@ public class MainFragment extends XFragment<MainFragmentPresent> {
             webBundle.putInt("tag", 3);
             webBundle.putString("url", model.getUrl());
             webBundle.putString("title", model.getProductName());
-            Router.newIntent(getActivity())
-                    .to(WebActivity.class)
-                    .data(webBundle)
-                    .launch();
+            MainUtil.getValue((XActivity) getActivity(), WebActivity.class, webBundle);
         }
     }
 
