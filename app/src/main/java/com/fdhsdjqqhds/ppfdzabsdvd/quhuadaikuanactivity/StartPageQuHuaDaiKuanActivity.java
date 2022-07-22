@@ -307,7 +307,12 @@ public class StartPageQuHuaDaiKuanActivity extends XActivity {
         isSure = PreferencesOpenUtilQuHuaDaiKuan.getBool("isSure");
         phone = PreferencesOpenUtilQuHuaDaiKuan.getString("phone");
 //        sendRequestWithOkHttp();
-        jumpPage();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
     /**
