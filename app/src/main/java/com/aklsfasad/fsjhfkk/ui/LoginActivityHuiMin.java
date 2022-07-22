@@ -69,16 +69,18 @@ public class LoginActivityHuiMin extends XActivity<LoginPresentHuiMin> {
         getP().getGankData();
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
-            if (position == 1) {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", Api.PRIVACY_POLICY);
-                StaticUtilHuiMin.getValue(LoginActivityHuiMin.this, WebHuiMinActivity.class, bundle);
-            } else {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                StaticUtilHuiMin.getValue(LoginActivityHuiMin.this, WebHuiMinActivity.class, bundle);
+            if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT"))) {
+                if (position == 1) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
+                    StaticUtilHuiMin.getValue(LoginActivityHuiMin.this, WebHuiMinActivity.class, bundle);
+                } else {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
+                    StaticUtilHuiMin.getValue(LoginActivityHuiMin.this, WebHuiMinActivity.class, bundle);
+                }
             }
         });
     }

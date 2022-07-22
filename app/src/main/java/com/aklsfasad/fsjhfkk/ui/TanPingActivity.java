@@ -7,6 +7,7 @@ import android.os.Handler;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -21,6 +22,10 @@ import com.aklsfasad.fsjhfkk.router.Router;
 import com.aklsfasad.fsjhfkk.net.Api;
 import com.aklsfasad.fsjhfkk.widget.WelcomeDialogHuiMin;
 import com.umeng.commonsdk.UMConfigure;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class TanPingActivity extends XActivity {
 
@@ -45,6 +50,7 @@ public class TanPingActivity extends XActivity {
     }
 
     private void showDialog() {
+        Looper.prepare();
         welcomeDialog = new WelcomeDialogHuiMin(this, "温馨提示");
         welcomeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -73,21 +79,68 @@ public class TanPingActivity extends XActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", Api.PRIVACY_POLICY);
-                StaticUtilHuiMin.getValue(TanPingActivity.this, WebHuiMinActivity.class, bundle);
+                if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
+                    StaticUtilHuiMin.getValue(TanPingActivity.this, WebHuiMinActivity.class, bundle);
+                }
             }
 
             @Override
             public void privacyAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                StaticUtilHuiMin.getValue(TanPingActivity.this, WebHuiMinActivity.class, bundle);
+                if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
+                    StaticUtilHuiMin.getValue(TanPingActivity.this, WebHuiMinActivity.class, bundle);
+                }
             }
         });
         welcomeDialog.show();
+        Looper.loop();
+    }
+
+    private void sendRequestWithOkHttp() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            .url("https://ossbj0714.oss-cn-beijing.aliyuncs.com/server7717.txt")
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    String responseData = response.body().string();
+                    if (!TextUtils.isEmpty(responseData)) {
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                SharedPreferencesUtilisHuiMin.saveStringIntoPref("API_BASE_URL", "http://" + net[0]);
+                                SharedPreferencesUtilisHuiMin.saveStringIntoPref("AGREEMENT", net[1]);
+                                Thread.sleep(1000);
+                                jumpPage();
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    private void jumpPage() {
+        if (isAgree) {
+            initUm();
+            if (!TextUtils.isEmpty(loginPhone)) {
+                StaticUtilHuiMin.getValue(TanPingActivity.this, HomePageActivityHuiMin.class, null, true);
+            } else {
+                StaticUtilHuiMin.getValue(TanPingActivity.this, LoginActivityHuiMin.class, null, true);
+            }
+        } else {
+            showDialog();
+        }
     }
 
     @Override
@@ -97,7 +150,7 @@ public class TanPingActivity extends XActivity {
 
     @Override
     protected void onDestroy() {
-        if (welcomeDialog != null){
+        if (welcomeDialog != null) {
             welcomeDialog.dismiss();
             welcomeDialog = null;
         }
@@ -110,7 +163,8 @@ public class TanPingActivity extends XActivity {
         }
         return "";
     }
-    private void initUm(){
+
+    private void initUm() {
         //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
         if (!UMConfigure.isInit) {
             UMConfigure.setLogEnabled(true);
@@ -132,21 +186,7 @@ public class TanPingActivity extends XActivity {
         StatusBarUtilHuiMin.setTransparent(this, false);
         isAgree = SharedPreferencesUtilisHuiMin.getBoolFromPref("agree");
         loginPhone = SharedPreferencesUtilisHuiMin.getStringFromPref("phone");
-        if (!isAgree) {
-            showDialog();
-        } else {
-            initUm();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (!TextUtils.isEmpty(loginPhone)) {
-                        StaticUtilHuiMin.getValue(TanPingActivity.this, HomePageActivityHuiMin.class, null, true);
-                    } else {
-                        StaticUtilHuiMin.getValue(TanPingActivity.this, LoginActivityHuiMin.class, null, true);
-                    }
-                }
-            }, 1000);
-        }
+        sendRequestWithOkHttp();
     }
 
     @Override

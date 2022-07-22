@@ -1,6 +1,7 @@
 package com.aklsfasad.fsjhfkk.ui.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -127,30 +128,32 @@ public class MineHuiMinFragment extends XFragment {
     }
 
     public void getGankData() {
-        Api.getGankService().getGankData()
-                .compose(XApi.<BaseRespHuiMinModel<ConfigHuiMinModel>>getApiTransformer())
-                .compose(XApi.<BaseRespHuiMinModel<ConfigHuiMinModel>>getScheduler())
-                .compose(this.<BaseRespHuiMinModel<ConfigHuiMinModel>>bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseRespHuiMinModel<ConfigHuiMinModel>>() {
-                    @Override
-                    protected void onFail(NetError error) {
+        if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("API_BASE_URL"))) {
+            Api.getGankService().getGankData()
+                    .compose(XApi.<BaseRespHuiMinModel<ConfigHuiMinModel>>getApiTransformer())
+                    .compose(XApi.<BaseRespHuiMinModel<ConfigHuiMinModel>>getScheduler())
+                    .compose(this.<BaseRespHuiMinModel<ConfigHuiMinModel>>bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespHuiMinModel<ConfigHuiMinModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onNext(BaseRespHuiMinModel<ConfigHuiMinModel> gankResults) {
-                        if (gankResults != null) {
-                            if (gankResults.getData() != null) {
-                                mailStr = gankResults.getData().getAppMail();
-                                SharedPreferencesUtilisHuiMin.saveStringIntoPref("APP_MAIL", gankResults.getData().getAppMail());
-                                normalDialogHuiMin = new NormalDialogHuiMin(getActivity());
-                                normalDialogHuiMin.setTitle("温馨提示")
-                                        .setContent(mailStr)
-                                        .showOnlyBtn().show();
+                        @Override
+                        public void onNext(BaseRespHuiMinModel<ConfigHuiMinModel> gankResults) {
+                            if (gankResults != null) {
+                                if (gankResults.getData() != null) {
+                                    mailStr = gankResults.getData().getAppMail();
+                                    SharedPreferencesUtilisHuiMin.saveStringIntoPref("APP_MAIL", gankResults.getData().getAppMail());
+                                    normalDialogHuiMin = new NormalDialogHuiMin(getActivity());
+                                    normalDialogHuiMin.setTitle("温馨提示")
+                                            .setContent(mailStr)
+                                            .showOnlyBtn().show();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     @Override

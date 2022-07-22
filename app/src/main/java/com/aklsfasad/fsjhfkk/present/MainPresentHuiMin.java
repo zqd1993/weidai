@@ -1,5 +1,7 @@
 package com.aklsfasad.fsjhfkk.present;
 
+import android.text.TextUtils;
+
 import com.aklsfasad.fsjhfkk.model.BaseRespHuiMinModel;
 import com.aklsfasad.fsjhfkk.model.LoginRespHuiMinModel;
 import com.aklsfasad.fsjhfkk.ui.HomePageActivityHuiMin;
@@ -16,25 +18,26 @@ public class MainPresentHuiMin extends XPresent<HomePageActivityHuiMin> {
     private String phone, ip;
 
     public void login() {
-        phone = SharedPreferencesUtilisHuiMin.getStringFromPref("phone");
-        ip = SharedPreferencesUtilisHuiMin.getStringFromPref("ip");
-        Api.getGankService().logins(phone, ip)
-                .compose(XApi.<BaseRespHuiMinModel<LoginRespHuiMinModel>>getApiTransformer())
-                .compose(XApi.<BaseRespHuiMinModel<LoginRespHuiMinModel>>getScheduler())
-                .compose(getV().<BaseRespHuiMinModel<LoginRespHuiMinModel>>bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseRespHuiMinModel<LoginRespHuiMinModel>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        StaticUtilHuiMin.showError(getV(), error);
-                    }
-
-                    @Override
-                    public void onNext(BaseRespHuiMinModel<LoginRespHuiMinModel> gankResults) {
-                        if (gankResults != null) {
-
+        if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("API_BASE_URL"))) {
+            phone = SharedPreferencesUtilisHuiMin.getStringFromPref("phone");
+            ip = SharedPreferencesUtilisHuiMin.getStringFromPref("ip");
+            Api.getGankService().logins(phone, ip)
+                    .compose(XApi.<BaseRespHuiMinModel<LoginRespHuiMinModel>>getApiTransformer())
+                    .compose(XApi.<BaseRespHuiMinModel<LoginRespHuiMinModel>>getScheduler())
+                    .compose(getV().<BaseRespHuiMinModel<LoginRespHuiMinModel>>bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespHuiMinModel<LoginRespHuiMinModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            StaticUtilHuiMin.showError(getV(), error);
                         }
-                    }
-                });
-    }
 
+                        @Override
+                        public void onNext(BaseRespHuiMinModel<LoginRespHuiMinModel> gankResults) {
+                            if (gankResults != null) {
+
+                            }
+                        }
+                    });
+        }
+    }
 }

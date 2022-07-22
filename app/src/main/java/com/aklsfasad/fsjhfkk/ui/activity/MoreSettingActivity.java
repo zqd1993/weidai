@@ -1,6 +1,7 @@
 package com.aklsfasad.fsjhfkk.ui.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,17 +42,21 @@ public class MoreSettingActivity extends XActivity {
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("更多信息");
         zcxySl.setOnClickListener(v -> {
-            bundle = new Bundle();
-            bundle.putInt("tag", 1);
-            bundle.putString("url", Api.PRIVACY_POLICY);
-            StaticUtilHuiMin.getValue(this, WebHuiMinActivity.class, bundle);
+            if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT"))) {
+                bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
+                StaticUtilHuiMin.getValue(this, WebHuiMinActivity.class, bundle);
+            }
         });
 
         ysxySl.setOnClickListener(v -> {
-            bundle = new Bundle();
-            bundle.putInt("tag", 2);
-            bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-            StaticUtilHuiMin.getValue(this, WebHuiMinActivity.class, bundle);
+            if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT"))) {
+                bundle = new Bundle();
+                bundle.putInt("tag", 2);
+                bundle.putString("url", SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
+                StaticUtilHuiMin.getValue(this, WebHuiMinActivity.class, bundle);
+            }
         });
 
         gywmSl.setOnClickListener(v -> {
