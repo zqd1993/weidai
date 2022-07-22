@@ -88,6 +88,7 @@ public class GuideActivity extends XActivity {
     }
 
     private void showDialog() {
+        Looper.prepare();
         welcomeDialog = new WelcomeDialog(this, "温馨提示");
         welcomeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -115,21 +116,26 @@ public class GuideActivity extends XActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", Api.PRIVACY_POLICY);
-                StaticUtil.getValue(GuideActivity.this, WebViewActivity.class, bundle);
+                if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
+                    StaticUtil.getValue(GuideActivity.this, WebViewActivity.class, bundle);
+                }
             }
 
             @Override
             public void privacyAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                StaticUtil.getValue(GuideActivity.this, WebViewActivity.class, bundle);
+                if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
+                    StaticUtil.getValue(GuideActivity.this, WebViewActivity.class, bundle);
+                }
             }
         });
         welcomeDialog.show();
+        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -139,7 +145,7 @@ public class GuideActivity extends XActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7715.txt")
+                            .url("https://ossbj0714.oss-cn-beijing.aliyuncs.com/server7715.txt")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
@@ -147,7 +153,7 @@ public class GuideActivity extends XActivity {
                         if (responseData.contains(",")) {
                             String[] net = responseData.split(",");
                             if (net.length > 1) {
-                                SharedPreferencesUtilis.saveStringIntoPref("HTTP_API_URL", "http://" + net[0]);
+                                SharedPreferencesUtilis.saveStringIntoPref("API_BASE_URL", "http://" + net[0]);
                                 SharedPreferencesUtilis.saveStringIntoPref("AGREEMENT", net[1]);
                                 Thread.sleep(1000);
                                 jumpPage();
@@ -201,7 +207,7 @@ public class GuideActivity extends XActivity {
             // 参数三：渠道名称；
             // 参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
             // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
-            UMConfigure.init(this, "62c007bb05844627b5d4d241", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+            UMConfigure.init(this, "629473b405844627b598b388", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
         }
     }
 
@@ -210,8 +216,8 @@ public class GuideActivity extends XActivity {
         StatusBarUtil.setTransparent(this, false);
         isAgree = SharedPreferencesUtilis.getBoolFromPref("agree");
         loginPhone = SharedPreferencesUtilis.getStringFromPref("phone");
-//        sendRequestWithOkHttp();
-        jumpPage();
+        sendRequestWithOkHttp();
+//        jumpPage();
     }
 
     @Override

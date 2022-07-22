@@ -24,61 +24,65 @@ public class HomePagePresent extends XPresent<HomePageFragment> {
     private String phone;
 
     public void productList() {
-        mobileType = SharedPreferencesUtilis.getIntFromPref("mobileType");
-        getV().goodsModel = null;
-        Api.getGankService().productList(mobileType)
-                .compose(XApi.<BaseRespModel<List<GoodsModel>>>getApiTransformer())
-                .compose(XApi.<BaseRespModel<List<GoodsModel>>>getScheduler())
-                .compose(getV().<BaseRespModel<List<GoodsModel>>>bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseRespModel<List<GoodsModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        getV().swipeRefreshLayout.setRefreshing(false);
-                        if (getV().miaoJieGoodsItemAdapter == null) {
-                            getV().noDataFl.setVisibility(View.VISIBLE);
+        if(!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
+            mobileType = SharedPreferencesUtilis.getIntFromPref("mobileType");
+            getV().goodsModel = null;
+            Api.getGankService().productList(mobileType)
+                    .compose(XApi.<BaseRespModel<List<GoodsModel>>>getApiTransformer())
+                    .compose(XApi.<BaseRespModel<List<GoodsModel>>>getScheduler())
+                    .compose(getV().<BaseRespModel<List<GoodsModel>>>bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespModel<List<GoodsModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            getV().swipeRefreshLayout.setRefreshing(false);
+                            if (getV().miaoJieGoodsItemAdapter == null) {
+                                getV().noDataFl.setVisibility(View.VISIBLE);
+                            }
+                            StaticUtil.showError(getV().getActivity(), error);
                         }
-                        StaticUtil.showError(getV().getActivity(), error);
-                    }
 
-                    @Override
-                    public void onNext(BaseRespModel<List<GoodsModel>> gankResults) {
-                        getV().swipeRefreshLayout.setRefreshing(false);
-                        if (gankResults != null) {
-                            if (gankResults.getCode() == 200 && gankResults.getData() != null) {
-                                if (gankResults.getData() != null && gankResults.getData().size() > 0) {
-                                    getV().setModel(gankResults.getData().get(0));
-                                    getV().initGoodsItemAdapter(gankResults.getData());
+                        @Override
+                        public void onNext(BaseRespModel<List<GoodsModel>> gankResults) {
+                            getV().swipeRefreshLayout.setRefreshing(false);
+                            if (gankResults != null) {
+                                if (gankResults.getCode() == 200 && gankResults.getData() != null) {
+                                    if (gankResults.getData() != null && gankResults.getData().size() > 0) {
+                                        getV().setModel(gankResults.getData().get(0));
+                                        getV().initGoodsItemAdapter(gankResults.getData());
+                                    } else {
+                                        getV().noDataFl.setVisibility(View.VISIBLE);
+                                    }
                                 } else {
                                     getV().noDataFl.setVisibility(View.VISIBLE);
                                 }
                             } else {
                                 getV().noDataFl.setVisibility(View.VISIBLE);
                             }
-                        } else {
-                            getV().noDataFl.setVisibility(View.VISIBLE);
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void productClick(GoodsModel model) {
-        phone = SharedPreferencesUtilis.getStringFromPref("phone");
-        Api.getGankService().productClick(model.getId(), phone)
-                .compose(XApi.<BaseRespModel>getApiTransformer())
-                .compose(XApi.<BaseRespModel>getScheduler())
-                .compose(getV().<BaseRespModel>bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseRespModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        getV().jumpWebActivity(model);
-                        StaticUtil.showError(getV().getActivity(), error);
-                    }
+        if(!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
+            phone = SharedPreferencesUtilis.getStringFromPref("phone");
+            Api.getGankService().productClick(model.getId(), phone)
+                    .compose(XApi.<BaseRespModel>getApiTransformer())
+                    .compose(XApi.<BaseRespModel>getScheduler())
+                    .compose(getV().<BaseRespModel>bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            getV().jumpWebActivity(model);
+                            StaticUtil.showError(getV().getActivity(), error);
+                        }
 
-                    @Override
-                    public void onNext(BaseRespModel gankResults) {
-                        getV().jumpWebActivity(model);
-                    }
-                });
+                        @Override
+                        public void onNext(BaseRespModel gankResults) {
+                            getV().jumpWebActivity(model);
+                        }
+                    });
+        }
     }
 
 }
