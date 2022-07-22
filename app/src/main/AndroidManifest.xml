@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
-        android:name="com.fdhsdjqqhds.ppfdzabsdvd.MainApp"
+        android:name="com.fdhsdjqqhds.ppfdzabsdvd.QuHuaDaiKuanMainApp"
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
@@ -20,7 +20,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.fdhsdjqqhds.ppfdzabsdvd.activity.StartPageActivity"
+            android:name="com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanactivity.StartPageQuHuaDaiKuanActivity"
             android:icon="@mipmap/app_logo"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -31,33 +31,33 @@
         </activity>
 
         <activity
-            android:name="com.fdhsdjqqhds.ppfdzabsdvd.activity.DlActivity"
+            android:name="com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanactivity.QuHuaDaiKuanDlActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.fdhsdjqqhds.ppfdzabsdvd.activity.JumpH5Activity"
+            android:name="com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanactivity.JumpH5QuHuaDaiKuanActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.fdhsdjqqhds.ppfdzabsdvd.activity.MainActivity"
+            android:name="com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanactivity.QuHuaDaiKuanMainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.fdhsdjqqhds.ppfdzabsdvd.activity.FeedbackActivity"
+            android:name="com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanactivity.FeedbackQuHuaDaiKuanActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.fdhsdjqqhds.ppfdzabsdvd.activity.AboutInfoActivity"
+            android:name="com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanactivity.AboutInfoActivityQuHuaDaiKuan"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
 
         <activity
-            android:name="com.fdhsdjqqhds.ppfdzabsdvd.activity.ZhuXiaoActivity"
+            android:name="com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanactivity.ZhuXiaoQuHuaDaiKuanActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
@@ -71,8 +71,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_path" />
         </provider>
-
-        <meta-data android:value="629eff2005844627b5a41d7f" android:name="UMENG_APPKEY"/>
 
     </application>
 
