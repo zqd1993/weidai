@@ -50,6 +50,7 @@ public class WelcomeActivity extends XActivity {
     }
 
     private void showDialog() {
+        Looper.prepare();
         welcomeDialog = new WelcomeDialog(this, "温馨提示");
         welcomeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -96,6 +97,7 @@ public class WelcomeActivity extends XActivity {
             }
         });
         welcomeDialog.show();
+        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -136,12 +138,7 @@ public class WelcomeActivity extends XActivity {
                 StaticUtil.getValue(WelcomeActivity.this, LoginActivity.class, null, true);
             }
         } else {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    showDialog();
-                }
-            });
+            showDialog();
         }
     }
 
