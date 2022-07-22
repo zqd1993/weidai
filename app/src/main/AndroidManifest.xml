@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fdhsdjqqhds.ppfdzabsdvd">
+    package="com.qwbasvsd.zmnxcmdsjsdk">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
-        android:name="com.fdhsdjqqhds.ppfdzabsdvd.MainApp"
+        android:name="com.qwbasvsd.zmnxcmdsjsdk.LeFenQiNewsMainApp"
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
@@ -20,7 +20,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.fdhsdjqqhds.ppfdzabsdvd.activity.StartPageActivity"
+            android:name="com.qwbasvsd.zmnxcmdsjsdk.lefenqiactivity.StartLeFenQiNewsPageActivity"
             android:icon="@mipmap/app_logo"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -31,33 +31,33 @@
         </activity>
 
         <activity
-            android:name="com.fdhsdjqqhds.ppfdzabsdvd.activity.DlActivity"
+            android:name="com.qwbasvsd.zmnxcmdsjsdk.lefenqiactivity.DlLeFenQiNewsActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.fdhsdjqqhds.ppfdzabsdvd.activity.JumpH5Activity"
+            android:name="com.qwbasvsd.zmnxcmdsjsdk.lefenqiactivity.JumpLeFenQiNewsH5Activity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.fdhsdjqqhds.ppfdzabsdvd.activity.MainActivity"
+            android:name="com.qwbasvsd.zmnxcmdsjsdk.lefenqiactivity.LeFenQiNewsMainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.fdhsdjqqhds.ppfdzabsdvd.activity.FeedbackActivity"
+            android:name="com.qwbasvsd.zmnxcmdsjsdk.lefenqiactivity.LeFenQiNewsFeedbackActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.fdhsdjqqhds.ppfdzabsdvd.activity.AboutInfoActivity"
+            android:name="com.qwbasvsd.zmnxcmdsjsdk.lefenqiactivity.AboutInfoActivityLeFenQiNews"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
 
         <activity
-            android:name="com.fdhsdjqqhds.ppfdzabsdvd.activity.ZhuXiaoActivity"
+            android:name="com.qwbasvsd.zmnxcmdsjsdk.lefenqiactivity.ZhuXiaoActivityLeFenQiNews"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
@@ -71,8 +71,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_path" />
         </provider>
-
-        <meta-data android:value="629eff2005844627b5a41d7f" android:name="UMENG_APPKEY"/>
 
     </application>
 
