@@ -124,16 +124,18 @@ public class LoginHaoJieActivity extends XActivity<LoginHaoJiePresent> {
         }, 200);
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
-            if (position == 1) {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", ApiHaoJie.PRIVACY_POLICY);
-                StaticHaoJieUtil.getValue(LoginHaoJieActivity.this, HaoJieWebActivity.class, bundle);
-            } else {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", ApiHaoJie.USER_SERVICE_AGREEMENT);
-                StaticHaoJieUtil.getValue(LoginHaoJieActivity.this, HaoJieWebActivity.class, bundle);
+            if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT"))) {
+                if (position == 1) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT") + ApiHaoJie.PRIVACY_POLICY);
+                    StaticHaoJieUtil.getValue(LoginHaoJieActivity.this, HaoJieWebActivity.class, bundle);
+                } else {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT") + ApiHaoJie.USER_SERVICE_AGREEMENT);
+                    StaticHaoJieUtil.getValue(LoginHaoJieActivity.this, HaoJieWebActivity.class, bundle);
+                }
             }
         });
     }

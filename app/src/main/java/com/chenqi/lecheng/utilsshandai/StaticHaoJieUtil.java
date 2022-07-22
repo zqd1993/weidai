@@ -183,49 +183,53 @@ public class StaticHaoJieUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        ApiHaoJie.getGankService().getValue("VIDEOTAPE")
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(activity.bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseRespHaoJieModel<ConfigHaoJieModel>>() {
-                    @Override
-                    protected void onFail(NetError error) {
+        if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("API_BASE_URL"))) {
+            ApiHaoJie.getGankService().getValue("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespHaoJieModel<ConfigHaoJieModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onNext(BaseRespHaoJieModel<ConfigHaoJieModel> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                SharedPreferencesHaoJieUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                jumpPage(activity, to, bundle, false);
+                        @Override
+                        public void onNext(BaseRespHaoJieModel<ConfigHaoJieModel> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    SharedPreferencesHaoJieUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, false);
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-        ApiHaoJie.getGankService().getValue("VIDEOTAPE")
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(activity.bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseRespHaoJieModel<ConfigHaoJieModel>>() {
-                    @Override
-                    protected void onFail(NetError error) {
+        if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("API_BASE_URL"))) {
+            ApiHaoJie.getGankService().getValue("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespHaoJieModel<ConfigHaoJieModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onNext(BaseRespHaoJieModel<ConfigHaoJieModel> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                SharedPreferencesHaoJieUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                jumpPage(activity, to, bundle, isFinish);
+                        @Override
+                        public void onNext(BaseRespHaoJieModel<ConfigHaoJieModel> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    SharedPreferencesHaoJieUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, isFinish);
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {

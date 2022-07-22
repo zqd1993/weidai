@@ -97,16 +97,20 @@ public class MoreInfoHaoJieActivity extends XActivity {
             StaticHaoJieUtil.getValue(this, AboutHaoJieActivity.class, null);
         });
         zcxySl.setOnClickListener(v -> {
-            bundle = new Bundle();
-            bundle.putInt("tag", 1);
-            bundle.putString("url", ApiHaoJie.PRIVACY_POLICY);
-            StaticHaoJieUtil.getValue(this, HaoJieWebActivity.class, bundle);
+            if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT"))) {
+                bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT") + ApiHaoJie.PRIVACY_POLICY);
+                StaticHaoJieUtil.getValue(this, HaoJieWebActivity.class, bundle);
+            }
         });
         ysxySl.setOnClickListener(v -> {
-            bundle = new Bundle();
-            bundle.putInt("tag", 2);
-            bundle.putString("url", ApiHaoJie.USER_SERVICE_AGREEMENT);
-            StaticHaoJieUtil.getValue(this, HaoJieWebActivity.class, bundle);
+            if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT"))) {
+                bundle = new Bundle();
+                bundle.putInt("tag", 2);
+                bundle.putString("url", SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT") + ApiHaoJie.USER_SERVICE_AGREEMENT);
+                StaticHaoJieUtil.getValue(this, HaoJieWebActivity.class, bundle);
+            }
         });
     }
 

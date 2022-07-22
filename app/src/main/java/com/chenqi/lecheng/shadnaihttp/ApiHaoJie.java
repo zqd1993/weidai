@@ -64,18 +64,18 @@ public class ApiHaoJie {
     private static GankHaoJieService gankHaoJieService;
 
     public static GankHaoJieService getGankService() {
-        if (gankHaoJieService == null) {
+        if (gankHaoJieService == null && !TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("API_BASE_URL"))) {
             synchronized (ApiHaoJie.class) {
                 if (gankHaoJieService == null) {
-                    gankHaoJieService = XApi.getInstance().getRetrofit(API_BASE_URL, true).create(GankHaoJieService.class);
+                    gankHaoJieService = XApi.getInstance().getRetrofit(SharedPreferencesHaoJieUtilis.getStringFromPref("API_BASE_URL"), true).create(GankHaoJieService.class);
                 }
             }
         }
         return gankHaoJieService;
     }
 
-    public static final String PRIVACY_POLICY = "https://opxy.iuoop9.com/profile/vohjjk/zcxy.html";
-    public static final String USER_SERVICE_AGREEMENT= "https://opxy.iuoop9.com/profile/vohjjk/ysxy.html";
+    public static final String PRIVACY_POLICY = "/profile/vohjjk/zcxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "/profile/vohjjk/ysxy.html";
     public static String API_BASE_URL = "http://110.42.64.175:7735";
 
     /**

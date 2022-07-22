@@ -70,6 +70,7 @@ public class MainHaoJiePresent extends XPresent<HomePageHaoJieActivity> {
     }
 
     public void denglu() {
+        if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("API_BASE_URL"))) {
             phone = SharedPreferencesHaoJieUtilis.getStringFromPref("phone");
             ip = SharedPreferencesHaoJieUtilis.getStringFromPref("ip");
             ApiHaoJie.getGankService().logins(phone, ip)
@@ -89,6 +90,7 @@ public class MainHaoJiePresent extends XPresent<HomePageHaoJieActivity> {
                             }
                         }
                     });
+        }
     }
 
 

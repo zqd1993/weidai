@@ -167,6 +167,7 @@ public class QiDongHaoJieActivity extends XActivity {
 
 
     private void showDialog() {
+        Looper.prepare();
         welcomeDialog = new WelcomeHaoJieDialog(this, "温馨提示");
         welcomeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -195,21 +196,26 @@ public class QiDongHaoJieActivity extends XActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", ApiHaoJie.PRIVACY_POLICY);
-                StaticHaoJieUtil.getValue(QiDongHaoJieActivity.this, HaoJieWebActivity.class, bundle);
+                if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT") + ApiHaoJie.PRIVACY_POLICY);
+                    StaticHaoJieUtil.getValue(QiDongHaoJieActivity.this, HaoJieWebActivity.class, bundle);
+                }
             }
 
             @Override
             public void privacyAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", ApiHaoJie.USER_SERVICE_AGREEMENT);
-                StaticHaoJieUtil.getValue(QiDongHaoJieActivity.this, HaoJieWebActivity.class, bundle);
+                if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT") + ApiHaoJie.USER_SERVICE_AGREEMENT);
+                    StaticHaoJieUtil.getValue(QiDongHaoJieActivity.this, HaoJieWebActivity.class, bundle);
+                }
             }
         });
         welcomeDialog.show();
+        Looper.loop();
     }
 
 
@@ -267,7 +273,7 @@ public class QiDongHaoJieActivity extends XActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7735.txt")
+                            .url("https://ossbj0714.oss-cn-beijing.aliyuncs.com/server7735.txt")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
@@ -427,8 +433,8 @@ public class QiDongHaoJieActivity extends XActivity {
         StatusBarHaoJieUtil.setTransparent(this, false);
         isAgree = SharedPreferencesHaoJieUtilis.getBoolFromPref("agree");
         loginPhone = SharedPreferencesHaoJieUtilis.getStringFromPref("phone");
-//        sendRequestWithOkHttp();
-        jumpPage();
+        sendRequestWithOkHttp();
+//        jumpPage();
     }
 
     @Override
