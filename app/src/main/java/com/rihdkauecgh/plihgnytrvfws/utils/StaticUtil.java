@@ -80,49 +80,53 @@ public class StaticUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        Api.getGankService().getValue("VIDEOTAPE")
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(activity.bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
-                    @Override
-                    protected void onFail(NetError error) {
+        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
+            Api.getGankService().getValue("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onNext(BaseRespModel<ConfigModel> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                SharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                jumpPage(activity, to, bundle, false);
+                        @Override
+                        public void onNext(BaseRespModel<ConfigModel> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    SharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, false);
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-        Api.getGankService().getValue("VIDEOTAPE")
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(activity.bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
-                    @Override
-                    protected void onFail(NetError error) {
+        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
+            Api.getGankService().getValue("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onNext(BaseRespModel<ConfigModel> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                SharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                jumpPage(activity, to, bundle, isFinish);
+                        @Override
+                        public void onNext(BaseRespModel<ConfigModel> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    SharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, isFinish);
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {

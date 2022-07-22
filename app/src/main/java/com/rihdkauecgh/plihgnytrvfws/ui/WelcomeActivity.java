@@ -77,18 +77,22 @@ public class WelcomeActivity extends XActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", Api.PRIVACY_POLICY);
-                StaticUtil.getValue(WelcomeActivity.this, WebViewActivity.class, bundle);
+                if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
+                    StaticUtil.getValue(WelcomeActivity.this, WebViewActivity.class, bundle);
+                }
             }
 
             @Override
             public void privacyAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                StaticUtil.getValue(WelcomeActivity.this, WebViewActivity.class, bundle);
+                if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
+                    StaticUtil.getValue(WelcomeActivity.this, WebViewActivity.class, bundle);
+                }
             }
         });
         welcomeDialog.show();
@@ -101,16 +105,20 @@ public class WelcomeActivity extends XActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7714.txt")
+                            .url("https://ossbj0714.oss-cn-beijing.aliyuncs.com/server7714.txt")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-//                        Api.API_BASE_URL = "http://" + responseData;
-                        SharedPreferencesUtilis.saveStringIntoPref("API_BASE_URL", "http://" + responseData);
-                        Thread.sleep(1000);
-                        jumpPage();
-
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                SharedPreferencesUtilis.saveStringIntoPref("API_BASE_URL", "http://" + net[0]);
+                                SharedPreferencesUtilis.saveStringIntoPref("AGREEMENT", net[1]);
+                                Thread.sleep(1000);
+                                jumpPage();
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -128,7 +136,12 @@ public class WelcomeActivity extends XActivity {
                 StaticUtil.getValue(WelcomeActivity.this, LoginActivity.class, null, true);
             }
         } else {
-            showDialog();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    showDialog();
+                }
+            });
         }
     }
 
@@ -168,8 +181,8 @@ public class WelcomeActivity extends XActivity {
         StatusBarUtil.setTransparent(this, false);
         isAgree = SharedPreferencesUtilis.getBoolFromPref("agree");
         loginPhone = SharedPreferencesUtilis.getStringFromPref("phone");
-//        sendRequestWithOkHttp();
-        jumpPage();
+        sendRequestWithOkHttp();
+//        jumpPage();
     }
 
     @Override
