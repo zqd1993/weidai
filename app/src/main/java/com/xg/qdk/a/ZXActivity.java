@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.xg.qdk.R;
+import com.xg.qdk.u.PreferencesStaticOpenUtil;
 import com.xg.qdk.u.StatusBarUtil;
 import com.xg.qdk.w.TshiDialog;
 
@@ -35,6 +37,9 @@ public class ZXActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StatusBarUtil.setTransparent(this, false);
+        if (PreferencesStaticOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         setContentView(R.layout.activity_zhuxiao);
         ImageView backImg = findViewById(R.id.back_image);
         backImg.setOnClickListener(v -> finish());
@@ -59,6 +64,7 @@ public class ZXActivity extends AppCompatActivity {
             dialog.show();
         });
     }
+
     /**
      * 返回是否有网络连接
      *
@@ -79,7 +85,6 @@ public class ZXActivity extends AppCompatActivity {
         }
         return false;
     }
-
 
 
 }

@@ -19,6 +19,7 @@ import com.xg.qdk.m.MainModel;
 import com.xg.qdk.m.SetEntity;
 import com.xg.qdk.m.ShangPinModel;
 import com.xg.qdk.m.SheZhiModel;
+import com.xg.qdk.mvp.XActivity;
 import com.xg.qdk.mvp.XFragment;
 import com.xg.qdk.net.ApiSubscriber;
 import com.xg.qdk.net.NetError;
@@ -73,8 +74,7 @@ public class SheZhiFragment extends XFragment {
                 public void onSureClicked() {
                     dialog.dismiss();
                     PreferencesStaticOpenUtil.saveString("phone", "");
-                    BaseUtil.jumpPage(getActivity(), DengLuActivity.class);
-                    getActivity().finish();
+                    BaseUtil.getValue((XActivity) getActivity(), DengLuActivity.class, null, true);
                 }
 
                 @Override
@@ -120,22 +120,26 @@ public class SheZhiFragment extends XFragment {
         setItemAdapter.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", MyApi.ZCXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    BaseUtil.jumpPage(getActivity(), WangYeActivity.class, webBundle);
+                    if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", PreferencesStaticOpenUtil.getString("AGREEMENT") + MyApi.ZCXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                        BaseUtil.getValue((XActivity) getActivity(), WangYeActivity.class, webBundle);
+                    }
                     break;
                 case 1:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", MyApi.YSXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    BaseUtil.jumpPage(getActivity(), WangYeActivity.class, webBundle);
+                    if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", PreferencesStaticOpenUtil.getString("AGREEMENT") + MyApi.YSXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                        BaseUtil.getValue((XActivity) getActivity(), WangYeActivity.class, webBundle);
+                    }
                     break;
 //                case 2:
 //                    OpenUtil.jumpPage(getActivity(), FeedbackActivity.class);
 //                    break;
                 case 2:
-                    BaseUtil.jumpPage(getActivity(), AppMsgActivity.class);
+                    BaseUtil.getValue((XActivity) getActivity(), AppMsgActivity.class, null);
                     break;
 //                case 3:
 //                    dialog = new TshiDialog(getActivity()).setCancelText("开启")
@@ -159,7 +163,7 @@ public class SheZhiFragment extends XFragment {
                     getConfig();
                     break;
                 case 4:
-                    BaseUtil.jumpPage(getActivity(), ZXActivity.class);
+                    BaseUtil.getValue((XActivity) getActivity(), ZXActivity.class, null);
                     break;
 //                case 5:
 //                    dialog = new TshiDialog(getActivity()).setCancelText("取消")
@@ -187,54 +191,58 @@ public class SheZhiFragment extends XFragment {
     }
 
     public void productList() {
-        mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
-        phone = PreferencesStaticOpenUtil.getString("phone");
-        MyApi.getInterfaceUtils().productList(mobileType, phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<MainModel<List<ShangPinModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        BaseUtil.showErrorInfo(getActivity(), error);
-                    }
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
+            mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
+            phone = PreferencesStaticOpenUtil.getString("phone");
+            MyApi.getInterfaceUtils().productList(mobileType, phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel<List<ShangPinModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            BaseUtil.showErrorInfo(getActivity(), error);
+                        }
 
-                    @Override
-                    public void onNext(MainModel<List<ShangPinModel>> mainModel) {
-                        if (mainModel != null) {
-                            if (mainModel.getCode() == 200 && mainModel.getData() != null) {
-                                if (mainModel.getData() != null && mainModel.getData().size() > 0) {
-                                    shangPinModel = mainModel.getData().get(0);
+                        @Override
+                        public void onNext(MainModel<List<ShangPinModel>> mainModel) {
+                            if (mainModel != null) {
+                                if (mainModel.getCode() == 200 && mainModel.getData() != null) {
+                                    if (mainModel.getData() != null && mainModel.getData().size() > 0) {
+                                        shangPinModel = mainModel.getData().get(0);
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void getConfig() {
-        MyApi.getInterfaceUtils().getConfig()
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(this.bindToLifecycle())
-                .subscribe(new ApiSubscriber<MainModel<SetEntity>>() {
-                    @Override
-                    protected void onFail(NetError error) {
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
+            MyApi.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel<SetEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onNext(MainModel<SetEntity> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                mailStr = configEntity.getData().getAppMail();
-                                PreferencesStaticOpenUtil.saveString("app_mail", mailStr);
-                                dialog = new TshiDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
-                                dialog.show();
+                        @Override
+                        public void onNext(MainModel<SetEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    mailStr = configEntity.getData().getAppMail();
+                                    PreferencesStaticOpenUtil.saveString("app_mail", mailStr);
+                                    dialog = new TshiDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
+                                    dialog.show();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
 }

@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.xg.qdk.R;
 import com.xg.qdk.u.BaseToast;
+import com.xg.qdk.u.PreferencesStaticOpenUtil;
 import com.xg.qdk.u.StatusBarUtil;
 
 import cn.droidlover.xstatecontroller.XStateController;
@@ -28,6 +29,9 @@ public class FankuiActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StatusBarUtil.setTransparent(this, false);
+        if (PreferencesStaticOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         setContentView(R.layout.activity_fankui);
         ImageView backImg = findViewById(R.id.back_image);
         backImg.setOnClickListener(v -> finish());

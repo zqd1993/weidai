@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.xg.qdk.R;
 import com.xg.qdk.api.MyApi;
+import com.xg.qdk.mvp.XActivity;
 import com.xg.qdk.u.BaseUtil;
 import com.xg.qdk.u.PreferencesStaticOpenUtil;
 import com.xg.qdk.u.StatusBarUtil;
@@ -29,7 +30,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class KaiShiActivity extends AppCompatActivity {
+public class KaiShiActivity extends XActivity {
 
     private Bundle bundle;
 
@@ -38,16 +39,6 @@ public class KaiShiActivity extends AppCompatActivity {
     private String phone = "";
 
     private StartPageRemindDialog startPageRemindDialog;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_qidong);
-        StatusBarUtil.setTransparent(this, false);
-        isSure = PreferencesStaticOpenUtil.getBool("isSure");
-        phone = PreferencesStaticOpenUtil.getString("phone");
-        jumpPage();
-    }
 
     @Override
     protected void onResume() {
@@ -62,6 +53,7 @@ public class KaiShiActivity extends AppCompatActivity {
     }
 
     private void showDialog() {
+        Looper.prepare();
         startPageRemindDialog = new StartPageRemindDialog(this);
         startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -79,16 +71,18 @@ public class KaiShiActivity extends AppCompatActivity {
                 initUm();
                 PreferencesStaticOpenUtil.saveString("uminit", "1");
                 PreferencesStaticOpenUtil.saveBool("isSure", true);
-                BaseUtil.jumpPage(KaiShiActivity.this, DengLuActivity.class);
-                finish();
+                startPageRemindDialog.dismiss();
+                BaseUtil.getValue(KaiShiActivity.this, DengLuActivity.class, null, true);
             }
 
             @Override
             public void zcxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", MyApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                BaseUtil.jumpPage(KaiShiActivity.this, WangYeActivity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesStaticOpenUtil.getString("AGREEMENT") + MyApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    BaseUtil.getValue(KaiShiActivity.this, WangYeActivity.class, bundle);
+                }
             }
 
             @Override
@@ -98,13 +92,16 @@ public class KaiShiActivity extends AppCompatActivity {
 
             @Override
             public void ysxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", MyApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                BaseUtil.jumpPage(KaiShiActivity.this, WangYeActivity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesStaticOpenUtil.getString("AGREEMENT") + MyApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    BaseUtil.getValue(KaiShiActivity.this, WangYeActivity.class, bundle);
+                }
             }
         });
         startPageRemindDialog.show();
+        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -140,11 +137,10 @@ public class KaiShiActivity extends AppCompatActivity {
         if (isSure) {
             initUm();
             if (TextUtils.isEmpty(phone)) {
-                BaseUtil.jumpPage(KaiShiActivity.this, DengLuActivity.class);
+                BaseUtil.getValue(KaiShiActivity.this, DengLuActivity.class, null, true);
             } else {
-                BaseUtil.jumpPage(KaiShiActivity.this, ZhuYeActivity.class);
+                BaseUtil.getValue(KaiShiActivity.this, ZhuYeActivity.class, null, true);
             }
-            finish();
         } else {
             showDialog();
         }
@@ -200,5 +196,23 @@ public class KaiShiActivity extends AppCompatActivity {
 //            // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
 //            UMConfigure.init(this, "629d692e05844627b5a1152a", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
 //        }
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        StatusBarUtil.setTransparent(this, false);
+        isSure = PreferencesStaticOpenUtil.getBool("isSure");
+        phone = PreferencesStaticOpenUtil.getString("phone");
+        sendRequestWithOkHttp();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_qidong;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 }

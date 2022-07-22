@@ -15,6 +15,7 @@ import com.xg.qdk.a.GoodsAdapter;
 import com.xg.qdk.api.MyApi;
 import com.xg.qdk.m.MainModel;
 import com.xg.qdk.m.ShangPinModel;
+import com.xg.qdk.mvp.XActivity;
 import com.xg.qdk.mvp.XFragment;
 import com.xg.qdk.net.ApiSubscriber;
 import com.xg.qdk.net.NetError;
@@ -76,53 +77,56 @@ public class ProductFragment extends XFragment {
     }
 
     public void goodsClick(ShangPinModel model) {
-        if (model == null) {
-            return;
-        }
-        phone = PreferencesStaticOpenUtil.getString("phone");
-        MyApi.getInterfaceUtils().productClick(model.getId(), phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<MainModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        toH5(model);
-                    }
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
+            if (model == null) {
+                return;
+            }
+            phone = PreferencesStaticOpenUtil.getString("phone");
+            MyApi.getInterfaceUtils().productClick(model.getId(), phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            toH5(model);
+                        }
 
-                    @Override
-                    public void onNext(MainModel mainModel) {
-                        toH5(model);
-                    }
-                });
+                        @Override
+                        public void onNext(MainModel mainModel) {
+                            toH5(model);
+                        }
+                    });
+        }
     }
 
 
     public void getGoodsList() {
+        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
+            mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
+            phone = PreferencesStaticOpenUtil.getString("phone");
+            MyApi.getInterfaceUtils().productList(mobileType, phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<MainModel<List<ShangPinModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            BaseUtil.showErrorInfo(getActivity(), error);
+                        }
 
-        mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
-        phone = PreferencesStaticOpenUtil.getString("phone");
-        MyApi.getInterfaceUtils().productList(mobileType, phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<MainModel<List<ShangPinModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        BaseUtil.showErrorInfo(getActivity(), error);
-                    }
-
-                    @Override
-                    public void onNext(MainModel<List<ShangPinModel>> mainModel) {
-                        if (mainModel != null) {
-                            if (mainModel.getCode() == 200 && mainModel.getData() != null) {
-                                if (mainModel.getData() != null && mainModel.getData().size() > 0) {
-                                    shangPinModel = mainModel.getData().get(0);
+                        @Override
+                        public void onNext(MainModel<List<ShangPinModel>> mainModel) {
+                            if (mainModel != null) {
+                                if (mainModel.getCode() == 200 && mainModel.getData() != null) {
+                                    if (mainModel.getData() != null && mainModel.getData().size() > 0) {
+                                        shangPinModel = mainModel.getData().get(0);
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void toH5(ShangPinModel model) {
@@ -130,7 +134,7 @@ public class ProductFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            BaseUtil.jumpPage(getActivity(), WangYeActivity.class, bundle);
+            BaseUtil.getValue((XActivity) getActivity(), WangYeActivity.class, bundle);
         }
     }
 

@@ -10,9 +10,9 @@ import com.xg.qdk.net.XApi;
 import com.xg.qdk.u.PreferencesStaticOpenUtil;
 
 public class MyApi {
-    public static final String ZCXY = "https://opxy.iuoop9.com/profile/hwyjxyd/zcxy.html";
+    public static final String ZCXY = "/profile/hwyjxyd/zcxy.html";
     public static final String HTTP_API_URL = "http://110.42.64.175:7732";
-    public static final String YSXY= "https://opxy.iuoop9.com/profile/hwyjxyd/ysxy.html";
+    public static final String YSXY= "/profile/hwyjxyd/ysxy.html";
 
     private static JieKouUtils interfaceUtils;
 
@@ -33,10 +33,10 @@ public class MyApi {
     private float leftBottom = 0f;
 
     public static JieKouUtils getInterfaceUtils() {
-        if (interfaceUtils == null) {
+        if (interfaceUtils == null && !TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
             synchronized (MyApi.class) {
                 if (interfaceUtils == null) {
-                    interfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(JieKouUtils.class);
+                    interfaceUtils = XApi.getInstance().getRetrofit(PreferencesStaticOpenUtil.getString("HTTP_API_URL"), true).create(JieKouUtils.class);
                 }
             }
         }

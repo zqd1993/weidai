@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -22,6 +23,7 @@ import androidx.core.content.FileProvider;
 
 import com.xg.qdk.R;
 import com.xg.qdk.mvp.XActivity;
+import com.xg.qdk.u.PreferencesStaticOpenUtil;
 import com.xg.qdk.u.XiaZaiApkUtil;
 import com.xg.qdk.u.StatusBarUtil;
 
@@ -65,6 +67,9 @@ public class WangYeActivity extends XActivity implements EasyPermissions.Permiss
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
+        if (PreferencesStaticOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         bundle = getIntent().getExtras();
         if (bundle.containsKey("biaoti"))
             biaoti = bundle.getString("biaoti");

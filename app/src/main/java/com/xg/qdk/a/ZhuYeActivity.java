@@ -2,6 +2,7 @@ package com.xg.qdk.a;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -13,6 +14,7 @@ import com.xg.qdk.f.ZhuYeFragment;
 import com.xg.qdk.f.ProductFragment;
 import com.xg.qdk.f.SheZhiFragment;
 import com.xg.qdk.mvp.XActivity;
+import com.xg.qdk.u.PreferencesStaticOpenUtil;
 import com.xg.qdk.u.StatusBarUtil;
 
 import java.util.ArrayList;
@@ -36,6 +38,9 @@ public class ZhuYeActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
+        if (PreferencesStaticOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         tabModels = new ArrayList<>();
         fragments = new ArrayList<>();
         ItemModel tabModel = new ItemModel();
