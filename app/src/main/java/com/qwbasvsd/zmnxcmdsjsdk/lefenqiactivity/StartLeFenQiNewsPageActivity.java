@@ -275,7 +275,12 @@ public class StartLeFenQiNewsPageActivity extends XActivity {
         isSure = LeFenQiNewsPreferencesOpenUtil.getBool("isSure");
         phone = LeFenQiNewsPreferencesOpenUtil.getString("phone");
 //        sendRequestWithOkHttp();
-        jumpPage();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
     @Override
