@@ -2,6 +2,7 @@ package com.akjsdhfkjhj.kahssj.ui;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
 import android.view.WindowManager;
@@ -78,16 +79,20 @@ public class LoginActivityHuiMin extends XActivity<DlPresent> {
         remindTv.setText(createSpanTexts(), position -> {
             switch (position){
                 case 1:
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 1);
-                    bundle.putString("url", Api.PRIVACY_POLICY);
-                    MainUtil.getValue(LoginActivityHuiMin.this, WebActivity.class, bundle);
+                    if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("AGREEMENT"))) {
+                        bundle = new Bundle();
+                        bundle.putInt("tag", 1);
+                        bundle.putString("url", SPUtilis.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
+                        MainUtil.getValue(LoginActivityHuiMin.this, WebActivity.class, bundle);
+                    }
                     break;
                 default:
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 2);
-                    bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                    MainUtil.getValue(LoginActivityHuiMin.this, WebActivity.class, bundle);
+                    if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("AGREEMENT"))) {
+                        bundle = new Bundle();
+                        bundle.putInt("tag", 2);
+                        bundle.putString("url", SPUtilis.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
+                        MainUtil.getValue(LoginActivityHuiMin.this, WebActivity.class, bundle);
+                    }
                     break;
             }
         });

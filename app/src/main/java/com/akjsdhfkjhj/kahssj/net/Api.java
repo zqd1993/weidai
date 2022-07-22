@@ -4,6 +4,10 @@ package com.akjsdhfkjhj.kahssj.net;
  * Created by wanglei on 2016/12/31.
  */
 
+import android.text.TextUtils;
+
+import com.akjsdhfkjhj.kahssj.utils.SPUtilis;
+
 import java.text.SimpleDateFormat;
 
 /**
@@ -165,17 +169,17 @@ import java.text.SimpleDateFormat;
  */
 
 public class Api {
-    public static final String PRIVACY_POLICY = "https://opxy.iuoop9.com/profile/lbdk/zcxy.html";
+    public static final String PRIVACY_POLICY = "/profile/lbdk/zcxy.html";
     public static final String API_BASE_URL = "http://110.42.64.175:7720";
-    public static final String USER_SERVICE_AGREEMENT= "https://opxy.iuoop9.com/profile/lbdk/ysxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "/profile/lbdk/ysxy.html";
 
     private static GankService gankService;
 
     public static GankService getGankService() {
-        if (gankService == null) {
+        if (gankService == null && !TextUtils.isEmpty(SPUtilis.getStringFromPref("API_BASE_URL"))) {
             synchronized (Api.class) {
                 if (gankService == null) {
-                    gankService = XApi.getInstance().getRetrofit(API_BASE_URL, true).create(GankService.class);
+                    gankService = XApi.getInstance().getRetrofit(SPUtilis.getStringFromPref("API_BASE_URL"), true).create(GankService.class);
                 }
             }
         }

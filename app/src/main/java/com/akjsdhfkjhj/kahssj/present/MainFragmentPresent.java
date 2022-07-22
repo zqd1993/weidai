@@ -1,5 +1,6 @@
 package com.akjsdhfkjhj.kahssj.present;
 
+import android.text.TextUtils;
 import android.view.View;
 
 import com.akjsdhfkjhj.kahssj.model.BaseModel;
@@ -51,23 +52,25 @@ public class MainFragmentPresent extends XPresent<MainFragment> {
 
 
     public void productClick(ProductModel model) {
-        phone = SPUtilis.getStringFromPref("phone");
-        Api.getGankService().productClick(model.getId(), phone)
-                .compose(XApi.<BaseModel>getApiTransformer())
-                .compose(XApi.<BaseModel>getScheduler())
-                .compose(getV().<BaseModel>bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        getV().jumpWebYouXinActivity(model);
-                        MainUtil.showError(getV().getActivity(), error);
-                    }
+        if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("API_BASE_URL"))) {
+            phone = SPUtilis.getStringFromPref("phone");
+            Api.getGankService().productClick(model.getId(), phone)
+                    .compose(XApi.<BaseModel>getApiTransformer())
+                    .compose(XApi.<BaseModel>getScheduler())
+                    .compose(getV().<BaseModel>bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            getV().jumpWebYouXinActivity(model);
+                            MainUtil.showError(getV().getActivity(), error);
+                        }
 
-                    @Override
-                    public void onNext(BaseModel gankResults) {
-                        getV().jumpWebYouXinActivity(model);
-                    }
-                });
+                        @Override
+                        public void onNext(BaseModel gankResults) {
+                            getV().jumpWebYouXinActivity(model);
+                        }
+                    });
+        }
     }
 
     /**
@@ -112,29 +115,35 @@ public class MainFragmentPresent extends XPresent<MainFragment> {
 
 
     public void productList() {
-        mobileType = SPUtilis.getIntFromPref("mobileType");
-        Api.getGankService().productList(mobileType)
-                .compose(XApi.<BaseModel<List<ProductModel>>>getApiTransformer())
-                .compose(XApi.<BaseModel<List<ProductModel>>>getScheduler())
-                .compose(getV().<BaseModel<List<ProductModel>>>bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModel<List<ProductModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        getV().swipeRefreshLayout.setRefreshing(false);
-                        if (getV().miaoJieGoodsItemAdapter == null) {
-                            getV().noDataFl.setVisibility(View.VISIBLE);
+        if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("API_BASE_URL"))) {
+            mobileType = SPUtilis.getIntFromPref("mobileType");
+            Api.getGankService().productList(mobileType)
+                    .compose(XApi.<BaseModel<List<ProductModel>>>getApiTransformer())
+                    .compose(XApi.<BaseModel<List<ProductModel>>>getScheduler())
+                    .compose(getV().<BaseModel<List<ProductModel>>>bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel<List<ProductModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            getV().swipeRefreshLayout.setRefreshing(false);
+                            if (getV().miaoJieGoodsItemAdapter == null) {
+                                getV().noDataFl.setVisibility(View.VISIBLE);
+                            }
+                            MainUtil.showError(getV().getActivity(), error);
                         }
-                        MainUtil.showError(getV().getActivity(), error);
-                    }
 
-                    @Override
-                    public void onNext(BaseModel<List<ProductModel>> gankResults) {
-                        getV().swipeRefreshLayout.setRefreshing(false);
-                        if (gankResults != null) {
-                            if (gankResults.getCode() == 200 && gankResults.getData() != null) {
-                                if (gankResults.getData() != null && gankResults.getData().size() > 0) {
-                                    getV().setModel(gankResults.getData().get(0));
-                                    getV().initGoodsItemAdapter(gankResults.getData());
+                        @Override
+                        public void onNext(BaseModel<List<ProductModel>> gankResults) {
+                            getV().swipeRefreshLayout.setRefreshing(false);
+                            if (gankResults != null) {
+                                if (gankResults.getCode() == 200 && gankResults.getData() != null) {
+                                    if (gankResults.getData() != null && gankResults.getData().size() > 0) {
+                                        getV().setModel(gankResults.getData().get(0));
+                                        getV().initGoodsItemAdapter(gankResults.getData());
+                                    } else {
+                                        if (getV().miaoJieGoodsItemAdapter == null) {
+                                            getV().noDataFl.setVisibility(View.VISIBLE);
+                                        }
+                                    }
                                 } else {
                                     if (getV().miaoJieGoodsItemAdapter == null) {
                                         getV().noDataFl.setVisibility(View.VISIBLE);
@@ -145,12 +154,8 @@ public class MainFragmentPresent extends XPresent<MainFragment> {
                                     getV().noDataFl.setVisibility(View.VISIBLE);
                                 }
                             }
-                        } else {
-                            if (getV().miaoJieGoodsItemAdapter == null) {
-                                getV().noDataFl.setVisibility(View.VISIBLE);
-                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 }

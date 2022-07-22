@@ -1,5 +1,7 @@
 package com.akjsdhfkjhj.kahssj.present;
 
+import android.text.TextUtils;
+
 import com.akjsdhfkjhj.kahssj.model.BaseModel;
 import com.akjsdhfkjhj.kahssj.model.LoginModel;
 import com.akjsdhfkjhj.kahssj.ui.MainActivity;
@@ -19,25 +21,27 @@ public class MainHuiMin extends XPresent<MainActivity> {
     private String phone, ip;
 
     public void login() {
-        phone = SPUtilis.getStringFromPref("phone");
-        ip = SPUtilis.getStringFromPref("ip");
-        Api.getGankService().logins(phone, ip)
-                .compose(XApi.<BaseModel<LoginModel>>getApiTransformer())
-                .compose(XApi.<BaseModel<LoginModel>>getScheduler())
-                .compose(getV().<BaseModel<LoginModel>>bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModel<LoginModel>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        MainUtil.showError(getV(), error);
-                    }
-
-                    @Override
-                    public void onNext(BaseModel<LoginModel> gankResults) {
-                        if (gankResults != null) {
-
+        if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("API_BASE_URL"))) {
+            phone = SPUtilis.getStringFromPref("phone");
+            ip = SPUtilis.getStringFromPref("ip");
+            Api.getGankService().logins(phone, ip)
+                    .compose(XApi.<BaseModel<LoginModel>>getApiTransformer())
+                    .compose(XApi.<BaseModel<LoginModel>>getScheduler())
+                    .compose(getV().<BaseModel<LoginModel>>bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel<LoginModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            MainUtil.showError(getV(), error);
                         }
-                    }
-                });
+
+                        @Override
+                        public void onNext(BaseModel<LoginModel> gankResults) {
+                            if (gankResults != null) {
+
+                            }
+                        }
+                    });
+        }
     }
 
     /**

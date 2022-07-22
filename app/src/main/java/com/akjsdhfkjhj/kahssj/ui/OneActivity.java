@@ -7,6 +7,7 @@ import android.os.Handler;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 
@@ -20,6 +21,10 @@ import com.akjsdhfkjhj.kahssj.router.Router;
 import com.akjsdhfkjhj.kahssj.net.Api;
 import com.akjsdhfkjhj.kahssj.widget.OneDialog;
 import com.umeng.commonsdk.UMConfigure;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class OneActivity extends XActivity {
 
@@ -44,6 +49,7 @@ public class OneActivity extends XActivity {
     }
 
     private void showDialog() {
+        Looper.prepare();
         welcomeDialog = new OneDialog(this, "温馨提示");
         welcomeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -72,21 +78,68 @@ public class OneActivity extends XActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", Api.PRIVACY_POLICY);
-                MainUtil.getValue(OneActivity.this, WebActivity.class, bundle);
+                if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", SPUtilis.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
+                    MainUtil.getValue(OneActivity.this, WebActivity.class, bundle);
+                }
             }
 
             @Override
             public void privacyAgreementClicked() {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                MainUtil.getValue(OneActivity.this, WebActivity.class, bundle);
+                if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", SPUtilis.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
+                    MainUtil.getValue(OneActivity.this, WebActivity.class, bundle);
+                }
             }
         });
         welcomeDialog.show();
+        Looper.loop();
+    }
+
+    private void sendRequestWithOkHttp() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            .url("https://ossbj0714.oss-cn-beijing.aliyuncs.com/server7720.txt")
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    String responseData = response.body().string();
+                    if (!TextUtils.isEmpty(responseData)) {
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                SPUtilis.saveStringIntoPref("API_BASE_URL", "http://" + net[0]);
+                                SPUtilis.saveStringIntoPref("AGREEMENT", net[1]);
+                                Thread.sleep(1000);
+                                jumpPage();
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    private void jumpPage() {
+        if (isAgree) {
+            initUm();
+            if (!TextUtils.isEmpty(loginPhone)) {
+                MainUtil.getValue(OneActivity.this, MainActivity.class, null, true);
+            } else {
+                MainUtil.getValue(OneActivity.this, LoginActivityHuiMin.class, null, true);
+            }
+        } else {
+            showDialog();
+        }
     }
 
     @Override
@@ -136,26 +189,7 @@ public class OneActivity extends XActivity {
         StatusBarUtil.setTransparent(this, false);
         isAgree = SPUtilis.getBoolFromPref("agree");
         loginPhone = SPUtilis.getStringFromPref("phone");
-        if (!isAgree) {
-            showDialog();
-        } else {
-            initUm();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (!TextUtils.isEmpty(loginPhone)) {
-                        Router.newIntent(OneActivity.this)
-                                .to(MainActivity.class)
-                                .launch();
-                    } else {
-                        Router.newIntent(OneActivity.this)
-                                .to(LoginActivityHuiMin.class)
-                                .launch();
-                    }
-                    finish();
-                }
-            }, 1000);
-        }
+        sendRequestWithOkHttp();
     }
 
     @Override
