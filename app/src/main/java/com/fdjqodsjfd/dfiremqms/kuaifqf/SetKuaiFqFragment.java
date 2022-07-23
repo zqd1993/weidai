@@ -7,6 +7,7 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -151,16 +152,20 @@ public class SetKuaiFqFragment extends XFragment {
         setItemKuaiFqAdapter.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", HttpApiKuaiFq.ZCXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpeKuaiFqnUti.getValue((XActivity) getActivity(), KuaiFqJumpH5Activity.class, webBundle);
+                    if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", PreferencKuaiFqOpenUtil.getString("AGREEMENT") + HttpApiKuaiFq.ZCXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                        OpeKuaiFqnUti.getValue((XActivity) getActivity(), KuaiFqJumpH5Activity.class, webBundle);
+                    }
                     break;
                 case 1:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", HttpApiKuaiFq.YSXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpeKuaiFqnUti.getValue((XActivity) getActivity(), KuaiFqJumpH5Activity.class, webBundle);
+                    if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", PreferencKuaiFqOpenUtil.getString("AGREEMENT") + HttpApiKuaiFq.YSXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                        OpeKuaiFqnUti.getValue((XActivity) getActivity(), KuaiFqJumpH5Activity.class, webBundle);
+                    }
                     break;
                 case 2:
                     OpeKuaiFqnUti.getValue((XActivity) getActivity(), FeedbackKuaiFqiActivity.class, null);
@@ -224,28 +229,30 @@ public class SetKuaiFqFragment extends XFragment {
     }
 
     public void getConfig() {
-        HttpApiKuaiFq.getInterfaceUtils().getConfig()
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(this.bindToLifecycle())
-                .subscribe(new ApiSubscriber<KuaiFqBaseModel<ConfigEntitKuaiFqy>>() {
-                    @Override
-                    protected void onFail(NetError error) {
+        if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
+            HttpApiKuaiFq.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<KuaiFqBaseModel<ConfigEntitKuaiFqy>>() {
+                        @Override
+                        protected void onFail(NetError error) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onNext(KuaiFqBaseModel<ConfigEntitKuaiFqy> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                mailStr = configEntity.getData().getAppMail();
-                                PreferencKuaiFqOpenUtil.saveString("app_mail", mailStr);
-                                dialog = new RemindDialogKuaiFq(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
-                                dialog.show();
+                        @Override
+                        public void onNext(KuaiFqBaseModel<ConfigEntitKuaiFqy> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    mailStr = configEntity.getData().getAppMail();
+                                    PreferencKuaiFqOpenUtil.saveString("app_mail", mailStr);
+                                    dialog = new RemindDialogKuaiFq(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
+                                    dialog.show();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void toWeb(ProductKuaiFqModel model) {
@@ -258,50 +265,54 @@ public class SetKuaiFqFragment extends XFragment {
     }
 
     public void productList() {
-        mobileType = PreferencKuaiFqOpenUtil.getInt("mobileType");
-        phone = PreferencKuaiFqOpenUtil.getString("phone");
-        HttpApiKuaiFq.getInterfaceUtils().productList(mobileType, phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<KuaiFqBaseModel<List<ProductKuaiFqModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpeKuaiFqnUti.showErrorInfo(getActivity(), error);
-                    }
+        if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
+            mobileType = PreferencKuaiFqOpenUtil.getInt("mobileType");
+            phone = PreferencKuaiFqOpenUtil.getString("phone");
+            HttpApiKuaiFq.getInterfaceUtils().productList(mobileType, phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<KuaiFqBaseModel<List<ProductKuaiFqModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpeKuaiFqnUti.showErrorInfo(getActivity(), error);
+                        }
 
-                    @Override
-                    public void onNext(KuaiFqBaseModel<List<ProductKuaiFqModel>> kuaiFqBaseModel) {
-                        if (kuaiFqBaseModel != null) {
-                            if (kuaiFqBaseModel.getCode() == 200 && kuaiFqBaseModel.getData() != null) {
-                                if (kuaiFqBaseModel.getData() != null && kuaiFqBaseModel.getData().size() > 0) {
-                                    productKuaiFqModel = kuaiFqBaseModel.getData().get(0);
+                        @Override
+                        public void onNext(KuaiFqBaseModel<List<ProductKuaiFqModel>> kuaiFqBaseModel) {
+                            if (kuaiFqBaseModel != null) {
+                                if (kuaiFqBaseModel.getCode() == 200 && kuaiFqBaseModel.getData() != null) {
+                                    if (kuaiFqBaseModel.getData() != null && kuaiFqBaseModel.getData().size() > 0) {
+                                        productKuaiFqModel = kuaiFqBaseModel.getData().get(0);
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void productClick(ProductKuaiFqModel model) {
-        if (model == null) {
-            return;
-        }
-        phone = PreferencKuaiFqOpenUtil.getString("phone");
-        HttpApiKuaiFq.getInterfaceUtils().productClick(model.getId(), phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<KuaiFqBaseModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        toWeb(model);
-                    }
+        if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
+            if (model == null) {
+                return;
+            }
+            phone = PreferencKuaiFqOpenUtil.getString("phone");
+            HttpApiKuaiFq.getInterfaceUtils().productClick(model.getId(), phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<KuaiFqBaseModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            toWeb(model);
+                        }
 
-                    @Override
-                    public void onNext(KuaiFqBaseModel kuaiFqBaseModel) {
-                        toWeb(model);
-                    }
-                });
+                        @Override
+                        public void onNext(KuaiFqBaseModel kuaiFqBaseModel) {
+                            toWeb(model);
+                        }
+                    });
+        }
     }
 }

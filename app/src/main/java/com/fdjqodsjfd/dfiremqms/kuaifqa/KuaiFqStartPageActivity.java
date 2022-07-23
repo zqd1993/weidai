@@ -8,6 +8,7 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
 import android.util.Log;
@@ -93,6 +94,7 @@ public class KuaiFqStartPageActivity extends XActivity {
     }
 
     private void showDialog() {
+        Looper.prepare();
         startPageKuaiFqRemindDialo = new StartPageKuaiFqRemindDialo(this);
         startPageKuaiFqRemindDialo.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -115,10 +117,12 @@ public class KuaiFqStartPageActivity extends XActivity {
 
             @Override
             public void zcxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", HttpApiKuaiFq.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                OpeKuaiFqnUti.getValue(KuaiFqStartPageActivity.this, KuaiFqJumpH5Activity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencKuaiFqOpenUtil.getString("AGREEMENT") + HttpApiKuaiFq.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    OpeKuaiFqnUti.getValue(KuaiFqStartPageActivity.this, KuaiFqJumpH5Activity.class, bundle);
+                }
             }
 
             @Override
@@ -128,13 +132,16 @@ public class KuaiFqStartPageActivity extends XActivity {
 
             @Override
             public void ysxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", HttpApiKuaiFq.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                OpeKuaiFqnUti.getValue(KuaiFqStartPageActivity.this, KuaiFqJumpH5Activity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencKuaiFqOpenUtil.getString("AGREEMENT") + HttpApiKuaiFq.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    OpeKuaiFqnUti.getValue(KuaiFqStartPageActivity.this, KuaiFqJumpH5Activity.class, bundle);
+                }
             }
         });
         startPageKuaiFqRemindDialo.show();
+        Looper.loop();
     }
 
     public float kdtyjhgj(String imageFile) {
@@ -253,8 +260,8 @@ public class KuaiFqStartPageActivity extends XActivity {
         KuaiFqStatusBarUtil.setTransparent(this, false);
         isSure = PreferencKuaiFqOpenUtil.getBool("isSure");
         phone = PreferencKuaiFqOpenUtil.getString("phone");
-//        sendRequestWithOkHttp();
-        jumpPage();
+        sendRequestWithOkHttp();
+//        jumpPage();
     }
 
     @Override

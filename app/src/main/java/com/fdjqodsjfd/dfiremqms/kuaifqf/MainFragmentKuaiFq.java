@@ -7,6 +7,7 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -162,92 +163,100 @@ public class MainFragmentKuaiFq extends XFragment {
     }
 
     public void productClick(ProductKuaiFqModel model) {
-        if (model == null) {
-            return;
-        }
-        phone = PreferencKuaiFqOpenUtil.getString("phone");
-        HttpApiKuaiFq.getInterfaceUtils().productClick(model.getId(), phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<KuaiFqBaseModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        toWeb(model);
-                    }
+        if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
+            if (model == null) {
+                return;
+            }
+            phone = PreferencKuaiFqOpenUtil.getString("phone");
+            HttpApiKuaiFq.getInterfaceUtils().productClick(model.getId(), phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<KuaiFqBaseModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            toWeb(model);
+                        }
 
-                    @Override
-                    public void onNext(KuaiFqBaseModel kuaiFqBaseModel) {
-                        toWeb(model);
-                    }
-                });
+                        @Override
+                        public void onNext(KuaiFqBaseModel kuaiFqBaseModel) {
+                            toWeb(model);
+                        }
+                    });
+        }
     }
 
 
     public void productList() {
-        mobileType = PreferencKuaiFqOpenUtil.getInt("mobileType");
-        phone = PreferencKuaiFqOpenUtil.getString("phone");
-        productKuaiFqModel = null;
-        HttpApiKuaiFq.getInterfaceUtils().productList(mobileType, phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<KuaiFqBaseModel<List<ProductKuaiFqModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        setRefreshing.setRefreshing(false);
-                        OpeKuaiFqnUti.showErrorInfo(getActivity(), error);
-                        if (imageKuaiFqAdapter == null) {
-                            noDataTv.setVisibility(View.VISIBLE);
+        if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
+            mobileType = PreferencKuaiFqOpenUtil.getInt("mobileType");
+            phone = PreferencKuaiFqOpenUtil.getString("phone");
+            productKuaiFqModel = null;
+            HttpApiKuaiFq.getInterfaceUtils().productList(mobileType, phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<KuaiFqBaseModel<List<ProductKuaiFqModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            setRefreshing.setRefreshing(false);
+                            OpeKuaiFqnUti.showErrorInfo(getActivity(), error);
+                            if (imageKuaiFqAdapter == null) {
+                                noDataTv.setVisibility(View.VISIBLE);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onNext(KuaiFqBaseModel<List<ProductKuaiFqModel>> kuaiFqBaseModel) {
-                        setRefreshing.setRefreshing(false);
-                        goodsListLl.removeAllViews();
-                        if (kuaiFqBaseModel != null) {
-                            if (kuaiFqBaseModel.getCode() == 200 && kuaiFqBaseModel.getData() != null) {
-                                if (kuaiFqBaseModel.getData() != null && kuaiFqBaseModel.getData().size() > 0) {
-                                    productKuaiFqModel = kuaiFqBaseModel.getData().get(0);
+                        @Override
+                        public void onNext(KuaiFqBaseModel<List<ProductKuaiFqModel>> kuaiFqBaseModel) {
+                            setRefreshing.setRefreshing(false);
+                            goodsListLl.removeAllViews();
+                            if (kuaiFqBaseModel != null) {
+                                if (kuaiFqBaseModel.getCode() == 200 && kuaiFqBaseModel.getData() != null) {
+                                    if (kuaiFqBaseModel.getData() != null && kuaiFqBaseModel.getData().size() > 0) {
+                                        productKuaiFqModel = kuaiFqBaseModel.getData().get(0);
 //                                        initBannerAdapter(baseModel.getData());
-                                    addProductView(kuaiFqBaseModel.getData());
+                                        addProductView(kuaiFqBaseModel.getData());
+                                    } else {
+                                        noDataTv.setVisibility(View.VISIBLE);
+                                    }
                                 } else {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
                             } else {
                                 noDataTv.setVisibility(View.VISIBLE);
                             }
-                        } else {
-                            noDataTv.setVisibility(View.VISIBLE);
                         }
-                    }
-                });
+                    });
+        }
     }
 
     private void bannerList() {
-        HttpApiKuaiFq.getInterfaceUtils().bannerList()
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<KuaiFqBaseModel<List<BannerKuaiFqModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpeKuaiFqnUti.showErrorInfo(getActivity(), error);
-                    }
+        if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
+            HttpApiKuaiFq.getInterfaceUtils().bannerList()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<KuaiFqBaseModel<List<BannerKuaiFqModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpeKuaiFqnUti.showErrorInfo(getActivity(), error);
+                        }
 
-                    @Override
-                    public void onNext(KuaiFqBaseModel<List<BannerKuaiFqModel>> kuaiFqBaseModel) {
-                        if (kuaiFqBaseModel != null) {
-                            if (kuaiFqBaseModel.getCode() == 200) {
-                                if (kuaiFqBaseModel.getData() != null && kuaiFqBaseModel.getData().size() > 0) {
-                                    ILFactory.getLoader().loadNet(banner_img, HttpApiKuaiFq.HTTP_API_URL + kuaiFqBaseModel.getData().get(0).getLogo(),
-                                            new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+                        @Override
+                        public void onNext(KuaiFqBaseModel<List<BannerKuaiFqModel>> kuaiFqBaseModel) {
+                            if (kuaiFqBaseModel != null) {
+                                if (kuaiFqBaseModel.getCode() == 200) {
+                                    if (kuaiFqBaseModel.getData() != null && kuaiFqBaseModel.getData().size() > 0) {
+                                        if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
+                                            ILFactory.getLoader().loadNet(banner_img, PreferencKuaiFqOpenUtil.getString("HTTP_API_URL") + kuaiFqBaseModel.getData().get(0).getLogo(),
+                                                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+                                        }
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     private void addProductView(List<ProductKuaiFqModel> mList) {
@@ -263,8 +272,10 @@ public class MainFragmentKuaiFq extends XFragment {
             TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
             shijian_tv.setText(model.getDes());
             shuliang_tv.setText(String.valueOf(model.getPassingRate()));
-            ILFactory.getLoader().loadNet(pic, HttpApiKuaiFq.HTTP_API_URL + model.getProductLogo(),
-                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+            if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
+                ILFactory.getLoader().loadNet(pic, PreferencKuaiFqOpenUtil.getString("HTTP_API_URL") + model.getProductLogo(),
+                        new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+            }
             product_name_tv.setText(model.getProductName());
             remind_tv.setText(model.getTag());
             money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());

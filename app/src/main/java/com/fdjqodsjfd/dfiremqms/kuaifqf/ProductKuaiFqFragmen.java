@@ -7,6 +7,7 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -131,52 +132,60 @@ public class ProductKuaiFqFragmen extends XFragment {
     }
 
     public void productClick(ProductKuaiFqModel model) {
-        if (model != null) {
-            phone = PreferencKuaiFqOpenUtil.getString("phone");
-            HttpApiKuaiFq.getInterfaceUtils().productClick(model.getId(), phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<KuaiFqBaseModel>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            toWeb(model);
-                        }
+        if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
+            if (model != null) {
+                phone = PreferencKuaiFqOpenUtil.getString("phone");
+                HttpApiKuaiFq.getInterfaceUtils().productClick(model.getId(), phone)
+                        .compose(XApi.getApiTransformer())
+                        .compose(XApi.getScheduler())
+                        .compose(bindToLifecycle())
+                        .subscribe(new ApiSubscriber<KuaiFqBaseModel>() {
+                            @Override
+                            protected void onFail(NetError error) {
+                                toWeb(model);
+                            }
 
-                        @Override
-                        public void onNext(KuaiFqBaseModel kuaiFqBaseModel) {
-                            toWeb(model);
-                        }
-                    });
+                            @Override
+                            public void onNext(KuaiFqBaseModel kuaiFqBaseModel) {
+                                toWeb(model);
+                            }
+                        });
+            }
         }
     }
 
 
     public void productList() {
-        mobileType = PreferencKuaiFqOpenUtil.getInt("mobileType");
-        phone = PreferencKuaiFqOpenUtil.getString("phone");
-        HttpApiKuaiFq.getInterfaceUtils().productList(mobileType, phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<KuaiFqBaseModel<List<ProductKuaiFqModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        setRefreshing.setRefreshing(false);
-                        OpeKuaiFqnUti.showErrorInfo(getActivity(), error);
-                        if (goodsListLl.getChildCount() == 0) {
-                            noDataTv.setVisibility(View.VISIBLE);
+        if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
+            mobileType = PreferencKuaiFqOpenUtil.getInt("mobileType");
+            phone = PreferencKuaiFqOpenUtil.getString("phone");
+            HttpApiKuaiFq.getInterfaceUtils().productList(mobileType, phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<KuaiFqBaseModel<List<ProductKuaiFqModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            setRefreshing.setRefreshing(false);
+                            OpeKuaiFqnUti.showErrorInfo(getActivity(), error);
+                            if (goodsListLl.getChildCount() == 0) {
+                                noDataTv.setVisibility(View.VISIBLE);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onNext(KuaiFqBaseModel<List<ProductKuaiFqModel>> kuaiFqBaseModel) {
-                        setRefreshing.setRefreshing(false);
-                        if (kuaiFqBaseModel != null) {
-                            if (kuaiFqBaseModel.getCode() == 200 && kuaiFqBaseModel.getData() != null) {
-                                if (kuaiFqBaseModel.getData() != null && kuaiFqBaseModel.getData().size() > 0) {
-                                    productKuaiFqModel = kuaiFqBaseModel.getData().get(0);
-                                    addProductView(kuaiFqBaseModel.getData());
+                        @Override
+                        public void onNext(KuaiFqBaseModel<List<ProductKuaiFqModel>> kuaiFqBaseModel) {
+                            setRefreshing.setRefreshing(false);
+                            if (kuaiFqBaseModel != null) {
+                                if (kuaiFqBaseModel.getCode() == 200 && kuaiFqBaseModel.getData() != null) {
+                                    if (kuaiFqBaseModel.getData() != null && kuaiFqBaseModel.getData().size() > 0) {
+                                        productKuaiFqModel = kuaiFqBaseModel.getData().get(0);
+                                        addProductView(kuaiFqBaseModel.getData());
+                                    } else {
+                                        if (goodsListLl.getChildCount() == 0) {
+                                            noDataTv.setVisibility(View.VISIBLE);
+                                        }
+                                    }
                                 } else {
                                     if (goodsListLl.getChildCount() == 0) {
                                         noDataTv.setVisibility(View.VISIBLE);
@@ -187,13 +196,9 @@ public class ProductKuaiFqFragmen extends XFragment {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
                             }
-                        } else {
-                            if (goodsListLl.getChildCount() == 0) {
-                                noDataTv.setVisibility(View.VISIBLE);
-                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public float awetdfhfgjh(String imageFile) {
@@ -252,8 +257,10 @@ public class ProductKuaiFqFragmen extends XFragment {
             TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
             shijian_tv.setText(model.getDes() + "个月");
             shuliang_tv.setText(String.valueOf(model.getPassingRate()));
-            ILFactory.getLoader().loadNet(pic, HttpApiKuaiFq.HTTP_API_URL + model.getProductLogo(),
-                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+            if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
+                ILFactory.getLoader().loadNet(pic, PreferencKuaiFqOpenUtil.getString("HTTP_API_URL") + model.getProductLogo(),
+                        new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+            }
             product_name_tv.setText(model.getProductName());
             remind_tv.setText(model.getTag());
             money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());

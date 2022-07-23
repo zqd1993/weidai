@@ -6,14 +6,16 @@ import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
+import android.text.TextUtils;
 
+import com.fdjqodsjfd.dfiremqms.kuaifqu.PreferencKuaiFqOpenUtil;
 import com.fdjqodsjfd.dfiremqms.net.XApi;
 
 import java.io.IOException;
 
 public class HttpApiKuaiFq {
-    public static final String ZCXY = "https://opxy.iuoop9.com/profile/xyklfqdk/zcxy.html";
-    public static final String YSXY= "https://opxy.iuoop9.com/profile/xyklfqdk/ysxy.html";
+    public static final String ZCXY = "/profile/xyklfqdk/zcxy.html";
+    public static final String YSXY= "/profile/xyklfqdk/ysxy.html";
     public static String HTTP_API_URL = "http://110.42.64.175:7753";
 
     private static KuaiFqInterfaceUtils kuaiFqInterfaceUtils;
@@ -61,10 +63,10 @@ public class HttpApiKuaiFq {
     }
 
     public static KuaiFqInterfaceUtils getInterfaceUtils() {
-        if (kuaiFqInterfaceUtils == null) {
+        if (kuaiFqInterfaceUtils == null && !TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
             synchronized (HttpApiKuaiFq.class) {
                 if (kuaiFqInterfaceUtils == null) {
-                    kuaiFqInterfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(KuaiFqInterfaceUtils.class);
+                    kuaiFqInterfaceUtils = XApi.getInstance().getRetrofit(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"), true).create(KuaiFqInterfaceUtils.class);
                 }
             }
         }

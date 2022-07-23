@@ -7,6 +7,7 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
@@ -69,15 +70,17 @@ public class KuaiFqDlActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.view_loading_kuai_fq, null));
         getConfig();
         readTv.setText(OpeKuaiFqnUti.createDlSpanTexts(), position -> {
-            bundle = new Bundle();
-            if (position == 1) {
-                bundle.putString("url", HttpApiKuaiFq.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-            } else {
-                bundle.putString("url", HttpApiKuaiFq.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+            if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("AGREEMENT"))) {
+                bundle = new Bundle();
+                if (position == 1) {
+                    bundle.putString("url", PreferencKuaiFqOpenUtil.getString("AGREEMENT") + HttpApiKuaiFq.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                } else {
+                    bundle.putString("url", PreferencKuaiFqOpenUtil.getString("AGREEMENT") + HttpApiKuaiFq.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                }
+                OpeKuaiFqnUti.getValue(KuaiFqDlActivity.this, KuaiFqJumpH5Activity.class, bundle);
             }
-            OpeKuaiFqnUti.getValue(KuaiFqDlActivity.this, KuaiFqJumpH5Activity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -161,33 +164,35 @@ public class KuaiFqDlActivity extends XActivity {
     }
 
     public void getConfig() {
-        HttpApiKuaiFq.getInterfaceUtils().getConfig()
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(this.bindToLifecycle())
-                .subscribe(new ApiSubscriber<KuaiFqBaseModel<ConfigEntitKuaiFqy>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpeKuaiFqnUti.showErrorInfo(KuaiFqDlActivity.this, error);
-                    }
+        if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
+            HttpApiKuaiFq.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<KuaiFqBaseModel<ConfigEntitKuaiFqy>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpeKuaiFqnUti.showErrorInfo(KuaiFqDlActivity.this, error);
+                        }
 
-                    @Override
-                    public void onNext(KuaiFqBaseModel<ConfigEntitKuaiFqy> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                PreferencKuaiFqOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
-                                if ("0".equals(configEntity.getData().getIsCodeLogin())) {
-                                    yzmCv.setVisibility(View.GONE);
-                                } else {
-                                    yzmCv.setVisibility(View.VISIBLE);
+                        @Override
+                        public void onNext(KuaiFqBaseModel<ConfigEntitKuaiFqy> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    PreferencKuaiFqOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
+                                    if ("0".equals(configEntity.getData().getIsCodeLogin())) {
+                                        yzmCv.setVisibility(View.GONE);
+                                    } else {
+                                        yzmCv.setVisibility(View.VISIBLE);
+                                    }
+                                    isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
+                                    isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
+                                    remindCb.setChecked(isChecked);
                                 }
-                                isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
-                                isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
-                                remindCb.setChecked(isChecked);
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     private void getIp() {
@@ -220,62 +225,66 @@ public class KuaiFqDlActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (xStateController != null)
-            xStateController.showLoading();
-        HttpApiKuaiFq.getInterfaceUtils().login(phone, verificationStr, "", ip)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<KuaiFqBaseModel<KuaiFqDlModel>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpeKuaiFqnUti.showErrorInfo(KuaiFqDlActivity.this, error);
-                        if (xStateController != null)
-                            xStateController.showContent();
-                    }
+        if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
+            if (xStateController != null)
+                xStateController.showLoading();
+            HttpApiKuaiFq.getInterfaceUtils().login(phone, verificationStr, "", ip)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<KuaiFqBaseModel<KuaiFqDlModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpeKuaiFqnUti.showErrorInfo(KuaiFqDlActivity.this, error);
+                            if (xStateController != null)
+                                xStateController.showContent();
+                        }
 
-                    @Override
-                    public void onNext(KuaiFqBaseModel<KuaiFqDlModel> dlModel) {
-                        if (xStateController != null)
-                            xStateController.showContent();
-                        if (dlModel != null && dlModel.getCode() == 200) {
-                            if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                int mobileType = dlModel.getData().getMobileType();
-                                PreferencKuaiFqOpenUtil.saveString("ip", ip);
-                                PreferencKuaiFqOpenUtil.saveString("phone", phone);
-                                PreferencKuaiFqOpenUtil.saveInt("mobileType", mobileType);
-                                OpeKuaiFqnUti.getValue(KuaiFqDlActivity.this, MainActivityKuaiFq.class, null, true);
-                            }
-                        } else {
-                            if (dlModel.getCode() == 500) {
-                                KuaiFqMyToast.showShort(dlModel.getMsg());
+                        @Override
+                        public void onNext(KuaiFqBaseModel<KuaiFqDlModel> dlModel) {
+                            if (xStateController != null)
+                                xStateController.showContent();
+                            if (dlModel != null && dlModel.getCode() == 200) {
+                                if (dlModel.getData() != null && dlModel.getCode() == 200) {
+                                    int mobileType = dlModel.getData().getMobileType();
+                                    PreferencKuaiFqOpenUtil.saveString("ip", ip);
+                                    PreferencKuaiFqOpenUtil.saveString("phone", phone);
+                                    PreferencKuaiFqOpenUtil.saveInt("mobileType", mobileType);
+                                    OpeKuaiFqnUti.getValue(KuaiFqDlActivity.this, MainActivityKuaiFq.class, null, true);
+                                }
+                            } else {
+                                if (dlModel.getCode() == 500) {
+                                    KuaiFqMyToast.showShort(dlModel.getMsg());
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void getYzm(String phone) {
-        HttpApiKuaiFq.getInterfaceUtils().sendVerifyCode(phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<KuaiFqBaseModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpeKuaiFqnUti.showErrorInfo(KuaiFqDlActivity.this, error);
-                    }
+        if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
+            HttpApiKuaiFq.getInterfaceUtils().sendVerifyCode(phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<KuaiFqBaseModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpeKuaiFqnUti.showErrorInfo(KuaiFqDlActivity.this, error);
+                        }
 
-                    @Override
-                    public void onNext(KuaiFqBaseModel kuaiFqBaseModel) {
-                        if (kuaiFqBaseModel != null) {
-                            if (kuaiFqBaseModel.getCode() == 200) {
-                                KuaiFqMyToast.showShort("验证码发送成功");
-                                CountDownTimerKuaiFq cdt = new CountDownTimerKuaiFq(getYzmTv, 60000, 1000);
-                                cdt.start();
+                        @Override
+                        public void onNext(KuaiFqBaseModel kuaiFqBaseModel) {
+                            if (kuaiFqBaseModel != null) {
+                                if (kuaiFqBaseModel.getCode() == 200) {
+                                    KuaiFqMyToast.showShort("验证码发送成功");
+                                    CountDownTimerKuaiFq cdt = new CountDownTimerKuaiFq(getYzmTv, 60000, 1000);
+                                    cdt.start();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 }
