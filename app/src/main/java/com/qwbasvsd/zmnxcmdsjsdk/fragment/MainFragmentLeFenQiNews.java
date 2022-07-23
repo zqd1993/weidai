@@ -83,6 +83,9 @@ public class MainFragmentLeFenQiNews extends XFragment {
         mine_tv.setOnClickListener(v -> {
             ((LeFenQiNewsMainActivity) getActivity()).jumpMine();
         });
+        banner_img.setOnClickListener(v -> {
+            productClick(productLeFenQiNewsModel);
+        });
     }
 
     @Override

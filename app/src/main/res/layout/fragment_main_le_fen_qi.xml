@@ -96,7 +96,7 @@
                     android:layout_marginStart="40dp"
                     android:layout_marginTop="40dp"
                     android:layout_marginEnd="40dp"
-                    app:proporty="1.65">
+                    app:proporty="1.69">
 
                     <com.lihang.ShadowLayout
                         android:layout_width="match_parent"
