@@ -134,6 +134,9 @@ public class MainQuHuaDaiKuanFragment extends XFragment {
         mine_tv.setOnClickListener(v -> {
             ((QuHuaDaiKuanMainActivity) getActivity()).jumpMine();
         });
+        banner_img.setOnClickListener(v -> {
+            productClick(quHuaDaiKuanProductModel);
+        });
     }
 
     @Override
