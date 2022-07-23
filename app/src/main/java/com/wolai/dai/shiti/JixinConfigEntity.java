@@ -29,6 +29,16 @@ public class JixinConfigEntity {
     @SerializedName("APP_MAIL")
     private String appMail;
 
+    @SerializedName("VIDEOTAPE")
+    private String videoTape;
+
+    public String getVideoTape() {
+        return videoTape;
+    }
+
+    public void setVideoTape(String videoTape) {
+        this.videoTape = videoTape;
+    }
 
     public String getIsSelectLogin() {
         return isSelectLogin;

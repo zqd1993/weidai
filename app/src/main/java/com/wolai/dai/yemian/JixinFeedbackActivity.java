@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.wolai.dai.R;
 import com.wolai.dai.gongju.JiXinMyToast;
+import com.wolai.dai.gongju.JiXinPreferencesOpenUtil;
 import com.wolai.dai.gongju.JiXinStatusBarUtil;
 
 import cn.droidlover.xstatecontroller.XStateController;
@@ -51,6 +53,9 @@ public class JixinFeedbackActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         JiXinStatusBarUtil.setTransparent(this, false);
+        if (JiXinPreferencesOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         setContentView(R.layout.jixin_activity_feedback);
         ImageView backImg = findViewById(R.id.back_image);
         backImg.setOnClickListener(v -> finish());

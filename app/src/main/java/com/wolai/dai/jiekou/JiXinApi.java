@@ -11,8 +11,8 @@ import java.io.Reader;
 import java.net.NetworkInterface;
 
 public class JiXinApi {
-    public static final String ZCXY = "https://xy.hgy5kg.com/profile/jxdk/zcxy.html";
-    public static final String YSXY= "https://xy.hgy5kg.com/profile/jxdk/ysxy.html";
+    public static final String ZCXY = "/profile/smjk/zcxy.html";
+    public static final String YSXY= "/profile/smjk/ysxy.html";
     public static final String HTTP_API_URL = "http://45.120.154.46:7701";
 
     private static JiXinInterfaceUtils interfaceUtils;

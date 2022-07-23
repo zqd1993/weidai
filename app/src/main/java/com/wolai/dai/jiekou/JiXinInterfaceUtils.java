@@ -22,6 +22,9 @@ public interface JiXinInterfaceUtils {
     @GET("/app/user/sendVerifyCode")
     Flowable<JixinBaseModel> sendVerifyCode(@Query("phone") String phone);
 
+    @GET("/app/config/getValue")
+    Flowable<JixinBaseModel<JixinConfigEntity>> getValue(@Query("key") String phone);
+
     @GET("/app/user/login")
     Flowable<JixinBaseModel<JixinDlModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
 

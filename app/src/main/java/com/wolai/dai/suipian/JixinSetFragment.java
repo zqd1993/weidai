@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wolai.dai.R;
 import com.wolai.dai.kongjian.JixinRemindDialog;
+import com.wolai.dai.mvp.XActivity;
 import com.wolai.dai.shiti.JixinConfigEntity;
 import com.wolai.dai.yemian.JixinAboutInfoActivity;
 import com.wolai.dai.yemian.JixinDlActivity;
@@ -71,19 +72,23 @@ public class JixinSetFragment extends XFragment {
         productList();
         initSetAdapter();
         zcxyLl.setOnClickListener(v -> {
-            webBundle = new Bundle();
-            webBundle.putString("url", JiXinApi.ZCXY);
-            webBundle.putString("biaoti", getResources().getString(R.string.yryvb));
-            JiXinOpenUtil.jumpPage(getActivity(), JixinJumpH5Activity.class, webBundle);
+            if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("AGREEMENT"))) {
+                webBundle = new Bundle();
+                webBundle.putString("url", JiXinPreferencesOpenUtil.getString("AGREEMENT") + JiXinApi.ZCXY);
+                webBundle.putString("biaoti", getResources().getString(R.string.yryvb));
+                JiXinOpenUtil.getValue((XActivity) getActivity(), JixinJumpH5Activity.class, webBundle);
+            }
         });
         ysxy_ll.setOnClickListener(v -> {
-            webBundle = new Bundle();
-            webBundle.putString("url", JiXinApi.YSXY);
-            webBundle.putString("biaoti", getResources().getString(R.string.retert));
-            JiXinOpenUtil.jumpPage(getActivity(), JixinJumpH5Activity.class, webBundle);
+            if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("AGREEMENT"))) {
+                webBundle = new Bundle();
+                webBundle.putString("url", JiXinPreferencesOpenUtil.getString("AGREEMENT") + JiXinApi.YSXY);
+                webBundle.putString("biaoti", getResources().getString(R.string.retert));
+                JiXinOpenUtil.getValue((XActivity) getActivity(), JixinJumpH5Activity.class, webBundle);
+            }
         });
         yjfk_ll.setOnClickListener(v -> {
-            JiXinOpenUtil.jumpPage(getActivity(), JixinFeedbackActivity.class);
+            JiXinOpenUtil.getValue((XActivity) getActivity(), JixinFeedbackActivity.class, null);
         });
     }
 
@@ -113,7 +118,7 @@ public class JixinSetFragment extends XFragment {
         setItemAdapter.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    JiXinOpenUtil.jumpPage(getActivity(), JixinAboutInfoActivity.class);
+                    JiXinOpenUtil.getValue((XActivity) getActivity(), JixinAboutInfoActivity.class, null);
                     break;
                 case 1:
                     dialog = new JixinRemindDialog(getActivity()).setCancelText("开启")
@@ -137,7 +142,7 @@ public class JixinSetFragment extends XFragment {
                     getConfig();
                     break;
                 case 3:
-                    JiXinOpenUtil.jumpPage(getActivity(), JixinZhuXiaoActivity.class);
+                    JiXinOpenUtil.getValue((XActivity) getActivity(), JixinZhuXiaoActivity.class, null);
                     break;
                 case 4:
                     dialog = new JixinRemindDialog(getActivity()).setCancelText("取消")
@@ -147,7 +152,7 @@ public class JixinSetFragment extends XFragment {
                         public void onSureClicked() {
                             dialog.dismiss();
                             JiXinPreferencesOpenUtil.saveString("phone", "");
-                            JiXinOpenUtil.jumpPage(getActivity(), JixinDlActivity.class);
+                            JiXinOpenUtil.getValue((XActivity) getActivity(), JixinDlActivity.class, null);
                             getActivity().finish();
                         }
 
@@ -169,7 +174,7 @@ public class JixinSetFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            JiXinOpenUtil.jumpPage(getActivity(), JixinJumpH5Activity.class, bundle);
+            JiXinOpenUtil.getValue((XActivity) getActivity(), JixinJumpH5Activity.class, bundle);
         }
     }
 

@@ -3,6 +3,7 @@ package com.wolai.dai.yemian;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -48,6 +49,9 @@ public class JixinDlActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         JiXinStatusBarUtil.setTransparent(this, false);
+        if (JiXinPreferencesOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         xStateController = this.findViewById(R.id.content_layout);
         mobileEt = this.findViewById(R.id.mobile_et);
         yzmEt = this.findViewById(R.id.yzm_et);
@@ -60,15 +64,17 @@ public class JixinDlActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.jixin_view_loading, null));
         getConfig();
         readTv.setText(JiXinOpenUtil.createDlSpanTexts(), position -> {
-            bundle = new Bundle();
-            if (position == 1) {
-                bundle.putString("url", JiXinApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.yryvb));
-            } else {
-                bundle.putString("url", JiXinApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.retert));
+            if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("AGREEMENT"))) {
+                bundle = new Bundle();
+                if (position == 1) {
+                    bundle.putString("url", JiXinPreferencesOpenUtil.getString("AGREEMENT") + JiXinApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.yryvb));
+                } else {
+                    bundle.putString("url", JiXinPreferencesOpenUtil.getString("AGREEMENT") + JiXinApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.retert));
+                }
+                JiXinOpenUtil.getValue(JixinDlActivity.this, JixinJumpH5Activity.class, bundle);
             }
-            JiXinOpenUtil.jumpPage(JixinDlActivity.this, JixinJumpH5Activity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -256,12 +262,11 @@ public class JixinDlActivity extends XActivity {
                                 xStateController.showContent();
                             if (dlModel != null && dlModel.getCode() == 200) {
                                 if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                    JiXinOpenUtil.jumpPage(JixinDlActivity.this, JixinMainActivity.class);
                                     int mobileType = dlModel.getData().getMobileType();
                                     JiXinPreferencesOpenUtil.saveString("ip", ip);
                                     JiXinPreferencesOpenUtil.saveString("phone", phone);
                                     JiXinPreferencesOpenUtil.saveInt("mobileType", mobileType);
-                                    finish();
+                                    JiXinOpenUtil.getValue(JixinDlActivity.this, JixinMainActivity.class, null, true);
                                 }
                             } else {
                                 if (dlModel.getCode() == 500) {

@@ -21,6 +21,7 @@ import com.wolai.dai.gongju.JiXinPreferencesOpenUtil;
 import com.wolai.dai.gongju.JiXinStatusBarUtil;
 import com.wolai.dai.kongjian.JixinStartPageRemindDialog;
 import com.umeng.commonsdk.UMConfigure;
+import com.wolai.dai.mvp.XActivity;
 
 import java.lang.reflect.Method;
 
@@ -28,7 +29,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class JixinStartPageActivity extends AppCompatActivity {
+public class JixinStartPageActivity extends XActivity {
 
     private Bundle bundle;
 
@@ -55,17 +56,6 @@ public class JixinStartPageActivity extends AppCompatActivity {
             convertActivityToTranslucentAfterL(activity);
         } else {
         }
-    }
-
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.jixin_activity_start_page);
-        JiXinStatusBarUtil.setTransparent(this, false);
-        isSure = JiXinPreferencesOpenUtil.getBool("isSure");
-        phone = JiXinPreferencesOpenUtil.getString("phone");
-        sendRequestWithOkHttp();
     }
 
     @Override
@@ -98,16 +88,18 @@ public class JixinStartPageActivity extends AppCompatActivity {
             public void oneBtnClicked() {
                 initUm();
                 JiXinPreferencesOpenUtil.saveBool("isSure", true);
-                JiXinOpenUtil.jumpPage(JixinStartPageActivity.this, JixinDlActivity.class);
-                finish();
+                startPageRemindDialog.dismiss();
+                JiXinOpenUtil.getValue(JixinStartPageActivity.this, JixinDlActivity.class, null, true);
             }
 
             @Override
             public void zcxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", JiXinApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.yryvb));
-                JiXinOpenUtil.jumpPage(JixinStartPageActivity.this, JixinJumpH5Activity.class, bundle);
+                if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", JiXinPreferencesOpenUtil.getString("AGREEMENT") + JiXinApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.yryvb));
+                    JiXinOpenUtil.getValue(JixinStartPageActivity.this, JixinJumpH5Activity.class, bundle);
+                }
             }
 
             @Override
@@ -117,10 +109,12 @@ public class JixinStartPageActivity extends AppCompatActivity {
 
             @Override
             public void ysxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", JiXinApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.retert));
-                JiXinOpenUtil.jumpPage(JixinStartPageActivity.this, JixinJumpH5Activity.class, bundle);
+                if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", JiXinPreferencesOpenUtil.getString("AGREEMENT") + JiXinApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.retert));
+                    JiXinOpenUtil.getValue(JixinStartPageActivity.this, JixinJumpH5Activity.class, bundle);
+                }
             }
         });
         startPageRemindDialog.show();
@@ -134,16 +128,20 @@ public class JixinStartPageActivity extends AppCompatActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7701.txt")
+                            .url("https://ossbj0714.oss-cn-beijing.aliyuncs.com/server7701.txt")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
                     if (!TextUtils.isEmpty(responseData)) {
-//                        Api.API_BASE_URL = "http://" + responseData;
-                        JiXinPreferencesOpenUtil.saveString("API_BASE_URL", "http://" + responseData);
-                        Thread.sleep(1000);
-                        jumpPage();
-
+                        if (responseData.contains(",")) {
+                            String[] net = responseData.split(",");
+                            if (net.length > 1) {
+                                JiXinPreferencesOpenUtil.saveString("API_BASE_URL", "http://" + net[0]);
+                                JiXinPreferencesOpenUtil.saveString("AGREEMENT", net[1]);
+                                Thread.sleep(1000);
+                                jumpPage();
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -156,11 +154,10 @@ public class JixinStartPageActivity extends AppCompatActivity {
         if (isSure) {
             initUm();
             if (TextUtils.isEmpty(phone)) {
-                JiXinOpenUtil.jumpPage(JixinStartPageActivity.this, JixinDlActivity.class);
+                JiXinOpenUtil.getValue(JixinStartPageActivity.this, JixinDlActivity.class, null, true);
             } else {
-                JiXinOpenUtil.jumpPage(JixinStartPageActivity.this, JixinMainActivity.class);
+                JiXinOpenUtil.getValue(JixinStartPageActivity.this, JixinMainActivity.class, null, true);
             }
-            finish();
         } else {
             showDialog();
         }
@@ -239,4 +236,21 @@ public class JixinStartPageActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        JiXinStatusBarUtil.setTransparent(this, false);
+        isSure = JiXinPreferencesOpenUtil.getBool("isSure");
+        phone = JiXinPreferencesOpenUtil.getString("phone");
+        sendRequestWithOkHttp();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.jixin_activity_start_page;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
+    }
 }

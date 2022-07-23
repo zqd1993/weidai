@@ -2,6 +2,7 @@ package com.wolai.dai.yemian;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.wolai.dai.R;
+import com.wolai.dai.gongju.JiXinPreferencesOpenUtil;
 import com.wolai.dai.suipian.JixinMainFragment;
 import com.wolai.dai.suipian.JixinProductFragment;
 import com.wolai.dai.suipian.JixinSetFragment;
@@ -39,6 +41,9 @@ public class JixinMainActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         JiXinStatusBarUtil.setTransparent(this, false);
+        if (JiXinPreferencesOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         tabModels = new ArrayList<>();
         fragments = new ArrayList<>();
         TabModel tabModel = new TabModel();

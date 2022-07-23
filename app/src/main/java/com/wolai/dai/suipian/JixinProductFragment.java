@@ -12,6 +12,7 @@ import android.widget.ViewFlipper;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.wolai.dai.R;
+import com.wolai.dai.mvp.XActivity;
 import com.wolai.dai.yemian.JixinJumpH5Activity;
 import com.wolai.dai.jiekou.JiXinApi;
 import com.wolai.dai.imageloader.ILFactory;
@@ -228,7 +229,7 @@ public class JixinProductFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("title", model.getProductName());
-            JiXinOpenUtil.jumpPage(getActivity(), JixinJumpH5Activity.class, bundle);
+            JiXinOpenUtil.getValue((XActivity) getActivity(), JixinJumpH5Activity.class, bundle);
         }
     }
 }

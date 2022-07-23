@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.wolai.dai.R;
+import com.wolai.dai.gongju.JiXinPreferencesOpenUtil;
 import com.wolai.dai.gongju.JiXinStatusBarUtil;
 import com.wolai.dai.kongjian.JixinRemindDialog;
 
@@ -35,6 +37,9 @@ public class JixinZhuXiaoActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         JiXinStatusBarUtil.setTransparent(this, false);
+        if (JiXinPreferencesOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         setContentView(R.layout.jixin_activity_zhuxiao);
         ImageView backImg = findViewById(R.id.back_image);
         backImg.setOnClickListener(v -> finish());

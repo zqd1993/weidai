@@ -1,6 +1,7 @@
 package com.wolai.dai.yemian;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.wolai.dai.JixinApp;
 import com.wolai.dai.R;
 import com.wolai.dai.gongju.JiXinOpenUtil;
+import com.wolai.dai.gongju.JiXinPreferencesOpenUtil;
 import com.wolai.dai.gongju.JiXinStatusBarUtil;
 
 import java.math.RoundingMode;
@@ -24,6 +26,9 @@ public class JixinAboutInfoActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         JiXinStatusBarUtil.setTransparent(this, false);
+        if (JiXinPreferencesOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         setContentView(R.layout.jixin_activity_about_info);
         ImageView backImg = findViewById(R.id.back_image);
         backImg.setOnClickListener(v -> finish());

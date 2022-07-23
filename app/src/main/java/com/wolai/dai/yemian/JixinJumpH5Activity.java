@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -21,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.wolai.dai.R;
+import com.wolai.dai.gongju.JiXinPreferencesOpenUtil;
 import com.wolai.dai.mvp.XActivity;
 import com.wolai.dai.gongju.JiXinDownloadApkUtil;
 import com.wolai.dai.gongju.JiXinStatusBarUtil;
@@ -97,6 +99,9 @@ public class JixinJumpH5Activity extends XActivity implements EasyPermissions.Pe
     @Override
     public void initData(Bundle savedInstanceState) {
         JiXinStatusBarUtil.setTransparent(this, false);
+        if (JiXinPreferencesOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         bundle = getIntent().getExtras();
         if (bundle.containsKey("biaoti"))
             biaoti = bundle.getString("biaoti");
