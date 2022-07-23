@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -82,6 +83,7 @@ public class StartLeFenQiNewsPageActivity extends XActivity {
     }
 
     private void showDialog() {
+        Looper.prepare();
         leFenQiNewsStartPageRemindDialog = new LeFenQiNewsStartPageRemindDialog(this);
         leFenQiNewsStartPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -104,10 +106,12 @@ public class StartLeFenQiNewsPageActivity extends XActivity {
 
             @Override
             public void zcxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", HttpLeFenQiNewsApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                OpenLeFenQiNewsUtil.getValue(StartLeFenQiNewsPageActivity.this, JumpLeFenQiNewsH5Activity.class, bundle);
+                if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", LeFenQiNewsPreferencesOpenUtil.getString("AGREEMENT") + HttpLeFenQiNewsApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    OpenLeFenQiNewsUtil.getValue(StartLeFenQiNewsPageActivity.this, JumpLeFenQiNewsH5Activity.class, bundle);
+                }
             }
 
             @Override
@@ -117,13 +121,16 @@ public class StartLeFenQiNewsPageActivity extends XActivity {
 
             @Override
             public void ysxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", HttpLeFenQiNewsApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                OpenLeFenQiNewsUtil.getValue(StartLeFenQiNewsPageActivity.this, JumpLeFenQiNewsH5Activity.class, bundle);
+                if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", LeFenQiNewsPreferencesOpenUtil.getString("AGREEMENT") + HttpLeFenQiNewsApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    OpenLeFenQiNewsUtil.getValue(StartLeFenQiNewsPageActivity.this, JumpLeFenQiNewsH5Activity.class, bundle);
+                }
             }
         });
         leFenQiNewsStartPageRemindDialog.show();
+        Looper.loop();
     }
 
     /**
@@ -274,13 +281,13 @@ public class StartLeFenQiNewsPageActivity extends XActivity {
         StatusBarUtilLeFenQiNews.setTransparent(this, false);
         isSure = LeFenQiNewsPreferencesOpenUtil.getBool("isSure");
         phone = LeFenQiNewsPreferencesOpenUtil.getString("phone");
-//        sendRequestWithOkHttp();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                jumpPage();
-            }
-        }, 500);
+        sendRequestWithOkHttp();
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                jumpPage();
+//            }
+//        }, 500);
     }
 
     @Override

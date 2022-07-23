@@ -1,6 +1,7 @@
 package com.qwbasvsd.zmnxcmdsjsdk.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -109,16 +110,20 @@ public class LeFenQiNewsSetFragment extends XFragment {
         setItemAdapterLeFenQiNews.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", HttpLeFenQiNewsApi.ZCXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpenLeFenQiNewsUtil.getValue((XActivity) getActivity(), JumpLeFenQiNewsH5Activity.class, webBundle);
+                    if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", LeFenQiNewsPreferencesOpenUtil.getString("AGREEMENT") + HttpLeFenQiNewsApi.ZCXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                        OpenLeFenQiNewsUtil.getValue((XActivity) getActivity(), JumpLeFenQiNewsH5Activity.class, webBundle);
+                    }
                     break;
                 case 1:
-                    webBundle = new Bundle();
-                    webBundle.putString("url", HttpLeFenQiNewsApi.YSXY);
-                    webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpenLeFenQiNewsUtil.getValue((XActivity) getActivity(), JumpLeFenQiNewsH5Activity.class, webBundle);
+                    if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("AGREEMENT"))) {
+                        webBundle = new Bundle();
+                        webBundle.putString("url", LeFenQiNewsPreferencesOpenUtil.getString("AGREEMENT") + HttpLeFenQiNewsApi.YSXY);
+                        webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                        OpenLeFenQiNewsUtil.getValue((XActivity) getActivity(), JumpLeFenQiNewsH5Activity.class, webBundle);
+                    }
                     break;
                 case 2:
                     OpenLeFenQiNewsUtil.getValue((XActivity) getActivity(), LeFenQiNewsFeedbackActivity.class, null);
@@ -182,28 +187,30 @@ public class LeFenQiNewsSetFragment extends XFragment {
     }
 
     public void getConfig() {
-        HttpLeFenQiNewsApi.getInterfaceUtils().getConfig()
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(this.bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModelLeFenQiNews<LeFenQiNewsConfigEntity>>() {
-                    @Override
-                    protected void onFail(NetError error) {
+        if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            HttpLeFenQiNewsApi.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModelLeFenQiNews<LeFenQiNewsConfigEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onNext(BaseModelLeFenQiNews<LeFenQiNewsConfigEntity> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                mailStr = configEntity.getData().getAppMail();
-                                LeFenQiNewsPreferencesOpenUtil.saveString("app_mail", mailStr);
-                                dialog = new RemindDialogLeFenQiNews(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
-                                dialog.show();
+                        @Override
+                        public void onNext(BaseModelLeFenQiNews<LeFenQiNewsConfigEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    mailStr = configEntity.getData().getAppMail();
+                                    LeFenQiNewsPreferencesOpenUtil.saveString("app_mail", mailStr);
+                                    dialog = new RemindDialogLeFenQiNews(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
+                                    dialog.show();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void toWeb(ProductLeFenQiNewsModel model) {
@@ -216,51 +223,55 @@ public class LeFenQiNewsSetFragment extends XFragment {
     }
 
     public void productList() {
-        mobileType = LeFenQiNewsPreferencesOpenUtil.getInt("mobileType");
-        phone = LeFenQiNewsPreferencesOpenUtil.getString("phone");
-        HttpLeFenQiNewsApi.getInterfaceUtils().productList(mobileType, phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModelLeFenQiNews<List<ProductLeFenQiNewsModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenLeFenQiNewsUtil.showErrorInfo(getActivity(), error);
-                    }
+        if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            mobileType = LeFenQiNewsPreferencesOpenUtil.getInt("mobileType");
+            phone = LeFenQiNewsPreferencesOpenUtil.getString("phone");
+            HttpLeFenQiNewsApi.getInterfaceUtils().productList(mobileType, phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModelLeFenQiNews<List<ProductLeFenQiNewsModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenLeFenQiNewsUtil.showErrorInfo(getActivity(), error);
+                        }
 
-                    @Override
-                    public void onNext(BaseModelLeFenQiNews<List<ProductLeFenQiNewsModel>> baseModelLeFenQiNews) {
-                        if (baseModelLeFenQiNews != null) {
-                            if (baseModelLeFenQiNews.getCode() == 200 && baseModelLeFenQiNews.getData() != null) {
-                                if (baseModelLeFenQiNews.getData() != null && baseModelLeFenQiNews.getData().size() > 0) {
-                                    productLeFenQiNewsModel = baseModelLeFenQiNews.getData().get(0);
-                                    edu_tv.setText(productLeFenQiNewsModel.getMinAmount() + "-" + productLeFenQiNewsModel.getMaxAmount());
+                        @Override
+                        public void onNext(BaseModelLeFenQiNews<List<ProductLeFenQiNewsModel>> baseModelLeFenQiNews) {
+                            if (baseModelLeFenQiNews != null) {
+                                if (baseModelLeFenQiNews.getCode() == 200 && baseModelLeFenQiNews.getData() != null) {
+                                    if (baseModelLeFenQiNews.getData() != null && baseModelLeFenQiNews.getData().size() > 0) {
+                                        productLeFenQiNewsModel = baseModelLeFenQiNews.getData().get(0);
+                                        edu_tv.setText(productLeFenQiNewsModel.getMinAmount() + "-" + productLeFenQiNewsModel.getMaxAmount());
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void productClick(ProductLeFenQiNewsModel model) {
-        if (model == null) {
-            return;
-        }
-        phone = LeFenQiNewsPreferencesOpenUtil.getString("phone");
-        HttpLeFenQiNewsApi.getInterfaceUtils().productClick(model.getId(), phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModelLeFenQiNews>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        toWeb(model);
-                    }
+        if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            if (model == null) {
+                return;
+            }
+            phone = LeFenQiNewsPreferencesOpenUtil.getString("phone");
+            HttpLeFenQiNewsApi.getInterfaceUtils().productClick(model.getId(), phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModelLeFenQiNews>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            toWeb(model);
+                        }
 
-                    @Override
-                    public void onNext(BaseModelLeFenQiNews baseModelLeFenQiNews) {
-                        toWeb(model);
-                    }
-                });
+                        @Override
+                        public void onNext(BaseModelLeFenQiNews baseModelLeFenQiNews) {
+                            toWeb(model);
+                        }
+                    });
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.qwbasvsd.zmnxcmdsjsdk.lefenqiactivity;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,8 +80,10 @@ public class LeFenQiNewsImageAdapter extends BannerAdapter<ProductLeFenQiNewsMod
         holder.edu_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
         holder.shijian_tv.setText(data.getDes());
         holder.shuliang_tv.setText(String.valueOf(data.getPassingRate()));
-        ILFactory.getLoader().loadNet(holder.product_img, HttpLeFenQiNewsApi.HTTP_API_URL + data.getProductLogo(),
-                new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            ILFactory.getLoader().loadNet(holder.product_img, LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL") + data.getProductLogo(),
+                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        }
         holder.parentLl.setOnClickListener(v -> {
             if (bannerClickedListener != null) {
                 bannerClickedListener.onBannerClicked(data);

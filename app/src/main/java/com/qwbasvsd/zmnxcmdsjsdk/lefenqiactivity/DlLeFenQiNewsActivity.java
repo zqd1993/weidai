@@ -2,6 +2,7 @@ package com.qwbasvsd.zmnxcmdsjsdk.lefenqiactivity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
@@ -100,15 +101,17 @@ public class DlLeFenQiNewsActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.view_le_fen_qi_loading, null));
         getConfig();
         readTv.setText(OpenLeFenQiNewsUtil.createDlSpanTexts(), position -> {
-            bundle = new Bundle();
-            if (position == 1) {
-                bundle.putString("url", HttpLeFenQiNewsApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-            } else {
-                bundle.putString("url", HttpLeFenQiNewsApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+            if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("AGREEMENT"))) {
+                bundle = new Bundle();
+                if (position == 1) {
+                    bundle.putString("url", LeFenQiNewsPreferencesOpenUtil.getString("AGREEMENT") + HttpLeFenQiNewsApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                } else {
+                    bundle.putString("url", LeFenQiNewsPreferencesOpenUtil.getString("AGREEMENT") + HttpLeFenQiNewsApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                }
+                OpenLeFenQiNewsUtil.getValue(DlLeFenQiNewsActivity.this, JumpLeFenQiNewsH5Activity.class, bundle);
             }
-            OpenLeFenQiNewsUtil.getValue(DlLeFenQiNewsActivity.this, JumpLeFenQiNewsH5Activity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -187,33 +190,35 @@ public class DlLeFenQiNewsActivity extends XActivity {
     }
 
     public void getConfig() {
-        HttpLeFenQiNewsApi.getInterfaceUtils().getConfig()
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(this.bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModelLeFenQiNews<LeFenQiNewsConfigEntity>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenLeFenQiNewsUtil.showErrorInfo(DlLeFenQiNewsActivity.this, error);
-                    }
+        if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            HttpLeFenQiNewsApi.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModelLeFenQiNews<LeFenQiNewsConfigEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenLeFenQiNewsUtil.showErrorInfo(DlLeFenQiNewsActivity.this, error);
+                        }
 
-                    @Override
-                    public void onNext(BaseModelLeFenQiNews<LeFenQiNewsConfigEntity> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                LeFenQiNewsPreferencesOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
-                                if ("0".equals(configEntity.getData().getIsCodeLogin())) {
-                                    yzmCv.setVisibility(View.GONE);
-                                } else {
-                                    yzmCv.setVisibility(View.VISIBLE);
+                        @Override
+                        public void onNext(BaseModelLeFenQiNews<LeFenQiNewsConfigEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    LeFenQiNewsPreferencesOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
+                                    if ("0".equals(configEntity.getData().getIsCodeLogin())) {
+                                        yzmCv.setVisibility(View.GONE);
+                                    } else {
+                                        yzmCv.setVisibility(View.VISIBLE);
+                                    }
+                                    isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
+                                    isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
+                                    remindCb.setChecked(isChecked);
                                 }
-                                isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
-                                isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
-                                remindCb.setChecked(isChecked);
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     private void getIp() {
@@ -283,39 +288,41 @@ public class DlLeFenQiNewsActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (xStateController != null)
-            xStateController.showLoading();
-        HttpLeFenQiNewsApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModelLeFenQiNews<DlLeFenQiNewsModel>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenLeFenQiNewsUtil.showErrorInfo(DlLeFenQiNewsActivity.this, error);
-                        if (xStateController != null)
-                            xStateController.showContent();
-                    }
+        if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            if (xStateController != null)
+                xStateController.showLoading();
+            HttpLeFenQiNewsApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModelLeFenQiNews<DlLeFenQiNewsModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenLeFenQiNewsUtil.showErrorInfo(DlLeFenQiNewsActivity.this, error);
+                            if (xStateController != null)
+                                xStateController.showContent();
+                        }
 
-                    @Override
-                    public void onNext(BaseModelLeFenQiNews<DlLeFenQiNewsModel> dlModel) {
-                        if (xStateController != null)
-                            xStateController.showContent();
-                        if (dlModel != null && dlModel.getCode() == 200) {
-                            if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                int mobileType = dlModel.getData().getMobileType();
-                                LeFenQiNewsPreferencesOpenUtil.saveString("ip", ip);
-                                LeFenQiNewsPreferencesOpenUtil.saveString("phone", phone);
-                                LeFenQiNewsPreferencesOpenUtil.saveInt("mobileType", mobileType);
-                                OpenLeFenQiNewsUtil.getValue(DlLeFenQiNewsActivity.this, LeFenQiNewsMainActivity.class, null, true);
-                            }
-                        } else {
-                            if (dlModel.getCode() == 500) {
-                                MyToastLeFenQiNews.showShort(dlModel.getMsg());
+                        @Override
+                        public void onNext(BaseModelLeFenQiNews<DlLeFenQiNewsModel> dlModel) {
+                            if (xStateController != null)
+                                xStateController.showContent();
+                            if (dlModel != null && dlModel.getCode() == 200) {
+                                if (dlModel.getData() != null && dlModel.getCode() == 200) {
+                                    int mobileType = dlModel.getData().getMobileType();
+                                    LeFenQiNewsPreferencesOpenUtil.saveString("ip", ip);
+                                    LeFenQiNewsPreferencesOpenUtil.saveString("phone", phone);
+                                    LeFenQiNewsPreferencesOpenUtil.saveInt("mobileType", mobileType);
+                                    OpenLeFenQiNewsUtil.getValue(DlLeFenQiNewsActivity.this, LeFenQiNewsMainActivity.class, null, true);
+                                }
+                            } else {
+                                if (dlModel.getCode() == 500) {
+                                    MyToastLeFenQiNews.showShort(dlModel.getMsg());
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     /**
@@ -356,27 +363,29 @@ public class DlLeFenQiNewsActivity extends XActivity {
     }
 
     public void getYzm(String phone) {
-        HttpLeFenQiNewsApi.getInterfaceUtils().sendVerifyCode(phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModelLeFenQiNews>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenLeFenQiNewsUtil.showErrorInfo(DlLeFenQiNewsActivity.this, error);
-                    }
+        if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            HttpLeFenQiNewsApi.getInterfaceUtils().sendVerifyCode(phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModelLeFenQiNews>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenLeFenQiNewsUtil.showErrorInfo(DlLeFenQiNewsActivity.this, error);
+                        }
 
-                    @Override
-                    public void onNext(BaseModelLeFenQiNews baseModelLeFenQiNews) {
-                        if (baseModelLeFenQiNews != null) {
-                            if (baseModelLeFenQiNews.getCode() == 200) {
-                                MyToastLeFenQiNews.showShort("验证码发送成功");
-                                CountDownLeFenQiNewsTimer cdt = new CountDownLeFenQiNewsTimer(getYzmTv, 60000, 1000);
-                                cdt.start();
+                        @Override
+                        public void onNext(BaseModelLeFenQiNews baseModelLeFenQiNews) {
+                            if (baseModelLeFenQiNews != null) {
+                                if (baseModelLeFenQiNews.getCode() == 200) {
+                                    MyToastLeFenQiNews.showShort("验证码发送成功");
+                                    CountDownLeFenQiNewsTimer cdt = new CountDownLeFenQiNewsTimer(getYzmTv, 60000, 1000);
+                                    cdt.start();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     /**

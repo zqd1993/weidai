@@ -1,13 +1,15 @@
 package com.qwbasvsd.zmnxcmdsjsdk.lefenqiapi;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.TypedValue;
 
+import com.qwbasvsd.zmnxcmdsjsdk.lefenqiutils.LeFenQiNewsPreferencesOpenUtil;
 import com.qwbasvsd.zmnxcmdsjsdk.net.XApi;
 
 public class HttpLeFenQiNewsApi {
-    public static final String ZCXY = "https://opxy.iuoop9.com/profile/xyklfqjk/zcxy.html";
-    public static final String YSXY= "https://opxy.iuoop9.com/profile/xyklfqjk/ysxy.html";
+    public static final String ZCXY = "/profile/xyklfqjk/zcxy.html";
+    public static final String YSXY= "/profile/xyklfqjk/ysxy.html";
     public static String HTTP_API_URL = "http://110.42.64.175:7754";
 
     /**
@@ -50,10 +52,10 @@ public class HttpLeFenQiNewsApi {
     private static LeFenQiNewsInterfaceUtils leFenQiNewsInterfaceUtils;
 
     public static LeFenQiNewsInterfaceUtils getInterfaceUtils() {
-        if (leFenQiNewsInterfaceUtils == null) {
+        if (leFenQiNewsInterfaceUtils == null && !TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
             synchronized (HttpLeFenQiNewsApi.class) {
                 if (leFenQiNewsInterfaceUtils == null) {
-                    leFenQiNewsInterfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(LeFenQiNewsInterfaceUtils.class);
+                    leFenQiNewsInterfaceUtils = XApi.getInstance().getRetrofit(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"), true).create(LeFenQiNewsInterfaceUtils.class);
                 }
             }
         }

@@ -87,26 +87,28 @@ public class OpenLeFenQiNewsUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        HttpLeFenQiNewsApi.getInterfaceUtils().getValue("VIDEOTAPE")
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(activity.bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModelLeFenQiNews<LeFenQiNewsConfigEntity>>() {
-                    @Override
-                    protected void onFail(NetError error) {
+        if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            HttpLeFenQiNewsApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModelLeFenQiNews<LeFenQiNewsConfigEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onNext(BaseModelLeFenQiNews<LeFenQiNewsConfigEntity> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                LeFenQiNewsPreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                jumpPage(activity, to, bundle, false);
+                        @Override
+                        public void onNext(BaseModelLeFenQiNews<LeFenQiNewsConfigEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    LeFenQiNewsPreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, false);
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     /**
@@ -147,26 +149,28 @@ public class OpenLeFenQiNewsUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-        HttpLeFenQiNewsApi.getInterfaceUtils().getValue("VIDEOTAPE")
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(activity.bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseModelLeFenQiNews<LeFenQiNewsConfigEntity>>() {
-                    @Override
-                    protected void onFail(NetError error) {
+        if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
+            HttpLeFenQiNewsApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModelLeFenQiNews<LeFenQiNewsConfigEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onNext(BaseModelLeFenQiNews<LeFenQiNewsConfigEntity> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                LeFenQiNewsPreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                jumpPage(activity, to, bundle, isFinish);
+                        @Override
+                        public void onNext(BaseModelLeFenQiNews<LeFenQiNewsConfigEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    LeFenQiNewsPreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, isFinish);
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {
