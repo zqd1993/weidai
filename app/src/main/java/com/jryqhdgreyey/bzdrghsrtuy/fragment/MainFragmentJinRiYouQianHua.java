@@ -127,6 +127,9 @@ public class MainFragmentJinRiYouQianHua extends XFragment {
         click_view_fl.setOnClickListener(v -> {
             ((JinRiYouQianHuaMainActivity) getActivity()).jumpMine();
         });
+        banner_img.setOnClickListener(v -> {
+            productClick(jinRiYouQianHuaProductModel);
+        });
     }
 
     /**
