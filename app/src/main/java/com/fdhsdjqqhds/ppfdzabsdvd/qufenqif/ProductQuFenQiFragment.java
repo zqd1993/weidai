@@ -1,6 +1,7 @@
 package com.fdhsdjqqhds.ppfdzabsdvd.qufenqif;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -82,52 +83,60 @@ public class ProductQuFenQiFragment extends XFragment {
     }
 
     public void productClick(ProductModelQuFenQi model) {
-        if (model != null) {
-            phone = PreferencesQuFenQiOpenUtil.getString("phone");
-            HttpApiQuFenQi.getInterfaceUtils().productClick(model.getId(), phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseQuFenQiModel>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            toWeb(model);
-                        }
+        if (!TextUtils.isEmpty(PreferencesQuFenQiOpenUtil.getString("HTTP_API_URL"))) {
+            if (model != null) {
+                phone = PreferencesQuFenQiOpenUtil.getString("phone");
+                HttpApiQuFenQi.getInterfaceUtils().productClick(model.getId(), phone)
+                        .compose(XApi.getApiTransformer())
+                        .compose(XApi.getScheduler())
+                        .compose(bindToLifecycle())
+                        .subscribe(new ApiSubscriber<BaseQuFenQiModel>() {
+                            @Override
+                            protected void onFail(NetError error) {
+                                toWeb(model);
+                            }
 
-                        @Override
-                        public void onNext(BaseQuFenQiModel baseQuFenQiModel) {
-                            toWeb(model);
-                        }
-                    });
+                            @Override
+                            public void onNext(BaseQuFenQiModel baseQuFenQiModel) {
+                                toWeb(model);
+                            }
+                        });
+            }
         }
     }
 
 
     public void productList() {
-        mobileType = PreferencesQuFenQiOpenUtil.getInt("mobileType");
-        phone = PreferencesQuFenQiOpenUtil.getString("phone");
-        HttpApiQuFenQi.getInterfaceUtils().productList(mobileType, phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseQuFenQiModel<List<ProductModelQuFenQi>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        setRefreshing.setRefreshing(false);
-                        OpenUtilQuFenQi.showErrorInfo(getActivity(), error);
-                        if (goodsListLl.getChildCount() == 0) {
-                            noDataTv.setVisibility(View.VISIBLE);
+        if (!TextUtils.isEmpty(PreferencesQuFenQiOpenUtil.getString("HTTP_API_URL"))) {
+            mobileType = PreferencesQuFenQiOpenUtil.getInt("mobileType");
+            phone = PreferencesQuFenQiOpenUtil.getString("phone");
+            HttpApiQuFenQi.getInterfaceUtils().productList(mobileType, phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseQuFenQiModel<List<ProductModelQuFenQi>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            setRefreshing.setRefreshing(false);
+                            OpenUtilQuFenQi.showErrorInfo(getActivity(), error);
+                            if (goodsListLl.getChildCount() == 0) {
+                                noDataTv.setVisibility(View.VISIBLE);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onNext(BaseQuFenQiModel<List<ProductModelQuFenQi>> baseQuFenQiModel) {
-                        setRefreshing.setRefreshing(false);
-                        if (baseQuFenQiModel != null) {
-                            if (baseQuFenQiModel.getCode() == 200 && baseQuFenQiModel.getData() != null) {
-                                if (baseQuFenQiModel.getData() != null && baseQuFenQiModel.getData().size() > 0) {
-                                    productModelQuFenQi = baseQuFenQiModel.getData().get(0);
-                                    addProductView(baseQuFenQiModel.getData());
+                        @Override
+                        public void onNext(BaseQuFenQiModel<List<ProductModelQuFenQi>> baseQuFenQiModel) {
+                            setRefreshing.setRefreshing(false);
+                            if (baseQuFenQiModel != null) {
+                                if (baseQuFenQiModel.getCode() == 200 && baseQuFenQiModel.getData() != null) {
+                                    if (baseQuFenQiModel.getData() != null && baseQuFenQiModel.getData().size() > 0) {
+                                        productModelQuFenQi = baseQuFenQiModel.getData().get(0);
+                                        addProductView(baseQuFenQiModel.getData());
+                                    } else {
+                                        if (goodsListLl.getChildCount() == 0) {
+                                            noDataTv.setVisibility(View.VISIBLE);
+                                        }
+                                    }
                                 } else {
                                     if (goodsListLl.getChildCount() == 0) {
                                         noDataTv.setVisibility(View.VISIBLE);
@@ -138,13 +147,9 @@ public class ProductQuFenQiFragment extends XFragment {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
                             }
-                        } else {
-                            if (goodsListLl.getChildCount() == 0) {
-                                noDataTv.setVisibility(View.VISIBLE);
-                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     private void addProductView(List<ProductModelQuFenQi> mList) {
@@ -161,8 +166,10 @@ public class ProductQuFenQiFragment extends XFragment {
             TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
             shijian_tv.setText(model.getDes() + "个月");
             shuliang_tv.setText(String.valueOf(model.getPassingRate()));
-            ILFactory.getLoader().loadNet(pic, HttpApiQuFenQi.HTTP_API_URL + model.getProductLogo(),
-                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+            if (!TextUtils.isEmpty(PreferencesQuFenQiOpenUtil.getString("HTTP_API_URL"))) {
+                ILFactory.getLoader().loadNet(pic, PreferencesQuFenQiOpenUtil.getString("HTTP_API_URL") + model.getProductLogo(),
+                        new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+            }
             product_name_tv.setText(model.getProductName());
             remind_tv.setText(model.getTag());
             money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());

@@ -3,6 +3,7 @@ package com.fdhsdjqqhds.ppfdzabsdvd.qufenqia;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -43,12 +44,13 @@ public class QuFenQiStartPageActivity extends XActivity {
     }
 
     private void showDialog() {
+        Looper.prepare();
         startPageRemindDialogQuFenQi = new StartPageRemindDialogQuFenQi(this);
         startPageRemindDialogQuFenQi.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK && !isResume) {
-                    QuFenQiStartPageActivity.this.finish();
+                    QuFenQiStartPageActivity.this. finish();
                     return false;
                 }
                 return true;
@@ -65,10 +67,12 @@ public class QuFenQiStartPageActivity extends XActivity {
 
             @Override
             public void zcxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", HttpApiQuFenQi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                OpenUtilQuFenQi.getValue(QuFenQiStartPageActivity.this, QuFenQiJumpH5Activity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesQuFenQiOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesQuFenQiOpenUtil.getString("AGREEMENT") + HttpApiQuFenQi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    OpenUtilQuFenQi.getValue(QuFenQiStartPageActivity.this, QuFenQiJumpH5Activity.class, bundle);
+                }
             }
 
             @Override
@@ -78,13 +82,16 @@ public class QuFenQiStartPageActivity extends XActivity {
 
             @Override
             public void ysxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", HttpApiQuFenQi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                OpenUtilQuFenQi.getValue(QuFenQiStartPageActivity.this, QuFenQiJumpH5Activity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesQuFenQiOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesQuFenQiOpenUtil.getString("AGREEMENT") + HttpApiQuFenQi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    OpenUtilQuFenQi.getValue(QuFenQiStartPageActivity.this, QuFenQiJumpH5Activity.class, bundle);
+                }
             }
         });
         startPageRemindDialogQuFenQi.show();
+        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -94,7 +101,7 @@ public class QuFenQiStartPageActivity extends XActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7733.txt")
+                            .url("https://ossbj0714.oss-cn-beijing.aliyuncs.com/server7752.txt")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
@@ -161,8 +168,8 @@ public class QuFenQiStartPageActivity extends XActivity {
         QuFenQiStatusBarUtil.setTransparent(this, false);
         isSure = PreferencesQuFenQiOpenUtil.getBool("isSure");
         phone = PreferencesQuFenQiOpenUtil.getString("phone");
-//        sendRequestWithOkHttp();
-        jumpPage();
+        sendRequestWithOkHttp();
+//        jumpPage();
     }
 
     @Override

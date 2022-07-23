@@ -49,49 +49,53 @@ public class OpenUtilQuFenQi {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        HttpApiQuFenQi.getInterfaceUtils().getValue("VIDEOTAPE")
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(activity.bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseQuFenQiModel<QuFenQiConfigEntity>>() {
-                    @Override
-                    protected void onFail(NetError error) {
+        if (!TextUtils.isEmpty(PreferencesQuFenQiOpenUtil.getString("HTTP_API_URL"))) {
+            HttpApiQuFenQi.getInterfaceUtils().getValue("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseQuFenQiModel<QuFenQiConfigEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onNext(BaseQuFenQiModel<QuFenQiConfigEntity> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                PreferencesQuFenQiOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                jumpPage(activity, to, bundle, false);
+                        @Override
+                        public void onNext(BaseQuFenQiModel<QuFenQiConfigEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    PreferencesQuFenQiOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, false);
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-        HttpApiQuFenQi.getInterfaceUtils().getValue("VIDEOTAPE")
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(activity.bindToLifecycle())
-                .subscribe(new ApiSubscriber<BaseQuFenQiModel<QuFenQiConfigEntity>>() {
-                    @Override
-                    protected void onFail(NetError error) {
+        if (!TextUtils.isEmpty(PreferencesQuFenQiOpenUtil.getString("HTTP_API_URL"))) {
+            HttpApiQuFenQi.getInterfaceUtils().getValue("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseQuFenQiModel<QuFenQiConfigEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onNext(BaseQuFenQiModel<QuFenQiConfigEntity> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                PreferencesQuFenQiOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                jumpPage(activity, to, bundle, isFinish);
+                        @Override
+                        public void onNext(BaseQuFenQiModel<QuFenQiConfigEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    PreferencesQuFenQiOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, isFinish);
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {
