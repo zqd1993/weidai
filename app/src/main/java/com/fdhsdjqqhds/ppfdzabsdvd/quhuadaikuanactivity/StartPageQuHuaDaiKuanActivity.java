@@ -199,7 +199,7 @@ public class StartPageQuHuaDaiKuanActivity extends XActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://ossbj0714.oss-cn-beijing.aliyuncs.com/server7733.txt")
+                            .url("https://ossbj0714.oss-cn-beijing.aliyuncs.com/server7757.txt")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();

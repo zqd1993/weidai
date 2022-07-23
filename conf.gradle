@@ -6,8 +6,8 @@ ext {
             minSdkVersion    : 21,
             targetSdkVersion : 28,
 
-            versionCode      : 100,
-            versionName      : '1.0.0',
+            versionCode      : 101,
+            versionName      : '1.0.1',
             keyAlias         : "qhdkreotgmh",
             keyPassword      : "psd123456",
             storeFile        : "./qhdkreotgmh.jks",
