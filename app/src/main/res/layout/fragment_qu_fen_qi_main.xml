@@ -30,12 +30,13 @@
                     android:visibility="gone" />
 
                 <com.fdhsdjqqhds.ppfdzabsdvd.qufenqiw.ProportionFrameLayoutQuFenQi
+                    android:id="@+id/banner_click_fl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="40dp"
                     android:layout_marginEnd="20dp"
-                    app:proporty="1.65">
+                    app:proporty="1.69">
 
                     <com.lihang.ShadowLayout
                         android:layout_width="match_parent"

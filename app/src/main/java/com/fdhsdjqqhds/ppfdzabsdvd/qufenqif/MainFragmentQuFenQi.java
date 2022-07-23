@@ -83,6 +83,9 @@ public class MainFragmentQuFenQi extends XFragment {
         mine_tv.setOnClickListener(v -> {
             ((MainActivityQuFenQi) getActivity()).jumpMine();
         });
+        banner_img.setOnClickListener(v -> {
+            productClick(productModelQuFenQi);
+        });
     }
 
     @Override
