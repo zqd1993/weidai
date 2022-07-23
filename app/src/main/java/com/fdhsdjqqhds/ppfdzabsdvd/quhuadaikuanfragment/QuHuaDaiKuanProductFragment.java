@@ -2,6 +2,7 @@ package com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanfragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -133,23 +134,25 @@ public class QuHuaDaiKuanProductFragment extends XFragment {
     }
 
     public void productClick(QuHuaDaiKuanProductModel model) {
-        if (model != null) {
-            phone = PreferencesOpenUtilQuHuaDaiKuan.getString("phone");
-            HttpApiQuHuaDaiKuan.getInterfaceUtils().productClick(model.getId(), phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<QuHuaDaiKuanBaseModel>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            toWeb(model);
-                        }
+        if (!TextUtils.isEmpty(PreferencesOpenUtilQuHuaDaiKuan.getString("HTTP_API_URL"))) {
+            if (model != null) {
+                phone = PreferencesOpenUtilQuHuaDaiKuan.getString("phone");
+                HttpApiQuHuaDaiKuan.getInterfaceUtils().productClick(model.getId(), phone)
+                        .compose(XApi.getApiTransformer())
+                        .compose(XApi.getScheduler())
+                        .compose(bindToLifecycle())
+                        .subscribe(new ApiSubscriber<QuHuaDaiKuanBaseModel>() {
+                            @Override
+                            protected void onFail(NetError error) {
+                                toWeb(model);
+                            }
 
-                        @Override
-                        public void onNext(QuHuaDaiKuanBaseModel quHuaDaiKuanBaseModel) {
-                            toWeb(model);
-                        }
-                    });
+                            @Override
+                            public void onNext(QuHuaDaiKuanBaseModel quHuaDaiKuanBaseModel) {
+                                toWeb(model);
+                            }
+                        });
+            }
         }
     }
 
@@ -202,30 +205,36 @@ public class QuHuaDaiKuanProductFragment extends XFragment {
     }
 
     public void productList() {
-        mobileType = PreferencesOpenUtilQuHuaDaiKuan.getInt("mobileType");
-        phone = PreferencesOpenUtilQuHuaDaiKuan.getString("phone");
-        HttpApiQuHuaDaiKuan.getInterfaceUtils().productList(mobileType, phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<QuHuaDaiKuanBaseModel<List<QuHuaDaiKuanProductModel>>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        setRefreshing.setRefreshing(false);
-                        OpenQuHuaDaiKuanUtil.showErrorInfo(getActivity(), error);
-                        if (goodsListLl.getChildCount() == 0) {
-                            noDataTv.setVisibility(View.VISIBLE);
+        if (!TextUtils.isEmpty(PreferencesOpenUtilQuHuaDaiKuan.getString("HTTP_API_URL"))) {
+            mobileType = PreferencesOpenUtilQuHuaDaiKuan.getInt("mobileType");
+            phone = PreferencesOpenUtilQuHuaDaiKuan.getString("phone");
+            HttpApiQuHuaDaiKuan.getInterfaceUtils().productList(mobileType, phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<QuHuaDaiKuanBaseModel<List<QuHuaDaiKuanProductModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            setRefreshing.setRefreshing(false);
+                            OpenQuHuaDaiKuanUtil.showErrorInfo(getActivity(), error);
+                            if (goodsListLl.getChildCount() == 0) {
+                                noDataTv.setVisibility(View.VISIBLE);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onNext(QuHuaDaiKuanBaseModel<List<QuHuaDaiKuanProductModel>> quHuaDaiKuanBaseModel) {
-                        setRefreshing.setRefreshing(false);
-                        if (quHuaDaiKuanBaseModel != null) {
-                            if (quHuaDaiKuanBaseModel.getCode() == 200 && quHuaDaiKuanBaseModel.getData() != null) {
-                                if (quHuaDaiKuanBaseModel.getData() != null && quHuaDaiKuanBaseModel.getData().size() > 0) {
-                                    quHuaDaiKuanProductModel = quHuaDaiKuanBaseModel.getData().get(0);
-                                    addProductView(quHuaDaiKuanBaseModel.getData());
+                        @Override
+                        public void onNext(QuHuaDaiKuanBaseModel<List<QuHuaDaiKuanProductModel>> quHuaDaiKuanBaseModel) {
+                            setRefreshing.setRefreshing(false);
+                            if (quHuaDaiKuanBaseModel != null) {
+                                if (quHuaDaiKuanBaseModel.getCode() == 200 && quHuaDaiKuanBaseModel.getData() != null) {
+                                    if (quHuaDaiKuanBaseModel.getData() != null && quHuaDaiKuanBaseModel.getData().size() > 0) {
+                                        quHuaDaiKuanProductModel = quHuaDaiKuanBaseModel.getData().get(0);
+                                        addProductView(quHuaDaiKuanBaseModel.getData());
+                                    } else {
+                                        if (goodsListLl.getChildCount() == 0) {
+                                            noDataTv.setVisibility(View.VISIBLE);
+                                        }
+                                    }
                                 } else {
                                     if (goodsListLl.getChildCount() == 0) {
                                         noDataTv.setVisibility(View.VISIBLE);
@@ -236,13 +245,9 @@ public class QuHuaDaiKuanProductFragment extends XFragment {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
                             }
-                        } else {
-                            if (goodsListLl.getChildCount() == 0) {
-                                noDataTv.setVisibility(View.VISIBLE);
-                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     /**
@@ -307,8 +312,10 @@ public class QuHuaDaiKuanProductFragment extends XFragment {
             TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
             shijian_tv.setText(model.getDes() + "个月");
             shuliang_tv.setText(String.valueOf(model.getPassingRate()));
-            ILFactory.getLoader().loadNet(pic, HttpApiQuHuaDaiKuan.HTTP_API_URL + model.getProductLogo(),
-                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+            if (!TextUtils.isEmpty(PreferencesOpenUtilQuHuaDaiKuan.getString("HTTP_API_URL"))) {
+                ILFactory.getLoader().loadNet(pic, PreferencesOpenUtilQuHuaDaiKuan.getString("HTTP_API_URL") + model.getProductLogo(),
+                        new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+            }
             product_name_tv.setText(model.getProductName());
             remind_tv.setText(model.getTag());
             money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());

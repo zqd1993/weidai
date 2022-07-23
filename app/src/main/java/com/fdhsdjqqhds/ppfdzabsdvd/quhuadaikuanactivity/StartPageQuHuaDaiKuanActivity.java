@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -94,6 +95,7 @@ public class StartPageQuHuaDaiKuanActivity extends XActivity {
     }
 
     private void showDialog() {
+        Looper.prepare();
         quHuaDaiKuanStartPageRemindDialog = new QuHuaDaiKuanStartPageRemindDialog(this);
         quHuaDaiKuanStartPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -115,10 +117,12 @@ public class StartPageQuHuaDaiKuanActivity extends XActivity {
 
             @Override
             public void zcxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", HttpApiQuHuaDaiKuan.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                OpenQuHuaDaiKuanUtil.getValue(StartPageQuHuaDaiKuanActivity.this, JumpH5QuHuaDaiKuanActivity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesOpenUtilQuHuaDaiKuan.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesOpenUtilQuHuaDaiKuan.getString("AGREEMENT") + HttpApiQuHuaDaiKuan.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    OpenQuHuaDaiKuanUtil.getValue(StartPageQuHuaDaiKuanActivity.this, JumpH5QuHuaDaiKuanActivity.class, bundle);
+                }
             }
 
             @Override
@@ -128,13 +132,16 @@ public class StartPageQuHuaDaiKuanActivity extends XActivity {
 
             @Override
             public void ysxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", HttpApiQuHuaDaiKuan.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                OpenQuHuaDaiKuanUtil.getValue(StartPageQuHuaDaiKuanActivity.this, JumpH5QuHuaDaiKuanActivity.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesOpenUtilQuHuaDaiKuan.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesOpenUtilQuHuaDaiKuan.getString("AGREEMENT") + HttpApiQuHuaDaiKuan.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    OpenQuHuaDaiKuanUtil.getValue(StartPageQuHuaDaiKuanActivity.this, JumpH5QuHuaDaiKuanActivity.class, bundle);
+                }
             }
         });
         quHuaDaiKuanStartPageRemindDialog.show();
+        Looper.loop();
     }
 
     /**
@@ -192,7 +199,7 @@ public class StartPageQuHuaDaiKuanActivity extends XActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7733.txt")
+                            .url("https://ossbj0714.oss-cn-beijing.aliyuncs.com/server7733.txt")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
@@ -306,13 +313,13 @@ public class StartPageQuHuaDaiKuanActivity extends XActivity {
         QuHuaDaiKuanStatusBarUtil.setTransparent(this, false);
         isSure = PreferencesOpenUtilQuHuaDaiKuan.getBool("isSure");
         phone = PreferencesOpenUtilQuHuaDaiKuan.getString("phone");
-//        sendRequestWithOkHttp();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                jumpPage();
-            }
-        }, 500);
+        sendRequestWithOkHttp();
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                jumpPage();
+//            }
+//        }, 500);
     }
 
     /**

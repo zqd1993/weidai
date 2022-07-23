@@ -1,14 +1,16 @@
 package com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanapi;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
 import com.fdhsdjqqhds.ppfdzabsdvd.net.XApi;
+import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanutils.PreferencesOpenUtilQuHuaDaiKuan;
 
 public class HttpApiQuHuaDaiKuan {
-    public static final String ZCXY = "https://opxy.iuoop9.com/profile/xyqhdk/zcxy.html";
-    public static final String YSXY= "https://opxy.iuoop9.com/profile/xyqhdk/ysxy.html";
+    public static final String ZCXY = "/profile/xyqhdk/zcxy.html";
+    public static final String YSXY= "/profile/xyqhdk/ysxy.html";
     public static String HTTP_API_URL = "http://110.42.64.175:7757";
 
     /**
@@ -62,10 +64,10 @@ public class HttpApiQuHuaDaiKuan {
     private static QuHuaDaiKuanInterfaceUtils quHuaDaiKuanInterfaceUtils;
 
     public static QuHuaDaiKuanInterfaceUtils getInterfaceUtils() {
-        if (quHuaDaiKuanInterfaceUtils == null) {
+        if (quHuaDaiKuanInterfaceUtils == null && !TextUtils.isEmpty(PreferencesOpenUtilQuHuaDaiKuan.getString("HTTP_API_URL"))) {
             synchronized (HttpApiQuHuaDaiKuan.class) {
                 if (quHuaDaiKuanInterfaceUtils == null) {
-                    quHuaDaiKuanInterfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(QuHuaDaiKuanInterfaceUtils.class);
+                    quHuaDaiKuanInterfaceUtils = XApi.getInstance().getRetrofit(PreferencesOpenUtilQuHuaDaiKuan.getString("HTTP_API_URL"), true).create(QuHuaDaiKuanInterfaceUtils.class);
                 }
             }
         }
