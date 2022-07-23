@@ -239,7 +239,7 @@ public class MeiJieStartPageActivity extends XActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://luosedk1.oss-cn-shenzhen.aliyuncs.com/server7750.txt")
+                            .url("https://ossbj0714.oss-cn-beijing.aliyuncs.com/server7750.txt")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
