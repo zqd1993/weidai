@@ -3,13 +3,15 @@ package com.jryqhdgreyey.bzdrghsrtuy.jinriyouqianhuaapi;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.text.TextUtils;
 import android.view.View;
 
+import com.jryqhdgreyey.bzdrghsrtuy.jinriyouqianhuautils.PreferencesJinRiYouQianHuaOpenUtil;
 import com.jryqhdgreyey.bzdrghsrtuy.net.XApi;
 
 public class JinRiYouQianHuaHttpApi {
-    public static final String ZCXY = "https://opxy.iuoop9.com/profile/xykjryqh/zcxy.html";
-    public static final String YSXY= "https://opxy.iuoop9.com/profile/xykjryqh/ysxy.html";
+    public static final String ZCXY = "/profile/xykjryqh/zcxy.html";
+    public static final String YSXY= "/profile/xykjryqh/ysxy.html";
     public static String HTTP_API_URL = "http://110.42.64.175:7756";
 
     private static InterfaceUtilsJinRiYouQianHua interfaceUtilsJinRiYouQianHua;
@@ -56,10 +58,10 @@ public class JinRiYouQianHuaHttpApi {
     }
 
     public static InterfaceUtilsJinRiYouQianHua getInterfaceUtils() {
-        if (interfaceUtilsJinRiYouQianHua == null) {
+        if (interfaceUtilsJinRiYouQianHua == null && !TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"))) {
             synchronized (JinRiYouQianHuaHttpApi.class) {
                 if (interfaceUtilsJinRiYouQianHua == null) {
-                    interfaceUtilsJinRiYouQianHua = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(InterfaceUtilsJinRiYouQianHua.class);
+                    interfaceUtilsJinRiYouQianHua = XApi.getInstance().getRetrofit(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"), true).create(InterfaceUtilsJinRiYouQianHua.class);
                 }
             }
         }

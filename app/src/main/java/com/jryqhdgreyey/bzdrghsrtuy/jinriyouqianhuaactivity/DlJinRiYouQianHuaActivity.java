@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
@@ -105,15 +106,17 @@ public class DlJinRiYouQianHuaActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.view_loading_jin_ri_you_qian_hua, null));
         getConfig();
         readTv.setText(OpenUtilJinRiYouQianHua.createDlSpanTexts(), position -> {
-            bundle = new Bundle();
-            if (position == 1) {
-                bundle.putString("url", JinRiYouQianHuaHttpApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-            } else {
-                bundle.putString("url", JinRiYouQianHuaHttpApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+            if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("AGREEMENT"))) {
+                bundle = new Bundle();
+                if (position == 1) {
+                    bundle.putString("url", PreferencesJinRiYouQianHuaOpenUtil.getString("AGREEMENT") + JinRiYouQianHuaHttpApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                } else {
+                    bundle.putString("url", PreferencesJinRiYouQianHuaOpenUtil.getString("AGREEMENT") + JinRiYouQianHuaHttpApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                }
+                OpenUtilJinRiYouQianHua.getValue(DlJinRiYouQianHuaActivity.this, JumpH5ActivityJinRiYouQianHua.class, bundle);
             }
-            OpenUtilJinRiYouQianHua.getValue(DlJinRiYouQianHuaActivity.this, JumpH5ActivityJinRiYouQianHua.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -196,33 +199,35 @@ public class DlJinRiYouQianHuaActivity extends XActivity {
     }
 
     public void getConfig() {
-        JinRiYouQianHuaHttpApi.getInterfaceUtils().getConfig()
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(this.bindToLifecycle())
-                .subscribe(new ApiSubscriber<JinRiYouQianHuaBaseModel<JinRiYouQianHuaConfigEntity>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenUtilJinRiYouQianHua.showErrorInfo(DlJinRiYouQianHuaActivity.this, error);
-                    }
+        if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"))) {
+            JinRiYouQianHuaHttpApi.getInterfaceUtils().getConfig()
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<JinRiYouQianHuaBaseModel<JinRiYouQianHuaConfigEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenUtilJinRiYouQianHua.showErrorInfo(DlJinRiYouQianHuaActivity.this, error);
+                        }
 
-                    @Override
-                    public void onNext(JinRiYouQianHuaBaseModel<JinRiYouQianHuaConfigEntity> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                PreferencesJinRiYouQianHuaOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
-                                if ("0".equals(configEntity.getData().getIsCodeLogin())) {
-                                    yzmCv.setVisibility(View.GONE);
-                                } else {
-                                    yzmCv.setVisibility(View.VISIBLE);
+                        @Override
+                        public void onNext(JinRiYouQianHuaBaseModel<JinRiYouQianHuaConfigEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    PreferencesJinRiYouQianHuaOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
+                                    if ("0".equals(configEntity.getData().getIsCodeLogin())) {
+                                        yzmCv.setVisibility(View.GONE);
+                                    } else {
+                                        yzmCv.setVisibility(View.VISIBLE);
+                                    }
+                                    isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
+                                    isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
+                                    remindCb.setChecked(isChecked);
                                 }
-                                isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
-                                isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
-                                remindCb.setChecked(isChecked);
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     private void getIp() {
@@ -296,39 +301,41 @@ public class DlJinRiYouQianHuaActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (xStateController != null)
-            xStateController.showLoading();
-        JinRiYouQianHuaHttpApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<JinRiYouQianHuaBaseModel<DlModelJinRiYouQianHua>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenUtilJinRiYouQianHua.showErrorInfo(DlJinRiYouQianHuaActivity.this, error);
-                        if (xStateController != null)
-                            xStateController.showContent();
-                    }
+        if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"))) {
+            if (xStateController != null)
+                xStateController.showLoading();
+            JinRiYouQianHuaHttpApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<JinRiYouQianHuaBaseModel<DlModelJinRiYouQianHua>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenUtilJinRiYouQianHua.showErrorInfo(DlJinRiYouQianHuaActivity.this, error);
+                            if (xStateController != null)
+                                xStateController.showContent();
+                        }
 
-                    @Override
-                    public void onNext(JinRiYouQianHuaBaseModel<DlModelJinRiYouQianHua> dlModel) {
-                        if (xStateController != null)
-                            xStateController.showContent();
-                        if (dlModel != null && dlModel.getCode() == 200) {
-                            if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                int mobileType = dlModel.getData().getMobileType();
-                                PreferencesJinRiYouQianHuaOpenUtil.saveString("ip", ip);
-                                PreferencesJinRiYouQianHuaOpenUtil.saveString("phone", phone);
-                                PreferencesJinRiYouQianHuaOpenUtil.saveInt("mobileType", mobileType);
-                                OpenUtilJinRiYouQianHua.getValue(DlJinRiYouQianHuaActivity.this, JinRiYouQianHuaMainActivity.class, null, true);
-                            }
-                        } else {
-                            if (dlModel.getCode() == 500) {
-                                JinRiYouQianHuaMyToast.showShort(dlModel.getMsg());
+                        @Override
+                        public void onNext(JinRiYouQianHuaBaseModel<DlModelJinRiYouQianHua> dlModel) {
+                            if (xStateController != null)
+                                xStateController.showContent();
+                            if (dlModel != null && dlModel.getCode() == 200) {
+                                if (dlModel.getData() != null && dlModel.getCode() == 200) {
+                                    int mobileType = dlModel.getData().getMobileType();
+                                    PreferencesJinRiYouQianHuaOpenUtil.saveString("ip", ip);
+                                    PreferencesJinRiYouQianHuaOpenUtil.saveString("phone", phone);
+                                    PreferencesJinRiYouQianHuaOpenUtil.saveInt("mobileType", mobileType);
+                                    OpenUtilJinRiYouQianHua.getValue(DlJinRiYouQianHuaActivity.this, JinRiYouQianHuaMainActivity.class, null, true);
+                                }
+                            } else {
+                                if (dlModel.getCode() == 500) {
+                                    JinRiYouQianHuaMyToast.showShort(dlModel.getMsg());
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     /**
@@ -373,27 +380,29 @@ public class DlJinRiYouQianHuaActivity extends XActivity {
     }
 
     public void getYzm(String phone) {
-        JinRiYouQianHuaHttpApi.getInterfaceUtils().sendVerifyCode(phone)
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(bindToLifecycle())
-                .subscribe(new ApiSubscriber<JinRiYouQianHuaBaseModel>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        OpenUtilJinRiYouQianHua.showErrorInfo(DlJinRiYouQianHuaActivity.this, error);
-                    }
+        if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"))) {
+            JinRiYouQianHuaHttpApi.getInterfaceUtils().sendVerifyCode(phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<JinRiYouQianHuaBaseModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            OpenUtilJinRiYouQianHua.showErrorInfo(DlJinRiYouQianHuaActivity.this, error);
+                        }
 
-                    @Override
-                    public void onNext(JinRiYouQianHuaBaseModel jinRiYouQianHuaBaseModel) {
-                        if (jinRiYouQianHuaBaseModel != null) {
-                            if (jinRiYouQianHuaBaseModel.getCode() == 200) {
-                                JinRiYouQianHuaMyToast.showShort("验证码发送成功");
-                                JinRiYouQianHuaCountDownTimer cdt = new JinRiYouQianHuaCountDownTimer(getYzmTv, 60000, 1000);
-                                cdt.start();
+                        @Override
+                        public void onNext(JinRiYouQianHuaBaseModel jinRiYouQianHuaBaseModel) {
+                            if (jinRiYouQianHuaBaseModel != null) {
+                                if (jinRiYouQianHuaBaseModel.getCode() == 200) {
+                                    JinRiYouQianHuaMyToast.showShort("验证码发送成功");
+                                    JinRiYouQianHuaCountDownTimer cdt = new JinRiYouQianHuaCountDownTimer(getYzmTv, 60000, 1000);
+                                    cdt.start();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     /**

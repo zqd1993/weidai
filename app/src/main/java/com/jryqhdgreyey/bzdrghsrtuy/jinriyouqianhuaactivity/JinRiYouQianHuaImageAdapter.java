@@ -3,6 +3,7 @@ package com.jryqhdgreyey.bzdrghsrtuy.jinriyouqianhuaactivity;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.jryqhdgreyey.bzdrghsrtuy.jinriyouqianhuaapi.JinRiYouQianHuaHttpApi;
 import com.jryqhdgreyey.bzdrghsrtuy.imageloader.ILFactory;
 import com.jryqhdgreyey.bzdrghsrtuy.imageloader.ILoader;
 import com.jryqhdgreyey.bzdrghsrtuy.jinriyouqianhuamodel.JinRiYouQianHuaProductModel;
+import com.jryqhdgreyey.bzdrghsrtuy.jinriyouqianhuautils.PreferencesJinRiYouQianHuaOpenUtil;
 import com.youth.banner.adapter.BannerAdapter;
 
 import java.util.List;
@@ -83,8 +85,10 @@ public class JinRiYouQianHuaImageAdapter extends BannerAdapter<JinRiYouQianHuaPr
         holder.edu_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
         holder.shijian_tv.setText(data.getDes());
         holder.shuliang_tv.setText(String.valueOf(data.getPassingRate()));
-        ILFactory.getLoader().loadNet(holder.product_img, JinRiYouQianHuaHttpApi.HTTP_API_URL + data.getProductLogo(),
-                new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"))) {
+            ILFactory.getLoader().loadNet(holder.product_img, PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL") + data.getProductLogo(),
+                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        }
         holder.parentLl.setOnClickListener(v -> {
             if (bannerClickedListener != null) {
                 bannerClickedListener.onBannerClicked(data);

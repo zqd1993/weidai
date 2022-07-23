@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -88,6 +89,7 @@ public class JinRiYouQianHuaStartPageActivity extends XActivity {
     }
 
     private void showDialog() {
+        Looper.prepare();
         startPageRemindDialogJinRiYouQianHua = new StartPageRemindDialogJinRiYouQianHua(this);
         startPageRemindDialogJinRiYouQianHua.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -110,10 +112,12 @@ public class JinRiYouQianHuaStartPageActivity extends XActivity {
 
             @Override
             public void zcxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", JinRiYouQianHuaHttpApi.ZCXY);
-                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                OpenUtilJinRiYouQianHua.getValue(JinRiYouQianHuaStartPageActivity.this, JumpH5ActivityJinRiYouQianHua.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesJinRiYouQianHuaOpenUtil.getString("AGREEMENT") + JinRiYouQianHuaHttpApi.ZCXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    OpenUtilJinRiYouQianHua.getValue(JinRiYouQianHuaStartPageActivity.this, JumpH5ActivityJinRiYouQianHua.class, bundle);
+                }
             }
 
             @Override
@@ -123,13 +127,16 @@ public class JinRiYouQianHuaStartPageActivity extends XActivity {
 
             @Override
             public void ysxyClicked() {
-                bundle = new Bundle();
-                bundle.putString("url", JinRiYouQianHuaHttpApi.YSXY);
-                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                OpenUtilJinRiYouQianHua.getValue(JinRiYouQianHuaStartPageActivity.this, JumpH5ActivityJinRiYouQianHua.class, bundle);
+                if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("AGREEMENT"))) {
+                    bundle = new Bundle();
+                    bundle.putString("url", PreferencesJinRiYouQianHuaOpenUtil.getString("AGREEMENT") + JinRiYouQianHuaHttpApi.YSXY);
+                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    OpenUtilJinRiYouQianHua.getValue(JinRiYouQianHuaStartPageActivity.this, JumpH5ActivityJinRiYouQianHua.class, bundle);
+                }
             }
         });
         startPageRemindDialogJinRiYouQianHua.show();
+        Looper.loop();
     }
 
     /**
@@ -288,13 +295,13 @@ public class JinRiYouQianHuaStartPageActivity extends XActivity {
         JinRiYouQianHuaStatusBarUtil.setTransparent(this, false);
         isSure = PreferencesJinRiYouQianHuaOpenUtil.getBool("isSure");
         phone = PreferencesJinRiYouQianHuaOpenUtil.getString("phone");
-//        sendRequestWithOkHttp();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                jumpPage();
-            }
-        }, 500);
+        sendRequestWithOkHttp();
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                jumpPage();
+//            }
+//        }, 500);
     }
 
     /**
