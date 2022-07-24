@@ -51,8 +51,6 @@ public class GoodsItemAdapter extends SimpleRecAdapter<GoodsModel, GoodsItemAdap
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.parent_fl)
-        View parentFl;
         @BindView(R.id.product_name_tv)
         TextView productNameTv;
         @BindView(R.id.product_img)

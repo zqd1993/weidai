@@ -46,7 +46,7 @@
                         android:layout_marginEnd="20dp"
                         android:layout_marginTop="50dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/krtysyaerty" />
+                        android:src="@drawable/esrtyxfyurty" />
 
                     <com.lihang.ShadowLayout
                         android:layout_width="match_parent"
@@ -65,40 +65,33 @@
 
                 </FrameLayout>
 
-                <FrameLayout
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginEnd="35dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/wetxdftyrtu" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:textSize="14sp"
-                            android:textColor="@color/text_normal_color"
-                            android:text="安全便捷，服务周到" />
-
-                    </LinearLayout>
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end|center_vertical"
-                        android:src="@drawable/lfyuidrtu" />
+                        android:src="@drawable/seyxdfyhsry" />
 
-                </FrameLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:textSize="@dimen/textSize_16"
+                        android:textColor="@color/text_normal_color"
+                        android:text="分期贷款专属权益" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:src="@drawable/seyxdfyhsry" />
+
+                </LinearLayout>
 
                 <FrameLayout
                     android:id="@+id/click_view"

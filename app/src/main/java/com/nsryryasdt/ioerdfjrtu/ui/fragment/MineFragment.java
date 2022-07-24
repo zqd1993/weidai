@@ -13,6 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.nsryryasdt.ioerdfjrtu.R;
 import com.nsryryasdt.ioerdfjrtu.adapter.MineAdapter;
+import com.nsryryasdt.ioerdfjrtu.adapter.MineAdapter1;
 import com.nsryryasdt.ioerdfjrtu.model.BaseRespModel;
 import com.nsryryasdt.ioerdfjrtu.model.CompanyInfoModel;
 import com.nsryryasdt.ioerdfjrtu.model.MineItemModel;
@@ -42,6 +43,8 @@ public class MineFragment extends XFragment {
 
     @BindView(R.id.rvy)
     RecyclerView rvy;
+    @BindView(R.id.rvy_1)
+    RecyclerView rvy1;
     @BindView(R.id.phone_tv)
     TextView phoneTv;
     @BindView(R.id.refresh_layout)
@@ -52,9 +55,10 @@ public class MineFragment extends XFragment {
     TextView copy_mail_tv;
 
     private MineAdapter mineAdapter;
-    private List<MineItemModel> list;
-    private int[] imgRes = {R.drawable.zbzxdry, R.drawable.zxbdrtytu, R.drawable.lfyuory,
-            R.drawable.wertxftty, R.drawable.lyuisery};
+    private MineAdapter1 mineAdapter1;
+    private List<MineItemModel> list, list1;
+    private int[] imgRes = {R.drawable.jjzerxfh, R.drawable.mxfturu, R.drawable.ksrtyxfgh,
+            R.drawable.lfyodtusx, R.drawable.kkdtusrty};
     private String[] tvRes = {"关于我们", "隐私协议", "注册协议", "系统设置", "注销账户"};
     private Bundle bundle;
     private NormalDialog normalDialog;
@@ -63,6 +67,7 @@ public class MineFragment extends XFragment {
     @Override
     public void initData(Bundle savedInstanceState) {
         list = new ArrayList<>();
+        list1 = new ArrayList<>();
         getCompanyInfo();
         phone = SharedPreferencesUtilis.getStringFromPref("phone");
         if (!TextUtils.isEmpty(phone) && phone.length() > 10) {
@@ -72,7 +77,11 @@ public class MineFragment extends XFragment {
             MineItemModel model = new MineItemModel();
             model.setImgRes(imgRes[i]);
             model.setItemTv(tvRes[i]);
-            list.add(model);
+            if (i < 3){
+                list.add(model);
+            } else {
+                list1.add(model);
+            }
         }
         initAdapter();
         swipeRefreshLayout.setOnRefreshListener(() -> {
@@ -128,12 +137,28 @@ public class MineFragment extends XFragment {
                                     .data(bundle)
                                     .launch();
                             break;
-                        case 3:
+                    }
+                }
+            });
+            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+            rvy.setHasFixedSize(true);
+            rvy.setAdapter(mineAdapter);
+        }
+        if (mineAdapter1 == null) {
+            mineAdapter1 = new MineAdapter1(getActivity());
+            mineAdapter1.setData(list1);
+            mineAdapter1.setHasStableIds(true);
+            mineAdapter1.setRecItemClick(new RecyclerItemCallback<MineItemModel, MineAdapter1.ViewHolder>() {
+                @Override
+                public void onItemClick(int position, MineItemModel model, int tag, MineAdapter1.ViewHolder holder) {
+                    super.onItemClick(position, model, tag, holder);
+                    switch (position) {
+                        case 0:
                             Router.newIntent(getActivity())
                                     .to(SettingActivity.class)
                                     .launch();
                             break;
-                        case 4:
+                        case 1:
                             Router.newIntent(getActivity())
                                     .to(CancellationAccountActivity.class)
                                     .launch();
@@ -141,9 +166,9 @@ public class MineFragment extends XFragment {
                     }
                 }
             });
-            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-            rvy.setHasFixedSize(true);
-            rvy.setAdapter(mineAdapter);
+            rvy1.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+            rvy1.setHasFixedSize(true);
+            rvy1.setAdapter(mineAdapter1);
         }
     }
 

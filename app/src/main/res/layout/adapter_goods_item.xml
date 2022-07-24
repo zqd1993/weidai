@@ -11,58 +11,53 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
-        android:background="@color/white"
+        android:background="@drawable/sy_lb_bg"
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <com.nsryryasdt.ioerdfjrtu.widget.ProportionFrameLayout
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                app:proporty="1.65">
-
-                <com.lihang.ShadowLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:hl_cornerRadius="3dp">
-
-                    <ImageView
-                        android:id="@+id/product_img"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY" />
-
-                </com.lihang.ShadowLayout>
-
-            </com.nsryryasdt.ioerdfjrtu.widget.ProportionFrameLayout>
-
-            <TextView
-                android:id="@+id/product_name_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_gravity="center_vertical"
-                android:text="好分期"
-                android:textColor="@color/text_normal_color"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <com.lihang.ShadowLayout
-            android:id="@+id/parent_fl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            app:hl_cornerRadius="10dp"
-            app:hl_layoutBackground="#f8f8f8">
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <com.nsryryasdt.ioerdfjrtu.widget.ProportionFrameLayout
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    app:proporty="1.65">
+
+                    <com.lihang.ShadowLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:hl_cornerRadius="3dp">
+
+                        <ImageView
+                            android:id="@+id/product_img"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY" />
+
+                    </com.lihang.ShadowLayout>
+
+                </com.nsryryasdt.ioerdfjrtu.widget.ProportionFrameLayout>
+
+                <TextView
+                    android:id="@+id/product_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="好分期"
+                    android:textColor="#f5d7bf"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -83,6 +78,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_weight="2"
                         android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/text_1"
                             android:layout_width="wrap_content"
@@ -90,7 +86,7 @@
                             android:layout_marginTop="5dp"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:textColor="@color/text_normal_color"
+                            android:textColor="#f5d7bf"
                             android:textSize="12sp" />
 
                         <TextView
@@ -100,7 +96,7 @@
                             android:layout_marginTop="2dp"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:textColor="@color/text_normal_color"
+                            android:textColor="#f5d7bf"
                             android:textSize="12sp" />
 
                         <TextView
@@ -110,7 +106,7 @@
                             android:layout_marginTop="2dp"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:textColor="@color/text_normal_color"
+                            android:textColor="#f5d7bf"
                             android:textSize="12sp" />
 
                     </LinearLayout>
@@ -119,17 +115,19 @@
 
             </LinearLayout>
 
-        </com.lihang.ShadowLayout>
+        </LinearLayout>
 
         <com.lihang.ShadowLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hl_cornerRadius="50dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="15dp"
-            app:hl_layoutBackground="@color/colorPrimary">
+            app:hl_strokeColor="#f5d7bf"
+            app:hl_strokeWith="1dp"
+            app:hl_cornerRadius="50dp"
+            app:hl_layoutBackground="#00000000">
 
             <TextView
                 android:layout_width="match_parent"
@@ -143,7 +141,7 @@
                 android:paddingEnd="10dp"
                 android:paddingBottom="10dp"
                 android:text="立即申请"
-                android:textColor="@color/white"
+                android:textColor="#f5d7bf"
                 android:textSize="12sp" />
 
         </com.lihang.ShadowLayout>

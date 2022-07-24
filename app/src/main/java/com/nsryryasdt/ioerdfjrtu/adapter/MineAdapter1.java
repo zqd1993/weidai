@@ -14,9 +14,9 @@ import com.nsryryasdt.ioerdfjrtu.model.MineItemModel;
 
 import butterknife.BindView;
 
-public class MineAdapter extends SimpleRecAdapter<MineItemModel, MineAdapter.ViewHolder> {
+public class MineAdapter1 extends SimpleRecAdapter<MineItemModel, MineAdapter1.ViewHolder> {
 
-    public MineAdapter(Context context) {
+    public MineAdapter1(Context context) {
         super(context);
     }
 
@@ -27,7 +27,7 @@ public class MineAdapter extends SimpleRecAdapter<MineItemModel, MineAdapter.Vie
 
     @Override
     public int getLayoutId() {
-        return R.layout.adapter_mine_item_1;
+        return R.layout.adapter_mine_item;
     }
 
     @Override
