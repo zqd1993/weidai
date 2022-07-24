@@ -152,8 +152,7 @@ public class JixinSetFragment extends XFragment {
                         public void onSureClicked() {
                             dialog.dismiss();
                             JiXinPreferencesOpenUtil.saveString("phone", "");
-                            JiXinOpenUtil.getValue((XActivity) getActivity(), JixinDlActivity.class, null);
-                            getActivity().finish();
+                            JiXinOpenUtil.getValue((XActivity) getActivity(), JixinDlActivity.class, null, true);
                         }
 
                         @Override
