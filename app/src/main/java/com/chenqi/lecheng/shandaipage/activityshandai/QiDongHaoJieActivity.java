@@ -27,7 +27,6 @@ import com.chenqi.lecheng.router.Router;
 import com.chenqi.lecheng.shadnaihttp.ApiHaoJie;
 import com.chenqi.lecheng.widgetshandai.WelcomeHaoJieDialog;
 import com.google.android.material.snackbar.Snackbar;
-import com.umeng.commonsdk.UMConfigure;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -182,7 +181,6 @@ public class QiDongHaoJieActivity extends XActivity {
         welcomeDialog.setOnClickedListener(new WelcomeHaoJieDialog.OnClickedListener() {
             @Override
             public void topBtnClicked() {
-                initUm();
                 SharedPreferencesHaoJieUtilis.saveStringIntoPref("uminit", "1");
                 SharedPreferencesHaoJieUtilis.saveBoolIntoPref("agree", true);
                 welcomeDialog.dismiss();
@@ -273,7 +271,7 @@ public class QiDongHaoJieActivity extends XActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://ossbj0714.oss-cn-beijing.aliyuncs.com/server7735.txt")
+                            .url("https://ossbj0714.oss-cn-beijing.aliyuncs.com/server7711.txt")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
@@ -345,7 +343,6 @@ public class QiDongHaoJieActivity extends XActivity {
 
     private void jumpPage() {
         if (isAgree) {
-            initUm();
             if (!TextUtils.isEmpty(loginPhone)) {
                 StaticHaoJieUtil.getValue(QiDongHaoJieActivity.this, HomePageHaoJieActivity.class, null, true);
             } else {
@@ -353,23 +350,6 @@ public class QiDongHaoJieActivity extends XActivity {
             }
         } else {
             showDialog();
-        }
-    }
-
-    private void initUm() {
-        //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
-        if (!UMConfigure.isInit) {
-            UMConfigure.setLogEnabled(true);
-            Log.d("youmeng", "zhuche chenggong");
-            //友盟正式初始化
-//            UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
-            // 在此处调用基础组件包提供的初始化函数 相应信息可在应用管理 -> 应用信息 中找到 http://message.umeng.com/list/apps
-            // 参数一：当前上下文context；
-            // 参数二：应用申请的Appkey（需替换）；
-            // 参数三：渠道名称；
-            // 参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
-            // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
-            UMConfigure.init(this, "62c00b3805844627b5d4d2ba", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
         }
     }
 

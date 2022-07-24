@@ -103,7 +103,7 @@ public class MineHaoJieFragment extends XFragment {
     private String mailStr = "", phone = "";
     private int[] imgRes = {R.drawable.hgunzdfgll,
             R.drawable.rhuygbzdfgn, R.drawable.yttyrnbgzld, R.drawable.rygujxnflg, R.drawable.nrugnjzg, R.drawable.trbngzmdfgj};
-    private String[] tvRes = {"意见反馈", "个性化推荐", "投诉邮箱", "注销账户", "退出登录", "更多信息"};
+    private String[] tvRes = {"意见反馈", "个性化推荐", "联系客服", "注销账户", "退出登录", "更多信息"};
 
 
     @Override

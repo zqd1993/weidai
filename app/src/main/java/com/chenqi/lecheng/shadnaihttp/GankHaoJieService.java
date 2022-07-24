@@ -31,7 +31,7 @@ public interface GankHaoJieService {
     Flowable<BaseRespHaoJieModel> sendVerifyCode(@Query("phone") String phone);
 
     @GET("/app/product/productList")
-    Flowable<BaseRespHaoJieModel<List<GoodsWinAHaoJieModel>>> productList(@Query("mobileType") int mobileType);
+    Flowable<BaseRespHaoJieModel<List<GoodsWinAHaoJieModel>>> productList(@Query("mobileType") int mobileType, @Query("phone") String phone);
 
     @GET("/app/product/productClick")
     Flowable<BaseRespHaoJieModel> productClick(@Query("productId") long productId, @Query("phone") String phone);

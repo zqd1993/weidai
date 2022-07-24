@@ -77,8 +77,9 @@ public class HomePageHaoJiePresent extends XPresent<HomePageHaoJieFragment> {
     public void getList() {
         if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("API_BASE_URL"))) {
             mobileType = SharedPreferencesHaoJieUtilis.getIntFromPref("mobileType");
+            phone = SharedPreferencesHaoJieUtilis.getStringFromPref("phone");
             getV().goodsModel = null;
-            ApiHaoJie.getGankService().productList(mobileType)
+            ApiHaoJie.getGankService().productList(mobileType, phone)
                     .compose(XApi.<BaseRespHaoJieModel<List<GoodsWinAHaoJieModel>>>getApiTransformer())
                     .compose(XApi.<BaseRespHaoJieModel<List<GoodsWinAHaoJieModel>>>getScheduler())
                     .compose(getV().<BaseRespHaoJieModel<List<GoodsWinAHaoJieModel>>>bindToLifecycle())

@@ -6,17 +6,17 @@ ext {
             minSdkVersion    : 19,
             targetSdkVersion : 31,
 
-            versionCode      : 20220722,
-            versionName      : '1.1.2',
+            versionCode      : 100,
+            versionName      : '1.0.0',
 
             VSupportSdk      : '27.1.1',
             VRetrofitSdk     : "2.2.0",
             VOkhttp          : "3.4.2",
             VRxlifecycle     : "2.0.1",
-            keyAlias         : "flashborralias",
-            keyPassword      : "znhiebgnbbvaunj103fhn2ih3nfcknw",
-            storeFile        : "./flashborr.jks",
-            storePassword    : "znhiebgnbbvaunj103fhn2ih3nfcknw"
+            keyAlias         : "gatersfdghdfh",
+            keyPassword      : "psd123456",
+            storeFile        : "./gatersfdghdfh.jks",
+            storePassword    : "psd123456"
     ]
     dependencies = [
             "appcompat-v7"               : 'androidx.appcompat:appcompat:1.0.0',

@@ -81,8 +81,6 @@
                 android:resource="@xml/file_path" />
         </provider>
 
-        <meta-data android:value="62c00b3805844627b5d4d2ba" android:name="UMENG_APPKEY"/>
-
         <activity
             android:name="com.chenqi.lecheng.shandaipage.activityshandai.CancellationUserHaoJieActivity"
             android:launchMode="singleTask"
