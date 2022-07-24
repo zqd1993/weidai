@@ -28,7 +28,7 @@
             android:textSize="@dimen/textSize_16"
             tools:text="标题单" />
 
-        <com.tryrbdfbv.grtregdfh.widget.SpanTextView
+        <com.nsryryasdt.ioerdfjrtu.widget.SpanTextView
             android:id="@+id/tv_content"
             android:visibility="visible"
             android:layout_width="wrap_content"

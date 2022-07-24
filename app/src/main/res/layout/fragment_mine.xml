@@ -31,41 +31,40 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:src="@drawable/wd_tx" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/lfydrturtu" />
 
                     <TextView
                         android:id="@+id/phone_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:text="12345679"
                         android:textColor="@color/white"
+                        android:textStyle="bold"
                         android:textSize="16sp" />
 
                 </LinearLayout>
 
             </FrameLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvy"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:overScrollMode="never" />
-
-            <FrameLayout
+            <com.lihang.ShadowLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="15dp"
+                app:hl_layoutBackground="@color/white"
+                app:hl_cornerRadius="50dp">
 
                 <TextView
                     android:id="@+id/mail_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginStart="15dp"
                     android:text="123456798@qq.com"
                     android:textColor="@color/text_normal_color"
                     android:textSize="@dimen/textSize_16" />
@@ -74,14 +73,23 @@
                     android:id="@+id/copy_mail_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
+                    android:layout_gravity="end|center_vertical"
                     android:padding="10dp"
-                    android:layout_margin="10dp"
+                    android:layout_marginEnd="5dp"
                     android:text="复制"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/textSize_16" />
 
-            </FrameLayout>
+            </com.lihang.ShadowLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:overScrollMode="never" />
 
         </LinearLayout>
 
