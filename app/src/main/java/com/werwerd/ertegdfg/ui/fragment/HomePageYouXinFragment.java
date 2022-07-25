@@ -10,10 +10,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.werwerd.ertegdfg.R;
 import com.werwerd.ertegdfg.adapter.GoodsItemAdapterYouXin;
 import com.werwerd.ertegdfg.model.GoodsWinAModel;
+import com.werwerd.ertegdfg.mvp.XActivity;
 import com.werwerd.ertegdfg.ui.WebActivity;
 import com.werwerd.ertegdfg.mvp.XFragment;
 import com.werwerd.ertegdfg.present.HomePageYouXinPresent;
 import com.werwerd.ertegdfg.router.Router;
+import com.werwerd.ertegdfg.utils.StaticYouXinUtil;
 
 import java.util.List;
 
@@ -100,10 +102,7 @@ public class HomePageYouXinFragment extends XFragment<HomePageYouXinPresent> {
             webBundle.putInt("tag", 3);
             webBundle.putString("url", model.getUrl());
             webBundle.putString("title", model.getProductName());
-            Router.newIntent(getActivity())
-                    .to(WebActivity.class)
-                    .data(webBundle)
-                    .launch();
+            StaticYouXinUtil.getValue((XActivity) getActivity(), WebActivity.class, webBundle);
         }
     }
 

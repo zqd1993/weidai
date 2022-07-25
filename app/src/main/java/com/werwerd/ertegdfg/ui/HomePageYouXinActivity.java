@@ -2,11 +2,13 @@ package com.werwerd.ertegdfg.ui;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.werwerd.ertegdfg.R;
+import com.werwerd.ertegdfg.utils.SharedPreferencesYouXinUtilis;
 import com.werwerd.ertegdfg.utils.StatusBarYouXinUtil;
 import com.werwerd.ertegdfg.utils.ToastYouXinUtil;
 import com.werwerd.ertegdfg.mvp.XActivity;
@@ -41,6 +43,9 @@ public class HomePageYouXinActivity extends XActivity<MainYouXinPresent> {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarYouXinUtil.setTransparent(this, false);
+        if (SharedPreferencesYouXinUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         getP().login();
         customTabEntities = new ArrayList<>();
         homeViewPager.setUserInputEnabled(false);

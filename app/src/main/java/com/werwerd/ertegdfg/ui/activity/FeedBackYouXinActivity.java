@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +13,8 @@ import com.werwerd.ertegdfg.R;
 import com.victor.loading.rotate.RotateLoading;
 
 import butterknife.BindView;
+
+import com.werwerd.ertegdfg.utils.SharedPreferencesYouXinUtilis;
 import com.werwerd.ertegdfg.utils.StatusBarYouXinUtil;
 import com.werwerd.ertegdfg.utils.ToastYouXinUtil;
 import com.werwerd.ertegdfg.mvp.XActivity;
@@ -44,6 +47,9 @@ public class FeedBackYouXinActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarYouXinUtil.setTransparent(this, false);
+        if (SharedPreferencesYouXinUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("意见反馈");
         commitBtn.setOnClickListener(v -> {

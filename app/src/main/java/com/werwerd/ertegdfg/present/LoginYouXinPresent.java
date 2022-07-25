@@ -9,6 +9,7 @@ import com.werwerd.ertegdfg.model.ConfigYouXinModel;
 import com.werwerd.ertegdfg.model.LoginRespYouXinModel;
 import com.werwerd.ertegdfg.ui.HomePageYouXinActivity;
 import com.werwerd.ertegdfg.ui.LoginYouXinActivity;
+import com.werwerd.ertegdfg.ui.WebActivity;
 import com.werwerd.ertegdfg.utils.SharedPreferencesYouXinUtilis;
 import com.werwerd.ertegdfg.utils.StaticYouXinUtil;
 import com.werwerd.ertegdfg.utils.ToastYouXinUtil;
@@ -23,7 +24,6 @@ import com.werwerd.ertegdfg.net.ApiSubscriber;
 public class LoginYouXinPresent extends XPresent<LoginYouXinActivity> {
 
     public void login(String phone, String verificationStr, String ip) {
-        if (!TextUtils.isEmpty(SharedPreferencesYouXinUtilis.getStringFromPref("HTTP_API_URL"))) {
             Api.getGankService().login(phone, verificationStr, "", ip)
                     .compose(XApi.<BaseRespYouXinModel<LoginRespYouXinModel>>getApiTransformer())
                     .compose(XApi.<BaseRespYouXinModel<LoginRespYouXinModel>>getScheduler())
@@ -45,10 +45,7 @@ public class LoginYouXinPresent extends XPresent<LoginYouXinActivity> {
                                     SharedPreferencesYouXinUtilis.saveStringIntoPref("phone", phone);
                                     SharedPreferencesYouXinUtilis.saveIntIntoPref("mobileType", gankResults.getData().getMobileType());
                                     SharedPreferencesYouXinUtilis.saveStringIntoPref("ip", ip);
-                                    Router.newIntent(getV())
-                                            .to(HomePageYouXinActivity.class)
-                                            .launch();
-                                    getV().finish();
+                                    StaticYouXinUtil.getValue(getV(), HomePageYouXinActivity.class, null, true);
                                 }
                             } else {
                                 if (gankResults.getCode() == 500) {
@@ -57,11 +54,9 @@ public class LoginYouXinPresent extends XPresent<LoginYouXinActivity> {
                             }
                         }
                     });
-        }
     }
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(SharedPreferencesYouXinUtilis.getStringFromPref("HTTP_API_URL"))) {
             Api.getGankService().getGankData()
                     .compose(XApi.<BaseRespYouXinModel<ConfigYouXinModel>>getApiTransformer())
                     .compose(XApi.<BaseRespYouXinModel<ConfigYouXinModel>>getScheduler())
@@ -89,11 +84,9 @@ public class LoginYouXinPresent extends XPresent<LoginYouXinActivity> {
                             }
                         }
                     });
-        }
     }
 
     public void sendVerifyCode(String phone, TextView textView) {
-        if (!TextUtils.isEmpty(SharedPreferencesYouXinUtilis.getStringFromPref("HTTP_API_URL"))) {
             Api.getGankService().sendVerifyCode(phone)
                     .compose(XApi.<BaseRespYouXinModel>getApiTransformer())
                     .compose(XApi.<BaseRespYouXinModel>getScheduler())
@@ -115,7 +108,6 @@ public class LoginYouXinPresent extends XPresent<LoginYouXinActivity> {
                             }
                         }
                     });
-        }
     }
 
 }

@@ -12,6 +12,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.DownloadListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -23,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.werwerd.ertegdfg.R;
+import com.werwerd.ertegdfg.utils.SharedPreferencesYouXinUtilis;
 import com.werwerd.ertegdfg.utils.StatusBarYouXinUtil;
 import com.werwerd.ertegdfg.mvp.XActivity;
 import com.werwerd.ertegdfg.utils.ToastYouXinUtil;
@@ -58,6 +60,9 @@ public class WebActivity extends XActivity implements EasyPermissions.Permission
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarYouXinUtil.setTransparent(this, false);
+        if (SharedPreferencesYouXinUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         bundle = getIntent().getExtras();
         if (bundle.containsKey("tag"))
             tag = bundle.getInt("tag");

@@ -1,6 +1,7 @@
 package com.werwerd.ertegdfg.ui.activity;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,6 +11,8 @@ import com.werwerd.ertegdfg.mvp.XActivity;
 import com.werwerd.ertegdfg.net.Api;
 import com.werwerd.ertegdfg.router.Router;
 import com.werwerd.ertegdfg.ui.WebActivity;
+import com.werwerd.ertegdfg.utils.SharedPreferencesYouXinUtilis;
+import com.werwerd.ertegdfg.utils.StaticYouXinUtil;
 import com.werwerd.ertegdfg.utils.StatusBarYouXinUtil;
 import com.werwerd.ertegdfg.widget.WelcomeYouXinDialog;
 
@@ -33,30 +36,25 @@ public class MoreInfoActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarYouXinUtil.setTransparent(this, false);
+        if (SharedPreferencesYouXinUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("更多信息");
         appInfoSl.setOnClickListener(v -> {
-            Router.newIntent(this)
-                    .to(AboutYouXinActivity.class)
-                    .launch();
+            StaticYouXinUtil.getValue(this, AboutYouXinActivity.class, null);
         });
         zcxySl.setOnClickListener(v -> {
             bundle = new Bundle();
             bundle.putInt("tag", 1);
             bundle.putString("url", Api.PRIVACY_POLICY);
-            Router.newIntent(this)
-                    .to(WebActivity.class)
-                    .data(bundle)
-                    .launch();
+            StaticYouXinUtil.getValue(this, WebActivity.class, bundle);
         });
         ysxySl.setOnClickListener(v -> {
             bundle = new Bundle();
             bundle.putInt("tag", 2);
             bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-            Router.newIntent(this)
-                    .to(WebActivity.class)
-                    .data(bundle)
-                    .launch();
+            StaticYouXinUtil.getValue(this, WebActivity.class, bundle);
         });
     }
 

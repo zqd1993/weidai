@@ -14,7 +14,9 @@ import android.view.KeyEvent;
 
 import com.umeng.commonsdk.UMConfigure;
 import com.werwerd.ertegdfg.R;
+import com.werwerd.ertegdfg.mvp.XActivity;
 import com.werwerd.ertegdfg.utils.SharedPreferencesYouXinUtilis;
+import com.werwerd.ertegdfg.utils.StaticYouXinUtil;
 import com.werwerd.ertegdfg.utils.StatusBarYouXinUtil;
 import com.werwerd.ertegdfg.router.Router;
 
@@ -25,7 +27,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class QiDongActivity extends AppCompatActivity {
+public class QiDongActivity extends XActivity {
 
     private WelcomeYouXinDialog welcomeDialog;
 
@@ -34,16 +36,6 @@ public class QiDongActivity extends AppCompatActivity {
     private boolean isAgree = false, isResume = false;
 
     private String loginPhone = "";
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guide);
-        StatusBarYouXinUtil.setTransparent(this, false);
-        isAgree = SharedPreferencesYouXinUtilis.getBoolFromPref("agree");
-        loginPhone = SharedPreferencesYouXinUtilis.getStringFromPref("phone");
-        sendRequestWithOkHttp();
-    }
 
     @Override
     protected void onResume() {
@@ -72,7 +64,7 @@ public class QiDongActivity extends AppCompatActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         welcomeDialog = new WelcomeYouXinDialog(this, "温馨提示");
         welcomeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -89,10 +81,8 @@ public class QiDongActivity extends AppCompatActivity {
             public void topBtnClicked() {
                 SharedPreferencesYouXinUtilis.saveStringIntoPref("uminit", "1");
                 SharedPreferencesYouXinUtilis.saveBoolIntoPref("agree", true);
-                Router.newIntent(QiDongActivity.this)
-                        .to(LoginYouXinActivity.class)
-                        .launch();
-                finish();
+                welcomeDialog.dismiss();
+                StaticYouXinUtil.getValue(QiDongActivity.this, LoginYouXinActivity.class, null, true);
             }
 
             @Override
@@ -105,10 +95,7 @@ public class QiDongActivity extends AppCompatActivity {
                 bundle = new Bundle();
                 bundle.putInt("tag", 1);
                 bundle.putString("url", Api.PRIVACY_POLICY);
-                Router.newIntent(QiDongActivity.this)
-                        .to(WebActivity.class)
-                        .data(bundle)
-                        .launch();
+                StaticYouXinUtil.getValue(QiDongActivity.this, WebActivity.class, bundle);
             }
 
             @Override
@@ -116,14 +103,11 @@ public class QiDongActivity extends AppCompatActivity {
                 bundle = new Bundle();
                 bundle.putInt("tag", 2);
                 bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                Router.newIntent(QiDongActivity.this)
-                        .to(WebActivity.class)
-                        .data(bundle)
-                        .launch();
+                StaticYouXinUtil.getValue(QiDongActivity.this, WebActivity.class, bundle);
             }
         });
         welcomeDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -153,17 +137,12 @@ public class QiDongActivity extends AppCompatActivity {
 
     private void jumpPage() {
         if (isAgree) {
-            initUm();
+//            initUm();
             if (!TextUtils.isEmpty(loginPhone)) {
-                Router.newIntent(QiDongActivity.this)
-                        .to(HomePageYouXinActivity.class)
-                        .launch();
+                StaticYouXinUtil.getValue(QiDongActivity.this, HomePageYouXinActivity.class, null, true);
             } else {
-                Router.newIntent(QiDongActivity.this)
-                        .to(LoginYouXinActivity.class)
-                        .launch();
+                StaticYouXinUtil.getValue(QiDongActivity.this, LoginYouXinActivity.class, null, true);
             }
-            finish();
         } else {
             showDialog();
         }
@@ -182,7 +161,7 @@ public class QiDongActivity extends AppCompatActivity {
             // 参数三：渠道名称；
             // 参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
             // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
-            UMConfigure.init(this, "62c007bb05844627b5d4d241", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+            UMConfigure.init(this, "6294d3ab05844627b599750b", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
         }
     }
 
@@ -191,5 +170,29 @@ public class QiDongActivity extends AppCompatActivity {
             return null;
         }
         return "";
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        StatusBarYouXinUtil.setTransparent(this, false);
+        isAgree = SharedPreferencesYouXinUtilis.getBoolFromPref("agree");
+        loginPhone = SharedPreferencesYouXinUtilis.getStringFromPref("phone");
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_guide;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 }

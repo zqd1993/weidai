@@ -1,12 +1,21 @@
 package com.werwerd.ertegdfg.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.werwerd.ertegdfg.model.BaseRespYouXinModel;
+import com.werwerd.ertegdfg.model.ConfigYouXinModel;
+import com.werwerd.ertegdfg.mvp.XActivity;
+import com.werwerd.ertegdfg.net.Api;
+import com.werwerd.ertegdfg.net.ApiSubscriber;
 import com.werwerd.ertegdfg.net.NetError;
+import com.werwerd.ertegdfg.net.XApi;
+import com.werwerd.ertegdfg.router.Router;
 
 import java.util.regex.Pattern;
 
@@ -68,6 +77,68 @@ public class StaticYouXinUtil {
             e.printStackTrace();
         }
         return versionName;
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
+        Api.getGankService().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespYouXinModel<ConfigYouXinModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseRespYouXinModel<ConfigYouXinModel> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SharedPreferencesYouXinUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, false);
+                            }
+                        }
+                    }
+                });
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        Api.getGankService().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespYouXinModel<ConfigYouXinModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseRespYouXinModel<ConfigYouXinModel> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SharedPreferencesYouXinUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, true);
+                            }
+                        }
+                    }
+                });
+    }
+
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        if (bundle != null) {
+            Router.newIntent(activity)
+                    .to(to)
+                    .data(bundle)
+                    .launch();
+        } else {
+            Router.newIntent(activity)
+                    .to(to)
+                    .launch();
+        }
+        if (isFinish) {
+            activity.finish();
+        }
     }
 
 }

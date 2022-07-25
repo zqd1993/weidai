@@ -13,6 +13,7 @@ import com.werwerd.ertegdfg.adapter.MineAdapterYouXin;
 import com.werwerd.ertegdfg.model.BaseRespYouXinModel;
 import com.werwerd.ertegdfg.model.ConfigYouXinModel;
 import com.werwerd.ertegdfg.model.MineItemModelYouXin;
+import com.werwerd.ertegdfg.mvp.XActivity;
 import com.werwerd.ertegdfg.net.ApiSubscriber;
 import com.werwerd.ertegdfg.net.NetError;
 import com.werwerd.ertegdfg.net.XApi;
@@ -78,9 +79,7 @@ public class MineFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            Router.newIntent(getActivity())
-                                    .to(FeedBackYouXinActivity.class)
-                                    .launch();
+                            StaticYouXinUtil.getValue((XActivity) getActivity(), FeedBackYouXinActivity.class, null);
                             break;
                         case 1:
                             normalYouXinDialog = new NormalYouXinDialog(getActivity());
@@ -142,9 +141,7 @@ public class MineFragment extends XFragment {
                             getGankData();
                             break;
                         case 1:
-                            Router.newIntent(getActivity())
-                                    .to(CancellationUserYouXinActivity.class)
-                                    .launch();
+                            StaticYouXinUtil.getValue((XActivity) getActivity(), CancellationUserYouXinActivity.class, null);
                             break;
                         case 2:
                             normalYouXinDialog = new NormalYouXinDialog(getActivity());
@@ -158,16 +155,11 @@ public class MineFragment extends XFragment {
                                     .setRightListener(v -> {
                                         normalYouXinDialog.dismiss();
                                         SharedPreferencesYouXinUtilis.saveStringIntoPref("phone", "");
-                                        Router.newIntent(getActivity())
-                                                .to(LoginYouXinActivity.class)
-                                                .launch();
-                                        getActivity().finish();
+                                        StaticYouXinUtil.getValue((XActivity) getActivity(), LoginYouXinActivity.class, null, true);
                                     }).show();
                             break;
                         case 3:
-                            Router.newIntent(getActivity())
-                                    .to(MoreInfoActivity.class)
-                                    .launch();
+                            StaticYouXinUtil.getValue((XActivity) getActivity(), MoreInfoActivity.class, null);
                             break;
                     }
                 }
@@ -179,7 +171,6 @@ public class MineFragment extends XFragment {
     }
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(SharedPreferencesYouXinUtilis.getStringFromPref("HTTP_API_URL"))) {
             Api.getGankService().getGankData()
                     .compose(XApi.<BaseRespYouXinModel<ConfigYouXinModel>>getApiTransformer())
                     .compose(XApi.<BaseRespYouXinModel<ConfigYouXinModel>>getScheduler())
@@ -204,7 +195,6 @@ public class MineFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     @Override

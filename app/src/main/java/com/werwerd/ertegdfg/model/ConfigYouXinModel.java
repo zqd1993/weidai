@@ -28,6 +28,18 @@ public class ConfigYouXinModel {
     @SerializedName("DOMAIN_NAME")
     private String domainName;
 
+    @SerializedName("VIDEOTAPE")
+    private String videoTape;
+
+    public String getVideoTape() {
+        return videoTape;
+    }
+
+    public void setVideoTape(String videoTape) {
+        this.videoTape = videoTape;
+    }
+
+
     public String getIsSelectLogin() {
         return isSelectLogin;
     }
