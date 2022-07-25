@@ -9,7 +9,7 @@ import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesUtilis;
  */
 
 public class Api {
-    public static String API_BASE_URL = "http://43.249.30.98:7748";
+    public static String API_BASE_URL = "http://202.52.144.93:7714";
     public static final String PRIVACY_POLICY = "https://bones.huyt78p.com/profile/jdqdk/zcxy.html";
     public static final String USER_SERVICE_AGREEMENT= "https://bones.huyt78p.com/profile/jdqdk/ysxy.html";
 
