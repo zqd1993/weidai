@@ -110,7 +110,6 @@ public class OpenKuaiJieUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
             KuaiJieApi.getInterfaceUtils().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -131,11 +130,9 @@ public class OpenKuaiJieUtil {
                             }
                         }
                     });
-        }
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-        if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
             KuaiJieApi.getInterfaceUtils().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -156,7 +153,6 @@ public class OpenKuaiJieUtil {
                             }
                         }
                     });
-        }
     }
 
     public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish){
@@ -244,7 +240,7 @@ public class OpenKuaiJieUtil {
                 "我们非常重视对您个人信息的保护，您需要同意");
         spanModels.add(textSpanModel);
 
-        spanModel.setStr("《注册服务协议》");
+        spanModel.setStr("《用户注册协议》");
         spanModels.add(spanModel);
 
         textSpanModel = new ClickKuaiJieTextView.SpanModel();
@@ -252,7 +248,7 @@ public class OpenKuaiJieUtil {
         spanModels.add(textSpanModel);
 
         spanModel = new ClickKuaiJieTextView.ClickSpanModel();
-        spanModel.setStr("《用户隐私协议》");
+        spanModel.setStr("《隐私政策》");
         spanModels.add(spanModel);
 
         textSpanModel = new ClickKuaiJieTextView.SpanModel();
@@ -293,11 +289,11 @@ public class OpenKuaiJieUtil {
         textSpanModel.setStr("我已阅读并同意");
         spanModels.add(textSpanModel);
 
-        spanModel.setStr("《注册服务协议》");
+        spanModel.setStr("《用户注册协议》");
         spanModels.add(spanModel);
 
         spanModel = new ClickKuaiJieTextView.ClickSpanModel();
-        spanModel.setStr("《用户隐私协议》");
+        spanModel.setStr("《隐私政策》");
         spanModels.add(spanModel);
         return spanModels;
     }

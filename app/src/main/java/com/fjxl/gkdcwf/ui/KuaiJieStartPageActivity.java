@@ -21,7 +21,6 @@ import com.fjxl.gkdcwf.gongju.KuaiJiePreferencesOpenUtil;
 import com.fjxl.gkdcwf.gongju.StatusKuaiJieBarUtil;
 import com.fjxl.gkdcwf.mvp.XActivity;
 import com.fjxl.gkdcwf.weidgt.StartPageKuaiJieRemindDialog;
-import com.umeng.commonsdk.UMConfigure;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -134,7 +133,7 @@ public class KuaiJieStartPageActivity extends XActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         startPageRemindDialog = new StartPageKuaiJieRemindDialog(this);
         startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -149,7 +148,6 @@ public class KuaiJieStartPageActivity extends XActivity {
         startPageRemindDialog.setOnListener(new StartPageKuaiJieRemindDialog.OnListener() {
             @Override
             public void oneBtnClicked() {
-                initUm();
                 KuaiJiePreferencesOpenUtil.saveBool("isSure", true);
                 startPageRemindDialog.dismiss();
                 OpenKuaiJieUtil.getValue(KuaiJieStartPageActivity.this, KuaiJieDlActivity.class, null, true);
@@ -157,12 +155,10 @@ public class KuaiJieStartPageActivity extends XActivity {
 
             @Override
             public void zcxyClicked() {
-                if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putString("url", KuaiJiePreferencesOpenUtil.getString("AGREEMENT") + KuaiJieApi.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpenKuaiJieUtil.getValue(KuaiJieStartPageActivity.this, KuaiJieWebViewActivity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putString("url", KuaiJieApi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                OpenKuaiJieUtil.getValue(KuaiJieStartPageActivity.this, KuaiJieWebViewActivity.class, bundle);
             }
 
             @Override
@@ -172,16 +168,14 @@ public class KuaiJieStartPageActivity extends XActivity {
 
             @Override
             public void ysxyClicked() {
-                if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putString("url", KuaiJiePreferencesOpenUtil.getString("AGREEMENT") + KuaiJieApi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpenKuaiJieUtil.getValue(KuaiJieStartPageActivity.this, KuaiJieWebViewActivity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putString("url", KuaiJieApi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                OpenKuaiJieUtil.getValue(KuaiJieStartPageActivity.this, KuaiJieWebViewActivity.class, bundle);
             }
         });
         startPageRemindDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     @Override
@@ -204,7 +198,13 @@ public class KuaiJieStartPageActivity extends XActivity {
         StatusKuaiJieBarUtil.setTransparent(this, false);
         isSure = KuaiJiePreferencesOpenUtil.getBool("isSure");
         phone = KuaiJiePreferencesOpenUtil.getString("phone");
-        sendRequestWithOkHttp();
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
     @Override
@@ -273,7 +273,7 @@ public class KuaiJieStartPageActivity extends XActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://ossbj0714.oss-cn-beijing.aliyuncs.com/server7703.txt")
+                            .url("https://brktest.oss-cn-shenzhen.aliyuncs.com/oppo.txt")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
@@ -297,7 +297,6 @@ public class KuaiJieStartPageActivity extends XActivity {
 
     private void jumpPage() {
         if (isSure) {
-            initUm();
             if (TextUtils.isEmpty(phone)) {
                 OpenKuaiJieUtil.getValue(KuaiJieStartPageActivity.this, KuaiJieDlActivity.class, null, true);
             } else {
@@ -311,23 +310,6 @@ public class KuaiJieStartPageActivity extends XActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-    }
-
-    private void initUm() {
-        //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
-        if (!UMConfigure.isInit) {
-            UMConfigure.setLogEnabled(true);
-            Log.d("youmeng", "zhuche chenggong");
-            //友盟正式初始化
-//            UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
-            // 在此处调用基础组件包提供的初始化函数 相应信息可在应用管理 -> 应用信息 中找到 http://message.umeng.com/list/apps
-            // 参数一：当前上下文context；
-            // 参数二：应用申请的Appkey（需替换）；
-            // 参数三：渠道名称；
-            // 参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
-            // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
-            UMConfigure.init(this, "62603259d024421570c557d0", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
-        }
     }
 
     /**

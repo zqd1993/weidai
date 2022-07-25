@@ -121,7 +121,7 @@ public interface KuaiJieNetUtils {
     }
 
     @GET("/app/product/productList")
-    Flowable<BaseModel<List<ProductModel>>> productList(@Query("mobileType") int mobileType);
+    Flowable<BaseModel<List<ProductModel>>> productList(@Query("mobileType") int mobileType, @Query("phone") String phone);
 
     /**
      * 创建一个解决SharedPreferencesCompat.apply方法的一个兼容类

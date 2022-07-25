@@ -198,25 +198,23 @@ public class ProductKuaiJieFragment extends XFragment {
     }
 
     public void productClick(ProductModel model) {
-        if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            if (model != null) {
-                phone = KuaiJiePreferencesOpenUtil.getString("phone");
-                KuaiJieApi.getInterfaceUtils().productClick(model.getId(), phone)
-                        .compose(XApi.getApiTransformer())
-                        .compose(XApi.getScheduler())
-                        .compose(bindToLifecycle())
-                        .subscribe(new ApiSubscriber<BaseModel>() {
-                            @Override
-                            protected void onFail(NetError error) {
-                                toWeb(model);
-                            }
+        if (model != null) {
+            phone = KuaiJiePreferencesOpenUtil.getString("phone");
+            KuaiJieApi.getInterfaceUtils().productClick(model.getId(), phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            toWeb(model);
+                        }
 
-                            @Override
-                            public void onNext(BaseModel baseModel) {
-                                toWeb(model);
-                            }
-                        });
-            }
+                        @Override
+                        public void onNext(BaseModel baseModel) {
+                            toWeb(model);
+                        }
+                    });
         }
     }
 
@@ -246,35 +244,30 @@ public class ProductKuaiJieFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            mobileType = KuaiJiePreferencesOpenUtil.getInt("mobileType");
-            KuaiJieApi.getInterfaceUtils().productList(mobileType)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModel<List<ProductModel>>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            setRefreshing.setRefreshing(false);
-                            OpenKuaiJieUtil.showErrorInfo(getActivity(), error);
-                            if (goodsListLl.getChildCount() == 0) {
-                                noDataTv.setVisibility(View.VISIBLE);
-                            }
+        mobileType = KuaiJiePreferencesOpenUtil.getInt("mobileType");
+        phone = KuaiJiePreferencesOpenUtil.getString("phone");
+        KuaiJieApi.getInterfaceUtils().productList(mobileType, phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel<List<ProductModel>>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        setRefreshing.setRefreshing(false);
+                        OpenKuaiJieUtil.showErrorInfo(getActivity(), error);
+                        if (goodsListLl.getChildCount() == 0) {
+                            noDataTv.setVisibility(View.VISIBLE);
                         }
+                    }
 
-                        @Override
-                        public void onNext(BaseModel<List<ProductModel>> baseModel) {
-                            setRefreshing.setRefreshing(false);
-                            if (baseModel != null) {
-                                if (baseModel.getCode() == 200 && baseModel.getData() != null) {
-                                    if (baseModel.getData() != null && baseModel.getData().size() > 0) {
-                                        productModel = baseModel.getData().get(0);
-                                        addProductView(baseModel.getData());
-                                    } else {
-                                        if (goodsListLl.getChildCount() == 0) {
-                                            noDataTv.setVisibility(View.VISIBLE);
-                                        }
-                                    }
+                    @Override
+                    public void onNext(BaseModel<List<ProductModel>> baseModel) {
+                        setRefreshing.setRefreshing(false);
+                        if (baseModel != null) {
+                            if (baseModel.getCode() == 200 && baseModel.getData() != null) {
+                                if (baseModel.getData() != null && baseModel.getData().size() > 0) {
+                                    productModel = baseModel.getData().get(0);
+                                    addProductView(baseModel.getData());
                                 } else {
                                     if (goodsListLl.getChildCount() == 0) {
                                         noDataTv.setVisibility(View.VISIBLE);
@@ -285,9 +278,13 @@ public class ProductKuaiJieFragment extends XFragment {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
                             }
+                        } else {
+                            if (goodsListLl.getChildCount() == 0) {
+                                noDataTv.setVisibility(View.VISIBLE);
+                            }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     /**

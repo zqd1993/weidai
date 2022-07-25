@@ -76,10 +76,12 @@ public class SetKuaiJieFragment extends XFragment {
     public int getLayoutId() {
         return R.layout.fragment_kuaijie_set;
     }
+
     /**
      * 保存在手机里面的文件名
      */
     public static final String FILE_NAME = "share_data";
+
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
      *
@@ -151,8 +153,8 @@ public class SetKuaiJieFragment extends XFragment {
         SetModel model1 = new SetModel(R.drawable.mnbfgew, "隐私协议");
         SetModel model2 = new SetModel(R.drawable.sdfrevb, "意见反馈");
         SetModel model3 = new SetModel(R.drawable.pousd, "关于我们");
-        SetModel model4 = new SetModel(R.drawable.zcsdfe, "个性化推荐");
-        SetModel model5 = new SetModel(R.drawable.lkgysdf, "投诉邮箱");
+//        SetModel model4 = new SetModel(R.drawable.zcsdfe, "个性化推荐");
+        SetModel model5 = new SetModel(R.drawable.lkgysdf, "联系客服");
         SetModel model6 = new SetModel(R.drawable.qwdfcsd, "注销账户");
         SetModel model7 = new SetModel(R.drawable.fgsdfs, "退出登录");
         List<SetModel> list = new ArrayList<>();
@@ -161,7 +163,7 @@ public class SetKuaiJieFragment extends XFragment {
         list.add(model1);
         list.add(model2);
         list.add(model3);
-        list.add(model4);
+//        list.add(model4);
         list.add(model5);
         list.add(model6);
         list.add(model7);
@@ -169,20 +171,16 @@ public class SetKuaiJieFragment extends XFragment {
         setItemAdapter.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
-                        webBundle = new Bundle();
-                        webBundle.putString("url", KuaiJiePreferencesOpenUtil.getString("AGREEMENT") + KuaiJieApi.ZCXY);
-                        webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                        OpenKuaiJieUtil.getValue((XActivity) getActivity(), KuaiJieWebViewActivity.class, webBundle);
-                    }
+                    webBundle = new Bundle();
+                    webBundle.putString("url", KuaiJieApi.ZCXY);
+                    webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    OpenKuaiJieUtil.getValue((XActivity) getActivity(), KuaiJieWebViewActivity.class, webBundle);
                     break;
                 case 1:
-                    if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
-                        webBundle = new Bundle();
-                        webBundle.putString("url", KuaiJiePreferencesOpenUtil.getString("AGREEMENT") + KuaiJieApi.YSXY);
-                        webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                        OpenKuaiJieUtil.getValue((XActivity) getActivity(), KuaiJieWebViewActivity.class, webBundle);
-                    }
+                    webBundle = new Bundle();
+                    webBundle.putString("url", KuaiJieApi.YSXY);
+                    webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    OpenKuaiJieUtil.getValue((XActivity) getActivity(), KuaiJieWebViewActivity.class, webBundle);
                     break;
                 case 2:
                     OpenKuaiJieUtil.getValue((XActivity) getActivity(), FeedbackKuaiJieActivity.class, null);
@@ -190,31 +188,31 @@ public class SetKuaiJieFragment extends XFragment {
                 case 3:
                     OpenKuaiJieUtil.getValue((XActivity) getActivity(), AboutInfoKuaiJieActivity.class, null);
                     break;
+//                case 4:
+//                    dialog = new RemindKuaiJieDialog(getActivity()).setCancelText("开启")
+//                            .setConfirmText("关闭").setTitle("温馨提示").setContent("关闭或开启推送");
+//                    dialog.setOnButtonClickListener(new RemindKuaiJieDialog.OnButtonClickListener() {
+//                        @Override
+//                        public void onSureClicked() {
+//                            MyToastKuaiJie.showShort("关闭成功");
+//                            dialog.dismiss();
+//                        }
+//
+//                        @Override
+//                        public void onCancelClicked() {
+//                            MyToastKuaiJie.showShort("开启成功");
+//                            dialog.dismiss();
+//                        }
+//                    });
+//                    dialog.show();
+//                    break;
                 case 4:
-                    dialog = new RemindKuaiJieDialog(getActivity()).setCancelText("开启")
-                            .setConfirmText("关闭").setTitle("温馨提示").setContent("关闭或开启推送");
-                    dialog.setOnButtonClickListener(new RemindKuaiJieDialog.OnButtonClickListener() {
-                        @Override
-                        public void onSureClicked() {
-                            MyToastKuaiJie.showShort("关闭成功");
-                            dialog.dismiss();
-                        }
-
-                        @Override
-                        public void onCancelClicked() {
-                            MyToastKuaiJie.showShort("开启成功");
-                            dialog.dismiss();
-                        }
-                    });
-                    dialog.show();
-                    break;
-                case 5:
                     getConfig();
                     break;
-                case 6:
+                case 5:
                     OpenKuaiJieUtil.getValue((XActivity) getActivity(), ZhuXiaoActivityKuaiJie.class, null);
                     break;
-                case 7:
+                case 6:
                     dialog = new RemindKuaiJieDialog(getActivity()).setCancelText("取消")
                             .setConfirmText("退出").setTitle("温馨提示").setContent("确定退出当前登录");
                     dialog.setOnButtonClickListener(new RemindKuaiJieDialog.OnButtonClickListener() {
@@ -239,30 +237,28 @@ public class SetKuaiJieFragment extends XFragment {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            KuaiJieApi.getInterfaceUtils().getConfig()
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(this.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
+        KuaiJieApi.getInterfaceUtils().getConfig()
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onNext(BaseModel<ConfigEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    mailStr = configEntity.getData().getAppMail();
-                                    KuaiJiePreferencesOpenUtil.saveString("app_mail", mailStr);
-                                    dialog = new RemindKuaiJieDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
-                                    dialog.show();
-                                }
+                    @Override
+                    public void onNext(BaseModel<ConfigEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                mailStr = configEntity.getData().getAppMail();
+                                KuaiJiePreferencesOpenUtil.saveString("app_mail", mailStr);
+                                dialog = new RemindKuaiJieDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
+                                dialog.show();
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     /**
@@ -344,30 +340,29 @@ public class SetKuaiJieFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            mobileType = KuaiJiePreferencesOpenUtil.getInt("mobileType");
-            KuaiJieApi.getInterfaceUtils().productList(mobileType)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModel<List<ProductModel>>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            OpenKuaiJieUtil.showErrorInfo(getActivity(), error);
-                        }
+        mobileType = KuaiJiePreferencesOpenUtil.getInt("mobileType");
+        phone = KuaiJiePreferencesOpenUtil.getString("phone");
+        KuaiJieApi.getInterfaceUtils().productList(mobileType, phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel<List<ProductModel>>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        OpenKuaiJieUtil.showErrorInfo(getActivity(), error);
+                    }
 
-                        @Override
-                        public void onNext(BaseModel<List<ProductModel>> baseModel) {
-                            if (baseModel != null) {
-                                if (baseModel.getCode() == 200 && baseModel.getData() != null) {
-                                    if (baseModel.getData() != null && baseModel.getData().size() > 0) {
-                                        productModel = baseModel.getData().get(0);
-                                    }
+                    @Override
+                    public void onNext(BaseModel<List<ProductModel>> baseModel) {
+                        if (baseModel != null) {
+                            if (baseModel.getCode() == 200 && baseModel.getData() != null) {
+                                if (baseModel.getData() != null && baseModel.getData().size() > 0) {
+                                    productModel = baseModel.getData().get(0);
                                 }
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     /**
@@ -382,6 +377,7 @@ public class SetKuaiJieFragment extends XFragment {
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(key);
     }
+
     /**
      * 清除所有数据
      *
@@ -396,26 +392,24 @@ public class SetKuaiJieFragment extends XFragment {
     }
 
     public void productClick(ProductModel model) {
-        if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            if (model == null) {
-                return;
-            }
-            phone = KuaiJiePreferencesOpenUtil.getString("phone");
-            KuaiJieApi.getInterfaceUtils().productClick(model.getId(), phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModel>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            toWeb(model);
-                        }
-
-                        @Override
-                        public void onNext(BaseModel baseModel) {
-                            toWeb(model);
-                        }
-                    });
+        if (model == null) {
+            return;
         }
+        phone = KuaiJiePreferencesOpenUtil.getString("phone");
+        KuaiJieApi.getInterfaceUtils().productClick(model.getId(), phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        toWeb(model);
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        toWeb(model);
+                    }
+                });
     }
 }

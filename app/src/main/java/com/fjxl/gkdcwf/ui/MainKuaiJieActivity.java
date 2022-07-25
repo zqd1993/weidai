@@ -132,11 +132,11 @@ public class MainKuaiJieActivity extends XActivity {
         tabModel2.setName("我的");
         tabModel2.setChecked(false);
         tabModels.add(tabModel);
-        tabModels.add(tabModel1);
+//        tabModels.add(tabModel1);
         tabModels.add(tabModel2);
         initAdapter();
         fragments.add(new MainKuaiJieFragment());
-        fragments.add(new ProductKuaiJieFragment());
+//        fragments.add(new ProductKuaiJieFragment());
         fragments.add(new SetKuaiJieFragment());
         mainViewPager.setUserInputEnabled(false);
         mainViewPager.setAdapter(new KuaiJieFragmentAdapter(getSupportFragmentManager(), getLifecycle(), fragments));
@@ -195,7 +195,7 @@ public class MainKuaiJieActivity extends XActivity {
                 mainViewPager.setCurrentItem(position, false);
             });
             bottomRvy.setHasFixedSize(true);
-            bottomRvy.setLayoutManager(new GridLayoutManager(this, 3));
+            bottomRvy.setLayoutManager(new GridLayoutManager(this, 2));
             bottomRvy.setAdapter(tabAdapter);
         }
     }
