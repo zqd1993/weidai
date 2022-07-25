@@ -12,7 +12,7 @@ android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
-        applicationId 'com.tergbaedd.bbbdstrga'
+        applicationId 'com.dqlsdjd.fdhqwen'
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
@@ -58,7 +58,5 @@ dependencies {
     implementation 'io.github.h07000223:flycoTabLayout:3.0.0'
     implementation 'com.victor:lib:1.0.4'
     implementation 'com.github.lihangleo2:ShadowLayout:3.2.4'
-    implementation  'com.umeng.umsdk:common:latest.integration'// 必选
-    implementation  'com.umeng.umsdk:asms:latest.integration'// 必选
     implementation 'pub.devrel:easypermissions:3.0.0'
 }

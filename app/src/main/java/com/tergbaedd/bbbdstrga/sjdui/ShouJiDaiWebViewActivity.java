@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -24,6 +25,7 @@ import androidx.core.content.FileProvider;
 
 import com.tergbaedd.bbbdstrga.R;
 import com.tergbaedd.bbbdstrga.sjdutils.DownloadApkShouJiDaiUtil;
+import com.tergbaedd.bbbdstrga.sjdutils.ShouJiDaiSharedPreferencesUtilis;
 import com.tergbaedd.bbbdstrga.sjdutils.StatusShouJiDaiBarUtil;
 import com.tergbaedd.bbbdstrga.mvp.XActivity;
 
@@ -130,6 +132,9 @@ public class ShouJiDaiWebViewActivity extends XActivity implements EasyPermissio
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusShouJiDaiBarUtil.setTransparent(this, false);
+        if (ShouJiDaiSharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         bundle = getIntent().getExtras();
         if (bundle.containsKey("tag"))
             tag = bundle.getInt("tag");

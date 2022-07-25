@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tergbaedd.bbbdstrga.R;
+import com.tergbaedd.bbbdstrga.sjdutils.ShouJiDaiSharedPreferencesUtilis;
 import com.victor.loading.rotate.RotateLoading;
 
 import butterknife.BindView;
@@ -109,6 +111,9 @@ public class ShouJiDaiFeedBackActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusShouJiDaiBarUtil.setTransparent(this, false);
+        if (ShouJiDaiSharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("意见反馈");
         commitBtn.setOnClickListener(v -> {

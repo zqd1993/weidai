@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -123,6 +124,9 @@ public class LoginShouJiDaiActivity extends XActivity<LoginPresentShouJiDai> {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusShouJiDaiBarUtil.setTransparent(this, false);
+        if (ShouJiDaiSharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         initListener();
         getP().getGankData();
         sendRequestWithOkHttp();
@@ -412,11 +416,11 @@ public class LoginShouJiDaiActivity extends XActivity<LoginPresentShouJiDai> {
         textSpanModel.setContent("我已阅读并同意");
         spanModels.add(textSpanModel);
 
-        spanModel.setContent("《注册服务协议》");
+        spanModel.setContent("《用户注册协议》");
         spanModels.add(spanModel);
 
         spanModel = new SpanTextViewShouJiDai.ClickSpanModel();
-        spanModel.setContent("《用户隐私协议》");
+        spanModel.setContent("《隐私政策》");
         spanModels.add(spanModel);
         return spanModels;
     }

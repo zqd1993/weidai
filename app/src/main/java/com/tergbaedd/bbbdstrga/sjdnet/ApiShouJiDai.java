@@ -11,7 +11,7 @@ import com.tergbaedd.bbbdstrga.sjdutils.ShouJiDaiSharedPreferencesUtilis;
  */
 
 public class ApiShouJiDai {
-    public static final String API_BASE_URL = "http://43.249.30.98:7732";
+    public static final String API_BASE_URL = "http://202.52.144.93:7707";
     public static final String PRIVACY_POLICY = "https://bones.huyt78p.com/profile/hwmgdk/zcxy.html";
     public static final String USER_SERVICE_AGREEMENT= "https://bones.huyt78p.com/profile/hwmgdk/ysxy.html";
 

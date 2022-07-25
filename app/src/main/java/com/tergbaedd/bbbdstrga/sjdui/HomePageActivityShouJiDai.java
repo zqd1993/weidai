@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
@@ -11,6 +12,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.tergbaedd.bbbdstrga.R;
 import com.tergbaedd.bbbdstrga.sjdui.fragment.HomePageFragmentShouJiDai;
 import com.tergbaedd.bbbdstrga.sjdui.fragment.MineShouJiDaiFragment;
+import com.tergbaedd.bbbdstrga.sjdutils.ShouJiDaiSharedPreferencesUtilis;
 import com.tergbaedd.bbbdstrga.sjdutils.StatusShouJiDaiBarUtil;
 import com.tergbaedd.bbbdstrga.sjdutils.ShouJiDaiToastUtil;
 import com.tergbaedd.bbbdstrga.mvp.XActivity;
@@ -116,6 +118,9 @@ public class HomePageActivityShouJiDai extends XActivity<MainShouJiDaiPresent> {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusShouJiDaiBarUtil.setTransparent(this, false);
+        if (ShouJiDaiSharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         getP().login();
         customTabEntities = new ArrayList<>();
         homeViewPager.setUserInputEnabled(false);

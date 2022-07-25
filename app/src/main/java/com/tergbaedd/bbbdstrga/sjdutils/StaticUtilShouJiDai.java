@@ -249,7 +249,7 @@ public class StaticUtilShouJiDai {
                         if (configEntity != null) {
                             if (configEntity.getData() != null) {
                                 ShouJiDaiSharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                jumpPage(activity, to, bundle, true);
+                                jumpPage(activity, to, bundle, false);
                             }
                         }
                     }

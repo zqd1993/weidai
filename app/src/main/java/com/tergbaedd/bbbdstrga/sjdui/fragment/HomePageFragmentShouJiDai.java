@@ -47,7 +47,7 @@ public class HomePageFragmentShouJiDai extends XFragment<ShouJiDaiHomePagePresen
     private Bundle bundle, webBundle;
     private int tag;
     public GoodsItemAdapterShouJiDai goodsItemAdapterShouJiDai;
-    private ShouJiDaiGoodsModel shouJiDaiGoodsModel;
+    public ShouJiDaiGoodsModel shouJiDaiGoodsModel;
 
     /**
      * 保存在手机里面的文件名
@@ -213,7 +213,6 @@ public class HomePageFragmentShouJiDai extends XFragment<ShouJiDaiHomePagePresen
                 banner_fl.setVisibility(View.GONE);
             }
         }
-        getP().productList();
         swipeRefreshLayout.setOnRefreshListener(() -> getP().productList());
         noDataFl.setOnClickListener(v -> getP().productList());
         productBg.setOnClickListener(v -> {
@@ -228,6 +227,12 @@ public class HomePageFragmentShouJiDai extends XFragment<ShouJiDaiHomePagePresen
         banner_fl.setOnClickListener(v -> {
             productClick(shouJiDaiGoodsModel);
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getP().productList();
     }
 
     /**

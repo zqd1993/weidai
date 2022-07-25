@@ -87,7 +87,9 @@ public class ShouJiDaiHomePagePresent extends XPresent<HomePageFragmentShouJiDai
 
     public void productList() {
         mobileType = ShouJiDaiSharedPreferencesUtilis.getIntFromPref("mobileType");
-        ApiShouJiDai.getGankService().productList(mobileType)
+        phone = ShouJiDaiSharedPreferencesUtilis.getStringFromPref("phone");
+        getV().shouJiDaiGoodsModel = null;
+        ApiShouJiDai.getGankService().productList(mobileType, phone)
                 .compose(XApi.<BaseRespModelShouJiDai<List<ShouJiDaiGoodsModel>>>getApiTransformer())
                 .compose(XApi.<BaseRespModelShouJiDai<List<ShouJiDaiGoodsModel>>>getScheduler())
                 .compose(getV().<BaseRespModelShouJiDai<List<ShouJiDaiGoodsModel>>>bindToLifecycle())
@@ -98,7 +100,6 @@ public class ShouJiDaiHomePagePresent extends XPresent<HomePageFragmentShouJiDai
                         if (getV().goodsItemAdapterShouJiDai == null) {
                             getV().noDataFl.setVisibility(View.VISIBLE);
                         }
-                        StaticUtilShouJiDai.showError(getV().getActivity(), error);
                     }
 
                     @Override
@@ -110,19 +111,13 @@ public class ShouJiDaiHomePagePresent extends XPresent<HomePageFragmentShouJiDai
                                     getV().setModel(gankResults.getData().get(0));
                                     getV().initGoodsItemAdapter(gankResults.getData());
                                 } else {
-                                    if (getV().goodsItemAdapterShouJiDai == null) {
-                                        getV().noDataFl.setVisibility(View.VISIBLE);
-                                    }
-                                }
-                            } else {
-                                if (getV().goodsItemAdapterShouJiDai == null) {
                                     getV().noDataFl.setVisibility(View.VISIBLE);
                                 }
-                            }
-                        } else {
-                            if (getV().goodsItemAdapterShouJiDai == null) {
+                            } else {
                                 getV().noDataFl.setVisibility(View.VISIBLE);
                             }
+                        } else {
+                            getV().noDataFl.setVisibility(View.VISIBLE);
                         }
                     }
                 });

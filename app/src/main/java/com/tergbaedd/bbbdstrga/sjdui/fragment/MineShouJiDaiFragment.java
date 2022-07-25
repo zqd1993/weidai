@@ -54,7 +54,7 @@ public class MineShouJiDaiFragment extends XFragment {
     private List<MineItemModelShouJiDai> list, list1, list2;
     private int[] imgRes = {R.drawable.vcxzrt, R.drawable.qwevdagg, R.drawable.luitfs, R.drawable.luitity,
             R.drawable.zxcsrwe, R.drawable.retbs, R.drawable.pergad, R.drawable.mmdghf};
-    private String[] tvRes = {"注册协议", "隐私协议", "意见反馈", "关于我们", "个性化推荐", "投诉邮箱", "注销账户", "退出登录"};
+    private String[] tvRes = {"注册协议", "隐私协议", "意见反馈", "关于我们", "个性化推荐", "联系客服", "注销账户", "退出登录"};
     private Bundle bundle;
     private ShouJiDaiNormalDialog shouJiDaiNormalDialog;
     private String mailStr = "", phone = "";

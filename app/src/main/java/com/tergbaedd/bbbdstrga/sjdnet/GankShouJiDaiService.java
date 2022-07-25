@@ -34,7 +34,7 @@ public interface GankShouJiDaiService {
     Flowable<BaseRespModelShouJiDai<LoginRespShouJiDaiModel>> logins(@Query("phone") String phone, @Query("ip") String ip);
 
     @GET("/app/product/productList")
-    Flowable<BaseRespModelShouJiDai<List<ShouJiDaiGoodsModel>>> productList(@Query("mobileType") int mobileType);
+    Flowable<BaseRespModelShouJiDai<List<ShouJiDaiGoodsModel>>> productList(@Query("mobileType") int mobileType, @Query("phone") String phone);
 
     @GET("/app/product/productClick")
     Flowable<BaseRespModelShouJiDai> productClick(@Query("productId") long productId, @Query("phone") String phone);
