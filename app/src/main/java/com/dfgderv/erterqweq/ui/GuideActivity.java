@@ -88,7 +88,7 @@ public class GuideActivity extends XActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         welcomeDialog = new WelcomeDialog(this, "温馨提示");
         welcomeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -116,26 +116,22 @@ public class GuideActivity extends XActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 1);
-                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
-                    StaticUtil.getValue(GuideActivity.this, WebViewActivity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", Api.PRIVACY_POLICY);
+                StaticUtil.getValue(GuideActivity.this, WebViewActivity.class, bundle);
             }
 
             @Override
             public void privacyAgreementClicked() {
-                if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 2);
-                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
-                    StaticUtil.getValue(GuideActivity.this, WebViewActivity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 2);
+                bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
+                StaticUtil.getValue(GuideActivity.this, WebViewActivity.class, bundle);
             }
         });
         welcomeDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -216,8 +212,13 @@ public class GuideActivity extends XActivity {
         StatusBarUtil.setTransparent(this, false);
         isAgree = SharedPreferencesUtilis.getBoolFromPref("agree");
         loginPhone = SharedPreferencesUtilis.getStringFromPref("phone");
-        sendRequestWithOkHttp();
-//        jumpPage();
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
     @Override

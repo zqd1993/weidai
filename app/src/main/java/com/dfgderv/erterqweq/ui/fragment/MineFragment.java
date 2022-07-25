@@ -98,20 +98,16 @@ public class MineFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                                bundle = new Bundle();
-                                bundle.putInt("tag", 1);
-                                bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
-                                StaticUtil.getValue((XActivity) getActivity(), WebViewActivity.class, bundle);
-                            }
+                            bundle = new Bundle();
+                            bundle.putInt("tag", 1);
+                            bundle.putString("url", Api.PRIVACY_POLICY);
+                            StaticUtil.getValue((XActivity) getActivity(), WebViewActivity.class, bundle);
                             break;
                         case 1:
-                            if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                                bundle = new Bundle();
-                                bundle.putInt("tag", 2);
-                                bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
-                                StaticUtil.getValue((XActivity) getActivity(), WebViewActivity.class, bundle);
-                            }
+                            bundle = new Bundle();
+                            bundle.putInt("tag", 2);
+                            bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
+                            StaticUtil.getValue((XActivity) getActivity(), WebViewActivity.class, bundle);
                             break;
                     }
                 }
@@ -184,7 +180,6 @@ public class MineFragment extends XFragment {
     }
 
     public void getGankData() {
-        if(!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
             Api.getGankService().getGankData()
                     .compose(XApi.<BaseRespModel<ConfigModel>>getApiTransformer())
                     .compose(XApi.<BaseRespModel<ConfigModel>>getScheduler())
@@ -209,7 +204,6 @@ public class MineFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     @Override
