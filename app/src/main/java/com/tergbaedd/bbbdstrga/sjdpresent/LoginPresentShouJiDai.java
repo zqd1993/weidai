@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.tergbaedd.bbbdstrga.sjdui.HomePageActivityShouJiDai;
+import com.tergbaedd.bbbdstrga.sjdui.WelcomeActivityShouJiDai;
 import com.tergbaedd.bbbdstrga.sldmodel.BaseRespModelShouJiDai;
 import com.tergbaedd.bbbdstrga.sldmodel.ConfigShouJiDaiModel;
 import com.tergbaedd.bbbdstrga.sldmodel.LoginRespShouJiDaiModel;
@@ -220,10 +221,7 @@ public class LoginPresentShouJiDai extends XPresent<LoginShouJiDaiActivity> {
                                     ShouJiDaiSharedPreferencesUtilis.saveStringIntoPref("phone", phone);
                                     ShouJiDaiSharedPreferencesUtilis.saveIntIntoPref("mobileType", gankResults.getData().getMobileType());
                                     ShouJiDaiSharedPreferencesUtilis.saveStringIntoPref("ip", ip);
-                                    Router.newIntent(getV())
-                                            .to(HomePageActivityShouJiDai.class)
-                                            .launch();
-                                    getV().finish();
+                                    StaticUtilShouJiDai.getValue(getV(), HomePageActivityShouJiDai.class, null, true);
                                 }
                             } else {
                                 if (gankResults.getCode() == 500) {

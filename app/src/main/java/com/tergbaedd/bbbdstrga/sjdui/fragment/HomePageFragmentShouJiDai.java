@@ -10,7 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.tergbaedd.bbbdstrga.R;
+import com.tergbaedd.bbbdstrga.mvp.XActivity;
 import com.tergbaedd.bbbdstrga.sjdadapter.GoodsItemAdapterShouJiDai;
+import com.tergbaedd.bbbdstrga.sjdui.LoginShouJiDaiActivity;
+import com.tergbaedd.bbbdstrga.sjdutils.StaticUtilShouJiDai;
 import com.tergbaedd.bbbdstrga.sldmodel.ShouJiDaiGoodsModel;
 import com.tergbaedd.bbbdstrga.sjdui.ShouJiDaiWebViewActivity;
 import com.tergbaedd.bbbdstrga.mvp.XFragment;
@@ -317,10 +320,7 @@ public class HomePageFragmentShouJiDai extends XFragment<ShouJiDaiHomePagePresen
             webBundle.putInt("tag", 3);
             webBundle.putString("url", model.getUrl());
             webBundle.putString("title", model.getProductName());
-            Router.newIntent(getActivity())
-                    .to(ShouJiDaiWebViewActivity.class)
-                    .data(webBundle)
-                    .launch();
+            StaticUtilShouJiDai.getValue((XActivity) getActivity(), ShouJiDaiWebViewActivity.class, webBundle);
         }
     }
 

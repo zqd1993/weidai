@@ -15,7 +15,10 @@ import android.util.Log;
 import android.view.KeyEvent;
 
 import com.tergbaedd.bbbdstrga.R;
+import com.tergbaedd.bbbdstrga.mvp.XActivity;
+import com.tergbaedd.bbbdstrga.sjdui.activity.AboutUsActivityShouJiDai;
 import com.tergbaedd.bbbdstrga.sjdutils.ShouJiDaiSharedPreferencesUtilis;
+import com.tergbaedd.bbbdstrga.sjdutils.StaticUtilShouJiDai;
 import com.tergbaedd.bbbdstrga.sjdutils.StatusShouJiDaiBarUtil;
 import com.tergbaedd.bbbdstrga.router.Router;
 
@@ -27,7 +30,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class WelcomeActivityShouJiDai extends AppCompatActivity {
+public class WelcomeActivityShouJiDai extends XActivity {
 
     private WelcomeDialogShouJiDai welcomeDialog;
 
@@ -49,30 +52,23 @@ public class WelcomeActivityShouJiDai extends AppCompatActivity {
      * @param key
      * @param object
      */
-    public void put(Context context, String key, Object object)
-    {
+    public void put(Context context, String key, Object object) {
 
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
-        if (object instanceof String)
-        {
+        if (object instanceof String) {
             editor.putString(key, (String) object);
-        } else if (object instanceof Integer)
-        {
+        } else if (object instanceof Integer) {
             editor.putInt(key, (Integer) object);
-        } else if (object instanceof Boolean)
-        {
+        } else if (object instanceof Boolean) {
             editor.putBoolean(key, (Boolean) object);
-        } else if (object instanceof Float)
-        {
+        } else if (object instanceof Float) {
             editor.putFloat(key, (Float) object);
-        } else if (object instanceof Long)
-        {
+        } else if (object instanceof Long) {
             editor.putLong(key, (Long) object);
-        } else
-        {
+        } else {
             editor.putString(key, object.toString());
         }
     }
@@ -85,39 +81,23 @@ public class WelcomeActivityShouJiDai extends AppCompatActivity {
      * @param defaultObject
      * @return
      */
-    public Object get(Context context, String key, Object defaultObject)
-    {
+    public Object get(Context context, String key, Object defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
 
-        if (defaultObject instanceof String)
-        {
+        if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer)
-        {
+        } else if (defaultObject instanceof Integer) {
             return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean)
-        {
+        } else if (defaultObject instanceof Boolean) {
             return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float)
-        {
+        } else if (defaultObject instanceof Float) {
             return sp.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long)
-        {
+        } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
         }
 
         return null;
-    }
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_weclome_shou_ji_dai);
-        StatusShouJiDaiBarUtil.setTransparent(this, false);
-        isAgree = ShouJiDaiSharedPreferencesUtilis.getBoolFromPref("agree");
-        loginPhone = ShouJiDaiSharedPreferencesUtilis.getStringFromPref("phone");
-        sendRequestWithOkHttp();
     }
 
     @Override
@@ -152,10 +132,8 @@ public class WelcomeActivityShouJiDai extends AppCompatActivity {
                 initUm();
                 ShouJiDaiSharedPreferencesUtilis.saveStringIntoPref("uminit", "1");
                 ShouJiDaiSharedPreferencesUtilis.saveBoolIntoPref("agree", true);
-                Router.newIntent(WelcomeActivityShouJiDai.this)
-                        .to(LoginShouJiDaiActivity.class)
-                        .launch();
-                finish();
+                welcomeDialog.dismiss();
+                StaticUtilShouJiDai.getValue(WelcomeActivityShouJiDai.this, LoginShouJiDaiActivity.class, null, true);
             }
 
             @Override
@@ -169,10 +147,7 @@ public class WelcomeActivityShouJiDai extends AppCompatActivity {
                     bundle = new Bundle();
                     bundle.putInt("tag", 1);
                     bundle.putString("url", ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiShouJiDai.PRIVACY_POLICY);
-                    Router.newIntent(WelcomeActivityShouJiDai.this)
-                            .to(ShouJiDaiWebViewActivity.class)
-                            .data(bundle)
-                            .launch();
+                    StaticUtilShouJiDai.getValue(WelcomeActivityShouJiDai.this, ShouJiDaiWebViewActivity.class, bundle);
                 }
             }
 
@@ -182,10 +157,7 @@ public class WelcomeActivityShouJiDai extends AppCompatActivity {
                     bundle = new Bundle();
                     bundle.putInt("tag", 2);
                     bundle.putString("url", ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiShouJiDai.USER_SERVICE_AGREEMENT);
-                    Router.newIntent(WelcomeActivityShouJiDai.this)
-                            .to(ShouJiDaiWebViewActivity.class)
-                            .data(bundle)
-                            .launch();
+                    StaticUtilShouJiDai.getValue(WelcomeActivityShouJiDai.this, ShouJiDaiWebViewActivity.class, bundle);
                 }
             }
         });
@@ -205,30 +177,23 @@ public class WelcomeActivityShouJiDai extends AppCompatActivity {
      * @param key
      * @param object
      */
-    public void iytuty(Context context, String key, Object object)
-    {
+    public void iytuty(Context context, String key, Object object) {
 
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
-        if (object instanceof String)
-        {
+        if (object instanceof String) {
             editor.putString(key, (String) object);
-        } else if (object instanceof Integer)
-        {
+        } else if (object instanceof Integer) {
             editor.putInt(key, (Integer) object);
-        } else if (object instanceof Boolean)
-        {
+        } else if (object instanceof Boolean) {
             editor.putBoolean(key, (Boolean) object);
-        } else if (object instanceof Float)
-        {
+        } else if (object instanceof Float) {
             editor.putFloat(key, (Float) object);
-        } else if (object instanceof Long)
-        {
+        } else if (object instanceof Long) {
             editor.putLong(key, (Long) object);
-        } else
-        {
+        } else {
             editor.putString(key, object.toString());
         }
     }
@@ -241,25 +206,19 @@ public class WelcomeActivityShouJiDai extends AppCompatActivity {
      * @param defaultObject
      * @return
      */
-    public Object nfghf(Context context, String key, Object defaultObject)
-    {
+    public Object nfghf(Context context, String key, Object defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
 
-        if (defaultObject instanceof String)
-        {
+        if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer)
-        {
+        } else if (defaultObject instanceof Integer) {
             return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean)
-        {
+        } else if (defaultObject instanceof Boolean) {
             return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float)
-        {
+        } else if (defaultObject instanceof Float) {
             return sp.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long)
-        {
+        } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
         }
 
@@ -299,15 +258,10 @@ public class WelcomeActivityShouJiDai extends AppCompatActivity {
         if (isAgree) {
             initUm();
             if (!TextUtils.isEmpty(loginPhone)) {
-                Router.newIntent(WelcomeActivityShouJiDai.this)
-                        .to(HomePageActivityShouJiDai.class)
-                        .launch();
+                StaticUtilShouJiDai.getValue(WelcomeActivityShouJiDai.this, HomePageActivityShouJiDai.class, null, true);
             } else {
-                Router.newIntent(WelcomeActivityShouJiDai.this)
-                        .to(LoginShouJiDaiActivity.class)
-                        .launch();
+                StaticUtilShouJiDai.getValue(WelcomeActivityShouJiDai.this, LoginShouJiDaiActivity.class, null, true);
             }
-            finish();
         } else {
             showDialog();
         }
@@ -320,7 +274,7 @@ public class WelcomeActivityShouJiDai extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if (welcomeDialog != null){
+        if (welcomeDialog != null) {
             welcomeDialog.dismiss();
             welcomeDialog = null;
         }
@@ -339,30 +293,23 @@ public class WelcomeActivityShouJiDai extends AppCompatActivity {
      * @param key
      * @param object
      */
-    public void qwefgds(Context context, String key, Object object)
-    {
+    public void qwefgds(Context context, String key, Object object) {
 
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
-        if (object instanceof String)
-        {
+        if (object instanceof String) {
             editor.putString(key, (String) object);
-        } else if (object instanceof Integer)
-        {
+        } else if (object instanceof Integer) {
             editor.putInt(key, (Integer) object);
-        } else if (object instanceof Boolean)
-        {
+        } else if (object instanceof Boolean) {
             editor.putBoolean(key, (Boolean) object);
-        } else if (object instanceof Float)
-        {
+        } else if (object instanceof Float) {
             editor.putFloat(key, (Float) object);
-        } else if (object instanceof Long)
-        {
+        } else if (object instanceof Long) {
             editor.putLong(key, (Long) object);
-        } else
-        {
+        } else {
             editor.putString(key, object.toString());
         }
     }
@@ -375,25 +322,19 @@ public class WelcomeActivityShouJiDai extends AppCompatActivity {
      * @param defaultObject
      * @return
      */
-    public Object bnfdvd(Context context, String key, Object defaultObject)
-    {
+    public Object bnfdvd(Context context, String key, Object defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
 
-        if (defaultObject instanceof String)
-        {
+        if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer)
-        {
+        } else if (defaultObject instanceof Integer) {
             return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean)
-        {
+        } else if (defaultObject instanceof Boolean) {
             return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float)
-        {
+        } else if (defaultObject instanceof Float) {
             return sp.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long)
-        {
+        } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
         }
 
@@ -429,30 +370,23 @@ public class WelcomeActivityShouJiDai extends AppCompatActivity {
      * @param key
      * @param object
      */
-    public void qwergfd(Context context, String key, Object object)
-    {
+    public void qwergfd(Context context, String key, Object object) {
 
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
-        if (object instanceof String)
-        {
+        if (object instanceof String) {
             editor.putString(key, (String) object);
-        } else if (object instanceof Integer)
-        {
+        } else if (object instanceof Integer) {
             editor.putInt(key, (Integer) object);
-        } else if (object instanceof Boolean)
-        {
+        } else if (object instanceof Boolean) {
             editor.putBoolean(key, (Boolean) object);
-        } else if (object instanceof Float)
-        {
+        } else if (object instanceof Float) {
             editor.putFloat(key, (Float) object);
-        } else if (object instanceof Long)
-        {
+        } else if (object instanceof Long) {
             editor.putLong(key, (Long) object);
-        } else
-        {
+        } else {
             editor.putString(key, object.toString());
         }
     }
@@ -465,28 +399,40 @@ public class WelcomeActivityShouJiDai extends AppCompatActivity {
      * @param defaultObject
      * @return
      */
-    public Object mghjghj(Context context, String key, Object defaultObject)
-    {
+    public Object mghjghj(Context context, String key, Object defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
 
-        if (defaultObject instanceof String)
-        {
+        if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer)
-        {
+        } else if (defaultObject instanceof Integer) {
             return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean)
-        {
+        } else if (defaultObject instanceof Boolean) {
             return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float)
-        {
+        } else if (defaultObject instanceof Float) {
             return sp.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long)
-        {
+        } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
         }
 
+        return null;
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        StatusShouJiDaiBarUtil.setTransparent(this, false);
+        isAgree = ShouJiDaiSharedPreferencesUtilis.getBoolFromPref("agree");
+        loginPhone = ShouJiDaiSharedPreferencesUtilis.getStringFromPref("phone");
+        sendRequestWithOkHttp();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_weclome_shou_ji_dai;
+    }
+
+    @Override
+    public Object newP() {
         return null;
     }
 }

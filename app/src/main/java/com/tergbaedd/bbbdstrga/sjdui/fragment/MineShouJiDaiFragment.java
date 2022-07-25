@@ -10,10 +10,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tergbaedd.bbbdstrga.R;
+import com.tergbaedd.bbbdstrga.mvp.XActivity;
 import com.tergbaedd.bbbdstrga.sjdadapter.ShouJiDaiMineAdapter;
 import com.tergbaedd.bbbdstrga.sjdui.LoginShouJiDaiActivity;
 import com.tergbaedd.bbbdstrga.sjdui.activity.CancellationShouJiDaiAccountActivity;
 import com.tergbaedd.bbbdstrga.sjdui.activity.ShouJiDaiFeedBackActivity;
+import com.tergbaedd.bbbdstrga.sjdutils.StaticUtilShouJiDai;
 import com.tergbaedd.bbbdstrga.sjdwidget.ShouJiDaiNormalDialog;
 import com.tergbaedd.bbbdstrga.sldmodel.BaseRespModelShouJiDai;
 import com.tergbaedd.bbbdstrga.sldmodel.ConfigShouJiDaiModel;
@@ -250,10 +252,7 @@ public class MineShouJiDaiFragment extends XFragment {
                                 bundle = new Bundle();
                                 bundle.putInt("tag", 1);
                                 bundle.putString("url", ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiShouJiDai.PRIVACY_POLICY);
-                                Router.newIntent(getActivity())
-                                        .to(ShouJiDaiWebViewActivity.class)
-                                        .data(bundle)
-                                        .launch();
+                                StaticUtilShouJiDai.getValue((XActivity) getActivity(), ShouJiDaiWebViewActivity.class, bundle);
                             }
                             break;
                         case 1:
@@ -261,16 +260,11 @@ public class MineShouJiDaiFragment extends XFragment {
                                 bundle = new Bundle();
                                 bundle.putInt("tag", 2);
                                 bundle.putString("url", ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiShouJiDai.USER_SERVICE_AGREEMENT);
-                                Router.newIntent(getActivity())
-                                        .to(ShouJiDaiWebViewActivity.class)
-                                        .data(bundle)
-                                        .launch();
+                                StaticUtilShouJiDai.getValue((XActivity) getActivity(), ShouJiDaiWebViewActivity.class, bundle);
                             }
                             break;
                         case 2:
-                            Router.newIntent(getActivity())
-                                    .to(ShouJiDaiFeedBackActivity.class)
-                                    .launch();
+                            StaticUtilShouJiDai.getValue((XActivity) getActivity(), ShouJiDaiFeedBackActivity.class, null);
                             break;
                     }
                 }
@@ -360,9 +354,7 @@ public class MineShouJiDaiFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            Router.newIntent(getActivity())
-                                    .to(AboutUsActivityShouJiDai.class)
-                                    .launch();
+                            StaticUtilShouJiDai.getValue((XActivity) getActivity(), AboutUsActivityShouJiDai.class, null);
                             break;
                         case 1:
                             shouJiDaiNormalDialog = new ShouJiDaiNormalDialog(getActivity());
@@ -471,9 +463,7 @@ public class MineShouJiDaiFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            Router.newIntent(getActivity())
-                                    .to(CancellationShouJiDaiAccountActivity.class)
-                                    .launch();
+                            StaticUtilShouJiDai.getValue((XActivity) getActivity(), CancellationShouJiDaiAccountActivity.class, null);
                             break;
                         case 1:
                             shouJiDaiNormalDialog = new ShouJiDaiNormalDialog(getActivity());
@@ -487,10 +477,7 @@ public class MineShouJiDaiFragment extends XFragment {
                                     .setRightListener(v -> {
                                         shouJiDaiNormalDialog.dismiss();
                                         ShouJiDaiSharedPreferencesUtilis.saveStringIntoPref("phone", "");
-                                        Router.newIntent(getActivity())
-                                                .to(LoginShouJiDaiActivity.class)
-                                                .launch();
-                                        getActivity().finish();
+                                        StaticUtilShouJiDai.getValue((XActivity) getActivity(), LoginShouJiDaiActivity.class, null, true);
                                     }).show();
                             break;
                     }

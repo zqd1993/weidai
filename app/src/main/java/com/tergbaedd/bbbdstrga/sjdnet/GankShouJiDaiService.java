@@ -24,6 +24,9 @@ public interface GankShouJiDaiService {
     @GET("/app/user/sendVerifyCode")
     Flowable<BaseRespModelShouJiDai> sendVerifyCode(@Query("phone") String phone);
 
+    @GET("/app/config/getValue")
+    Flowable<BaseRespModelShouJiDai<ConfigShouJiDaiModel>> getValue(@Query("key") String phone);
+
     @GET("/app/user/login")
     Flowable<BaseRespModelShouJiDai<LoginRespShouJiDaiModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
 

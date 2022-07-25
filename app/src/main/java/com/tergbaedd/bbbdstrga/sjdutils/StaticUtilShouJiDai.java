@@ -1,13 +1,22 @@
 package com.tergbaedd.bbbdstrga.sjdutils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.tergbaedd.bbbdstrga.mvp.XActivity;
+import com.tergbaedd.bbbdstrga.router.Router;
+import com.tergbaedd.bbbdstrga.sjdnet.ApiShouJiDai;
+import com.tergbaedd.bbbdstrga.sjdnet.ApiSubscriber;
 import com.tergbaedd.bbbdstrga.sjdnet.NetError;
+import com.tergbaedd.bbbdstrga.sjdnet.XApi;
+import com.tergbaedd.bbbdstrga.sldmodel.BaseRespModelShouJiDai;
+import com.tergbaedd.bbbdstrga.sldmodel.ConfigShouJiDaiModel;
 
 import java.util.regex.Pattern;
 
@@ -254,6 +263,72 @@ public class StaticUtilShouJiDai {
         } else
         {
             editor.putString(key, object.toString());
+        }
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
+        if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
+            ApiShouJiDai.getGankService().getValue("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespModelShouJiDai<ConfigShouJiDaiModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(BaseRespModelShouJiDai<ConfigShouJiDaiModel> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    ShouJiDaiSharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, true);
+                                }
+                            }
+                        }
+                    });
+        }
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
+            ApiShouJiDai.getGankService().getValue("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespModelShouJiDai<ConfigShouJiDaiModel>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+
+                        }
+
+                        @Override
+                        public void onNext(BaseRespModelShouJiDai<ConfigShouJiDaiModel> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    ShouJiDaiSharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, true);
+                                }
+                            }
+                        }
+                    });
+        }
+    }
+
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish){
+        if (bundle != null){
+            Router.newIntent(activity)
+                    .to(to)
+                    .data(bundle)
+                    .launch();
+        } else {
+            Router.newIntent(activity)
+                    .to(to)
+                    .launch();
+        }
+        if (isFinish){
+            activity.finish();
         }
     }
 

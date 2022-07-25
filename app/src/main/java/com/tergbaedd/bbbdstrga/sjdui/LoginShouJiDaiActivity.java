@@ -132,18 +132,12 @@ public class LoginShouJiDaiActivity extends XActivity<LoginPresentShouJiDai> {
                     bundle = new Bundle();
                     bundle.putInt("tag", 1);
                     bundle.putString("url", ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiShouJiDai.PRIVACY_POLICY);
-                    Router.newIntent(LoginShouJiDaiActivity.this)
-                            .to(ShouJiDaiWebViewActivity.class)
-                            .data(bundle)
-                            .launch();
+                    StaticUtilShouJiDai.getValue(LoginShouJiDaiActivity.this, ShouJiDaiWebViewActivity.class, bundle);
                 } else {
                     bundle = new Bundle();
                     bundle.putInt("tag", 2);
                     bundle.putString("url", ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiShouJiDai.USER_SERVICE_AGREEMENT);
-                    Router.newIntent(LoginShouJiDaiActivity.this)
-                            .to(ShouJiDaiWebViewActivity.class)
-                            .data(bundle)
-                            .launch();
+                    StaticUtilShouJiDai.getValue(LoginShouJiDaiActivity.this, ShouJiDaiWebViewActivity.class, bundle);
                 }
             }
         });
