@@ -24,7 +24,6 @@ public class HomePagePresent extends XPresent<HomePageFragment> {
     private String phone;
 
     public void productList() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
             mobileType = SharedPreferencesUtilis.getIntFromPref("mobileType");
             getV().goodsModel = null;
             Api.getGankService().productList(mobileType)
@@ -60,11 +59,9 @@ public class HomePagePresent extends XPresent<HomePageFragment> {
                             }
                         }
                     });
-        }
     }
 
     public void productClick(GoodsModel model) {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
             phone = SharedPreferencesUtilis.getStringFromPref("phone");
             Api.getGankService().productClick(model.getId(), phone)
                     .compose(XApi.<BaseRespModel>getApiTransformer())
@@ -83,6 +80,5 @@ public class HomePagePresent extends XPresent<HomePageFragment> {
                         }
                     });
         }
-    }
 
 }

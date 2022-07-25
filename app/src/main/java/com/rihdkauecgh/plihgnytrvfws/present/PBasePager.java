@@ -21,7 +21,6 @@ public class PBasePager extends XPresent<BasePagerFragment> {
 
 
     public void loadData() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
             Api.getGankService().getGankData()
                     .compose(XApi.<BaseRespModel<ConfigModel>>getApiTransformer())
                     .compose(XApi.<BaseRespModel<ConfigModel>>getScheduler())
@@ -37,6 +36,5 @@ public class PBasePager extends XPresent<BasePagerFragment> {
 //                        getV().showData(page, gankResults);
                         }
                     });
-        }
     }
 }

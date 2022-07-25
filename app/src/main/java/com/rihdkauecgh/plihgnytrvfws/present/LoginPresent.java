@@ -24,7 +24,6 @@ import com.rihdkauecgh.plihgnytrvfws.net.ApiSubscriber;
 public class LoginPresent extends XPresent<LoginActivity> {
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
             Api.getGankService().getGankData()
                     .compose(XApi.<BaseRespModel<ConfigModel>>getApiTransformer())
                     .compose(XApi.<BaseRespModel<ConfigModel>>getScheduler())
@@ -52,11 +51,9 @@ public class LoginPresent extends XPresent<LoginActivity> {
                             }
                         }
                     });
-        }
     }
 
     public void login(String phone, String verificationStr, String ip) {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
             Api.getGankService().login(phone, verificationStr, "", ip)
                     .compose(XApi.<BaseRespModel<LoginRespModel>>getApiTransformer())
                     .compose(XApi.<BaseRespModel<LoginRespModel>>getScheduler())
@@ -87,11 +84,9 @@ public class LoginPresent extends XPresent<LoginActivity> {
                             }
                         }
                     });
-        }
     }
 
     public void sendVerifyCode(String phone, TextView textView) {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
             Api.getGankService().sendVerifyCode(phone)
                     .compose(XApi.<BaseRespModel>getApiTransformer())
                     .compose(XApi.<BaseRespModel>getScheduler())
@@ -113,7 +108,6 @@ public class LoginPresent extends XPresent<LoginActivity> {
                             }
                         }
                     });
-        }
     }
 
 }
