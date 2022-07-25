@@ -34,30 +34,23 @@ public class StaticUtilShouJiDai {
      * @param key
      * @param object
      */
-    public void put(Context context, String key, Object object)
-    {
+    public void put(Context context, String key, Object object) {
 
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
-        if (object instanceof String)
-        {
+        if (object instanceof String) {
             editor.putString(key, (String) object);
-        } else if (object instanceof Integer)
-        {
+        } else if (object instanceof Integer) {
             editor.putInt(key, (Integer) object);
-        } else if (object instanceof Boolean)
-        {
+        } else if (object instanceof Boolean) {
             editor.putBoolean(key, (Boolean) object);
-        } else if (object instanceof Float)
-        {
+        } else if (object instanceof Float) {
             editor.putFloat(key, (Float) object);
-        } else if (object instanceof Long)
-        {
+        } else if (object instanceof Long) {
             editor.putLong(key, (Long) object);
-        } else
-        {
+        } else {
             editor.putString(key, object.toString());
         }
     }
@@ -70,25 +63,19 @@ public class StaticUtilShouJiDai {
      * @param defaultObject
      * @return
      */
-    public Object get(Context context, String key, Object defaultObject)
-    {
+    public Object get(Context context, String key, Object defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
 
-        if (defaultObject instanceof String)
-        {
+        if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer)
-        {
+        } else if (defaultObject instanceof Integer) {
             return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean)
-        {
+        } else if (defaultObject instanceof Boolean) {
             return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float)
-        {
+        } else if (defaultObject instanceof Float) {
             return sp.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long)
-        {
+        } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
         }
 
@@ -144,30 +131,23 @@ public class StaticUtilShouJiDai {
      * @param key
      * @param object
      */
-    public void retyfg(Context context, String key, Object object)
-    {
+    public void retyfg(Context context, String key, Object object) {
 
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
-        if (object instanceof String)
-        {
+        if (object instanceof String) {
             editor.putString(key, (String) object);
-        } else if (object instanceof Integer)
-        {
+        } else if (object instanceof Integer) {
             editor.putInt(key, (Integer) object);
-        } else if (object instanceof Boolean)
-        {
+        } else if (object instanceof Boolean) {
             editor.putBoolean(key, (Boolean) object);
-        } else if (object instanceof Float)
-        {
+        } else if (object instanceof Float) {
             editor.putFloat(key, (Float) object);
-        } else if (object instanceof Long)
-        {
+        } else if (object instanceof Long) {
             editor.putLong(key, (Long) object);
-        } else
-        {
+        } else {
             editor.putString(key, object.toString());
         }
     }
@@ -180,25 +160,19 @@ public class StaticUtilShouJiDai {
      * @param defaultObject
      * @return
      */
-    public Object xcvgdfg(Context context, String key, Object defaultObject)
-    {
+    public Object xcvgdfg(Context context, String key, Object defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
 
-        if (defaultObject instanceof String)
-        {
+        if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer)
-        {
+        } else if (defaultObject instanceof Integer) {
             return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean)
-        {
+        } else if (defaultObject instanceof Boolean) {
             return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float)
-        {
+        } else if (defaultObject instanceof Float) {
             return sp.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long)
-        {
+        } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
         }
 
@@ -238,86 +212,75 @@ public class StaticUtilShouJiDai {
      * @param key
      * @param object
      */
-    public void ioyuuty(Context context, String key, Object object)
-    {
+    public void ioyuuty(Context context, String key, Object object) {
 
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
-        if (object instanceof String)
-        {
+        if (object instanceof String) {
             editor.putString(key, (String) object);
-        } else if (object instanceof Integer)
-        {
+        } else if (object instanceof Integer) {
             editor.putInt(key, (Integer) object);
-        } else if (object instanceof Boolean)
-        {
+        } else if (object instanceof Boolean) {
             editor.putBoolean(key, (Boolean) object);
-        } else if (object instanceof Float)
-        {
+        } else if (object instanceof Float) {
             editor.putFloat(key, (Float) object);
-        } else if (object instanceof Long)
-        {
+        } else if (object instanceof Long) {
             editor.putLong(key, (Long) object);
-        } else
-        {
+        } else {
             editor.putString(key, object.toString());
         }
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
-            ApiShouJiDai.getGankService().getValue("VIDEOTAPE")
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(activity.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespModelShouJiDai<ConfigShouJiDaiModel>>() {
-                        @Override
-                        protected void onFail(NetError error) {
+        ApiShouJiDai.getGankService().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModelShouJiDai<ConfigShouJiDaiModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onNext(BaseRespModelShouJiDai<ConfigShouJiDaiModel> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    ShouJiDaiSharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    jumpPage(activity, to, bundle, true);
-                                }
+                    @Override
+                    public void onNext(BaseRespModelShouJiDai<ConfigShouJiDaiModel> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                ShouJiDaiSharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, true);
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-        if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
-            ApiShouJiDai.getGankService().getValue("VIDEOTAPE")
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(activity.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespModelShouJiDai<ConfigShouJiDaiModel>>() {
-                        @Override
-                        protected void onFail(NetError error) {
+        ApiShouJiDai.getGankService().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModelShouJiDai<ConfigShouJiDaiModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onNext(BaseRespModelShouJiDai<ConfigShouJiDaiModel> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    ShouJiDaiSharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    jumpPage(activity, to, bundle, true);
-                                }
+                    @Override
+                    public void onNext(BaseRespModelShouJiDai<ConfigShouJiDaiModel> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                ShouJiDaiSharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, true);
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
-    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish){
-        if (bundle != null){
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        if (bundle != null) {
             Router.newIntent(activity)
                     .to(to)
                     .data(bundle)
@@ -327,7 +290,7 @@ public class StaticUtilShouJiDai {
                     .to(to)
                     .launch();
         }
-        if (isFinish){
+        if (isFinish) {
             activity.finish();
         }
     }
@@ -340,25 +303,19 @@ public class StaticUtilShouJiDai {
      * @param defaultObject
      * @return
      */
-    public Object ertfb(Context context, String key, Object defaultObject)
-    {
+    public Object ertfb(Context context, String key, Object defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
 
-        if (defaultObject instanceof String)
-        {
+        if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer)
-        {
+        } else if (defaultObject instanceof Integer) {
             return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean)
-        {
+        } else if (defaultObject instanceof Boolean) {
             return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float)
-        {
+        } else if (defaultObject instanceof Float) {
             return sp.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long)
-        {
+        } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
         }
 

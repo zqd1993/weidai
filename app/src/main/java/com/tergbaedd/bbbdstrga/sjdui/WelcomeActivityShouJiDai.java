@@ -143,22 +143,18 @@ public class WelcomeActivityShouJiDai extends XActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 1);
-                    bundle.putString("url", ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiShouJiDai.PRIVACY_POLICY);
-                    StaticUtilShouJiDai.getValue(WelcomeActivityShouJiDai.this, ShouJiDaiWebViewActivity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", ApiShouJiDai.PRIVACY_POLICY);
+                StaticUtilShouJiDai.getValue(WelcomeActivityShouJiDai.this, ShouJiDaiWebViewActivity.class, bundle);
             }
 
             @Override
             public void privacyAgreementClicked() {
-                if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 2);
-                    bundle.putString("url", ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiShouJiDai.USER_SERVICE_AGREEMENT);
-                    StaticUtilShouJiDai.getValue(WelcomeActivityShouJiDai.this, ShouJiDaiWebViewActivity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 2);
+                bundle.putString("url", ApiShouJiDai.USER_SERVICE_AGREEMENT);
+                StaticUtilShouJiDai.getValue(WelcomeActivityShouJiDai.this, ShouJiDaiWebViewActivity.class, bundle);
             }
         });
         welcomeDialog.show();

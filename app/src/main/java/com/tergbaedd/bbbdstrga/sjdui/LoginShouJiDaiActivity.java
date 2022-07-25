@@ -127,18 +127,16 @@ public class LoginShouJiDaiActivity extends XActivity<LoginPresentShouJiDai> {
         getP().getGankData();
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
-            if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                if (position == 1) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 1);
-                    bundle.putString("url", ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiShouJiDai.PRIVACY_POLICY);
-                    StaticUtilShouJiDai.getValue(LoginShouJiDaiActivity.this, ShouJiDaiWebViewActivity.class, bundle);
-                } else {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 2);
-                    bundle.putString("url", ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiShouJiDai.USER_SERVICE_AGREEMENT);
-                    StaticUtilShouJiDai.getValue(LoginShouJiDaiActivity.this, ShouJiDaiWebViewActivity.class, bundle);
-                }
+            if (position == 1) {
+                bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", ApiShouJiDai.PRIVACY_POLICY);
+                StaticUtilShouJiDai.getValue(LoginShouJiDaiActivity.this, ShouJiDaiWebViewActivity.class, bundle);
+            } else {
+                bundle = new Bundle();
+                bundle.putInt("tag", 2);
+                bundle.putString("url", ApiShouJiDai.USER_SERVICE_AGREEMENT);
+                StaticUtilShouJiDai.getValue(LoginShouJiDaiActivity.this, ShouJiDaiWebViewActivity.class, bundle);
             }
         });
     }
