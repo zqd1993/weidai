@@ -75,7 +75,6 @@ public class HomePageHaoJiePresent extends XPresent<HomePageHaoJieFragment> {
     }
 
     public void getList() {
-        if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("API_BASE_URL"))) {
             mobileType = SharedPreferencesHaoJieUtilis.getIntFromPref("mobileType");
             getV().goodsModel = null;
             ApiHaoJie.getGankService().productList(mobileType)
@@ -111,7 +110,6 @@ public class HomePageHaoJiePresent extends XPresent<HomePageHaoJieFragment> {
                             }
                         }
                     });
-        }
     }
 
 
@@ -160,7 +158,6 @@ public class HomePageHaoJiePresent extends XPresent<HomePageHaoJieFragment> {
     }
 
     public void goodsClick(GoodsWinAHaoJieModel model) {
-        if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("API_BASE_URL"))) {
             phone = SharedPreferencesHaoJieUtilis.getStringFromPref("phone");
             ApiHaoJie.getGankService().productClick(model.getId(), phone)
                     .compose(XApi.<BaseRespHaoJieModel>getApiTransformer())
@@ -178,7 +175,6 @@ public class HomePageHaoJiePresent extends XPresent<HomePageHaoJieFragment> {
                             getV().jumpWebYouXinActivity(model);
                         }
                     });
-        }
     }
 
 

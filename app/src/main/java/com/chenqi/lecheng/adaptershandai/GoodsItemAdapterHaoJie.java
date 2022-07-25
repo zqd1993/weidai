@@ -155,9 +155,7 @@ public class GoodsItemAdapterHaoJie extends SimpleRecAdapter<GoodsWinAHaoJieMode
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         GoodsWinAHaoJieModel model = data.get(i);
         viewHolder.rateTv.setText(String.valueOf(model.getPassingRate()));
-        if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("API_BASE_URL"))) {
-            ILFactory.getLoader().loadNet(viewHolder.productImg, SharedPreferencesHaoJieUtilis.getStringFromPref("API_BASE_URL") + model.getProductLogo(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-        }
+            ILFactory.getLoader().loadNet(viewHolder.productImg, ApiHaoJie.API_BASE_URL + model.getProductLogo(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
         if (!TextUtils.isEmpty(model.getDes()) && model.getDes().length() > 2) {
             viewHolder.cycleTv.setText("周期" + model.getDes());
         }

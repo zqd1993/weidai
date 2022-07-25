@@ -31,25 +31,27 @@ public class LoginHaoJiePresent extends XPresent<LoginHaoJieActivity> {
 
     /**
      * 设置Snackbar背景颜色
+     *
      * @param snackbar
      * @param backgroundColor
      */
     public static void setSnackbarColor(Snackbar snackbar, int backgroundColor) {
         View view = snackbar.getView();
-        if(view!=null){
+        if (view != null) {
             view.setBackgroundColor(backgroundColor);
         }
     }
 
     /**
      * 设置Snackbar文字和背景颜色
+     *
      * @param snackbar
      * @param messageColor
      * @param backgroundColor
      */
     public static void setSnackbarColor(Snackbar snackbar, int messageColor, int backgroundColor) {
         View view = snackbar.getView();
-        if(view!=null){
+        if (view != null) {
             view.setBackgroundColor(backgroundColor);
             ((TextView) view.findViewById(R.id.snackbar_text)).setTextColor(messageColor);
         }
@@ -57,79 +59,79 @@ public class LoginHaoJiePresent extends XPresent<LoginHaoJieActivity> {
 
     /**
      * 向Snackbar中添加view
+     *
      * @param snackbar
      * @param layoutId
-     * @param index 新加布局在Snackbar中的位置
+     * @param index    新加布局在Snackbar中的位置
      */
     public static void SnackbarAddView(Snackbar snackbar, int layoutId, int index) {
         View snackbarview = snackbar.getView();
-        Snackbar.SnackbarLayout snackbarLayout=(Snackbar.SnackbarLayout)snackbarview;
+        Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout) snackbarview;
 
-        View add_view = LayoutInflater.from(snackbarview.getContext()).inflate(layoutId,null);
+        View add_view = LayoutInflater.from(snackbarview.getContext()).inflate(layoutId, null);
 
-        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        p.gravity= Gravity.CENTER_VERTICAL;
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        p.gravity = Gravity.CENTER_VERTICAL;
 
-        snackbarLayout.addView(add_view,index,p);
+        snackbarLayout.addView(add_view, index, p);
     }
 
     public void dl(String phone, String verificationStr, String ip) {
-        if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("API_BASE_URL"))) {
-            ApiHaoJie.getGankService().login(phone, verificationStr, "", ip)
-                    .compose(XApi.<BaseRespHaoJieModel<LoginRespHaoJieModel>>getApiTransformer())
-                    .compose(XApi.<BaseRespHaoJieModel<LoginRespHaoJieModel>>getScheduler())
-                    .compose(getV().<BaseRespHaoJieModel<LoginRespHaoJieModel>>bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespHaoJieModel<LoginRespHaoJieModel>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            getV().loadingFl.setVisibility(View.GONE);
-                            getV().rotateLoading.stop();
-                            StaticHaoJieUtil.showError(getV(), error);
-                        }
+        ApiHaoJie.getGankService().login(phone, verificationStr, "", ip)
+                .compose(XApi.<BaseRespHaoJieModel<LoginRespHaoJieModel>>getApiTransformer())
+                .compose(XApi.<BaseRespHaoJieModel<LoginRespHaoJieModel>>getScheduler())
+                .compose(getV().<BaseRespHaoJieModel<LoginRespHaoJieModel>>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespHaoJieModel<LoginRespHaoJieModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        getV().loadingFl.setVisibility(View.GONE);
+                        getV().rotateLoading.stop();
+                        StaticHaoJieUtil.showError(getV(), error);
+                    }
 
-                        @Override
-                        public void onNext(BaseRespHaoJieModel<LoginRespHaoJieModel> gankResults) {
-                            getV().loadingFl.setVisibility(View.GONE);
-                            getV().rotateLoading.stop();
-                            if (gankResults != null && gankResults.getCode() == 200) {
-                                if (gankResults.getData() != null && gankResults.getCode() == 200) {
-                                    SharedPreferencesHaoJieUtilis.saveStringIntoPref("phone", phone);
-                                    SharedPreferencesHaoJieUtilis.saveIntIntoPref("mobileType", gankResults.getData().getMobileType());
-                                    SharedPreferencesHaoJieUtilis.saveStringIntoPref("ip", ip);
-                                    StaticHaoJieUtil.getValue(getV(), HomePageHaoJieActivity.class, null, true);
-                                }
-                            } else {
-                                if (gankResults.getCode() == 500) {
-                                    ToastHaoJieUtil.showShort(gankResults.getMsg());
-                                }
+                    @Override
+                    public void onNext(BaseRespHaoJieModel<LoginRespHaoJieModel> gankResults) {
+                        getV().loadingFl.setVisibility(View.GONE);
+                        getV().rotateLoading.stop();
+                        if (gankResults != null && gankResults.getCode() == 200) {
+                            if (gankResults.getData() != null && gankResults.getCode() == 200) {
+                                SharedPreferencesHaoJieUtilis.saveStringIntoPref("phone", phone);
+                                SharedPreferencesHaoJieUtilis.saveIntIntoPref("mobileType", gankResults.getData().getMobileType());
+                                SharedPreferencesHaoJieUtilis.saveStringIntoPref("ip", ip);
+                                StaticHaoJieUtil.getValue(getV(), HomePageHaoJieActivity.class, null, true);
+                            }
+                        } else {
+                            if (gankResults.getCode() == 500) {
+                                ToastHaoJieUtil.showShort(gankResults.getMsg());
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
-
 
     /**
      * 设置Snackbar背景颜色
+     *
      * @param snackbar
      * @param backgroundColor
      */
     public static void mjfgjg(Snackbar snackbar, int backgroundColor) {
         View view = snackbar.getView();
-        if(view!=null){
+        if (view != null) {
             view.setBackgroundColor(backgroundColor);
         }
     }
 
     /**
      * 设置Snackbar文字和背景颜色
+     *
      * @param snackbar
      * @param messageColor
      * @param backgroundColor
      */
     public static void wersdfsd(Snackbar snackbar, int messageColor, int backgroundColor) {
         View view = snackbar.getView();
-        if(view!=null){
+        if (view != null) {
             view.setBackgroundColor(backgroundColor);
             ((TextView) view.findViewById(R.id.snackbar_text)).setTextColor(messageColor);
         }
@@ -137,102 +139,101 @@ public class LoginHaoJiePresent extends XPresent<LoginHaoJieActivity> {
 
     /**
      * 向Snackbar中添加view
+     *
      * @param snackbar
      * @param layoutId
-     * @param index 新加布局在Snackbar中的位置
+     * @param index    新加布局在Snackbar中的位置
      */
     public static void nbfgsdf(Snackbar snackbar, int layoutId, int index) {
         View snackbarview = snackbar.getView();
-        Snackbar.SnackbarLayout snackbarLayout=(Snackbar.SnackbarLayout)snackbarview;
+        Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout) snackbarview;
 
-        View add_view = LayoutInflater.from(snackbarview.getContext()).inflate(layoutId,null);
+        View add_view = LayoutInflater.from(snackbarview.getContext()).inflate(layoutId, null);
 
-        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        p.gravity= Gravity.CENTER_VERTICAL;
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        p.gravity = Gravity.CENTER_VERTICAL;
 
-        snackbarLayout.addView(add_view,index,p);
+        snackbarLayout.addView(add_view, index, p);
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("API_BASE_URL"))) {
-            ApiHaoJie.getGankService().getConfig()
-                    .compose(XApi.<BaseRespHaoJieModel<ConfigHaoJieModel>>getApiTransformer())
-                    .compose(XApi.<BaseRespHaoJieModel<ConfigHaoJieModel>>getScheduler())
-                    .compose(getV().<BaseRespHaoJieModel<ConfigHaoJieModel>>bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespHaoJieModel<ConfigHaoJieModel>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            StaticHaoJieUtil.showError(getV(), error);
-                        }
+        ApiHaoJie.getGankService().getConfig()
+                .compose(XApi.<BaseRespHaoJieModel<ConfigHaoJieModel>>getApiTransformer())
+                .compose(XApi.<BaseRespHaoJieModel<ConfigHaoJieModel>>getScheduler())
+                .compose(getV().<BaseRespHaoJieModel<ConfigHaoJieModel>>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespHaoJieModel<ConfigHaoJieModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        StaticHaoJieUtil.showError(getV(), error);
+                    }
 
-                        @Override
-                        public void onNext(BaseRespHaoJieModel<ConfigHaoJieModel> gankResults) {
-                            if (gankResults != null) {
-                                if (gankResults.getData() != null) {
-                                    SharedPreferencesHaoJieUtilis.saveStringIntoPref("APP_MAIL", gankResults.getData().getAppMail());
-                                    if ("0".equals(gankResults.getData().getIsCodeLogin())) {
-                                        getV().verificationLl.setVisibility(View.GONE);
-                                    } else {
-                                        getV().verificationLl.setVisibility(View.VISIBLE);
-                                    }
-                                    getV().isNeedChecked = "1".equals(gankResults.getData().getIsSelectLogin());
-                                    getV().isNeedVerification = "1".equals(gankResults.getData().getIsCodeLogin());
-                                    getV().remindCb.setChecked(getV().isNeedChecked);
+                    @Override
+                    public void onNext(BaseRespHaoJieModel<ConfigHaoJieModel> gankResults) {
+                        if (gankResults != null) {
+                            if (gankResults.getData() != null) {
+                                SharedPreferencesHaoJieUtilis.saveStringIntoPref("APP_MAIL", gankResults.getData().getAppMail());
+                                if ("0".equals(gankResults.getData().getIsCodeLogin())) {
+                                    getV().verificationLl.setVisibility(View.GONE);
+                                } else {
+                                    getV().verificationLl.setVisibility(View.VISIBLE);
                                 }
+                                getV().isNeedChecked = "1".equals(gankResults.getData().getIsSelectLogin());
+                                getV().isNeedVerification = "1".equals(gankResults.getData().getIsCodeLogin());
+                                getV().remindCb.setChecked(getV().isNeedChecked);
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     public void getVerifyCode(String mobile, TextView tv) {
-        if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("API_BASE_URL"))) {
-            ApiHaoJie.getGankService().sendVerifyCode(mobile)
-                    .compose(XApi.<BaseRespHaoJieModel>getApiTransformer())
-                    .compose(XApi.<BaseRespHaoJieModel>getScheduler())
-                    .compose(getV().<BaseRespHaoJieModel>bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespHaoJieModel>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            StaticHaoJieUtil.showError(getV(), error);
-                        }
+        ApiHaoJie.getGankService().sendVerifyCode(mobile)
+                .compose(XApi.<BaseRespHaoJieModel>getApiTransformer())
+                .compose(XApi.<BaseRespHaoJieModel>getScheduler())
+                .compose(getV().<BaseRespHaoJieModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespHaoJieModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        StaticHaoJieUtil.showError(getV(), error);
+                    }
 
-                        @Override
-                        public void onNext(BaseRespHaoJieModel gankResults) {
-                            if (gankResults != null) {
-                                if (gankResults.getCode() == 200) {
-                                    ToastHaoJieUtil.showShort("验证码发送成功");
-                                    CountDownTimerHaoJieUtils mCountDownTimerUtils = new CountDownTimerHaoJieUtils(tv, 60000, 1000);
-                                    mCountDownTimerUtils.start();
-                                }
+                    @Override
+                    public void onNext(BaseRespHaoJieModel gankResults) {
+                        if (gankResults != null) {
+                            if (gankResults.getCode() == 200) {
+                                ToastHaoJieUtil.showShort("验证码发送成功");
+                                CountDownTimerHaoJieUtils mCountDownTimerUtils = new CountDownTimerHaoJieUtils(tv, 60000, 1000);
+                                mCountDownTimerUtils.start();
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
 
     /**
      * 设置Snackbar背景颜色
+     *
      * @param snackbar
      * @param backgroundColor
      */
     public static void iyuurtghv(Snackbar snackbar, int backgroundColor) {
         View view = snackbar.getView();
-        if(view!=null){
+        if (view != null) {
             view.setBackgroundColor(backgroundColor);
         }
     }
 
     /**
      * 设置Snackbar文字和背景颜色
+     *
      * @param snackbar
      * @param messageColor
      * @param backgroundColor
      */
     public static void mdhsdfg(Snackbar snackbar, int messageColor, int backgroundColor) {
         View view = snackbar.getView();
-        if(view!=null){
+        if (view != null) {
             view.setBackgroundColor(backgroundColor);
             ((TextView) view.findViewById(R.id.snackbar_text)).setTextColor(messageColor);
         }
@@ -240,20 +241,21 @@ public class LoginHaoJiePresent extends XPresent<LoginHaoJieActivity> {
 
     /**
      * 向Snackbar中添加view
+     *
      * @param snackbar
      * @param layoutId
-     * @param index 新加布局在Snackbar中的位置
+     * @param index    新加布局在Snackbar中的位置
      */
     public static void qwegdfat(Snackbar snackbar, int layoutId, int index) {
         View snackbarview = snackbar.getView();
-        Snackbar.SnackbarLayout snackbarLayout=(Snackbar.SnackbarLayout)snackbarview;
+        Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout) snackbarview;
 
-        View add_view = LayoutInflater.from(snackbarview.getContext()).inflate(layoutId,null);
+        View add_view = LayoutInflater.from(snackbarview.getContext()).inflate(layoutId, null);
 
-        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        p.gravity= Gravity.CENTER_VERTICAL;
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        p.gravity = Gravity.CENTER_VERTICAL;
 
-        snackbarLayout.addView(add_view,index,p);
+        snackbarLayout.addView(add_view, index, p);
     }
 
 }
