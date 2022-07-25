@@ -44,6 +44,11 @@ public class GoodsItemAdapter extends SimpleRecAdapter<GoodsModel, GoodsItemAdap
         viewHolder.text_1.setText("·" + model.getMax_money());
         viewHolder.text_2.setText("·" + model.getDay_money());
         viewHolder.text_3.setText("·" + model.getInfo());
+        if (i == data.size() - 1){
+            viewHolder.line.setVisibility(View.GONE);
+        } else {
+            viewHolder.line.setVisibility(View.VISIBLE);
+        }
         viewHolder.clickView.setOnClickListener(v -> {
             getRecItemClick().onItemClick(i, model, 1, viewHolder);
         });
@@ -63,6 +68,8 @@ public class GoodsItemAdapter extends SimpleRecAdapter<GoodsModel, GoodsItemAdap
         TextView text_2;
         @BindView(R.id.text_3)
         TextView text_3;
+        @BindView(R.id.line)
+        View line;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

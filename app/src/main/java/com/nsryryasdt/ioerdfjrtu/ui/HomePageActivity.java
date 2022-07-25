@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.nsryryasdt.ioerdfjrtu.R;
+import com.nsryryasdt.ioerdfjrtu.utils.StatusBarUtil;
 import com.nsryryasdt.ioerdfjrtu.utils.ToastUtil;
 import com.nsryryasdt.ioerdfjrtu.mvp.XActivity;
 import com.flyco.tablayout.CommonTabLayout;
@@ -32,15 +33,15 @@ public class HomePageActivity extends XActivity<MainPresent> {
     private long exitTime = 0;
     private List<Fragment> mFragments = new ArrayList<>();
     private String[] mTitles = {"首页", "我的"};
-    private int[] uncheckedIcon = {R.drawable.rtysrhxfh, R.drawable.xbzedry};
-    private int[] checkedIcon = {R.drawable.kjsrtyxf, R.drawable.ldtyusrtu};
+    private int[] uncheckedIcon = {R.drawable.jsdrtyf, R.drawable.xcvbtrysr};
+    private int[] checkedIcon = {R.drawable.rtyhxfgjh, R.drawable.vbbxtfyrty};
     private ArrayList<CustomTabEntity> customTabEntities;
     private MyFragmentAdapter myFragmentAdapter;
 
     @Override
     public void initData(Bundle savedInstanceState) {
-//        StatusBarUtil.setTransparent(this, false);
-//        StatusBarUtil.setLightMode(this);
+        StatusBarUtil.setTransparent(this, false);
+        StatusBarUtil.setLightMode(this);
 //        getP().login();
         customTabEntities = new ArrayList<>();
         homeViewPager.setUserInputEnabled(false);

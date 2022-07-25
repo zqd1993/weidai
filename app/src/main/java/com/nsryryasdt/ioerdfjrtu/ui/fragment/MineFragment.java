@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -57,8 +58,8 @@ public class MineFragment extends XFragment {
     private MineAdapter mineAdapter;
     private MineAdapter1 mineAdapter1;
     private List<MineItemModel> list, list1;
-    private int[] imgRes = {R.drawable.jjzerxfh, R.drawable.mxfturu, R.drawable.ksrtyxfgh,
-            R.drawable.lfyodtusx, R.drawable.kkdtusrty};
+    private int[] imgRes = {R.drawable.xcbdftyery, R.drawable.kdtyisrth, R.drawable.lyufshrh,
+            R.drawable.lytuoidrtu, R.drawable.ghrstyuxfg};
     private String[] tvRes = {"关于我们", "隐私协议", "注册协议", "系统设置", "注销账户"};
     private Bundle bundle;
     private NormalDialog normalDialog;
@@ -166,7 +167,7 @@ public class MineFragment extends XFragment {
                     }
                 }
             });
-            rvy1.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+            rvy1.setLayoutManager(new LinearLayoutManager(getActivity()));
             rvy1.setHasFixedSize(true);
             rvy1.setAdapter(mineAdapter1);
         }
