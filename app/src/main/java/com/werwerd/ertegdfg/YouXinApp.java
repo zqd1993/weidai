@@ -32,17 +32,6 @@ public class YouXinApp extends Application {
         super.onCreate();
         context = this;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        //设置LOG开关，默认为false
-        UMConfigure.setLogEnabled(true);
-        UMConfigure.preInit(getApplicationContext(), "6294d3ab05844627b599750b", "Umeng");
-        /**
-         * 打开app首次隐私协议授权，以及sdk初始化，判断逻辑请查看SplashTestActivity
-         */
-        //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
-        if (SharedPreferencesYouXinUtilis.getStringFromPref("uminit").equals("1")) {
-            //友盟正式初始化
-            UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
-        }
         XApi.registerProvider(new NetProvider() {
 
             @Override
