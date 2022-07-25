@@ -77,7 +77,6 @@ public class ProductFragment extends XFragment {
     }
 
     public void goodsClick(ShangPinModel model) {
-        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -97,12 +96,10 @@ public class ProductFragment extends XFragment {
                             toH5(model);
                         }
                     });
-        }
     }
 
 
     public void getGoodsList() {
-        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
             MyApi.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
@@ -125,7 +122,6 @@ public class ProductFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     public void toH5(ShangPinModel model) {

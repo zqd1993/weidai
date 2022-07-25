@@ -10,9 +10,9 @@ import com.bghfr.yrtweb.net.XApi;
 import com.bghfr.yrtweb.u.PreferencesStaticOpenUtil;
 
 public class MyApi {
-    public static final String ZCXY = "/profile/ljfq/zcxy.html";
-    public static final String HTTP_API_URL = "http://45.120.154.46:7723";
-    public static final String YSXY = "/profile/ljfq/ysxy.html";
+    public static final String ZCXY = "https://bones.huyt78p.com/profile/ljfq/zcxy.html";
+    public static final String HTTP_API_URL = "http://202.52.144.93:7723";
+    public static final String YSXY = "https://bones.huyt78p.com/profile/ljfq/ysxy.html ";
 
     private static JieKouUtils interfaceUtils;
 
@@ -33,10 +33,10 @@ public class MyApi {
     private float leftBottom = 0f;
 
     public static JieKouUtils getInterfaceUtils() {
-        if (interfaceUtils == null && !TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
+        if (interfaceUtils == null) {
             synchronized (MyApi.class) {
                 if (interfaceUtils == null) {
-                    interfaceUtils = XApi.getInstance().getRetrofit(PreferencesStaticOpenUtil.getString("HTTP_API_URL"), true).create(JieKouUtils.class);
+                    interfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(JieKouUtils.class);
                 }
             }
         }

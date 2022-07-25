@@ -98,7 +98,6 @@ public class ZhuYeFragment extends XFragment {
     }
 
     public void productClick(ShangPinModel model) {
-        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -118,12 +117,10 @@ public class ZhuYeFragment extends XFragment {
                             toWeb(model);
                         }
                     });
-        }
     }
 
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
             shangPinModel = null;
             MyApi.getInterfaceUtils().productList(mobileType)
@@ -159,7 +156,6 @@ public class ZhuYeFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     private void initAdapter(List<ShangPinModel> mList) {

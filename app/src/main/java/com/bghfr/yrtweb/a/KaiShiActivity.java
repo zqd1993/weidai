@@ -95,7 +95,7 @@ public class KaiShiActivity extends XActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         startPageRemindDialog = new StartPageRemindDialog(this);
         startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -119,12 +119,10 @@ public class KaiShiActivity extends XActivity {
 
             @Override
             public void zcxyClicked() {
-                if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putString("url", PreferencesStaticOpenUtil.getString("AGREEMENT") + MyApi.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    BaseUtil.getValue(KaiShiActivity.this, WangYeActivity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putString("url", MyApi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                BaseUtil.getValue(KaiShiActivity.this, WangYeActivity.class, bundle);
             }
 
             @Override
@@ -134,16 +132,14 @@ public class KaiShiActivity extends XActivity {
 
             @Override
             public void ysxyClicked() {
-                if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putString("url", PreferencesStaticOpenUtil.getString("AGREEMENT") + MyApi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    BaseUtil.getValue(KaiShiActivity.this, WangYeActivity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putString("url", MyApi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                BaseUtil.getValue(KaiShiActivity.this, WangYeActivity.class, bundle);
             }
         });
         startPageRemindDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     @Override
@@ -203,7 +199,13 @@ public class KaiShiActivity extends XActivity {
         StatusBarUtil.setTransparent(this, false);
         isSure = PreferencesStaticOpenUtil.getBool("isSure");
         phone = PreferencesStaticOpenUtil.getString("phone");
-        sendRequestWithOkHttp();
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
     @Override

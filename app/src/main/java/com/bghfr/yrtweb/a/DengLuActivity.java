@@ -81,17 +81,15 @@ public class DengLuActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.quanquan_loading, null));
         getConfig();
         readTv.setText(BaseUtil.createDlSpanTexts(), position -> {
-            if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("AGREEMENT"))) {
-                bundle = new Bundle();
-                if (position == 1) {
-                    bundle.putString("url", PreferencesStaticOpenUtil.getString("AGREEMENT") + MyApi.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                } else {
-                    bundle.putString("url", PreferencesStaticOpenUtil.getString("AGREEMENT") + MyApi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                }
-                BaseUtil.getValue(DengLuActivity.this, WangYeActivity.class, bundle);
+            bundle = new Bundle();
+            if (position == 1) {
+                bundle.putString("url", MyApi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+            } else {
+                bundle.putString("url", MyApi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
             }
+            BaseUtil.getValue(DengLuActivity.this, WangYeActivity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -114,11 +112,11 @@ public class DengLuActivity extends XActivity {
                 BaseToast.showShort("请输入验证码");
                 return;
             }
-            if (!remindCb.isChecked()){
+            if (!remindCb.isChecked()) {
                 BaseToast.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
-            login(phoneStr,yzmStr);
+            login(phoneStr, yzmStr);
         });
     }
 
@@ -165,35 +163,33 @@ public class DengLuActivity extends XActivity {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
-            MyApi.getInterfaceUtils().getConfig()
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(this.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<MainModel<SetEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            BaseUtil.showErrorInfo(DengLuActivity.this, error);
-                        }
+        MyApi.getInterfaceUtils().getConfig()
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<MainModel<SetEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        BaseUtil.showErrorInfo(DengLuActivity.this, error);
+                    }
 
-                        @Override
-                        public void onNext(MainModel<SetEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    PreferencesStaticOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
-                                    if ("0".equals(configEntity.getData().getIsCodeLogin())) {
-                                        yzmCv.setVisibility(View.GONE);
-                                    } else {
-                                        yzmCv.setVisibility(View.VISIBLE);
-                                    }
-                                    isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
-                                    isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
-                                    remindCb.setChecked(isChecked);
+                    @Override
+                    public void onNext(MainModel<SetEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                PreferencesStaticOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
+                                if ("0".equals(configEntity.getData().getIsCodeLogin())) {
+                                    yzmCv.setVisibility(View.GONE);
+                                } else {
+                                    yzmCv.setVisibility(View.VISIBLE);
                                 }
+                                isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
+                                isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
+                                remindCb.setChecked(isChecked);
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     private void getIp() {
@@ -226,7 +222,6 @@ public class DengLuActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
             if (xStateController != null)
                 xStateController.showLoading();
             MyApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
@@ -260,11 +255,9 @@ public class DengLuActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     public void getYzm(String phone) {
-        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
             MyApi.getInterfaceUtils().sendVerifyCode(phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -286,6 +279,5 @@ public class DengLuActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 }
