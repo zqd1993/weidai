@@ -9,17 +9,17 @@ import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
  */
 
 public class Api {
-    public static final String PRIVACY_POLICY = "/profile/hmdk/zcxy.html";
-    public static final String USER_SERVICE_AGREEMENT= "/profile/hmdk/ysxy.html";
-    public static final String API_BASE_URL = "http://110.42.64.175:7717";
+    public static final String PRIVACY_POLICY = "https://bones.huyt78p.com/profile/hmdk/zcxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "https://bones.huyt78p.com/profile/hmdk/ysxy.html";
+    public static final String API_BASE_URL = "http://202.52.144.93:7717";
 
     private static GankService gankService;
 
     public static GankService getGankService() {
-        if (gankService == null && !TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("API_BASE_URL"))) {
+        if (gankService == null) {
             synchronized (Api.class) {
                 if (gankService == null) {
-                    gankService = XApi.getInstance().getRetrofit(SharedPreferencesUtilisHuiMin.getStringFromPref("API_BASE_URL"), true).create(GankService.class);
+                    gankService = XApi.getInstance().getRetrofit(API_BASE_URL, true).create(GankService.class);
                 }
             }
         }

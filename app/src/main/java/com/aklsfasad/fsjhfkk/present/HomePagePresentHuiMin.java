@@ -25,58 +25,50 @@ public class HomePagePresentHuiMin extends XPresent<HomePageFragmentHuiMin> {
 
 
     public void productClick(GoodsHuiMinModel model) {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("API_BASE_URL"))) {
-            phone = SharedPreferencesUtilisHuiMin.getStringFromPref("phone");
-            Api.getGankService().productClick(model.getId(), phone)
-                    .compose(XApi.<BaseRespHuiMinModel>getApiTransformer())
-                    .compose(XApi.<BaseRespHuiMinModel>getScheduler())
-                    .compose(getV().<BaseRespHuiMinModel>bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespHuiMinModel>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            getV().jumpWebYouXinActivity(model);
-                            StaticUtilHuiMin.showError(getV().getActivity(), error);
-                        }
+        phone = SharedPreferencesUtilisHuiMin.getStringFromPref("phone");
+        Api.getGankService().productClick(model.getId(), phone)
+                .compose(XApi.<BaseRespHuiMinModel>getApiTransformer())
+                .compose(XApi.<BaseRespHuiMinModel>getScheduler())
+                .compose(getV().<BaseRespHuiMinModel>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespHuiMinModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        getV().jumpWebYouXinActivity(model);
+                        StaticUtilHuiMin.showError(getV().getActivity(), error);
+                    }
 
-                        @Override
-                        public void onNext(BaseRespHuiMinModel gankResults) {
-                            getV().jumpWebYouXinActivity(model);
-                        }
-                    });
-        }
+                    @Override
+                    public void onNext(BaseRespHuiMinModel gankResults) {
+                        getV().jumpWebYouXinActivity(model);
+                    }
+                });
     }
 
 
     public void productList() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("API_BASE_URL"))) {
-            mobileType = SharedPreferencesUtilisHuiMin.getIntFromPref("mobileType");
-            Api.getGankService().productList(mobileType)
-                    .compose(XApi.<BaseRespHuiMinModel<List<GoodsHuiMinModel>>>getApiTransformer())
-                    .compose(XApi.<BaseRespHuiMinModel<List<GoodsHuiMinModel>>>getScheduler())
-                    .compose(getV().<BaseRespHuiMinModel<List<GoodsHuiMinModel>>>bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespHuiMinModel<List<GoodsHuiMinModel>>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            getV().swipeRefreshLayout.setRefreshing(false);
-                            if (getV().miaoJieGoodsItemAdapter == null) {
-                                getV().noDataFl.setVisibility(View.VISIBLE);
-                            }
-                            StaticUtilHuiMin.showError(getV().getActivity(), error);
+        mobileType = SharedPreferencesUtilisHuiMin.getIntFromPref("mobileType");
+        Api.getGankService().productList(mobileType)
+                .compose(XApi.<BaseRespHuiMinModel<List<GoodsHuiMinModel>>>getApiTransformer())
+                .compose(XApi.<BaseRespHuiMinModel<List<GoodsHuiMinModel>>>getScheduler())
+                .compose(getV().<BaseRespHuiMinModel<List<GoodsHuiMinModel>>>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespHuiMinModel<List<GoodsHuiMinModel>>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        getV().swipeRefreshLayout.setRefreshing(false);
+                        if (getV().miaoJieGoodsItemAdapter == null) {
+                            getV().noDataFl.setVisibility(View.VISIBLE);
                         }
+                        StaticUtilHuiMin.showError(getV().getActivity(), error);
+                    }
 
-                        @Override
-                        public void onNext(BaseRespHuiMinModel<List<GoodsHuiMinModel>> gankResults) {
-                            getV().swipeRefreshLayout.setRefreshing(false);
-                            if (gankResults != null) {
-                                if (gankResults.getCode() == 200 && gankResults.getData() != null) {
-                                    if (gankResults.getData() != null && gankResults.getData().size() > 0) {
-                                        getV().setModel(gankResults.getData().get(0));
-                                        getV().initGoodsItemAdapter(gankResults.getData());
-                                    } else {
-                                        if (getV().miaoJieGoodsItemAdapter == null) {
-                                            getV().noDataFl.setVisibility(View.VISIBLE);
-                                        }
-                                    }
+                    @Override
+                    public void onNext(BaseRespHuiMinModel<List<GoodsHuiMinModel>> gankResults) {
+                        getV().swipeRefreshLayout.setRefreshing(false);
+                        if (gankResults != null) {
+                            if (gankResults.getCode() == 200 && gankResults.getData() != null) {
+                                if (gankResults.getData() != null && gankResults.getData().size() > 0) {
+                                    getV().setModel(gankResults.getData().get(0));
+                                    getV().initGoodsItemAdapter(gankResults.getData());
                                 } else {
                                     if (getV().miaoJieGoodsItemAdapter == null) {
                                         getV().noDataFl.setVisibility(View.VISIBLE);
@@ -87,8 +79,12 @@ public class HomePagePresentHuiMin extends XPresent<HomePageFragmentHuiMin> {
                                     getV().noDataFl.setVisibility(View.VISIBLE);
                                 }
                             }
+                        } else {
+                            if (getV().miaoJieGoodsItemAdapter == null) {
+                                getV().noDataFl.setVisibility(View.VISIBLE);
+                            }
                         }
-                    });
-        }
+                    }
+                });
     }
 }

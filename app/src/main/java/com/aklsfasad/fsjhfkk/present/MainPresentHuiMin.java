@@ -18,26 +18,24 @@ public class MainPresentHuiMin extends XPresent<HomePageActivityHuiMin> {
     private String phone, ip;
 
     public void login() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("API_BASE_URL"))) {
-            phone = SharedPreferencesUtilisHuiMin.getStringFromPref("phone");
-            ip = SharedPreferencesUtilisHuiMin.getStringFromPref("ip");
-            Api.getGankService().logins(phone, ip)
-                    .compose(XApi.<BaseRespHuiMinModel<LoginRespHuiMinModel>>getApiTransformer())
-                    .compose(XApi.<BaseRespHuiMinModel<LoginRespHuiMinModel>>getScheduler())
-                    .compose(getV().<BaseRespHuiMinModel<LoginRespHuiMinModel>>bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespHuiMinModel<LoginRespHuiMinModel>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            StaticUtilHuiMin.showError(getV(), error);
-                        }
+        phone = SharedPreferencesUtilisHuiMin.getStringFromPref("phone");
+        ip = SharedPreferencesUtilisHuiMin.getStringFromPref("ip");
+        Api.getGankService().logins(phone, ip)
+                .compose(XApi.<BaseRespHuiMinModel<LoginRespHuiMinModel>>getApiTransformer())
+                .compose(XApi.<BaseRespHuiMinModel<LoginRespHuiMinModel>>getScheduler())
+                .compose(getV().<BaseRespHuiMinModel<LoginRespHuiMinModel>>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespHuiMinModel<LoginRespHuiMinModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        StaticUtilHuiMin.showError(getV(), error);
+                    }
 
-                        @Override
-                        public void onNext(BaseRespHuiMinModel<LoginRespHuiMinModel> gankResults) {
-                            if (gankResults != null) {
+                    @Override
+                    public void onNext(BaseRespHuiMinModel<LoginRespHuiMinModel> gankResults) {
+                        if (gankResults != null) {
 
-                            }
                         }
-                    });
-        }
+                    }
+                });
     }
 }
