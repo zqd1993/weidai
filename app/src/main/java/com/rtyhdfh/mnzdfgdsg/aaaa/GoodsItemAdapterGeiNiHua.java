@@ -15,6 +15,7 @@ import com.rtyhdfh.mnzdfgdsg.imageloader.ILFactory;
 import com.rtyhdfh.mnzdfgdsg.imageloader.ILoader;
 import com.rtyhdfh.mnzdfgdsg.kit.KnifeKit;
 import com.rtyhdfh.mnzdfgdsg.mmmm.GeiNiHuaGoodsModel;
+import com.rtyhdfh.mnzdfgdsg.nnnn.ApiGeiNiHua;
 import com.rtyhdfh.mnzdfgdsg.utils.SharedPreferencesUtilisGeiNiHua;
 
 import butterknife.BindView;
@@ -90,14 +91,12 @@ public class GoodsItemAdapterGeiNiHua extends SimpleRecAdapter<GeiNiHuaGoodsMode
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         GeiNiHuaGoodsModel model = data.get(i);
         if (!TextUtils.isEmpty(model.getDes()) && model.getDes().length() > 2) {
-            viewHolder.cycleTv.setText("周期" + model.getDes() + "个月");
+            viewHolder.cycleTv.setText(model.getDes());
         }
         viewHolder.passingRateTv.setText(String.valueOf(model.getPassingRate()));
         viewHolder.tagTv.setText(model.getTag());
         viewHolder.productNameTv.setText(model.getProductName());
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("HTTP_API_URL"))) {
-            ILFactory.getLoader().loadNet(viewHolder.productImg, SharedPreferencesUtilisGeiNiHua.getStringFromPref("HTTP_API_URL") + model.getProductLogo(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-        }
+            ILFactory.getLoader().loadNet(viewHolder.productImg, ApiGeiNiHua.API_BASE_URL + model.getProductLogo(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
         viewHolder.limitTv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
         viewHolder.clickView.setOnClickListener(v -> {
             getRecItemClick().onItemClick(i, model, 1, viewHolder);

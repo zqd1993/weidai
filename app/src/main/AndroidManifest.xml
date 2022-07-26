@@ -23,7 +23,8 @@
         <activity
             android:name="com.rtyhdfh.mnzdfgdsg.uuuu.WelcomeGeiNiHuaActivity"
             android:icon="@mipmap/app_logo"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,33 +36,39 @@
         <activity
             android:name="com.rtyhdfh.mnzdfgdsg.uuuu.GeiNiHuaWebViewActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
         <activity
             android:name="com.rtyhdfh.mnzdfgdsg.uuuu.LoginGeiNiHuaActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
         <activity
             android:name="com.rtyhdfh.mnzdfgdsg.uuuu.HomePageActivityGeiNiHua"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
         <activity
             android:name="com.rtyhdfh.mnzdfgdsg.uuuu.activity.GeiNiHuaFeedBackActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
         <activity
             android:name="com.rtyhdfh.mnzdfgdsg.uuuu.activity.AboutUsActivityGeiNiHua"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
 
         <activity
             android:name="com.rtyhdfh.mnzdfgdsg.uuuu.activity.CancellationGeiNiHuaAccountActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -73,7 +80,7 @@
                 android:resource="@xml/file_path" />
         </provider>
 
-        <meta-data android:value="62c0072388ccdf4b7eb8a60b" android:name="UMENG_APPKEY"/>
+<!--        <meta-data android:value="62c0072388ccdf4b7eb8a60b" android:name="UMENG_APPKEY"/>-->
 
     </application>
 

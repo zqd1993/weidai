@@ -10,10 +10,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.rtyhdfh.mnzdfgdsg.R;
 import com.rtyhdfh.mnzdfgdsg.aaaa.GoodsItemAdapterGeiNiHua;
 import com.rtyhdfh.mnzdfgdsg.mmmm.GeiNiHuaGoodsModel;
+import com.rtyhdfh.mnzdfgdsg.mvp.XActivity;
+import com.rtyhdfh.mnzdfgdsg.utils.GeiNiHuaStaticUtil;
 import com.rtyhdfh.mnzdfgdsg.uuuu.GeiNiHuaWebViewActivity;
 import com.rtyhdfh.mnzdfgdsg.mvp.XFragment;
 import com.rtyhdfh.mnzdfgdsg.pppp.HomePagePresentGeiNiHua;
 import com.rtyhdfh.mnzdfgdsg.router.Router;
+import com.rtyhdfh.mnzdfgdsg.uuuu.HomePageActivityGeiNiHua;
 
 import java.util.List;
 
@@ -209,10 +212,7 @@ public class HomePageFragmentGeiNiHua extends XFragment<HomePagePresentGeiNiHua>
             webBundle.putInt("tag", 3);
             webBundle.putString("url", model.getUrl());
             webBundle.putString("title", model.getProductName());
-            Router.newIntent(getActivity())
-                    .to(GeiNiHuaWebViewActivity.class)
-                    .data(webBundle)
-                    .launch();
+            GeiNiHuaStaticUtil.getValue((XActivity) getActivity(), GeiNiHuaWebViewActivity.class, webBundle);
         }
     }
 

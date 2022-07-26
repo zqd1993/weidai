@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.rtyhdfh.mnzdfgdsg.mmmm.BaseRespModelGeiNiHua;
 import com.rtyhdfh.mnzdfgdsg.mmmm.ConfigGeiNiHuaModel;
 import com.rtyhdfh.mnzdfgdsg.mmmm.GeiNiHuaLoginRespModel;
+import com.rtyhdfh.mnzdfgdsg.uuuu.GeiNiHuaWebViewActivity;
 import com.rtyhdfh.mnzdfgdsg.uuuu.HomePageActivityGeiNiHua;
 import com.rtyhdfh.mnzdfgdsg.uuuu.LoginGeiNiHuaActivity;
 import com.rtyhdfh.mnzdfgdsg.utils.SharedPreferencesUtilisGeiNiHua;
@@ -74,7 +75,6 @@ public class LoginGeiNiHuaPresent extends XPresent<LoginGeiNiHuaActivity> {
     }
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("HTTP_API_URL"))) {
             ApiGeiNiHua.getGankService().getGankData()
                     .compose(XApi.<BaseRespModelGeiNiHua<ConfigGeiNiHuaModel>>getApiTransformer())
                     .compose(XApi.<BaseRespModelGeiNiHua<ConfigGeiNiHuaModel>>getScheduler())
@@ -102,7 +102,6 @@ public class LoginGeiNiHuaPresent extends XPresent<LoginGeiNiHuaActivity> {
                             }
                         }
                     });
-        }
     }
 
     public static String kyufh(Object o) {
@@ -157,7 +156,6 @@ public class LoginGeiNiHuaPresent extends XPresent<LoginGeiNiHuaActivity> {
     }
 
     public void login(String phone, String verificationStr, String ip) {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("HTTP_API_URL"))) {
             ApiGeiNiHua.getGankService().login(phone, verificationStr, "", ip)
                     .compose(XApi.<BaseRespModelGeiNiHua<GeiNiHuaLoginRespModel>>getApiTransformer())
                     .compose(XApi.<BaseRespModelGeiNiHua<GeiNiHuaLoginRespModel>>getScheduler())
@@ -179,10 +177,7 @@ public class LoginGeiNiHuaPresent extends XPresent<LoginGeiNiHuaActivity> {
                                     SharedPreferencesUtilisGeiNiHua.saveStringIntoPref("phone", phone);
                                     SharedPreferencesUtilisGeiNiHua.saveIntIntoPref("mobileType", gankResults.getData().getMobileType());
                                     SharedPreferencesUtilisGeiNiHua.saveStringIntoPref("ip", ip);
-                                    Router.newIntent(getV())
-                                            .to(HomePageActivityGeiNiHua.class)
-                                            .launch();
-                                    getV().finish();
+                                    GeiNiHuaStaticUtil.getValue(getV(), HomePageActivityGeiNiHua.class, null, true);
                                 }
                             } else {
                                 if (gankResults.getCode() == 500) {
@@ -191,11 +186,9 @@ public class LoginGeiNiHuaPresent extends XPresent<LoginGeiNiHuaActivity> {
                             }
                         }
                     });
-        }
     }
 
     public void sendVerifyCode(String phone, TextView textView) {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("HTTP_API_URL"))) {
             ApiGeiNiHua.getGankService().sendVerifyCode(phone)
                     .compose(XApi.<BaseRespModelGeiNiHua>getApiTransformer())
                     .compose(XApi.<BaseRespModelGeiNiHua>getScheduler())
@@ -217,7 +210,6 @@ public class LoginGeiNiHuaPresent extends XPresent<LoginGeiNiHuaActivity> {
                             }
                         }
                     });
-        }
     }
 
     public static String uifyjh(Object o) {

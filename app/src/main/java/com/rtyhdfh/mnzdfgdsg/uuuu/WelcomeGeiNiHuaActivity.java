@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 
 import com.rtyhdfh.mnzdfgdsg.R;
+import com.rtyhdfh.mnzdfgdsg.mvp.XActivity;
+import com.rtyhdfh.mnzdfgdsg.utils.GeiNiHuaStaticUtil;
 import com.rtyhdfh.mnzdfgdsg.utils.SharedPreferencesUtilisGeiNiHua;
 import com.rtyhdfh.mnzdfgdsg.utils.StatusGeiNiHuaBarUtil;
 import com.rtyhdfh.mnzdfgdsg.router.Router;
@@ -25,7 +27,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class WelcomeGeiNiHuaActivity extends AppCompatActivity {
+public class WelcomeGeiNiHuaActivity extends XActivity {
 
     private WelcomeDialogGeiNiHua welcomeDialogGeiNiHua;
 
@@ -84,16 +86,6 @@ public class WelcomeGeiNiHuaActivity extends AppCompatActivity {
 
 
         return value;
-    }
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_geinihua_weclome);
-        StatusGeiNiHuaBarUtil.setTransparent(this, false);
-        isAgree = SharedPreferencesUtilisGeiNiHua.getBoolFromPref("agree");
-        loginPhone = SharedPreferencesUtilisGeiNiHua.getStringFromPref("phone");
-        sendRequestWithOkHttp();
     }
 
     @Override
@@ -160,7 +152,7 @@ public class WelcomeGeiNiHuaActivity extends AppCompatActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         welcomeDialogGeiNiHua = new WelcomeDialogGeiNiHua(this, "温馨提示");
         welcomeDialogGeiNiHua.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -175,13 +167,11 @@ public class WelcomeGeiNiHuaActivity extends AppCompatActivity {
         welcomeDialogGeiNiHua.setOnClickedListener(new WelcomeDialogGeiNiHua.OnClickedListener() {
             @Override
             public void topBtnClicked() {
-                initUm();
+//                initUm();
                 SharedPreferencesUtilisGeiNiHua.saveStringIntoPref("uminit", "1");
                 SharedPreferencesUtilisGeiNiHua.saveBoolIntoPref("agree", true);
-                Router.newIntent(WelcomeGeiNiHuaActivity.this)
-                        .to(LoginGeiNiHuaActivity.class)
-                        .launch();
-                finish();
+                welcomeDialogGeiNiHua.dismiss();
+                GeiNiHuaStaticUtil.getValue(WelcomeGeiNiHuaActivity.this, LoginGeiNiHuaActivity.class, null, true);
             }
 
             @Override
@@ -191,32 +181,22 @@ public class WelcomeGeiNiHuaActivity extends AppCompatActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 1);
-                    bundle.putString("url", SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT") + ApiGeiNiHua.PRIVACY_POLICY);
-                    Router.newIntent(WelcomeGeiNiHuaActivity.this)
-                            .to(GeiNiHuaWebViewActivity.class)
-                            .data(bundle)
-                            .launch();
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", ApiGeiNiHua.PRIVACY_POLICY);
+                GeiNiHuaStaticUtil.getValue(WelcomeGeiNiHuaActivity.this, GeiNiHuaWebViewActivity.class, bundle);
             }
 
             @Override
             public void privacyAgreementClicked() {
-                if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 2);
-                    bundle.putString("url", SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT") + ApiGeiNiHua.USER_SERVICE_AGREEMENT);
-                    Router.newIntent(WelcomeGeiNiHuaActivity.this)
-                            .to(GeiNiHuaWebViewActivity.class)
-                            .data(bundle)
-                            .launch();
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 2);
+                bundle.putString("url", ApiGeiNiHua.USER_SERVICE_AGREEMENT);
+                GeiNiHuaStaticUtil.getValue(WelcomeGeiNiHuaActivity.this, GeiNiHuaWebViewActivity.class, bundle);
             }
         });
         welcomeDialogGeiNiHua.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     public static String zvzdfgh(Object o) {
@@ -301,17 +281,12 @@ public class WelcomeGeiNiHuaActivity extends AppCompatActivity {
 
     private void jumpPage() {
         if (isAgree) {
-            initUm();
+//            initUm();
             if (!TextUtils.isEmpty(loginPhone)) {
-                Router.newIntent(WelcomeGeiNiHuaActivity.this)
-                        .to(HomePageActivityGeiNiHua.class)
-                        .launch();
+                GeiNiHuaStaticUtil.getValue(WelcomeGeiNiHuaActivity.this, HomePageActivityGeiNiHua.class, null, true);
             } else {
-                Router.newIntent(WelcomeGeiNiHuaActivity.this)
-                        .to(LoginGeiNiHuaActivity.class)
-                        .launch();
+                GeiNiHuaStaticUtil.getValue(WelcomeGeiNiHuaActivity.this, LoginGeiNiHuaActivity.class, null, true);
             }
-            finish();
         } else {
             showDialog();
         }
@@ -384,19 +359,19 @@ public class WelcomeGeiNiHuaActivity extends AppCompatActivity {
 
     private void initUm() {
         //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
-        if (!UMConfigure.isInit) {
-            UMConfigure.setLogEnabled(true);
-            Log.d("youmeng", "zhuche chenggong");
-            //友盟正式初始化
-//            UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
-            // 在此处调用基础组件包提供的初始化函数 相应信息可在应用管理 -> 应用信息 中找到 http://message.umeng.com/list/apps
-            // 参数一：当前上下文context；
-            // 参数二：应用申请的Appkey（需替换）；
-            // 参数三：渠道名称；
-            // 参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
-            // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
-            UMConfigure.init(this, "62c0072388ccdf4b7eb8a60b", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
-        }
+//        if (!UMConfigure.isInit) {
+//            UMConfigure.setLogEnabled(true);
+//            Log.d("youmeng", "zhuche chenggong");
+//            //友盟正式初始化
+////            UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
+//            // 在此处调用基础组件包提供的初始化函数 相应信息可在应用管理 -> 应用信息 中找到 http://message.umeng.com/list/apps
+//            // 参数一：当前上下文context；
+//            // 参数二：应用申请的Appkey（需替换）；
+//            // 参数三：渠道名称；
+//            // 参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
+//            // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
+//            UMConfigure.init(this, "62c0072388ccdf4b7eb8a60b", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+//        }
     }
 
     public static String vcztgrt(Object o) {
@@ -448,5 +423,29 @@ public class WelcomeGeiNiHuaActivity extends AppCompatActivity {
 
 
         return value;
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        StatusGeiNiHuaBarUtil.setTransparent(this, false);
+        isAgree = SharedPreferencesUtilisGeiNiHua.getBoolFromPref("agree");
+        loginPhone = SharedPreferencesUtilisGeiNiHua.getStringFromPref("phone");
+        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_geinihua_weclome;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 }

@@ -2,11 +2,13 @@ package com.rtyhdfh.mnzdfgdsg.uuuu;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.rtyhdfh.mnzdfgdsg.R;
+import com.rtyhdfh.mnzdfgdsg.utils.SharedPreferencesUtilisGeiNiHua;
 import com.rtyhdfh.mnzdfgdsg.uuuu.fragment.HomePageFragmentGeiNiHua;
 import com.rtyhdfh.mnzdfgdsg.uuuu.fragment.MineGeiNiHuaFragment;
 import com.rtyhdfh.mnzdfgdsg.utils.StatusGeiNiHuaBarUtil;
@@ -91,6 +93,9 @@ public class HomePageActivityGeiNiHua extends XActivity<GeiNiHuaMainPresent> {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (SharedPreferencesUtilisGeiNiHua.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusGeiNiHuaBarUtil.setTransparent(this, false);
         getP().login();
         customTabEntities = new ArrayList<>();
