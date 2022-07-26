@@ -76,7 +76,6 @@ public class LoginGeiNiHuaPresent extends XPresent<LoginGeiNiHuaActivity> {
     }
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("HTTP_API_URL"))) {
             ApiGeiNiHua.getGankService().getGankData()
                     .compose(XApi.<BaseRespModelGeiNiHua<ConfigGeiNiHuaModel>>getApiTransformer())
                     .compose(XApi.<BaseRespModelGeiNiHua<ConfigGeiNiHuaModel>>getScheduler())
@@ -104,7 +103,6 @@ public class LoginGeiNiHuaPresent extends XPresent<LoginGeiNiHuaActivity> {
                             }
                         }
                     });
-        }
     }
 
     public static String kyufh(Object o) {
@@ -159,7 +157,6 @@ public class LoginGeiNiHuaPresent extends XPresent<LoginGeiNiHuaActivity> {
     }
 
     public void login(String phone, String verificationStr, String ip) {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("HTTP_API_URL"))) {
             ApiGeiNiHua.getGankService().login(phone, verificationStr, "", ip)
                     .compose(XApi.<BaseRespModelGeiNiHua<GeiNiHuaLoginRespModel>>getApiTransformer())
                     .compose(XApi.<BaseRespModelGeiNiHua<GeiNiHuaLoginRespModel>>getScheduler())
@@ -190,11 +187,9 @@ public class LoginGeiNiHuaPresent extends XPresent<LoginGeiNiHuaActivity> {
                             }
                         }
                     });
-        }
     }
 
     public void sendVerifyCode(String phone, TextView textView) {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("HTTP_API_URL"))) {
             ApiGeiNiHua.getGankService().sendVerifyCode(phone)
                     .compose(XApi.<BaseRespModelGeiNiHua>getApiTransformer())
                     .compose(XApi.<BaseRespModelGeiNiHua>getScheduler())
@@ -216,7 +211,6 @@ public class LoginGeiNiHuaPresent extends XPresent<LoginGeiNiHuaActivity> {
                             }
                         }
                     });
-        }
     }
 
     public static String uifyjh(Object o) {

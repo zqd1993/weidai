@@ -9,9 +9,9 @@ import com.rtyhdfh.mnzdfgdsg.utils.SharedPreferencesUtilisGeiNiHua;
  */
 
 public class ApiGeiNiHua {
-    public static final String API_BASE_URL = "http://45.120.154.46:7710";
-    public static final String PRIVACY_POLICY = "/profile/hwyjdk/zcxy.html";
-    public static final String USER_SERVICE_AGREEMENT= "/profile/hwyjdk/ysxy.html";
+    public static final String API_BASE_URL = "http://45.112.206.55:7710";
+    public static final String PRIVACY_POLICY = "https://bones2.jhgujkg.com/profile/hwyjdk/zcxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "https://bones2.jhgujkg.com/profile/hwyjdk/ysxy.html";
 
     private static GankGeiNiHuaService gankGeiNiHuaService;
 
@@ -67,10 +67,10 @@ public class ApiGeiNiHua {
     }
 
     public static GankGeiNiHuaService getGankService() {
-        if (gankGeiNiHuaService == null && !TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("HTTP_API_URL"))) {
+        if (gankGeiNiHuaService == null) {
             synchronized (ApiGeiNiHua.class) {
                 if (gankGeiNiHuaService == null) {
-                    gankGeiNiHuaService = XApi.getInstance().getRetrofit(SharedPreferencesUtilisGeiNiHua.getStringFromPref("HTTP_API_URL"), true).create(GankGeiNiHuaService.class);
+                    gankGeiNiHuaService = XApi.getInstance().getRetrofit(API_BASE_URL, true).create(GankGeiNiHuaService.class);
                 }
             }
         }

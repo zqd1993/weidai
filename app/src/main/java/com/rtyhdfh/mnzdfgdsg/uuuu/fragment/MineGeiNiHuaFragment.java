@@ -47,7 +47,7 @@ public class MineGeiNiHuaFragment extends XFragment {
     private MineGeiNiHuaAdapter mineGeiNiHuaAdapter;
     private List<MineItemGeiNiHuaModel> list;
     private int[] imgRes = {R.drawable.ewdfb, R.drawable.lhjjfgh, R.drawable.rdfhgfhsd, R.drawable.wd_icon_gywm,
-             R.drawable.wevbsdg, R.drawable.lhjkghfg, R.drawable.xzvserfs};
+            R.drawable.wevbsdg, R.drawable.lhjkghfg, R.drawable.xzvserfs};
     private String[] tvRes = {"注册协议", "隐私协议", "意见反馈", "关于我们", "联系客服", "注销账户", "退出登录"};
     private Bundle bundle;
     private NormalDialogGeiNiHua normalDialogGeiNiHua;
@@ -140,20 +140,16 @@ public class MineGeiNiHuaFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT"))) {
-                                bundle = new Bundle();
-                                bundle.putInt("tag", 1);
-                                bundle.putString("url", SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT") + ApiGeiNiHua.PRIVACY_POLICY);
-                                GeiNiHuaStaticUtil.getValue((XActivity) getActivity(), GeiNiHuaWebViewActivity.class, bundle);
-                            }
+                            bundle = new Bundle();
+                            bundle.putInt("tag", 1);
+                            bundle.putString("url", ApiGeiNiHua.PRIVACY_POLICY);
+                            GeiNiHuaStaticUtil.getValue((XActivity) getActivity(), GeiNiHuaWebViewActivity.class, bundle);
                             break;
                         case 1:
-                            if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT"))) {
-                                bundle = new Bundle();
-                                bundle.putInt("tag", 2);
-                                bundle.putString("url", SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT") + ApiGeiNiHua.USER_SERVICE_AGREEMENT);
-                                GeiNiHuaStaticUtil.getValue((XActivity) getActivity(), GeiNiHuaWebViewActivity.class, bundle);
-                            }
+                            bundle = new Bundle();
+                            bundle.putInt("tag", 2);
+                            bundle.putString("url", ApiGeiNiHua.USER_SERVICE_AGREEMENT);
+                            GeiNiHuaStaticUtil.getValue((XActivity) getActivity(), GeiNiHuaWebViewActivity.class, bundle);
                             break;
                         case 2:
                             GeiNiHuaStaticUtil.getValue((XActivity) getActivity(), GeiNiHuaFeedBackActivity.class, null);
@@ -252,7 +248,6 @@ public class MineGeiNiHuaFragment extends XFragment {
     }
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("HTTP_API_URL"))) {
             ApiGeiNiHua.getGankService().getGankData()
                     .compose(XApi.<BaseRespModelGeiNiHua<ConfigGeiNiHuaModel>>getApiTransformer())
                     .compose(XApi.<BaseRespModelGeiNiHua<ConfigGeiNiHuaModel>>getScheduler())
@@ -277,7 +272,6 @@ public class MineGeiNiHuaFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     public static String ewrrdf(Object o) {

@@ -103,7 +103,6 @@ public class GeiNiHuaStaticUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("HTTP_API_URL"))) {
             ApiGeiNiHua.getGankService().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -124,11 +123,9 @@ public class GeiNiHuaStaticUtil {
                             }
                         }
                     });
-        }
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("HTTP_API_URL"))) {
             ApiGeiNiHua.getGankService().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -149,7 +146,6 @@ public class GeiNiHuaStaticUtil {
                             }
                         }
                     });
-        }
     }
 
     public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish){

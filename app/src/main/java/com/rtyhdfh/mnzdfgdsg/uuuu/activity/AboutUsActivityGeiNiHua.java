@@ -82,7 +82,7 @@ public class AboutUsActivityGeiNiHua extends XActivity {
         }
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("关于");
-        version_code_tv.setText(GeiNiHuaStaticUtil.getAppVersionName(GeiNiHuaApp.getContext()));
+        version_code_tv.setText("当前版本号：v" + GeiNiHuaStaticUtil.getAppVersionName(GeiNiHuaApp.getContext()));
     }
 
     public static String kjgfhjfcg(Object o) {

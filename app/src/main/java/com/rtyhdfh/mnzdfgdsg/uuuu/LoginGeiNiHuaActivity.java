@@ -120,18 +120,16 @@ public class LoginGeiNiHuaActivity extends XActivity<LoginGeiNiHuaPresent> {
         getP().getGankData();
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
-            if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT"))) {
-                if (position == 1) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 1);
-                    bundle.putString("url", SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT") + ApiGeiNiHua.PRIVACY_POLICY);
-                    GeiNiHuaStaticUtil.getValue(LoginGeiNiHuaActivity.this, GeiNiHuaWebViewActivity.class, bundle);
-                } else {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 2);
-                    bundle.putString("url", SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT") + ApiGeiNiHua.USER_SERVICE_AGREEMENT);
-                    GeiNiHuaStaticUtil.getValue(LoginGeiNiHuaActivity.this, GeiNiHuaWebViewActivity.class, bundle);
-                }
+            if (position == 1) {
+                bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", ApiGeiNiHua.PRIVACY_POLICY);
+                GeiNiHuaStaticUtil.getValue(LoginGeiNiHuaActivity.this, GeiNiHuaWebViewActivity.class, bundle);
+            } else {
+                bundle = new Bundle();
+                bundle.putInt("tag", 2);
+                bundle.putString("url", ApiGeiNiHua.USER_SERVICE_AGREEMENT);
+                GeiNiHuaStaticUtil.getValue(LoginGeiNiHuaActivity.this, GeiNiHuaWebViewActivity.class, bundle);
             }
         });
     }

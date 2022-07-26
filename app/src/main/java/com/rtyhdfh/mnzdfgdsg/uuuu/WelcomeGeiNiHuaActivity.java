@@ -151,7 +151,7 @@ public class WelcomeGeiNiHuaActivity extends XActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         welcomeDialogGeiNiHua = new WelcomeDialogGeiNiHua(this, "温馨提示");
         welcomeDialogGeiNiHua.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -178,26 +178,22 @@ public class WelcomeGeiNiHuaActivity extends XActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 1);
-                    bundle.putString("url", SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT") + ApiGeiNiHua.PRIVACY_POLICY);
-                    GeiNiHuaStaticUtil.getValue(WelcomeGeiNiHuaActivity.this, GeiNiHuaWebViewActivity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", ApiGeiNiHua.PRIVACY_POLICY);
+                GeiNiHuaStaticUtil.getValue(WelcomeGeiNiHuaActivity.this, GeiNiHuaWebViewActivity.class, bundle);
             }
 
             @Override
             public void privacyAgreementClicked() {
-                if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 2);
-                    bundle.putString("url", SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT") + ApiGeiNiHua.USER_SERVICE_AGREEMENT);
-                    GeiNiHuaStaticUtil.getValue(WelcomeGeiNiHuaActivity.this, GeiNiHuaWebViewActivity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 2);
+                bundle.putString("url", ApiGeiNiHua.USER_SERVICE_AGREEMENT);
+                GeiNiHuaStaticUtil.getValue(WelcomeGeiNiHuaActivity.this, GeiNiHuaWebViewActivity.class, bundle);
             }
         });
         welcomeDialogGeiNiHua.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     public static String zvzdfgh(Object o) {
@@ -413,7 +409,13 @@ public class WelcomeGeiNiHuaActivity extends XActivity {
         StatusGeiNiHuaBarUtil.setTransparent(this, false);
         isAgree = SharedPreferencesUtilisGeiNiHua.getBoolFromPref("agree");
         loginPhone = SharedPreferencesUtilisGeiNiHua.getStringFromPref("phone");
-        sendRequestWithOkHttp();
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
     @Override

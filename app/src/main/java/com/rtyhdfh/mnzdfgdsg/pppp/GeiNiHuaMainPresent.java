@@ -69,7 +69,6 @@ public class GeiNiHuaMainPresent extends XPresent<HomePageActivityGeiNiHua> {
     }
 
     public void login() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("HTTP_API_URL"))) {
             phone = SharedPreferencesUtilisGeiNiHua.getStringFromPref("phone");
             ip = SharedPreferencesUtilisGeiNiHua.getStringFromPref("ip");
             ApiGeiNiHua.getGankService().logins(phone, ip)
@@ -89,7 +88,6 @@ public class GeiNiHuaMainPresent extends XPresent<HomePageActivityGeiNiHua> {
                             }
                         }
                     });
-        }
     }
 
     public static String iuyfjh(Object o) {
