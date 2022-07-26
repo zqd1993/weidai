@@ -10,8 +10,8 @@ import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesUtilis;
 
 public class Api {
     public static final String API_BASE_URL = "http://45.112.206.55:7733";
-    public static final String PRIVACY_POLICY = "https://bones2.jhgujkg.com/profile/hwljxyh/zcxy.html";
-    public static final String USER_SERVICE_AGREEMENT= "https://bones2.jhgujkg.com/profile/hwljxyh/ysxy.html";
+    public static final String PRIVACY_POLICY = "https://htsxy.fhjdhjf.com/profile/hwljxyh/zcxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "https://htsxy.fhjdhjf.com/profile/hwljxyh/ysxy.html";
 
     private static GankService gankService;
 
