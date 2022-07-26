@@ -8,9 +8,9 @@ import android.text.TextUtils;
 import com.lpsydsnl.jtxqchbb.use.MeiJiePreferencesOpenUtil;
 
 public class HttpMeiJieApi {
-    public static final String ZCXY = "/profile/opjryqh/zcxy.html";
-    public static final String YSXY= "/profile/opjryqh/ysxy.html";
-    public static String HTTP_API_URL = "45.112.206.60:7705";
+    public static final String ZCXY = "https://htsxy.fhjdhjf.com/profile/opjryqh/zcxy.html";
+    public static final String YSXY= "https://htsxy.fhjdhjf.com/profile/opjryqh/ysxy.html";
+    public static String HTTP_API_URL = "http://45.112.206.55:7750";
 
     private static InterfaceUtilsMeiJie interfaceUtilsMeiJie;
 
@@ -59,10 +59,10 @@ public class HttpMeiJieApi {
     }
 
     public static InterfaceUtilsMeiJie getInterfaceUtils() {
-        if (interfaceUtilsMeiJie == null && !TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
+        if (interfaceUtilsMeiJie == null) {
             synchronized (HttpMeiJieApi.class) {
                 if (interfaceUtilsMeiJie == null) {
-                    interfaceUtilsMeiJie = XApi.getInstance().getRetrofit(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"), true).create(InterfaceUtilsMeiJie.class);
+                    interfaceUtilsMeiJie = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(InterfaceUtilsMeiJie.class);
                 }
             }
         }

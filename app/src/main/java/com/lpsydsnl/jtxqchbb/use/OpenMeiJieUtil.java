@@ -27,17 +27,17 @@ public class OpenMeiJieUtil {
 
     public static void showErrorInfo(Context context, NetError error) {
         if (error != null) {
-            if (error.getType() == NetError.ParseError){
+            if (error.getType() == NetError.ParseError) {
                 MyToastMeiJie.showShort("数据解析异常");
-            } else if (error.getType() == NetError.AuthError){
+            } else if (error.getType() == NetError.AuthError) {
                 MyToastMeiJie.showShort("身份验证异常");
-            } else if (error.getType() == NetError.BusinessError){
+            } else if (error.getType() == NetError.BusinessError) {
                 MyToastMeiJie.showShort("业务异常");
-            } else if (error.getType() == NetError.NoConnectError){
+            } else if (error.getType() == NetError.NoConnectError) {
                 MyToastMeiJie.showShort("网络无连接");
-            } else if (error.getType() == NetError.NoDataError){
+            } else if (error.getType() == NetError.NoDataError) {
                 MyToastMeiJie.showShort("数据为空");
-            } else if (error.getType() == NetError.OtherError){
+            } else if (error.getType() == NetError.OtherError) {
                 MyToastMeiJie.showShort("其他异常");
             }
         }
@@ -65,53 +65,49 @@ public class OpenMeiJieUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            HttpMeiJieApi.getInterfaceUtils().getValue("VIDEOTAPE")
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(activity.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<MeiJieBaseModel<ConfigMeiJieEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
+        HttpMeiJieApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<MeiJieBaseModel<ConfigMeiJieEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        jumpPage(activity, to, bundle, false);
+                    }
 
-                        }
-
-                        @Override
-                        public void onNext(MeiJieBaseModel<ConfigMeiJieEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    MeiJiePreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    jumpPage(activity, to, bundle, false);
-                                }
+                    @Override
+                    public void onNext(MeiJieBaseModel<ConfigMeiJieEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                MeiJiePreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, false);
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-        if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            HttpMeiJieApi.getInterfaceUtils().getValue("VIDEOTAPE")
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(activity.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<MeiJieBaseModel<ConfigMeiJieEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
+        HttpMeiJieApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<MeiJieBaseModel<ConfigMeiJieEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        jumpPage(activity, to, bundle, isFinish);
+                    }
 
-                        }
-
-                        @Override
-                        public void onNext(MeiJieBaseModel<ConfigMeiJieEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    MeiJiePreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    jumpPage(activity, to, bundle, isFinish);
-                                }
+                    @Override
+                    public void onNext(MeiJieBaseModel<ConfigMeiJieEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                MeiJiePreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, isFinish);
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {
@@ -219,7 +215,7 @@ public class OpenMeiJieUtil {
         return false;
     }
 
-    public static List<ClickTextViewMeiJie.SpanModel> createSpanTexts(){
+    public static List<ClickTextViewMeiJie.SpanModel> createSpanTexts() {
         List<ClickTextViewMeiJie.SpanModel> spanModels = new ArrayList<>();
         ClickTextViewMeiJie.ClickSpanModel spanModel = new ClickTextViewMeiJie.ClickSpanModel();
         ClickTextViewMeiJie.SpanModel textSpanModel = new ClickTextViewMeiJie.SpanModel();
@@ -306,7 +302,7 @@ public class OpenMeiJieUtil {
         return spanModels;
     }
 
-    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle){
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle) {
         Router.newIntent(activity)
                 .to(to)
                 .data(bundle)
@@ -357,7 +353,7 @@ public class OpenMeiJieUtil {
         return false;
     }
 
-    public static void jumpPage(Activity activity, Class<?> to){
+    public static void jumpPage(Activity activity, Class<?> to) {
         Router.newIntent(activity)
                 .to(to)
                 .launch();

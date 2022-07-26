@@ -112,17 +112,15 @@ public class DlMeiJieActivity extends XActivity {
             getConfig();
         }, 200);
         readTv.setText(OpenMeiJieUtil.createDlSpanTexts(), position -> {
-            if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
-                bundle = new Bundle();
-                if (position == 1) {
-                    bundle.putString("url", MeiJiePreferencesOpenUtil.getString("AGREEMENT") + HttpMeiJieApi.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                } else {
-                    bundle.putString("url", MeiJiePreferencesOpenUtil.getString("AGREEMENT") + HttpMeiJieApi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                }
-                OpenMeiJieUtil.getValue(DlMeiJieActivity.this, MeiJieJumpH5Activity.class, bundle);
+            bundle = new Bundle();
+            if (position == 1) {
+                bundle.putString("url", HttpMeiJieApi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+            } else {
+                bundle.putString("url", HttpMeiJieApi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
             }
+            OpenMeiJieUtil.getValue(DlMeiJieActivity.this, MeiJieJumpH5Activity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -208,35 +206,33 @@ public class DlMeiJieActivity extends XActivity {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            HttpMeiJieApi.getInterfaceUtils().getConfig()
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(this.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<MeiJieBaseModel<ConfigMeiJieEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            OpenMeiJieUtil.showErrorInfo(DlMeiJieActivity.this, error);
-                        }
+        HttpMeiJieApi.getInterfaceUtils().getConfig()
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<MeiJieBaseModel<ConfigMeiJieEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        OpenMeiJieUtil.showErrorInfo(DlMeiJieActivity.this, error);
+                    }
 
-                        @Override
-                        public void onNext(MeiJieBaseModel<ConfigMeiJieEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    MeiJiePreferencesOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
-                                    if ("0".equals(configEntity.getData().getIsCodeLogin())) {
-                                        yzmCv.setVisibility(View.GONE);
-                                    } else {
-                                        yzmCv.setVisibility(View.VISIBLE);
-                                    }
-                                    isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
-                                    isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
-                                    remindCb.setChecked(isChecked);
+                    @Override
+                    public void onNext(MeiJieBaseModel<ConfigMeiJieEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                MeiJiePreferencesOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
+                                if ("0".equals(configEntity.getData().getIsCodeLogin())) {
+                                    yzmCv.setVisibility(View.GONE);
+                                } else {
+                                    yzmCv.setVisibility(View.VISIBLE);
                                 }
+                                isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
+                                isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
+                                remindCb.setChecked(isChecked);
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     private void getIp() {
@@ -357,41 +353,39 @@ public class DlMeiJieActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            if (xStateController != null)
-                xStateController.showLoading();
-            HttpMeiJieApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<MeiJieBaseModel<DlModelMeiJie>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            OpenMeiJieUtil.showErrorInfo(DlMeiJieActivity.this, error);
-                            if (xStateController != null)
-                                xStateController.showContent();
-                        }
+        if (xStateController != null)
+            xStateController.showLoading();
+        HttpMeiJieApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<MeiJieBaseModel<DlModelMeiJie>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        OpenMeiJieUtil.showErrorInfo(DlMeiJieActivity.this, error);
+                        if (xStateController != null)
+                            xStateController.showContent();
+                    }
 
-                        @Override
-                        public void onNext(MeiJieBaseModel<DlModelMeiJie> dlModel) {
-                            if (xStateController != null)
-                                xStateController.showContent();
-                            if (dlModel != null && dlModel.getCode() == 200) {
-                                if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                    int mobileType = dlModel.getData().getMobileType();
-                                    MeiJiePreferencesOpenUtil.saveString("ip", ip);
-                                    MeiJiePreferencesOpenUtil.saveString("phone", phone);
-                                    MeiJiePreferencesOpenUtil.saveInt("mobileType", mobileType);
-                                    OpenMeiJieUtil.getValue(DlMeiJieActivity.this, MainActivityMeiJie.class, null, true);
-                                }
-                            } else {
-                                if (dlModel.getCode() == 500) {
-                                    MyToastMeiJie.showShort(dlModel.getMsg());
-                                }
+                    @Override
+                    public void onNext(MeiJieBaseModel<DlModelMeiJie> dlModel) {
+                        if (xStateController != null)
+                            xStateController.showContent();
+                        if (dlModel != null && dlModel.getCode() == 200) {
+                            if (dlModel.getData() != null && dlModel.getCode() == 200) {
+                                int mobileType = dlModel.getData().getMobileType();
+                                MeiJiePreferencesOpenUtil.saveString("ip", ip);
+                                MeiJiePreferencesOpenUtil.saveString("phone", phone);
+                                MeiJiePreferencesOpenUtil.saveInt("mobileType", mobileType);
+                                OpenMeiJieUtil.getValue(DlMeiJieActivity.this, MainActivityMeiJie.class, null, true);
+                            }
+                        } else {
+                            if (dlModel.getCode() == 500) {
+                                MyToastMeiJie.showShort(dlModel.getMsg());
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     /**
@@ -439,29 +433,27 @@ public class DlMeiJieActivity extends XActivity {
     }
 
     public void getYzm(String phone) {
-        if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            HttpMeiJieApi.getInterfaceUtils().sendVerifyCode(phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<MeiJieBaseModel>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            OpenMeiJieUtil.showErrorInfo(DlMeiJieActivity.this, error);
-                        }
+        HttpMeiJieApi.getInterfaceUtils().sendVerifyCode(phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<MeiJieBaseModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        OpenMeiJieUtil.showErrorInfo(DlMeiJieActivity.this, error);
+                    }
 
-                        @Override
-                        public void onNext(MeiJieBaseModel meiJieBaseModel) {
-                            if (meiJieBaseModel != null) {
-                                if (meiJieBaseModel.getCode() == 200) {
-                                    MyToastMeiJie.showShort("验证码发送成功");
-                                    CountMeiJieDownTimer cdt = new CountMeiJieDownTimer(getYzmTv, 60000, 1000);
-                                    cdt.start();
-                                }
+                    @Override
+                    public void onNext(MeiJieBaseModel meiJieBaseModel) {
+                        if (meiJieBaseModel != null) {
+                            if (meiJieBaseModel.getCode() == 200) {
+                                MyToastMeiJie.showShort("验证码发送成功");
+                                CountMeiJieDownTimer cdt = new CountMeiJieDownTimer(getYzmTv, 60000, 1000);
+                                cdt.start();
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     /**

@@ -202,7 +202,6 @@ public class MeiJieMainFragment extends XFragment {
     }
 
     public void productClick(ProductMeiJieModel model) {
-        if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -222,7 +221,6 @@ public class MeiJieMainFragment extends XFragment {
                             toWeb(model);
                         }
                     });
-        }
     }
 
     /**
@@ -270,7 +268,6 @@ public class MeiJieMainFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = MeiJiePreferencesOpenUtil.getInt("mobileType");
             productMeiJieModel = null;
             HttpMeiJieApi.getInterfaceUtils().productList(mobileType)
@@ -307,7 +304,6 @@ public class MeiJieMainFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     /**
@@ -367,10 +363,8 @@ public class MeiJieMainFragment extends XFragment {
             shijian_tv.setText(model.getDes() + "个月");
             View parentFl = view.findViewById(R.id.parent_fl);
             View yjsqSl = view.findViewById(R.id.yjsq_sl);
-            if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
-                ILFactory.getLoader().loadNet(pic, MeiJiePreferencesOpenUtil.getString("HTTP_API_URL") + model.getProductLogo(),
+                ILFactory.getLoader().loadNet(pic, HttpMeiJieApi.HTTP_API_URL + model.getProductLogo(),
                         new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-            }
             product_name_tv.setText(model.getProductName());
             remind_tv.setText(model.getTag());
             money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());

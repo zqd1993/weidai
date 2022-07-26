@@ -103,20 +103,16 @@ public class SetFragmentMeiJie extends XFragment {
         setItemMeiJieAdapter1.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
-                        webBundle = new Bundle();
-                        webBundle.putString("url", MeiJiePreferencesOpenUtil.getString("AGREEMENT") + HttpMeiJieApi.ZCXY);
-                        webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                        OpenMeiJieUtil.getValue((XActivity) getActivity(), MeiJieJumpH5Activity.class, webBundle);
-                    }
+                    webBundle = new Bundle();
+                    webBundle.putString("url", HttpMeiJieApi.ZCXY);
+                    webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    OpenMeiJieUtil.getValue((XActivity) getActivity(), MeiJieJumpH5Activity.class, webBundle);
                     break;
                 case 1:
-                    if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
-                        webBundle = new Bundle();
-                        webBundle.putString("url", MeiJiePreferencesOpenUtil.getString("AGREEMENT") + HttpMeiJieApi.YSXY);
-                        webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                        OpenMeiJieUtil.getValue((XActivity) getActivity(), MeiJieJumpH5Activity.class, webBundle);
-                    }
+                    webBundle = new Bundle();
+                    webBundle.putString("url", HttpMeiJieApi.YSXY);
+                    webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    OpenMeiJieUtil.getValue((XActivity) getActivity(), MeiJieJumpH5Activity.class, webBundle);
                     break;
                 case 2:
                     OpenMeiJieUtil.getValue((XActivity) getActivity(), MeiJieFeedbackActivity.class, null);
@@ -189,80 +185,74 @@ public class SetFragmentMeiJie extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            mobileType = MeiJiePreferencesOpenUtil.getInt("mobileType");
-            HttpMeiJieApi.getInterfaceUtils().productList(mobileType)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<MeiJieBaseModel<List<ProductMeiJieModel>>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            OpenMeiJieUtil.showErrorInfo(getActivity(), error);
-                        }
+        mobileType = MeiJiePreferencesOpenUtil.getInt("mobileType");
+        HttpMeiJieApi.getInterfaceUtils().productList(mobileType)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<MeiJieBaseModel<List<ProductMeiJieModel>>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        OpenMeiJieUtil.showErrorInfo(getActivity(), error);
+                    }
 
-                        @Override
-                        public void onNext(MeiJieBaseModel<List<ProductMeiJieModel>> meiJieBaseModel) {
-                            if (meiJieBaseModel != null) {
-                                if (meiJieBaseModel.getCode() == 200 && meiJieBaseModel.getData() != null) {
-                                    if (meiJieBaseModel.getData() != null && meiJieBaseModel.getData().size() > 0) {
-                                        productMeiJieModel = meiJieBaseModel.getData().get(0);
-                                    }
+                    @Override
+                    public void onNext(MeiJieBaseModel<List<ProductMeiJieModel>> meiJieBaseModel) {
+                        if (meiJieBaseModel != null) {
+                            if (meiJieBaseModel.getCode() == 200 && meiJieBaseModel.getData() != null) {
+                                if (meiJieBaseModel.getData() != null && meiJieBaseModel.getData().size() > 0) {
+                                    productMeiJieModel = meiJieBaseModel.getData().get(0);
                                 }
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     public void productClick(ProductMeiJieModel model) {
-        if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            if (model == null) {
-                return;
-            }
-            phone = MeiJiePreferencesOpenUtil.getString("phone");
-            HttpMeiJieApi.getInterfaceUtils().productClick(model.getId(), phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<MeiJieBaseModel>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            toWeb(model);
-                        }
-
-                        @Override
-                        public void onNext(MeiJieBaseModel meiJieBaseModel) {
-                            toWeb(model);
-                        }
-                    });
+        if (model == null) {
+            return;
         }
+        phone = MeiJiePreferencesOpenUtil.getString("phone");
+        HttpMeiJieApi.getInterfaceUtils().productClick(model.getId(), phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<MeiJieBaseModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        toWeb(model);
+                    }
+
+                    @Override
+                    public void onNext(MeiJieBaseModel meiJieBaseModel) {
+                        toWeb(model);
+                    }
+                });
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            HttpMeiJieApi.getInterfaceUtils().getConfig()
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(this.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<MeiJieBaseModel<ConfigMeiJieEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
+        HttpMeiJieApi.getInterfaceUtils().getConfig()
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<MeiJieBaseModel<ConfigMeiJieEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onNext(MeiJieBaseModel<ConfigMeiJieEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    mailStr = configEntity.getData().getAppMail();
-                                    MeiJiePreferencesOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
-                                    dialog = new MeiJieRemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
-                                    dialog.show();
-                                }
+                    @Override
+                    public void onNext(MeiJieBaseModel<ConfigMeiJieEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                mailStr = configEntity.getData().getAppMail();
+                                MeiJiePreferencesOpenUtil.saveString("app_mail", configEntity.getData().getAppMail());
+                                dialog = new MeiJieRemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
+                                dialog.show();
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 }
