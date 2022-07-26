@@ -19,6 +19,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 
 import com.rihdkauecgh.plihgnytrvfws.R;
+import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
+import com.rihdkauecgh.plihgnytrvfws.weifenqiutils.StaticUtilWeiFenQi;
 import com.rihdkauecgh.plihgnytrvfws.weifenqiutils.WeiFenQiSharedPreferencesUtilis;
 import com.rihdkauecgh.plihgnytrvfws.weifenqiutils.StatusBarWeiFenQiUtil;
 import com.rihdkauecgh.plihgnytrvfws.router.Router;
@@ -31,7 +33,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class WelcomeActivityWeiFenQi extends AppCompatActivity {
+public class WelcomeActivityWeiFenQi extends XActivity {
 
     private WeiFenQiWelcomeDialog weiFenQiWelcomeDialog;
 
@@ -82,16 +84,6 @@ public class WelcomeActivityWeiFenQi extends AppCompatActivity {
         if (camera != null) {
             camera.release();
         }
-    }
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wei_fen_qi_weclome);
-        StatusBarWeiFenQiUtil.setTransparent(this, false);
-        isAgree = WeiFenQiSharedPreferencesUtilis.getBoolFromPref("agree");
-        loginPhone = WeiFenQiSharedPreferencesUtilis.getStringFromPref("phone");
-        sendRequestWithOkHttp();
     }
 
     @Override
@@ -150,7 +142,7 @@ public class WelcomeActivityWeiFenQi extends AppCompatActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         weiFenQiWelcomeDialog = new WeiFenQiWelcomeDialog(this, "温馨提示");
         weiFenQiWelcomeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -168,10 +160,8 @@ public class WelcomeActivityWeiFenQi extends AppCompatActivity {
                 initUm();
                 WeiFenQiSharedPreferencesUtilis.saveStringIntoPref("uminit", "1");
                 WeiFenQiSharedPreferencesUtilis.saveBoolIntoPref("agree", true);
-                Router.newIntent(WelcomeActivityWeiFenQi.this)
-                        .to(LoginWeiFenQiActivity.class)
-                        .launch();
-                finish();
+                weiFenQiWelcomeDialog.dismiss();
+                StaticUtilWeiFenQi.getValue(WelcomeActivityWeiFenQi.this, LoginWeiFenQiActivity.class, null, true);
             }
 
             @Override
@@ -181,32 +171,22 @@ public class WelcomeActivityWeiFenQi extends AppCompatActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                if (!TextUtils.isEmpty(WeiFenQiSharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 1);
-                    bundle.putString("url", WeiFenQiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiWeiFenQi.PRIVACY_POLICY);
-                    Router.newIntent(WelcomeActivityWeiFenQi.this)
-                            .to(WeiFenQiWebViewActivity.class)
-                            .data(bundle)
-                            .launch();
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", ApiWeiFenQi.PRIVACY_POLICY);
+                StaticUtilWeiFenQi.getValue(WelcomeActivityWeiFenQi.this, WeiFenQiWebViewActivity.class, bundle);
             }
 
             @Override
             public void privacyAgreementClicked() {
-                if (!TextUtils.isEmpty(WeiFenQiSharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 2);
-                    bundle.putString("url", WeiFenQiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiWeiFenQi.USER_SERVICE_AGREEMENT);
-                    Router.newIntent(WelcomeActivityWeiFenQi.this)
-                            .to(WeiFenQiWebViewActivity.class)
-                            .data(bundle)
-                            .launch();
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 2);
+                bundle.putString("url", ApiWeiFenQi.USER_SERVICE_AGREEMENT);
+                StaticUtilWeiFenQi.getValue(WelcomeActivityWeiFenQi.this, WeiFenQiWebViewActivity.class, bundle);
             }
         });
         weiFenQiWelcomeDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     public Camera pukyfhjkfgh(Context context, boolean openOrClose) {
@@ -328,15 +308,10 @@ public class WelcomeActivityWeiFenQi extends AppCompatActivity {
         if (isAgree) {
             initUm();
             if (!TextUtils.isEmpty(loginPhone)) {
-                Router.newIntent(WelcomeActivityWeiFenQi.this)
-                        .to(HomePageActivityWeiFenQi.class)
-                        .launch();
+                StaticUtilWeiFenQi.getValue(WelcomeActivityWeiFenQi.this, HomePageActivityWeiFenQi.class, null, true);
             } else {
-                Router.newIntent(WelcomeActivityWeiFenQi.this)
-                        .to(LoginWeiFenQiActivity.class)
-                        .launch();
+                StaticUtilWeiFenQi.getValue(WelcomeActivityWeiFenQi.this, LoginWeiFenQiActivity.class, null, true);
             }
-            finish();
         } else {
             showDialog();
         }
@@ -457,5 +432,29 @@ public class WelcomeActivityWeiFenQi extends AppCompatActivity {
         if (camera != null) {
             camera.release();
         }
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        StatusBarWeiFenQiUtil.setTransparent(this, false);
+        isAgree = WeiFenQiSharedPreferencesUtilis.getBoolFromPref("agree");
+        loginPhone = WeiFenQiSharedPreferencesUtilis.getStringFromPref("phone");
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_wei_fen_qi_weclome;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 }

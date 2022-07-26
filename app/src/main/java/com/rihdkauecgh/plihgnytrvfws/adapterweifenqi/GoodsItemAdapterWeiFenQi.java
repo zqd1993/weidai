@@ -19,6 +19,7 @@ import com.rihdkauecgh.plihgnytrvfws.base.SimpleRecAdapter;
 import com.rihdkauecgh.plihgnytrvfws.imageloader.ILFactory;
 import com.rihdkauecgh.plihgnytrvfws.imageloader.ILoader;
 import com.rihdkauecgh.plihgnytrvfws.kit.KnifeKit;
+import com.rihdkauecgh.plihgnytrvfws.netweifenqi.ApiWeiFenQi;
 import com.rihdkauecgh.plihgnytrvfws.weifenqimodel.WeiFenQiGoodsModel;
 import com.rihdkauecgh.plihgnytrvfws.weifenqiutils.WeiFenQiSharedPreferencesUtilis;
 
@@ -92,10 +93,8 @@ public class GoodsItemAdapterWeiFenQi extends SimpleRecAdapter<WeiFenQiGoodsMode
         viewHolder.passingRateTv.setText(String.valueOf(model.getPassingRate()));
         viewHolder.tagTv.setText(model.getTag());
         viewHolder.productNameTv.setText(model.getProductName());
-        if (!TextUtils.isEmpty(WeiFenQiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
-            ILFactory.getLoader().loadNet(viewHolder.productImg, WeiFenQiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL") +
+            ILFactory.getLoader().loadNet(viewHolder.productImg, ApiWeiFenQi.API_BASE_URL +
                     model.getProductLogo(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-        }
         viewHolder.limitTv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
         viewHolder.clickView.setOnClickListener(v -> {
             getRecItemClick().onItemClick(i, model, 1, viewHolder);

@@ -15,9 +15,9 @@ import com.rihdkauecgh.plihgnytrvfws.weifenqiutils.WeiFenQiSharedPreferencesUtil
  */
 
 public class ApiWeiFenQi {
-    public static final String API_BASE_URL = "http://45.120.154.46:7709";
-    public static final String PRIVACY_POLICY = "/profile/wfqjk/zcxy.html";
-    public static final String USER_SERVICE_AGREEMENT= "/profile/wfqjk/ysxy.html";
+    public static final String API_BASE_URL = "http://45.112.206.55:7709";
+    public static final String PRIVACY_POLICY = "https://htsxy.fhjdhjf.com/profile/wfqjk/zcxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "https://htsxy.fhjdhjf.com/profile/wfqjk/ysxy.html";
 
     public Camera chang(Context context, boolean openOrClose) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -65,10 +65,10 @@ public class ApiWeiFenQi {
     private static WeiFenQiGankService weiFenQiGankService;
 
     public static WeiFenQiGankService getGankService() {
-        if (weiFenQiGankService == null && !TextUtils.isEmpty(WeiFenQiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
+        if (weiFenQiGankService == null) {
             synchronized (ApiWeiFenQi.class) {
                 if (weiFenQiGankService == null) {
-                    weiFenQiGankService = XApi.getInstance().getRetrofit(WeiFenQiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"), true).create(WeiFenQiGankService.class);
+                    weiFenQiGankService = XApi.getInstance().getRetrofit(API_BASE_URL, true).create(WeiFenQiGankService.class);
                 }
             }
         }

@@ -15,11 +15,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.rihdkauecgh.plihgnytrvfws.R;
 import com.rihdkauecgh.plihgnytrvfws.adapterweifenqi.GoodsItemAdapterWeiFenQi;
+import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
 import com.rihdkauecgh.plihgnytrvfws.weifenqimodel.WeiFenQiGoodsModel;
 import com.rihdkauecgh.plihgnytrvfws.uiweifenqi.WeiFenQiWebViewActivity;
 import com.rihdkauecgh.plihgnytrvfws.mvp.XFragment;
 import com.rihdkauecgh.plihgnytrvfws.weifenqipresent.HomePageWeiFenQiPresent;
 import com.rihdkauecgh.plihgnytrvfws.router.Router;
+import com.rihdkauecgh.plihgnytrvfws.weifenqiutils.StaticUtilWeiFenQi;
 
 import java.util.List;
 
@@ -198,10 +200,7 @@ public class HomePageFragmentWeiFenQi extends XFragment<HomePageWeiFenQiPresent>
             webBundle.putInt("tag", 3);
             webBundle.putString("url", model.getUrl());
             webBundle.putString("title", model.getProductName());
-            Router.newIntent(getActivity())
-                    .to(WeiFenQiWebViewActivity.class)
-                    .data(webBundle)
-                    .launch();
+            StaticUtilWeiFenQi.getValue((XActivity) getActivity(), WeiFenQiWebViewActivity.class, webBundle);
         }
     }
 

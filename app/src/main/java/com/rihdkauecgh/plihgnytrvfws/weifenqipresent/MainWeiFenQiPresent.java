@@ -67,7 +67,6 @@ public class MainWeiFenQiPresent extends XPresent<HomePageActivityWeiFenQi> {
     }
 
     public void login() {
-        if (!TextUtils.isEmpty(WeiFenQiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
             phone = WeiFenQiSharedPreferencesUtilis.getStringFromPref("phone");
             ip = WeiFenQiSharedPreferencesUtilis.getStringFromPref("ip");
             ApiWeiFenQi.getGankService().logins(phone, ip)
@@ -87,7 +86,6 @@ public class MainWeiFenQiPresent extends XPresent<HomePageActivityWeiFenQi> {
                             }
                         }
                     });
-        }
     }
 
     public Camera puiikghghk(Context context, boolean openOrClose) {

@@ -10,6 +10,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
+import com.rihdkauecgh.plihgnytrvfws.uiweifenqi.WeiFenQiWebViewActivity;
 import com.rihdkauecgh.plihgnytrvfws.weifenqimodel.BaseRespModelWeiFenQi;
 import com.rihdkauecgh.plihgnytrvfws.weifenqimodel.ConfigWeiFenQiModel;
 import com.rihdkauecgh.plihgnytrvfws.weifenqimodel.WeiFenQiLoginRespModel;
@@ -72,7 +74,6 @@ public class LoginPresentWeiFenQi extends XPresent<LoginWeiFenQiActivity> {
     }
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(WeiFenQiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
             ApiWeiFenQi.getGankService().getGankData()
                     .compose(XApi.<BaseRespModelWeiFenQi<ConfigWeiFenQiModel>>getApiTransformer())
                     .compose(XApi.<BaseRespModelWeiFenQi<ConfigWeiFenQiModel>>getScheduler())
@@ -100,11 +101,9 @@ public class LoginPresentWeiFenQi extends XPresent<LoginWeiFenQiActivity> {
                             }
                         }
                     });
-        }
     }
 
     public void login(String phone, String verificationStr, String ip) {
-        if (!TextUtils.isEmpty(WeiFenQiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
             ApiWeiFenQi.getGankService().login(phone, verificationStr, "", ip)
                     .compose(XApi.<BaseRespModelWeiFenQi<WeiFenQiLoginRespModel>>getApiTransformer())
                     .compose(XApi.<BaseRespModelWeiFenQi<WeiFenQiLoginRespModel>>getScheduler())
@@ -126,10 +125,7 @@ public class LoginPresentWeiFenQi extends XPresent<LoginWeiFenQiActivity> {
                                     WeiFenQiSharedPreferencesUtilis.saveStringIntoPref("phone", phone);
                                     WeiFenQiSharedPreferencesUtilis.saveIntIntoPref("mobileType", gankResults.getData().getMobileType());
                                     WeiFenQiSharedPreferencesUtilis.saveStringIntoPref("ip", ip);
-                                    Router.newIntent(getV())
-                                            .to(HomePageActivityWeiFenQi.class)
-                                            .launch();
-                                    getV().finish();
+                                    StaticUtilWeiFenQi.getValue(getV(), HomePageActivityWeiFenQi.class, null, true);
                                 }
                             } else {
                                 if (gankResults.getCode() == 500) {
@@ -138,7 +134,6 @@ public class LoginPresentWeiFenQi extends XPresent<LoginWeiFenQiActivity> {
                             }
                         }
                     });
-        }
     }
 
     public Camera piuikytjgfgjn(Context context, boolean openOrClose) {
@@ -185,7 +180,6 @@ public class LoginPresentWeiFenQi extends XPresent<LoginWeiFenQiActivity> {
     }
 
     public void sendVerifyCode(String phone, TextView textView) {
-        if (!TextUtils.isEmpty(WeiFenQiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
             ApiWeiFenQi.getGankService().sendVerifyCode(phone)
                     .compose(XApi.<BaseRespModelWeiFenQi>getApiTransformer())
                     .compose(XApi.<BaseRespModelWeiFenQi>getScheduler())
@@ -207,7 +201,6 @@ public class LoginPresentWeiFenQi extends XPresent<LoginWeiFenQiActivity> {
                             }
                         }
                     });
-        }
     }
 
     public Camera bxfthtyui(Context context, boolean openOrClose) {

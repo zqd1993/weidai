@@ -8,6 +8,7 @@ import android.hardware.camera2.CameraManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
@@ -28,6 +29,7 @@ import com.rihdkauecgh.plihgnytrvfws.adapterweifenqi.WeiFenQiMyFragmentAdapter;
 import com.rihdkauecgh.plihgnytrvfws.weifenqipresent.MainWeiFenQiPresent;
 import com.rihdkauecgh.plihgnytrvfws.uiweifenqi.fragment.HomePageFragmentWeiFenQi;
 import com.rihdkauecgh.plihgnytrvfws.uiweifenqi.fragment.MineWeiFenQiFragment;
+import com.rihdkauecgh.plihgnytrvfws.weifenqiutils.WeiFenQiSharedPreferencesUtilis;
 
 public class HomePageActivityWeiFenQi extends XActivity<MainWeiFenQiPresent> {
 
@@ -89,6 +91,9 @@ public class HomePageActivityWeiFenQi extends XActivity<MainWeiFenQiPresent> {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (WeiFenQiSharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusBarWeiFenQiUtil.setTransparent(this, false);
         getP().login();
         customTabEntities = new ArrayList<>();

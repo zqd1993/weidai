@@ -7,6 +7,7 @@ import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import butterknife.BindView;
 
 import com.rihdkauecgh.plihgnytrvfws.R;
 import com.rihdkauecgh.plihgnytrvfws.weifenqiutils.StatusBarWeiFenQiUtil;
+import com.rihdkauecgh.plihgnytrvfws.weifenqiutils.WeiFenQiSharedPreferencesUtilis;
 import com.rihdkauecgh.plihgnytrvfws.widgetweifenqi.NormalWeiFenQiDialog;
 import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
 
@@ -73,6 +75,9 @@ public class CancellationWeiFenQiAccountActivity extends XActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (WeiFenQiSharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusBarWeiFenQiUtil.setTransparent(this, false);
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("账号注销");

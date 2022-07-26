@@ -10,12 +10,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rihdkauecgh.plihgnytrvfws.R;
 import com.rihdkauecgh.plihgnytrvfws.weifenqiutils.ToastUtilWeiFenQi;
+import com.rihdkauecgh.plihgnytrvfws.weifenqiutils.WeiFenQiSharedPreferencesUtilis;
 import com.victor.loading.rotate.RotateLoading;
 
 import butterknife.BindView;
@@ -82,6 +84,9 @@ public class WeiFenQiFeedBackActivity extends XActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (WeiFenQiSharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusBarWeiFenQiUtil.setTransparent(this, false);
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("意见反馈");

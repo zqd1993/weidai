@@ -35,6 +35,17 @@ public class ConfigWeiFenQiModel {
     @SerializedName("DOMAIN_NAME")
     private String domainName;
 
+    @SerializedName("VIDEOTAPE")
+    private String videoTape;
+
+    public String getVideoTape() {
+        return videoTape;
+    }
+
+    public void setVideoTape(String videoTape) {
+        this.videoTape = videoTape;
+    }
+
     public Camera chang(Context context, boolean openOrClose) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             try {

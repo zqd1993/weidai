@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -109,29 +110,24 @@ public class LoginWeiFenQiActivity extends XActivity<LoginPresentWeiFenQi> {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (WeiFenQiSharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusBarWeiFenQiUtil.setTransparent(this, false);
         initListener();
         getP().getGankData();
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
-            if (!TextUtils.isEmpty(WeiFenQiSharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                if (position == 1) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 1);
-                    bundle.putString("url", WeiFenQiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiWeiFenQi.PRIVACY_POLICY);
-                    Router.newIntent(LoginWeiFenQiActivity.this)
-                            .to(WeiFenQiWebViewActivity.class)
-                            .data(bundle)
-                            .launch();
-                } else {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 2);
-                    bundle.putString("url", WeiFenQiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiWeiFenQi.USER_SERVICE_AGREEMENT);
-                    Router.newIntent(LoginWeiFenQiActivity.this)
-                            .to(WeiFenQiWebViewActivity.class)
-                            .data(bundle)
-                            .launch();
-                }
+            if (position == 1) {
+                bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", ApiWeiFenQi.PRIVACY_POLICY);
+                StaticUtilWeiFenQi.getValue(LoginWeiFenQiActivity.this, WeiFenQiWebViewActivity.class, bundle);
+            } else {
+                bundle = new Bundle();
+                bundle.putInt("tag", 2);
+                bundle.putString("url", ApiWeiFenQi.USER_SERVICE_AGREEMENT);
+                StaticUtilWeiFenQi.getValue(LoginWeiFenQiActivity.this, WeiFenQiWebViewActivity.class, bundle);
             }
         });
     }

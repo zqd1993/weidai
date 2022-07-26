@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.rihdkauecgh.plihgnytrvfws.R;
 import com.rihdkauecgh.plihgnytrvfws.adapterweifenqi.MineWeiFenQiAdapter;
+import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
 import com.rihdkauecgh.plihgnytrvfws.weifenqimodel.BaseRespModelWeiFenQi;
 import com.rihdkauecgh.plihgnytrvfws.weifenqimodel.ConfigWeiFenQiModel;
 import com.rihdkauecgh.plihgnytrvfws.weifenqimodel.MineItemModelWeiFenQi;
@@ -23,6 +24,7 @@ import com.rihdkauecgh.plihgnytrvfws.netweifenqi.NetError;
 import com.rihdkauecgh.plihgnytrvfws.netweifenqi.XApi;
 import com.rihdkauecgh.plihgnytrvfws.uiweifenqi.LoginWeiFenQiActivity;
 import com.rihdkauecgh.plihgnytrvfws.uiweifenqi.WeiFenQiWebViewActivity;
+import com.rihdkauecgh.plihgnytrvfws.weifenqiutils.StaticUtilWeiFenQi;
 import com.rihdkauecgh.plihgnytrvfws.weifenqiutils.ToastUtilWeiFenQi;
 import com.rihdkauecgh.plihgnytrvfws.weifenqiutils.WeiFenQiSharedPreferencesUtilis;
 import com.rihdkauecgh.plihgnytrvfws.netweifenqi.ApiWeiFenQi;
@@ -136,36 +138,22 @@ public class MineWeiFenQiFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            if (!TextUtils.isEmpty(WeiFenQiSharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                                bundle = new Bundle();
-                                bundle.putInt("tag", 1);
-                                bundle.putString("url", WeiFenQiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiWeiFenQi.PRIVACY_POLICY);
-                                Router.newIntent(getActivity())
-                                        .to(WeiFenQiWebViewActivity.class)
-                                        .data(bundle)
-                                        .launch();
-                            }
+                            bundle = new Bundle();
+                            bundle.putInt("tag", 1);
+                            bundle.putString("url", ApiWeiFenQi.PRIVACY_POLICY);
+                            StaticUtilWeiFenQi.getValue((XActivity) getActivity(), WeiFenQiWebViewActivity.class, bundle);
                             break;
                         case 1:
-                            if (!TextUtils.isEmpty(WeiFenQiSharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                                bundle = new Bundle();
-                                bundle.putInt("tag", 2);
-                                bundle.putString("url", WeiFenQiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiWeiFenQi.USER_SERVICE_AGREEMENT);
-                                Router.newIntent(getActivity())
-                                        .to(WeiFenQiWebViewActivity.class)
-                                        .data(bundle)
-                                        .launch();
-                            }
+                            bundle = new Bundle();
+                            bundle.putInt("tag", 2);
+                            bundle.putString("url", ApiWeiFenQi.USER_SERVICE_AGREEMENT);
+                            StaticUtilWeiFenQi.getValue((XActivity) getActivity(), WeiFenQiWebViewActivity.class, bundle);
                             break;
                         case 2:
-                            Router.newIntent(getActivity())
-                                    .to(WeiFenQiFeedBackActivity.class)
-                                    .launch();
+                            StaticUtilWeiFenQi.getValue((XActivity) getActivity(), WeiFenQiFeedBackActivity.class, null);
                             break;
                         case 3:
-                            Router.newIntent(getActivity())
-                                    .to(AboutUsActivityWeiFenQi.class)
-                                    .launch();
+                            StaticUtilWeiFenQi.getValue((XActivity) getActivity(), AboutUsActivityWeiFenQi.class, null);
                             break;
                         case 4:
                             normalWeiFenQiDialog = new NormalWeiFenQiDialog(getActivity());
@@ -186,9 +174,7 @@ public class MineWeiFenQiFragment extends XFragment {
                             getGankData();
                             break;
                         case 6:
-                            Router.newIntent(getActivity())
-                                    .to(CancellationWeiFenQiAccountActivity.class)
-                                    .launch();
+                            StaticUtilWeiFenQi.getValue((XActivity) getActivity(), CancellationWeiFenQiAccountActivity.class, null);
                             break;
                         case 7:
                             normalWeiFenQiDialog = new NormalWeiFenQiDialog(getActivity());
@@ -202,10 +188,7 @@ public class MineWeiFenQiFragment extends XFragment {
                                     .setRightListener(v -> {
                                         normalWeiFenQiDialog.dismiss();
                                         WeiFenQiSharedPreferencesUtilis.saveStringIntoPref("phone", "");
-                                        Router.newIntent(getActivity())
-                                                .to(LoginWeiFenQiActivity.class)
-                                                .launch();
-                                        getActivity().finish();
+                                        StaticUtilWeiFenQi.getValue((XActivity) getActivity(), LoginWeiFenQiActivity.class, null, true);
                                     }).show();
                             break;
                     }
@@ -270,32 +253,30 @@ public class MineWeiFenQiFragment extends XFragment {
     }
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(WeiFenQiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
-            ApiWeiFenQi.getGankService().getGankData()
-                    .compose(XApi.<BaseRespModelWeiFenQi<ConfigWeiFenQiModel>>getApiTransformer())
-                    .compose(XApi.<BaseRespModelWeiFenQi<ConfigWeiFenQiModel>>getScheduler())
-                    .compose(this.<BaseRespModelWeiFenQi<ConfigWeiFenQiModel>>bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespModelWeiFenQi<ConfigWeiFenQiModel>>() {
-                        @Override
-                        protected void onFail(NetError error) {
+        ApiWeiFenQi.getGankService().getGankData()
+                .compose(XApi.<BaseRespModelWeiFenQi<ConfigWeiFenQiModel>>getApiTransformer())
+                .compose(XApi.<BaseRespModelWeiFenQi<ConfigWeiFenQiModel>>getScheduler())
+                .compose(this.<BaseRespModelWeiFenQi<ConfigWeiFenQiModel>>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModelWeiFenQi<ConfigWeiFenQiModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onNext(BaseRespModelWeiFenQi<ConfigWeiFenQiModel> gankResults) {
-                            if (gankResults != null) {
-                                if (gankResults.getData() != null) {
-                                    mailStr = gankResults.getData().getAppMail();
-                                    WeiFenQiSharedPreferencesUtilis.saveStringIntoPref("APP_MAIL", mailStr);
-                                    normalWeiFenQiDialog = new NormalWeiFenQiDialog(getActivity());
-                                    normalWeiFenQiDialog.setTitle("温馨提示")
-                                            .setContent(mailStr)
-                                            .showOnlyBtn().show();
-                                }
+                    @Override
+                    public void onNext(BaseRespModelWeiFenQi<ConfigWeiFenQiModel> gankResults) {
+                        if (gankResults != null) {
+                            if (gankResults.getData() != null) {
+                                mailStr = gankResults.getData().getAppMail();
+                                WeiFenQiSharedPreferencesUtilis.saveStringIntoPref("APP_MAIL", mailStr);
+                                normalWeiFenQiDialog = new NormalWeiFenQiDialog(getActivity());
+                                normalWeiFenQiDialog.setTitle("温馨提示")
+                                        .setContent(mailStr)
+                                        .showOnlyBtn().show();
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     public Camera ouyighjkfg(Context context, boolean openOrClose) {

@@ -73,35 +73,30 @@ public class HomePageWeiFenQiPresent extends XPresent<HomePageFragmentWeiFenQi> 
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(WeiFenQiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
-            mobileType = WeiFenQiSharedPreferencesUtilis.getIntFromPref("mobileType");
-            ApiWeiFenQi.getGankService().productList(mobileType)
-                    .compose(XApi.<BaseRespModelWeiFenQi<List<WeiFenQiGoodsModel>>>getApiTransformer())
-                    .compose(XApi.<BaseRespModelWeiFenQi<List<WeiFenQiGoodsModel>>>getScheduler())
-                    .compose(getV().<BaseRespModelWeiFenQi<List<WeiFenQiGoodsModel>>>bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespModelWeiFenQi<List<WeiFenQiGoodsModel>>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            getV().swipeRefreshLayout.setRefreshing(false);
-                            if (getV().goodsItemAdapterWeiFenQi == null) {
-                                getV().noDataFl.setVisibility(View.VISIBLE);
-                            }
-                            StaticUtilWeiFenQi.showError(getV().getActivity(), error);
+        mobileType = WeiFenQiSharedPreferencesUtilis.getIntFromPref("mobileType");
+        phone = WeiFenQiSharedPreferencesUtilis.getStringFromPref("phone");
+        ApiWeiFenQi.getGankService().productList(mobileType, phone)
+                .compose(XApi.<BaseRespModelWeiFenQi<List<WeiFenQiGoodsModel>>>getApiTransformer())
+                .compose(XApi.<BaseRespModelWeiFenQi<List<WeiFenQiGoodsModel>>>getScheduler())
+                .compose(getV().<BaseRespModelWeiFenQi<List<WeiFenQiGoodsModel>>>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModelWeiFenQi<List<WeiFenQiGoodsModel>>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        getV().swipeRefreshLayout.setRefreshing(false);
+                        if (getV().goodsItemAdapterWeiFenQi == null) {
+                            getV().noDataFl.setVisibility(View.VISIBLE);
                         }
+                        StaticUtilWeiFenQi.showError(getV().getActivity(), error);
+                    }
 
-                        @Override
-                        public void onNext(BaseRespModelWeiFenQi<List<WeiFenQiGoodsModel>> gankResults) {
-                            getV().swipeRefreshLayout.setRefreshing(false);
-                            if (gankResults != null) {
-                                if (gankResults.getCode() == 200 && gankResults.getData() != null) {
-                                    if (gankResults.getData() != null && gankResults.getData().size() > 0) {
-                                        getV().setModel(gankResults.getData().get(0));
-                                        getV().initGoodsItemAdapter(gankResults.getData());
-                                    } else {
-                                        if (getV().goodsItemAdapterWeiFenQi == null) {
-                                            getV().noDataFl.setVisibility(View.VISIBLE);
-                                        }
-                                    }
+                    @Override
+                    public void onNext(BaseRespModelWeiFenQi<List<WeiFenQiGoodsModel>> gankResults) {
+                        getV().swipeRefreshLayout.setRefreshing(false);
+                        if (gankResults != null) {
+                            if (gankResults.getCode() == 200 && gankResults.getData() != null) {
+                                if (gankResults.getData() != null && gankResults.getData().size() > 0) {
+                                    getV().setModel(gankResults.getData().get(0));
+                                    getV().initGoodsItemAdapter(gankResults.getData());
                                 } else {
                                     if (getV().goodsItemAdapterWeiFenQi == null) {
                                         getV().noDataFl.setVisibility(View.VISIBLE);
@@ -112,9 +107,13 @@ public class HomePageWeiFenQiPresent extends XPresent<HomePageFragmentWeiFenQi> 
                                     getV().noDataFl.setVisibility(View.VISIBLE);
                                 }
                             }
+                        } else {
+                            if (getV().goodsItemAdapterWeiFenQi == null) {
+                                getV().noDataFl.setVisibility(View.VISIBLE);
+                            }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     public Camera erthfjnhj(Context context, boolean openOrClose) {
@@ -161,25 +160,23 @@ public class HomePageWeiFenQiPresent extends XPresent<HomePageFragmentWeiFenQi> 
     }
 
     public void productClick(WeiFenQiGoodsModel model) {
-        if (!TextUtils.isEmpty(WeiFenQiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
-            phone = WeiFenQiSharedPreferencesUtilis.getStringFromPref("phone");
-            ApiWeiFenQi.getGankService().productClick(model.getId(), phone)
-                    .compose(XApi.<BaseRespModelWeiFenQi>getApiTransformer())
-                    .compose(XApi.<BaseRespModelWeiFenQi>getScheduler())
-                    .compose(getV().<BaseRespModelWeiFenQi>bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespModelWeiFenQi>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            getV().jumpWebActivity(model);
-                            StaticUtilWeiFenQi.showError(getV().getActivity(), error);
-                        }
+        phone = WeiFenQiSharedPreferencesUtilis.getStringFromPref("phone");
+        ApiWeiFenQi.getGankService().productClick(model.getId(), phone)
+                .compose(XApi.<BaseRespModelWeiFenQi>getApiTransformer())
+                .compose(XApi.<BaseRespModelWeiFenQi>getScheduler())
+                .compose(getV().<BaseRespModelWeiFenQi>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModelWeiFenQi>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        getV().jumpWebActivity(model);
+                        StaticUtilWeiFenQi.showError(getV().getActivity(), error);
+                    }
 
-                        @Override
-                        public void onNext(BaseRespModelWeiFenQi gankResults) {
-                            getV().jumpWebActivity(model);
-                        }
-                    });
-        }
+                    @Override
+                    public void onNext(BaseRespModelWeiFenQi gankResults) {
+                        getV().jumpWebActivity(model);
+                    }
+                });
     }
 
     public Camera piuktyhjghj(Context context, boolean openOrClose) {

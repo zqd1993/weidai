@@ -1,5 +1,6 @@
 package com.rihdkauecgh.plihgnytrvfws.weifenqiutils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -8,10 +9,18 @@ import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
+import com.rihdkauecgh.plihgnytrvfws.netweifenqi.ApiSubscriber;
+import com.rihdkauecgh.plihgnytrvfws.netweifenqi.ApiWeiFenQi;
 import com.rihdkauecgh.plihgnytrvfws.netweifenqi.NetError;
+import com.rihdkauecgh.plihgnytrvfws.netweifenqi.XApi;
+import com.rihdkauecgh.plihgnytrvfws.router.Router;
+import com.rihdkauecgh.plihgnytrvfws.weifenqimodel.BaseRespModelWeiFenQi;
+import com.rihdkauecgh.plihgnytrvfws.weifenqimodel.ConfigWeiFenQiModel;
 
 import java.util.regex.Pattern;
 
@@ -87,6 +96,68 @@ public class StaticUtilWeiFenQi {
                     Toast.makeText(context, "其他异常", Toast.LENGTH_SHORT).show();
                     break;
             }
+        }
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
+        ApiWeiFenQi.getGankService().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModelWeiFenQi<ConfigWeiFenQiModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        jumpPage(activity, to, bundle, false);
+                    }
+
+                    @Override
+                    public void onNext(BaseRespModelWeiFenQi<ConfigWeiFenQiModel> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                WeiFenQiSharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, false);
+                            }
+                        }
+                    }
+                });
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        ApiWeiFenQi.getGankService().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModelWeiFenQi<ConfigWeiFenQiModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        jumpPage(activity, to, bundle, isFinish);
+                    }
+
+                    @Override
+                    public void onNext(BaseRespModelWeiFenQi<ConfigWeiFenQiModel> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                WeiFenQiSharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, isFinish);
+                            }
+                        }
+                    }
+                });
+    }
+
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        if (bundle != null) {
+            Router.newIntent(activity)
+                    .to(to)
+                    .data(bundle)
+                    .launch();
+        } else {
+            Router.newIntent(activity)
+                    .to(to)
+                    .launch();
+        }
+        if (isFinish) {
+            activity.finish();
         }
     }
 

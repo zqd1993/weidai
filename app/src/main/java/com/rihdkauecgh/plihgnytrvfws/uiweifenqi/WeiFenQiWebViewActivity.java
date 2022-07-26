@@ -16,6 +16,7 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -29,6 +30,7 @@ import com.rihdkauecgh.plihgnytrvfws.R;
 import com.rihdkauecgh.plihgnytrvfws.weifenqiutils.DownloadWeiFenQiApkUtil;
 import com.rihdkauecgh.plihgnytrvfws.weifenqiutils.StatusBarWeiFenQiUtil;
 import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
+import com.rihdkauecgh.plihgnytrvfws.weifenqiutils.WeiFenQiSharedPreferencesUtilis;
 
 import java.io.File;
 import java.util.List;
@@ -102,6 +104,9 @@ public class WeiFenQiWebViewActivity extends XActivity implements EasyPermission
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (WeiFenQiSharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusBarWeiFenQiUtil.setTransparent(this, false);
         bundle = getIntent().getExtras();
         if (bundle.containsKey("tag"))
