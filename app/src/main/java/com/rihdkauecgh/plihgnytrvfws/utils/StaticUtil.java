@@ -81,7 +81,7 @@ public class StaticUtil {
         return versionName;
     }
 
-    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle){
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish){
         if (bundle != null){
             Router.newIntent(activity)
                     .to(to)
@@ -92,17 +92,19 @@ public class StaticUtil {
                     .to(to)
                     .launch();
         }
+        if (isFinish) {
+            activity.finish();
+        }
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
             Api.getGankService().getValve("VIDEOTAPE")
                     .compose(XApi.<BaseRespModel<ConfigModel>>getApiTransformer())
                     .compose(XApi.<BaseRespModel<ConfigModel>>getScheduler())
                     .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
                         @Override
                         protected void onFail(NetError error) {
-                            jumpPage(activity, to, bundle);
+                            jumpPage(activity, to, bundle, false);
                         }
 
                         @Override
@@ -112,10 +114,32 @@ public class StaticUtil {
                                     SharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !gankResults.getData().getVideoTape().equals("0"));
                                 }
                             }
-                            jumpPage(activity, to, bundle);
+                            jumpPage(activity, to, bundle, false);
                         }
                     });
-        }
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        Api.getGankService().getValve("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        jumpPage(activity, to, bundle, isFinish);
+                    }
+
+                    @Override
+                    public void onNext(BaseRespModel<ConfigModel> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, isFinish);
+                            }
+                        }
+                    }
+                });
     }
 
 }

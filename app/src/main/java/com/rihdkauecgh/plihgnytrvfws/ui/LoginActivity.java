@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+
 import com.rihdkauecgh.plihgnytrvfws.ActivityCollector;
 
 import com.rihdkauecgh.plihgnytrvfws.present.LoginPresent;
@@ -69,18 +70,16 @@ public class LoginActivity extends XActivity<LoginPresent> {
         getP().getGankData();
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
-            if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                if (position == 1) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 1);
-                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
-                    StaticUtil.getValue(this, WebViewActivity.class, bundle);
-                } else {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 2);
-                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
-                    StaticUtil.getValue(this, WebViewActivity.class, bundle);
-                }
+            if (position == 1) {
+                bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", Api.PRIVACY_POLICY);
+                StaticUtil.getValue(this, WebViewActivity.class, bundle);
+            } else {
+                bundle = new Bundle();
+                bundle.putInt("tag", 2);
+                bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
+                StaticUtil.getValue(this, WebViewActivity.class, bundle);
             }
         });
     }

@@ -79,10 +79,8 @@ public class WelcomeActivity extends XActivity {
 //                initUm();
                 SharedPreferencesUtilis.saveStringIntoPref("uminit", "1");
                 SharedPreferencesUtilis.saveBoolIntoPref("agree", true);
-                Router.newIntent(WelcomeActivity.this)
-                        .to(LoginActivity.class)
-                        .launch();
-                finish();
+                welcomeDialog.dismiss();
+                StaticUtil.getValue(WelcomeActivity.this, LoginActivity.class, null, true);
             }
 
             @Override
@@ -92,28 +90,18 @@ public class WelcomeActivity extends XActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 1);
-                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
-                    Router.newIntent(WelcomeActivity.this)
-                            .to(WebViewActivity.class)
-                            .data(bundle)
-                            .launch();
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", Api.PRIVACY_POLICY);
+                StaticUtil.getValue(WelcomeActivity.this, WebViewActivity.class, bundle);
             }
 
             @Override
             public void privacyAgreementClicked() {
-                if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 2);
-                    bundle.putString("url", SharedPreferencesUtilis.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
-                    Router.newIntent(WelcomeActivity.this)
-                            .to(WebViewActivity.class)
-                            .data(bundle)
-                            .launch();
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 2);
+                bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
+                StaticUtil.getValue(WelcomeActivity.this, WebViewActivity.class, bundle);
             }
         });
         welcomeDialog.show();
@@ -137,7 +125,7 @@ public class WelcomeActivity extends XActivity {
                                 SharedPreferencesUtilis.saveStringIntoPref("HTTP_API_URL", "http://" + net[0]);
                                 SharedPreferencesUtilis.saveStringIntoPref("AGREEMENT", net[1]);
                                 Thread.sleep(1000);
-                                getGankData();
+                                jumpPage();
                             }
                         }
                     }
@@ -152,15 +140,10 @@ public class WelcomeActivity extends XActivity {
         if (isAgree) {
 //            initUm();
             if (!TextUtils.isEmpty(loginPhone)) {
-                Router.newIntent(WelcomeActivity.this)
-                        .to(HomePageActivity.class)
-                        .launch();
+                StaticUtil.getValue(WelcomeActivity.this, HomePageActivity.class, null, true);
             } else {
-                Router.newIntent(WelcomeActivity.this)
-                        .to(LoginActivity.class)
-                        .launch();
+                StaticUtil.getValue(WelcomeActivity.this, LoginActivity.class, null, true);
             }
-            finish();
         } else {
             showDialog();
         }
@@ -171,34 +154,9 @@ public class WelcomeActivity extends XActivity {
         finish();
     }
 
-    public void getGankData() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
-            Api.getGankService().getValve("VIDEOTAPE")
-                    .compose(XApi.<BaseRespModel<ConfigModel>>getApiTransformer())
-                    .compose(XApi.<BaseRespModel<ConfigModel>>getScheduler())
-                    .compose(this.<BaseRespModel<ConfigModel>>bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            jumpPage();
-                        }
-
-                        @Override
-                        public void onNext(BaseRespModel<ConfigModel> gankResults) {
-                            if (gankResults != null) {
-                                if (gankResults.getData() != null) {
-                                    SharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !gankResults.getData().getVideoTape().equals("0"));
-                                }
-                            }
-                            jumpPage();
-                        }
-                    });
-        }
-    }
-
     @Override
     protected void onDestroy() {
-        if (welcomeDialog != null){
+        if (welcomeDialog != null) {
             welcomeDialog.dismiss();
             welcomeDialog = null;
         }
@@ -210,7 +168,13 @@ public class WelcomeActivity extends XActivity {
         StatusBarUtil.setTransparent(this, false);
         isAgree = SharedPreferencesUtilis.getBoolFromPref("agree");
         loginPhone = SharedPreferencesUtilis.getStringFromPref("phone");
-        sendRequestWithOkHttp();
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
     @Override
