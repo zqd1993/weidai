@@ -120,20 +120,16 @@ public class SheZhiFragment extends XFragment {
         setItemAdapter.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("AGREEMENT"))) {
-                        webBundle = new Bundle();
-                        webBundle.putString("url", PreferencesStaticOpenUtil.getString("AGREEMENT") + MyApi.ZCXY);
-                        webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                        BaseUtil.getValue((XActivity) getActivity(), WangYeActivity.class, webBundle);
-                    }
+                    webBundle = new Bundle();
+                    webBundle.putString("url", MyApi.ZCXY);
+                    webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    BaseUtil.getValue((XActivity) getActivity(), WangYeActivity.class, webBundle);
                     break;
                 case 1:
-                    if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("AGREEMENT"))) {
-                        webBundle = new Bundle();
-                        webBundle.putString("url", PreferencesStaticOpenUtil.getString("AGREEMENT") + MyApi.YSXY);
-                        webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                        BaseUtil.getValue((XActivity) getActivity(), WangYeActivity.class, webBundle);
-                    }
+                    webBundle = new Bundle();
+                    webBundle.putString("url", MyApi.YSXY);
+                    webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    BaseUtil.getValue((XActivity) getActivity(), WangYeActivity.class, webBundle);
                     break;
 //                case 2:
 //                    OpenUtil.jumpPage(getActivity(), FeedbackActivity.class);
@@ -191,7 +187,6 @@ public class SheZhiFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesStaticOpenUtil.getInt("mobileType");
             phone = PreferencesStaticOpenUtil.getString("phone");
             MyApi.getInterfaceUtils().productList(mobileType, phone)
@@ -215,11 +210,9 @@ public class SheZhiFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
             MyApi.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -242,7 +235,6 @@ public class SheZhiFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
 }

@@ -85,17 +85,15 @@ public class DengLuActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.quanquan_loading, null));
         getConfig();
         readTv.setText(BaseUtil.createDlSpanTexts(), position -> {
-            if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("AGREEMENT"))) {
-                bundle = new Bundle();
-                if (position == 1) {
-                    bundle.putString("url", PreferencesStaticOpenUtil.getString("AGREEMENT") + MyApi.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                } else {
-                    bundle.putString("url", PreferencesStaticOpenUtil.getString("AGREEMENT") + MyApi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                }
-                BaseUtil.getValue(DengLuActivity.this, WangYeActivity.class, bundle);
+            bundle = new Bundle();
+            if (position == 1) {
+                bundle.putString("url", MyApi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+            } else {
+                bundle.putString("url", MyApi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
             }
+            BaseUtil.getValue(DengLuActivity.this, WangYeActivity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -169,7 +167,6 @@ public class DengLuActivity extends XActivity {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
             MyApi.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -197,7 +194,6 @@ public class DengLuActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     private void getIp() {
@@ -230,7 +226,6 @@ public class DengLuActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
             if (xStateController != null)
                 xStateController.showLoading();
             MyApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
@@ -264,11 +259,9 @@ public class DengLuActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     public void getYzm(String phone) {
-        if (!TextUtils.isEmpty(PreferencesStaticOpenUtil.getString("HTTP_API_URL"))) {
             MyApi.getInterfaceUtils().sendVerifyCode(phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -290,6 +283,5 @@ public class DengLuActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 }
