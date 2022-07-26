@@ -68,7 +68,6 @@ public class OpenMeiJieUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
             HttpMeiJieApi.getInterfaceUtils().getValve("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -76,7 +75,7 @@ public class OpenMeiJieUtil {
                     .subscribe(new ApiSubscriber<MeiJieBaseModel<ConfigMeiJieEntity>>() {
                         @Override
                         protected void onFail(NetError error) {
-
+                            jumpPage(activity, to, bundle, false);
                         }
 
                         @Override
@@ -89,11 +88,9 @@ public class OpenMeiJieUtil {
                             }
                         }
                     });
-        }
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-        if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
             HttpMeiJieApi.getInterfaceUtils().getValve("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -101,7 +98,7 @@ public class OpenMeiJieUtil {
                     .subscribe(new ApiSubscriber<MeiJieBaseModel<ConfigMeiJieEntity>>() {
                         @Override
                         protected void onFail(NetError error) {
-
+                            jumpPage(activity, to, bundle, isFinish);
                         }
 
                         @Override
@@ -114,7 +111,6 @@ public class OpenMeiJieUtil {
                             }
                         }
                     });
-        }
     }
 
     /***

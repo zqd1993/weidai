@@ -103,20 +103,16 @@ public class SetFragmentMeiJie extends XFragment {
         setItemMeiJieAdapter1.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
-                        webBundle = new Bundle();
-                        webBundle.putString("url", MeiJiePreferencesOpenUtil.getString("AGREEMENT") + HttpMeiJieApi.ZCXY);
-                        webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                        OpenMeiJieUtil.getValue((XActivity) getActivity(), MeiJieJumpH5Activity.class, webBundle);
-                    }
+                    webBundle = new Bundle();
+                    webBundle.putString("url", HttpMeiJieApi.ZCXY);
+                    webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    OpenMeiJieUtil.getValue((XActivity) getActivity(), MeiJieJumpH5Activity.class, webBundle);
                     break;
                 case 1:
-                    if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
-                        webBundle = new Bundle();
-                        webBundle.putString("url", MeiJiePreferencesOpenUtil.getString("AGREEMENT") + HttpMeiJieApi.YSXY);
-                        webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                        OpenMeiJieUtil.getValue((XActivity) getActivity(), MeiJieJumpH5Activity.class, webBundle);
-                    }
+                    webBundle = new Bundle();
+                    webBundle.putString("url", HttpMeiJieApi.YSXY);
+                    webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    OpenMeiJieUtil.getValue((XActivity) getActivity(), MeiJieJumpH5Activity.class, webBundle);
                     break;
                 case 2:
                     OpenMeiJieUtil.getValue((XActivity) getActivity(), MeiJieFeedbackActivity.class, null);
@@ -189,7 +185,6 @@ public class SetFragmentMeiJie extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = MeiJiePreferencesOpenUtil.getInt("mobileType");
             phone = MeiJiePreferencesOpenUtil.getString("phone");
             HttpMeiJieApi.getInterfaceUtils().productList(mobileType, phone)
@@ -213,11 +208,9 @@ public class SetFragmentMeiJie extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     public void productClick(ProductMeiJieModel model) {
-        if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -237,11 +230,9 @@ public class SetFragmentMeiJie extends XFragment {
                             toWeb(model);
                         }
                     });
-        }
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(MeiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
             HttpMeiJieApi.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -264,6 +255,5 @@ public class SetFragmentMeiJie extends XFragment {
                             }
                         }
                     });
-        }
     }
 }
