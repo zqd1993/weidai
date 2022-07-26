@@ -2,7 +2,9 @@ package com.nsryryasdt.ioerdfjrtu.adapter;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,16 +41,16 @@ public class GoodsItemAdapter extends SimpleRecAdapter<GoodsModel, GoodsItemAdap
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         GoodsModel model = data.get(i);
         viewHolder.productNameTv.setText(model.getTitle());
+        if (i % 2 == 0) {
+            viewHolder.parent_fl.setBackgroundResource(R.drawable.xvbnxcftysru);
+        } else {
+            viewHolder.parent_fl.setBackgroundResource(R.drawable.eretzdry);
+        }
         Glide.with(context).load(Api.API_BASE_URL + model.getImgs()).into(viewHolder.productImg);
         ILFactory.getLoader().loadNet(viewHolder.productImg, Api.API_BASE_URL + model.getImgs(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
         viewHolder.text_1.setText("·" + model.getMax_money());
         viewHolder.text_2.setText("·" + model.getDay_money());
         viewHolder.text_3.setText("·" + model.getInfo());
-        if (i == data.size() - 1){
-            viewHolder.line.setVisibility(View.GONE);
-        } else {
-            viewHolder.line.setVisibility(View.VISIBLE);
-        }
         viewHolder.clickView.setOnClickListener(v -> {
             getRecItemClick().onItemClick(i, model, 1, viewHolder);
         });
@@ -68,8 +70,8 @@ public class GoodsItemAdapter extends SimpleRecAdapter<GoodsModel, GoodsItemAdap
         TextView text_2;
         @BindView(R.id.text_3)
         TextView text_3;
-        @BindView(R.id.line)
-        View line;
+        @BindView(R.id.parent_fl)
+        LinearLayout parent_fl;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

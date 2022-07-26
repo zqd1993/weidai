@@ -52,15 +52,13 @@ public class MineFragment extends XFragment {
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.mail_tv)
     TextView mail_tv;
-    @BindView(R.id.copy_mail_tv)
-    TextView copy_mail_tv;
 
     private MineAdapter mineAdapter;
     private MineAdapter1 mineAdapter1;
     private List<MineItemModel> list, list1;
-    private int[] imgRes = {R.drawable.xcbdftyery, R.drawable.kdtyisrth, R.drawable.lyufshrh,
-            R.drawable.lytuoidrtu, R.drawable.ghrstyuxfg};
-    private String[] tvRes = {"关于我们", "隐私协议", "注册协议", "系统设置", "注销账户"};
+    private int[] imgRes = {R.drawable.xcvbdrtyu, R.drawable.retzxdfhtyu, R.drawable.rtyusrtyhsr,
+            R.drawable.urtyxfgjsry, R.drawable.rtseryhxftu};
+    private String[] tvRes = {"关于我们", "系统设置", "注销账户", "注册协议", "隐私协议"};
     private Bundle bundle;
     private NormalDialog normalDialog;
     private String mailStr = "", phone = "";
@@ -88,7 +86,7 @@ public class MineFragment extends XFragment {
         swipeRefreshLayout.setOnRefreshListener(() -> {
             getCompanyInfo();
         });
-        copy_mail_tv.setOnClickListener(v -> {
+        mail_tv.setOnClickListener(v -> {
             ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clipData = ClipData.newPlainText(null, mailStr);
             clipboard.setPrimaryClip(clipData);
@@ -122,20 +120,13 @@ public class MineFragment extends XFragment {
                                     .launch();
                             break;
                         case 1:
-                            bundle = new Bundle();
-                            bundle.putInt("tag", 2);
-                            bundle.putString("url", Api.getYs());
                             Router.newIntent(getActivity())
-                                    .to(WebViewActivity.class)
-                                    .data(bundle)
+                                    .to(SettingActivity.class)
                                     .launch();
+                            break;
                         case 2:
-                            bundle = new Bundle();
-                            bundle.putInt("tag", 1);
-                            bundle.putString("url", Api.getZc());
                             Router.newIntent(getActivity())
-                                    .to(WebViewActivity.class)
-                                    .data(bundle)
+                                    .to(CancellationAccountActivity.class)
                                     .launch();
                             break;
                     }
@@ -155,19 +146,27 @@ public class MineFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
+                            bundle = new Bundle();
+                            bundle.putInt("tag", 1);
+                            bundle.putString("url", Api.getZc());
                             Router.newIntent(getActivity())
-                                    .to(SettingActivity.class)
+                                    .to(WebViewActivity.class)
+                                    .data(bundle)
                                     .launch();
                             break;
                         case 1:
+                            bundle = new Bundle();
+                            bundle.putInt("tag", 2);
+                            bundle.putString("url", Api.getYs());
                             Router.newIntent(getActivity())
-                                    .to(CancellationAccountActivity.class)
+                                    .to(WebViewActivity.class)
+                                    .data(bundle)
                                     .launch();
                             break;
                     }
                 }
             });
-            rvy1.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rvy1.setLayoutManager(new GridLayoutManager(getActivity(), 2));
             rvy1.setHasFixedSize(true);
             rvy1.setAdapter(mineAdapter1);
         }

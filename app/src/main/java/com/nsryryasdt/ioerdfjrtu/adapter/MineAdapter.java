@@ -27,7 +27,7 @@ public class MineAdapter extends SimpleRecAdapter<MineItemModel, MineAdapter.Vie
 
     @Override
     public int getLayoutId() {
-        return R.layout.adapter_mine_item;
+        return R.layout.adapter_mine_item_1;
     }
 
     @Override
