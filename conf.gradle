@@ -13,9 +13,9 @@ ext {
             VRetrofitSdk     : "2.2.0",
             VOkhttp          : "3.4.2",
             VRxlifecycle     : "2.0.1",
-            keyAlias         : "nmsrtyaerysry",
+            keyAlias         : "nsrrgaertadtret",
             keyPassword      : "psd123456",
-            storeFile        : "./nmsrtyaerysry.jks",
+            storeFile        : "./nsrrgaertadtret.jks",
             storePassword    : "psd123456"
     ]
     dependencies = [
