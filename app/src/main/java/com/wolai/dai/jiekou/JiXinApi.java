@@ -11,9 +11,9 @@ import java.io.Reader;
 import java.net.NetworkInterface;
 
 public class JiXinApi {
-    public static final String ZCXY = "/profile/smjk/zcxy.html";
-    public static final String YSXY= "/profile/smjk/ysxy.html";
-    public static final String HTTP_API_URL = "http://45.120.154.46:7701";
+    public static final String ZCXY = "https://bones2.jhgujkg.com/profile/hw361dk/zcxy.html";
+    public static final String YSXY= "https://bones2.jhgujkg.com/profile/hw361dk/zcxy.html";
+    public static final String HTTP_API_URL = "http://202.52.144.94:7719";
 
     private static JiXinInterfaceUtils interfaceUtils;
 
@@ -25,10 +25,10 @@ public class JiXinApi {
     }
 
     public static JiXinInterfaceUtils getInterfaceUtils() {
-        if (interfaceUtils == null && !TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("API_BASE_URL"))) {
+        if (interfaceUtils == null) {
             synchronized (JiXinApi.class) {
                 if (interfaceUtils == null) {
-                    interfaceUtils = XApi.getInstance().getRetrofit(JiXinPreferencesOpenUtil.getString("API_BASE_URL"), true).create(JiXinInterfaceUtils.class);
+                    interfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(JiXinInterfaceUtils.class);
                 }
             }
         }

@@ -59,7 +59,6 @@ public class JixinMainFragment extends XFragment {
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        productList();
         banner.setBannerGalleryEffect(0, (int) (px2dp(width()) / 5), 15, 0.85f);
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -84,6 +83,15 @@ public class JixinMainFragment extends XFragment {
                 ((JixinMainActivity) getActivity()).jumpMore();
             }
         });
+        noDataTv.setOnClickListener(v -> {
+            productList();
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        productList();
     }
 
     public int width() {
@@ -122,73 +130,64 @@ public class JixinMainFragment extends XFragment {
     }
 
     public void productClick(JixinProductModel model) {
-        if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("API_BASE_URL"))) {
-            if (model == null) {
-                return;
-            }
-            phone = JiXinPreferencesOpenUtil.getString("phone");
-            JiXinApi.getInterfaceUtils().productClick(model.getId(), phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<JixinBaseModel>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            toWeb(model);
-                        }
-
-                        @Override
-                        public void onNext(JixinBaseModel baseModel) {
-                            toWeb(model);
-                        }
-                    });
+        if (model == null) {
+            return;
         }
+        phone = JiXinPreferencesOpenUtil.getString("phone");
+        JiXinApi.getInterfaceUtils().productClick(model.getId(), phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<JixinBaseModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        toWeb(model);
+                    }
+
+                    @Override
+                    public void onNext(JixinBaseModel baseModel) {
+                        toWeb(model);
+                    }
+                });
     }
 
 
     public void productList() {
-        if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("API_BASE_URL"))) {
-            mobileType = JiXinPreferencesOpenUtil.getInt("mobileType");
-            JiXinApi.getInterfaceUtils().productList(mobileType)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<JixinBaseModel<List<JixinProductModel>>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            setRefreshing.setRefreshing(false);
-                            JiXinOpenUtil.showErrorInfo(getActivity(), error);
-                            if (imageAdapter == null) {
-                                noDataTv.setVisibility(View.VISIBLE);
-                            }
+        mobileType = JiXinPreferencesOpenUtil.getInt("mobileType");
+        phone = JiXinPreferencesOpenUtil.getString("phone");
+        jixinProductModel = null;
+        JiXinApi.getInterfaceUtils().productList(mobileType, phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<JixinBaseModel<List<JixinProductModel>>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        setRefreshing.setRefreshing(false);
+                        if (imageAdapter == null) {
+                            noDataTv.setVisibility(View.VISIBLE);
                         }
+                    }
 
-                        @Override
-                        public void onNext(JixinBaseModel<List<JixinProductModel>> baseModel) {
-                            setRefreshing.setRefreshing(false);
-                            if (baseModel != null) {
-                                if (baseModel.getCode() == 200 && baseModel.getData() != null) {
-                                    if (baseModel.getData() != null && baseModel.getData().size() > 0) {
-                                        jixinProductModel = baseModel.getData().get(0);
-                                        initBannerAdapter(baseModel.getData());
-                                    } else {
-                                        if (imageAdapter == null) {
-                                            noDataTv.setVisibility(View.VISIBLE);
-                                        }
-                                    }
+                    @Override
+                    public void onNext(JixinBaseModel<List<JixinProductModel>> baseModel) {
+                        setRefreshing.setRefreshing(false);
+                        if (baseModel != null) {
+                            if (baseModel.getCode() == 200 && baseModel.getData() != null) {
+                                if (baseModel.getData() != null && baseModel.getData().size() > 0) {
+                                    jixinProductModel = baseModel.getData().get(0);
+                                    initBannerAdapter(baseModel.getData());
                                 } else {
-                                    if (imageAdapter == null) {
-                                        noDataTv.setVisibility(View.VISIBLE);
-                                    }
-                                }
-                            } else {
-                                if (imageAdapter == null) {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
+                            } else {
+                                noDataTv.setVisibility(View.VISIBLE);
                             }
+                        } else {
+                            noDataTv.setVisibility(View.VISIBLE);
                         }
-                    });
-        }
+                    }
+                });
     }
 
     public void toWeb(JixinProductModel model) {

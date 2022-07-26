@@ -11,6 +11,7 @@ import android.widget.ViewFlipper;
 
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.wolai.dai.JixinApp;
 import com.wolai.dai.R;
 import com.wolai.dai.mvp.XActivity;
 import com.wolai.dai.yemian.JixinJumpH5Activity;
@@ -74,7 +75,6 @@ public class JixinProductFragment extends XFragment {
         top_fl.setVisibility(View.GONE);
         initViewData();
         setViewConfig();
-        productList();
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -90,6 +90,15 @@ public class JixinProductFragment extends XFragment {
         goodsListLl.setOnClickListener(v -> {
             productClick(jixinProductModel);
         });
+        noDataTv.setOnClickListener(v -> {
+            productList();
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        productList();
     }
 
     @Override
@@ -103,72 +112,64 @@ public class JixinProductFragment extends XFragment {
     }
 
     public void productClick(JixinProductModel model) {
-        if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("API_BASE_URL"))) {
-            if (model != null) {
-                phone = JiXinPreferencesOpenUtil.getString("phone");
-                JiXinApi.getInterfaceUtils().productClick(model.getId(), phone)
-                        .compose(XApi.getApiTransformer())
-                        .compose(XApi.getScheduler())
-                        .compose(bindToLifecycle())
-                        .subscribe(new ApiSubscriber<JixinBaseModel>() {
-                            @Override
-                            protected void onFail(NetError error) {
-                                toWeb(model);
-                            }
+        if (model != null) {
+            phone = JiXinPreferencesOpenUtil.getString("phone");
+            JiXinApi.getInterfaceUtils().productClick(model.getId(), phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<JixinBaseModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            toWeb(model);
+                        }
 
-                            @Override
-                            public void onNext(JixinBaseModel baseModel) {
-                                toWeb(model);
-                            }
-                        });
-            }
+                        @Override
+                        public void onNext(JixinBaseModel baseModel) {
+                            toWeb(model);
+                        }
+                    });
         }
     }
 
 
     public void productList() {
-        if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("API_BASE_URL"))) {
-            mobileType = JiXinPreferencesOpenUtil.getInt("mobileType");
-            JiXinApi.getInterfaceUtils().productList(mobileType)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<JixinBaseModel<List<JixinProductModel>>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            setRefreshing.setRefreshing(false);
-                            JiXinOpenUtil.showErrorInfo(getActivity(), error);
-                            if (goodsListLl.getChildCount() == 0) {
-                                noDataTv.setVisibility(View.VISIBLE);
-                            }
+        mobileType = JiXinPreferencesOpenUtil.getInt("mobileType");
+        phone = JiXinPreferencesOpenUtil.getString("phone");
+        jixinProductModel = null;
+        JiXinApi.getInterfaceUtils().productList(mobileType, phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<JixinBaseModel<List<JixinProductModel>>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        setRefreshing.setRefreshing(false);
+                        JiXinOpenUtil.showErrorInfo(getActivity(), error);
+                        if (goodsListLl.getChildCount() == 0) {
+                            noDataTv.setVisibility(View.VISIBLE);
                         }
+                    }
 
-                        @Override
-                        public void onNext(JixinBaseModel<List<JixinProductModel>> baseModel) {
-                            setRefreshing.setRefreshing(false);
-                            if (baseModel != null) {
-                                if (baseModel.getCode() == 200 && baseModel.getData() != null) {
-                                    if (baseModel.getData() != null && baseModel.getData().size() > 0) {
-                                        jixinProductModel = baseModel.getData().get(0);
-                                        addProductView(baseModel.getData());
-                                    } else {
-                                        if (goodsListLl.getChildCount() == 0) {
-                                            noDataTv.setVisibility(View.VISIBLE);
-                                        }
-                                    }
+                    @Override
+                    public void onNext(JixinBaseModel<List<JixinProductModel>> baseModel) {
+                        setRefreshing.setRefreshing(false);
+                        if (baseModel != null) {
+                            if (baseModel.getCode() == 200 && baseModel.getData() != null) {
+                                if (baseModel.getData() != null && baseModel.getData().size() > 0) {
+                                    jixinProductModel = baseModel.getData().get(0);
+                                    addProductView(baseModel.getData());
                                 } else {
-                                    if (goodsListLl.getChildCount() == 0) {
-                                        noDataTv.setVisibility(View.VISIBLE);
-                                    }
-                                }
-                            } else {
-                                if (goodsListLl.getChildCount() == 0) {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
+                            } else {
+                                noDataTv.setVisibility(View.VISIBLE);
                             }
+                        } else {
+                            noDataTv.setVisibility(View.VISIBLE);
                         }
-                    });
-        }
+                    }
+                });
     }
 
 
@@ -203,10 +204,8 @@ public class JixinProductFragment extends XFragment {
             TextView zhouqi_tv = view.findViewById(R.id.zhouqi_tv);
             View parentFl = view.findViewById(R.id.parent_fl);
             View yjsqSl = view.findViewById(R.id.yjsq_sl);
-            if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("API_BASE_URL"))) {
-                ILFactory.getLoader().loadNet(pic, JiXinPreferencesOpenUtil.getString("API_BASE_URL") + model.getProductLogo(),
-                        new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-            }
+            ILFactory.getLoader().loadNet(pic, JiXinApi.HTTP_API_URL + model.getProductLogo(),
+                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
             product_name_tv.setText(model.getProductName());
             remind_tv.setText(model.getTag());
             money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());

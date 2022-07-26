@@ -20,7 +20,6 @@ import com.wolai.dai.gongju.JiXinOpenUtil;
 import com.wolai.dai.gongju.JiXinPreferencesOpenUtil;
 import com.wolai.dai.gongju.JiXinStatusBarUtil;
 import com.wolai.dai.kongjian.JixinStartPageRemindDialog;
-import com.umeng.commonsdk.UMConfigure;
 import com.wolai.dai.mvp.XActivity;
 
 import java.lang.reflect.Method;
@@ -71,7 +70,7 @@ public class JixinStartPageActivity extends XActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         startPageRemindDialog = new JixinStartPageRemindDialog(this);
         startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -86,7 +85,6 @@ public class JixinStartPageActivity extends XActivity {
         startPageRemindDialog.setOnListener(new JixinStartPageRemindDialog.OnListener() {
             @Override
             public void oneBtnClicked() {
-                initUm();
                 JiXinPreferencesOpenUtil.saveBool("isSure", true);
                 startPageRemindDialog.dismiss();
                 JiXinOpenUtil.getValue(JixinStartPageActivity.this, JixinDlActivity.class, null, true);
@@ -94,12 +92,10 @@ public class JixinStartPageActivity extends XActivity {
 
             @Override
             public void zcxyClicked() {
-                if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putString("url", JiXinPreferencesOpenUtil.getString("AGREEMENT") + JiXinApi.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.yryvb));
-                    JiXinOpenUtil.getValue(JixinStartPageActivity.this, JixinJumpH5Activity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putString("url", JiXinApi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.yryvb));
+                JiXinOpenUtil.getValue(JixinStartPageActivity.this, JixinJumpH5Activity.class, bundle);
             }
 
             @Override
@@ -109,16 +105,14 @@ public class JixinStartPageActivity extends XActivity {
 
             @Override
             public void ysxyClicked() {
-                if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putString("url", JiXinPreferencesOpenUtil.getString("AGREEMENT") + JiXinApi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.retert));
-                    JiXinOpenUtil.getValue(JixinStartPageActivity.this, JixinJumpH5Activity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putString("url", JiXinApi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.retert));
+                JiXinOpenUtil.getValue(JixinStartPageActivity.this, JixinJumpH5Activity.class, bundle);
             }
         });
         startPageRemindDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -152,7 +146,6 @@ public class JixinStartPageActivity extends XActivity {
 
     private void jumpPage() {
         if (isSure) {
-            initUm();
             if (TextUtils.isEmpty(phone)) {
                 JiXinOpenUtil.getValue(JixinStartPageActivity.this, JixinDlActivity.class, null, true);
             } else {
@@ -198,23 +191,6 @@ public class JixinStartPageActivity extends XActivity {
         super.onDestroy();
     }
 
-    private void initUm() {
-        //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
-        if (!UMConfigure.isInit) {
-            UMConfigure.setLogEnabled(true);
-            Log.d("youmeng", "zhuche chenggong");
-            //友盟正式初始化
-//            UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
-            // 在此处调用基础组件包提供的初始化函数 相应信息可在应用管理 -> 应用信息 中找到 http://message.umeng.com/list/apps
-            // 参数一：当前上下文context；
-            // 参数二：应用申请的Appkey（需替换）；
-            // 参数三：渠道名称；
-            // 参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
-            // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
-            UMConfigure.init(this, "6270c126d024421570db03fa", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
-        }
-    }
-
     /**
      * Convert a translucent themed Activity
      * {@link android.R.attr#windowIsTranslucent} to a fullscreen opaque
@@ -242,6 +218,12 @@ public class JixinStartPageActivity extends XActivity {
         isSure = JiXinPreferencesOpenUtil.getBool("isSure");
         phone = JiXinPreferencesOpenUtil.getString("phone");
         sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
     @Override

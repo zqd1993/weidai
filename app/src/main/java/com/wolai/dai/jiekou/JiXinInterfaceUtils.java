@@ -46,7 +46,7 @@ public interface JiXinInterfaceUtils {
 //    }
 
     @GET("/app/product/productList")
-    Flowable<JixinBaseModel<List<JixinProductModel>>> productList(@Query("mobileType") int mobileType);
+    Flowable<JixinBaseModel<List<JixinProductModel>>> productList(@Query("mobileType") int mobileType, @Query("phone") String phone);
 
     @GET("/app/product/productClick")
     Flowable<JixinBaseModel> productClick(@Query("productId") long productId, @Query("phone") String phone);

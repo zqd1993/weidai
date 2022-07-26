@@ -64,17 +64,15 @@ public class JixinDlActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.jixin_view_loading, null));
         getConfig();
         readTv.setText(JiXinOpenUtil.createDlSpanTexts(), position -> {
-            if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("AGREEMENT"))) {
-                bundle = new Bundle();
-                if (position == 1) {
-                    bundle.putString("url", JiXinPreferencesOpenUtil.getString("AGREEMENT") + JiXinApi.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.yryvb));
-                } else {
-                    bundle.putString("url", JiXinPreferencesOpenUtil.getString("AGREEMENT") + JiXinApi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.retert));
-                }
-                JiXinOpenUtil.getValue(JixinDlActivity.this, JixinJumpH5Activity.class, bundle);
+            bundle = new Bundle();
+            if (position == 1) {
+                bundle.putString("url", JiXinApi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.yryvb));
+            } else {
+                bundle.putString("url", JiXinApi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.retert));
             }
+            JiXinOpenUtil.getValue(JixinDlActivity.this, JixinJumpH5Activity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -97,11 +95,11 @@ public class JixinDlActivity extends XActivity {
                 JiXinMyToast.showShort("请输入验证码");
                 return;
             }
-            if (!remindCb.isChecked()){
+            if (!remindCb.isChecked()) {
                 JiXinMyToast.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
-            login(phoneStr,yzmStr);
+            login(phoneStr, yzmStr);
         });
     }
 
@@ -125,7 +123,6 @@ public class JixinDlActivity extends XActivity {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("API_BASE_URL"))) {
             JiXinApi.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -153,7 +150,6 @@ public class JixinDlActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     public static String formatNum(String num) {
@@ -241,7 +237,6 @@ public class JixinDlActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("API_BASE_URL"))) {
             if (xStateController != null)
                 xStateController.showLoading();
             JiXinApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
@@ -275,11 +270,9 @@ public class JixinDlActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     public void getYzm(String phone) {
-        if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("API_BASE_URL"))) {
             JiXinApi.getInterfaceUtils().sendVerifyCode(phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -301,6 +294,5 @@ public class JixinDlActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 }

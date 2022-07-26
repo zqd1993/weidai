@@ -41,10 +41,8 @@ public class ImageAdapter extends BannerAdapter<JixinProductModel, ImageAdapter.
         holder.edu_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
         holder.shijian_tv.setText(data.getDes() + "个月");
         holder.shuliang_tv.setText("已申请人数：" + String.valueOf(data.getPassingRate()));
-        if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("API_BASE_URL"))) {
-            ILFactory.getLoader().loadNet(holder.goods_pic_img, JiXinPreferencesOpenUtil.getString("API_BASE_URL") + data.getProductLogo(),
+            ILFactory.getLoader().loadNet(holder.goods_pic_img, JiXinApi.HTTP_API_URL + data.getProductLogo(),
                     new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-        }
         holder.parentLl.setOnClickListener(v -> {
             if (bannerClickedListener != null) {
                 bannerClickedListener.onBannerClicked(data);
