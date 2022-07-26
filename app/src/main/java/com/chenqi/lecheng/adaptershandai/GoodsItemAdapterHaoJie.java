@@ -29,25 +29,27 @@ public class GoodsItemAdapterHaoJie extends SimpleRecAdapter<GoodsWinAHaoJieMode
 
     /**
      * 设置Snackbar背景颜色
+     *
      * @param snackbar
      * @param backgroundColor
      */
     public static void setSnackbarColor(Snackbar snackbar, int backgroundColor) {
         View view = snackbar.getView();
-        if(view!=null){
+        if (view != null) {
             view.setBackgroundColor(backgroundColor);
         }
     }
 
     /**
      * 设置Snackbar文字和背景颜色
+     *
      * @param snackbar
      * @param messageColor
      * @param backgroundColor
      */
     public static void setSnackbarColor(Snackbar snackbar, int messageColor, int backgroundColor) {
         View view = snackbar.getView();
-        if(view!=null){
+        if (view != null) {
             view.setBackgroundColor(backgroundColor);
             ((TextView) view.findViewById(R.id.snackbar_text)).setTextColor(messageColor);
         }
@@ -60,20 +62,21 @@ public class GoodsItemAdapterHaoJie extends SimpleRecAdapter<GoodsWinAHaoJieMode
 
     /**
      * 向Snackbar中添加view
+     *
      * @param snackbar
      * @param layoutId
-     * @param index 新加布局在Snackbar中的位置
+     * @param index    新加布局在Snackbar中的位置
      */
     public static void SnackbarAddView(Snackbar snackbar, int layoutId, int index) {
         View snackbarview = snackbar.getView();
-        Snackbar.SnackbarLayout snackbarLayout=(Snackbar.SnackbarLayout)snackbarview;
+        Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout) snackbarview;
 
-        View add_view = LayoutInflater.from(snackbarview.getContext()).inflate(layoutId,null);
+        View add_view = LayoutInflater.from(snackbarview.getContext()).inflate(layoutId, null);
 
-        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        p.gravity= Gravity.CENTER_VERTICAL;
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        p.gravity = Gravity.CENTER_VERTICAL;
 
-        snackbarLayout.addView(add_view,index,p);
+        snackbarLayout.addView(add_view, index, p);
     }
 
     @Override
@@ -109,25 +112,27 @@ public class GoodsItemAdapterHaoJie extends SimpleRecAdapter<GoodsWinAHaoJieMode
 
     /**
      * 设置Snackbar背景颜色
+     *
      * @param snackbar
      * @param backgroundColor
      */
     public static void utynfgh(Snackbar snackbar, int backgroundColor) {
         View view = snackbar.getView();
-        if(view!=null){
+        if (view != null) {
             view.setBackgroundColor(backgroundColor);
         }
     }
 
     /**
      * 设置Snackbar文字和背景颜色
+     *
      * @param snackbar
      * @param messageColor
      * @param backgroundColor
      */
     public static void ngfdhdfg(Snackbar snackbar, int messageColor, int backgroundColor) {
         View view = snackbar.getView();
-        if(view!=null){
+        if (view != null) {
             view.setBackgroundColor(backgroundColor);
             ((TextView) view.findViewById(R.id.snackbar_text)).setTextColor(messageColor);
         }
@@ -135,29 +140,28 @@ public class GoodsItemAdapterHaoJie extends SimpleRecAdapter<GoodsWinAHaoJieMode
 
     /**
      * 向Snackbar中添加view
+     *
      * @param snackbar
      * @param layoutId
-     * @param index 新加布局在Snackbar中的位置
+     * @param index    新加布局在Snackbar中的位置
      */
     public static void qeefsdf(Snackbar snackbar, int layoutId, int index) {
         View snackbarview = snackbar.getView();
-        Snackbar.SnackbarLayout snackbarLayout=(Snackbar.SnackbarLayout)snackbarview;
+        Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout) snackbarview;
 
-        View add_view = LayoutInflater.from(snackbarview.getContext()).inflate(layoutId,null);
+        View add_view = LayoutInflater.from(snackbarview.getContext()).inflate(layoutId, null);
 
-        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        p.gravity= Gravity.CENTER_VERTICAL;
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        p.gravity = Gravity.CENTER_VERTICAL;
 
-        snackbarLayout.addView(add_view,index,p);
+        snackbarLayout.addView(add_view, index, p);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         GoodsWinAHaoJieModel model = data.get(i);
         viewHolder.rateTv.setText(String.valueOf(model.getPassingRate()));
-        if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("API_BASE_URL"))) {
-            ILFactory.getLoader().loadNet(viewHolder.productImg, SharedPreferencesHaoJieUtilis.getStringFromPref("API_BASE_URL") + model.getProductLogo(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-        }
+        ILFactory.getLoader().loadNet(viewHolder.productImg, ApiHaoJie.API_BASE_URL + model.getProductLogo(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
         if (!TextUtils.isEmpty(model.getDes()) && model.getDes().length() > 2) {
             viewHolder.cycleTv.setText("周期" + model.getDes());
         }
@@ -171,25 +175,27 @@ public class GoodsItemAdapterHaoJie extends SimpleRecAdapter<GoodsWinAHaoJieMode
 
     /**
      * 设置Snackbar背景颜色
+     *
      * @param snackbar
      * @param backgroundColor
      */
     public static void vbdfg(Snackbar snackbar, int backgroundColor) {
         View view = snackbar.getView();
-        if(view!=null){
+        if (view != null) {
             view.setBackgroundColor(backgroundColor);
         }
     }
 
     /**
      * 设置Snackbar文字和背景颜色
+     *
      * @param snackbar
      * @param messageColor
      * @param backgroundColor
      */
     public static void wersdf(Snackbar snackbar, int messageColor, int backgroundColor) {
         View view = snackbar.getView();
-        if(view!=null){
+        if (view != null) {
             view.setBackgroundColor(backgroundColor);
             ((TextView) view.findViewById(R.id.snackbar_text)).setTextColor(messageColor);
         }
@@ -197,20 +203,21 @@ public class GoodsItemAdapterHaoJie extends SimpleRecAdapter<GoodsWinAHaoJieMode
 
     /**
      * 向Snackbar中添加view
+     *
      * @param snackbar
      * @param layoutId
-     * @param index 新加布局在Snackbar中的位置
+     * @param index    新加布局在Snackbar中的位置
      */
     public static void dftgert(Snackbar snackbar, int layoutId, int index) {
         View snackbarview = snackbar.getView();
-        Snackbar.SnackbarLayout snackbarLayout=(Snackbar.SnackbarLayout)snackbarview;
+        Snackbar.SnackbarLayout snackbarLayout = (Snackbar.SnackbarLayout) snackbarview;
 
-        View add_view = LayoutInflater.from(snackbarview.getContext()).inflate(layoutId,null);
+        View add_view = LayoutInflater.from(snackbarview.getContext()).inflate(layoutId, null);
 
-        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        p.gravity= Gravity.CENTER_VERTICAL;
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        p.gravity = Gravity.CENTER_VERTICAL;
 
-        snackbarLayout.addView(add_view,index,p);
+        snackbarLayout.addView(add_view, index, p);
     }
 
 }

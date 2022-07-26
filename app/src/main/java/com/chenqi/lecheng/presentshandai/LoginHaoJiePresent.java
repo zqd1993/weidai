@@ -74,7 +74,6 @@ public class LoginHaoJiePresent extends XPresent<LoginHaoJieActivity> {
     }
 
     public void dl(String phone, String verificationStr, String ip) {
-        if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("API_BASE_URL"))) {
             ApiHaoJie.getGankService().login(phone, verificationStr, "", ip)
                     .compose(XApi.<BaseRespHaoJieModel<LoginRespHaoJieModel>>getApiTransformer())
                     .compose(XApi.<BaseRespHaoJieModel<LoginRespHaoJieModel>>getScheduler())
@@ -105,7 +104,6 @@ public class LoginHaoJiePresent extends XPresent<LoginHaoJieActivity> {
                             }
                         }
                     });
-        }
     }
 
 
@@ -154,7 +152,6 @@ public class LoginHaoJiePresent extends XPresent<LoginHaoJieActivity> {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("API_BASE_URL"))) {
             ApiHaoJie.getGankService().getConfig()
                     .compose(XApi.<BaseRespHaoJieModel<ConfigHaoJieModel>>getApiTransformer())
                     .compose(XApi.<BaseRespHaoJieModel<ConfigHaoJieModel>>getScheduler())
@@ -182,11 +179,9 @@ public class LoginHaoJiePresent extends XPresent<LoginHaoJieActivity> {
                             }
                         }
                     });
-        }
     }
 
     public void getVerifyCode(String mobile, TextView tv) {
-        if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("API_BASE_URL"))) {
             ApiHaoJie.getGankService().sendVerifyCode(mobile)
                     .compose(XApi.<BaseRespHaoJieModel>getApiTransformer())
                     .compose(XApi.<BaseRespHaoJieModel>getScheduler())
@@ -208,7 +203,6 @@ public class LoginHaoJiePresent extends XPresent<LoginHaoJieActivity> {
                             }
                         }
                     });
-        }
     }
 
 

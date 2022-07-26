@@ -119,7 +119,7 @@
     <string name="picture_choose_limit_seconds">只能选择 %1$ds 至 %2$ds内的视频</string>
     <string name="picture_choose_max_seconds">最大只能选择 %1$ds 以内的视频</string>
     <string name="picture_gif_tag">动图</string>
-    <string name="login_title">欢迎使用闪贷备用金</string>
+    <string name="login_title">欢迎使用闪借分期</string>
     <string name="input_phone_number">请输入手机号</string>
     <string name="input_verification">请输入验证码</string>
     <string name="get_verification">获取验证码</string>

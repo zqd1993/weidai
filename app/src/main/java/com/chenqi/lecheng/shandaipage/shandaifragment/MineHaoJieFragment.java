@@ -353,7 +353,6 @@ public class MineHaoJieFragment extends XFragment {
     }
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("API_BASE_URL"))) {
             ApiHaoJie.getGankService().getConfig()
                     .compose(XApi.<BaseRespHaoJieModel<ConfigHaoJieModel>>getApiTransformer())
                     .compose(XApi.<BaseRespHaoJieModel<ConfigHaoJieModel>>getScheduler())
@@ -378,7 +377,6 @@ public class MineHaoJieFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
 

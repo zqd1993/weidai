@@ -166,7 +166,7 @@ public class QiDongHaoJieActivity extends XActivity {
 
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         welcomeDialog = new WelcomeHaoJieDialog(this, "温馨提示");
         welcomeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -194,26 +194,22 @@ public class QiDongHaoJieActivity extends XActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 1);
-                    bundle.putString("url", SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT") + ApiHaoJie.PRIVACY_POLICY);
-                    StaticHaoJieUtil.getValue(QiDongHaoJieActivity.this, HaoJieWebActivity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", ApiHaoJie.PRIVACY_POLICY);
+                StaticHaoJieUtil.getValue(QiDongHaoJieActivity.this, HaoJieWebActivity.class, bundle);
             }
 
             @Override
             public void privacyAgreementClicked() {
-                if (!TextUtils.isEmpty(SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 2);
-                    bundle.putString("url", SharedPreferencesHaoJieUtilis.getStringFromPref("AGREEMENT") + ApiHaoJie.USER_SERVICE_AGREEMENT);
-                    StaticHaoJieUtil.getValue(QiDongHaoJieActivity.this, HaoJieWebActivity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 2);
+                bundle.putString("url", ApiHaoJie.USER_SERVICE_AGREEMENT);
+                StaticHaoJieUtil.getValue(QiDongHaoJieActivity.this, HaoJieWebActivity.class, bundle);
             }
         });
         welcomeDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
 
@@ -413,8 +409,13 @@ public class QiDongHaoJieActivity extends XActivity {
         StatusBarHaoJieUtil.setTransparent(this, false);
         isAgree = SharedPreferencesHaoJieUtilis.getBoolFromPref("agree");
         loginPhone = SharedPreferencesHaoJieUtilis.getStringFromPref("phone");
-        sendRequestWithOkHttp();
-//        jumpPage();
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
     @Override
