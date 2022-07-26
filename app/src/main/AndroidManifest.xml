@@ -72,9 +72,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_path" />
         </provider>
-
-        <meta-data android:value="62c007bb05844627b5d4d241" android:name="UMENG_APPKEY"/>
-
     </application>
 
 </manifest>

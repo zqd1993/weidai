@@ -3,6 +3,7 @@ package com.rihdkauecgh.plihgnytrvfws.ui;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
@@ -12,6 +13,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.rihdkauecgh.plihgnytrvfws.R;
 import com.rihdkauecgh.plihgnytrvfws.ui.fragment.MineXiaoNiuFragment;
+import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesXiaoNiuUtilis;
 import com.rihdkauecgh.plihgnytrvfws.utils.StatusXiaoNiuBarUtil;
 import com.rihdkauecgh.plihgnytrvfws.utils.ToasXiaoNiutUtil;
 import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
@@ -99,6 +101,9 @@ public class HomePageActivityXiaoNiu extends XActivity<MainXiaoNiuPresent> {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (SharedPreferencesXiaoNiuUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusXiaoNiuBarUtil.setTransparent(this, false);
         getP().login();
         customTabEntities = new ArrayList<>();

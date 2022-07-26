@@ -14,10 +14,12 @@ import com.google.gson.reflect.TypeToken;
 import com.rihdkauecgh.plihgnytrvfws.R;
 import com.rihdkauecgh.plihgnytrvfws.adap.GoodsItemAdapterXiaoNiu;
 import com.rihdkauecgh.plihgnytrvfws.models.XiaoNiuGoodsModel;
+import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
 import com.rihdkauecgh.plihgnytrvfws.ui.XiaoNiuWebViewActivity;
 import com.rihdkauecgh.plihgnytrvfws.mvp.XFragment;
 import com.rihdkauecgh.plihgnytrvfws.pres.HomePageXiaoNiuPresent;
 import com.rihdkauecgh.plihgnytrvfws.router.Router;
+import com.rihdkauecgh.plihgnytrvfws.utils.StaticUtilXiaoNiu;
 
 import java.util.List;
 import java.util.Map;
@@ -219,10 +221,7 @@ public class HomePageFragmentXiaoNiu extends XFragment<HomePageXiaoNiuPresent> {
             webBundle.putInt("tag", 3);
             webBundle.putString("url", model.getUrl());
             webBundle.putString("title", model.getProductName());
-            Router.newIntent(getActivity())
-                    .to(XiaoNiuWebViewActivity.class)
-                    .data(webBundle)
-                    .launch();
+            StaticUtilXiaoNiu.getValue((XActivity) getActivity(), XiaoNiuWebViewActivity.class, webBundle);
         }
     }
 

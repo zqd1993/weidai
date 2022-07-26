@@ -142,13 +142,13 @@
                                 android:paddingStart="8dp"
                                 android:paddingEnd="8dp"
                                 android:textColor="@color/white"
-                                android:text="利息低" />
+                                android:text="利息低"
+                                android:visibility="gone"/>
 
                             <TextView
                                 android:id="@+id/tag_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
                                 android:layout_marginEnd="8dp"
                                 android:textSize="12sp"
                                 android:background="@drawable/tyhdfzx"
@@ -169,7 +169,8 @@
                                 android:paddingStart="8dp"
                                 android:paddingEnd="8dp"
                                 android:textColor="@color/white"
-                                android:text="拨款快" />
+                                android:text="拨款快"
+                                android:visibility="gone"/>
 
                         </LinearLayout>
 

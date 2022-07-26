@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.rihdkauecgh.plihgnytrvfws.R;
+import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesXiaoNiuUtilis;
 import com.rihdkauecgh.plihgnytrvfws.utils.ToasXiaoNiutUtil;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -94,6 +96,9 @@ public class XiaoNiuFeedBackActivity extends XActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (SharedPreferencesXiaoNiuUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusXiaoNiuBarUtil.setTransparent(this, false);
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("意见反馈");

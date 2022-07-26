@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.poie.dkhnx",
+  "applicationId": "com.octone.pelicnenwo",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 100,
-      "versionName": "1.0.0",
-      "outputFile": "xiaoniu_v1.0.0_build_20220711213901.apk"
+      "versionCode": 20220726,
+      "versionName": "1.2.0",
+      "outputFile": "xiaoniu_v1.2.0_build_20220726210740.apk"
     }
   ]
 }

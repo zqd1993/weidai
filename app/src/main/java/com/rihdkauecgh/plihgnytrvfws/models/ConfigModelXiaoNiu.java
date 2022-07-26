@@ -36,6 +36,17 @@ public class ConfigModelXiaoNiu {
     @SerializedName("DOMAIN_NAME")
     private String domainName;
 
+    @SerializedName("VIDEOTAPE")
+    private String videoTape;
+
+    public String getVideoTape() {
+        return videoTape;
+    }
+
+    public void setVideoTape(String videoTape) {
+        this.videoTape = videoTape;
+    }
+
     // 把json字符串变成实体类Bean并对对应参数赋值
     public static <T> T changeGsonToBean(String gsonString, Class<T> cls) {
         try {

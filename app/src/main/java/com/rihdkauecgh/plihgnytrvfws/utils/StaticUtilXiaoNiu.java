@@ -1,8 +1,10 @@
 package com.rihdkauecgh.plihgnytrvfws.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -10,7 +12,14 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.rihdkauecgh.plihgnytrvfws.http.ApiSubscriber;
+import com.rihdkauecgh.plihgnytrvfws.http.ApiXiaoNiu;
 import com.rihdkauecgh.plihgnytrvfws.http.NetError;
+import com.rihdkauecgh.plihgnytrvfws.http.XApi;
+import com.rihdkauecgh.plihgnytrvfws.models.BaseRespXiaoNiuModel;
+import com.rihdkauecgh.plihgnytrvfws.models.ConfigModelXiaoNiu;
+import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
+import com.rihdkauecgh.plihgnytrvfws.router.Router;
 
 import java.util.List;
 import java.util.Map;
@@ -70,6 +79,68 @@ public class StaticUtilXiaoNiu {
             e.printStackTrace();
         }
         return map;
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
+        ApiXiaoNiu.getGankService().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespXiaoNiuModel<ConfigModelXiaoNiu>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        jumpPage(activity, to, bundle, false);
+                    }
+
+                    @Override
+                    public void onNext(BaseRespXiaoNiuModel<ConfigModelXiaoNiu> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SharedPreferencesXiaoNiuUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, false);
+                            }
+                        }
+                    }
+                });
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        ApiXiaoNiu.getGankService().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespXiaoNiuModel<ConfigModelXiaoNiu>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        jumpPage(activity, to, bundle, isFinish);
+                    }
+
+                    @Override
+                    public void onNext(BaseRespXiaoNiuModel<ConfigModelXiaoNiu> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SharedPreferencesXiaoNiuUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, isFinish);
+                            }
+                        }
+                    }
+                });
+    }
+
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        if (bundle != null) {
+            Router.newIntent(activity)
+                    .to(to)
+                    .data(bundle)
+                    .launch();
+        } else {
+            Router.newIntent(activity)
+                    .to(to)
+                    .launch();
+        }
+        if (isFinish) {
+            activity.finish();
+        }
     }
 
     public static void showError(Context context, NetError error) {

@@ -16,13 +16,14 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.rihdkauecgh.plihgnytrvfws.R;
+import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
 import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesXiaoNiuUtilis;
+import com.rihdkauecgh.plihgnytrvfws.utils.StaticUtilXiaoNiu;
 import com.rihdkauecgh.plihgnytrvfws.utils.StatusXiaoNiuBarUtil;
 import com.rihdkauecgh.plihgnytrvfws.router.Router;
 
 import com.rihdkauecgh.plihgnytrvfws.http.ApiXiaoNiu;
 import com.rihdkauecgh.plihgnytrvfws.widget.WelcomeXiaoNiuDialog;
-import com.umeng.commonsdk.UMConfigure;
 
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class WelcomeXiaoNiuActivity extends AppCompatActivity {
+public class WelcomeXiaoNiuActivity extends XActivity {
 
     private WelcomeXiaoNiuDialog welcomeXiaoNiuDialog;
 
@@ -96,16 +97,6 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_xiaoniu_weclome);
-        StatusXiaoNiuBarUtil.setTransparent(this, false);
-        isAgree = SharedPreferencesXiaoNiuUtilis.getBoolFromPref("agree");
-        loginPhone = SharedPreferencesXiaoNiuUtilis.getStringFromPref("phone");
-        sendRequestWithOkHttp();
-    }
-
-    @Override
     protected void onResume() {
         isResume = true;
         super.onResume();
@@ -119,7 +110,7 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
 
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         welcomeXiaoNiuDialog = new WelcomeXiaoNiuDialog(this, "温馨提示");
         welcomeXiaoNiuDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -134,13 +125,10 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
         welcomeXiaoNiuDialog.setOnClickedListener(new WelcomeXiaoNiuDialog.OnClickedListener() {
             @Override
             public void topBtnClicked() {
-                initUm();
                 SharedPreferencesXiaoNiuUtilis.saveStringIntoPref("uminit", "1");
                 SharedPreferencesXiaoNiuUtilis.saveBoolIntoPref("agree", true);
-                Router.newIntent(WelcomeXiaoNiuActivity.this)
-                        .to(LoginXiaoNiuActivity.class)
-                        .launch();
-                finish();
+                welcomeXiaoNiuDialog.dismiss();
+                StaticUtilXiaoNiu.getValue(WelcomeXiaoNiuActivity.this, LoginXiaoNiuActivity.class, null, true);
             }
 
             @Override
@@ -150,32 +138,22 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 1);
-                    bundle.putString("url", SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT") + ApiXiaoNiu.PRIVACY_POLICY);
-                    Router.newIntent(WelcomeXiaoNiuActivity.this)
-                            .to(XiaoNiuWebViewActivity.class)
-                            .data(bundle)
-                            .launch();
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", ApiXiaoNiu.PRIVACY_POLICY);
+                StaticUtilXiaoNiu.getValue(WelcomeXiaoNiuActivity.this, XiaoNiuWebViewActivity.class, bundle);
             }
 
             @Override
             public void privacyAgreementClicked() {
-                if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 2);
-                    bundle.putString("url", SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT") + ApiXiaoNiu.USER_SERVICE_AGREEMENT);
-                    Router.newIntent(WelcomeXiaoNiuActivity.this)
-                            .to(XiaoNiuWebViewActivity.class)
-                            .data(bundle)
-                            .launch();
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 2);
+                bundle.putString("url", ApiXiaoNiu.USER_SERVICE_AGREEMENT);
+                StaticUtilXiaoNiu.getValue(WelcomeXiaoNiuActivity.this, XiaoNiuWebViewActivity.class, bundle);
             }
         });
         welcomeXiaoNiuDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     // 把json字符串变成实体类Bean并对对应参数赋值
@@ -317,17 +295,11 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
 
     private void jumpPage() {
         if (isAgree) {
-            initUm();
             if (!TextUtils.isEmpty(loginPhone)) {
-                Router.newIntent(WelcomeXiaoNiuActivity.this)
-                        .to(HomePageActivityXiaoNiu.class)
-                        .launch();
+                StaticUtilXiaoNiu.getValue(WelcomeXiaoNiuActivity.this, HomePageActivityXiaoNiu.class, null, true);
             } else {
-                Router.newIntent(WelcomeXiaoNiuActivity.this)
-                        .to(LoginXiaoNiuActivity.class)
-                        .launch();
+                StaticUtilXiaoNiu.getValue(WelcomeXiaoNiuActivity.this, LoginXiaoNiuActivity.class, null, true);
             }
-            finish();
         } else {
             showDialog();
         }
@@ -401,23 +373,6 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
         return map;
     }
 
-    private void initUm() {
-        //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
-        if (!UMConfigure.isInit) {
-            UMConfigure.setLogEnabled(true);
-            Log.d("youmeng", "zhuche chenggong");
-            //友盟正式初始化
-//            UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
-            // 在此处调用基础组件包提供的初始化函数 相应信息可在应用管理 -> 应用信息 中找到 http://message.umeng.com/list/apps
-            // 参数一：当前上下文context；
-            // 参数二：应用申请的Appkey（需替换）；
-            // 参数三：渠道名称；
-            // 参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
-            // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
-            UMConfigure.init(this, "62c007bb05844627b5d4d241", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
-        }
-    }
-
     // 把json字符串变成实体类Bean并对对应参数赋值
     public <T> T bsdgsdt(String gsonString, Class<T> cls) {
         try {
@@ -470,5 +425,29 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return map;
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        StatusXiaoNiuBarUtil.setTransparent(this, false);
+        isAgree = SharedPreferencesXiaoNiuUtilis.getBoolFromPref("agree");
+        loginPhone = SharedPreferencesXiaoNiuUtilis.getStringFromPref("phone");
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_xiaoniu_weclome;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 }

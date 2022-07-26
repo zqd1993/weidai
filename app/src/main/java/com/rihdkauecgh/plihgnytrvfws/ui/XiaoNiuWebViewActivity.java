@@ -12,6 +12,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -26,6 +27,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.rihdkauecgh.plihgnytrvfws.R;
 import com.rihdkauecgh.plihgnytrvfws.utils.DownloadApkUtilXiaoNiu;
+import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesXiaoNiuUtilis;
 import com.rihdkauecgh.plihgnytrvfws.utils.StatusXiaoNiuBarUtil;
 import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
 
@@ -113,6 +115,9 @@ public class XiaoNiuWebViewActivity extends XActivity implements EasyPermissions
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (SharedPreferencesXiaoNiuUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusXiaoNiuBarUtil.setTransparent(this, false);
         bundle = getIntent().getExtras();
         if (bundle.containsKey("tag"))

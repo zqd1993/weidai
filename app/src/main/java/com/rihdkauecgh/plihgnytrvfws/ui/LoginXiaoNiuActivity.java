@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -119,29 +120,24 @@ public class LoginXiaoNiuActivity extends XActivity<XiaoNiuLoginPresent> {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (SharedPreferencesXiaoNiuUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusXiaoNiuBarUtil.setTransparent(this, false);
         initListener();
         getP().getGankData();
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
-            if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT"))) {
-                if (position == 1) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 1);
-                    bundle.putString("url", SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT") + ApiXiaoNiu.PRIVACY_POLICY);
-                    Router.newIntent(LoginXiaoNiuActivity.this)
-                            .to(XiaoNiuWebViewActivity.class)
-                            .data(bundle)
-                            .launch();
-                } else {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 2);
-                    bundle.putString("url", SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT") + ApiXiaoNiu.USER_SERVICE_AGREEMENT);
-                    Router.newIntent(LoginXiaoNiuActivity.this)
-                            .to(XiaoNiuWebViewActivity.class)
-                            .data(bundle)
-                            .launch();
-                }
+            if (position == 1) {
+                bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", ApiXiaoNiu.PRIVACY_POLICY);
+                StaticUtilXiaoNiu.getValue(LoginXiaoNiuActivity.this, XiaoNiuWebViewActivity.class, bundle);
+            } else {
+                bundle = new Bundle();
+                bundle.putInt("tag", 2);
+                bundle.putString("url", ApiXiaoNiu.USER_SERVICE_AGREEMENT);
+                StaticUtilXiaoNiu.getValue(LoginXiaoNiuActivity.this, XiaoNiuWebViewActivity.class, bundle);
             }
         });
     }

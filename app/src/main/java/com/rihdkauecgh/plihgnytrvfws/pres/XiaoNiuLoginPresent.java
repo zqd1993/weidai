@@ -84,7 +84,6 @@ public class XiaoNiuLoginPresent extends XPresent<LoginXiaoNiuActivity> {
     }
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("HTTP_API_URL"))) {
             ApiXiaoNiu.getGankService().getGankData()
                     .compose(XApi.<BaseRespXiaoNiuModel<ConfigModelXiaoNiu>>getApiTransformer())
                     .compose(XApi.<BaseRespXiaoNiuModel<ConfigModelXiaoNiu>>getScheduler())
@@ -112,7 +111,6 @@ public class XiaoNiuLoginPresent extends XPresent<LoginXiaoNiuActivity> {
                             }
                         }
                     });
-        }
     }
 
     // 把json字符串变成实体类Bean并对对应参数赋值
@@ -170,7 +168,6 @@ public class XiaoNiuLoginPresent extends XPresent<LoginXiaoNiuActivity> {
     }
 
     public void login(String phone, String verificationStr, String ip) {
-        if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("HTTP_API_URL"))) {
             ApiXiaoNiu.getGankService().login(phone, verificationStr, "", ip)
                     .compose(XApi.<BaseRespXiaoNiuModel<LoginRespModelXiaoNiu>>getApiTransformer())
                     .compose(XApi.<BaseRespXiaoNiuModel<LoginRespModelXiaoNiu>>getScheduler())
@@ -192,10 +189,7 @@ public class XiaoNiuLoginPresent extends XPresent<LoginXiaoNiuActivity> {
                                     SharedPreferencesXiaoNiuUtilis.saveStringIntoPref("phone", phone);
                                     SharedPreferencesXiaoNiuUtilis.saveIntIntoPref("mobileType", gankResults.getData().getMobileType());
                                     SharedPreferencesXiaoNiuUtilis.saveStringIntoPref("ip", ip);
-                                    Router.newIntent(getV())
-                                            .to(HomePageActivityXiaoNiu.class)
-                                            .launch();
-                                    getV().finish();
+                                    StaticUtilXiaoNiu.getValue(getV(), HomePageActivityXiaoNiu.class, null, true);
                                 }
                             } else {
                                 if (gankResults.getCode() == 500) {
@@ -204,7 +198,6 @@ public class XiaoNiuLoginPresent extends XPresent<LoginXiaoNiuActivity> {
                             }
                         }
                     });
-        }
     }
 
     // 把json字符串变成实体类Bean并对对应参数赋值
@@ -262,7 +255,6 @@ public class XiaoNiuLoginPresent extends XPresent<LoginXiaoNiuActivity> {
     }
 
     public void sendVerifyCode(String phone, TextView textView) {
-        if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("HTTP_API_URL"))) {
             ApiXiaoNiu.getGankService().sendVerifyCode(phone)
                     .compose(XApi.<BaseRespXiaoNiuModel>getApiTransformer())
                     .compose(XApi.<BaseRespXiaoNiuModel>getScheduler())
@@ -284,7 +276,6 @@ public class XiaoNiuLoginPresent extends XPresent<LoginXiaoNiuActivity> {
                             }
                         }
                     });
-        }
     }
 
     // 把json字符串变成实体类Bean并对对应参数赋值

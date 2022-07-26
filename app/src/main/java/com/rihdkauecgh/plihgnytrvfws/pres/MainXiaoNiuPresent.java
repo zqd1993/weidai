@@ -79,7 +79,6 @@ public class MainXiaoNiuPresent extends XPresent<HomePageActivityXiaoNiu> {
     }
 
     public void login() {
-        if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("HTTP_API_URL"))) {
             phone = SharedPreferencesXiaoNiuUtilis.getStringFromPref("phone");
             ip = SharedPreferencesXiaoNiuUtilis.getStringFromPref("ip");
             ApiXiaoNiu.getGankService().logins(phone, ip)
@@ -99,7 +98,6 @@ public class MainXiaoNiuPresent extends XPresent<HomePageActivityXiaoNiu> {
                             }
                         }
                     });
-        }
     }
 
     // 把json字符串变成实体类Bean并对对应参数赋值

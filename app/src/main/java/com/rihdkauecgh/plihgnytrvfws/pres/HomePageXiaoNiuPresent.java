@@ -49,7 +49,7 @@ public class HomePageXiaoNiuPresent extends XPresent<HomePageFragmentXiaoNiu> {
             }.getType());
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: " + e.getMessage());
         }
         return list;
     }
@@ -62,7 +62,7 @@ public class HomePageXiaoNiuPresent extends XPresent<HomePageFragmentXiaoNiu> {
             list = gson.fromJson(gsonString, new TypeToken<List<Map<String, T>>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return list;
@@ -76,42 +76,36 @@ public class HomePageXiaoNiuPresent extends XPresent<HomePageFragmentXiaoNiu> {
             map = gson.fromJson(gsonString, new TypeToken<Map<String, T>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return map;
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("HTTP_API_URL"))) {
-            mobileType = SharedPreferencesXiaoNiuUtilis.getIntFromPref("mobileType");
-            ApiXiaoNiu.getGankService().productList(mobileType)
-                    .compose(XApi.<BaseRespXiaoNiuModel<List<XiaoNiuGoodsModel>>>getApiTransformer())
-                    .compose(XApi.<BaseRespXiaoNiuModel<List<XiaoNiuGoodsModel>>>getScheduler())
-                    .compose(getV().<BaseRespXiaoNiuModel<List<XiaoNiuGoodsModel>>>bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespXiaoNiuModel<List<XiaoNiuGoodsModel>>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            getV().swipeRefreshLayout.setRefreshing(false);
-                            if (getV().goodsItemAdapterXiaoNiu == null) {
-                                getV().noDataFl.setVisibility(View.VISIBLE);
-                            }
-                            StaticUtilXiaoNiu.showError(getV().getActivity(), error);
+        mobileType = SharedPreferencesXiaoNiuUtilis.getIntFromPref("mobileType");
+        ApiXiaoNiu.getGankService().productList(mobileType)
+                .compose(XApi.<BaseRespXiaoNiuModel<List<XiaoNiuGoodsModel>>>getApiTransformer())
+                .compose(XApi.<BaseRespXiaoNiuModel<List<XiaoNiuGoodsModel>>>getScheduler())
+                .compose(getV().<BaseRespXiaoNiuModel<List<XiaoNiuGoodsModel>>>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespXiaoNiuModel<List<XiaoNiuGoodsModel>>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        getV().swipeRefreshLayout.setRefreshing(false);
+                        if (getV().goodsItemAdapterXiaoNiu == null) {
+                            getV().noDataFl.setVisibility(View.VISIBLE);
                         }
+                        StaticUtilXiaoNiu.showError(getV().getActivity(), error);
+                    }
 
-                        @Override
-                        public void onNext(BaseRespXiaoNiuModel<List<XiaoNiuGoodsModel>> gankResults) {
-                            getV().swipeRefreshLayout.setRefreshing(false);
-                            if (gankResults != null) {
-                                if (gankResults.getCode() == 200 && gankResults.getData() != null) {
-                                    if (gankResults.getData() != null && gankResults.getData().size() > 0) {
-                                        getV().setModel(gankResults.getData().get(0));
-                                        getV().initGoodsItemAdapter(gankResults.getData());
-                                    } else {
-                                        if (getV().goodsItemAdapterXiaoNiu == null) {
-                                            getV().noDataFl.setVisibility(View.VISIBLE);
-                                        }
-                                    }
+                    @Override
+                    public void onNext(BaseRespXiaoNiuModel<List<XiaoNiuGoodsModel>> gankResults) {
+                        getV().swipeRefreshLayout.setRefreshing(false);
+                        if (gankResults != null) {
+                            if (gankResults.getCode() == 200 && gankResults.getData() != null) {
+                                if (gankResults.getData() != null && gankResults.getData().size() > 0) {
+                                    getV().setModel(gankResults.getData().get(0));
+                                    getV().initGoodsItemAdapter(gankResults.getData());
                                 } else {
                                     if (getV().goodsItemAdapterXiaoNiu == null) {
                                         getV().noDataFl.setVisibility(View.VISIBLE);
@@ -122,9 +116,13 @@ public class HomePageXiaoNiuPresent extends XPresent<HomePageFragmentXiaoNiu> {
                                     getV().noDataFl.setVisibility(View.VISIBLE);
                                 }
                             }
+                        } else {
+                            if (getV().goodsItemAdapterXiaoNiu == null) {
+                                getV().noDataFl.setVisibility(View.VISIBLE);
+                            }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     // 把json字符串变成实体类Bean并对对应参数赋值
@@ -148,7 +146,7 @@ public class HomePageXiaoNiuPresent extends XPresent<HomePageFragmentXiaoNiu> {
             }.getType());
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: " + e.getMessage());
         }
         return list;
     }
@@ -161,7 +159,7 @@ public class HomePageXiaoNiuPresent extends XPresent<HomePageFragmentXiaoNiu> {
             list = gson.fromJson(gsonString, new TypeToken<List<Map<String, T>>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return list;
@@ -175,14 +173,13 @@ public class HomePageXiaoNiuPresent extends XPresent<HomePageFragmentXiaoNiu> {
             map = gson.fromJson(gsonString, new TypeToken<Map<String, T>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return map;
     }
 
     public void productClick(XiaoNiuGoodsModel model) {
-        if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("HTTP_API_URL"))) {
             phone = SharedPreferencesXiaoNiuUtilis.getStringFromPref("phone");
             ApiXiaoNiu.getGankService().productClick(model.getId(), phone)
                     .compose(XApi.<BaseRespXiaoNiuModel>getApiTransformer())
@@ -200,7 +197,6 @@ public class HomePageXiaoNiuPresent extends XPresent<HomePageFragmentXiaoNiu> {
                             getV().jumpWebActivity(model);
                         }
                     });
-        }
     }
 
 }

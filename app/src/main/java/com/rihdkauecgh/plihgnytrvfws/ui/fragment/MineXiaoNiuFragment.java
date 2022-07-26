@@ -19,11 +19,13 @@ import com.rihdkauecgh.plihgnytrvfws.models.MineItemXiaoNiuModel;
 import com.rihdkauecgh.plihgnytrvfws.http.ApiSubscriber;
 import com.rihdkauecgh.plihgnytrvfws.http.NetError;
 import com.rihdkauecgh.plihgnytrvfws.http.XApi;
+import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
 import com.rihdkauecgh.plihgnytrvfws.ui.LoginXiaoNiuActivity;
 import com.rihdkauecgh.plihgnytrvfws.ui.XiaoNiuWebViewActivity;
 import com.rihdkauecgh.plihgnytrvfws.ui.activity.AboutUsActivityXiaoNiu;
 import com.rihdkauecgh.plihgnytrvfws.ui.activity.CancellationXiaoNiuAccountActivity;
 import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesXiaoNiuUtilis;
+import com.rihdkauecgh.plihgnytrvfws.utils.StaticUtilXiaoNiu;
 import com.rihdkauecgh.plihgnytrvfws.utils.ToasXiaoNiutUtil;
 import com.rihdkauecgh.plihgnytrvfws.http.ApiXiaoNiu;
 import com.rihdkauecgh.plihgnytrvfws.router.Router;
@@ -77,7 +79,7 @@ public class MineXiaoNiuFragment extends XFragment {
             }.getType());
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: " + e.getMessage());
         }
         return list;
     }
@@ -90,7 +92,7 @@ public class MineXiaoNiuFragment extends XFragment {
             list = gson.fromJson(gsonString, new TypeToken<List<Map<String, T>>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return list;
@@ -104,7 +106,7 @@ public class MineXiaoNiuFragment extends XFragment {
             map = gson.fromJson(gsonString, new TypeToken<Map<String, T>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return map;
@@ -146,36 +148,22 @@ public class MineXiaoNiuFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT"))) {
-                                bundle = new Bundle();
-                                bundle.putInt("tag", 1);
-                                bundle.putString("url", SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT") + ApiXiaoNiu.PRIVACY_POLICY);
-                                Router.newIntent(getActivity())
-                                        .to(XiaoNiuWebViewActivity.class)
-                                        .data(bundle)
-                                        .launch();
-                            }
+                            bundle = new Bundle();
+                            bundle.putInt("tag", 1);
+                            bundle.putString("url", ApiXiaoNiu.PRIVACY_POLICY);
+                            StaticUtilXiaoNiu.getValue((XActivity) getActivity(), XiaoNiuWebViewActivity.class, bundle);
                             break;
                         case 1:
-                            if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT"))) {
-                                bundle = new Bundle();
-                                bundle.putInt("tag", 2);
-                                bundle.putString("url", SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT") + ApiXiaoNiu.USER_SERVICE_AGREEMENT);
-                                Router.newIntent(getActivity())
-                                        .to(XiaoNiuWebViewActivity.class)
-                                        .data(bundle)
-                                        .launch();
-                            }
+                            bundle = new Bundle();
+                            bundle.putInt("tag", 2);
+                            bundle.putString("url", ApiXiaoNiu.USER_SERVICE_AGREEMENT);
+                            StaticUtilXiaoNiu.getValue((XActivity) getActivity(), XiaoNiuWebViewActivity.class, bundle);
                             break;
                         case 2:
-                            Router.newIntent(getActivity())
-                                    .to(XiaoNiuFeedBackActivity.class)
-                                    .launch();
+                            StaticUtilXiaoNiu.getValue((XActivity) getActivity(), XiaoNiuFeedBackActivity.class, null);
                             break;
                         case 3:
-                            Router.newIntent(getActivity())
-                                    .to(AboutUsActivityXiaoNiu.class)
-                                    .launch();
+                            StaticUtilXiaoNiu.getValue((XActivity) getActivity(), AboutUsActivityXiaoNiu.class, null);
                             break;
                         case 4:
                             normalXiaoNiuDialog = new NormalXiaoNiuDialog(getActivity());
@@ -196,9 +184,7 @@ public class MineXiaoNiuFragment extends XFragment {
                             getGankData();
                             break;
                         case 6:
-                            Router.newIntent(getActivity())
-                                    .to(CancellationXiaoNiuAccountActivity.class)
-                                    .launch();
+                            StaticUtilXiaoNiu.getValue((XActivity) getActivity(), CancellationXiaoNiuAccountActivity.class, null);
                             break;
                         case 7:
                             normalXiaoNiuDialog = new NormalXiaoNiuDialog(getActivity());
@@ -212,10 +198,7 @@ public class MineXiaoNiuFragment extends XFragment {
                                     .setRightListener(v -> {
                                         normalXiaoNiuDialog.dismiss();
                                         SharedPreferencesXiaoNiuUtilis.saveStringIntoPref("phone", "");
-                                        Router.newIntent(getActivity())
-                                                .to(LoginXiaoNiuActivity.class)
-                                                .launch();
-                                        getActivity().finish();
+                                        StaticUtilXiaoNiu.getValue((XActivity) getActivity(), LoginXiaoNiuActivity.class, null, true);
                                     }).show();
                             break;
                     }
@@ -248,7 +231,7 @@ public class MineXiaoNiuFragment extends XFragment {
             }.getType());
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: " + e.getMessage());
         }
         return list;
     }
@@ -261,7 +244,7 @@ public class MineXiaoNiuFragment extends XFragment {
             list = gson.fromJson(gsonString, new TypeToken<List<Map<String, T>>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return list;
@@ -275,7 +258,7 @@ public class MineXiaoNiuFragment extends XFragment {
             map = gson.fromJson(gsonString, new TypeToken<Map<String, T>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return map;
@@ -291,7 +274,6 @@ public class MineXiaoNiuFragment extends XFragment {
     }
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("HTTP_API_URL"))) {
             ApiXiaoNiu.getGankService().getGankData()
                     .compose(XApi.<BaseRespXiaoNiuModel<ConfigModelXiaoNiu>>getApiTransformer())
                     .compose(XApi.<BaseRespXiaoNiuModel<ConfigModelXiaoNiu>>getScheduler())
@@ -316,7 +298,6 @@ public class MineXiaoNiuFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     // 把json字符串变成实体类Bean并对对应参数赋值
@@ -340,7 +321,7 @@ public class MineXiaoNiuFragment extends XFragment {
             }.getType());
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<T>集合异常: " + e.getMessage());
         }
         return list;
     }
@@ -353,7 +334,7 @@ public class MineXiaoNiuFragment extends XFragment {
             list = gson.fromJson(gsonString, new TypeToken<List<Map<String, T>>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转List<Map<String, T>集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return list;
@@ -367,7 +348,7 @@ public class MineXiaoNiuFragment extends XFragment {
             map = gson.fromJson(gsonString, new TypeToken<Map<String, T>>() {
             }.getType());
         } catch (JsonSyntaxException e) {
-            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: "+e.getMessage());
+            Log.d("GoodsItemAdapterXiaoNiu", "gson转Map集合异常: " + e.getMessage());
             e.printStackTrace();
         }
         return map;
