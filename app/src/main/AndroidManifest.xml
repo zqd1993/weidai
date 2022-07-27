@@ -23,7 +23,8 @@
         <activity
             android:name="com.rihdkauecgh.plihgnytrvfws.ui.WelcomeXiaoNiuActivity"
             android:icon="@mipmap/app_logo"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,33 +36,39 @@
         <activity
             android:name="com.rihdkauecgh.plihgnytrvfws.ui.XiaoNiuWebViewActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
         <activity
             android:name="com.rihdkauecgh.plihgnytrvfws.ui.LoginXiaoNiuActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
         <activity
             android:name="com.rihdkauecgh.plihgnytrvfws.ui.HomePageActivityXiaoNiu"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
         <activity
             android:name="com.rihdkauecgh.plihgnytrvfws.ui.activity.XiaoNiuFeedBackActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
         <activity
             android:name="com.rihdkauecgh.plihgnytrvfws.ui.activity.AboutUsActivityXiaoNiu"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
 
         <activity
             android:name="com.rihdkauecgh.plihgnytrvfws.ui.activity.CancellationXiaoNiuAccountActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
