@@ -13,10 +13,10 @@ public class HttpApi {
     private static InterfaceUtils interfaceUtils;
 
     public static InterfaceUtils getInterfaceUtils() {
-        if (interfaceUtils == null && !TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
+        if (interfaceUtils == null) {
             synchronized (HttpApi.class) {
                 if (interfaceUtils == null) {
-                    interfaceUtils = XApi.getInstance().getRetrofit(PreferencesOpenUtil.getString("HTTP_API_URL"), true).create(InterfaceUtils.class);
+                    interfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(InterfaceUtils.class);
                 }
             }
         }

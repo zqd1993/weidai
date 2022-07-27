@@ -100,20 +100,16 @@ public class SetFragment extends XFragment {
         setItemAdapter.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("AGREEMENT"))) {
-                        webBundle = new Bundle();
-                        webBundle.putString("url", PreferencesOpenUtil.getString("AGREEMENT") + HttpApi.ZCXY);
-                        webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                        OpenUtil.getValue((XActivity) getActivity(), JumpH5Activity.class, webBundle);
-                    }
+                    webBundle = new Bundle();
+                    webBundle.putString("url", HttpApi.ZCXY);
+                    webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    OpenUtil.getValue((XActivity) getActivity(), JumpH5Activity.class, webBundle);
                     break;
                 case 1:
-                    if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("AGREEMENT"))) {
-                        webBundle = new Bundle();
-                        webBundle.putString("url", PreferencesOpenUtil.getString("AGREEMENT") + HttpApi.YSXY);
-                        webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                        OpenUtil.getValue((XActivity) getActivity(), JumpH5Activity.class, webBundle);
-                    }
+                    webBundle = new Bundle();
+                    webBundle.putString("url", HttpApi.YSXY);
+                    webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    OpenUtil.getValue((XActivity) getActivity(), JumpH5Activity.class, webBundle);
                     break;
                 case 2:
                     OpenUtil.getValue((XActivity) getActivity(), FeedbackActivity.class, null);
@@ -170,7 +166,6 @@ public class SetFragment extends XFragment {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             HttpApi.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -193,7 +188,6 @@ public class SetFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     public void toWeb(ProductModel model) {
@@ -206,7 +200,6 @@ public class SetFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesOpenUtil.getInt("mobileType");
             phone = PreferencesOpenUtil.getString("phone");
             HttpApi.getInterfaceUtils().productList(mobileType, phone)
@@ -230,11 +223,9 @@ public class SetFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     public void productClick(ProductModel model) {
-        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -254,6 +245,5 @@ public class SetFragment extends XFragment {
                             toWeb(model);
                         }
                     });
-        }
     }
 }

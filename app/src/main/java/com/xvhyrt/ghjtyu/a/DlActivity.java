@@ -63,17 +63,15 @@ public class DlActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.view_loading, null));
         getConfig();
         readTv.setText(OpenUtil.createDlSpanTexts(), position -> {
-            if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("AGREEMENT"))) {
-                bundle = new Bundle();
-                if (position == 1) {
-                    bundle.putString("url", PreferencesOpenUtil.getString("AGREEMENT") + HttpApi.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                } else {
-                    bundle.putString("url", PreferencesOpenUtil.getString("AGREEMENT") + HttpApi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                }
-                OpenUtil.getValue(DlActivity.this, JumpH5Activity.class, bundle);
+            bundle = new Bundle();
+            if (position == 1) {
+                bundle.putString("url", HttpApi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+            } else {
+                bundle.putString("url", HttpApi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
             }
+            OpenUtil.getValue(DlActivity.this, JumpH5Activity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -96,11 +94,11 @@ public class DlActivity extends XActivity {
                 MyToast.showShort("请输入验证码");
                 return;
             }
-            if (!remindCb.isChecked()){
+            if (!remindCb.isChecked()) {
                 MyToast.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
-            login(phoneStr,yzmStr);
+            login(phoneStr, yzmStr);
         });
     }
 
@@ -115,7 +113,6 @@ public class DlActivity extends XActivity {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             HttpApi.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -143,7 +140,6 @@ public class DlActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     private void getIp() {
@@ -176,7 +172,6 @@ public class DlActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             if (xStateController != null)
                 xStateController.showLoading();
             HttpApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
@@ -210,11 +205,9 @@ public class DlActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     public void getYzm(String phone) {
-        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             HttpApi.getInterfaceUtils().sendVerifyCode(phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -236,6 +229,5 @@ public class DlActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 }

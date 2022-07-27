@@ -48,7 +48,7 @@ public class StartPageActivity extends XActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         startPageRemindDialog = new StartPageRemindDialog(this);
         startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -71,12 +71,10 @@ public class StartPageActivity extends XActivity {
 
             @Override
             public void zcxyClicked() {
-                if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("AGREEMENT"))) {
                     bundle = new Bundle();
-                    bundle.putString("url", PreferencesOpenUtil.getString("AGREEMENT") + HttpApi.ZCXY);
+                    bundle.putString("url", HttpApi.ZCXY);
                     bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
                     OpenUtil.getValue(StartPageActivity.this, JumpH5Activity.class, bundle);
-                }
             }
 
             @Override
@@ -86,16 +84,14 @@ public class StartPageActivity extends XActivity {
 
             @Override
             public void ysxyClicked() {
-                if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("AGREEMENT"))) {
                     bundle = new Bundle();
-                    bundle.putString("url", PreferencesOpenUtil.getString("AGREEMENT") + HttpApi.YSXY);
+                    bundle.putString("url", HttpApi.YSXY);
                     bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
                     OpenUtil.getValue(StartPageActivity.this, JumpH5Activity.class, bundle);
-                }
             }
         });
         startPageRemindDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -172,7 +168,13 @@ public class StartPageActivity extends XActivity {
         StatusBarUtil.setTransparent(this, false);
         isSure = PreferencesOpenUtil.getBool("isSure");
         phone = PreferencesOpenUtil.getString("phone");
-        sendRequestWithOkHttp();
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
     @Override

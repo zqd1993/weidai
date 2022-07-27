@@ -115,7 +115,6 @@ public class MainFragment extends XFragment {
     }
 
     public void productClick(ProductModel model) {
-        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -135,12 +134,10 @@ public class MainFragment extends XFragment {
                             toWeb(model);
                         }
                     });
-        }
     }
 
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesOpenUtil.getInt("mobileType");
             phone = PreferencesOpenUtil.getString("phone");
             productModel = null;
@@ -177,7 +174,6 @@ public class MainFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     private void setViewConfig() {

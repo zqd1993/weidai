@@ -96,7 +96,6 @@ public class ProductFragment extends XFragment {
     }
 
     public void productClick(ProductModel model) {
-        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             if (model != null) {
                 phone = PreferencesOpenUtil.getString("phone");
                 HttpApi.getInterfaceUtils().productClick(model.getId(), phone)
@@ -115,12 +114,10 @@ public class ProductFragment extends XFragment {
                             }
                         });
             }
-        }
     }
 
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesOpenUtil.getInt("mobileType");
             phone = PreferencesOpenUtil.getString("phone");
             productModel = null;
@@ -158,7 +155,6 @@ public class ProductFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     private void addProductView(List<ProductModel> mList) {
@@ -170,10 +166,8 @@ public class ProductFragment extends XFragment {
             TextView money_number_tv = view.findViewById(R.id.money_number_tv);
             View parentFl = view.findViewById(R.id.parent_fl);
             View yjsqSl = view.findViewById(R.id.yjsq_sl);
-            if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
-                ILFactory.getLoader().loadNet(pic, PreferencesOpenUtil.getString("HTTP_API_URL") + model.getProductLogo(),
+                ILFactory.getLoader().loadNet(pic, HttpApi.HTTP_API_URL + model.getProductLogo(),
                         new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-            }
             product_name_tv.setText(model.getProductName());
             remind_tv.setText(model.getTag());
             money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
