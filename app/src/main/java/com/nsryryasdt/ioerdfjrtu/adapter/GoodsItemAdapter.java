@@ -41,11 +41,6 @@ public class GoodsItemAdapter extends SimpleRecAdapter<GoodsModel, GoodsItemAdap
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         GoodsModel model = data.get(i);
         viewHolder.productNameTv.setText(model.getTitle());
-        if (i % 2 == 0) {
-            viewHolder.parent_fl.setBackgroundResource(R.drawable.xvbnxcftysru);
-        } else {
-            viewHolder.parent_fl.setBackgroundResource(R.drawable.eretzdry);
-        }
         Glide.with(context).load(Api.API_BASE_URL + model.getImgs()).into(viewHolder.productImg);
         ILFactory.getLoader().loadNet(viewHolder.productImg, Api.API_BASE_URL + model.getImgs(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
         viewHolder.text_1.setText("·" + model.getMax_money());

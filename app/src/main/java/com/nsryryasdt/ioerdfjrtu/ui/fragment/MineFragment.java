@@ -56,9 +56,9 @@ public class MineFragment extends XFragment {
     private MineAdapter mineAdapter;
     private MineAdapter1 mineAdapter1;
     private List<MineItemModel> list, list1;
-    private int[] imgRes = {R.drawable.xcvbdrtyu, R.drawable.retzxdfhtyu, R.drawable.rtyusrtyhsr,
-            R.drawable.urtyxfgjsry, R.drawable.rtseryhxftu};
-    private String[] tvRes = {"关于我们", "系统设置", "注销账户", "注册协议", "隐私协议"};
+    private int[] imgRes = {R.drawable.xbnzxeryr, R.drawable.cvnxrtyas, R.drawable.xvnbxrtu,
+            R.drawable.lkdtyusrtu, R.drawable.xcvbnrtua};
+    private String[] tvRes = {"注册协议", "隐私协议", "关于我们", "系统设置", "注销账户"};
     private Bundle bundle;
     private NormalDialog normalDialog;
     private String mailStr = "", phone = "";
@@ -76,11 +76,7 @@ public class MineFragment extends XFragment {
             MineItemModel model = new MineItemModel();
             model.setImgRes(imgRes[i]);
             model.setItemTv(tvRes[i]);
-            if (i < 3){
-                list.add(model);
-            } else {
-                list1.add(model);
-            }
+            list.add(model);
         }
         initAdapter();
         swipeRefreshLayout.setOnRefreshListener(() -> {
@@ -115,16 +111,34 @@ public class MineFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
+                            bundle = new Bundle();
+                            bundle.putInt("tag", 1);
+                            bundle.putString("url", Api.getZc());
+                            Router.newIntent(getActivity())
+                                    .to(WebViewActivity.class)
+                                    .data(bundle)
+                                    .launch();
+                            break;
+                        case 1:
+                            bundle = new Bundle();
+                            bundle.putInt("tag", 2);
+                            bundle.putString("url", Api.getYs());
+                            Router.newIntent(getActivity())
+                                    .to(WebViewActivity.class)
+                                    .data(bundle)
+                                    .launch();
+                            break;
+                        case 2:
                             Router.newIntent(getActivity())
                                     .to(AboutUsActivity.class)
                                     .launch();
                             break;
-                        case 1:
+                        case 3:
                             Router.newIntent(getActivity())
                                     .to(SettingActivity.class)
                                     .launch();
                             break;
-                        case 2:
+                        case 4:
                             Router.newIntent(getActivity())
                                     .to(CancellationAccountActivity.class)
                                     .launch();
@@ -132,7 +146,7 @@ public class MineFragment extends XFragment {
                     }
                 }
             });
-            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 2));
             rvy.setHasFixedSize(true);
             rvy.setAdapter(mineAdapter);
         }
