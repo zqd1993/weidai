@@ -1,11 +1,15 @@
 package com.xvhyrt.ghjtyu.f;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.xvhyrt.ghjtyu.R;
@@ -43,6 +47,8 @@ public class SetFragment extends XFragment {
     TextView userPhoneTv;
     @BindView(R.id.set_list)
     RecyclerView setList;
+    @BindView(R.id.mail_tv)
+    TextView mail_tv;
 
     private ProductModel productModel;
 
@@ -61,10 +67,23 @@ public class SetFragment extends XFragment {
     @Override
     public void initData(Bundle savedInstanceState) {
         mailStr = PreferencesOpenUtil.getString("app_mail");
+        mail_tv.setText(mailStr);
         phone = PreferencesOpenUtil.getString("phone");
         userPhoneTv.setText(phone);
-        productList();
         initSetAdapter();
+        mail_tv.setOnClickListener(v -> {
+            ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clipData = ClipData.newPlainText(null, mailStr);
+            clipboard.setPrimaryClip(clipData);
+            MyToast.showShort("复制成功");
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getConfig();
+        productList();
     }
 
     @Override
@@ -78,22 +97,22 @@ public class SetFragment extends XFragment {
     }
 
     private void initSetAdapter() {
-        SetModel model = new SetModel(R.drawable.fsd, "注册协议");
-        SetModel model1 = new SetModel(R.drawable.hdf, "隐私协议");
-        SetModel model2 = new SetModel(R.drawable.ljhk, "意见反馈");
-        SetModel model3 = new SetModel(R.drawable.ghj, "关于我们");
-        SetModel model4 = new SetModel(R.drawable.cvnvb, "个性化推荐");
-        SetModel model5 = new SetModel(R.drawable.urty, "投诉邮箱");
-        SetModel model6 = new SetModel(R.drawable.das, "注销账户");
-        SetModel model7 = new SetModel(R.drawable.pui, "退出登录");
+        SetModel model = new SetModel(R.drawable.xrtutrjhxfg, "注册协议");
+        SetModel model1 = new SetModel(R.drawable.zzdrytu, "隐私协议");
+        SetModel model2 = new SetModel(R.drawable.kdtyusrz, "意见反馈");
+        SetModel model3 = new SetModel(R.drawable.kdtruytu, "关于我们");
+        SetModel model4 = new SetModel(R.drawable.xxfghjrtu, "个性化推荐");
+        SetModel model5 = new SetModel(R.drawable.lldtyuxfgj, "投诉邮箱");
+        SetModel model6 = new SetModel(R.drawable.kkdtuery, "注销账户");
+        SetModel model7 = new SetModel(R.drawable.xxjxrftu, "退出登录");
         List<SetModel> list = new ArrayList<>();
         List<SetModel> list1 = new ArrayList<>();
         list.add(model);
         list.add(model1);
-        list.add(model2);
+//        list.add(model2);
         list.add(model3);
         list.add(model4);
-        list.add(model5);
+//        list.add(model5);
         list.add(model6);
         list.add(model7);
         setItemAdapter = new SetItemAdapter(R.layout.adpater_set_item, list);
@@ -112,12 +131,9 @@ public class SetFragment extends XFragment {
                     OpenUtil.getValue((XActivity) getActivity(), JumpH5Activity.class, webBundle);
                     break;
                 case 2:
-                    OpenUtil.getValue((XActivity) getActivity(), FeedbackActivity.class, null);
-                    break;
-                case 3:
                     OpenUtil.getValue((XActivity) getActivity(), AboutInfoActivity.class, null);
                     break;
-                case 4:
+                case 3:
                     dialog = new RemindDialog(getActivity()).setCancelText("开启")
                             .setConfirmText("关闭").setTitle("温馨提示").setContent("关闭或开启推送");
                     dialog.setOnButtonClickListener(new RemindDialog.OnButtonClickListener() {
@@ -135,13 +151,10 @@ public class SetFragment extends XFragment {
                     });
                     dialog.show();
                     break;
-                case 5:
-                    getConfig();
-                    break;
-                case 6:
+                case 4:
                     OpenUtil.getValue((XActivity) getActivity(), ZhuXiaoActivity.class, null);
                     break;
-                case 7:
+                case 5:
                     dialog = new RemindDialog(getActivity()).setCancelText("取消")
                             .setConfirmText("退出").setTitle("温馨提示").setContent("确定退出当前登录");
                     dialog.setOnButtonClickListener(new RemindDialog.OnButtonClickListener() {
@@ -161,7 +174,7 @@ public class SetFragment extends XFragment {
                     break;
             }
         });
-        setList.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+        setList.setLayoutManager(new LinearLayoutManager(getActivity()));
         setList.setAdapter(setItemAdapter);
     }
 
@@ -181,9 +194,10 @@ public class SetFragment extends XFragment {
                             if (configEntity != null) {
                                 if (configEntity.getData() != null) {
                                     mailStr = configEntity.getData().getAppMail();
+                                    mail_tv.setText(mailStr);
                                     PreferencesOpenUtil.saveString("app_mail", mailStr);
-                                    dialog = new RemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
-                                    dialog.show();
+//                                    dialog = new RemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
+//                                    dialog.show();
                                 }
                             }
                         }

@@ -49,7 +49,6 @@ public class OpenUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             HttpApi.getInterfaceUtils().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -57,7 +56,7 @@ public class OpenUtil {
                     .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
                         @Override
                         protected void onFail(NetError error) {
-
+                            jumpPage(activity, to, bundle, false);
                         }
 
                         @Override
@@ -70,11 +69,9 @@ public class OpenUtil {
                             }
                         }
                     });
-        }
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
             HttpApi.getInterfaceUtils().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -82,7 +79,7 @@ public class OpenUtil {
                     .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
                         @Override
                         protected void onFail(NetError error) {
-
+                            jumpPage(activity, to, bundle, isFinish);
                         }
 
                         @Override
@@ -95,7 +92,6 @@ public class OpenUtil {
                             }
                         }
                     });
-        }
     }
 
     public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish){

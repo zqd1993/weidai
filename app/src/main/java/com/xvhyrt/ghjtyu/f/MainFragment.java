@@ -2,7 +2,10 @@ package com.xvhyrt.ghjtyu.f;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -12,6 +15,8 @@ import com.xvhyrt.ghjtyu.R;
 import com.xvhyrt.ghjtyu.a.ImageAdapter;
 import com.xvhyrt.ghjtyu.a.JumpH5Activity;
 import com.xvhyrt.ghjtyu.api.HttpApi;
+import com.xvhyrt.ghjtyu.imageloader.ILFactory;
+import com.xvhyrt.ghjtyu.imageloader.ILoader;
 import com.xvhyrt.ghjtyu.m.BaseModel;
 import com.xvhyrt.ghjtyu.m.ProductModel;
 import com.xvhyrt.ghjtyu.mvp.XActivity;
@@ -42,14 +47,14 @@ public class MainFragment extends XFragment {
     View main_top_img;
     @BindView(R.id.jx_bg)
     View jx_bg;
-    @BindView(R.id.view_flipper)
-    ViewFlipper viewFlipper;
     @BindView(R.id.goods_banner)
     Banner banner;
-    @BindView(R.id.msg_layout)
-    View msgLayout;
     @BindView(R.id.click_fl)
     View click_fl;
+    @BindView(R.id.goods_list_ll)
+    LinearLayout goodsListLl;
+    @BindView(R.id.banner_iv)
+    View banner_iv;
 
     private ProductModel productModel;
 
@@ -57,16 +62,11 @@ public class MainFragment extends XFragment {
 
     private ImageAdapter imageAdapter;
 
-    private String[] msg = {"恭喜187****5758用户领取87000元额度", "恭喜138****5666用户领取36000元额度", "恭喜199****5009用户领取49000元额度",
-            "恭喜137****6699用户领取69000元额度", "恭喜131****8889用户领取18000元额度", "恭喜177****8899用户领取26000元额度",
-            "恭喜155****6789用户领取58000元额度", "恭喜166****5335用户领取29000元额度", "恭喜163****2299用户领取92000元额度",
-            "恭喜130****8866用户领取86000元额度"};
-
     @Override
     public void initData(Bundle savedInstanceState) {
-        msgLayout.setVisibility(View.VISIBLE);
-        initViewData();
-        setViewConfig();
+        goodsListLl.setVisibility(View.VISIBLE);
+        banner.setVisibility(View.GONE);
+        banner_iv.setVisibility(View.VISIBLE);
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -158,11 +158,13 @@ public class MainFragment extends XFragment {
                         @Override
                         public void onNext(BaseModel<List<ProductModel>> baseModel) {
                             setRefreshing.setRefreshing(false);
+                            goodsListLl.removeAllViews();
                             if (baseModel != null) {
                                 if (baseModel.getCode() == 200 && baseModel.getData() != null) {
                                     if (baseModel.getData() != null && baseModel.getData().size() > 0) {
                                         productModel = baseModel.getData().get(0);
-                                        initBannerAdapter(baseModel.getData());
+//                                        initBannerAdapter(baseModel.getData());
+                                        addProductView(baseModel.getData());
                                     } else {
                                         noDataTv.setVisibility(View.VISIBLE);
                                     }
@@ -176,23 +178,34 @@ public class MainFragment extends XFragment {
                     });
     }
 
-    private void setViewConfig() {
-        viewFlipper.setInAnimation(getActivity(), R.anim.text_anim_in);
-        viewFlipper.setOutAnimation(getActivity(), R.anim.text_anim_out);
-        viewFlipper.setFlipInterval(2000);
-        viewFlipper.startFlipping();
-    }
-
-    private void initViewData() {
-        List<String> datas = new ArrayList<>();
-        for (int i = 0; i < msg.length; i++) {
-            datas.add(msg[i]);
-        }
-        for (String data : datas) {
-            View view = getLayoutInflater().inflate(R.layout.view_flipper, null);
-            TextView textView = view.findViewById(R.id.msg_view);
-            textView.setText(data);
-            viewFlipper.addView(view);
+    private void addProductView(List<ProductModel> mList) {
+        for (ProductModel model : mList) {
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_product_item, null);
+            ImageView pic = view.findViewById(R.id.product_img);
+            TextView product_name_tv = view.findViewById(R.id.shangpin_name_tv);
+            TextView remind_tv = view.findViewById(R.id.tedian_tv);
+            TextView money_number_tv = view.findViewById(R.id.edu_tv);
+            View parentFl = view.findViewById(R.id.parent_fl);
+            View yjsqSl = view.findViewById(R.id.yjsq_sl);
+            TextView shijian_tv = view.findViewById(R.id.shijian_tv);
+            TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
+            ILFactory.getLoader().loadNet(pic, HttpApi.HTTP_API_URL + model.getProductLogo(),
+                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+            product_name_tv.setText(model.getProductName());
+            remind_tv.setText(model.getTag());
+            shijian_tv.setText("周期" + model.getDes() + "个月");
+            shuliang_tv.setText(String.valueOf(model.getPassingRate()) + "下载");
+            money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
+            parentFl.setOnClickListener(v -> {
+                productClick(model);
+            });
+            pic.setOnClickListener(v -> {
+                productClick(model);
+            });
+            yjsqSl.setOnClickListener(v -> {
+                productClick(model);
+            });
+            goodsListLl.addView(view);
         }
     }
 
