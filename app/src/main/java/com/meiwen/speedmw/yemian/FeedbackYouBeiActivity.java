@@ -3,6 +3,7 @@ package com.meiwen.speedmw.yemian;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.meiwen.speedmw.R;
 import com.meiwen.speedmw.gongju.MyYouBeiToast;
+import com.meiwen.speedmw.gongju.PreferencesYouBeiOpenUtil;
 import com.meiwen.speedmw.gongju.StatusYouBeiBarUtil;
 
 import cn.droidlover.xstatecontroller.XStateController;
@@ -25,6 +27,9 @@ public class FeedbackYouBeiActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (PreferencesYouBeiOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusYouBeiBarUtil.setTransparent(this, false);
         setContentView(R.layout.activity_feedback);
         ImageView backImg = findViewById(R.id.back_image);

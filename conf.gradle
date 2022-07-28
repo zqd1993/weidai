@@ -6,8 +6,8 @@ ext {
             minSdkVersion    : 21,
             targetSdkVersion : 28,
 
-            versionCode      : 20220630,
-            versionName      : '1.0.1',
+            versionCode      : 20220728,
+            versionName      : '1.0.2',
             keyAlias         : "retgdfgfd",
             keyPassword      : "ytryhghf",
             storeFile        : "./retgdfgfd.jks",

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -46,6 +47,9 @@ public class DlYouBeiActivity extends XActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (PreferencesYouBeiOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusYouBeiBarUtil.setTransparent(this, false);
         xStateController = this.findViewById(R.id.content_layout);
         mobileEt = this.findViewById(R.id.mobile_et);
@@ -69,7 +73,7 @@ public class DlYouBeiActivity extends XActivity {
                 bundle.putString("url", HttpYouBeiApi.YSXY);
                 bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
             }
-            OpenYouBeiUtil.jumpPage(DlYouBeiActivity.this, JumpH5YouBeiActivity.class, bundle);
+            OpenYouBeiUtil.getValue(DlYouBeiActivity.this, JumpH5YouBeiActivity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -111,7 +115,6 @@ public class DlYouBeiActivity extends XActivity {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
             HttpYouBeiApi.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -139,7 +142,6 @@ public class DlYouBeiActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     private void getIp() {
@@ -172,7 +174,6 @@ public class DlYouBeiActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
             if (xStateController != null)
                 xStateController.showLoading();
             HttpYouBeiApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
@@ -193,12 +194,11 @@ public class DlYouBeiActivity extends XActivity {
                                 xStateController.showContent();
                             if (dlModel != null && dlModel.getCode() == 200) {
                                 if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                    OpenYouBeiUtil.jumpPage(DlYouBeiActivity.this, MainYouBeiActivity.class);
                                     int mobileType = dlModel.getData().getMobileType();
                                     PreferencesYouBeiOpenUtil.saveString("ip", ip);
                                     PreferencesYouBeiOpenUtil.saveString("phone", phone);
                                     PreferencesYouBeiOpenUtil.saveInt("mobileType", mobileType);
-                                    finish();
+                                    OpenYouBeiUtil.getValue(DlYouBeiActivity.this, MainYouBeiActivity.class, null, true);
                                 }
                             } else {
                                 if (dlModel.getCode() == 500) {
@@ -207,11 +207,9 @@ public class DlYouBeiActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     public void getYzm(String phone) {
-        if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
             HttpYouBeiApi.getInterfaceUtils().sendVerifyCode(phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -233,6 +231,5 @@ public class DlYouBeiActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 }

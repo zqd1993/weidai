@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.meiwen.speedmw.R;
 import com.meiwen.speedmw.chajian.YouBeiRemindDialog;
 import com.meiwen.speedmw.moxing.ConfigYouBeiEntity;
+import com.meiwen.speedmw.mvp.XActivity;
 import com.meiwen.speedmw.yemian.AboutInfoYouBeiActivity;
 import com.meiwen.speedmw.yemian.DlYouBeiActivity;
 import com.meiwen.speedmw.yemian.FeedbackYouBeiActivity;
@@ -115,19 +116,19 @@ public class SetYouBeiFragment extends XFragment {
                     webBundle = new Bundle();
                     webBundle.putString("url", HttpYouBeiApi.ZCXY);
                     webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpenYouBeiUtil.jumpPage(getActivity(), JumpH5YouBeiActivity.class, webBundle);
+                    OpenYouBeiUtil.getValue((XActivity) getActivity(), JumpH5YouBeiActivity.class, webBundle);
                     break;
                 case 1:
                     webBundle = new Bundle();
                     webBundle.putString("url", HttpYouBeiApi.YSXY);
                     webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpenYouBeiUtil.jumpPage(getActivity(), JumpH5YouBeiActivity.class, webBundle);
+                    OpenYouBeiUtil.getValue((XActivity) getActivity(), JumpH5YouBeiActivity.class, webBundle);
                     break;
                 case 2:
-                    OpenYouBeiUtil.jumpPage(getActivity(), FeedbackYouBeiActivity.class);
+                    OpenYouBeiUtil.getValue((XActivity) getActivity(), FeedbackYouBeiActivity.class, null);
                     break;
                 case 3:
-                    OpenYouBeiUtil.jumpPage(getActivity(), AboutInfoYouBeiActivity.class);
+                    OpenYouBeiUtil.getValue((XActivity) getActivity(), AboutInfoYouBeiActivity.class, null);
                     break;
                 case 4:
                     dialog = new YouBeiRemindDialog(getActivity()).setCancelText("开启")
@@ -151,7 +152,7 @@ public class SetYouBeiFragment extends XFragment {
                     getConfig();
                     break;
                 case 6:
-                    OpenYouBeiUtil.jumpPage(getActivity(), ZhuXiaoYouBeiActivity.class);
+                    OpenYouBeiUtil.getValue((XActivity) getActivity(), ZhuXiaoYouBeiActivity.class, null);
                     break;
                 case 7:
                     dialog = new YouBeiRemindDialog(getActivity()).setCancelText("取消")
@@ -161,8 +162,7 @@ public class SetYouBeiFragment extends XFragment {
                         public void onSureClicked() {
                             dialog.dismiss();
                             PreferencesYouBeiOpenUtil.saveString("phone", "");
-                            OpenYouBeiUtil.jumpPage(getActivity(), DlYouBeiActivity.class);
-                            getActivity().finish();
+                            OpenYouBeiUtil.getValue((XActivity) getActivity(), DlYouBeiActivity.class, null, true);
                         }
 
                         @Override
@@ -183,12 +183,11 @@ public class SetYouBeiFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            OpenYouBeiUtil.jumpPage(getActivity(), JumpH5YouBeiActivity.class, bundle);
+            OpenYouBeiUtil.getValue((XActivity) getActivity(), JumpH5YouBeiActivity.class, bundle);
         }
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesYouBeiOpenUtil.getInt("mobileType");
             HttpYouBeiApi.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
@@ -211,11 +210,9 @@ public class SetYouBeiFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     public void productClick(ProductYouBeiModel model) {
-        if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -235,11 +232,9 @@ public class SetYouBeiFragment extends XFragment {
                             toWeb(model);
                         }
                     });
-        }
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
             HttpYouBeiApi.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -262,6 +257,5 @@ public class SetYouBeiFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 }

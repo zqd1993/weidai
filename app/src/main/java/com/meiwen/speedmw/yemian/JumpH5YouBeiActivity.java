@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -20,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.meiwen.speedmw.R;
+import com.meiwen.speedmw.gongju.PreferencesYouBeiOpenUtil;
 import com.meiwen.speedmw.mvp.XActivity;
 import com.meiwen.speedmw.gongju.DownloadYouBeiApkUtil;
 import com.meiwen.speedmw.gongju.StatusYouBeiBarUtil;
@@ -58,6 +60,9 @@ public class JumpH5YouBeiActivity extends XActivity implements EasyPermissions.P
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (PreferencesYouBeiOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusYouBeiBarUtil.setTransparent(this, false);
         bundle = getIntent().getExtras();
         if (bundle.containsKey("biaoti"))

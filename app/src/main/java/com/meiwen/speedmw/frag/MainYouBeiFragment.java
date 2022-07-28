@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.meiwen.speedmw.R;
+import com.meiwen.speedmw.mvp.XActivity;
 import com.meiwen.speedmw.yemian.ImageYouBeiAdapter;
 import com.meiwen.speedmw.yemian.JumpH5YouBeiActivity;
 import com.meiwen.speedmw.jiekou.HttpYouBeiApi;
@@ -174,27 +175,25 @@ public class MainYouBeiFragment extends XFragment {
     }
 
     public void productClick(ProductYouBeiModel model) {
-        if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
-            if (model == null) {
-                return;
-            }
-            phone = PreferencesYouBeiOpenUtil.getString("phone");
-            HttpYouBeiApi.getInterfaceUtils().productClick(model.getId(), phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseYouBeiModel>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            toWeb(model);
-                        }
-
-                        @Override
-                        public void onNext(BaseYouBeiModel baseYouBeiModel) {
-                            toWeb(model);
-                        }
-                    });
+        if (model == null) {
+            return;
         }
+        phone = PreferencesYouBeiOpenUtil.getString("phone");
+        HttpYouBeiApi.getInterfaceUtils().productClick(model.getId(), phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseYouBeiModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        toWeb(model);
+                    }
+
+                    @Override
+                    public void onNext(BaseYouBeiModel baseYouBeiModel) {
+                        toWeb(model);
+                    }
+                });
     }
 
 
@@ -267,7 +266,6 @@ public class MainYouBeiFragment extends XFragment {
 
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesYouBeiOpenUtil.getInt("mobileType");
             HttpYouBeiApi.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
@@ -308,7 +306,6 @@ public class MainYouBeiFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
 
@@ -317,7 +314,7 @@ public class MainYouBeiFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            OpenYouBeiUtil.jumpPage(getActivity(), JumpH5YouBeiActivity.class, bundle);
+            OpenYouBeiUtil.getValue((XActivity) getActivity(), JumpH5YouBeiActivity.class, bundle);
         }
     }
 }

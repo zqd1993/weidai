@@ -17,13 +17,14 @@ import com.meiwen.speedmw.jiekou.HttpYouBeiApi;
 import com.meiwen.speedmw.gongju.OpenYouBeiUtil;
 import com.meiwen.speedmw.gongju.PreferencesYouBeiOpenUtil;
 import com.meiwen.speedmw.gongju.StatusYouBeiBarUtil;
+import com.meiwen.speedmw.mvp.XActivity;
 import com.umeng.commonsdk.UMConfigure;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class StartPageYouBeiActivity extends AppCompatActivity {
+public class StartPageYouBeiActivity extends XActivity {
 
     private Bundle bundle;
 
@@ -32,16 +33,6 @@ public class StartPageYouBeiActivity extends AppCompatActivity {
     private String phone = "";
 
     private StartPageYouBeiRemindDialog startPageRemindDialog;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_page);
-        StatusYouBeiBarUtil.setTransparent(this, false);
-        isSure = PreferencesYouBeiOpenUtil.getBool("isSure");
-        phone = PreferencesYouBeiOpenUtil.getString("phone");
-        sendRequestWithOkHttp();
-    }
 
     @Override
     protected void onResume() {
@@ -56,7 +47,7 @@ public class StartPageYouBeiActivity extends AppCompatActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         startPageRemindDialog = new StartPageYouBeiRemindDialog(this);
         startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -73,8 +64,8 @@ public class StartPageYouBeiActivity extends AppCompatActivity {
             public void oneBtnClicked() {
                 initUm();
                 PreferencesYouBeiOpenUtil.saveBool("isSure", true);
-                OpenYouBeiUtil.jumpPage(StartPageYouBeiActivity.this, DlYouBeiActivity.class);
-                finish();
+                startPageRemindDialog.dismiss();
+                OpenYouBeiUtil.getValue(StartPageYouBeiActivity.this, DlYouBeiActivity.class, null, true);
             }
 
             @Override
@@ -82,7 +73,7 @@ public class StartPageYouBeiActivity extends AppCompatActivity {
                 bundle = new Bundle();
                 bundle.putString("url", HttpYouBeiApi.ZCXY);
                 bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                OpenYouBeiUtil.jumpPage(StartPageYouBeiActivity.this, JumpH5YouBeiActivity.class, bundle);
+                OpenYouBeiUtil.getValue(StartPageYouBeiActivity.this, JumpH5YouBeiActivity.class, bundle);
             }
 
             @Override
@@ -95,11 +86,11 @@ public class StartPageYouBeiActivity extends AppCompatActivity {
                 bundle = new Bundle();
                 bundle.putString("url", HttpYouBeiApi.YSXY);
                 bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                OpenYouBeiUtil.jumpPage(StartPageYouBeiActivity.this, JumpH5YouBeiActivity.class, bundle);
+                OpenYouBeiUtil.getValue(StartPageYouBeiActivity.this, JumpH5YouBeiActivity.class, bundle);
             }
         });
         startPageRemindDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -130,11 +121,10 @@ public class StartPageYouBeiActivity extends AppCompatActivity {
         if (isSure) {
             initUm();
             if (TextUtils.isEmpty(phone)) {
-                OpenYouBeiUtil.jumpPage(StartPageYouBeiActivity.this, DlYouBeiActivity.class);
+                OpenYouBeiUtil.getValue(StartPageYouBeiActivity.this, DlYouBeiActivity.class, null, true);
             } else {
-                OpenYouBeiUtil.jumpPage(StartPageYouBeiActivity.this, MainYouBeiActivity.class);
+                OpenYouBeiUtil.getValue(StartPageYouBeiActivity.this, MainYouBeiActivity.class, null, true);
             }
-            finish();
         } else {
             showDialog();
         }
@@ -165,5 +155,29 @@ public class StartPageYouBeiActivity extends AppCompatActivity {
             // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
             UMConfigure.init(this, "62b58f1088ccdf4b7ea978af", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
         }
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        StatusYouBeiBarUtil.setTransparent(this, false);
+        isSure = PreferencesYouBeiOpenUtil.getBool("isSure");
+        phone = PreferencesYouBeiOpenUtil.getString("phone");
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_start_page;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 }

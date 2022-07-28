@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.meiwen.speedmw.R;
+import com.meiwen.speedmw.mvp.XActivity;
 import com.meiwen.speedmw.yemian.JumpH5YouBeiActivity;
 import com.meiwen.speedmw.jiekou.HttpYouBeiApi;
 import com.meiwen.speedmw.imageloader.ILFactory;
@@ -145,25 +146,23 @@ public class ProductYouBeiFragment extends XFragment {
     }
 
     public void productClick(ProductYouBeiModel model) {
-        if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
-            if (model != null) {
-                phone = PreferencesYouBeiOpenUtil.getString("phone");
-                HttpYouBeiApi.getInterfaceUtils().productClick(model.getId(), phone)
-                        .compose(XApi.getApiTransformer())
-                        .compose(XApi.getScheduler())
-                        .compose(bindToLifecycle())
-                        .subscribe(new ApiSubscriber<BaseYouBeiModel>() {
-                            @Override
-                            protected void onFail(NetError error) {
-                                toWeb(model);
-                            }
+        if (model != null) {
+            phone = PreferencesYouBeiOpenUtil.getString("phone");
+            HttpYouBeiApi.getInterfaceUtils().productClick(model.getId(), phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseYouBeiModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            toWeb(model);
+                        }
 
-                            @Override
-                            public void onNext(BaseYouBeiModel baseYouBeiModel) {
-                                toWeb(model);
-                            }
-                        });
-            }
+                        @Override
+                        public void onNext(BaseYouBeiModel baseYouBeiModel) {
+                            toWeb(model);
+                        }
+                    });
         }
     }
 
@@ -235,35 +234,29 @@ public class ProductYouBeiFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
-            mobileType = PreferencesYouBeiOpenUtil.getInt("mobileType");
-            HttpYouBeiApi.getInterfaceUtils().productList(mobileType)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseYouBeiModel<List<ProductYouBeiModel>>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            setRefreshing.setRefreshing(false);
-                            OpenYouBeiUtil.showErrorInfo(getActivity(), error);
-                            if (goodsListLl.getChildCount() == 0) {
-                                noDataTv.setVisibility(View.VISIBLE);
-                            }
+        mobileType = PreferencesYouBeiOpenUtil.getInt("mobileType");
+        HttpYouBeiApi.getInterfaceUtils().productList(mobileType)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseYouBeiModel<List<ProductYouBeiModel>>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        setRefreshing.setRefreshing(false);
+                        OpenYouBeiUtil.showErrorInfo(getActivity(), error);
+                        if (goodsListLl.getChildCount() == 0) {
+                            noDataTv.setVisibility(View.VISIBLE);
                         }
+                    }
 
-                        @Override
-                        public void onNext(BaseYouBeiModel<List<ProductYouBeiModel>> baseYouBeiModel) {
-                            setRefreshing.setRefreshing(false);
-                            if (baseYouBeiModel != null) {
-                                if (baseYouBeiModel.getCode() == 200 && baseYouBeiModel.getData() != null) {
-                                    if (baseYouBeiModel.getData() != null && baseYouBeiModel.getData().size() > 0) {
-                                        productYouBeiModel = baseYouBeiModel.getData().get(0);
-                                        addProductView(baseYouBeiModel.getData());
-                                    } else {
-                                        if (goodsListLl.getChildCount() == 0) {
-                                            noDataTv.setVisibility(View.VISIBLE);
-                                        }
-                                    }
+                    @Override
+                    public void onNext(BaseYouBeiModel<List<ProductYouBeiModel>> baseYouBeiModel) {
+                        setRefreshing.setRefreshing(false);
+                        if (baseYouBeiModel != null) {
+                            if (baseYouBeiModel.getCode() == 200 && baseYouBeiModel.getData() != null) {
+                                if (baseYouBeiModel.getData() != null && baseYouBeiModel.getData().size() > 0) {
+                                    productYouBeiModel = baseYouBeiModel.getData().get(0);
+                                    addProductView(baseYouBeiModel.getData());
                                 } else {
                                     if (goodsListLl.getChildCount() == 0) {
                                         noDataTv.setVisibility(View.VISIBLE);
@@ -274,9 +267,13 @@ public class ProductYouBeiFragment extends XFragment {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
                             }
+                        } else {
+                            if (goodsListLl.getChildCount() == 0) {
+                                noDataTv.setVisibility(View.VISIBLE);
+                            }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     private void addProductView(List<ProductYouBeiModel> mList) {
@@ -291,10 +288,8 @@ public class ProductYouBeiFragment extends XFragment {
             View yjsqSl = view.findViewById(R.id.yjsq_sl);
             TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
             shuliang_tv.setText(String.valueOf(model.getPassingRate()));
-            if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
-                ILFactory.getLoader().loadNet(pic, PreferencesYouBeiOpenUtil.getString("HTTP_API_URL") + model.getProductLogo(),
-                        new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-            }
+            ILFactory.getLoader().loadNet(pic, HttpYouBeiApi.HTTP_API_URL + model.getProductLogo(),
+                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
             product_name_tv.setText(model.getProductName());
             remind_tv.setText(model.getTag());
             money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
@@ -383,7 +378,7 @@ public class ProductYouBeiFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("title", model.getProductName());
-            OpenYouBeiUtil.jumpPage(getActivity(), JumpH5YouBeiActivity.class, bundle);
+            OpenYouBeiUtil.getValue((XActivity) getActivity(), JumpH5YouBeiActivity.class, bundle);
         }
     }
 }

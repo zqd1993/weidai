@@ -2,6 +2,7 @@ package com.meiwen.speedmw.yemian;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -12,6 +13,7 @@ import com.meiwen.speedmw.R;
 import com.meiwen.speedmw.frag.MainYouBeiFragment;
 import com.meiwen.speedmw.frag.ProductYouBeiFragment;
 import com.meiwen.speedmw.frag.SetYouBeiFragment;
+import com.meiwen.speedmw.gongju.PreferencesYouBeiOpenUtil;
 import com.meiwen.speedmw.mvp.XActivity;
 import com.meiwen.speedmw.gongju.MyYouBeiToast;
 import com.meiwen.speedmw.gongju.StatusYouBeiBarUtil;
@@ -38,6 +40,9 @@ public class MainYouBeiActivity extends XActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (PreferencesYouBeiOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusYouBeiBarUtil.setTransparent(this, false);
         tabModels = new ArrayList<>();
         fragments = new ArrayList<>();

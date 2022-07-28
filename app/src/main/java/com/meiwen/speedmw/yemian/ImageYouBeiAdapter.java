@@ -45,10 +45,8 @@ public class ImageYouBeiAdapter extends BannerAdapter<ProductYouBeiModel, ImageY
         holder.edu_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
         holder.shijian_tv.setText(data.getDes() + "个月");
         holder.shuliang_tv.setText(String.valueOf(data.getPassingRate()));
-        if (!TextUtils.isEmpty(PreferencesYouBeiOpenUtil.getString("HTTP_API_URL"))) {
-            ILFactory.getLoader().loadNet(holder.shangpin_img, PreferencesYouBeiOpenUtil.getString("HTTP_API_URL") + data.getProductLogo(),
+            ILFactory.getLoader().loadNet(holder.shangpin_img, HttpYouBeiApi.HTTP_API_URL + data.getProductLogo(),
                     new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-        }
         holder.parentLl.setOnClickListener(v -> {
             if (bannerClickedListener != null){
                 bannerClickedListener.onBannerClicked(data);

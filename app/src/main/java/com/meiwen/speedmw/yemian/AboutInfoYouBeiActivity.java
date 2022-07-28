@@ -1,6 +1,7 @@
 package com.meiwen.speedmw.yemian;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.meiwen.speedmw.MainYouBeiApp;
 import com.meiwen.speedmw.R;
 import com.meiwen.speedmw.gongju.OpenYouBeiUtil;
+import com.meiwen.speedmw.gongju.PreferencesYouBeiOpenUtil;
 import com.meiwen.speedmw.gongju.StatusYouBeiBarUtil;
 
 public class AboutInfoYouBeiActivity extends AppCompatActivity {
@@ -17,6 +19,9 @@ public class AboutInfoYouBeiActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (PreferencesYouBeiOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusYouBeiBarUtil.setTransparent(this, false);
         setContentView(R.layout.activity_about_info);
         ImageView backImg = findViewById(R.id.back_image);

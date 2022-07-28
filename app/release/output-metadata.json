@@ -10,9 +10,9 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 20220630,
-      "versionName": "1.0.1",
-      "outputFile": "zhongxinyidai_v1.0.1.apk"
+      "versionCode": 20220728,
+      "versionName": "1.0.2",
+      "outputFile": "zhongxinyidai_v1.0.2.apk"
     }
   ]
 }

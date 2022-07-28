@@ -8,7 +8,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.meiwen.speedmw.chajian.YouBeiClickTextView;
+import com.meiwen.speedmw.jiekou.HttpYouBeiApi;
+import com.meiwen.speedmw.moxing.BaseYouBeiModel;
+import com.meiwen.speedmw.moxing.ConfigYouBeiEntity;
+import com.meiwen.speedmw.mvp.XActivity;
+import com.meiwen.speedmw.net.ApiSubscriber;
 import com.meiwen.speedmw.net.NetError;
+import com.meiwen.speedmw.net.XApi;
 import com.meiwen.speedmw.router.Router;
 
 import java.util.ArrayList;
@@ -40,6 +46,68 @@ public class OpenYouBeiUtil {
             return Pattern.matches("^1[3-9]\\d{9}$", number);
         }
         return false;
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
+        HttpYouBeiApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseYouBeiModel<ConfigYouBeiEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        jumpPage(activity, to, bundle, false);
+                    }
+
+                    @Override
+                    public void onNext(BaseYouBeiModel<ConfigYouBeiEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                PreferencesYouBeiOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, false);
+                            }
+                        }
+                    }
+                });
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+            HttpYouBeiApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseYouBeiModel<ConfigYouBeiEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            jumpPage(activity, to, bundle, isFinish);
+                        }
+
+                        @Override
+                        public void onNext(BaseYouBeiModel<ConfigYouBeiEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    PreferencesYouBeiOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, isFinish);
+                                }
+                            }
+                        }
+                    });
+    }
+
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        if (bundle != null) {
+            Router.newIntent(activity)
+                    .to(to)
+                    .data(bundle)
+                    .launch();
+        } else {
+            Router.newIntent(activity)
+                    .to(to)
+                    .launch();
+        }
+        if (isFinish) {
+            activity.finish();
+        }
     }
 
     public static String getAppVersion(Context context) {

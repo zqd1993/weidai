@@ -19,6 +19,9 @@ public interface InterfaceYouBeiUtils {
     @GET("/app/user/sendVerifyCode")
     Flowable<BaseYouBeiModel> sendVerifyCode(@Query("phone") String phone);
 
+    @GET("/app/config/getValue")
+    Flowable<BaseYouBeiModel<ConfigYouBeiEntity>> getValue(@Query("key") String phone);
+
     @GET("/app/user/login")
     Flowable<BaseYouBeiModel<DlYouBeiModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
 
