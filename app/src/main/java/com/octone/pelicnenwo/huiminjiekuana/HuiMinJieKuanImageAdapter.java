@@ -110,7 +110,7 @@ public class HuiMinJieKuanImageAdapter extends BannerAdapter<HuiMinJieKuanProduc
         holder.edu_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
         holder.shijian_tv.setText(data.getDes() + "个月");
         holder.shuliang_tv.setText(String.valueOf(data.getPassingRate()));
-        holder.parentLl.setOnClickListener(v -> {
+        holder.click_view.setOnClickListener(v -> {
             if (bannerClickedListener != null){
                 bannerClickedListener.onBannerClicked(data);
             }
@@ -195,7 +195,7 @@ public class HuiMinJieKuanImageAdapter extends BannerAdapter<HuiMinJieKuanProduc
         TextView edu_tv;
         TextView shijian_tv;
         TextView shuliang_tv;
-        View parentLl;
+        View click_view;
 
         public ImageHolder(@NonNull View itemView) {
             super(itemView);
@@ -204,7 +204,7 @@ public class HuiMinJieKuanImageAdapter extends BannerAdapter<HuiMinJieKuanProduc
             edu_tv = itemView.findViewById(R.id.edu_tv);
             shijian_tv = itemView.findViewById(R.id.shijian_tv);
             shuliang_tv = itemView.findViewById(R.id.shuliang_tv);
-            parentLl = itemView.findViewById(R.id.parent_ll);
+            click_view = itemView.findViewById(R.id.click_view);
         }
     }
 

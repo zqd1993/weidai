@@ -478,7 +478,7 @@ public class ProductFragmentHuiMinJieKuan extends XFragment {
         if (model != null) {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
-            bundle.putString("title", model.getProductName());
+            bundle.putString("biaoti", model.getProductName());
             OpenUtilHuiMinJieKuan.getValue((XActivity) getActivity(), JumpH5HuiMinJieKuanActivity.class, bundle);
         }
     }
