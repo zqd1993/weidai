@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -121,6 +122,9 @@ public class DlThreeSixOneActivity extends XActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (PreferencesThreeSixOneOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusBarUtilThreeSixOne.setTransparent(this, false);
         StatusBarUtilThreeSixOne.setLightMode(this);
         xStateController = this.findViewById(R.id.content_layout);
@@ -135,17 +139,15 @@ public class DlThreeSixOneActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.view_three_six_one_loading, null));
         getConfig();
         readTv.setText(ThreeSixOneOpenUtil.createDlSpanTexts(), position -> {
-            if (!TextUtils.isEmpty(PreferencesThreeSixOneOpenUtil.getString("AGREEMENT"))) {
                 bundle = new Bundle();
                 if (position == 1) {
-                    bundle.putString("url", PreferencesThreeSixOneOpenUtil.getString("AGREEMENT") + HttpApiThreeSixOne.ZCXY);
+                    bundle.putString("url", HttpApiThreeSixOne.ZCXY);
                     bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
                 } else {
-                    bundle.putString("url", PreferencesThreeSixOneOpenUtil.getString("AGREEMENT") + HttpApiThreeSixOne.YSXY);
+                    bundle.putString("url", HttpApiThreeSixOne.YSXY);
                     bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
                 }
-                ThreeSixOneOpenUtil.jumpPage(DlThreeSixOneActivity.this, ThreeSixOneJumpH5Activity.class, bundle);
-            }
+                ThreeSixOneOpenUtil.getValue(DlThreeSixOneActivity.this, ThreeSixOneJumpH5Activity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -249,7 +251,6 @@ public class DlThreeSixOneActivity extends XActivity {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(PreferencesThreeSixOneOpenUtil.getString("HTTP_API_URL"))) {
             HttpApiThreeSixOne.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -277,7 +278,6 @@ public class DlThreeSixOneActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     /**
@@ -434,7 +434,6 @@ public class DlThreeSixOneActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (!TextUtils.isEmpty(PreferencesThreeSixOneOpenUtil.getString("HTTP_API_URL"))) {
             if (xStateController != null)
                 xStateController.showLoading();
             HttpApiThreeSixOne.getInterfaceUtils().login(phone, verificationStr, "", ip)
@@ -455,12 +454,11 @@ public class DlThreeSixOneActivity extends XActivity {
                                 xStateController.showContent();
                             if (dlModel != null && dlModel.getCode() == 200) {
                                 if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                    ThreeSixOneOpenUtil.jumpPage(DlThreeSixOneActivity.this, MainThreeSixOneActivity.class);
                                     int mobileType = dlModel.getData().getMobileType();
                                     PreferencesThreeSixOneOpenUtil.saveString("ip", ip);
                                     PreferencesThreeSixOneOpenUtil.saveString("phone", phone);
                                     PreferencesThreeSixOneOpenUtil.saveInt("mobileType", mobileType);
-                                    finish();
+                                    ThreeSixOneOpenUtil.getValue(DlThreeSixOneActivity.this, MainThreeSixOneActivity.class, null, true);
                                 }
                             } else {
                                 if (dlModel.getCode() == 500) {
@@ -469,11 +467,9 @@ public class DlThreeSixOneActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     public void getYzm(String phone) {
-        if (!TextUtils.isEmpty(PreferencesThreeSixOneOpenUtil.getString("HTTP_API_URL"))) {
             HttpApiThreeSixOne.getInterfaceUtils().sendVerifyCode(phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -495,7 +491,6 @@ public class DlThreeSixOneActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     /**

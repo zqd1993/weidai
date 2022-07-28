@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+import com.fghyugfg.mjkyhgb.threesoxoneu.PreferencesThreeSixOneOpenUtil;
 import com.google.android.material.appbar.AppBarLayout;
 import com.fghyugfg.mjkyhgb.ActivityCollector;
 import com.fghyugfg.mjkyhgb.ThreeSixOneMainApp;
@@ -95,6 +97,9 @@ public class ZhuXiaoActivityThreeSixOne extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (PreferencesThreeSixOneOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusBarUtilThreeSixOne.setTransparent(this, false);
         setContentView(R.layout.activity_zhuxiao_three_six_one);
         ImageView backImg = findViewById(R.id.back_image);

@@ -43,7 +43,16 @@ public class ConfigThreeSixOneEntity {
 
     @SerializedName("DOMAIN_NAME")
     private String domainName;
+    @SerializedName("VIDEOTAPE")
+    private String videoTape;
 
+    public String getVideoTape() {
+        return videoTape;
+    }
+
+    public void setVideoTape(String videoTape) {
+        this.videoTape = videoTape;
+    }
     /**
      * 设置appbar偏移量
      *

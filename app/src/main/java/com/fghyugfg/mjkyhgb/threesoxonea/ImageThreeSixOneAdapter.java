@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.fghyugfg.mjkyhgb.apithreesoxone.HttpApiThreeSixOne;
 import com.google.android.material.appbar.AppBarLayout;
 import com.fghyugfg.mjkyhgb.ThreeSixOneMainApp;
 import com.fghyugfg.mjkyhgb.R;
@@ -114,17 +115,15 @@ public class ImageThreeSixOneAdapter extends BannerAdapter<ProductModelThreeSixO
         holder.edu_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
         holder.shijian_tv.setText(data.getDes() + "个月");
         holder.shuliang_tv.setText(String.valueOf(data.getPassingRate()));
-        if (!TextUtils.isEmpty(PreferencesThreeSixOneOpenUtil.getString("HTTP_API_URL"))) {
-            ILFactory.getLoader().loadNet(holder.goods_pic, PreferencesThreeSixOneOpenUtil.getString("HTTP_API_URL") + data.getProductLogo(),
-                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-        }
+        ILFactory.getLoader().loadNet(holder.goods_pic, HttpApiThreeSixOne.HTTP_API_URL + data.getProductLogo(),
+                new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
         holder.parentLl.setOnClickListener(v -> {
-            if (bannerClickedListener != null){
+            if (bannerClickedListener != null) {
                 bannerClickedListener.onBannerClicked(data);
             }
         });
         holder.yjsq_sl.setOnClickListener(v -> {
-            if (bannerClickedListener != null){
+            if (bannerClickedListener != null) {
                 bannerClickedListener.onBannerClicked(data);
             }
         });
@@ -192,7 +191,7 @@ public class ImageThreeSixOneAdapter extends BannerAdapter<ProductModelThreeSixO
         return file;
     }
 
-    public class ImageHolder extends RecyclerView.ViewHolder{
+    public class ImageHolder extends RecyclerView.ViewHolder {
 
         TextView shangpin_name_tv;
         TextView tedian_tv;
@@ -216,11 +215,11 @@ public class ImageThreeSixOneAdapter extends BannerAdapter<ProductModelThreeSixO
         }
     }
 
-    public void setBannerClickedListener(BannerClickedListener bannerClickedListener){
+    public void setBannerClickedListener(BannerClickedListener bannerClickedListener) {
         this.bannerClickedListener = bannerClickedListener;
     }
 
-    public interface BannerClickedListener{
+    public interface BannerClickedListener {
         void onBannerClicked(ProductModelThreeSixOne entity);
     }
 

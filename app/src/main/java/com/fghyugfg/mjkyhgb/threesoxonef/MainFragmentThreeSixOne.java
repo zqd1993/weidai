@@ -14,6 +14,7 @@ import android.widget.ViewFlipper;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.fghyugfg.mjkyhgb.mvp.XActivity;
 import com.google.android.material.appbar.AppBarLayout;
 import com.fghyugfg.mjkyhgb.ThreeSixOneMainApp;
 import com.fghyugfg.mjkyhgb.R;
@@ -301,7 +302,6 @@ public class MainFragmentThreeSixOne extends XFragment {
     }
 
     public void productClick(ProductModelThreeSixOne model) {
-        if (!TextUtils.isEmpty(PreferencesThreeSixOneOpenUtil.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -321,7 +321,6 @@ public class MainFragmentThreeSixOne extends XFragment {
                             toWeb(model);
                         }
                     });
-        }
     }
 
     /**
@@ -387,7 +386,6 @@ public class MainFragmentThreeSixOne extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesThreeSixOneOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesThreeSixOneOpenUtil.getInt("mobileType");
             HttpApiThreeSixOne.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
@@ -428,7 +426,6 @@ public class MainFragmentThreeSixOne extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     /**
@@ -580,7 +577,7 @@ public class MainFragmentThreeSixOne extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            ThreeSixOneOpenUtil.jumpPage(getActivity(), ThreeSixOneJumpH5Activity.class, bundle);
+            ThreeSixOneOpenUtil.getValue((XActivity) getActivity(), ThreeSixOneJumpH5Activity.class, bundle);
         }
     }
 }

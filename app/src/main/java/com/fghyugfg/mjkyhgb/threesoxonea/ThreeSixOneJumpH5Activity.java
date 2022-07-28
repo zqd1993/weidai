@@ -14,6 +14,7 @@ import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -24,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.FileProvider;
 
+import com.fghyugfg.mjkyhgb.threesoxoneu.PreferencesThreeSixOneOpenUtil;
 import com.google.android.material.appbar.AppBarLayout;
 import com.fghyugfg.mjkyhgb.ThreeSixOneMainApp;
 import com.fghyugfg.mjkyhgb.R;
@@ -130,6 +132,9 @@ public class ThreeSixOneJumpH5Activity extends XActivity implements EasyPermissi
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (PreferencesThreeSixOneOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusBarUtilThreeSixOne.setTransparent(this, false);
         bundle = getIntent().getExtras();
         if (bundle.containsKey("biaoti"))

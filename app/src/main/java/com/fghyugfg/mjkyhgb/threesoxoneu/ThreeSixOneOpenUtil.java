@@ -15,6 +15,12 @@ import android.view.View;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+import com.fghyugfg.mjkyhgb.apithreesoxone.HttpApiThreeSixOne;
+import com.fghyugfg.mjkyhgb.mvp.XActivity;
+import com.fghyugfg.mjkyhgb.net.ApiSubscriber;
+import com.fghyugfg.mjkyhgb.net.XApi;
+import com.fghyugfg.mjkyhgb.threesoxonem.BaseThreeSixOneModel;
+import com.fghyugfg.mjkyhgb.threesoxonem.ConfigThreeSixOneEntity;
 import com.google.android.material.appbar.AppBarLayout;
 import com.fghyugfg.mjkyhgb.ThreeSixOneMainApp;
 import com.fghyugfg.mjkyhgb.net.NetError;
@@ -305,6 +311,68 @@ public class ThreeSixOneOpenUtil {
                 .to(to)
                 .data(bundle)
                 .launch();
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
+            HttpApiThreeSixOne.getInterfaceUtils().getValue("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseThreeSixOneModel<ConfigThreeSixOneEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            jumpPage(activity, to, bundle, false);
+                        }
+
+                        @Override
+                        public void onNext(BaseThreeSixOneModel<ConfigThreeSixOneEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    PreferencesThreeSixOneOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, false);
+                                }
+                            }
+                        }
+                    });
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+            HttpApiThreeSixOne.getInterfaceUtils().getValue("VIDEOTAPE")
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(activity.bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseThreeSixOneModel<ConfigThreeSixOneEntity>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            jumpPage(activity, to, bundle, isFinish);
+                        }
+
+                        @Override
+                        public void onNext(BaseThreeSixOneModel<ConfigThreeSixOneEntity> configEntity) {
+                            if (configEntity != null) {
+                                if (configEntity.getData() != null) {
+                                    PreferencesThreeSixOneOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                    jumpPage(activity, to, bundle, isFinish);
+                                }
+                            }
+                        }
+                    });
+    }
+
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        if (bundle != null) {
+            Router.newIntent(activity)
+                    .to(to)
+                    .data(bundle)
+                    .launch();
+        } else {
+            Router.newIntent(activity)
+                    .to(to)
+                    .launch();
+        }
+        if (isFinish) {
+            activity.finish();
+        }
     }
 
     /**

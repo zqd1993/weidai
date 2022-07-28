@@ -21,9 +21,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class HttpApiThreeSixOne {
-    public static final String ZCXY = "/profile/op361dk/zcxy.html";
-    public static final String YSXY= "/profile/op361dk/ysxy.html";
-    public static String HTTP_API_URL = "";
+    public static final String ZCXY = "https://htsxy.fhjdhjf.com/profile/op361dk/zcxy.html";
+    public static final String YSXY= "https://htsxy.fhjdhjf.com/profile/op361dk/ysxy.html";
+    public static String HTTP_API_URL = "http://45.112.206.58:7748";
 
     /**
      * 设置appbar偏移量
@@ -90,10 +90,10 @@ public class HttpApiThreeSixOne {
     private static ThreeSixOneInterfaceUtils threeSixOneInterfaceUtils;
 
     public static ThreeSixOneInterfaceUtils getInterfaceUtils() {
-        if (threeSixOneInterfaceUtils == null && !TextUtils.isEmpty(PreferencesThreeSixOneOpenUtil.getString("HTTP_API_URL"))) {
+        if (threeSixOneInterfaceUtils == null) {
             synchronized (HttpApiThreeSixOne.class) {
                 if (threeSixOneInterfaceUtils == null) {
-                    threeSixOneInterfaceUtils = XApi.getInstance().getRetrofit(PreferencesThreeSixOneOpenUtil.getString("HTTP_API_URL"), true).create(ThreeSixOneInterfaceUtils.class);
+                    threeSixOneInterfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(ThreeSixOneInterfaceUtils.class);
                 }
             }
         }

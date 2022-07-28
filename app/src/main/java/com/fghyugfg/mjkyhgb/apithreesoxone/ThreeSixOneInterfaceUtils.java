@@ -19,6 +19,9 @@ public interface ThreeSixOneInterfaceUtils {
     @GET("/app/user/sendVerifyCode")
     Flowable<BaseThreeSixOneModel> sendVerifyCode(@Query("phone") String phone);
 
+    @GET("/app/config/getValue")
+    Flowable<BaseThreeSixOneModel<ConfigThreeSixOneEntity>> getValue(@Query("key") String phone);
+
     @GET("/app/user/login")
     Flowable<BaseThreeSixOneModel<ThreeSixOneDlModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
 

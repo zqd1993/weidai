@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.fghyugfg.mjkyhgb.threesoxoneu.PreferencesThreeSixOneOpenUtil;
 import com.google.android.material.appbar.AppBarLayout;
 import com.fghyugfg.mjkyhgb.ThreeSixOneMainApp;
 import com.fghyugfg.mjkyhgb.R;
@@ -113,6 +115,9 @@ public class MainThreeSixOneActivity extends XActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (PreferencesThreeSixOneOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusBarUtilThreeSixOne.setTransparent(this, false);
         StatusBarUtilThreeSixOne.setLightMode(this);
         tabModels = new ArrayList<>();

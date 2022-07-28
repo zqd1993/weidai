@@ -14,6 +14,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.fghyugfg.mjkyhgb.mvp.XActivity;
 import com.google.android.material.appbar.AppBarLayout;
 import com.fghyugfg.mjkyhgb.ThreeSixOneMainApp;
 import com.fghyugfg.mjkyhgb.R;
@@ -85,8 +86,7 @@ public class ThreeSixOneSetFragment extends XFragment {
                 public void onSureClicked() {
                     dialog.dismiss();
                     PreferencesThreeSixOneOpenUtil.saveString("phone", "");
-                    ThreeSixOneOpenUtil.jumpPage(getActivity(), DlThreeSixOneActivity.class);
-                    getActivity().finish();
+                    ThreeSixOneOpenUtil.getValue((XActivity) getActivity(), DlThreeSixOneActivity.class, null, true);
                 }
 
                 @Override
@@ -188,29 +188,25 @@ public class ThreeSixOneSetFragment extends XFragment {
         setItemThreeSixOneAdapter.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    if (!TextUtils.isEmpty(PreferencesThreeSixOneOpenUtil.getString("AGREEMENT"))) {
-                        webBundle = new Bundle();
-                        webBundle.putString("url", PreferencesThreeSixOneOpenUtil.getString("AGREEMENT") + HttpApiThreeSixOne.ZCXY);
-                        webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                        ThreeSixOneOpenUtil.jumpPage(getActivity(), ThreeSixOneJumpH5Activity.class, webBundle);
-                    }
+                    webBundle = new Bundle();
+                    webBundle.putString("url", HttpApiThreeSixOne.ZCXY);
+                    webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    ThreeSixOneOpenUtil.getValue((XActivity) getActivity(), ThreeSixOneJumpH5Activity.class, webBundle);
                     break;
                 case 1:
-                    if (!TextUtils.isEmpty(PreferencesThreeSixOneOpenUtil.getString("AGREEMENT"))) {
-                        webBundle = new Bundle();
-                        webBundle.putString("url", PreferencesThreeSixOneOpenUtil.getString("AGREEMENT") + HttpApiThreeSixOne.YSXY);
-                        webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                        ThreeSixOneOpenUtil.jumpPage(getActivity(), ThreeSixOneJumpH5Activity.class, webBundle);
-                    }
+                    webBundle = new Bundle();
+                    webBundle.putString("url", HttpApiThreeSixOne.YSXY);
+                    webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    ThreeSixOneOpenUtil.getValue((XActivity) getActivity(), ThreeSixOneJumpH5Activity.class, webBundle);
                     break;
                 case 2:
-                    ThreeSixOneOpenUtil.jumpPage(getActivity(), ThreeSixOneFeedbackActivity.class);
+                    ThreeSixOneOpenUtil.getValue((XActivity) getActivity(), ThreeSixOneFeedbackActivity.class, null);
                     break;
                 case 3:
-                    ThreeSixOneOpenUtil.jumpPage(getActivity(), AboutInfoActivityThreeSixOne.class);
+                    ThreeSixOneOpenUtil.getValue((XActivity) getActivity(), AboutInfoActivityThreeSixOne.class, null);
                     break;
                 case 4:
-                    ThreeSixOneOpenUtil.jumpPage(getActivity(), SetActivityThreeSixOne.class);
+                    ThreeSixOneOpenUtil.getValue((XActivity) getActivity(), SetActivityThreeSixOne.class, null);
                     break;
                 case 5:
                     getConfig();
@@ -222,7 +218,6 @@ public class ThreeSixOneSetFragment extends XFragment {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(PreferencesThreeSixOneOpenUtil.getString("HTTP_API_URL"))) {
             HttpApiThreeSixOne.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -245,7 +240,6 @@ public class ThreeSixOneSetFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     /**
@@ -315,12 +309,11 @@ public class ThreeSixOneSetFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            ThreeSixOneOpenUtil.jumpPage(getActivity(), ThreeSixOneJumpH5Activity.class, bundle);
+            ThreeSixOneOpenUtil.getValue((XActivity) getActivity(), ThreeSixOneJumpH5Activity.class, bundle);
         }
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesThreeSixOneOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesThreeSixOneOpenUtil.getInt("mobileType");
             HttpApiThreeSixOne.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
@@ -343,7 +336,6 @@ public class ThreeSixOneSetFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     /**
@@ -409,7 +401,6 @@ public class ThreeSixOneSetFragment extends XFragment {
     }
 
     public void productClick(ProductModelThreeSixOne model) {
-        if (!TextUtils.isEmpty(PreferencesThreeSixOneOpenUtil.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -429,7 +420,6 @@ public class ThreeSixOneSetFragment extends XFragment {
                             toWeb(model);
                         }
                     });
-        }
     }
 
     /**

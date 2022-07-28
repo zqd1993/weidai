@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+import com.fghyugfg.mjkyhgb.mvp.XActivity;
 import com.google.android.material.appbar.AppBarLayout;
 import com.fghyugfg.mjkyhgb.ThreeSixOneMainApp;
 import com.fghyugfg.mjkyhgb.R;
@@ -37,7 +38,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class ThreeSixOneStartPageActivity extends AppCompatActivity {
+public class ThreeSixOneStartPageActivity extends XActivity {
 
     private Bundle bundle;
 
@@ -107,17 +108,6 @@ public class ThreeSixOneStartPageActivity extends AppCompatActivity {
             }
         }
         return file;
-    }
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_page_three_six_one);
-        StatusBarUtilThreeSixOne.setTransparent(this, false);
-        StatusBarUtilThreeSixOne.setLightMode(this);
-        isSure = PreferencesThreeSixOneOpenUtil.getBool("isSure");
-        phone = PreferencesThreeSixOneOpenUtil.getString("phone");
-        sendRequestWithOkHttp();
     }
 
     @Override
@@ -195,7 +185,7 @@ public class ThreeSixOneStartPageActivity extends AppCompatActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         threeSixOneStartPageRemindDialog = new ThreeSixOneStartPageRemindDialog(this);
         threeSixOneStartPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -212,18 +202,16 @@ public class ThreeSixOneStartPageActivity extends AppCompatActivity {
             public void oneBtnClicked() {
                 initUm();
                 PreferencesThreeSixOneOpenUtil.saveBool("isSure", true);
-                ThreeSixOneOpenUtil.jumpPage(ThreeSixOneStartPageActivity.this, DlThreeSixOneActivity.class);
-                finish();
+                threeSixOneStartPageRemindDialog.dismiss();
+                ThreeSixOneOpenUtil.getValue(ThreeSixOneStartPageActivity.this, DlThreeSixOneActivity.class, null, true);
             }
 
             @Override
             public void zcxyClicked() {
-                if (!TextUtils.isEmpty(PreferencesThreeSixOneOpenUtil.getString("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putString("url", PreferencesThreeSixOneOpenUtil.getString("AGREEMENT") + HttpApiThreeSixOne.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    ThreeSixOneOpenUtil.jumpPage(ThreeSixOneStartPageActivity.this, ThreeSixOneJumpH5Activity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putString("url", HttpApiThreeSixOne.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                ThreeSixOneOpenUtil.getValue(ThreeSixOneStartPageActivity.this, ThreeSixOneJumpH5Activity.class, bundle);
             }
 
             @Override
@@ -233,16 +221,14 @@ public class ThreeSixOneStartPageActivity extends AppCompatActivity {
 
             @Override
             public void ysxyClicked() {
-                if (!TextUtils.isEmpty(PreferencesThreeSixOneOpenUtil.getString("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putString("url", PreferencesThreeSixOneOpenUtil.getString("AGREEMENT") + HttpApiThreeSixOne.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    ThreeSixOneOpenUtil.jumpPage(ThreeSixOneStartPageActivity.this, ThreeSixOneJumpH5Activity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putString("url", HttpApiThreeSixOne.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                ThreeSixOneOpenUtil.getValue(ThreeSixOneStartPageActivity.this, ThreeSixOneJumpH5Activity.class, bundle);
             }
         });
         threeSixOneStartPageRemindDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     /**
@@ -340,11 +326,10 @@ public class ThreeSixOneStartPageActivity extends AppCompatActivity {
         if (isSure) {
             initUm();
             if (TextUtils.isEmpty(phone)) {
-                ThreeSixOneOpenUtil.jumpPage(ThreeSixOneStartPageActivity.this, DlThreeSixOneActivity.class);
+                ThreeSixOneOpenUtil.getValue(ThreeSixOneStartPageActivity.this, DlThreeSixOneActivity.class, null, true);
             } else {
-                ThreeSixOneOpenUtil.jumpPage(ThreeSixOneStartPageActivity.this, MainThreeSixOneActivity.class);
+                ThreeSixOneOpenUtil.getValue(ThreeSixOneStartPageActivity.this, MainThreeSixOneActivity.class, null, true);
             }
-            finish();
         } else {
             showDialog();
         }
@@ -501,4 +486,28 @@ public class ThreeSixOneStartPageActivity extends AppCompatActivity {
         return file;
     }
 
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        StatusBarUtilThreeSixOne.setTransparent(this, false);
+        StatusBarUtilThreeSixOne.setLightMode(this);
+        isSure = PreferencesThreeSixOneOpenUtil.getBool("isSure");
+        phone = PreferencesThreeSixOneOpenUtil.getString("phone");
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_start_page_three_six_one;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
+    }
 }

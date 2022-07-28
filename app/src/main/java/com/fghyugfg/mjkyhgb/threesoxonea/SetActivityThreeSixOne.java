@@ -2,6 +2,7 @@ package com.fghyugfg.mjkyhgb.threesoxonea;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,6 +33,9 @@ public class SetActivityThreeSixOne extends XActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (PreferencesThreeSixOneOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusBarUtilThreeSixOne.setTransparent(this, false);
         biaoti_tv.setText("系统设置");
         tuijian_tv.setText(PreferencesThreeSixOneOpenUtil.getBool("tuijian") ? "开启" : "关闭");
@@ -61,7 +65,7 @@ public class SetActivityThreeSixOne extends XActivity {
             dialog.show();
         });
         zhuxiao_ll.setOnClickListener(v -> {
-            ThreeSixOneOpenUtil.jumpPage(this, ZhuXiaoActivityThreeSixOne.class);
+            ThreeSixOneOpenUtil.getValue(this, ZhuXiaoActivityThreeSixOne.class, null);
         });
     }
 
