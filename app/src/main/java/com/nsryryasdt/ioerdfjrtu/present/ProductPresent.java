@@ -81,4 +81,37 @@ public class ProductPresent extends XPresent<ProductFragment> {
         }
     }
 
+    public void aindex() {
+        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
+            token = SharedPreferencesUtilis.getStringFromPref("token");
+            RequModel model = new RequModel();
+            model.setToken(token);
+            RequestBody body = StaticUtil.createBody(new Gson().toJson(model));
+            Api.getGankService().aindex(body)
+                    .compose(XApi.<BaseRespModel<List<GoodsModel>>>getApiTransformer())
+                    .compose(XApi.<BaseRespModel<List<GoodsModel>>>getScheduler())
+                    .compose(getV().<BaseRespModel<List<GoodsModel>>>bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespModel<List<GoodsModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            getV().swipeRefreshLayout.setRefreshing(false);
+//                        StaticUtil.showError(getV(), error);
+                        }
+
+                        @Override
+                        public void onNext(BaseRespModel<List<GoodsModel>> gankResults) {
+                            getV().swipeRefreshLayout.setRefreshing(false);
+                            if (gankResults != null) {
+                                if (gankResults.getCode() == 0) {
+                                    if (gankResults.getData() != null && gankResults.getData().size() > 0) {
+                                        getV().setModel(gankResults.getData().get(0));
+                                        getV().initGoodsItemAdapter(gankResults.getData());
+                                    }
+                                }
+                            }
+                        }
+                    });
+        }
+    }
+
 }

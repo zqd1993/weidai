@@ -35,11 +35,10 @@ public class ProductFragment extends XFragment<ProductPresent> {
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        getP().productList();
-        swipeRefreshLayout.setOnRefreshListener(() -> getP().productList());
-        parentLl.setOnClickListener(v -> {
-            productClick(goodsModel);
-        });
+        swipeRefreshLayout.setOnRefreshListener(() -> getP().aindex());
+//        parentLl.setOnClickListener(v -> {
+//            productClick(goodsModel);
+//        });
     }
 
     @Override
@@ -50,6 +49,12 @@ public class ProductFragment extends XFragment<ProductPresent> {
     @Override
     public ProductPresent newP() {
         return new ProductPresent();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getP().aindex();
     }
 
     private void productClick(GoodsModel model) {

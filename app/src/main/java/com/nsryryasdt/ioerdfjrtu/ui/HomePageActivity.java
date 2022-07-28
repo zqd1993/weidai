@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.nsryryasdt.ioerdfjrtu.R;
+import com.nsryryasdt.ioerdfjrtu.ui.fragment.ProductFragment;
 import com.nsryryasdt.ioerdfjrtu.utils.StatusBarUtil;
 import com.nsryryasdt.ioerdfjrtu.utils.ToastUtil;
 import com.nsryryasdt.ioerdfjrtu.mvp.XActivity;
@@ -32,9 +33,9 @@ public class HomePageActivity extends XActivity<MainPresent> {
 
     private long exitTime = 0;
     private List<Fragment> mFragments = new ArrayList<>();
-    private String[] mTitles = {"首页", "我的"};
-    private int[] uncheckedIcon = {R.drawable.ldtyiseru, R.drawable.xcvbndrtu};
-    private int[] checkedIcon = {R.drawable.xvcnxrtuazr, R.drawable.ldtuazeryu};
+    private String[] mTitles = {"首页", "产品", "我的"};
+    private int[] uncheckedIcon = {R.drawable.zxfbsryrsy, R.drawable.xfghsrtusr, R.drawable.yrtydsreu};
+    private int[] checkedIcon = {R.drawable.zcbfsrtdrtu, R.drawable.putyjdg,R.drawable.zbvdzrrty};
     private ArrayList<CustomTabEntity> customTabEntities;
     private MyFragmentAdapter myFragmentAdapter;
 
@@ -45,7 +46,7 @@ public class HomePageActivity extends XActivity<MainPresent> {
 //        getP().login();
         customTabEntities = new ArrayList<>();
         homeViewPager.setUserInputEnabled(false);
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             int position = i;
             CustomTabEntity customTabEntity = new CustomTabEntity() {
                 @Override
@@ -78,7 +79,7 @@ public class HomePageActivity extends XActivity<MainPresent> {
             }
         });
         mFragments.add(new HomePageFragment());
-//        mFragments.add(new ProductFragment());
+        mFragments.add(new ProductFragment());
         mFragments.add(new MineFragment());
 
         homeViewPager.setAdapter(new MyFragmentAdapter(getSupportFragmentManager(), getLifecycle(), mFragments));

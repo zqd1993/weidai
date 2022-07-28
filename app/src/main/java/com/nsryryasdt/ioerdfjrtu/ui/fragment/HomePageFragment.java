@@ -3,6 +3,7 @@ package com.nsryryasdt.ioerdfjrtu.ui.fragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,8 +36,10 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
     View topLayout;
     @BindView(R.id.click_view)
     View click_view;
-    @BindView(R.id.top_img)
-    public ImageView topImg;
+    @BindView(R.id.money_num_tv)
+    public TextView money_num_tv;
+    @BindView(R.id.click_view_1)
+    View click_view_1;
 
     private Bundle webBundle;
     public GoodsItemAdapter goodsItemAdapter;
@@ -44,11 +47,10 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        getP().aindex();
         swipeRefreshLayout.setOnRefreshListener(() -> {
             getP().aindex();
         });
-        topImg.setOnClickListener(v -> {
+        click_view_1.setOnClickListener(v -> {
             productClick(topGoodsModel);
         });
     }
@@ -56,6 +58,12 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
     @Override
     public int getLayoutId() {
         return R.layout.fragment_home_page;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getP().aindex();
     }
 
     @Override

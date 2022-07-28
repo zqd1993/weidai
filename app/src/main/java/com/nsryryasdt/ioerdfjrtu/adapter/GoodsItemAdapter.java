@@ -1,6 +1,7 @@
 package com.nsryryasdt.ioerdfjrtu.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import com.nsryryasdt.ioerdfjrtu.imageloader.ILoader;
 import com.nsryryasdt.ioerdfjrtu.kit.KnifeKit;
 import com.nsryryasdt.ioerdfjrtu.model.GoodsModel;
 import com.nsryryasdt.ioerdfjrtu.net.Api;
+import com.nsryryasdt.ioerdfjrtu.utils.SharedPreferencesUtilis;
 
 import butterknife.BindView;
 
@@ -40,12 +42,16 @@ public class GoodsItemAdapter extends SimpleRecAdapter<GoodsModel, GoodsItemAdap
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         GoodsModel model = data.get(i);
+        if (!TextUtils.isEmpty(model.getFan_time()) && model.getFan_time().length() > 2) {
+            viewHolder.cycleTv.setText("最长可分期" + model.getFan_time().substring(0, 2) + "期");
+        }
+        viewHolder.people_num_tv.setText(model.getNum() + "人申请");
         viewHolder.productNameTv.setText(model.getTitle());
-        Glide.with(context).load(Api.API_BASE_URL + model.getImgs()).into(viewHolder.productImg);
-        ILFactory.getLoader().loadNet(viewHolder.productImg, Api.API_BASE_URL + model.getImgs(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-        viewHolder.text_1.setText("·" + model.getMax_money());
-        viewHolder.text_2.setText("·" + model.getDay_money());
-        viewHolder.text_3.setText("·" + model.getInfo());
+        viewHolder.info_tv.setText(model.getInfo());
+        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
+            Glide.with(context).load(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL") + model.getImgs()).into(viewHolder.productImg);
+        }
+        viewHolder.limitTv.setText(model.getMax_money());
         viewHolder.clickView.setOnClickListener(v -> {
             getRecItemClick().onItemClick(i, model, 1, viewHolder);
         });
@@ -57,16 +63,16 @@ public class GoodsItemAdapter extends SimpleRecAdapter<GoodsModel, GoodsItemAdap
         TextView productNameTv;
         @BindView(R.id.product_img)
         ImageView productImg;
+        @BindView(R.id.limit_tv)
+        TextView limitTv;
+        @BindView(R.id.cycle_tv)
+        TextView cycleTv;
         @BindView(R.id.click_view)
         View clickView;
-        @BindView(R.id.text_1)
-        TextView text_1;
-        @BindView(R.id.text_2)
-        TextView text_2;
-        @BindView(R.id.text_3)
-        TextView text_3;
-        @BindView(R.id.parent_fl)
-        LinearLayout parent_fl;
+        @BindView(R.id.people_num_tv)
+        TextView people_num_tv;
+        @BindView(R.id.info_tv)
+        TextView info_tv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

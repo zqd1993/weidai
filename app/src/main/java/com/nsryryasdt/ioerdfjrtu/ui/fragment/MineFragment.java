@@ -5,6 +5,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -52,12 +53,14 @@ public class MineFragment extends XFragment {
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.mail_tv)
     TextView mail_tv;
+    @BindView(R.id.mail_sl)
+    View mail_sl;
 
     private MineAdapter mineAdapter;
     private MineAdapter1 mineAdapter1;
     private List<MineItemModel> list, list1;
-    private int[] imgRes = {R.drawable.xbnzxeryr, R.drawable.cvnxrtyas, R.drawable.xvnbxrtu,
-            R.drawable.lkdtyusrtu, R.drawable.xcvbnrtua};
+    private int[] imgRes = {R.drawable.wd_icon_yjfk, R.drawable.wd_icon_ysxy, R.drawable.wd_icon_gywm,
+            R.drawable.wd_icon_zcxy, R.drawable.wd_icon_tcdl};
     private String[] tvRes = {"注册协议", "隐私协议", "关于我们", "系统设置", "注销账户"};
     private Bundle bundle;
     private NormalDialog normalDialog;
@@ -82,7 +85,7 @@ public class MineFragment extends XFragment {
         swipeRefreshLayout.setOnRefreshListener(() -> {
             getCompanyInfo();
         });
-        mail_tv.setOnClickListener(v -> {
+        mail_sl.setOnClickListener(v -> {
             ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clipData = ClipData.newPlainText(null, mailStr);
             clipboard.setPrimaryClip(clipData);
@@ -146,43 +149,9 @@ public class MineFragment extends XFragment {
                     }
                 }
             });
-            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+            rvy.setLayoutManager(new LinearLayoutManager(getActivity()));
             rvy.setHasFixedSize(true);
             rvy.setAdapter(mineAdapter);
-        }
-        if (mineAdapter1 == null) {
-            mineAdapter1 = new MineAdapter1(getActivity());
-            mineAdapter1.setData(list1);
-            mineAdapter1.setHasStableIds(true);
-            mineAdapter1.setRecItemClick(new RecyclerItemCallback<MineItemModel, MineAdapter1.ViewHolder>() {
-                @Override
-                public void onItemClick(int position, MineItemModel model, int tag, MineAdapter1.ViewHolder holder) {
-                    super.onItemClick(position, model, tag, holder);
-                    switch (position) {
-                        case 0:
-                            bundle = new Bundle();
-                            bundle.putInt("tag", 1);
-                            bundle.putString("url", Api.getZc());
-                            Router.newIntent(getActivity())
-                                    .to(WebViewActivity.class)
-                                    .data(bundle)
-                                    .launch();
-                            break;
-                        case 1:
-                            bundle = new Bundle();
-                            bundle.putInt("tag", 2);
-                            bundle.putString("url", Api.getYs());
-                            Router.newIntent(getActivity())
-                                    .to(WebViewActivity.class)
-                                    .data(bundle)
-                                    .launch();
-                            break;
-                    }
-                }
-            });
-            rvy1.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-            rvy1.setHasFixedSize(true);
-            rvy1.setAdapter(mineAdapter1);
         }
     }
 
