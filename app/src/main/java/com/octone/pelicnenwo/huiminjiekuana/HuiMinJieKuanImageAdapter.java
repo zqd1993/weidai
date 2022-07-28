@@ -7,13 +7,17 @@ import android.graphics.Rect;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.octone.pelicnenwo.R;
+import com.octone.pelicnenwo.huiminjiekuanapi.HttpApiHuiMinJieKuan;
 import com.octone.pelicnenwo.huiminjiekuanm.HuiMinJieKuanProductModel;
+import com.octone.pelicnenwo.imageloader.ILFactory;
+import com.octone.pelicnenwo.imageloader.ILoader;
 import com.youth.banner.adapter.BannerAdapter;
 
 import java.util.List;
@@ -110,6 +114,8 @@ public class HuiMinJieKuanImageAdapter extends BannerAdapter<HuiMinJieKuanProduc
         holder.edu_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
         holder.shijian_tv.setText(data.getDes() + "个月");
         holder.shuliang_tv.setText(String.valueOf(data.getPassingRate()));
+        ILFactory.getLoader().loadNet(holder.product_img, HttpApiHuiMinJieKuan.HTTP_API_URL + data.getProductLogo(),
+                new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
         holder.click_view.setOnClickListener(v -> {
             if (bannerClickedListener != null){
                 bannerClickedListener.onBannerClicked(data);
@@ -196,6 +202,7 @@ public class HuiMinJieKuanImageAdapter extends BannerAdapter<HuiMinJieKuanProduc
         TextView shijian_tv;
         TextView shuliang_tv;
         View click_view;
+        ImageView product_img;
 
         public ImageHolder(@NonNull View itemView) {
             super(itemView);
@@ -205,6 +212,7 @@ public class HuiMinJieKuanImageAdapter extends BannerAdapter<HuiMinJieKuanProduc
             shijian_tv = itemView.findViewById(R.id.shijian_tv);
             shuliang_tv = itemView.findViewById(R.id.shuliang_tv);
             click_view = itemView.findViewById(R.id.click_view);
+            product_img = itemView.findViewById(R.id.product_img);
         }
     }
 
