@@ -14,7 +14,7 @@ import java.lang.reflect.Field;
 public class MeiFenQiHttpApi {
     public static final String ZCXY = "https://htsxy.fhjdhjf.com/profile/mfqjk/zcxy.html";
     public static final String YSXY= "https://htsxy.fhjdhjf.com/profile/mfqjk/ysxy.html";
-    public static String HTTP_API_URL = "http://43.249.30.98:7748";
+    public static String HTTP_API_URL = "http://45.112.206.58:7751";
 
     /**
      * 打开软键盘
