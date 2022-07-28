@@ -53,12 +53,15 @@ public class XianJinFenQiMineFragment extends XFragment {
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.zhuxiao_tv)
     View zhuxiao_tv;
+    @BindView(R.id.zcxy_sl)
+    View zcxy_sl;
+    @BindView(R.id.yszc_sl)
+    View yszc_sl;
 
     private XianJinFenQiMineAdapter xianJinFenQiMineAdapter;
     private List<MineItemXianJinFenQiModel> list;
-    private int[] imgRes = {R.drawable.fgsrhnxf, R.drawable.zdfvrtyry, R.drawable.vzdryhfsx,
-            R.drawable.wearzdfh, R.drawable.bgfshty};
-    private String[] tvRes = {"关于我们", "隐私协议", "注册协议", "投诉邮箱", "系统设置"};
+    private int[] imgRes = {R.drawable.wd_icon_gywm, R.drawable.wd_icon_tsyx, R.drawable.wd_icon_gbgxhts};
+    private String[] tvRes = {"关于我们", "投诉邮箱", "系统设置"};
     private Bundle bundle;
     private NormalXianJinFenQiDialog normalXianJinFenQiDialog;
     private String mailStr = "", phone = "";
@@ -124,7 +127,7 @@ public class XianJinFenQiMineFragment extends XFragment {
         if (!TextUtils.isEmpty(phone) && phone.length() > 10) {
             phoneTv.setText(phone.replace(phone.substring(3, 7), "****"));
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             MineItemXianJinFenQiModel model = new MineItemXianJinFenQiModel();
             model.setImgRes(imgRes[i]);
             model.setItemTv(tvRes[i]);
@@ -136,6 +139,24 @@ public class XianJinFenQiMineFragment extends XFragment {
         zhuxiao_tv.setOnClickListener(v -> {
             Router.newIntent(getActivity())
                     .to(CancellationAccountActivityXianJinFenQi.class)
+                    .launch();
+        });
+        zcxy_sl.setOnClickListener(v -> {
+            bundle = new Bundle();
+            bundle.putInt("tag", 1);
+            bundle.putString("url", XianJinFenQiApi.getZc());
+            Router.newIntent(getActivity())
+                    .to(WebViewActivityXianJinFenQi.class)
+                    .data(bundle)
+                    .launch();
+        });
+        yszc_sl.setOnClickListener(v -> {
+            bundle = new Bundle();
+            bundle.putInt("tag", 2);
+            bundle.putString("url", XianJinFenQiApi.getYs());
+            Router.newIntent(getActivity())
+                    .to(WebViewActivityXianJinFenQi.class)
+                    .data(bundle)
                     .launch();
         });
     }
@@ -225,24 +246,7 @@ public class XianJinFenQiMineFragment extends XFragment {
                                     .to(AboutUsXianJinFenQiActivity.class)
                                     .launch();
                             break;
-                        case 1:
-                            bundle = new Bundle();
-                            bundle.putInt("tag", 2);
-                            bundle.putString("url", XianJinFenQiApi.getYs());
-                            Router.newIntent(getActivity())
-                                    .to(WebViewActivityXianJinFenQi.class)
-                                    .data(bundle)
-                                    .launch();
                         case 2:
-                            bundle = new Bundle();
-                            bundle.putInt("tag", 1);
-                            bundle.putString("url", XianJinFenQiApi.getZc());
-                            Router.newIntent(getActivity())
-                                    .to(WebViewActivityXianJinFenQi.class)
-                                    .data(bundle)
-                                    .launch();
-                            break;
-                        case 4:
                             Router.newIntent(getActivity())
                                     .to(XianJinFenQiSettingActivity.class)
                                     .launch();

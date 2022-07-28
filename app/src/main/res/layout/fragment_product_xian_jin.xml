@@ -56,11 +56,11 @@
         android:id="@+id/product_bg"
         android:layout_width="match_parent"
         android:layout_height="90dp"
-        android:background="@color/white"
+        android:background="@color/colorPrimary"
         android:gravity="bottom|center_horizontal"
         android:paddingBottom="20dp"
         android:text="精选商品"
-        android:textColor="@color/text_normal_color"
+        android:textColor="@color/white"
         android:textSize="@dimen/textSize_16"
         android:textStyle="bold"/>
 

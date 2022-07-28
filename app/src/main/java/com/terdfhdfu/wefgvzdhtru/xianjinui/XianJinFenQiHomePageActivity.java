@@ -39,8 +39,8 @@ public class XianJinFenQiHomePageActivity extends XActivity<XianJinFenQiMainPres
     private long exitTime = 0;
     private List<Fragment> mFragments = new ArrayList<>();
     private String[] mTitles = {"首页", "产品", "我的"};
-    private int[] uncheckedIcon = {R.drawable.fgdbxty, R.drawable.ytxfgn, R.drawable.wqerqhxfh};
-    private int[] checkedIcon = {R.drawable.pikafg, R.drawable.ewtrgzh, R.drawable.zxgfdrty};
+    private int[] uncheckedIcon = {R.drawable.fgdbxty, R.drawable.ytxfgn, R.drawable.sy_footer_icon_n_wd};
+    private int[] checkedIcon = {R.drawable.sy_footer_icon_f_sy, R.drawable.sy_footer_icon_f_cp, R.drawable.sy_footer_icon_f_wd};
     private ArrayList<CustomTabEntity> customTabEntities;
     private MyFragmentXianJinFenQiAdapter myFragmentAdapter;
 
