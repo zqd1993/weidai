@@ -71,7 +71,7 @@ public class JixinStartPageActivity extends XActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         startPageRemindDialog = new JixinStartPageRemindDialog(this);
         startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -94,12 +94,10 @@ public class JixinStartPageActivity extends XActivity {
 
             @Override
             public void zcxyClicked() {
-                if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putString("url", JiXinPreferencesOpenUtil.getString("AGREEMENT") + JiXinApi.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.yryvb));
-                    JiXinOpenUtil.getValue(JixinStartPageActivity.this, JixinJumpH5Activity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putString("url", JiXinApi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.yryvb));
+                JiXinOpenUtil.getValue(JixinStartPageActivity.this, JixinJumpH5Activity.class, bundle);
             }
 
             @Override
@@ -109,16 +107,14 @@ public class JixinStartPageActivity extends XActivity {
 
             @Override
             public void ysxyClicked() {
-                if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putString("url", JiXinPreferencesOpenUtil.getString("AGREEMENT") + JiXinApi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.retert));
-                    JiXinOpenUtil.getValue(JixinStartPageActivity.this, JixinJumpH5Activity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putString("url", JiXinApi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.retert));
+                JiXinOpenUtil.getValue(JixinStartPageActivity.this, JixinJumpH5Activity.class, bundle);
             }
         });
         startPageRemindDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -241,7 +237,13 @@ public class JixinStartPageActivity extends XActivity {
         JiXinStatusBarUtil.setTransparent(this, false);
         isSure = JiXinPreferencesOpenUtil.getBool("isSure");
         phone = JiXinPreferencesOpenUtil.getString("phone");
-        sendRequestWithOkHttp();
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
     @Override

@@ -61,4 +61,5 @@ dependencies {
     implementation'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
     implementation 'io.github.youth5201314:banner:2.2.2'
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation 'io.github.razerdp:BasePopup:3.1.8'
 }

@@ -214,7 +214,6 @@ public class JiXinOpenUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("API_BASE_URL"))) {
             JiXinApi.getInterfaceUtils().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -235,11 +234,9 @@ public class JiXinOpenUtil {
                             }
                         }
                     });
-        }
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-        if (!TextUtils.isEmpty(JiXinPreferencesOpenUtil.getString("API_BASE_URL"))) {
             JiXinApi.getInterfaceUtils().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -260,7 +257,6 @@ public class JiXinOpenUtil {
                             }
                         }
                     });
-        }
     }
 
     public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {

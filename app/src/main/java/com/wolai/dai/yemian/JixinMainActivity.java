@@ -62,11 +62,11 @@ public class JixinMainActivity extends XActivity {
         tabModel2.setName("我的");
         tabModel2.setChecked(false);
         tabModels.add(tabModel);
-        tabModels.add(tabModel1);
+//        tabModels.add(tabModel1);
         tabModels.add(tabModel2);
         initAdapter();
         fragments.add(new JixinMainFragment());
-        fragments.add(new JixinProductFragment());
+//        fragments.add(new JixinProductFragment());
         fragments.add(new JixinSetFragment());
         mainViewPager.setUserInputEnabled(false);
         mainViewPager.setAdapter(new JixinFragmentAdapter(getSupportFragmentManager(), getLifecycle(), fragments));
@@ -81,7 +81,7 @@ public class JixinMainActivity extends XActivity {
                 mainViewPager.setCurrentItem(position, false);
             });
             bottomRvy.setHasFixedSize(true);
-            bottomRvy.setLayoutManager(new GridLayoutManager(this, 3));
+            bottomRvy.setLayoutManager(new GridLayoutManager(this, 2));
             bottomRvy.setAdapter(tabAdapter);
         }
     }
