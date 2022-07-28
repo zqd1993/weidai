@@ -346,13 +346,15 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/title_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@color/white"
             android:orientation="horizontal"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:visibility="gone">
 
             <View
                 android:layout_width="5dp"
@@ -409,8 +411,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_marginStart="10dp"
                 android:text="项目推荐"
+                android:textColor="@color/text_normal_color"
+                android:textSize="@dimen/textSize_16"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/more_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="20dp"
+                android:text="更多 >"
                 android:textColor="@color/text_normal_color"
                 android:textSize="@dimen/textSize_16"
                 android:textStyle="bold" />

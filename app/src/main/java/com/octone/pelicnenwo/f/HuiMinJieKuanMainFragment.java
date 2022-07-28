@@ -15,6 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.octone.pelicnenwo.R;
 import com.octone.pelicnenwo.huiminjiekuana.HuiMinJieKuanImageAdapter;
+import com.octone.pelicnenwo.huiminjiekuana.HuiMinJieKuanMainActivity;
 import com.octone.pelicnenwo.huiminjiekuana.JumpH5HuiMinJieKuanActivity;
 import com.octone.pelicnenwo.huiminjiekuanapi.HttpApiHuiMinJieKuan;
 import com.octone.pelicnenwo.imageloader.ILFactory;
@@ -127,6 +128,10 @@ public class HuiMinJieKuanMainFragment extends XFragment {
     LinearLayout goodsListLl;
     @BindView(R.id.banner_iv)
     View banner_iv;
+    @BindView(R.id.more_tv)
+    View more_tv;
+    @BindView(R.id.title_ll)
+    View title_ll;
 
     private HuiMinJieKuanProductModel huiMinJieKuanProductModel;
 
@@ -137,8 +142,8 @@ public class HuiMinJieKuanMainFragment extends XFragment {
     @Override
     public void initData(Bundle savedInstanceState) {
         goodsListLl.setVisibility(View.VISIBLE);
-        banner.setVisibility(View.GONE);
         banner_iv.setVisibility(View.VISIBLE);
+        title_ll.setVisibility(View.VISIBLE);
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -156,6 +161,9 @@ public class HuiMinJieKuanMainFragment extends XFragment {
         });
         click_fl.setOnClickListener(v -> {
             productClick(huiMinJieKuanProductModel);
+        });
+        more_tv.setOnClickListener(v -> {
+            ((HuiMinJieKuanMainActivity)getActivity()).changePage();
         });
     }
 

@@ -86,6 +86,16 @@ public class HuiMinJieKuanMainActivity extends XActivity {
         }
     }
 
+    public void changePage(){
+        if (huiMinJieKuanTabAdapter != null){
+            huiMinJieKuanTabAdapter.getData().get(0).setChecked(false);
+            huiMinJieKuanTabAdapter.getData().get(1).setChecked(true);
+            huiMinJieKuanTabAdapter.getData().get(2).setChecked(false);
+            mainViewPager.setCurrentItem(1, false);
+            huiMinJieKuanTabAdapter.notifyDataSetChanged();
+        }
+    }
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_main_hui_min_jie_kuan;
