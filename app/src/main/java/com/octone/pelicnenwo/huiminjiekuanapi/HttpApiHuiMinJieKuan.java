@@ -11,7 +11,7 @@ import com.octone.pelicnenwo.net.XApi;
 public class HttpApiHuiMinJieKuan {
     public static final String ZCXY = "https://bones.huyt78p.com/profile/vivohmjk/zcxy.html";
     public static final String YSXY= "https://bones.huyt78p.com/profile/vivohmjk/ysxy.html ";
-    public static String HTTP_API_URL = "http://202.52.144.93:7716";
+    public static String HTTP_API_URL = "http://43.249.30.98:7748";
 
     /**
      * 获得状态栏的高度

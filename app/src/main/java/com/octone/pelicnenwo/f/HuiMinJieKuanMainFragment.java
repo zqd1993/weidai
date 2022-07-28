@@ -377,8 +377,8 @@ public class HuiMinJieKuanMainFragment extends XFragment {
                                 if (huiMinJieKuanBaseModel.getCode() == 200 && huiMinJieKuanBaseModel.getData() != null) {
                                     if (huiMinJieKuanBaseModel.getData() != null && huiMinJieKuanBaseModel.getData().size() > 0) {
                                         huiMinJieKuanProductModel = huiMinJieKuanBaseModel.getData().get(0);
-//                                        initBannerAdapter(huiMinJieKuanBaseModel.getData());
-                                        addProductView(huiMinJieKuanBaseModel.getData());
+                                        initBannerAdapter(huiMinJieKuanBaseModel.getData());
+//                                        addProductView(huiMinJieKuanBaseModel.getData());
                                     } else {
                                         noDataTv.setVisibility(View.VISIBLE);
                                     }
