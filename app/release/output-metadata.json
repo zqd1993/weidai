@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.rkkj.dkmx",
+  "applicationId": "com.tysffgh.wfdgdfg",
   "variantName": "release",
   "elements": [
     {
@@ -12,7 +12,7 @@
       "filters": [],
       "versionCode": 100,
       "versionName": "1.0.0",
-      "outputFile": "doudoudaikuan_v1.0.0_build_20220727104859.apk"
+      "outputFile": "doudoudaikuan_v1.0.0_build_20220729150817.apk"
     }
   ]
 }
