@@ -15,6 +15,7 @@ import com.jijiewqeasd.zxcvn.jijiepage.JiJieJumpH5Activity;
 import com.jijiewqeasd.zxcvn.jijieapi.NetJiJieApi;
 import com.jijiewqeasd.zxcvn.jijiem.BaseJiJieModel;
 import com.jijiewqeasd.zxcvn.jijiem.ProductJiJieModel;
+import com.jijiewqeasd.zxcvn.jijiepage.JiJieMainActivity;
 import com.jijiewqeasd.zxcvn.mvp.XActivity;
 import com.jijiewqeasd.zxcvn.mvp.XFragment;
 import com.jijiewqeasd.zxcvn.net.ApiSubscriber;
@@ -49,6 +50,10 @@ public class MainJiJieFragment extends XFragment {
     Banner banner;
     @BindView(R.id.parent_fl)
     View parentFl;
+    @BindView(R.id.more_ll)
+    View moreLl;
+    @BindView(R.id.more_tv)
+    View more_tv;
 
     private ProductJiJieModel productJiJieModel;
 
@@ -106,6 +111,12 @@ public class MainJiJieFragment extends XFragment {
         });
         parentFl.setOnClickListener(v -> {
             productClick(productJiJieModel);
+        });
+        moreLl.setOnClickListener(v -> {
+            ((JiJieMainActivity)getActivity()).jumpPage();
+        });
+        more_tv.setOnClickListener(v -> {
+            ((JiJieMainActivity)getActivity()).jumpPage();
         });
     }
 

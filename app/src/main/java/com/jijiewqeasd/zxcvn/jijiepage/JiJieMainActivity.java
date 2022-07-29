@@ -227,6 +227,15 @@ public class JiJieMainActivity extends XActivity {
         mainViewPager.setAdapter(new JiJieFragmentAdapter(getSupportFragmentManager(), getLifecycle(), fragments));
         mainViewPager.setCurrentItem(0);
     }
+
+    public void jumpPage(){
+        tabAdapter.getData().get(0).setChecked(false);
+        tabAdapter.getData().get(1).setChecked(true);
+        tabAdapter.getData().get(2).setChecked(false);
+        mainViewPager.setCurrentItem(1, false);
+        tabAdapter.notifyDataSetChanged();
+    }
+
     /**
      * 删除文件夹及其包含的所有文件(会自身循环调用)
      *

@@ -81,146 +81,158 @@
 
                 </LinearLayout>
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_15"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:layout_marginEnd="@dimen/dp_15"
-                    android:orientation="horizontal">
-
-                    <com.lihang.ShadowLayout
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/dp_10"
-                        android:layout_weight="1"
-                        app:hl_cornerRadius="@dimen/dp_5">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/ljku" />
-
-                    </com.lihang.ShadowLayout>
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:layout_width="@dimen/dp_0"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_marginStart="@dimen/dp_15"
+                        android:layout_marginTop="@dimen/dp_15"
+                        android:layout_marginEnd="@dimen/dp_15"
+                        android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
+                        <com.lihang.ShadowLayout
+                            android:layout_width="@dimen/dp_0"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/dp_20"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:visibility="gone">
+                            android:layout_marginEnd="@dimen/dp_10"
+                            android:layout_weight="1"
+                            app:hl_cornerRadius="@dimen/dp_5">
 
                             <ImageView
-                                android:layout_width="@dimen/dp_12"
-                                android:layout_height="@dimen/dp_16"
-                                android:layout_marginStart="@dimen/dp_16"
-                                android:layout_marginTop="@dimen/dp_10"
-                                android:layout_marginBottom="@dimen/dp_10" />
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ljku" />
 
-                            <TextView
+                        </com.lihang.ShadowLayout>
+
+                        <LinearLayout
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/dp_7"
-                                android:layout_marginEnd="@dimen/dp_17"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/sp_12"
-                                android:textStyle="bold" />
+                                android:layout_marginEnd="@dimen/dp_20"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:visibility="gone">
+
+                                <ImageView
+                                    android:layout_width="@dimen/dp_12"
+                                    android:layout_height="@dimen/dp_16"
+                                    android:layout_marginStart="@dimen/dp_16"
+                                    android:layout_marginTop="@dimen/dp_10"
+                                    android:layout_marginBottom="@dimen/dp_10" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/dp_7"
+                                    android:layout_marginEnd="@dimen/dp_17"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/sp_12"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <com.lihang.ShadowLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                app:hl_cornerRadius="@dimen/dp_5">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/vfdbsa" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="@dimen/dp_20"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal"
+                                    android:visibility="gone">
+
+                                    <ImageView
+                                        android:layout_width="@dimen/dp_12"
+                                        android:layout_height="@dimen/dp_16"
+                                        android:layout_marginStart="@dimen/dp_16"
+                                        android:layout_marginTop="@dimen/dp_10"
+                                        android:layout_marginBottom="@dimen/dp_10" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="@dimen/dp_7"
+                                        android:layout_marginEnd="@dimen/dp_17"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/sp_12"
+                                        android:textStyle="bold" />
+
+                                </LinearLayout>
+                            </com.lihang.ShadowLayout>
+
+                            <com.lihang.ShadowLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_marginTop="@dimen/dp_15"
+                                android:layout_weight="1"
+                                app:hl_cornerRadius="@dimen/dp_5">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="@dimen/dp_20"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal"
+                                    android:visibility="gone">
+
+                                    <ImageView
+                                        android:layout_width="@dimen/dp_12"
+                                        android:layout_height="@dimen/dp_16"
+                                        android:layout_marginStart="@dimen/dp_16"
+                                        android:layout_marginTop="@dimen/dp_10"
+                                        android:layout_marginBottom="@dimen/dp_10" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="@dimen/dp_7"
+                                        android:layout_marginEnd="@dimen/dp_17"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/sp_12"
+                                        android:textStyle="bold" />
+
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/bvvfd" />
+
+                            </com.lihang.ShadowLayout>
+
 
                         </LinearLayout>
 
-                        <com.lihang.ShadowLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            app:hl_cornerRadius="@dimen/dp_5">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/vfdbsa" />
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/dp_20"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal"
-                                android:visibility="gone">
-
-                                <ImageView
-                                    android:layout_width="@dimen/dp_12"
-                                    android:layout_height="@dimen/dp_16"
-                                    android:layout_marginStart="@dimen/dp_16"
-                                    android:layout_marginTop="@dimen/dp_10"
-                                    android:layout_marginBottom="@dimen/dp_10" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/dp_7"
-                                    android:layout_marginEnd="@dimen/dp_17"
-                                    android:textColor="@color/black"
-                                    android:textSize="@dimen/sp_12"
-                                    android:textStyle="bold" />
-
-                            </LinearLayout>
-                        </com.lihang.ShadowLayout>
-
-                        <com.lihang.ShadowLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_marginTop="@dimen/dp_15"
-                            android:layout_weight="1"
-                            app:hl_cornerRadius="@dimen/dp_5">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/dp_20"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal"
-                                android:visibility="gone">
-
-                                <ImageView
-                                    android:layout_width="@dimen/dp_12"
-                                    android:layout_height="@dimen/dp_16"
-                                    android:layout_marginStart="@dimen/dp_16"
-                                    android:layout_marginTop="@dimen/dp_10"
-                                    android:layout_marginBottom="@dimen/dp_10" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/dp_7"
-                                    android:layout_marginEnd="@dimen/dp_17"
-                                    android:textColor="@color/black"
-                                    android:textSize="@dimen/sp_12"
-                                    android:textStyle="bold" />
-
-                            </LinearLayout>
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/bvvfd" />
-
-                        </com.lihang.ShadowLayout>
-
-
                     </LinearLayout>
 
-                </LinearLayout>
+                    <View
+                        android:id="@+id/more_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="160dp"
+                        android:layout_marginTop="10dp" />
+
+                </FrameLayout>
 
             </LinearLayout>
 
@@ -265,15 +277,33 @@
 
         </FrameLayout>
 
-        <TextView
+        <FrameLayout
             android:id="@+id/title_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_15"
-            android:layout_marginTop="30dp"
-            android:text="精选贷款"
-            android:textColor="@color/text_normal_color"
-            android:textSize="18sp" />
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="精选贷款"
+                android:textColor="@color/text_normal_color"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/more_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:padding="10dp"
+                android:layout_gravity="end"
+                android:text="更多   >"
+                android:textColor="@color/text_normal_color"
+                android:textSize="18sp" />
+
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
