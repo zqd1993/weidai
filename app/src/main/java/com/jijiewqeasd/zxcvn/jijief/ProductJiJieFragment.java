@@ -18,6 +18,7 @@ import com.jijiewqeasd.zxcvn.imageloader.ILFactory;
 import com.jijiewqeasd.zxcvn.imageloader.ILoader;
 import com.jijiewqeasd.zxcvn.jijiem.BaseJiJieModel;
 import com.jijiewqeasd.zxcvn.jijiem.ProductJiJieModel;
+import com.jijiewqeasd.zxcvn.mvp.XActivity;
 import com.jijiewqeasd.zxcvn.mvp.XFragment;
 import com.jijiewqeasd.zxcvn.net.ApiSubscriber;
 import com.jijiewqeasd.zxcvn.net.NetError;
@@ -91,7 +92,6 @@ public class ProductJiJieFragment extends XFragment {
         top_layout.setVisibility(View.GONE);
         title_tv.setVisibility(View.GONE);
         goodsListLl.setVisibility(View.VISIBLE);
-        productList();
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -104,6 +104,12 @@ public class ProductJiJieFragment extends XFragment {
         goodsListLl.setOnClickListener(v -> {
             productClick(productJiJieModel);
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        productList();
     }
 
     /**
@@ -128,25 +134,23 @@ public class ProductJiJieFragment extends XFragment {
     }
 
     public void productClick(ProductJiJieModel model) {
-        if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
-            if (model != null) {
-                phone = PreferencesJiJieOpenUtil.getString("phone");
-                NetJiJieApi.getInterfaceUtils().productClick(model.getId(), phone)
-                        .compose(XApi.getApiTransformer())
-                        .compose(XApi.getScheduler())
-                        .compose(bindToLifecycle())
-                        .subscribe(new ApiSubscriber<BaseJiJieModel>() {
-                            @Override
-                            protected void onFail(NetError error) {
-                                toWeb(model);
-                            }
+        if (model != null) {
+            phone = PreferencesJiJieOpenUtil.getString("phone");
+            NetJiJieApi.getInterfaceUtils().productClick(model.getId(), phone)
+                    .compose(XApi.getApiTransformer())
+                    .compose(XApi.getScheduler())
+                    .compose(bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseJiJieModel>() {
+                        @Override
+                        protected void onFail(NetError error) {
+                            toWeb(model);
+                        }
 
-                            @Override
-                            public void onNext(BaseJiJieModel baseJiJieModel) {
-                                toWeb(model);
-                            }
-                        });
-            }
+                        @Override
+                        public void onNext(BaseJiJieModel baseJiJieModel) {
+                            toWeb(model);
+                        }
+                    });
         }
     }
 
@@ -170,48 +174,42 @@ public class ProductJiJieFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
-            mobileType = PreferencesJiJieOpenUtil.getInt("mobileType");
-            NetJiJieApi.getInterfaceUtils().productList(mobileType)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseJiJieModel<List<ProductJiJieModel>>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            setRefreshing.setRefreshing(false);
-                            OpenJiJieUtil.showErrorInfo(getActivity(), error);
-                            if (goodsListLl.getChildCount() == 0) {
-                                noDataTv.setVisibility(View.VISIBLE);
-                            }
+        mobileType = PreferencesJiJieOpenUtil.getInt("mobileType");
+        productJiJieModel = null;
+        NetJiJieApi.getInterfaceUtils().productList(mobileType)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseJiJieModel<List<ProductJiJieModel>>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        setRefreshing.setRefreshing(false);
+                        OpenJiJieUtil.showErrorInfo(getActivity(), error);
+                        if (goodsListLl.getChildCount() == 0) {
+                            noDataTv.setVisibility(View.VISIBLE);
                         }
+                    }
 
-                        @Override
-                        public void onNext(BaseJiJieModel<List<ProductJiJieModel>> baseJiJieModel) {
-                            setRefreshing.setRefreshing(false);
-                            if (baseJiJieModel != null) {
-                                if (baseJiJieModel.getCode() == 200 && baseJiJieModel.getData() != null) {
-                                    if (baseJiJieModel.getData() != null && baseJiJieModel.getData().size() > 0) {
-                                        productJiJieModel = baseJiJieModel.getData().get(0);
-                                        addProductView(baseJiJieModel.getData());
-                                    } else {
-                                        if (goodsListLl.getChildCount() == 0) {
-                                            noDataTv.setVisibility(View.VISIBLE);
-                                        }
-                                    }
+                    @Override
+                    public void onNext(BaseJiJieModel<List<ProductJiJieModel>> baseJiJieModel) {
+                        setRefreshing.setRefreshing(false);
+                        goodsListLl.removeAllViews();
+                        if (baseJiJieModel != null) {
+                            if (baseJiJieModel.getCode() == 200 && baseJiJieModel.getData() != null) {
+                                if (baseJiJieModel.getData() != null && baseJiJieModel.getData().size() > 0) {
+                                    productJiJieModel = baseJiJieModel.getData().get(0);
+                                    addProductView(baseJiJieModel.getData());
                                 } else {
-                                    if (goodsListLl.getChildCount() == 0) {
-                                        noDataTv.setVisibility(View.VISIBLE);
-                                    }
-                                }
-                            } else {
-                                if (goodsListLl.getChildCount() == 0) {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
+                            } else {
+                                noDataTv.setVisibility(View.VISIBLE);
                             }
+                        } else {
+                            noDataTv.setVisibility(View.VISIBLE);
                         }
-                    });
-        }
+                    }
+                });
     }
 
     /**
@@ -232,7 +230,6 @@ public class ProductJiJieFragment extends XFragment {
     }
 
     private void addProductView(List<ProductJiJieModel> mList) {
-        goodsListLl.removeAllViews();
         for (ProductJiJieModel model : mList) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_jijie_product_view, null);
             ImageView daikuan_icon = view.findViewById(R.id.daikuan_icon);
@@ -243,10 +240,8 @@ public class ProductJiJieFragment extends XFragment {
             View parent_layout = view.findViewById(R.id.parent_layout);
             TextView zhouqi_tv = view.findViewById(R.id.zhouqi_tv);
             TextView number_tv = view.findViewById(R.id.number_tv);
-            if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
-                ILFactory.getLoader().loadNet(daikuan_icon, PreferencesJiJieOpenUtil.getString("HTTP_API_URL") + model.getProductLogo(),
-                        new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-            }
+            ILFactory.getLoader().loadNet(daikuan_icon, NetJiJieApi.HTTP_API_URL + model.getProductLogo(),
+                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
             daikuan_name_tv.setText(model.getProductName());
             zhouqi_tv.setText(model.getDes() + "个月");
             number_tv.setText(String.valueOf(model.getPassingRate()));
@@ -272,7 +267,7 @@ public class ProductJiJieFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("title", model.getProductName());
-            OpenJiJieUtil.jumpPage(getActivity(), JiJieJumpH5Activity.class, bundle);
+            OpenJiJieUtil.getValue((XActivity) getActivity(), JiJieJumpH5Activity.class, bundle);
         }
     }
 }

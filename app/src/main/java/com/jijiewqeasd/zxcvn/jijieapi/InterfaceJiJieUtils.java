@@ -30,6 +30,9 @@ public interface InterfaceJiJieUtils {
     @GET("/app/user/sendVerifyCode")
     Flowable<BaseJiJieModel> sendVerifyCode(@Query("phone") String phone);
 
+    @GET("/app/config/getValue")
+    Flowable<BaseJiJieModel<ConfigJiJieEntity>> getValue(@Query("key") String phone);
+
     @GET("/app/user/login")
     Flowable<BaseJiJieModel<DlJiJieModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
 

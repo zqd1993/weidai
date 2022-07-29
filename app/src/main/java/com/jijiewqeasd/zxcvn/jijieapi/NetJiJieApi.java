@@ -7,9 +7,9 @@ import com.jijiewqeasd.zxcvn.net.XApi;
 import com.jijiewqeasd.zxcvn.u.PreferencesJiJieOpenUtil;
 
 public class NetJiJieApi {
-    public static final String ZCXY = "https://xy.hgy5kg.com/profile/jjdk/zcxy.html";
-    public static final String HTTP_API_URL = "http://45.120.154.46:7712";
-    public static final String YSXY= "https://xy.hgy5kg.com/profile/jjdk/ysxy.html";
+    public static final String ZCXY = "https://htsxy.fhjdhjf.com/profile/vvfqhjk/zcxy.html";
+    public static final String HTTP_API_URL = "http://45.112.206.60:7712";
+    public static final String YSXY= "https://htsxy.fhjdhjf.com/profile/vvfqhjk/ysxy.html";
 
     // 如果想屏蔽所有log,可以设置为0
     public static final int LOG_LEVEL = 6;
@@ -23,10 +23,10 @@ public class NetJiJieApi {
     private static InterfaceJiJieUtils interfaceUtils;
 
     public static InterfaceJiJieUtils getInterfaceUtils() {
-        if (interfaceUtils == null && !TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
+        if (interfaceUtils == null) {
             synchronized (NetJiJieApi.class) {
                 if (interfaceUtils == null) {
-                    interfaceUtils = XApi.getInstance().getRetrofit(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"), true).create(InterfaceJiJieUtils.class);
+                    interfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(InterfaceJiJieUtils.class);
                 }
             }
         }

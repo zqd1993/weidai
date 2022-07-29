@@ -1,6 +1,7 @@
 package com.jijiewqeasd.zxcvn.jijiepage;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -8,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.jijiewqeasd.zxcvn.R;
+import com.jijiewqeasd.zxcvn.u.PreferencesJiJieOpenUtil;
 import com.jijiewqeasd.zxcvn.u.StatusJiJieBarUtil;
 import com.jijiewqeasd.zxcvn.w.RemindJiJieDialog;
 
@@ -83,6 +85,9 @@ public class ZhuXiaoJiJieActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (PreferencesJiJieOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusJiJieBarUtil.setTransparent(this, false);
         setContentView(R.layout.activity_jijie_zhuxiao);
         ImageView backImg = findViewById(R.id.back_image);

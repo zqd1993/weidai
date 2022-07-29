@@ -9,7 +9,13 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.jijiewqeasd.zxcvn.jijieapi.NetJiJieApi;
+import com.jijiewqeasd.zxcvn.jijiem.BaseJiJieModel;
+import com.jijiewqeasd.zxcvn.jijiem.ConfigJiJieEntity;
+import com.jijiewqeasd.zxcvn.mvp.XActivity;
+import com.jijiewqeasd.zxcvn.net.ApiSubscriber;
 import com.jijiewqeasd.zxcvn.net.NetError;
+import com.jijiewqeasd.zxcvn.net.XApi;
 import com.jijiewqeasd.zxcvn.router.Router;
 import com.jijiewqeasd.zxcvn.w.ClickJiJieTextView;
 
@@ -242,6 +248,68 @@ public class OpenJiJieUtil {
         Router.newIntent(activity)
                 .to(to)
                 .launch();
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
+        NetJiJieApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseJiJieModel<ConfigJiJieEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        jumpPage(activity, to, bundle, false);
+                    }
+
+                    @Override
+                    public void onNext(BaseJiJieModel<ConfigJiJieEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                PreferencesJiJieOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, false);
+                            }
+                        }
+                    }
+                });
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        NetJiJieApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseJiJieModel<ConfigJiJieEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        jumpPage(activity, to, bundle, isFinish);
+                    }
+
+                    @Override
+                    public void onNext(BaseJiJieModel<ConfigJiJieEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                PreferencesJiJieOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, isFinish);
+                            }
+                        }
+                    }
+                });
+    }
+
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        if (bundle != null) {
+            Router.newIntent(activity)
+                    .to(to)
+                    .data(bundle)
+                    .launch();
+        } else {
+            Router.newIntent(activity)
+                    .to(to)
+                    .launch();
+        }
+        if (isFinish) {
+            activity.finish();
+        }
     }
 
 }

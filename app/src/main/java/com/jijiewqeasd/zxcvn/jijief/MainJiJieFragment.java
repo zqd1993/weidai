@@ -15,6 +15,7 @@ import com.jijiewqeasd.zxcvn.jijiepage.JiJieJumpH5Activity;
 import com.jijiewqeasd.zxcvn.jijieapi.NetJiJieApi;
 import com.jijiewqeasd.zxcvn.jijiem.BaseJiJieModel;
 import com.jijiewqeasd.zxcvn.jijiem.ProductJiJieModel;
+import com.jijiewqeasd.zxcvn.mvp.XActivity;
 import com.jijiewqeasd.zxcvn.mvp.XFragment;
 import com.jijiewqeasd.zxcvn.net.ApiSubscriber;
 import com.jijiewqeasd.zxcvn.net.NetError;
@@ -91,7 +92,6 @@ public class MainJiJieFragment extends XFragment {
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        productList();
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -107,6 +107,12 @@ public class MainJiJieFragment extends XFragment {
         parentFl.setOnClickListener(v -> {
             productClick(productJiJieModel);
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        productList();
     }
 
     /**
@@ -184,7 +190,6 @@ public class MainJiJieFragment extends XFragment {
     }
 
     public void productClick(ProductJiJieModel model) {
-        if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -204,7 +209,6 @@ public class MainJiJieFragment extends XFragment {
                             toWeb(model);
                         }
                     });
-        }
     }
 
     /**
@@ -220,48 +224,41 @@ public class MainJiJieFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
-            mobileType = PreferencesJiJieOpenUtil.getInt("mobileType");
-            NetJiJieApi.getInterfaceUtils().productList(mobileType)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseJiJieModel<List<ProductJiJieModel>>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            setRefreshing.setRefreshing(false);
-                            OpenJiJieUtil.showErrorInfo(getActivity(), error);
-                            if (imageAdapter == null) {
-                                noDataTv.setVisibility(View.VISIBLE);
-                            }
+        mobileType = PreferencesJiJieOpenUtil.getInt("mobileType");
+        productJiJieModel = null;
+        NetJiJieApi.getInterfaceUtils().productList(mobileType)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseJiJieModel<List<ProductJiJieModel>>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        setRefreshing.setRefreshing(false);
+                        OpenJiJieUtil.showErrorInfo(getActivity(), error);
+                        if (imageAdapter == null) {
+                            noDataTv.setVisibility(View.VISIBLE);
                         }
+                    }
 
-                        @Override
-                        public void onNext(BaseJiJieModel<List<ProductJiJieModel>> baseJiJieModel) {
-                            setRefreshing.setRefreshing(false);
-                            if (baseJiJieModel != null) {
-                                if (baseJiJieModel.getCode() == 200 && baseJiJieModel.getData() != null) {
-                                    if (baseJiJieModel.getData() != null && baseJiJieModel.getData().size() > 0) {
-                                        productJiJieModel = baseJiJieModel.getData().get(0);
-                                        initBannerAdapter(baseJiJieModel.getData());
-                                    } else {
-                                        if (imageAdapter == null) {
-                                            noDataTv.setVisibility(View.VISIBLE);
-                                        }
-                                    }
+                    @Override
+                    public void onNext(BaseJiJieModel<List<ProductJiJieModel>> baseJiJieModel) {
+                        setRefreshing.setRefreshing(false);
+                        if (baseJiJieModel != null) {
+                            if (baseJiJieModel.getCode() == 200 && baseJiJieModel.getData() != null) {
+                                if (baseJiJieModel.getData() != null && baseJiJieModel.getData().size() > 0) {
+                                    productJiJieModel = baseJiJieModel.getData().get(0);
+                                    initBannerAdapter(baseJiJieModel.getData());
                                 } else {
-                                    if (imageAdapter == null) {
-                                        noDataTv.setVisibility(View.VISIBLE);
-                                    }
-                                }
-                            } else {
-                                if (imageAdapter == null) {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
+                            } else {
+                                noDataTv.setVisibility(View.VISIBLE);
                             }
+                        } else {
+                            noDataTv.setVisibility(View.VISIBLE);
                         }
-                    });
-        }
+                    }
+                });
     }
 
     public void toWeb(ProductJiJieModel model) {
@@ -269,7 +266,7 @@ public class MainJiJieFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            OpenJiJieUtil.jumpPage(getActivity(), JiJieJumpH5Activity.class, bundle);
+            OpenJiJieUtil.getValue((XActivity) getActivity(), JiJieJumpH5Activity.class, bundle);
         }
     }
 

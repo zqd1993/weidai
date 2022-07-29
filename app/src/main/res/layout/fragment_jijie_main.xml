@@ -307,12 +307,18 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/dp_10">
 
-            <LinearLayout
-                android:id="@+id/goods_list_ll"
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="gone" />
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/goods_list_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone" />
+
+            </androidx.core.widget.NestedScrollView>
 
             <LinearLayout
                 android:layout_width="wrap_content"
