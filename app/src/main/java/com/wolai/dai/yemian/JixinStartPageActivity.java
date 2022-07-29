@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -15,13 +16,20 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.wolai.dai.R;
+import com.wolai.dai.gongju.JiXinMyToast;
 import com.wolai.dai.jiekou.JiXinApi;
 import com.wolai.dai.gongju.JiXinOpenUtil;
 import com.wolai.dai.gongju.JiXinPreferencesOpenUtil;
 import com.wolai.dai.gongju.JiXinStatusBarUtil;
+import com.wolai.dai.kongjian.JixinRemindDialog;
 import com.wolai.dai.kongjian.JixinStartPageRemindDialog;
 import com.umeng.commonsdk.UMConfigure;
 import com.wolai.dai.mvp.XActivity;
+import com.wolai.dai.net.ApiSubscriber;
+import com.wolai.dai.net.NetError;
+import com.wolai.dai.net.XApi;
+import com.wolai.dai.shiti.JixinBaseModel;
+import com.wolai.dai.shiti.JixinConfigEntity;
 
 import java.lang.reflect.Method;
 
@@ -38,6 +46,8 @@ public class JixinStartPageActivity extends XActivity {
     private String phone = "";
 
     private JixinStartPageRemindDialog startPageRemindDialog;
+
+    private JixinRemindDialog dialog;
 
     /**
      * Convert a translucent themed Activity
@@ -89,6 +99,7 @@ public class JixinStartPageActivity extends XActivity {
                 initUm();
                 JiXinPreferencesOpenUtil.saveBool("isSure", true);
                 startPageRemindDialog.dismiss();
+//                getValue(1);
                 JiXinOpenUtil.getValue(JixinStartPageActivity.this, JixinDlActivity.class, null, true);
             }
 
@@ -102,6 +113,7 @@ public class JixinStartPageActivity extends XActivity {
 
             @Override
             public void twoBtnClicked() {
+                startPageRemindDialog.dismiss();
                 finish();
             }
 
@@ -150,8 +162,10 @@ public class JixinStartPageActivity extends XActivity {
         if (isSure) {
             initUm();
             if (TextUtils.isEmpty(phone)) {
+//                getValue(1);
                 JiXinOpenUtil.getValue(JixinStartPageActivity.this, JixinDlActivity.class, null, true);
             } else {
+//                getValue(2);
                 JiXinOpenUtil.getValue(JixinStartPageActivity.this, JixinMainActivity.class, null, true);
             }
         } else {
@@ -244,6 +258,33 @@ public class JixinStartPageActivity extends XActivity {
                 jumpPage();
             }
         }, 500);
+        dialog = new JixinRemindDialog(this).setCancelText("退出")
+                .setConfirmText("确认").setTitle("温馨提示").setContent("当前手机没有SIM卡，禁止使用当前应用！");
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    JixinStartPageActivity.this.finish();
+                    return false;
+                }
+                return true;
+            }
+
+        });
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setOnButtonClickListener(new JixinRemindDialog.OnButtonClickListener() {
+            @Override
+            public void onSureClicked() {
+                finish();
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onCancelClicked() {
+                finish();
+                dialog.dismiss();
+            }
+        });
     }
 
     @Override
@@ -254,5 +295,39 @@ public class JixinStartPageActivity extends XActivity {
     @Override
     public Object newP() {
         return null;
+    }
+
+    public void getValue(int type) {
+        JiXinApi.getInterfaceUtils().getValue("APP_SM")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<JixinBaseModel<JixinConfigEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(JixinBaseModel<JixinConfigEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData().getAppSm().equals("1")) {
+                                TelephonyManager tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+                                if (tm.getSimState() == TelephonyManager.SIM_STATE_ABSENT) {
+                                    dialog.show();
+                                    return;
+                                }
+                            }
+                            switch (type) {
+                                case 1:
+                                    JiXinOpenUtil.getValue(JixinStartPageActivity.this, JixinDlActivity.class, null, true);
+                                    break;
+                                case 2:
+                                    JiXinOpenUtil.getValue(JixinStartPageActivity.this, JixinMainActivity.class, null, true);
+                                    break;
+                            }
+                        }
+                    }
+                });
     }
 }

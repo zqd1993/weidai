@@ -41,6 +41,7 @@ public class JixinMainActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         JiXinStatusBarUtil.setTransparent(this, false);
+        JiXinStatusBarUtil.setLightMode(this);
         if (JiXinPreferencesOpenUtil.getBool("NO_RECORD")) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
         }

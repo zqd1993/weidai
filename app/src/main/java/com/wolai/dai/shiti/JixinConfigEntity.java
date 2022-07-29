@@ -32,6 +32,17 @@ public class JixinConfigEntity {
     @SerializedName("VIDEOTAPE")
     private String videoTape;
 
+    @SerializedName("APP_SM")
+    private String appSm;
+
+    public String getAppSm() {
+        return appSm;
+    }
+
+    public void setAppSm(String appSm) {
+        this.appSm = appSm;
+    }
+
     public String getVideoTape() {
         return videoTape;
     }

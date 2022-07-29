@@ -18,6 +18,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/banner_iv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
@@ -150,89 +151,6 @@
                         android:textColor="@color/white" />
 
                 </LinearLayout>
-
-                <FrameLayout
-                    android:id="@+id/xiala_ll"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginTop="100dp"
-                        android:background="@drawable/bg_corner_5_white">
-
-                        <TextView
-                            android:id="@+id/jine_tv_1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingTop="5dp"
-                            android:paddingStart="15dp"
-                            android:paddingEnd="15dp"
-                            android:paddingBottom="5dp"
-                            android:textSize="14sp"
-                            android:textColor="@color/default_textColor"
-                            android:text="5000" />
-
-                        <TextView
-                            android:id="@+id/jine_tv_2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingTop="5dp"
-                            android:paddingStart="15dp"
-                            android:paddingEnd="15dp"
-                            android:paddingBottom="5dp"
-                            android:textSize="14sp"
-                            android:textColor="@color/text_normal_color"
-                            android:text="50000" />
-
-                        <TextView
-                            android:id="@+id/jine_tv_3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingTop="5dp"
-                            android:paddingStart="15dp"
-                            android:paddingEnd="15dp"
-                            android:paddingBottom="5dp"
-                            android:textColor="@color/text_normal_color"
-                            android:text="100000" />
-
-                        <TextView
-                            android:id="@+id/jine_tv_4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingTop="5dp"
-                            android:paddingStart="15dp"
-                            android:paddingEnd="15dp"
-                            android:paddingBottom="5dp"
-                            android:textSize="14sp"
-                            android:textColor="@color/text_normal_color"
-                            android:text="150000" />
-
-                        <TextView
-                            android:id="@+id/jine_tv_5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="5dp"
-                            android:paddingStart="15dp"
-                            android:paddingEnd="15dp"
-                            android:paddingBottom="5dp"
-                            android:textSize="14sp"
-                            android:textColor="@color/text_normal_color"
-                            android:text="200000" />
-
-                    </LinearLayout>
-
-                </FrameLayout>
 
             </com.lihang.ShadowLayout>
 

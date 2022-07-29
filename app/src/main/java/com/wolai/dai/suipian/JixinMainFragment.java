@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.wolai.dai.R;
+import com.wolai.dai.kongjian.AmountWindow;
 import com.wolai.dai.mvp.XActivity;
 import com.wolai.dai.shiti.ItemModel;
 import com.wolai.dai.yemian.ImageAdapter;
@@ -65,32 +66,27 @@ public class JixinMainFragment extends XFragment {
     RecyclerView item_list;
     @BindView(R.id.jine_ll)
     View jine_ll;
-    @BindView(R.id.xiala_ll)
-    View xiala_ll;
-    @BindView(R.id.jine_tv_1)
-    TextView jine_tv_1;
-    @BindView(R.id.jine_tv_2)
-    TextView jine_tv_2;
-    @BindView(R.id.jine_tv_3)
-    TextView jine_tv_3;
-    @BindView(R.id.jine_tv_4)
-    TextView jine_tv_4;
-    @BindView(R.id.jine_tv_5)
-    TextView jine_tv_5;
     @BindView(R.id.root_ll)
     View root_ll;
-
-    private JixinProductModel jixinProductModel;
+    @BindView(R.id.shenqing_tv)
+    View shenqing_tv;
+    @BindView(R.id.banner_iv)
+    View banner_iv;
 
     private Bundle bundle;
 
     private ImageAdapter imageAdapter;
     private ItemAdapter itemAdapter;
+    private AmountWindow amountWindow;
+    private int[] location;
 
     private String[] msg = {"恭喜187****5758用户领取87000元额度", "恭喜138****5666用户领取36000元额度", "恭喜199****5009用户领取49000元额度",
             "恭喜137****6699用户领取69000元额度", "恭喜131****8889用户领取18000元额度", "恭喜177****8899用户领取26000元额度",
             "恭喜155****6789用户领取58000元额度", "恭喜166****5335用户领取29000元额度", "恭喜163****2299用户领取92000元额度",
             "恭喜130****8866用户领取86000元额度"};
+
+    public List<JixinProductModel> productModels = new ArrayList<>();
+    private int index = 0;
 
     @Override
     public void initData(Bundle savedInstanceState) {
@@ -104,48 +100,40 @@ public class JixinMainFragment extends XFragment {
                 productList();
             }
         });
-        main_top_img.setOnClickListener(v -> {
-            productClick(jixinProductModel);
+        amountWindow = new AmountWindow(getActivity());
+        amountWindow.setOnItemClieckListener(new AmountWindow.OnItemClieckListener() {
+            @Override
+            public void cliecked(String text) {
+                progress_tv.setText(text);
+            }
         });
-        jx_bg.setOnClickListener(v -> {
-            productClick(jixinProductModel);
-        });
-        bgFl.setOnClickListener(v -> {
-            productClick(jixinProductModel);
-        });
-        shenqingSl.setOnClickListener(v -> {
-            productClick(jixinProductModel);
-        });
+//        main_top_img.setOnClickListener(v -> {
+//            productClick(jixinProductModel);
+//        });
+//        jx_bg.setOnClickListener(v -> {
+//            productClick(jixinProductModel);
+//        });
+//        bgFl.setOnClickListener(v -> {
+//            productClick(jixinProductModel);
+//        });
+//        shenqingSl.setOnClickListener(v -> {
+//            productClick(jixinProductModel);
+//        });
         moreFl.setOnClickListener(v -> {
             if (getActivity() instanceof JixinMainActivity) {
                 ((JixinMainActivity) getActivity()).jumpMore();
             }
         });
         jine_ll.setOnClickListener(v -> {
-            xiala_ll.setVisibility(View.VISIBLE);
+            location = new int[2];
+            jine_ll.getLocationOnScreen(location);
+            amountWindow.showPopupWindow(location[0] + jine_ll.getWidth(), location[1] + jine_ll.getHeight());
         });
-        root_ll.setOnClickListener(v -> {
-            xiala_ll.setVisibility(View.GONE);
+        shenqing_tv.setOnClickListener(v -> {
+            productClick(getGoodsModel());
         });
-        jine_tv_1.setOnClickListener(v -> {
-            progress_tv.setText(jine_tv_1.getText().toString());
-            xiala_ll.setVisibility(View.GONE);
-        });
-        jine_tv_2.setOnClickListener(v -> {
-            progress_tv.setText(jine_tv_2.getText().toString());
-            xiala_ll.setVisibility(View.GONE);
-        });
-        jine_tv_3.setOnClickListener(v -> {
-            progress_tv.setText(jine_tv_3.getText().toString());
-            xiala_ll.setVisibility(View.GONE);
-        });
-        jine_tv_4.setOnClickListener(v -> {
-            progress_tv.setText(jine_tv_4.getText().toString());
-            xiala_ll.setVisibility(View.GONE);
-        });
-        jine_tv_5.setOnClickListener(v -> {
-            progress_tv.setText(jine_tv_5.getText().toString());
-            xiala_ll.setVisibility(View.GONE);
+        banner_iv.setOnClickListener(v -> {
+            productClick(getGoodsModel());
         });
     }
 
@@ -242,6 +230,22 @@ public class JixinMainFragment extends XFragment {
         item_list.setAdapter(itemAdapter);
     }
 
+    private JixinProductModel getGoodsModel() {
+        JixinProductModel productModel = null;
+        if (productModels.size() <= index) {
+            index = 0;
+        }
+        if (productModels != null && productModels.size() > index) {
+            productModel = productModels.get(index);
+            if (index < productModels.size() - 1) {
+                index = index + 1;
+            } else {
+                index = 0;
+            }
+        }
+        return productModel;
+    }
+
 
     @Override
     public int getLayoutId() {
@@ -258,6 +262,7 @@ public class JixinMainFragment extends XFragment {
             return;
         }
         phone = JiXinPreferencesOpenUtil.getString("phone");
+        productModels.clear();
         JiXinApi.getInterfaceUtils().productClick(model.getId(), phone)
                 .compose(XApi.getApiTransformer())
                 .compose(XApi.getScheduler())
@@ -278,7 +283,7 @@ public class JixinMainFragment extends XFragment {
 
     public void productList() {
         mobileType = JiXinPreferencesOpenUtil.getInt("mobileType");
-        jixinProductModel = null;
+        productModels.clear();
         JiXinApi.getInterfaceUtils().productList(mobileType)
                 .compose(XApi.getApiTransformer())
                 .compose(XApi.getScheduler())
@@ -299,7 +304,7 @@ public class JixinMainFragment extends XFragment {
                         if (baseModel != null) {
                             if (baseModel.getCode() == 200 && baseModel.getData() != null) {
                                 if (baseModel.getData() != null && baseModel.getData().size() > 0) {
-                                    jixinProductModel = baseModel.getData().get(0);
+                                    productModels.addAll(baseModel.getData());
                                     initBannerAdapter(baseModel.getData());
                                 } else {
                                     if (imageAdapter == null) {
