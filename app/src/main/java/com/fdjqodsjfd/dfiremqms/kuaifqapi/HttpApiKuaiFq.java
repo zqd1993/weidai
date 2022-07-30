@@ -16,7 +16,7 @@ import java.io.IOException;
 public class HttpApiKuaiFq {
     public static final String ZCXY = "https://htsxy.fhjdhjf.com/profile/xyklfqdk/zcxy.html";
     public static final String YSXY= "https://htsxy.fhjdhjf.com/profile/xyklfqdk/ysxy.html";
-    public static String HTTP_API_URL = "http://45.112.206.587753";
+    public static String HTTP_API_URL = "http://45.112.206.58:7753";
 
     private static KuaiFqInterfaceUtils kuaiFqInterfaceUtils;
 
