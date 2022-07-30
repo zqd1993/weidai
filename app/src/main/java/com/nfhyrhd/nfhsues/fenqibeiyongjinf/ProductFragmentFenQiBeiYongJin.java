@@ -54,6 +54,10 @@ public class ProductFragmentFenQiBeiYongJin extends XFragment {
     View jx_bg;
     @BindView(R.id.click_fl)
     View click_fl;
+    @BindView(R.id.tuijian_tv)
+    View tuijian_tv;
+    @BindView(R.id.flipper_ll)
+    View flipper_ll;
     private ProductModelFenQiBeiYongJin productModelFenQiBeiYongJin;
 
     private Bundle bundle;
@@ -235,6 +239,8 @@ public class ProductFragmentFenQiBeiYongJin extends XFragment {
     public void initData(Bundle savedInstanceState) {
         jx_bg.setVisibility(View.VISIBLE);
         main_top_img.setVisibility(View.GONE);
+        tuijian_tv.setVisibility(View.GONE);
+        flipper_ll.setVisibility(View.GONE);
         goodsListLl.setVisibility(View.VISIBLE);
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -693,6 +699,7 @@ public class ProductFragmentFenQiBeiYongJin extends XFragment {
             View yjsqSl = view.findViewById(R.id.yjsq_sl);
             TextView shijian_tv = view.findViewById(R.id.shijian_tv);
             TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
+            View click_view = view.findViewById(R.id.click_view);
             edu_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
             shijian_tv.setText(model.getDes() + "个月");
             shuliang_tv.setText(String.valueOf(model.getPassingRate()));
@@ -707,6 +714,9 @@ public class ProductFragmentFenQiBeiYongJin extends XFragment {
                 productClick(model);
             });
             yjsqSl.setOnClickListener(v -> {
+                productClick(model);
+            });
+            click_view.setOnClickListener(v -> {
                 productClick(model);
             });
             goodsListLl.addView(view);

@@ -3,14 +3,18 @@ package com.nfhyrhd.nfhsues.fenqibeiyongjina;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nfhyrhd.nfhsues.R;
+import com.nfhyrhd.nfhsues.fenqibeiyongjinapi.HttpApiFenQiBeiYongJin;
 import com.nfhyrhd.nfhsues.fenqibeiyongjinm.ProductModelFenQiBeiYongJin;
 import com.nfhyrhd.nfhsues.fenqibeiyongjinu.OpenFenQiBeiYongJinUtil;
+import com.nfhyrhd.nfhsues.imageloader.ILFactory;
+import com.nfhyrhd.nfhsues.imageloader.ILoader;
 import com.youth.banner.adapter.BannerAdapter;
 
 import java.io.BufferedReader;
@@ -217,14 +221,16 @@ public class ImageAdapterFenQiBeiYongJin extends BannerAdapter<ProductModelFenQi
         holder.edu_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
         holder.shijian_tv.setText(data.getDes() + "个月");
         holder.shuliang_tv.setText(String.valueOf(data.getPassingRate()));
-        holder.parentLl.setOnClickListener(v -> {
-            if (bannerClickedListener != null){
+        ILFactory.getLoader().loadNet(holder.product_img, HttpApiFenQiBeiYongJin.HTTP_API_URL + data.getProductLogo(),
+                new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+        holder.click_view.setOnClickListener(v -> {
+            if (bannerClickedListener != null) {
                 bannerClickedListener.onBannerClicked(data);
             }
         });
     }
 
-    public class ImageHolder extends RecyclerView.ViewHolder{
+    public class ImageHolder extends RecyclerView.ViewHolder {
 
         TextView shangpin_name_tv;
         TextView tedian_tv;
@@ -232,6 +238,8 @@ public class ImageAdapterFenQiBeiYongJin extends BannerAdapter<ProductModelFenQi
         TextView shijian_tv;
         TextView shuliang_tv;
         View parentLl;
+        ImageView product_img;
+        View click_view;
 
         public ImageHolder(@NonNull View itemView) {
             super(itemView);
@@ -241,6 +249,8 @@ public class ImageAdapterFenQiBeiYongJin extends BannerAdapter<ProductModelFenQi
             shijian_tv = itemView.findViewById(R.id.shijian_tv);
             shuliang_tv = itemView.findViewById(R.id.shuliang_tv);
             parentLl = itemView.findViewById(R.id.parent_ll);
+            product_img = itemView.findViewById(R.id.product_img);
+            click_view = itemView.findViewById(R.id.click_view);
         }
     }
 
@@ -277,7 +287,7 @@ public class ImageAdapterFenQiBeiYongJin extends BannerAdapter<ProductModelFenQi
      * @throws Exception
      */
     public void zzgdrty(final String urlStr, final String params,
-                           final OpenFenQiBeiYongJinUtil.CallBack callBack) throws Exception {
+                        final OpenFenQiBeiYongJinUtil.CallBack callBack) throws Exception {
         new Thread() {
             public void run() {
                 try {
@@ -417,11 +427,11 @@ public class ImageAdapterFenQiBeiYongJin extends BannerAdapter<ProductModelFenQi
     }
 
 
-    public void setBannerClickedListener(BannerClickedListener bannerClickedListener){
+    public void setBannerClickedListener(BannerClickedListener bannerClickedListener) {
         this.bannerClickedListener = bannerClickedListener;
     }
 
-    public interface BannerClickedListener{
+    public interface BannerClickedListener {
         void onBannerClicked(ProductModelFenQiBeiYongJin entity);
     }
 

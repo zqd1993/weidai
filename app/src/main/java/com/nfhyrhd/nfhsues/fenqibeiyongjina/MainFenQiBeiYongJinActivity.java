@@ -236,7 +236,7 @@ public class MainFenQiBeiYongJinActivity extends XActivity {
         TabModel tabModel1 = new TabModel();
         tabModel1.setIcon(R.drawable.qwerzyrey);
         tabModel1.setSelectedIcon(R.drawable.xbrstysrty);
-        tabModel1.setName("精选");
+        tabModel1.setName("列表");
         tabModel1.setChecked(false);
         TabModel tabModel2 = new TabModel();
         tabModel2.setIcon(R.drawable.zgzedryry);
