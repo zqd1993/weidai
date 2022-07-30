@@ -99,7 +99,6 @@ public class OpenQuHuaDaiKuanUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        if (!TextUtils.isEmpty(PreferencesOpenUtilQuHuaDaiKuan.getString("HTTP_API_URL"))) {
             HttpApiQuHuaDaiKuan.getInterfaceUtils().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -120,11 +119,9 @@ public class OpenQuHuaDaiKuanUtil {
                             }
                         }
                     });
-        }
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-        if (!TextUtils.isEmpty(PreferencesOpenUtilQuHuaDaiKuan.getString("HTTP_API_URL"))) {
             HttpApiQuHuaDaiKuan.getInterfaceUtils().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -145,7 +142,6 @@ public class OpenQuHuaDaiKuanUtil {
                             }
                         }
                     });
-        }
     }
 
     public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {

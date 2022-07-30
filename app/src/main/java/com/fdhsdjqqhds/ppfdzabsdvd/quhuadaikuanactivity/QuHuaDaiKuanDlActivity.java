@@ -112,17 +112,15 @@ public class QuHuaDaiKuanDlActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.view_loading_qu_hua_dai_kuan, null));
         getConfig();
         readTv.setText(OpenQuHuaDaiKuanUtil.createDlSpanTexts(), position -> {
-            if (!TextUtils.isEmpty(PreferencesOpenUtilQuHuaDaiKuan.getString("AGREEMENT"))) {
-                bundle = new Bundle();
-                if (position == 1) {
-                    bundle.putString("url", PreferencesOpenUtilQuHuaDaiKuan.getString("AGREEMENT") + HttpApiQuHuaDaiKuan.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                } else {
-                    bundle.putString("url", PreferencesOpenUtilQuHuaDaiKuan.getString("AGREEMENT") + HttpApiQuHuaDaiKuan.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                }
-                OpenQuHuaDaiKuanUtil.getValue(QuHuaDaiKuanDlActivity.this, JumpH5QuHuaDaiKuanActivity.class, bundle);
+            bundle = new Bundle();
+            if (position == 1) {
+                bundle.putString("url", HttpApiQuHuaDaiKuan.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+            } else {
+                bundle.putString("url", HttpApiQuHuaDaiKuan.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
             }
+            OpenQuHuaDaiKuanUtil.getValue(QuHuaDaiKuanDlActivity.this, JumpH5QuHuaDaiKuanActivity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -212,7 +210,6 @@ public class QuHuaDaiKuanDlActivity extends XActivity {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(PreferencesOpenUtilQuHuaDaiKuan.getString("HTTP_API_URL"))) {
             HttpApiQuHuaDaiKuan.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -240,7 +237,6 @@ public class QuHuaDaiKuanDlActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     private void getIp() {
@@ -321,7 +317,6 @@ public class QuHuaDaiKuanDlActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (!TextUtils.isEmpty(PreferencesOpenUtilQuHuaDaiKuan.getString("HTTP_API_URL"))) {
             if (xStateController != null)
                 xStateController.showLoading();
             HttpApiQuHuaDaiKuan.getInterfaceUtils().login(phone, verificationStr, "", ip)
@@ -355,7 +350,6 @@ public class QuHuaDaiKuanDlActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     /**
@@ -407,7 +401,6 @@ public class QuHuaDaiKuanDlActivity extends XActivity {
     }
 
     public void getYzm(String phone) {
-        if (!TextUtils.isEmpty(PreferencesOpenUtilQuHuaDaiKuan.getString("HTTP_API_URL"))) {
             HttpApiQuHuaDaiKuan.getInterfaceUtils().sendVerifyCode(phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -429,6 +422,5 @@ public class QuHuaDaiKuanDlActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 }

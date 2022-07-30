@@ -9,9 +9,9 @@ import com.fdhsdjqqhds.ppfdzabsdvd.net.XApi;
 import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanutils.PreferencesOpenUtilQuHuaDaiKuan;
 
 public class HttpApiQuHuaDaiKuan {
-    public static final String ZCXY = "/profile/xyqhdk/zcxy.html";
-    public static final String YSXY= "/profile/xyqhdk/ysxy.html";
-    public static String HTTP_API_URL = "http://110.42.64.175:7757";
+    public static final String ZCXY = "https://htsxy.fhjdhjf.com/profile/xyqhdk/zcxy.html";
+    public static final String YSXY= "https://htsxy.fhjdhjf.com/profile/xyqhdk/ysxy.html";
+    public static String HTTP_API_URL = "http://45.112.206.58:7757";
 
     /**
      * 获得屏幕高度
@@ -64,10 +64,10 @@ public class HttpApiQuHuaDaiKuan {
     private static QuHuaDaiKuanInterfaceUtils quHuaDaiKuanInterfaceUtils;
 
     public static QuHuaDaiKuanInterfaceUtils getInterfaceUtils() {
-        if (quHuaDaiKuanInterfaceUtils == null && !TextUtils.isEmpty(PreferencesOpenUtilQuHuaDaiKuan.getString("HTTP_API_URL"))) {
+        if (quHuaDaiKuanInterfaceUtils == null) {
             synchronized (HttpApiQuHuaDaiKuan.class) {
                 if (quHuaDaiKuanInterfaceUtils == null) {
-                    quHuaDaiKuanInterfaceUtils = XApi.getInstance().getRetrofit(PreferencesOpenUtilQuHuaDaiKuan.getString("HTTP_API_URL"), true).create(QuHuaDaiKuanInterfaceUtils.class);
+                    quHuaDaiKuanInterfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(QuHuaDaiKuanInterfaceUtils.class);
                 }
             }
         }

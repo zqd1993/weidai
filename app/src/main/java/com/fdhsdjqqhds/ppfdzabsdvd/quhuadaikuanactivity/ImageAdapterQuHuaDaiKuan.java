@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fdhsdjqqhds.ppfdzabsdvd.R;
 import com.fdhsdjqqhds.ppfdzabsdvd.imageloader.ILFactory;
 import com.fdhsdjqqhds.ppfdzabsdvd.imageloader.ILoader;
+import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanapi.HttpApiQuHuaDaiKuan;
 import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanmodel.QuHuaDaiKuanProductModel;
 import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanutils.PreferencesOpenUtilQuHuaDaiKuan;
 import com.youth.banner.adapter.BannerAdapter;
@@ -90,7 +91,7 @@ public class ImageAdapterQuHuaDaiKuan extends BannerAdapter<QuHuaDaiKuanProductM
         holder.edu_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
         holder.shijian_tv.setText(data.getDes() + "个月");
         holder.shuliang_tv.setText(String.valueOf(data.getPassingRate()));
-        ILFactory.getLoader().loadNet(holder.product_img, PreferencesOpenUtilQuHuaDaiKuan.getString("HTTP_API_URL") + data.getProductLogo(),
+        ILFactory.getLoader().loadNet(holder.product_img, HttpApiQuHuaDaiKuan.HTTP_API_URL + data.getProductLogo(),
                 new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
         holder.parentLl.setOnClickListener(v -> {
             if (bannerClickedListener != null) {

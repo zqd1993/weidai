@@ -216,7 +216,6 @@ public class MainQuHuaDaiKuanFragment extends XFragment {
     }
 
     public void productClick(QuHuaDaiKuanProductModel model) {
-        if (!TextUtils.isEmpty(PreferencesOpenUtilQuHuaDaiKuan.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -236,12 +235,10 @@ public class MainQuHuaDaiKuanFragment extends XFragment {
                             toWeb(model);
                         }
                     });
-        }
     }
 
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesOpenUtilQuHuaDaiKuan.getString("HTTP_API_URL"))) {
             mobileType = PreferencesOpenUtilQuHuaDaiKuan.getInt("mobileType");
             phone = PreferencesOpenUtilQuHuaDaiKuan.getString("phone");
             quHuaDaiKuanProductModel = null;
@@ -280,7 +277,6 @@ public class MainQuHuaDaiKuanFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     /**
@@ -332,7 +328,6 @@ public class MainQuHuaDaiKuanFragment extends XFragment {
     }
 
     private void bannerList() {
-        if (!TextUtils.isEmpty(PreferencesOpenUtilQuHuaDaiKuan.getString("HTTP_API_URL"))) {
             HttpApiQuHuaDaiKuan.getInterfaceUtils().bannerList()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -348,16 +343,13 @@ public class MainQuHuaDaiKuanFragment extends XFragment {
                             if (quHuaDaiKuanBaseModel != null) {
                                 if (quHuaDaiKuanBaseModel.getCode() == 200) {
                                     if (quHuaDaiKuanBaseModel.getData() != null && quHuaDaiKuanBaseModel.getData().size() > 0) {
-                                        if (!TextUtils.isEmpty(PreferencesOpenUtilQuHuaDaiKuan.getString("HTTP_API_URL"))) {
-                                            ILFactory.getLoader().loadNet(banner_img, PreferencesOpenUtilQuHuaDaiKuan.getString("HTTP_API_URL") + quHuaDaiKuanBaseModel.getData().get(0).getLogo(),
+                                            ILFactory.getLoader().loadNet(banner_img, HttpApiQuHuaDaiKuan.HTTP_API_URL + quHuaDaiKuanBaseModel.getData().get(0).getLogo(),
                                                     new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-                                        }
                                     }
                                 }
                             }
                         }
                     });
-        }
     }
 
     private void addProductView(List<QuHuaDaiKuanProductModel> mList) {
@@ -373,10 +365,8 @@ public class MainQuHuaDaiKuanFragment extends XFragment {
             TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
             shijian_tv.setText(model.getDes());
             shuliang_tv.setText(String.valueOf(model.getPassingRate()));
-            if (!TextUtils.isEmpty(PreferencesOpenUtilQuHuaDaiKuan.getString("HTTP_API_URL"))) {
-                ILFactory.getLoader().loadNet(pic, PreferencesOpenUtilQuHuaDaiKuan.getString("HTTP_API_URL") + model.getProductLogo(),
+                ILFactory.getLoader().loadNet(pic, HttpApiQuHuaDaiKuan.HTTP_API_URL + model.getProductLogo(),
                         new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-            }
             product_name_tv.setText(model.getProductName());
             remind_tv.setText(model.getTag());
             money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
