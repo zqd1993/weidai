@@ -106,17 +106,15 @@ public class DlJinRiYouQianHuaActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.view_loading_jin_ri_you_qian_hua, null));
         getConfig();
         readTv.setText(OpenUtilJinRiYouQianHua.createDlSpanTexts(), position -> {
-            if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("AGREEMENT"))) {
-                bundle = new Bundle();
-                if (position == 1) {
-                    bundle.putString("url", PreferencesJinRiYouQianHuaOpenUtil.getString("AGREEMENT") + JinRiYouQianHuaHttpApi.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                } else {
-                    bundle.putString("url", PreferencesJinRiYouQianHuaOpenUtil.getString("AGREEMENT") + JinRiYouQianHuaHttpApi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                }
-                OpenUtilJinRiYouQianHua.getValue(DlJinRiYouQianHuaActivity.this, JumpH5ActivityJinRiYouQianHua.class, bundle);
+            bundle = new Bundle();
+            if (position == 1) {
+                bundle.putString("url", JinRiYouQianHuaHttpApi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+            } else {
+                bundle.putString("url", JinRiYouQianHuaHttpApi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
             }
+            OpenUtilJinRiYouQianHua.getValue(DlJinRiYouQianHuaActivity.this, JumpH5ActivityJinRiYouQianHua.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -199,7 +197,6 @@ public class DlJinRiYouQianHuaActivity extends XActivity {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"))) {
             JinRiYouQianHuaHttpApi.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -227,7 +224,6 @@ public class DlJinRiYouQianHuaActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     private void getIp() {
@@ -380,7 +376,6 @@ public class DlJinRiYouQianHuaActivity extends XActivity {
     }
 
     public void getYzm(String phone) {
-        if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"))) {
             JinRiYouQianHuaHttpApi.getInterfaceUtils().sendVerifyCode(phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -402,7 +397,6 @@ public class DlJinRiYouQianHuaActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     /**

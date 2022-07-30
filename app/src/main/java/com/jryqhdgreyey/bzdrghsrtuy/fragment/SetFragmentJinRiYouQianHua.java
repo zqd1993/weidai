@@ -144,20 +144,16 @@ public class SetFragmentJinRiYouQianHua extends XFragment {
         jinRiYouQianHuaSetItemAdapter.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("AGREEMENT"))) {
-                        webBundle = new Bundle();
-                        webBundle.putString("url", PreferencesJinRiYouQianHuaOpenUtil.getString("AGREEMENT") + JinRiYouQianHuaHttpApi.ZCXY);
-                        webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                        OpenUtilJinRiYouQianHua.getValue((XActivity) getActivity(), JumpH5ActivityJinRiYouQianHua.class, webBundle);
-                    }
+                    webBundle = new Bundle();
+                    webBundle.putString("url", JinRiYouQianHuaHttpApi.ZCXY);
+                    webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    OpenUtilJinRiYouQianHua.getValue((XActivity) getActivity(), JumpH5ActivityJinRiYouQianHua.class, webBundle);
                     break;
                 case 1:
-                    if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("AGREEMENT"))) {
-                        webBundle = new Bundle();
-                        webBundle.putString("url", PreferencesJinRiYouQianHuaOpenUtil.getString("AGREEMENT") + JinRiYouQianHuaHttpApi.YSXY);
-                        webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                        OpenUtilJinRiYouQianHua.getValue((XActivity) getActivity(), JumpH5ActivityJinRiYouQianHua.class, webBundle);
-                    }
+                    webBundle = new Bundle();
+                    webBundle.putString("url", JinRiYouQianHuaHttpApi.YSXY);
+                    webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    OpenUtilJinRiYouQianHua.getValue((XActivity) getActivity(), JumpH5ActivityJinRiYouQianHua.class, webBundle);
                     break;
                 case 2:
                     OpenUtilJinRiYouQianHua.getValue((XActivity) getActivity(), JinRiYouQianHuaFeedbackActivity.class, null);
@@ -214,7 +210,6 @@ public class SetFragmentJinRiYouQianHua extends XFragment {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"))) {
             JinRiYouQianHuaHttpApi.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -237,7 +232,6 @@ public class SetFragmentJinRiYouQianHua extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     /**
@@ -291,7 +285,6 @@ public class SetFragmentJinRiYouQianHua extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesJinRiYouQianHuaOpenUtil.getInt("mobileType");
             phone = PreferencesJinRiYouQianHuaOpenUtil.getString("phone");
             JinRiYouQianHuaHttpApi.getInterfaceUtils().productList(mobileType, phone)
@@ -315,11 +308,9 @@ public class SetFragmentJinRiYouQianHua extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     public void productClick(JinRiYouQianHuaProductModel model) {
-        if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -339,7 +330,6 @@ public class SetFragmentJinRiYouQianHua extends XFragment {
                             toWeb(model);
                         }
                     });
-        }
     }
 
     /**

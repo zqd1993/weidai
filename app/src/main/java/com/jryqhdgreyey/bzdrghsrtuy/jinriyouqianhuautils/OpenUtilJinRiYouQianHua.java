@@ -134,7 +134,6 @@ public class OpenUtilJinRiYouQianHua {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"))) {
             JinRiYouQianHuaHttpApi.getInterfaceUtils().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -155,11 +154,9 @@ public class OpenUtilJinRiYouQianHua {
                             }
                         }
                     });
-        }
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-        if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"))) {
             JinRiYouQianHuaHttpApi.getInterfaceUtils().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -180,7 +177,6 @@ public class OpenUtilJinRiYouQianHua {
                             }
                         }
                     });
-        }
     }
 
     /**

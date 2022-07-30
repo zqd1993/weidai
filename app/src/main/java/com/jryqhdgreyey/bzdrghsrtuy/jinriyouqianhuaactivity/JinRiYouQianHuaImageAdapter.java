@@ -85,10 +85,8 @@ public class JinRiYouQianHuaImageAdapter extends BannerAdapter<JinRiYouQianHuaPr
         holder.edu_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
         holder.shijian_tv.setText(data.getDes());
         holder.shuliang_tv.setText(String.valueOf(data.getPassingRate()));
-        if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"))) {
-            ILFactory.getLoader().loadNet(holder.product_img, PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL") + data.getProductLogo(),
+            ILFactory.getLoader().loadNet(holder.product_img, JinRiYouQianHuaHttpApi.HTTP_API_URL + data.getProductLogo(),
                     new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-        }
         holder.parentLl.setOnClickListener(v -> {
             if (bannerClickedListener != null) {
                 bannerClickedListener.onBannerClicked(data);

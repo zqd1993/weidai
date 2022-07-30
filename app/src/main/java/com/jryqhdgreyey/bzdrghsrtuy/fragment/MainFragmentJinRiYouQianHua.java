@@ -243,71 +243,67 @@ public class MainFragmentJinRiYouQianHua extends XFragment {
     }
 
     public void productClick(JinRiYouQianHuaProductModel model) {
-        if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"))) {
-            if (model == null) {
-                return;
-            }
-            phone = PreferencesJinRiYouQianHuaOpenUtil.getString("phone");
-            JinRiYouQianHuaHttpApi.getInterfaceUtils().productClick(model.getId(), phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<JinRiYouQianHuaBaseModel>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            toWeb(model);
-                        }
-
-                        @Override
-                        public void onNext(JinRiYouQianHuaBaseModel jinRiYouQianHuaBaseModel) {
-                            toWeb(model);
-                        }
-                    });
+        if (model == null) {
+            return;
         }
+        phone = PreferencesJinRiYouQianHuaOpenUtil.getString("phone");
+        JinRiYouQianHuaHttpApi.getInterfaceUtils().productClick(model.getId(), phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<JinRiYouQianHuaBaseModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        toWeb(model);
+                    }
+
+                    @Override
+                    public void onNext(JinRiYouQianHuaBaseModel jinRiYouQianHuaBaseModel) {
+                        toWeb(model);
+                    }
+                });
     }
 
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"))) {
-            mobileType = PreferencesJinRiYouQianHuaOpenUtil.getInt("mobileType");
-            phone = PreferencesJinRiYouQianHuaOpenUtil.getString("phone");
-            jinRiYouQianHuaProductModel = null;
-            JinRiYouQianHuaHttpApi.getInterfaceUtils().productList(mobileType, phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<JinRiYouQianHuaBaseModel<List<JinRiYouQianHuaProductModel>>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            setRefreshing.setRefreshing(false);
-                            OpenUtilJinRiYouQianHua.showErrorInfo(getActivity(), error);
-                            if (jinRiYouQianHuaImageAdapter == null) {
-                                noDataTv.setVisibility(View.VISIBLE);
-                            }
+        mobileType = PreferencesJinRiYouQianHuaOpenUtil.getInt("mobileType");
+        phone = PreferencesJinRiYouQianHuaOpenUtil.getString("phone");
+        jinRiYouQianHuaProductModel = null;
+        JinRiYouQianHuaHttpApi.getInterfaceUtils().productList(mobileType, phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<JinRiYouQianHuaBaseModel<List<JinRiYouQianHuaProductModel>>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        setRefreshing.setRefreshing(false);
+                        OpenUtilJinRiYouQianHua.showErrorInfo(getActivity(), error);
+                        if (jinRiYouQianHuaImageAdapter == null) {
+                            noDataTv.setVisibility(View.VISIBLE);
                         }
+                    }
 
-                        @Override
-                        public void onNext(JinRiYouQianHuaBaseModel<List<JinRiYouQianHuaProductModel>> jinRiYouQianHuaBaseModel) {
-                            setRefreshing.setRefreshing(false);
-                            goodsListLl.removeAllViews();
-                            if (jinRiYouQianHuaBaseModel != null) {
-                                if (jinRiYouQianHuaBaseModel.getCode() == 200 && jinRiYouQianHuaBaseModel.getData() != null) {
-                                    if (jinRiYouQianHuaBaseModel.getData() != null && jinRiYouQianHuaBaseModel.getData().size() > 0) {
-                                        jinRiYouQianHuaProductModel = jinRiYouQianHuaBaseModel.getData().get(0);
-                                        initBannerAdapter(jinRiYouQianHuaBaseModel.getData());
+                    @Override
+                    public void onNext(JinRiYouQianHuaBaseModel<List<JinRiYouQianHuaProductModel>> jinRiYouQianHuaBaseModel) {
+                        setRefreshing.setRefreshing(false);
+                        goodsListLl.removeAllViews();
+                        if (jinRiYouQianHuaBaseModel != null) {
+                            if (jinRiYouQianHuaBaseModel.getCode() == 200 && jinRiYouQianHuaBaseModel.getData() != null) {
+                                if (jinRiYouQianHuaBaseModel.getData() != null && jinRiYouQianHuaBaseModel.getData().size() > 0) {
+                                    jinRiYouQianHuaProductModel = jinRiYouQianHuaBaseModel.getData().get(0);
+                                    initBannerAdapter(jinRiYouQianHuaBaseModel.getData());
 //                                    addProductView(baseModel.getData());
-                                    } else {
-                                        noDataTv.setVisibility(View.VISIBLE);
-                                    }
                                 } else {
                                     noDataTv.setVisibility(View.VISIBLE);
                                 }
                             } else {
                                 noDataTv.setVisibility(View.VISIBLE);
                             }
+                        } else {
+                            noDataTv.setVisibility(View.VISIBLE);
                         }
-                    });
-        }
+                    }
+                });
     }
 
     /**
@@ -352,32 +348,28 @@ public class MainFragmentJinRiYouQianHua extends XFragment {
     }
 
     private void bannerList() {
-        if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"))) {
-            JinRiYouQianHuaHttpApi.getInterfaceUtils().bannerList()
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<JinRiYouQianHuaBaseModel<List<JinRiYouQianHuaBannerModel>>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            OpenUtilJinRiYouQianHua.showErrorInfo(getActivity(), error);
-                        }
+        JinRiYouQianHuaHttpApi.getInterfaceUtils().bannerList()
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<JinRiYouQianHuaBaseModel<List<JinRiYouQianHuaBannerModel>>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        OpenUtilJinRiYouQianHua.showErrorInfo(getActivity(), error);
+                    }
 
-                        @Override
-                        public void onNext(JinRiYouQianHuaBaseModel<List<JinRiYouQianHuaBannerModel>> jinRiYouQianHuaBaseModel) {
-                            if (jinRiYouQianHuaBaseModel != null) {
-                                if (jinRiYouQianHuaBaseModel.getCode() == 200) {
-                                    if (jinRiYouQianHuaBaseModel.getData() != null && jinRiYouQianHuaBaseModel.getData().size() > 0) {
-                                        if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"))) {
-                                            ILFactory.getLoader().loadNet(banner_img, PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL") + jinRiYouQianHuaBaseModel.getData().get(0).getLogo(),
-                                                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-                                        }
-                                    }
+                    @Override
+                    public void onNext(JinRiYouQianHuaBaseModel<List<JinRiYouQianHuaBannerModel>> jinRiYouQianHuaBaseModel) {
+                        if (jinRiYouQianHuaBaseModel != null) {
+                            if (jinRiYouQianHuaBaseModel.getCode() == 200) {
+                                if (jinRiYouQianHuaBaseModel.getData() != null && jinRiYouQianHuaBaseModel.getData().size() > 0) {
+                                    ILFactory.getLoader().loadNet(banner_img, JinRiYouQianHuaHttpApi.HTTP_API_URL + jinRiYouQianHuaBaseModel.getData().get(0).getLogo(),
+                                            new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
                                 }
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     private void addProductView(List<JinRiYouQianHuaProductModel> mList) {
@@ -393,10 +385,8 @@ public class MainFragmentJinRiYouQianHua extends XFragment {
             TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
             shijian_tv.setText(model.getDes());
             shuliang_tv.setText(String.valueOf(model.getPassingRate()));
-            if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"))) {
-                ILFactory.getLoader().loadNet(pic, PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL") + model.getProductLogo(),
-                        new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-            }
+            ILFactory.getLoader().loadNet(pic, JinRiYouQianHuaHttpApi.HTTP_API_URL + model.getProductLogo(),
+                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
             product_name_tv.setText(model.getProductName());
             remind_tv.setText(model.getTag());
             money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());

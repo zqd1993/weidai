@@ -127,7 +127,6 @@ public class JinRiYouQianHuaProductFragment extends XFragment {
     }
 
     public void productClick(JinRiYouQianHuaProductModel model) {
-        if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"))) {
             if (model != null) {
                 phone = PreferencesJinRiYouQianHuaOpenUtil.getString("phone");
                 JinRiYouQianHuaHttpApi.getInterfaceUtils().productClick(model.getId(), phone)
@@ -146,7 +145,6 @@ public class JinRiYouQianHuaProductFragment extends XFragment {
                             }
                         });
             }
-        }
     }
 
     /**
@@ -191,7 +189,6 @@ public class JinRiYouQianHuaProductFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesJinRiYouQianHuaOpenUtil.getInt("mobileType");
             phone = PreferencesJinRiYouQianHuaOpenUtil.getString("phone");
             JinRiYouQianHuaHttpApi.getInterfaceUtils().productList(mobileType, phone)
@@ -233,7 +230,6 @@ public class JinRiYouQianHuaProductFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     /**
@@ -291,10 +287,8 @@ public class JinRiYouQianHuaProductFragment extends XFragment {
             TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
             shijian_tv.setText(model.getDes() + "个月");
             shuliang_tv.setText(String.valueOf(model.getPassingRate()));
-            if (!TextUtils.isEmpty(PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL"))) {
-                ILFactory.getLoader().loadNet(pic, PreferencesJinRiYouQianHuaOpenUtil.getString("HTTP_API_URL") + model.getProductLogo(),
+                ILFactory.getLoader().loadNet(pic, JinRiYouQianHuaHttpApi.HTTP_API_URL + model.getProductLogo(),
                         new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-            }
             product_name_tv.setText(model.getProductName());
             remind_tv.setText(model.getTag());
             money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
