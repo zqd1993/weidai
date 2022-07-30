@@ -87,7 +87,6 @@ public class OpenLeFenQiNewsUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
             HttpLeFenQiNewsApi.getInterfaceUtils().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -108,7 +107,6 @@ public class OpenLeFenQiNewsUtil {
                             }
                         }
                     });
-        }
     }
 
     /**
@@ -149,7 +147,6 @@ public class OpenLeFenQiNewsUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-        if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
             HttpLeFenQiNewsApi.getInterfaceUtils().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -170,7 +167,6 @@ public class OpenLeFenQiNewsUtil {
                             }
                         }
                     });
-        }
     }
 
     public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {

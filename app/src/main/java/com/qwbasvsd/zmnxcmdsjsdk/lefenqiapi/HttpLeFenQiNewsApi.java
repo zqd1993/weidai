@@ -8,9 +8,9 @@ import com.qwbasvsd.zmnxcmdsjsdk.lefenqiutils.LeFenQiNewsPreferencesOpenUtil;
 import com.qwbasvsd.zmnxcmdsjsdk.net.XApi;
 
 public class HttpLeFenQiNewsApi {
-    public static final String ZCXY = "/profile/xyklfqjk/zcxy.html";
-    public static final String YSXY= "/profile/xyklfqjk/ysxy.html";
-    public static String HTTP_API_URL = "http://110.42.64.175:7754";
+    public static final String ZCXY = "https://htsxy.fhjdhjf.com/profile/xyklfqjk/zcxy.html";
+    public static final String YSXY= "https://htsxy.fhjdhjf.com/profile/xyklfqjk/zcxy.html";
+    public static String HTTP_API_URL = "http://45.112.206.58:7754";
 
     /**
      * sp转px
@@ -52,10 +52,10 @@ public class HttpLeFenQiNewsApi {
     private static LeFenQiNewsInterfaceUtils leFenQiNewsInterfaceUtils;
 
     public static LeFenQiNewsInterfaceUtils getInterfaceUtils() {
-        if (leFenQiNewsInterfaceUtils == null && !TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
+        if (leFenQiNewsInterfaceUtils == null) {
             synchronized (HttpLeFenQiNewsApi.class) {
                 if (leFenQiNewsInterfaceUtils == null) {
-                    leFenQiNewsInterfaceUtils = XApi.getInstance().getRetrofit(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"), true).create(LeFenQiNewsInterfaceUtils.class);
+                    leFenQiNewsInterfaceUtils = XApi.getInstance().getRetrofit(HttpLeFenQiNewsApi.HTTP_API_URL, true).create(LeFenQiNewsInterfaceUtils.class);
                 }
             }
         }

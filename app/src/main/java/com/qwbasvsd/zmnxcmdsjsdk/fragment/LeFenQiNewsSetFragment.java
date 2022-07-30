@@ -110,20 +110,16 @@ public class LeFenQiNewsSetFragment extends XFragment {
         setItemAdapterLeFenQiNews.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("AGREEMENT"))) {
-                        webBundle = new Bundle();
-                        webBundle.putString("url", LeFenQiNewsPreferencesOpenUtil.getString("AGREEMENT") + HttpLeFenQiNewsApi.ZCXY);
-                        webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                        OpenLeFenQiNewsUtil.getValue((XActivity) getActivity(), JumpLeFenQiNewsH5Activity.class, webBundle);
-                    }
+                    webBundle = new Bundle();
+                    webBundle.putString("url", HttpLeFenQiNewsApi.ZCXY);
+                    webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    OpenLeFenQiNewsUtil.getValue((XActivity) getActivity(), JumpLeFenQiNewsH5Activity.class, webBundle);
                     break;
                 case 1:
-                    if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("AGREEMENT"))) {
-                        webBundle = new Bundle();
-                        webBundle.putString("url", LeFenQiNewsPreferencesOpenUtil.getString("AGREEMENT") + HttpLeFenQiNewsApi.YSXY);
-                        webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                        OpenLeFenQiNewsUtil.getValue((XActivity) getActivity(), JumpLeFenQiNewsH5Activity.class, webBundle);
-                    }
+                    webBundle = new Bundle();
+                    webBundle.putString("url", HttpLeFenQiNewsApi.YSXY);
+                    webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    OpenLeFenQiNewsUtil.getValue((XActivity) getActivity(), JumpLeFenQiNewsH5Activity.class, webBundle);
                     break;
                 case 2:
                     OpenLeFenQiNewsUtil.getValue((XActivity) getActivity(), LeFenQiNewsFeedbackActivity.class, null);
@@ -187,7 +183,6 @@ public class LeFenQiNewsSetFragment extends XFragment {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
             HttpLeFenQiNewsApi.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -210,7 +205,6 @@ public class LeFenQiNewsSetFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     public void toWeb(ProductLeFenQiNewsModel model) {
@@ -223,7 +217,6 @@ public class LeFenQiNewsSetFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = LeFenQiNewsPreferencesOpenUtil.getInt("mobileType");
             phone = LeFenQiNewsPreferencesOpenUtil.getString("phone");
             HttpLeFenQiNewsApi.getInterfaceUtils().productList(mobileType, phone)
@@ -248,11 +241,9 @@ public class LeFenQiNewsSetFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     public void productClick(ProductLeFenQiNewsModel model) {
-        if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -272,6 +263,5 @@ public class LeFenQiNewsSetFragment extends XFragment {
                             toWeb(model);
                         }
                     });
-        }
     }
 }

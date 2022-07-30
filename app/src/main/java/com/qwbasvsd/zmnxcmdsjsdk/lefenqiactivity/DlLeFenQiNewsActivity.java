@@ -49,8 +49,7 @@ public class DlLeFenQiNewsActivity extends XActivity {
      * @param
      * @return
      */
-    public static int sp2px(Context context, float spVal)
-    {
+    public static int sp2px(Context context, float spVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
                 spVal, context.getResources().getDisplayMetrics());
     }
@@ -62,11 +61,11 @@ public class DlLeFenQiNewsActivity extends XActivity {
      * @param pxVal
      * @return
      */
-    public static float px2dp(Context context, float pxVal)
-    {
+    public static float px2dp(Context context, float pxVal) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (pxVal / scale);
     }
+
     /**
      * px转sp
      *
@@ -74,8 +73,7 @@ public class DlLeFenQiNewsActivity extends XActivity {
      * @param pxVal
      * @return
      */
-    public static float px2sp(Context context, float pxVal)
-    {
+    public static float px2sp(Context context, float pxVal) {
         return (pxVal / context.getResources().getDisplayMetrics().scaledDensity);
     }
 
@@ -101,17 +99,15 @@ public class DlLeFenQiNewsActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.view_le_fen_qi_loading, null));
         getConfig();
         readTv.setText(OpenLeFenQiNewsUtil.createDlSpanTexts(), position -> {
-            if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("AGREEMENT"))) {
-                bundle = new Bundle();
-                if (position == 1) {
-                    bundle.putString("url", LeFenQiNewsPreferencesOpenUtil.getString("AGREEMENT") + HttpLeFenQiNewsApi.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                } else {
-                    bundle.putString("url", LeFenQiNewsPreferencesOpenUtil.getString("AGREEMENT") + HttpLeFenQiNewsApi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                }
-                OpenLeFenQiNewsUtil.getValue(DlLeFenQiNewsActivity.this, JumpLeFenQiNewsH5Activity.class, bundle);
+            bundle = new Bundle();
+            if (position == 1) {
+                bundle.putString("url", HttpLeFenQiNewsApi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+            } else {
+                bundle.putString("url", HttpLeFenQiNewsApi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
             }
+            OpenLeFenQiNewsUtil.getValue(DlLeFenQiNewsActivity.this, JumpLeFenQiNewsH5Activity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -154,8 +150,7 @@ public class DlLeFenQiNewsActivity extends XActivity {
      * @param
      * @return
      */
-    public static int aertrshfgh(Context context, float spVal)
-    {
+    public static int aertrshfgh(Context context, float spVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
                 spVal, context.getResources().getDisplayMetrics());
     }
@@ -167,11 +162,11 @@ public class DlLeFenQiNewsActivity extends XActivity {
      * @param pxVal
      * @return
      */
-    public static float reygfhgj(Context context, float pxVal)
-    {
+    public static float reygfhgj(Context context, float pxVal) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (pxVal / scale);
     }
+
     /**
      * px转sp
      *
@@ -179,8 +174,7 @@ public class DlLeFenQiNewsActivity extends XActivity {
      * @param pxVal
      * @return
      */
-    public static float ertgdrthfg(Context context, float pxVal)
-    {
+    public static float ertgdrthfg(Context context, float pxVal) {
         return (pxVal / context.getResources().getDisplayMetrics().scaledDensity);
     }
 
@@ -190,7 +184,6 @@ public class DlLeFenQiNewsActivity extends XActivity {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
             HttpLeFenQiNewsApi.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -218,7 +211,6 @@ public class DlLeFenQiNewsActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     private void getIp() {
@@ -244,8 +236,7 @@ public class DlLeFenQiNewsActivity extends XActivity {
      * @param
      * @return
      */
-    public static int aewrtgfhfgh(Context context, float spVal)
-    {
+    public static int aewrtgfhfgh(Context context, float spVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
                 spVal, context.getResources().getDisplayMetrics());
     }
@@ -257,11 +248,11 @@ public class DlLeFenQiNewsActivity extends XActivity {
      * @param pxVal
      * @return
      */
-    public static float nsrthsdrrtsy(Context context, float pxVal)
-    {
+    public static float nsrthsdrrtsy(Context context, float pxVal) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (pxVal / scale);
     }
+
     /**
      * px转sp
      *
@@ -269,8 +260,7 @@ public class DlLeFenQiNewsActivity extends XActivity {
      * @param pxVal
      * @return
      */
-    public static float qwerdsfgdf(Context context, float pxVal)
-    {
+    public static float qwerdsfgdf(Context context, float pxVal) {
         return (pxVal / context.getResources().getDisplayMetrics().scaledDensity);
     }
 
@@ -288,7 +278,6 @@ public class DlLeFenQiNewsActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
             if (xStateController != null)
                 xStateController.showLoading();
             HttpLeFenQiNewsApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
@@ -322,7 +311,6 @@ public class DlLeFenQiNewsActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     /**
@@ -332,8 +320,7 @@ public class DlLeFenQiNewsActivity extends XActivity {
      * @param
      * @return
      */
-    public static int jtyughj(Context context, float spVal)
-    {
+    public static int jtyughj(Context context, float spVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
                 spVal, context.getResources().getDisplayMetrics());
     }
@@ -345,11 +332,11 @@ public class DlLeFenQiNewsActivity extends XActivity {
      * @param pxVal
      * @return
      */
-    public static float waerteryhrty(Context context, float pxVal)
-    {
+    public static float waerteryhrty(Context context, float pxVal) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (pxVal / scale);
     }
+
     /**
      * px转sp
      *
@@ -357,13 +344,11 @@ public class DlLeFenQiNewsActivity extends XActivity {
      * @param pxVal
      * @return
      */
-    public static float ersyfdggj(Context context, float pxVal)
-    {
+    public static float ersyfdggj(Context context, float pxVal) {
         return (pxVal / context.getResources().getDisplayMetrics().scaledDensity);
     }
 
     public void getYzm(String phone) {
-        if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
             HttpLeFenQiNewsApi.getInterfaceUtils().sendVerifyCode(phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -385,7 +370,6 @@ public class DlLeFenQiNewsActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     /**
@@ -395,8 +379,7 @@ public class DlLeFenQiNewsActivity extends XActivity {
      * @param
      * @return
      */
-    public static int ertrsydrty(Context context, float spVal)
-    {
+    public static int ertrsydrty(Context context, float spVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
                 spVal, context.getResources().getDisplayMetrics());
     }
@@ -408,11 +391,11 @@ public class DlLeFenQiNewsActivity extends XActivity {
      * @param pxVal
      * @return
      */
-    public static float retgxfhfgh(Context context, float pxVal)
-    {
+    public static float retgxfhfgh(Context context, float pxVal) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (pxVal / scale);
     }
+
     /**
      * px转sp
      *
@@ -420,8 +403,7 @@ public class DlLeFenQiNewsActivity extends XActivity {
      * @param pxVal
      * @return
      */
-    public static float ertuyrt(Context context, float pxVal)
-    {
+    public static float ertuyrt(Context context, float pxVal) {
         return (pxVal / context.getResources().getDisplayMetrics().scaledDensity);
     }
 }

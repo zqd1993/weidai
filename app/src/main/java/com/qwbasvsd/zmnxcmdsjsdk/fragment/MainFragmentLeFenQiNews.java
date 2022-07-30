@@ -117,7 +117,6 @@ public class MainFragmentLeFenQiNews extends XFragment {
     }
 
     public void productClick(ProductLeFenQiNewsModel model) {
-        if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -137,12 +136,10 @@ public class MainFragmentLeFenQiNews extends XFragment {
                             toWeb(model);
                         }
                     });
-        }
     }
 
 
     public void productList() {
-        if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = LeFenQiNewsPreferencesOpenUtil.getInt("mobileType");
             phone = LeFenQiNewsPreferencesOpenUtil.getString("phone");
             productLeFenQiNewsModel = null;
@@ -181,11 +178,9 @@ public class MainFragmentLeFenQiNews extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     private void bannerList() {
-        if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
             HttpLeFenQiNewsApi.getInterfaceUtils().bannerList()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -201,16 +196,13 @@ public class MainFragmentLeFenQiNews extends XFragment {
                             if (baseModelLeFenQiNews != null) {
                                 if (baseModelLeFenQiNews.getCode() == 200) {
                                     if (baseModelLeFenQiNews.getData() != null && baseModelLeFenQiNews.getData().size() > 0) {
-                                        if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
-                                            ILFactory.getLoader().loadNet(banner_img, LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL") + baseModelLeFenQiNews.getData().get(0).getLogo(),
+                                            ILFactory.getLoader().loadNet(banner_img, HttpLeFenQiNewsApi.HTTP_API_URL  + baseModelLeFenQiNews.getData().get(0).getLogo(),
                                                     new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-                                        }
                                     }
                                 }
                             }
                         }
                     });
-        }
     }
 
     private void addProductView(List<ProductLeFenQiNewsModel> mList) {
@@ -226,10 +218,8 @@ public class MainFragmentLeFenQiNews extends XFragment {
             TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
             shijian_tv.setText(model.getDes());
             shuliang_tv.setText(String.valueOf(model.getPassingRate()));
-            if (!TextUtils.isEmpty(LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL"))) {
-                ILFactory.getLoader().loadNet(pic, LeFenQiNewsPreferencesOpenUtil.getString("HTTP_API_URL") + model.getProductLogo(),
+                ILFactory.getLoader().loadNet(pic, HttpLeFenQiNewsApi.HTTP_API_URL + model.getProductLogo(),
                         new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-            }
             product_name_tv.setText(model.getProductName());
             remind_tv.setText(model.getTag());
             money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
