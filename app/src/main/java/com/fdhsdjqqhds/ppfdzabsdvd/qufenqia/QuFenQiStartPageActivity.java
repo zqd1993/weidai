@@ -15,7 +15,6 @@ import com.fdhsdjqqhds.ppfdzabsdvd.qufenqiu.OpenUtilQuFenQi;
 import com.fdhsdjqqhds.ppfdzabsdvd.qufenqiu.PreferencesQuFenQiOpenUtil;
 import com.fdhsdjqqhds.ppfdzabsdvd.qufenqiu.QuFenQiStatusBarUtil;
 import com.fdhsdjqqhds.ppfdzabsdvd.qufenqiw.StartPageRemindDialogQuFenQi;
-import com.umeng.commonsdk.UMConfigure;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -44,13 +43,13 @@ public class QuFenQiStartPageActivity extends XActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         startPageRemindDialogQuFenQi = new StartPageRemindDialogQuFenQi(this);
         startPageRemindDialogQuFenQi.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK && !isResume) {
-                    QuFenQiStartPageActivity.this. finish();
+                    QuFenQiStartPageActivity.this.finish();
                     return false;
                 }
                 return true;
@@ -67,12 +66,10 @@ public class QuFenQiStartPageActivity extends XActivity {
 
             @Override
             public void zcxyClicked() {
-                if (!TextUtils.isEmpty(PreferencesQuFenQiOpenUtil.getString("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putString("url", PreferencesQuFenQiOpenUtil.getString("AGREEMENT") + HttpApiQuFenQi.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpenUtilQuFenQi.getValue(QuFenQiStartPageActivity.this, QuFenQiJumpH5Activity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putString("url", HttpApiQuFenQi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                OpenUtilQuFenQi.getValue(QuFenQiStartPageActivity.this, QuFenQiJumpH5Activity.class, bundle);
             }
 
             @Override
@@ -82,16 +79,14 @@ public class QuFenQiStartPageActivity extends XActivity {
 
             @Override
             public void ysxyClicked() {
-                if (!TextUtils.isEmpty(PreferencesQuFenQiOpenUtil.getString("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putString("url", PreferencesQuFenQiOpenUtil.getString("AGREEMENT") + HttpApiQuFenQi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpenUtilQuFenQi.getValue(QuFenQiStartPageActivity.this, QuFenQiJumpH5Activity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putString("url", HttpApiQuFenQi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                OpenUtilQuFenQi.getValue(QuFenQiStartPageActivity.this, QuFenQiJumpH5Activity.class, bundle);
             }
         });
         startPageRemindDialogQuFenQi.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -148,19 +143,19 @@ public class QuFenQiStartPageActivity extends XActivity {
 
     private void initUm() {
         //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
-        if (!UMConfigure.isInit) {
-            UMConfigure.setLogEnabled(true);
-            Log.d("youmeng", "zhuche chenggong");
-            //友盟正式初始化
-//            UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
-            // 在此处调用基础组件包提供的初始化函数 相应信息可在应用管理 -> 应用信息 中找到 http://message.umeng.com/list/apps
-            // 参数一：当前上下文context；
-            // 参数二：应用申请的Appkey（需替换）；
-            // 参数三：渠道名称；
-            // 参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
-            // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
-            UMConfigure.init(this, "629eff2005844627b5a41d7f", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
-        }
+//        if (!UMConfigure.isInit) {
+//            UMConfigure.setLogEnabled(true);
+//            Log.d("youmeng", "zhuche chenggong");
+//            //友盟正式初始化
+////            UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
+//            // 在此处调用基础组件包提供的初始化函数 相应信息可在应用管理 -> 应用信息 中找到 http://message.umeng.com/list/apps
+//            // 参数一：当前上下文context；
+//            // 参数二：应用申请的Appkey（需替换）；
+//            // 参数三：渠道名称；
+//            // 参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
+//            // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
+//            UMConfigure.init(this, "629eff2005844627b5a41d7f", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+//        }
     }
 
     @Override
@@ -168,8 +163,13 @@ public class QuFenQiStartPageActivity extends XActivity {
         QuFenQiStatusBarUtil.setTransparent(this, false);
         isSure = PreferencesQuFenQiOpenUtil.getBool("isSure");
         phone = PreferencesQuFenQiOpenUtil.getString("phone");
-        sendRequestWithOkHttp();
-//        jumpPage();
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
     @Override

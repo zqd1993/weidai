@@ -83,7 +83,6 @@ public class ProductQuFenQiFragment extends XFragment {
     }
 
     public void productClick(ProductModelQuFenQi model) {
-        if (!TextUtils.isEmpty(PreferencesQuFenQiOpenUtil.getString("HTTP_API_URL"))) {
             if (model != null) {
                 phone = PreferencesQuFenQiOpenUtil.getString("phone");
                 HttpApiQuFenQi.getInterfaceUtils().productClick(model.getId(), phone)
@@ -102,12 +101,10 @@ public class ProductQuFenQiFragment extends XFragment {
                             }
                         });
             }
-        }
     }
 
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesQuFenQiOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesQuFenQiOpenUtil.getInt("mobileType");
             phone = PreferencesQuFenQiOpenUtil.getString("phone");
             HttpApiQuFenQi.getInterfaceUtils().productList(mobileType, phone)
@@ -149,7 +146,6 @@ public class ProductQuFenQiFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     private void addProductView(List<ProductModelQuFenQi> mList) {
@@ -166,10 +162,8 @@ public class ProductQuFenQiFragment extends XFragment {
             TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
             shijian_tv.setText(model.getDes() + "个月");
             shuliang_tv.setText(String.valueOf(model.getPassingRate()));
-            if (!TextUtils.isEmpty(PreferencesQuFenQiOpenUtil.getString("HTTP_API_URL"))) {
-                ILFactory.getLoader().loadNet(pic, PreferencesQuFenQiOpenUtil.getString("HTTP_API_URL") + model.getProductLogo(),
+                ILFactory.getLoader().loadNet(pic, HttpApiQuFenQi.HTTP_API_URL + model.getProductLogo(),
                         new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-            }
             product_name_tv.setText(model.getProductName());
             remind_tv.setText(model.getTag());
             money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
