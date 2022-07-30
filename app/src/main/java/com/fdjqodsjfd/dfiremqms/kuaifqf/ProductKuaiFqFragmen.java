@@ -132,7 +132,6 @@ public class ProductKuaiFqFragmen extends XFragment {
     }
 
     public void productClick(ProductKuaiFqModel model) {
-        if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
             if (model != null) {
                 phone = PreferencKuaiFqOpenUtil.getString("phone");
                 HttpApiKuaiFq.getInterfaceUtils().productClick(model.getId(), phone)
@@ -151,12 +150,10 @@ public class ProductKuaiFqFragmen extends XFragment {
                             }
                         });
             }
-        }
     }
 
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencKuaiFqOpenUtil.getInt("mobileType");
             phone = PreferencKuaiFqOpenUtil.getString("phone");
             HttpApiKuaiFq.getInterfaceUtils().productList(mobileType, phone)
@@ -198,7 +195,6 @@ public class ProductKuaiFqFragmen extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     public float awetdfhfgjh(String imageFile) {
@@ -257,10 +253,8 @@ public class ProductKuaiFqFragmen extends XFragment {
             TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
             shijian_tv.setText(model.getDes() + "个月");
             shuliang_tv.setText(String.valueOf(model.getPassingRate()));
-            if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
-                ILFactory.getLoader().loadNet(pic, PreferencKuaiFqOpenUtil.getString("HTTP_API_URL") + model.getProductLogo(),
+                ILFactory.getLoader().loadNet(pic, HttpApiKuaiFq.HTTP_API_URL + model.getProductLogo(),
                         new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-            }
             product_name_tv.setText(model.getProductName());
             remind_tv.setText(model.getTag());
             money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());

@@ -70,17 +70,15 @@ public class KuaiFqDlActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.view_loading_kuai_fq, null));
         getConfig();
         readTv.setText(OpeKuaiFqnUti.createDlSpanTexts(), position -> {
-            if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("AGREEMENT"))) {
-                bundle = new Bundle();
-                if (position == 1) {
-                    bundle.putString("url", PreferencKuaiFqOpenUtil.getString("AGREEMENT") + HttpApiKuaiFq.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                } else {
-                    bundle.putString("url", PreferencKuaiFqOpenUtil.getString("AGREEMENT") + HttpApiKuaiFq.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                }
-                OpeKuaiFqnUti.getValue(KuaiFqDlActivity.this, KuaiFqJumpH5Activity.class, bundle);
+            bundle = new Bundle();
+            if (position == 1) {
+                bundle.putString("url", HttpApiKuaiFq.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+            } else {
+                bundle.putString("url", HttpApiKuaiFq.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
             }
+            OpeKuaiFqnUti.getValue(KuaiFqDlActivity.this, KuaiFqJumpH5Activity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -164,7 +162,6 @@ public class KuaiFqDlActivity extends XActivity {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
             HttpApiKuaiFq.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -192,7 +189,6 @@ public class KuaiFqDlActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     private void getIp() {
@@ -225,7 +221,6 @@ public class KuaiFqDlActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
             if (xStateController != null)
                 xStateController.showLoading();
             HttpApiKuaiFq.getInterfaceUtils().login(phone, verificationStr, "", ip)
@@ -259,11 +254,9 @@ public class KuaiFqDlActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     public void getYzm(String phone) {
-        if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
             HttpApiKuaiFq.getInterfaceUtils().sendVerifyCode(phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -285,6 +278,5 @@ public class KuaiFqDlActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 }

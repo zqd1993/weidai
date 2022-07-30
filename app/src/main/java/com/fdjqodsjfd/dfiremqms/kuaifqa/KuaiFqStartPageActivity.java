@@ -21,7 +21,6 @@ import com.fdjqodsjfd.dfiremqms.kuaifqu.OpeKuaiFqnUti;
 import com.fdjqodsjfd.dfiremqms.kuaifqu.PreferencKuaiFqOpenUtil;
 import com.fdjqodsjfd.dfiremqms.kuaifqu.KuaiFqStatusBarUtil;
 import com.fdjqodsjfd.dfiremqms.kuaifqw.StartPageKuaiFqRemindDialo;
-import com.umeng.commonsdk.UMConfigure;
 
 import java.io.IOException;
 
@@ -117,12 +116,10 @@ public class KuaiFqStartPageActivity extends XActivity {
 
             @Override
             public void zcxyClicked() {
-                if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putString("url", PreferencKuaiFqOpenUtil.getString("AGREEMENT") + HttpApiKuaiFq.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpeKuaiFqnUti.getValue(KuaiFqStartPageActivity.this, KuaiFqJumpH5Activity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putString("url", HttpApiKuaiFq.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                OpeKuaiFqnUti.getValue(KuaiFqStartPageActivity.this, KuaiFqJumpH5Activity.class, bundle);
             }
 
             @Override
@@ -132,12 +129,10 @@ public class KuaiFqStartPageActivity extends XActivity {
 
             @Override
             public void ysxyClicked() {
-                if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putString("url", PreferencKuaiFqOpenUtil.getString("AGREEMENT") + HttpApiKuaiFq.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpeKuaiFqnUti.getValue(KuaiFqStartPageActivity.this, KuaiFqJumpH5Activity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putString("url", HttpApiKuaiFq.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                OpeKuaiFqnUti.getValue(KuaiFqStartPageActivity.this, KuaiFqJumpH5Activity.class, bundle);
             }
         });
         startPageKuaiFqRemindDialo.show();
@@ -239,20 +234,6 @@ public class KuaiFqStartPageActivity extends XActivity {
     }
 
     private void initUm() {
-        //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
-        if (!UMConfigure.isInit) {
-            UMConfigure.setLogEnabled(true);
-            Log.d("youmeng", "zhuche chenggong");
-            //友盟正式初始化
-//            UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
-            // 在此处调用基础组件包提供的初始化函数 相应信息可在应用管理 -> 应用信息 中找到 http://message.umeng.com/list/apps
-            // 参数一：当前上下文context；
-            // 参数二：应用申请的Appkey（需替换）；
-            // 参数三：渠道名称；
-            // 参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
-            // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
-            UMConfigure.init(this, "629eff2005844627b5a41d7f", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
-        }
     }
 
     @Override

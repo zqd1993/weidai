@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fdjqodsjfd.dfiremqms.R;
 import com.fdjqodsjfd.dfiremqms.imageloader.ILFactory;
 import com.fdjqodsjfd.dfiremqms.imageloader.ILoader;
+import com.fdjqodsjfd.dfiremqms.kuaifqapi.HttpApiKuaiFq;
 import com.fdjqodsjfd.dfiremqms.kuaifqm.ProductKuaiFqModel;
 import com.fdjqodsjfd.dfiremqms.kuaifqu.PreferencKuaiFqOpenUtil;
 import com.youth.banner.adapter.BannerAdapter;
@@ -88,7 +89,7 @@ public class ImageKuaiFqAdapter extends BannerAdapter<ProductKuaiFqModel, ImageK
         holder.edu_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
         holder.shijian_tv.setText(data.getDes() + "个月");
         holder.shuliang_tv.setText(String.valueOf(data.getPassingRate()));
-        ILFactory.getLoader().loadNet(holder.product_img, PreferencKuaiFqOpenUtil.getString("HTTP_API_URL") + data.getProductLogo(),
+        ILFactory.getLoader().loadNet(holder.product_img, HttpApiKuaiFq.HTTP_API_URL + data.getProductLogo(),
                 new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
         holder.parentLl.setOnClickListener(v -> {
             if (bannerClickedListener != null) {

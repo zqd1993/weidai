@@ -97,7 +97,6 @@ public class OpeKuaiFqnUti {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
             HttpApiKuaiFq.getInterfaceUtils().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -118,11 +117,9 @@ public class OpeKuaiFqnUti {
                             }
                         }
                     });
-        }
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-        if (!TextUtils.isEmpty(PreferencKuaiFqOpenUtil.getString("HTTP_API_URL"))) {
             HttpApiKuaiFq.getInterfaceUtils().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -143,7 +140,6 @@ public class OpeKuaiFqnUti {
                             }
                         }
                     });
-        }
     }
 
     public float werdghfxh(String imageFile) {
