@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.nsryryasdt.ioerdfjrtu">
+    package="com.dixidaikuanwerwt.ioerdfjrtu">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
-        android:name="com.nsryryasdt.ioerdfjrtu.App"
+        android:name="com.dixidaikuanwerwt.ioerdfjrtu.DiXiDaiKuanApp"
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
@@ -21,7 +21,7 @@
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.nsryryasdt.ioerdfjrtu.ui.WelcomeActivity"
+            android:name="com.dixidaikuanwerwt.ioerdfjrtu.dixidaikuanui.WelcomeDiXiDaiKuanActivity"
             android:icon="@mipmap/app_logo"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -33,38 +33,38 @@
 
 
         <activity
-            android:name="com.nsryryasdt.ioerdfjrtu.ui.WebViewActivity"
+            android:name="com.dixidaikuanwerwt.ioerdfjrtu.dixidaikuanui.WebViewActivityDiXiDaiKuan"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.nsryryasdt.ioerdfjrtu.ui.LoginActivity"
+            android:name="com.dixidaikuanwerwt.ioerdfjrtu.dixidaikuanui.DiXiDaiKuanLoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.nsryryasdt.ioerdfjrtu.ui.HomePageActivity"
+            android:name="com.dixidaikuanwerwt.ioerdfjrtu.dixidaikuanui.HomePageDiXiDaiKuanActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.nsryryasdt.ioerdfjrtu.ui.activity.FeedBackActivity"
+            android:name="com.dixidaikuanwerwt.ioerdfjrtu.dixidaikuanui.activity.FeedBackDiXiDaiKuanActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.nsryryasdt.ioerdfjrtu.ui.activity.AboutUsActivity"
+            android:name="com.dixidaikuanwerwt.ioerdfjrtu.dixidaikuanui.activity.AboutUsDiXiDaiKuanActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
 
         <activity
-            android:name="com.nsryryasdt.ioerdfjrtu.ui.activity.CancellationAccountActivity"
+            android:name="com.dixidaikuanwerwt.ioerdfjrtu.dixidaikuanui.activity.DiXiDaiKuanCancellationAccountActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.nsryryasdt.ioerdfjrtu.ui.activity.SettingActivity"
+            android:name="com.dixidaikuanwerwt.ioerdfjrtu.dixidaikuanui.activity.SettingActivityDiXiDaiKuan"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
