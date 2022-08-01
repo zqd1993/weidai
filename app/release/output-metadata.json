@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.rihdkauecgh.plihgnytrvfws",
+  "applicationId": "com.jinyu.xiaopu",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 999,
-      "versionName": "2.2.1",
-      "outputFile": "weidai_v2.2.1_build_20220530120500.apk"
+      "versionCode": 100,
+      "versionName": "1.0.0",
+      "outputFile": "weidai_v1.0.0_build_20220802000858.apk"
     }
   ]
 }
