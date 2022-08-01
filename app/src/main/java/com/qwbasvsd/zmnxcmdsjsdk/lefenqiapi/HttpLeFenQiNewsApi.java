@@ -9,7 +9,7 @@ import com.qwbasvsd.zmnxcmdsjsdk.net.XApi;
 
 public class HttpLeFenQiNewsApi {
     public static final String ZCXY = "https://htsxy.fhjdhjf.com/profile/xyklfqjk/zcxy.html";
-    public static final String YSXY= "https://htsxy.fhjdhjf.com/profile/xyklfqjk/zcxy.html";
+    public static final String YSXY= "https://htsxy.fhjdhjf.com/profile/xyklfqjk/ysxy.html";
     public static String HTTP_API_URL = "http://45.112.206.58:7754";
 
     /**
