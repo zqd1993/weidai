@@ -16,10 +16,10 @@ public class Api {
     private static GankService gankService;
 
     public static GankService getGankService() {
-        if (gankService == null && !TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
+        if (gankService == null) {
             synchronized (Api.class) {
                 if (gankService == null) {
-                    gankService = XApi.getInstance().getRetrofit(SharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"), true).create(GankService.class);
+                    gankService = XApi.getInstance().getRetrofit(API_BASE_URL, true).create(GankService.class);
                 }
             }
         }
