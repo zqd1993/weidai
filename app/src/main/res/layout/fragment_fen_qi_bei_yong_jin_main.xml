@@ -173,13 +173,13 @@
                     android:layout_marginEnd="30dp"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    android:layout_marginTop="150dp"
+                    android:layout_marginTop="130dp"
                     android:background="@drawable/bg_corner_10_white">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="20dp"
                         android:text="最高可申请额度（元）"
                         android:textColor="#999999"
                         android:textSize="12sp" />
@@ -238,7 +238,7 @@
                         android:id="@+id/lijisq_sl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="30dp"
+                        android:layout_marginBottom="20dp"
                         app:hl_cornerRadius="50dp"
                         android:layout_marginStart="55dp"
                         android:layout_marginEnd="55dp"
@@ -335,6 +335,93 @@
 
             </LinearLayout>
         </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/product_top_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/cp_icon_1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:textSize="@dimen/textSize_16"
+                    android:textColor="@color/text_normal_color"
+                    android:text="随时随借"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="14sp"
+                    android:textColor="#999999"
+                    android:text="专业贷款服务"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="90dp"
+                android:background="@color/dividing"
+                android:layout_gravity="center_vertical"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/cp_icon_2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:textSize="@dimen/textSize_16"
+                    android:textColor="@color/text_normal_color"
+                    android:text="极速下款"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="14sp"
+                    android:textColor="#999999"
+                    android:text="门槛低安全保障"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/product_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/dividing"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_gravity="center_vertical"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:id="@+id/flipper_ll"

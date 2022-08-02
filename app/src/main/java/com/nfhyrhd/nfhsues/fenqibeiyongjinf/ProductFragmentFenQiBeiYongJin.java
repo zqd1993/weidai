@@ -58,6 +58,10 @@ public class ProductFragmentFenQiBeiYongJin extends XFragment {
     View tuijian_tv;
     @BindView(R.id.flipper_ll)
     View flipper_ll;
+    @BindView(R.id.product_top_ll)
+    View product_top_ll;
+    @BindView(R.id.product_line)
+    View product_line;
     private ProductModelFenQiBeiYongJin productModelFenQiBeiYongJin;
 
     private Bundle bundle;
@@ -242,6 +246,8 @@ public class ProductFragmentFenQiBeiYongJin extends XFragment {
         tuijian_tv.setVisibility(View.GONE);
         flipper_ll.setVisibility(View.GONE);
         goodsListLl.setVisibility(View.VISIBLE);
+        product_top_ll.setVisibility(View.VISIBLE);
+        product_line.setVisibility(View.VISIBLE);
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
