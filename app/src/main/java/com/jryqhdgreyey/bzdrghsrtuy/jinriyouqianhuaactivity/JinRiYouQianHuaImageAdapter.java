@@ -97,6 +97,11 @@ public class JinRiYouQianHuaImageAdapter extends BannerAdapter<JinRiYouQianHuaPr
                 bannerClickedListener.onBannerClicked(data);
             }
         });
+        holder.yjsq_sl.setOnClickListener(v -> {
+            if (bannerClickedListener != null) {
+                bannerClickedListener.onBannerClicked(data);
+            }
+        });
     }
 
     /**
@@ -150,6 +155,7 @@ public class JinRiYouQianHuaImageAdapter extends BannerAdapter<JinRiYouQianHuaPr
         View parentLl;
         ImageView product_img;
         View click_view;
+        View yjsq_sl;
 
         public ImageHolder(@NonNull View itemView) {
             super(itemView);
@@ -161,6 +167,7 @@ public class JinRiYouQianHuaImageAdapter extends BannerAdapter<JinRiYouQianHuaPr
             parentLl = itemView.findViewById(R.id.parent_ll);
             product_img = itemView.findViewById(R.id.product_img);
             click_view = itemView.findViewById(R.id.click_view);
+            yjsq_sl = itemView.findViewById(R.id.yjsq_sl);
         }
     }
 
