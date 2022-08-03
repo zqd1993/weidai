@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.mbnmhj.poiohg.R;
+import com.mbnmhj.poiohg.mvp.XActivity;
 import com.mbnmhj.poiohg.page.NetPageActivity;
 import com.mbnmhj.poiohg.net.NetApi;
 import com.mbnmhj.poiohg.imageloader.ILFactory;
@@ -136,7 +137,6 @@ public class TwoFragment extends XFragment {
     }
 
     public void productClick(MoreModel model) {
-        if (!TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
             if (model != null) {
                 phone = SpUtil.getString("phone");
                 NetApi.getInterfaceUtils().productClick(model.getId(), phone)
@@ -155,7 +155,6 @@ public class TwoFragment extends XFragment {
                             }
                         });
             }
-        }
     }
 
     /**
@@ -169,7 +168,6 @@ public class TwoFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
             mobileType = SpUtil.getInt("mobileType");
             NetApi.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
@@ -210,7 +208,6 @@ public class TwoFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     /**
@@ -238,10 +235,8 @@ public class TwoFragment extends XFragment {
             TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
             shijian_tv.setText(model.getDes());
             shuliang_tv.setText(String.valueOf(model.getPassingRate()));
-            if (!TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
-                ILFactory.getLoader().loadNet(pic, SpUtil.getString("HTTP_API_URL") + model.getProductLogo(),
+                ILFactory.getLoader().loadNet(pic, NetApi.HTTP_API_URL + model.getProductLogo(),
                         new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-            }
             product_name_tv.setText(model.getProductName());
             remind_tv.setText(model.getTag());
             money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
@@ -272,7 +267,7 @@ public class TwoFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("title", model.getProductName());
-            AllUtil.jumpPage(getActivity(), NetPageActivity.class, bundle);
+            AllUtil.getValue((XActivity) getActivity(), NetPageActivity.class, bundle);
         }
     }
 

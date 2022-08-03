@@ -2,6 +2,7 @@ package com.mbnmhj.poiohg.page;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -14,6 +15,7 @@ import com.mbnmhj.poiohg.fragment.TwoFragment;
 import com.mbnmhj.poiohg.fragment.ThreeFragment;
 import com.mbnmhj.poiohg.mvp.XActivity;
 import com.mbnmhj.poiohg.util.SBarUtil;
+import com.mbnmhj.poiohg.util.SpUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,6 +53,9 @@ public class WorkActivity extends XActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (SpUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         SBarUtil.setTransparent(this, false);
         tabModels = new ArrayList<>();
         fragments = new ArrayList<>();

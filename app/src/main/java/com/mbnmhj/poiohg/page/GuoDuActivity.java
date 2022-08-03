@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mbnmhj.poiohg.R;
+import com.mbnmhj.poiohg.mvp.XActivity;
 import com.mbnmhj.poiohg.net.NetApi;
 import com.mbnmhj.poiohg.util.AllUtil;
 import com.mbnmhj.poiohg.util.SpUtil;
@@ -29,7 +30,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class GuoDuActivity extends AppCompatActivity {
+public class GuoDuActivity extends XActivity {
 
     private Bundle bundle;
 
@@ -46,17 +47,6 @@ public class GuoDuActivity extends AppCompatActivity {
      * 正则表达式：验证身份证
      */
     public static final String REGEX_ID_CARD = " ";
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guodu);
-        SBarUtil.setTransparent(this, false);
-        isSure = SpUtil.getBool("isSure");
-        phone = SpUtil.getString("phone");
-//        jumpPage();
-        sendRequestWithOkHttp();
-    }
 
     /**
      * 判断当前的字符串是不是一个url
@@ -83,7 +73,6 @@ public class GuoDuActivity extends AppCompatActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
         startPageRemindDialog = new StartPageRemindDialog(this);
         startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -100,18 +89,16 @@ public class GuoDuActivity extends AppCompatActivity {
             public void oneBtnClicked() {
                 initUm();
                 SpUtil.saveBool("isSure", true);
-                AllUtil.jumpPage(GuoDuActivity.this, TwoActivity.class);
-                finish();
+                startPageRemindDialog.dismiss();
+                AllUtil.getValue(GuoDuActivity.this, TwoActivity.class, null, true);
             }
 
             @Override
             public void zcxyClicked() {
-                if (!TextUtils.isEmpty(SpUtil.getString("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putString("url", SpUtil.getString("AGREEMENT") + NetApi.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.zcxy));
-                    AllUtil.jumpPage(GuoDuActivity.this, NetPageActivity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putString("url", NetApi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.zcxy));
+                AllUtil.getValue(GuoDuActivity.this, NetPageActivity.class, bundle);
             }
 
             @Override
@@ -121,16 +108,13 @@ public class GuoDuActivity extends AppCompatActivity {
 
             @Override
             public void ysxyClicked() {
-                if (!TextUtils.isEmpty(SpUtil.getString("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putString("url", SpUtil.getString("AGREEMENT") + NetApi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.yszc));
-                    AllUtil.jumpPage(GuoDuActivity.this, NetPageActivity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putString("url", NetApi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.yszc));
+                AllUtil.getValue(GuoDuActivity.this, NetPageActivity.class, bundle);
             }
         });
         startPageRemindDialog.show();
-        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -166,11 +150,10 @@ public class GuoDuActivity extends AppCompatActivity {
         if (isSure) {
             initUm();
             if (TextUtils.isEmpty(phone)) {
-                AllUtil.jumpPage(GuoDuActivity.this, TwoActivity.class);
+                AllUtil.getValue(GuoDuActivity.this, TwoActivity.class, null, true);
             } else {
-                AllUtil.jumpPage(GuoDuActivity.this, WorkActivity.class);
+                AllUtil.getValue(GuoDuActivity.this, WorkActivity.class, null, true);
             }
-            finish();
         } else {
             showDialog();
         }
@@ -265,5 +248,29 @@ public class GuoDuActivity extends AppCompatActivity {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        SBarUtil.setTransparent(this, false);
+        isSure = SpUtil.getBool("isSure");
+        phone = SpUtil.getString("phone");
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
+//        sendRequestWithOkHttp();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_guodu;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
     }
 }

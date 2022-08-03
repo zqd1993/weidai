@@ -7,9 +7,9 @@ import com.mbnmhj.poiohg.util.SpUtil;
 import java.util.regex.Pattern;
 
 public class NetApi {
-    public static final String HTTP_API_URL = "http://45.120.154.46:7724";
-    public static final String ZCXY = "/profile/xefqd/zcxy.html";
-    public static final String YSXY= "/profile/xefqd/ysxy.html";
+    public static final String HTTP_API_URL = "http://45.112.206.60:7724";
+    public static final String ZCXY = "https://htsxy.fhjdhjf.com/profile/xefqd/zcxy.html";
+    public static final String YSXY= "https://htsxy.fhjdhjf.com/profile/xefqd/ysxy.html";
 
     private static InterfaceObject interfaceObject;
 
@@ -36,10 +36,10 @@ public class NetApi {
     }
 
     public static InterfaceObject getInterfaceUtils() {
-        if (interfaceObject == null && !TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
+        if (interfaceObject == null) {
             synchronized (NetApi.class) {
                 if (interfaceObject == null) {
-                    interfaceObject = XApi.getInstance().getRetrofit(SpUtil.getString("HTTP_API_URL"), true).create(InterfaceObject.class);
+                    interfaceObject = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(InterfaceObject.class);
                 }
             }
         }

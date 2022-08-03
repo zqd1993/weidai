@@ -10,6 +10,7 @@ import android.widget.ViewFlipper;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.mbnmhj.poiohg.R;
+import com.mbnmhj.poiohg.mvp.XActivity;
 import com.mbnmhj.poiohg.page.BannerGoodsAdapter;
 import com.mbnmhj.poiohg.page.NetPageActivity;
 import com.mbnmhj.poiohg.net.NetApi;
@@ -312,7 +313,6 @@ public class OneFragment extends XFragment {
     }
 
     public void productClick(MoreModel model) {
-        if (!TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -332,7 +332,6 @@ public class OneFragment extends XFragment {
                             toWeb(model);
                         }
                     });
-        }
     }
 
     /**
@@ -348,7 +347,6 @@ public class OneFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
             mobileType = SpUtil.getInt("mobileType");
             NetApi.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
@@ -389,7 +387,6 @@ public class OneFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     private void setViewConfig() {
@@ -446,7 +443,7 @@ public class OneFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            AllUtil.jumpPage(getActivity(), NetPageActivity.class, bundle);
+            AllUtil.getValue((XActivity) getActivity(), NetPageActivity.class, bundle);
         }
     }
 }

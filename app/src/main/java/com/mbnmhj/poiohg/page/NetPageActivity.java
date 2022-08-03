@@ -11,6 +11,7 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -24,6 +25,7 @@ import com.mbnmhj.poiohg.R;
 import com.mbnmhj.poiohg.mvp.XActivity;
 import com.mbnmhj.poiohg.util.LoadFileUtil;
 import com.mbnmhj.poiohg.util.SBarUtil;
+import com.mbnmhj.poiohg.util.SpUtil;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -93,6 +95,9 @@ public class NetPageActivity extends XActivity implements EasyPermissions.Permis
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (SpUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         SBarUtil.setTransparent(this, false);
         bundle = getIntent().getExtras();
         if (bundle.containsKey("biaoti"))

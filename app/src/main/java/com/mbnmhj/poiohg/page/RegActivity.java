@@ -1,6 +1,7 @@
 package com.mbnmhj.poiohg.page;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.mbnmhj.poiohg.R;
 import com.mbnmhj.poiohg.util.SBarUtil;
+import com.mbnmhj.poiohg.util.SpUtil;
 import com.mbnmhj.poiohg.view.RemindDialog;
 
 public class RegActivity extends AppCompatActivity {
@@ -32,6 +34,9 @@ public class RegActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (SpUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         SBarUtil.setTransparent(this, false);
         setContentView(R.layout.activity_xiaohui);
         ImageView backImg = findViewById(R.id.back_image);

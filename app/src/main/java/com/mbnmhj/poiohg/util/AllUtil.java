@@ -12,8 +12,14 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.mbnmhj.poiohg.BaseApp;
+import com.mbnmhj.poiohg.entity.CFEntity;
+import com.mbnmhj.poiohg.entity.MainModel;
 import com.mbnmhj.poiohg.entity.MoreModel;
+import com.mbnmhj.poiohg.mvp.XActivity;
+import com.mbnmhj.poiohg.net.ApiSubscriber;
+import com.mbnmhj.poiohg.net.NetApi;
 import com.mbnmhj.poiohg.net.NetError;
+import com.mbnmhj.poiohg.net.XApi;
 import com.mbnmhj.poiohg.router.Router;
 import com.mbnmhj.poiohg.view.ClickTextView;
 
@@ -184,6 +190,68 @@ public class AllUtil {
         Router.newIntent(activity)
                 .to(to)
                 .launch();
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
+        NetApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<MainModel<CFEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        jumpPage(activity, to, bundle, false);
+                    }
+
+                    @Override
+                    public void onNext(MainModel<CFEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SpUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, false);
+                            }
+                        }
+                    }
+                });
+    }
+
+    public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        NetApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<MainModel<CFEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        jumpPage(activity, to, bundle, isFinish);
+                    }
+
+                    @Override
+                    public void onNext(MainModel<CFEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SpUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, isFinish);
+                            }
+                        }
+                    }
+                });
+    }
+
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish){
+        if (bundle != null){
+            Router.newIntent(activity)
+                    .to(to)
+                    .data(bundle)
+                    .launch();
+        } else {
+            Router.newIntent(activity)
+                    .to(to)
+                    .launch();
+        }
+        if (isFinish){
+            activity.finish();
+        }
     }
 
 }

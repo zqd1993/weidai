@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mbnmhj.poiohg.R;
 import com.mbnmhj.poiohg.entity.CFEntity;
+import com.mbnmhj.poiohg.mvp.XActivity;
 import com.mbnmhj.poiohg.page.NetPageActivity;
 import com.mbnmhj.poiohg.page.UsActivity;
 import com.mbnmhj.poiohg.page.TwoActivity;
@@ -131,21 +132,19 @@ public class ThreeFragment extends XFragment {
         list1.add(model7);
         setItemAdapter = new OurAdapter(R.layout.adpater_setting_item, list);
         setItemAdapter.setOnClickListener(position -> {
-            if (!TextUtils.isEmpty(SpUtil.getString("AGREEMENT"))) {
-                switch (position) {
-                    case 0:
-                        webBundle = new Bundle();
-                        webBundle.putString("url", SpUtil.getString("AGREEMENT") + NetApi.ZCXY);
-                        webBundle.putString("biaoti", getResources().getString(R.string.zcxy));
-                        AllUtil.jumpPage(getActivity(), NetPageActivity.class, webBundle);
-                        break;
-                    case 1:
-                        webBundle = new Bundle();
-                        webBundle.putString("url", SpUtil.getString("AGREEMENT") + NetApi.YSXY);
-                        webBundle.putString("biaoti", getResources().getString(R.string.yszc));
-                        AllUtil.jumpPage(getActivity(), NetPageActivity.class, webBundle);
-                        break;
-                }
+            switch (position) {
+                case 0:
+                    webBundle = new Bundle();
+                    webBundle.putString("url", NetApi.ZCXY);
+                    webBundle.putString("biaoti", getResources().getString(R.string.zcxy));
+                    AllUtil.getValue((XActivity) getActivity(), NetPageActivity.class, webBundle);
+                    break;
+                case 1:
+                    webBundle = new Bundle();
+                    webBundle.putString("url", NetApi.YSXY);
+                    webBundle.putString("biaoti", getResources().getString(R.string.yszc));
+                    AllUtil.getValue((XActivity) getActivity(), NetPageActivity.class, webBundle);
+                    break;
             }
         });
         setList.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -154,10 +153,10 @@ public class ThreeFragment extends XFragment {
         setItemAdapter1.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    AllUtil.jumpPage(getActivity(), BackActivity.class);
+                    AllUtil.getValue((XActivity) getActivity(), BackActivity.class, null);
                     break;
                 case 1:
-                    AllUtil.jumpPage(getActivity(), UsActivity.class);
+                    AllUtil.getValue((XActivity) getActivity(), UsActivity.class, null);
                     break;
                 case 2:
                     dialog = new RemindDialog(getActivity()).setCancelText("开启")
@@ -181,7 +180,7 @@ public class ThreeFragment extends XFragment {
                     getConfig();
                     break;
                 case 4:
-                    AllUtil.jumpPage(getActivity(), RegActivity.class);
+                    AllUtil.getValue((XActivity) getActivity(), RegActivity.class, null);
                     break;
                 case 5:
                     dialog = new RemindDialog(getActivity()).setCancelText("取消")
@@ -191,8 +190,7 @@ public class ThreeFragment extends XFragment {
                         public void onSureClicked() {
                             dialog.dismiss();
                             SpUtil.saveString("phone", "");
-                            AllUtil.jumpPage(getActivity(), TwoActivity.class);
-                            getActivity().finish();
+                            AllUtil.getValue((XActivity) getActivity(), TwoActivity.class, null, true);
                         }
 
                         @Override
@@ -209,30 +207,28 @@ public class ThreeFragment extends XFragment {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
-            NetApi.getInterfaceUtils().getConfig()
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(this.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<MainModel<CFEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
+        NetApi.getInterfaceUtils().getConfig()
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<MainModel<CFEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onNext(MainModel<CFEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    mailStr = configEntity.getData().getAppMail();
-                                    SpUtil.saveString("app_mail", mailStr);
-                                    dialog = new RemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
-                                    dialog.show();
-                                }
+                    @Override
+                    public void onNext(MainModel<CFEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                mailStr = configEntity.getData().getAppMail();
+                                SpUtil.saveString("app_mail", mailStr);
+                                dialog = new RemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
+                                dialog.show();
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     /**
@@ -252,7 +248,7 @@ public class ThreeFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            AllUtil.jumpPage(getActivity(), NetPageActivity.class, bundle);
+            AllUtil.getValue((XActivity) getActivity(), NetPageActivity.class, bundle);
         }
     }
 
@@ -267,30 +263,28 @@ public class ThreeFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
-            mobileType = SpUtil.getInt("mobileType");
-            NetApi.getInterfaceUtils().productList(mobileType)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<MainModel<List<MoreModel>>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            AllUtil.showErrorInfo(getActivity(), error);
-                        }
+        mobileType = SpUtil.getInt("mobileType");
+        NetApi.getInterfaceUtils().productList(mobileType)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<MainModel<List<MoreModel>>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        AllUtil.showErrorInfo(getActivity(), error);
+                    }
 
-                        @Override
-                        public void onNext(MainModel<List<MoreModel>> mainModel) {
-                            if (mainModel != null) {
-                                if (mainModel.getCode() == 200 && mainModel.getData() != null) {
-                                    if (mainModel.getData() != null && mainModel.getData().size() > 0) {
-                                        moreModel = mainModel.getData().get(0);
-                                    }
+                    @Override
+                    public void onNext(MainModel<List<MoreModel>> mainModel) {
+                        if (mainModel != null) {
+                            if (mainModel.getCode() == 200 && mainModel.getData() != null) {
+                                if (mainModel.getData() != null && mainModel.getData().size() > 0) {
+                                    moreModel = mainModel.getData().get(0);
                                 }
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     /**
@@ -304,27 +298,25 @@ public class ThreeFragment extends XFragment {
     }
 
     public void productClick(MoreModel model) {
-        if (!TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
-            if (model == null) {
-                return;
-            }
-            phone = SpUtil.getString("phone");
-            NetApi.getInterfaceUtils().productClick(model.getId(), phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<MainModel>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            toWeb(model);
-                        }
-
-                        @Override
-                        public void onNext(MainModel mainModel) {
-                            toWeb(model);
-                        }
-                    });
+        if (model == null) {
+            return;
         }
+        phone = SpUtil.getString("phone");
+        NetApi.getInterfaceUtils().productClick(model.getId(), phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<MainModel>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        toWeb(model);
+                    }
+
+                    @Override
+                    public void onNext(MainModel mainModel) {
+                        toWeb(model);
+                    }
+                });
     }
 
     /**

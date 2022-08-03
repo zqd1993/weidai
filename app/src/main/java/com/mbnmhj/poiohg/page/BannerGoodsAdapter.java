@@ -77,10 +77,8 @@ public class BannerGoodsAdapter extends BannerAdapter<MoreModel, BannerGoodsAdap
         holder.edu_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
         holder.shijian_tv.setText(data.getDes());
         holder.shuliang_tv.setText(String.valueOf(data.getPassingRate()));
-        if (!TextUtils.isEmpty(SpUtil.getString("HTTP_API_URL"))) {
-            ILFactory.getLoader().loadNet(holder.shangpin_pic, SpUtil.getString("HTTP_API_URL") + data.getProductLogo(),
-                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-        }
+        ILFactory.getLoader().loadNet(holder.shangpin_pic, NetApi.HTTP_API_URL + data.getProductLogo(),
+                new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
         holder.parentLl.setOnClickListener(v -> {
             if (bannerClickedListener != null) {
                 bannerClickedListener.onBannerClicked(data);
