@@ -9,9 +9,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 public class HttpApiAnXinJieDai {
-    public static final String ZCXY = "https://bones2.jhgujkg.com/profile/xykysdkh/zcxy.html";
-    public static final String YSXY= "https://bones2.jhgujkg.com/profile/xykysdkh/ysxy.html";
-    public static String HTTP_API_URL = "http://202.52.144.94:7758";
+    public static final String ZCXY = "https://bones2.jhgujkg.com/profile/opxfq/zcxy.html";
+    public static final String YSXY= "https://bones2.jhgujkg.com/profile/opxfq/ysxy.html";
+    public static String HTTP_API_URL = "http://202.52.144.94:7759";
 
     /**
      * 根据指定的宽、高，对图片进行二次采样
