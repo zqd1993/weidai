@@ -1,0 +1,90 @@
+package com.fghyugfg.mjkyhgb.tsndka;
+
+import android.os.Bundle;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.fghyugfg.mjkyhgb.R;
+import com.fghyugfg.mjkyhgb.mvp.XActivity;
+import com.fghyugfg.mjkyhgb.tsndku.MyToastTSNDK;
+import com.fghyugfg.mjkyhgb.tsndku.TSNDKOpenUtil;
+import com.fghyugfg.mjkyhgb.tsndku.PreferencesTSNDKOpenUtil;
+import com.fghyugfg.mjkyhgb.tsndku.StatusBarUtilTSNDK;
+import com.fghyugfg.mjkyhgb.tsndkw.TSNDKRemindDialog;
+
+import butterknife.BindView;
+
+public class SetActivityTSNDK extends XActivity {
+
+    @BindView(R.id.tuijian_ll)
+    View tuijian_ll;
+    @BindView(R.id.tuijian_tv)
+    TextView tuijian_tv;
+    @BindView(R.id.zhuxiao_ll)
+    View zhuxiao_ll;
+    @BindView(R.id.back_image)
+    ImageView back_image;
+    @BindView(R.id.biaoti_tv)
+    TextView biaoti_tv;
+
+    private TSNDKRemindDialog dialog;
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+        if (PreferencesTSNDKOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
+        StatusBarUtilTSNDK.setTransparent(this, false);
+        biaoti_tv.setText("系统设置");
+        tuijian_tv.setText(PreferencesTSNDKOpenUtil.getBool("tuijian") ? "开启" : "关闭");
+        back_image.setOnClickListener(v -> {
+            finish();
+        });
+        tuijian_ll.setOnClickListener(v -> {
+            dialog = new TSNDKRemindDialog(this).setCancelText("开启")
+                    .setConfirmText("关闭").setTitle("温馨提示").setContent("关闭或开启推送");
+            dialog.setOnButtonClickListener(new TSNDKRemindDialog.OnButtonClickListener() {
+                @Override
+                public void onSureClicked() {
+                    MyToastTSNDK.showShort("关闭成功");
+                    tuijian_tv.setText("关闭");
+                    PreferencesTSNDKOpenUtil.saveBool("tuijian", false);
+                    dialog.dismiss();
+                }
+
+                @Override
+                public void onCancelClicked() {
+                    MyToastTSNDK.showShort("开启成功");
+                    tuijian_tv.setText("开启");
+                    PreferencesTSNDKOpenUtil.saveBool("tuijian", true);
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+        });
+        zhuxiao_ll.setOnClickListener(v -> {
+            TSNDKOpenUtil.getValue(this, ZhuXiaoActivityTSNDK.class, null);
+        });
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_set_three_six_one;
+    }
+
+    @Override
+    public Object newP() {
+        return null;
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (dialog != null) {
+            dialog.dismiss();
+            dialog = null;
+        }
+        super.onDestroy();
+    }
+}
