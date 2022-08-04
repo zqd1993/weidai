@@ -70,6 +70,10 @@ public class AnXinJieDaiSetFragment extends XFragment {
 
     private boolean isPush = false;
 
+    private ClipboardManager clipboard;
+
+    private ClipData clipData;
+
     /**
      * 根据指定的宽、高，对图片进行二次采样
      * @param bytes
@@ -119,6 +123,7 @@ public class AnXinJieDaiSetFragment extends XFragment {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
         mailStr = AnXinJieDaiPreferencesOpenUtil.getString("app_mail");
         phone = AnXinJieDaiPreferencesOpenUtil.getString("phone");
         userPhoneTv.setText(phone);
@@ -194,7 +199,6 @@ public class AnXinJieDaiSetFragment extends XFragment {
     public void onResume() {
         super.onResume();
         productList();
-        getConfig();
         isPush = AnXinJieDaiPreferencesOpenUtil.getBool("push");
         switchBtn.setChecked(isPush);
     }
@@ -210,7 +214,7 @@ public class AnXinJieDaiSetFragment extends XFragment {
 //        AnXinJieDaiSetModel model2 = new AnXinJieDaiSetModel(R.drawable.fdnsrtuw, "意见反馈");
         AnXinJieDaiSetModel model3 = new AnXinJieDaiSetModel(R.drawable.methwrtu, "关于我们");
 //        AnXinJieDaiSetModel model4 = new AnXinJieDaiSetModel(R.drawable.zhbsrth, "个性化推荐");
-//        AnXinJieDaiSetModel model5 = new AnXinJieDaiSetModel(R.drawable.dfgertutru, "投诉邮箱");
+        AnXinJieDaiSetModel model5 = new AnXinJieDaiSetModel(R.drawable.dfgertutru, "投诉邮箱");
         AnXinJieDaiSetModel model6 = new AnXinJieDaiSetModel(R.drawable.piuwrtu, "注销账户");
         AnXinJieDaiSetModel model7 = new AnXinJieDaiSetModel(R.drawable.fgbertuwr, "退出登录");
         List<AnXinJieDaiSetModel> list = new ArrayList<>();
@@ -220,7 +224,7 @@ public class AnXinJieDaiSetFragment extends XFragment {
 //        list.add(model2);
         list.add(model3);
 //        list.add(model4);
-//        list.add(model5);
+        list.add(model5);
         list.add(model6);
         list.add(model7);
         setItemAdapterAnXinJieDai = new SetItemAdapterAnXinJieDai(R.layout.adpater_set_item_an_xin_jie_dai, list);
@@ -262,13 +266,13 @@ public class AnXinJieDaiSetFragment extends XFragment {
 //                    });
 //                    dialog.show();
 //                    break;
-//                case 3:
-//                    getConfig();
-//                    break;
                 case 3:
-                    OpenAnXinJieDaiUtil.getValue((XActivity) getActivity(), AnXinJieDaiZhuXiaoActivity.class, null);
+                    getConfig();
                     break;
                 case 4:
+                    OpenAnXinJieDaiUtil.getValue((XActivity) getActivity(), AnXinJieDaiZhuXiaoActivity.class, null);
+                    break;
+                case 5:
                     dialog = new AnXinJieDaiRemindDialog(getActivity()).setCancelText("取消")
                             .setConfirmText("退出").setTitle("温馨提示").setContent("确定退出当前登录");
                     dialog.setOnButtonClickListener(new AnXinJieDaiRemindDialog.OnButtonClickListener() {
@@ -357,8 +361,23 @@ public class AnXinJieDaiSetFragment extends XFragment {
                                     mailStr = configEntity.getData().getAppMail();
                                     mail_tv.setText(mailStr);
                                     AnXinJieDaiPreferencesOpenUtil.saveString("app_mail", mailStr);
-//                                    dialog = new AnXinJieDaiRemindDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
-//                                    dialog.show();
+                                    dialog = new AnXinJieDaiRemindDialog(getActivity()).setTitle("温馨提示").setCancelText("取消")
+                                            .setConfirmText("复制").setContent(mailStr);
+                                    dialog.setOnButtonClickListener(new AnXinJieDaiRemindDialog.OnButtonClickListener() {
+                                        @Override
+                                        public void onSureClicked() {
+                                            dialog.dismiss();
+                                            clipData = ClipData.newPlainText(null, mailStr);
+                                            clipboard.setPrimaryClip(clipData);
+                                            AnXinJieDaiMyToast.showShort("复制成功");
+                                        }
+
+                                        @Override
+                                        public void onCancelClicked() {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    dialog.show();
                                 }
                             }
                         }
