@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+
 import com.akjsdhfkjhj.kahssj.ActivityCollector;
 
 import com.akjsdhfkjhj.kahssj.present.DlPresent;
@@ -77,22 +78,18 @@ public class LoginActivityHuiMin extends XActivity<DlPresent> {
         getP().getGankData();
         getIp();
         remindTv.setText(createSpanTexts(), position -> {
-            switch (position){
+            switch (position) {
                 case 1:
-                    if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("AGREEMENT"))) {
-                        bundle = new Bundle();
-                        bundle.putInt("tag", 1);
-                        bundle.putString("url", SPUtilis.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
-                        MainUtil.getValue(LoginActivityHuiMin.this, WebActivity.class, bundle);
-                    }
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 1);
+                    bundle.putString("url", Api.PRIVACY_POLICY);
+                    MainUtil.getValue(LoginActivityHuiMin.this, WebActivity.class, bundle);
                     break;
                 default:
-                    if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("AGREEMENT"))) {
-                        bundle = new Bundle();
-                        bundle.putInt("tag", 2);
-                        bundle.putString("url", SPUtilis.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
-                        MainUtil.getValue(LoginActivityHuiMin.this, WebActivity.class, bundle);
-                    }
+                    bundle = new Bundle();
+                    bundle.putInt("tag", 2);
+                    bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
+                    MainUtil.getValue(LoginActivityHuiMin.this, WebActivity.class, bundle);
                     break;
             }
         });

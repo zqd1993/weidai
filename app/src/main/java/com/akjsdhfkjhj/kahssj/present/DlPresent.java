@@ -23,7 +23,6 @@ import com.akjsdhfkjhj.kahssj.net.ApiSubscriber;
 public class DlPresent extends XPresent<LoginActivityHuiMin> {
 
     public void login(String phone, String verificationStr, String ip) {
-        if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("API_BASE_URL"))) {
             Api.getGankService().login(phone, verificationStr, "", ip)
                     .compose(XApi.<BaseModel<LoginModel>>getApiTransformer())
                     .compose(XApi.<BaseModel<LoginModel>>getScheduler())
@@ -54,11 +53,9 @@ public class DlPresent extends XPresent<LoginActivityHuiMin> {
                             }
                         }
                     });
-        }
     }
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("API_BASE_URL"))) {
             Api.getGankService().getGankData()
                     .compose(XApi.<BaseModel<PeiZhiModel>>getApiTransformer())
                     .compose(XApi.<BaseModel<PeiZhiModel>>getScheduler())
@@ -86,11 +83,9 @@ public class DlPresent extends XPresent<LoginActivityHuiMin> {
                             }
                         }
                     });
-        }
     }
 
     public void sendVerifyCode(String phone, TextView textView) {
-        if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("API_BASE_URL"))) {
             Api.getGankService().sendVerifyCode(phone)
                     .compose(XApi.<BaseModel>getApiTransformer())
                     .compose(XApi.<BaseModel>getScheduler())
@@ -112,7 +107,6 @@ public class DlPresent extends XPresent<LoginActivityHuiMin> {
                             }
                         }
                     });
-        }
     }
 
 }

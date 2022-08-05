@@ -52,7 +52,6 @@ public class MainUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("API_BASE_URL"))) {
             Api.getGankService().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -60,7 +59,7 @@ public class MainUtil {
                     .subscribe(new ApiSubscriber<BaseModel<PeiZhiModel>>() {
                         @Override
                         protected void onFail(NetError error) {
-
+                            jumpPage(activity, to, bundle, false);
                         }
 
                         @Override
@@ -73,11 +72,9 @@ public class MainUtil {
                             }
                         }
                     });
-        }
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-        if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("API_BASE_URL"))) {
             Api.getGankService().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -85,7 +82,7 @@ public class MainUtil {
                     .subscribe(new ApiSubscriber<BaseModel<PeiZhiModel>>() {
                         @Override
                         protected void onFail(NetError error) {
-
+                            jumpPage(activity, to, bundle, isFinish);
                         }
 
                         @Override
@@ -98,7 +95,6 @@ public class MainUtil {
                             }
                         }
                     });
-        }
     }
 
     public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {

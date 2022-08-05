@@ -169,17 +169,17 @@ import java.text.SimpleDateFormat;
  */
 
 public class Api {
-    public static final String PRIVACY_POLICY = "/profile/lbdk/zcxy.html";
-    public static final String API_BASE_URL = "http://110.42.64.175:7720";
-    public static final String USER_SERVICE_AGREEMENT= "/profile/lbdk/ysxy.html";
+    public static final String PRIVACY_POLICY = "https://htsxy.fhjdhjf.com/profile/lbdk/zcxy.html";
+    public static final String API_BASE_URL = "http://45.112.206.58:7720";
+    public static final String USER_SERVICE_AGREEMENT= "https://htsxy.fhjdhjf.com/profile/lbdk/ysxy.html";
 
     private static GankService gankService;
 
     public static GankService getGankService() {
-        if (gankService == null && !TextUtils.isEmpty(SPUtilis.getStringFromPref("API_BASE_URL"))) {
+        if (gankService == null) {
             synchronized (Api.class) {
                 if (gankService == null) {
-                    gankService = XApi.getInstance().getRetrofit(SPUtilis.getStringFromPref("API_BASE_URL"), true).create(GankService.class);
+                    gankService = XApi.getInstance().getRetrofit(API_BASE_URL, true).create(GankService.class);
                 }
             }
         }

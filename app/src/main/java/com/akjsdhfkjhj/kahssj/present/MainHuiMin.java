@@ -21,7 +21,6 @@ public class MainHuiMin extends XPresent<MainActivity> {
     private String phone, ip;
 
     public void login() {
-        if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("API_BASE_URL"))) {
             phone = SPUtilis.getStringFromPref("phone");
             ip = SPUtilis.getStringFromPref("ip");
             Api.getGankService().logins(phone, ip)
@@ -41,7 +40,6 @@ public class MainHuiMin extends XPresent<MainActivity> {
                             }
                         }
                     });
-        }
     }
 
     /**

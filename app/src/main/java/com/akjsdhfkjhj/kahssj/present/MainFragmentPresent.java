@@ -52,7 +52,6 @@ public class MainFragmentPresent extends XPresent<MainFragment> {
 
 
     public void productClick(ProductModel model) {
-        if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("API_BASE_URL"))) {
             phone = SPUtilis.getStringFromPref("phone");
             Api.getGankService().productClick(model.getId(), phone)
                     .compose(XApi.<BaseModel>getApiTransformer())
@@ -70,7 +69,6 @@ public class MainFragmentPresent extends XPresent<MainFragment> {
                             getV().jumpWebYouXinActivity(model);
                         }
                     });
-        }
     }
 
     /**
@@ -115,7 +113,6 @@ public class MainFragmentPresent extends XPresent<MainFragment> {
 
 
     public void productList() {
-        if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("API_BASE_URL"))) {
             mobileType = SPUtilis.getIntFromPref("mobileType");
             Api.getGankService().productList(mobileType)
                     .compose(XApi.<BaseModel<List<ProductModel>>>getApiTransformer())
@@ -156,6 +153,5 @@ public class MainFragmentPresent extends XPresent<MainFragment> {
                             }
                         }
                     });
-        }
     }
 }

@@ -80,20 +80,16 @@ public class WodeFragment extends XFragment {
             MainUtil.getValue((XActivity) getActivity(), AppinfoActivity.class, null);
         });
         zcxy.setOnClickListener(v -> {
-            if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("AGREEMENT"))) {
-                bundle = new Bundle();
-                bundle.putInt("tag", 1);
-                bundle.putString("url", SPUtilis.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
-                MainUtil.getValue((XActivity) getActivity(), WebActivity.class, bundle);
-            }
+            bundle = new Bundle();
+            bundle.putInt("tag", 1);
+            bundle.putString("url", Api.PRIVACY_POLICY);
+            MainUtil.getValue((XActivity) getActivity(), WebActivity.class, bundle);
         });
         ysxy.setOnClickListener(v -> {
-            if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("AGREEMENT"))) {
-                bundle = new Bundle();
-                bundle.putInt("tag", 2);
-                bundle.putString("url", SPUtilis.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
-                MainUtil.getValue((XActivity) getActivity(), WebActivity.class, bundle);
-            }
+            bundle = new Bundle();
+            bundle.putInt("tag", 2);
+            bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
+            MainUtil.getValue((XActivity) getActivity(), WebActivity.class, bundle);
         });
         yjfk.setOnClickListener(v -> {
             MainUtil.getValue((XActivity) getActivity(), FeedBackActivityHuiMin.class, null);
@@ -144,7 +140,6 @@ public class WodeFragment extends XFragment {
     private int mobileType;
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("API_BASE_URL"))) {
             Api.getGankService().getGankData()
                     .compose(XApi.<BaseModel<PeiZhiModel>>getApiTransformer())
                     .compose(XApi.<BaseModel<PeiZhiModel>>getScheduler())
@@ -169,11 +164,9 @@ public class WodeFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     public void productClick(ProductModel model) {
-        if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("API_BASE_URL"))) {
             phone = SPUtilis.getStringFromPref("phone");
             Api.getGankService().productClick(model.getId(), phone)
                     .compose(XApi.<BaseModel>getApiTransformer())
@@ -191,10 +184,9 @@ public class WodeFragment extends XFragment {
                             jumpWebYouXinActivity(model);
                         }
                     });
-        }
     }
 
-    public void jumpWebYouXinActivity (ProductModel model){
+    public void jumpWebYouXinActivity(ProductModel model) {
         if (model != null) {
             webBundle = new Bundle();
             webBundle.putInt("tag", 3);
@@ -205,7 +197,6 @@ public class WodeFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(SPUtilis.getStringFromPref("API_BASE_URL"))) {
             mobileType = SPUtilis.getIntFromPref("mobileType");
             Api.getGankService().productList(mobileType)
                     .compose(XApi.<BaseModel<List<ProductModel>>>getApiTransformer())
@@ -228,7 +219,6 @@ public class WodeFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     @Override
