@@ -34,8 +34,8 @@ public class HomePageActivity extends XActivity<MainPresent> {
     private long exitTime = 0;
     private List<Fragment> mFragments = new ArrayList<>();
     private String[] mTitles = {"首页", "产品", "我的"};
-    private int[] uncheckedIcon = {R.drawable.kdtiosrtu, R.drawable.zxzzhdruuj, R.drawable.xdxfdghrtu};
-    private int[] checkedIcon = {R.drawable.ksrtustu, R.drawable.fnsrusrtu,R.drawable.nnsrtuasru};
+    private int[] uncheckedIcon = {R.drawable.xccvbntu, R.drawable.mxfgudrtu, R.drawable.lfyuofdt};
+    private int[] checkedIcon = {R.drawable.mxfgjdrstui, R.drawable.qqerryu,R.drawable.xcvbnrtftui};
     private ArrayList<CustomTabEntity> customTabEntities;
     private MyFragmentAdapter myFragmentAdapter;
 

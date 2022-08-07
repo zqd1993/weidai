@@ -16,79 +16,134 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <FrameLayout
-                android:layout_width="match_parent"
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary">
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/wd_tx" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp"
-                    android:layout_marginBottom="40dp"
-                    android:orientation="vertical"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center_horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/xcgbnctyi" />
+                    android:layout_marginStart="10dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/phone_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="12345679"
+                        android:textColor="@color/text_normal_color"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <com.lihang.ShadowLayout
+                        android:id="@+id/mail_sl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:text="12345679"/>
+                        app:hl_cornerRadius="50dp"
+                        app:hl_layoutBackground="@color/colorPrimary">
+
+                        <TextView
+                            android:id="@+id/mail_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:paddingStart="15dp"
+                            android:paddingEnd="15dp"
+                            android:textColor="@color/white"
+                            android:text="123456789@qq.com"
+                            android:textSize="12sp" />
+
+                    </com.lihang.ShadowLayout>
 
                 </LinearLayout>
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/wd_bg">
+
+                <TextView
+                    android:id="@+id/edu_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:paddingStart="5dp"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/xcvvbnrtui"
+                    android:text="1000-10000"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_margin="10dp"
+                    android:paddingEnd="5dp"
+                    android:text="申请额度"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
 
             </FrameLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#f4f4f4" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:paddingTop="20dp"
+                android:textColor="@color/text_normal_color"
+                android:textSize="16sp"
+                android:text="我的功能" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/dividing" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="13dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:overScrollMode="never" />
 
-            <com.lihang.ShadowLayout
-                android:id="@+id/mail_sl"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                app:hl_cornerRadius="10dp"
-                app:hl_layoutBackground="@color/colorPrimary">
-
-                <TextView
-                    android:id="@+id/mail_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/textSize_16" />
-
-            </com.lihang.ShadowLayout>
+                android:layout_height="10dp"
+                android:background="#f4f4f4" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvy_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="13dp"
-                android:layout_marginEnd="13dp"
-                android:overScrollMode="never"
-                android:visibility="gone"/>
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:overScrollMode="never" />
 
         </LinearLayout>
 

@@ -34,11 +34,6 @@ public class MineAdapter extends SimpleRecAdapter<MineItemModel, MineAdapter.Vie
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         viewHolder.itemImg.setImageResource(data.get(i).getImgRes());
         viewHolder.tvItem.setText(data.get(i).getItemTv());
-        if (i == data.size() - 1){
-            viewHolder.line.setVisibility(View.GONE);
-        } else {
-            viewHolder.line.setVisibility(View.VISIBLE);
-        }
         viewHolder.parentLl.setOnClickListener(v -> {
             getRecItemClick().onItemClick(i, data.get(i), 1, viewHolder);
         });
@@ -53,8 +48,6 @@ public class MineAdapter extends SimpleRecAdapter<MineItemModel, MineAdapter.Vie
         ImageView itemImg;
         @BindView(R.id.parent_ll)
         View parentLl;
-        @BindView(R.id.line)
-        View line;
 
         public ViewHolder(View itemView) {
             super(itemView);

@@ -40,6 +40,7 @@ public class GoodsItemAdapter extends SimpleRecAdapter<GoodsModel, GoodsItemAdap
         if (!TextUtils.isEmpty(model.getFan_time()) && model.getFan_time().length() > 2) {
             viewHolder.cycleTv.setText("最长可分期" + model.getFan_time().substring(0, 2) + "期");
         }
+        viewHolder.num_tv.setText(String.valueOf(i + 1));
         viewHolder.people_num_tv.setText(model.getNum() + "人申请");
         viewHolder.productNameTv.setText(model.getTitle());
         viewHolder.info_tv.setText(model.getInfo());
@@ -68,6 +69,8 @@ public class GoodsItemAdapter extends SimpleRecAdapter<GoodsModel, GoodsItemAdap
         TextView people_num_tv;
         @BindView(R.id.info_tv)
         TextView info_tv;
+        @BindView(R.id.num_tv)
+        TextView num_tv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

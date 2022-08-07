@@ -9,15 +9,19 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.gson.Gson;
 import com.nfsthjsrtuae.fghserytuxfh.R;
 import com.nfsthjsrtuae.fghserytuxfh.adapter.MineAdapter;
 import com.nfsthjsrtuae.fghserytuxfh.adapter.MineAdapter1;
 import com.nfsthjsrtuae.fghserytuxfh.model.BaseRespModel;
 import com.nfsthjsrtuae.fghserytuxfh.model.CompanyInfoModel;
+import com.nfsthjsrtuae.fghserytuxfh.model.GoodsModel;
 import com.nfsthjsrtuae.fghserytuxfh.model.MineItemModel;
+import com.nfsthjsrtuae.fghserytuxfh.model.RequModel;
 import com.nfsthjsrtuae.fghserytuxfh.net.Api;
 import com.nfsthjsrtuae.fghserytuxfh.net.ApiSubscriber;
 import com.nfsthjsrtuae.fghserytuxfh.net.NetError;
@@ -26,6 +30,7 @@ import com.nfsthjsrtuae.fghserytuxfh.ui.WebViewActivity;
 import com.nfsthjsrtuae.fghserytuxfh.ui.activity.CancellationAccountActivity;
 import com.nfsthjsrtuae.fghserytuxfh.ui.activity.SettingActivity;
 import com.nfsthjsrtuae.fghserytuxfh.utils.SharedPreferencesUtilis;
+import com.nfsthjsrtuae.fghserytuxfh.utils.StaticUtil;
 import com.nfsthjsrtuae.fghserytuxfh.utils.ToastUtil;
 import com.nfsthjsrtuae.fghserytuxfh.router.Router;
 
@@ -39,6 +44,7 @@ import com.nfsthjsrtuae.fghserytuxfh.mvp.XFragment;
 import com.nfsthjsrtuae.fghserytuxfh.ui.activity.AboutUsActivity;
 
 import cn.droidlover.xrecyclerview.RecyclerItemCallback;
+import okhttp3.RequestBody;
 
 public class MineFragment extends XFragment {
 
@@ -54,21 +60,24 @@ public class MineFragment extends XFragment {
     TextView mail_tv;
     @BindView(R.id.mail_sl)
     View mail_sl;
+    @BindView(R.id.edu_tv)
+    TextView edu_tv;
 
     private MineAdapter mineAdapter;
     private MineAdapter1 mineAdapter1;
     private List<MineItemModel> list, list1;
-    private int[] imgRes = {R.drawable.xxbnftyutru, R.drawable.rtusrufgj, R.drawable.qqrrtu, R.drawable.xrtrurti, R.drawable.dtkdtyisrtu};
+    private int[] imgRes = {R.drawable.xbvndrtu, R.drawable.eryrtu, R.drawable.vxgvjtdrfu, R.drawable.rtysru, R.drawable.rrtsufgj};
     private String[] tvRes = {"注册协议", "隐私协议", "关于我们", "系统设置", "注销账户"};
     private Bundle bundle;
     private NormalDialog normalDialog;
-    private String mailStr = "", phone = "";
+    private String mailStr = "", phone = "", token = "";
 
     @Override
     public void initData(Bundle savedInstanceState) {
         list = new ArrayList<>();
         list1 = new ArrayList<>();
         getCompanyInfo();
+        aindex();
         phone = SharedPreferencesUtilis.getStringFromPref("phone");
         if (!TextUtils.isEmpty(phone) && phone.length() > 10) {
             phoneTv.setText(phone.replace(phone.substring(3, 7), "****"));
@@ -77,11 +86,16 @@ public class MineFragment extends XFragment {
             MineItemModel model = new MineItemModel();
             model.setImgRes(imgRes[i]);
             model.setItemTv(tvRes[i]);
-            list.add(model);
+            if (i < 2) {
+                list.add(model);
+            } else {
+                list1.add(model);
+            }
         }
         initAdapter();
         swipeRefreshLayout.setOnRefreshListener(() -> {
             getCompanyInfo();
+            aindex();
         });
         mail_sl.setOnClickListener(v -> {
             ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -102,13 +116,13 @@ public class MineFragment extends XFragment {
     }
 
     private void initAdapter() {
-        if (mineAdapter1 == null) {
-            mineAdapter1 = new MineAdapter1(getActivity());
-            mineAdapter1.setData(list);
-            mineAdapter1.setHasStableIds(true);
-            mineAdapter1.setRecItemClick(new RecyclerItemCallback<MineItemModel, MineAdapter1.ViewHolder>() {
+        if (mineAdapter == null) {
+            mineAdapter = new MineAdapter(getActivity());
+            mineAdapter.setData(list);
+            mineAdapter.setHasStableIds(true);
+            mineAdapter.setRecItemClick(new RecyclerItemCallback<MineItemModel, MineAdapter.ViewHolder>() {
                 @Override
-                public void onItemClick(int position, MineItemModel model, int tag, MineAdapter1.ViewHolder holder) {
+                public void onItemClick(int position, MineItemModel model, int tag, MineAdapter.ViewHolder holder) {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
@@ -129,17 +143,33 @@ public class MineFragment extends XFragment {
                                     .data(bundle)
                                     .launch();
                             break;
-                        case 2:
+                    }
+                }
+            });
+            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+            rvy.setHasFixedSize(true);
+            rvy.setAdapter(mineAdapter);
+        }
+        if (mineAdapter1 == null) {
+            mineAdapter1 = new MineAdapter1(getActivity());
+            mineAdapter1.setData(list1);
+            mineAdapter1.setHasStableIds(true);
+            mineAdapter1.setRecItemClick(new RecyclerItemCallback<MineItemModel, MineAdapter1.ViewHolder>() {
+                @Override
+                public void onItemClick(int position, MineItemModel model, int tag, MineAdapter1.ViewHolder holder) {
+                    super.onItemClick(position, model, tag, holder);
+                    switch (position) {
+                        case 0:
                             Router.newIntent(getActivity())
                                     .to(AboutUsActivity.class)
                                     .launch();
                             break;
-                        case 3:
+                        case 1:
                             Router.newIntent(getActivity())
                                     .to(SettingActivity.class)
                                     .launch();
                             break;
-                        case 4:
+                        case 2:
                             Router.newIntent(getActivity())
                                     .to(CancellationAccountActivity.class)
                                     .launch();
@@ -147,9 +177,9 @@ public class MineFragment extends XFragment {
                     }
                 }
             });
-            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-            rvy.setHasFixedSize(true);
-            rvy.setAdapter(mineAdapter1);
+            rvy1.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rvy1.setHasFixedSize(true);
+            rvy1.setAdapter(mineAdapter1);
         }
     }
 
@@ -173,6 +203,36 @@ public class MineFragment extends XFragment {
                                     mailStr = loginStatusModel.getData().getGsmail();
                                     mail_tv.setText(mailStr);
                                     SharedPreferencesUtilis.saveStringIntoPref("APP_MAIL", mailStr);
+                                }
+                            }
+                        }
+                    });
+        }
+    }
+
+    public void aindex() {
+        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
+            token = SharedPreferencesUtilis.getStringFromPref("token");
+            RequModel model = new RequModel();
+            model.setToken(token);
+            RequestBody body = StaticUtil.createBody(new Gson().toJson(model));
+            Api.getGankService().aindex(body)
+                    .compose(XApi.<BaseRespModel<List<GoodsModel>>>getApiTransformer())
+                    .compose(XApi.<BaseRespModel<List<GoodsModel>>>getScheduler())
+                    .compose(this.<BaseRespModel<List<GoodsModel>>>bindToLifecycle())
+                    .subscribe(new ApiSubscriber<BaseRespModel<List<GoodsModel>>>() {
+                        @Override
+                        protected void onFail(NetError error) {
+//                        StaticUtil.showError(getV(), error);
+                        }
+
+                        @Override
+                        public void onNext(BaseRespModel<List<GoodsModel>> gankResults) {
+                            if (gankResults != null) {
+                                if (gankResults.getCode() == 0) {
+                                    if (gankResults.getData() != null && gankResults.getData().size() > 0) {
+                                        edu_tv.setText(gankResults.getData().get(0).getMax_money());
+                                    }
                                 }
                             }
                         }
