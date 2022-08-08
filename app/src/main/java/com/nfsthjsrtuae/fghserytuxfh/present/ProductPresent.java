@@ -107,6 +107,9 @@ public class ProductPresent extends XPresent<ProductFragment> {
                                         getV().setModel(gankResults.getData().get(0));
                                         getV().initGoodsItemAdapter(gankResults.getData());
                                     }
+                                    if (gankResults.getTop() != null) {
+                                        getV().money_num_tv.setText(gankResults.getTop().getMax_money());
+                                    }
                                 }
                             }
                         }

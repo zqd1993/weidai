@@ -2,6 +2,7 @@ package com.nfsthjsrtuae.fghserytuxfh.present;
 
 import android.text.TextUtils;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.nfsthjsrtuae.fghserytuxfh.model.BaseRespModel;
 import com.nfsthjsrtuae.fghserytuxfh.model.GoodsModel;
@@ -106,10 +107,13 @@ public class HomePagePresent extends XPresent<HomePageFragment> {
                                         getV().initGoodsItemAdapter(gankResults.getData());
                                     }
                                     if (gankResults.getTop() != null) {
+                                        getV().topGoodsModel = gankResults.getTop();
+                                        getV().money_num_tv.setText(gankResults.getTop().getMax_money());
+                                        getV().info_tv.setText(gankResults.getTop().getInfo());
                                         if (!TextUtils.isEmpty(gankResults.getTop().getImgs())) {
-                                            getV().topGoodsModel = gankResults.getTop();
-                                            getV().money_num_tv.setText(gankResults.getTop().getMax_money());
-                                            getV().info_tv.setText(gankResults.getTop().getInfo());
+                                            if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
+                                                Glide.with(getV()).load(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL") + gankResults.getTop().getImgs()).into(getV().topImg);
+                                            }
                                         }
                                     }
                                 }

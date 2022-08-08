@@ -60,14 +60,12 @@ public class MineFragment extends XFragment {
     TextView mail_tv;
     @BindView(R.id.mail_sl)
     View mail_sl;
-    @BindView(R.id.edu_tv)
-    TextView edu_tv;
 
     private MineAdapter mineAdapter;
     private MineAdapter1 mineAdapter1;
     private List<MineItemModel> list, list1;
-    private int[] imgRes = {R.drawable.xbvndrtu, R.drawable.eryrtu, R.drawable.vxgvjtdrfu, R.drawable.rtysru, R.drawable.rrtsufgj};
-    private String[] tvRes = {"注册协议", "隐私协议", "关于我们", "系统设置", "注销账户"};
+    private int[] imgRes = {R.drawable.hzdryzu, R.drawable.zrxdhyfxgu, R.drawable.eryhftu, R.drawable.xghtxruru, R.drawable.mxftujzru, R.drawable.fghgfdurtu};
+    private String[] tvRes = {"注册协议", "隐私协议", "关于我们", "投诉邮箱", "系统设置", "注销账户"};
     private Bundle bundle;
     private NormalDialog normalDialog;
     private String mailStr = "", phone = "", token = "";
@@ -77,16 +75,15 @@ public class MineFragment extends XFragment {
         list = new ArrayList<>();
         list1 = new ArrayList<>();
         getCompanyInfo();
-        aindex();
         phone = SharedPreferencesUtilis.getStringFromPref("phone");
         if (!TextUtils.isEmpty(phone) && phone.length() > 10) {
             phoneTv.setText(phone.replace(phone.substring(3, 7), "****"));
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             MineItemModel model = new MineItemModel();
             model.setImgRes(imgRes[i]);
             model.setItemTv(tvRes[i]);
-            if (i < 2) {
+            if (i < 3) {
                 list.add(model);
             } else {
                 list1.add(model);
@@ -95,7 +92,6 @@ public class MineFragment extends XFragment {
         initAdapter();
         swipeRefreshLayout.setOnRefreshListener(() -> {
             getCompanyInfo();
-            aindex();
         });
         mail_sl.setOnClickListener(v -> {
             ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -143,10 +139,15 @@ public class MineFragment extends XFragment {
                                     .data(bundle)
                                     .launch();
                             break;
+                        case 2:
+                            Router.newIntent(getActivity())
+                                    .to(AboutUsActivity.class)
+                                    .launch();
+                            break;
                     }
                 }
             });
-            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 3));
             rvy.setHasFixedSize(true);
             rvy.setAdapter(mineAdapter);
         }
@@ -160,9 +161,10 @@ public class MineFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            Router.newIntent(getActivity())
-                                    .to(AboutUsActivity.class)
-                                    .launch();
+                            ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                            ClipData clipData = ClipData.newPlainText(null, mailStr);
+                            clipboard.setPrimaryClip(clipData);
+                            ToastUtil.showShort("复制成功");
                             break;
                         case 1:
                             Router.newIntent(getActivity())
@@ -203,36 +205,6 @@ public class MineFragment extends XFragment {
                                     mailStr = loginStatusModel.getData().getGsmail();
                                     mail_tv.setText(mailStr);
                                     SharedPreferencesUtilis.saveStringIntoPref("APP_MAIL", mailStr);
-                                }
-                            }
-                        }
-                    });
-        }
-    }
-
-    public void aindex() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
-            token = SharedPreferencesUtilis.getStringFromPref("token");
-            RequModel model = new RequModel();
-            model.setToken(token);
-            RequestBody body = StaticUtil.createBody(new Gson().toJson(model));
-            Api.getGankService().aindex(body)
-                    .compose(XApi.<BaseRespModel<List<GoodsModel>>>getApiTransformer())
-                    .compose(XApi.<BaseRespModel<List<GoodsModel>>>getScheduler())
-                    .compose(this.<BaseRespModel<List<GoodsModel>>>bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespModel<List<GoodsModel>>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-//                        StaticUtil.showError(getV(), error);
-                        }
-
-                        @Override
-                        public void onNext(BaseRespModel<List<GoodsModel>> gankResults) {
-                            if (gankResults != null) {
-                                if (gankResults.getCode() == 0) {
-                                    if (gankResults.getData() != null && gankResults.getData().size() > 0) {
-                                        edu_tv.setText(gankResults.getData().get(0).getMax_money());
-                                    }
                                 }
                             }
                         }

@@ -2,6 +2,7 @@ package com.nfsthjsrtuae.fghserytuxfh.ui.fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +29,8 @@ public class ProductFragment extends XFragment<ProductPresent> {
     public SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.parent_ll)
     View parentLl;
+    @BindView(R.id.money_num_tv)
+    public TextView money_num_tv;
 
     private Bundle webBundle;
     public GoodsItemAdapter goodsItemAdapter;

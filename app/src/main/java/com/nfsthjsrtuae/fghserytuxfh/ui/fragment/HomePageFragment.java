@@ -2,6 +2,7 @@ package com.nfsthjsrtuae.fghserytuxfh.ui.fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.nfsthjsrtuae.fghserytuxfh.R;
 import com.nfsthjsrtuae.fghserytuxfh.adapter.GoodsItemAdapter;
 import com.nfsthjsrtuae.fghserytuxfh.model.GoodsModel;
+import com.nfsthjsrtuae.fghserytuxfh.ui.HomePageActivity;
 import com.nfsthjsrtuae.fghserytuxfh.ui.WebViewActivity;
 import com.nfsthjsrtuae.fghserytuxfh.mvp.XFragment;
 import com.nfsthjsrtuae.fghserytuxfh.present.HomePagePresent;
@@ -39,6 +41,10 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
     View click_view_1;
     @BindView(R.id.info_tv)
     public TextView info_tv;
+    @BindView(R.id.top_img)
+    public ImageView topImg;
+    @BindView(R.id.more_tv)
+    View more_tv;
 
     private Bundle webBundle;
     public GoodsItemAdapter goodsItemAdapter;
@@ -51,6 +57,9 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
         });
         click_view_1.setOnClickListener(v -> {
             productClick(topGoodsModel);
+        });
+        more_tv.setOnClickListener(v -> {
+            ((HomePageActivity)getActivity()).changPage();
         });
     }
 

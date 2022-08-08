@@ -18,7 +18,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="10dp"
-            android:src="@drawable/xbvndrtu"/>
+            android:src="@drawable/hzdryzu"/>
 
         <TextView
             android:id="@+id/item_title_tv"
@@ -28,9 +28,19 @@
             android:layout_marginStart="10dp"
             android:text="注册协议"
             android:textColor="@color/text_normal_color"
-            android:textSize="@dimen/textSize_16" />
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/mail_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:textColor="@color/text_normal_color"
+            android:textSize="12sp"
+            android:visibility="gone"/>
 
         <ImageView
+            android:id="@+id/right_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
