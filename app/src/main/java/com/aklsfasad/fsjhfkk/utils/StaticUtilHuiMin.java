@@ -66,7 +66,7 @@ public class StaticUtilHuiMin {
                 .subscribe(new ApiSubscriber<BaseRespHuiMinModel<ConfigHuiMinModel>>() {
                     @Override
                     protected void onFail(NetError error) {
-
+                        jumpPage(activity, to, bundle, false);
                     }
 
                     @Override
@@ -89,7 +89,7 @@ public class StaticUtilHuiMin {
                 .subscribe(new ApiSubscriber<BaseRespHuiMinModel<ConfigHuiMinModel>>() {
                     @Override
                     protected void onFail(NetError error) {
-
+                        jumpPage(activity, to, bundle, isFinish);
                     }
 
                     @Override
