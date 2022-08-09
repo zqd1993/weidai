@@ -87,7 +87,7 @@ public class StaticUtil {
                 .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
                     @Override
                     protected void onFail(NetError error) {
-
+                        jumpPage(activity, to, bundle, false);
                     }
 
                     @Override
@@ -110,7 +110,7 @@ public class StaticUtil {
                 .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
                     @Override
                     protected void onFail(NetError error) {
-
+                        jumpPage(activity, to, bundle, isFinish);
                     }
 
                     @Override
