@@ -241,7 +241,7 @@ public class StaticUtilShouJiDai {
                 .subscribe(new ApiSubscriber<BaseRespModelShouJiDai<ConfigShouJiDaiModel>>() {
                     @Override
                     protected void onFail(NetError error) {
-
+                        jumpPage(activity, to, bundle, false);
                     }
 
                     @Override
@@ -264,7 +264,7 @@ public class StaticUtilShouJiDai {
                 .subscribe(new ApiSubscriber<BaseRespModelShouJiDai<ConfigShouJiDaiModel>>() {
                     @Override
                     protected void onFail(NetError error) {
-
+                        jumpPage(activity, to, bundle, true);
                     }
 
                     @Override
