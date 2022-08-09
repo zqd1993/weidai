@@ -11,7 +11,7 @@ import com.bghfr.yrtweb.u.PreferencesStaticOpenUtil;
 
 public class MyApi {
     public static final String ZCXY = "https://bones.huyt78p.com/profile/ljfq/zcxy.html";
-    public static final String HTTP_API_URL = "http://202.52.144.93:7723";
+    public static final String HTTP_API_URL = "http://178.20.210.122:7723";
     public static final String YSXY = "https://bones.huyt78p.com/profile/ljfq/ysxy.html ";
 
     private static JieKouUtils interfaceUtils;

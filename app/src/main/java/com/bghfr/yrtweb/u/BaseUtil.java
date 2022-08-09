@@ -88,7 +88,7 @@ public class BaseUtil {
                 .subscribe(new ApiSubscriber<MainModel<SetEntity>>() {
                     @Override
                     protected void onFail(NetError error) {
-
+                        jumpPage(activity, to, bundle, false);
                     }
 
                     @Override
@@ -111,7 +111,7 @@ public class BaseUtil {
                 .subscribe(new ApiSubscriber<MainModel<SetEntity>>() {
                     @Override
                     protected void onFail(NetError error) {
-
+                        jumpPage(activity, to, bundle, isFinish);
                     }
 
                     @Override
