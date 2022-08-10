@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_f4f4f4"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -18,14 +18,13 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="60dp"
-                    android:layout_marginBottom="30dp"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginStart="30dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -33,7 +32,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/zxzxxfghrtu" />
+                        android:src="@drawable/sxrtxfgjhsrtu" />
 
                     <TextView
                         android:id="@+id/phone_tv"
@@ -41,7 +40,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:text="12345679"
-                        android:textColor="@color/white"
+                        android:textColor="@color/text_normal_color"
                         android:textStyle="bold"
                         android:textSize="16sp" />
 
@@ -49,8 +48,23 @@
 
             </FrameLayout>
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/shape_text_bg">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never" />
+
+            </FrameLayout>
+
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvy"
+                android:id="@+id/rvy_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -65,7 +79,8 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="15dp"
                 app:hl_layoutBackground="@color/colorPrimary"
-                app:hl_cornerRadius="5dp">
+                app:hl_cornerRadius="5dp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/mail_tv"

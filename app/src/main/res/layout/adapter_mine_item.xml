@@ -18,7 +18,7 @@
             android:id="@+id/item_img"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/xvbnrtusru"/>
+            android:src="@drawable/eretyrtys"/>
 
         <TextView
             android:id="@+id/item_title_tv"
@@ -27,7 +27,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:text="注册协议"
-            android:textColor="@color/text_normal_color"
+            android:textColor="@color/white"
             android:textSize="@dimen/textSize_16" />
 
     </LinearLayout>

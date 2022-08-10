@@ -59,7 +59,7 @@
             android:textColor="@color/text_normal_color"
             android:textSize="@dimen/textSize_16" />
 
-        <com.nsryryasdt.ioerdfjrtu.widget.SwitchButton
+        <com.srysfghsrty.mkdtyusaert.widget.SwitchButton
             android:id="@+id/switch_btn"
             android:layout_width="40dp"
             android:layout_height="wrap_content"

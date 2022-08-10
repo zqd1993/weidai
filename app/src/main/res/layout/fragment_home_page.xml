@@ -46,7 +46,7 @@
                         android:layout_marginEnd="20dp"
                         android:layout_marginTop="50dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/zdgzrey" />
+                        android:src="@drawable/xgvbsrtusru" />
 
                     <com.lihang.ShadowLayout
                         android:layout_width="match_parent"
@@ -74,7 +74,8 @@
                     android:paddingEnd="10dp"
                     android:paddingStart="20dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -103,7 +104,7 @@
                         android:layout_height="wrap_content"
                         android:padding="10dp"
                         android:layout_gravity="end|center_vertical"
-                        android:src="@drawable/yyusyi" />
+                        android:visibility="gone"/>
 
                 </LinearLayout>
 
@@ -134,8 +135,7 @@
                 <FrameLayout
                     android:id="@+id/click_view"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#f4f4f4">
+                    android:layout_height="match_parent">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvy"

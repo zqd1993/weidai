@@ -8,9 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
         android:background="@color/white"
         android:orientation="vertical">
 
@@ -19,12 +17,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
-            android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <com.nsryryasdt.ioerdfjrtu.widget.ProportionFrameLayout
-                android:layout_width="60dp"
+            <com.srysfghsrty.mkdtyusaert.widget.ProportionFrameLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="2"
                 app:proporty="1.65">
 
                 <com.lihang.ShadowLayout
@@ -40,51 +38,32 @@
 
                 </com.lihang.ShadowLayout>
 
-            </com.nsryryasdt.ioerdfjrtu.widget.ProportionFrameLayout>
-
-            <TextView
-                android:id="@+id/product_name_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1"
-                android:text="好分期"
-                android:textColor="@color/text_normal_color"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/mmzrey"
-                android:gravity="center"
-                android:text="立即申请"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="15dp"
-            android:orientation="vertical">
+            </com.srysfghsrty.mkdtyusaert.widget.ProportionFrameLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="3"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/product_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:text="好分期"
+                    android:textColor="@color/text_normal_color"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/text_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:textColor="@color/text_normal_color"
@@ -94,9 +73,18 @@
                     android:id="@+id/text_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="3dp"
                     android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/text_normal_color"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/text_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="3dp"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:textColor="@color/text_normal_color"
@@ -104,17 +92,21 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/text_3"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="3dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textColor="@color/text_normal_color"
-                android:textSize="12sp" />
-
         </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/erretzery"
+            android:gravity="center"
+            android:text="立即申请"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
 
     </LinearLayout>
 
