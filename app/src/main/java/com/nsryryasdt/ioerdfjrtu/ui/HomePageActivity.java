@@ -32,8 +32,8 @@ public class HomePageActivity extends XActivity<MainPresent> {
     private long exitTime = 0;
     private List<Fragment> mFragments = new ArrayList<>();
     private String[] mTitles = {"首页", "我的"};
-    private int[] uncheckedIcon = {R.drawable.qetrxtuy, R.drawable.lrtwetxdy};
-    private int[] checkedIcon = {R.drawable.ltyxryru, R.drawable.zbxrtyu};
+    private int[] uncheckedIcon = {R.drawable.xxnrturs, R.drawable.xbntrursu};
+    private int[] checkedIcon = {R.drawable.xtsrusrtuy, R.drawable.rerydrtu};
     private ArrayList<CustomTabEntity> customTabEntities;
     private MyFragmentAdapter myFragmentAdapter;
 
@@ -81,6 +81,11 @@ public class HomePageActivity extends XActivity<MainPresent> {
         mFragments.add(new MineFragment());
 
         homeViewPager.setAdapter(new MyFragmentAdapter(getSupportFragmentManager(), getLifecycle(), mFragments));
+    }
+
+    public void changePage(){
+        tabLayout.setCurrentTab(1);
+        homeViewPager.setCurrentItem(1, false);
     }
 
     @Override

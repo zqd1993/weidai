@@ -3,6 +3,8 @@ package com.nsryryasdt.ioerdfjrtu.ui.fragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,11 +13,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.nsryryasdt.ioerdfjrtu.R;
 import com.nsryryasdt.ioerdfjrtu.adapter.GoodsItemAdapter;
 import com.nsryryasdt.ioerdfjrtu.model.GoodsModel;
+import com.nsryryasdt.ioerdfjrtu.ui.HomePageActivity;
 import com.nsryryasdt.ioerdfjrtu.ui.WebViewActivity;
 import com.nsryryasdt.ioerdfjrtu.mvp.XFragment;
 import com.nsryryasdt.ioerdfjrtu.present.HomePagePresent;
 import com.nsryryasdt.ioerdfjrtu.router.Router;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,19 +41,33 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
     View click_view;
     @BindView(R.id.top_img)
     public ImageView topImg;
+    @BindView(R.id.view_flipper)
+    ViewFlipper viewFlipper;
+    @BindView(R.id.set_img)
+    View set_img;
 
     private Bundle webBundle;
     public GoodsItemAdapter goodsItemAdapter;
     public GoodsModel goodsModel, topGoodsModel;
 
+    private String[] msg = {"恭喜187****5758用户领取87000元额度", "恭喜138****5666用户领取36000元额度", "恭喜199****5009用户领取49000元额度",
+            "恭喜137****6699用户领取69000元额度", "恭喜131****8889用户领取18000元额度", "恭喜177****8899用户领取26000元额度",
+            "恭喜155****6789用户领取58000元额度", "恭喜166****5335用户领取29000元额度", "恭喜163****2299用户领取92000元额度",
+            "恭喜130****8866用户领取86000元额度"};
+
     @Override
     public void initData(Bundle savedInstanceState) {
         getP().aindex();
+        initViewData();
+        setViewConfig();
         swipeRefreshLayout.setOnRefreshListener(() -> {
             getP().aindex();
         });
         topImg.setOnClickListener(v -> {
             productClick(topGoodsModel);
+        });
+        set_img.setOnClickListener(v -> {
+            ((HomePageActivity)getActivity()).changePage();
         });
     }
 
@@ -77,6 +95,26 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
                     .to(WebViewActivity.class)
                     .data(webBundle)
                     .launch();
+        }
+    }
+
+    private void setViewConfig() {
+        viewFlipper.setInAnimation(getActivity(), R.anim.text_anim_in);
+        viewFlipper.setOutAnimation(getActivity(), R.anim.text_anim_out);
+        viewFlipper.setFlipInterval(2000);
+        viewFlipper.startFlipping();
+    }
+
+    private void initViewData() {
+        List<String> datas = new ArrayList<>();
+        for (int i = 0; i < msg.length; i++) {
+            datas.add(msg[i]);
+        }
+        for (String data : datas) {
+            View view = getLayoutInflater().inflate(R.layout.view_three_six_one_flipper, null);
+            TextView textView = view.findViewById(R.id.msg_view);
+            textView.setText(data);
+            viewFlipper.addView(view);
         }
     }
 

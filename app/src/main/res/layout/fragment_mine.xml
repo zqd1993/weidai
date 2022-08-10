@@ -24,22 +24,22 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="60dp"
                     android:layout_marginBottom="30dp"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                    android:layout_marginStart="30dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/lfydrturtu" />
+                        android:src="@drawable/zxzxxfghrtu" />
 
                     <TextView
                         android:id="@+id/phone_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="10dp"
                         android:text="12345679"
                         android:textColor="@color/white"
                         android:textStyle="bold"
@@ -49,24 +49,33 @@
 
             </FrameLayout>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:overScrollMode="never" />
+
             <com.lihang.ShadowLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="15dp"
-                app:hl_layoutBackground="@color/white"
-                app:hl_cornerRadius="50dp">
+                app:hl_layoutBackground="@color/colorPrimary"
+                app:hl_cornerRadius="5dp">
 
                 <TextView
                     android:id="@+id/mail_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginStart="15dp"
                     android:text="123456798@qq.com"
-                    android:textColor="@color/text_normal_color"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/textSize_16" />
 
                 <TextView
@@ -77,19 +86,10 @@
                     android:padding="10dp"
                     android:layout_marginEnd="5dp"
                     android:text="复制"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/textSize_16" />
 
             </com.lihang.ShadowLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvy"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:overScrollMode="never" />
 
         </LinearLayout>
 

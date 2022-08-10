@@ -53,8 +53,8 @@ public class MineFragment extends XFragment {
 
     private MineAdapter mineAdapter;
     private List<MineItemModel> list;
-    private int[] imgRes = {R.drawable.zbzxdry, R.drawable.zxbdrtytu, R.drawable.lfyuory,
-            R.drawable.wertxftty, R.drawable.lyuisery};
+    private int[] imgRes = {R.drawable.rtyrtujhxd, R.drawable.srtuxfguj, R.drawable.xvbnrtusru,
+            R.drawable.xfghrtusru, R.drawable.xcnxtydruij};
     private String[] tvRes = {"关于我们", "隐私协议", "注册协议", "系统设置", "注销账户"};
     private Bundle bundle;
     private NormalDialog normalDialog;
@@ -141,7 +141,7 @@ public class MineFragment extends XFragment {
                     }
                 }
             });
-            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 3));
             rvy.setHasFixedSize(true);
             rvy.setAdapter(mineAdapter);
         }

@@ -32,7 +32,7 @@
             app:tl_iconMargin="7dp"
             app:tl_iconVisible="true"
             app:tl_iconWidth="27dp"
-            app:tl_textSelectColor="@color/text_normal_color"
+            app:tl_textSelectColor="@color/colorPrimary"
             app:tl_textUnselectColor="#676767"
             app:tl_textsize="14sp"
             app:tl_indicator_height="0dp"/>
