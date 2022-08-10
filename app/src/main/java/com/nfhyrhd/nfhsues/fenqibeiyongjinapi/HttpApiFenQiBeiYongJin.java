@@ -15,7 +15,7 @@ import java.net.URL;
 public class HttpApiFenQiBeiYongJin {
     public static final String ZCXY = "https://bones.huyt78p.com/profile/vohjjk/zcxy.html";
     public static final String YSXY= "https://bones.huyt78p.com/profile/vohjjk/ysxy.html";
-    public static String HTTP_API_URL = "http://202.52.144.93:7735";
+    public static String HTTP_API_URL = "http://178.20.210.122:7735";
 
     private static FenQiBeiYongJinInterfaceUtils fenQiBeiYongJinInterfaceUtils;
 

@@ -6,8 +6,8 @@ ext {
             minSdkVersion    : 21,
             targetSdkVersion : 31,
 
-            versionCode      : 20220802,
-            versionName      : '1.2.2',
+            versionCode      : 20220810,
+            versionName      : '1.2.3',
             keyAlias         : "flashborralias",
             keyPassword      : "znhiebgnbbvaunj103fhn2ih3nfcknw",
             storeFile        : "./flashborr.jks",
