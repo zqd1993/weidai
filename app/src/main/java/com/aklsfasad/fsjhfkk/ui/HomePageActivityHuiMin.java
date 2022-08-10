@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.aklsfasad.fsjhfkk.R;
+import com.aklsfasad.fsjhfkk.ui.fragment.ProductFragmentHuiMin;
 import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
 import com.aklsfasad.fsjhfkk.utils.StatusBarUtilHuiMin;
 import com.aklsfasad.fsjhfkk.utils.ToastUtilHuiMin;
@@ -35,9 +36,9 @@ public class HomePageActivityHuiMin extends XActivity<MainPresentHuiMin> {
 
     private long exitTime = 0;
     private List<Fragment> mFragments = new ArrayList<>();
-    private String[] mTitles = {"首页", "设置", "产品"};
-    private int[] uncheckedIcon = {R.drawable.footer_icon_n_sy, R.drawable.footer_icon_n_wd, R.drawable.footer_icon_n_cp};
-    private int[] checkedIcon = {R.drawable.footer_icon_f_sy, R.drawable.footer_icon_f_wd, R.drawable.footer_icon_f_cp};
+    private String[] mTitles = {"首页", "产品", "设置"};
+    private int[] uncheckedIcon = {R.drawable.seryaeu, R.drawable.rssrtrtiu, R.drawable.qqryrtu};
+    private int[] checkedIcon = {R.drawable.eareyeay, R.drawable.traeru, R.drawable.ssrtudtu};
     private ArrayList<CustomTabEntity> customTabEntities;
     private MyFragmentHuiMinAdapter miaoJieMyFragmentAdapter;
 
@@ -82,9 +83,9 @@ public class HomePageActivityHuiMin extends XActivity<MainPresentHuiMin> {
 
             }
         });
-        mFragments.add(HomePageFragmentHuiMin.getInstant(1));
+        mFragments.add(new HomePageFragmentHuiMin());
+        mFragments.add(new ProductFragmentHuiMin());
         mFragments.add(new MineHuiMinFragment());
-        mFragments.add(HomePageFragmentHuiMin.getInstant(2));
 
         homeViewPager.setAdapter(new MyFragmentHuiMinAdapter(getSupportFragmentManager(), getLifecycle(), mFragments));
     }

@@ -61,4 +61,6 @@ dependencies {
     implementation  'com.umeng.umsdk:common:latest.integration'// 必选
     implementation  'com.umeng.umsdk:asms:latest.integration'// 必选
     implementation 'pub.devrel:easypermissions:3.0.0'
+    implementation 'io.github.youth5201314:banner:2.2.2'
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 }

@@ -9,48 +9,43 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.aklsfasad.fsjhfkk.R;
 import com.aklsfasad.fsjhfkk.adapter.GoodsItemHuiMinAdapter;
-import com.aklsfasad.fsjhfkk.adapter.ImageAdapter;
 import com.aklsfasad.fsjhfkk.model.GoodsHuiMinModel;
 import com.aklsfasad.fsjhfkk.mvp.XActivity;
-import com.aklsfasad.fsjhfkk.ui.LoginActivityHuiMin;
-import com.aklsfasad.fsjhfkk.ui.TanPingActivity;
-import com.aklsfasad.fsjhfkk.ui.WebHuiMinActivity;
 import com.aklsfasad.fsjhfkk.mvp.XFragment;
 import com.aklsfasad.fsjhfkk.present.HomePagePresentHuiMin;
-import com.aklsfasad.fsjhfkk.router.Router;
+import com.aklsfasad.fsjhfkk.present.ProductPresentHuiMin;
+import com.aklsfasad.fsjhfkk.ui.WebHuiMinActivity;
 import com.aklsfasad.fsjhfkk.utils.StaticUtilHuiMin;
-import com.youth.banner.Banner;
 
 import java.util.List;
 
 import butterknife.BindView;
 import cn.droidlover.xrecyclerview.RecyclerItemCallback;
 
-public class HomePageFragmentHuiMin extends XFragment<HomePagePresentHuiMin> {
+public class ProductFragmentHuiMin extends XFragment<ProductPresentHuiMin> {
 
+    @BindView(R.id.rvy)
+    RecyclerView rvy;
     @BindView(R.id.refresh_layout)
     public SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.no_data_fl)
     public View noDataFl;
     @BindView(R.id.parent_fl)
     View parentFl;
-    @BindView(R.id.top_layout)
-    View topLayout;
-    @BindView(R.id.goods_banner)
-    Banner banner;
 
     private Bundle bundle, webBundle;
+    private int tag;
+    public GoodsItemHuiMinAdapter miaoJieGoodsItemAdapter;
     private GoodsHuiMinModel goodsModel;
-    private ImageAdapter imageAdapter;
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_home_page;
+        return R.layout.fragment_product;
     }
 
     @Override
-    public HomePagePresentHuiMin newP() {
-        return new HomePagePresentHuiMin();
+    public ProductPresentHuiMin newP() {
+        return new ProductPresentHuiMin();
     }
 
     private void productClick(GoodsHuiMinModel model){
@@ -65,9 +60,6 @@ public class HomePageFragmentHuiMin extends XFragment<HomePagePresentHuiMin> {
         swipeRefreshLayout.setOnRefreshListener(() -> getP().productList());
         noDataFl.setOnClickListener(v -> getP().productList());
         parentFl.setOnClickListener(v -> {
-            productClick(goodsModel);
-        });
-        topLayout.setOnClickListener(v -> {
             productClick(goodsModel);
         });
     }
@@ -88,15 +80,24 @@ public class HomePageFragmentHuiMin extends XFragment<HomePagePresentHuiMin> {
         }
     }
 
-    public void initBannerAdapter(List<GoodsHuiMinModel> data) {
-        imageAdapter = null;
-        imageAdapter = new ImageAdapter(data);
-        imageAdapter.setBannerClickedListener(entity -> {
-            if (entity != null) {
-                productClick(entity);
-            }
-        });
-        banner.setAdapter(imageAdapter);
+    public void initGoodsItemAdapter(List<GoodsHuiMinModel> mData) {
+        if (miaoJieGoodsItemAdapter == null) {
+            miaoJieGoodsItemAdapter = new GoodsItemHuiMinAdapter(getActivity());
+            miaoJieGoodsItemAdapter.setRecItemClick(new RecyclerItemCallback<GoodsHuiMinModel, GoodsItemHuiMinAdapter.ViewHolder>() {
+                @Override
+                public void onItemClick(int position, GoodsHuiMinModel model, int tag, GoodsItemHuiMinAdapter.ViewHolder holder) {
+                    super.onItemClick(position, model, tag, holder);
+                    productClick(model);
+                }
+            });
+            miaoJieGoodsItemAdapter.setHasStableIds(true);
+            miaoJieGoodsItemAdapter.setData(mData);
+            rvy.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rvy.setHasFixedSize(true);
+            rvy.setAdapter(miaoJieGoodsItemAdapter);
+        } else {
+            miaoJieGoodsItemAdapter.setData(mData);
+        }
     }
 
     public void setModel(GoodsHuiMinModel goodsModel){

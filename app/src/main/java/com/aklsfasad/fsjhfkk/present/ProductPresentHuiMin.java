@@ -1,23 +1,23 @@
 package com.aklsfasad.fsjhfkk.present;
 
-import android.text.TextUtils;
 import android.view.View;
 
 import com.aklsfasad.fsjhfkk.model.BaseRespHuiMinModel;
 import com.aklsfasad.fsjhfkk.model.GoodsHuiMinModel;
-import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
-import com.aklsfasad.fsjhfkk.utils.StaticUtilHuiMin;
 import com.aklsfasad.fsjhfkk.mvp.XPresent;
 import com.aklsfasad.fsjhfkk.net.Api;
 import com.aklsfasad.fsjhfkk.net.ApiSubscriber;
 import com.aklsfasad.fsjhfkk.net.NetError;
 import com.aklsfasad.fsjhfkk.net.XApi;
 import com.aklsfasad.fsjhfkk.ui.fragment.HomePageFragmentHuiMin;
+import com.aklsfasad.fsjhfkk.ui.fragment.ProductFragmentHuiMin;
+import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
+import com.aklsfasad.fsjhfkk.utils.StaticUtilHuiMin;
 
 import java.util.List;
 
 
-public class HomePagePresentHuiMin extends XPresent<HomePageFragmentHuiMin> {
+public class ProductPresentHuiMin extends XPresent<ProductFragmentHuiMin> {
 
     private int mobileType;
 
@@ -66,7 +66,7 @@ public class HomePagePresentHuiMin extends XPresent<HomePageFragmentHuiMin> {
                             if (gankResults.getCode() == 200 && gankResults.getData() != null) {
                                 if (gankResults.getData() != null && gankResults.getData().size() > 0) {
                                     getV().setModel(gankResults.getData().get(0));
-                                    getV().initBannerAdapter(gankResults.getData());
+                                    getV().initGoodsItemAdapter(gankResults.getData());
                                 } else {
                                     getV().noDataFl.setVisibility(View.VISIBLE);
                                 }

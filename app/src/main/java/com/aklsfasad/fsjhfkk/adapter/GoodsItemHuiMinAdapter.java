@@ -65,9 +65,9 @@ public class GoodsItemHuiMinAdapter extends SimpleRecAdapter<GoodsHuiMinModel, G
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         GoodsHuiMinModel model = data.get(i);
         if (!TextUtils.isEmpty(model.getDes()) && model.getDes().length() > 2) {
-            viewHolder.cycleTv.setText(model.getDes());
+            viewHolder.cycleTv.setText("周期" + model.getDes());
         }
-        viewHolder.passingRateTv.setText(String.valueOf(model.getPassingRate()));
+        viewHolder.passingRateTv.setText(model.getPassingRate() + "下款");
         viewHolder.tagTv.setText(model.getTag());
         viewHolder.productNameTv.setText(model.getProductName());
         ILFactory.getLoader().loadNet(viewHolder.productImg, Api.API_BASE_URL + model.getProductLogo(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));

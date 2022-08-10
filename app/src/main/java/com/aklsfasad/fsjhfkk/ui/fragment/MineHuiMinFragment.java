@@ -1,5 +1,8 @@
 package com.aklsfasad.fsjhfkk.ui.fragment;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -45,16 +48,21 @@ public class MineHuiMinFragment extends XFragment {
     RecyclerView rvy;
     @BindView(R.id.phone_tv)
     TextView phoneTv;
+    @BindView(R.id.zcxy_tv)
+    View zcxy_tv;
+    @BindView(R.id.ysxy_tv)
+    View ysxy_tv;
 
     private MineHuiMinAdapter miaoJieMineAdapter1;
     private List<MineItemHuiMinModel> list1;
-    private int[] imgRes = {R.drawable.wd_icon_zcxy, R.drawable.wd_icon_yjfk,
-            R.drawable.wd_icon_xxts, R.drawable.wd_tsyx, R.drawable.wd_icon_zcz, R.drawable.wd_icon_zczh};
-    private String[] tvRes = {"更多信息", "意见反馈", "个性化推荐", "投诉邮箱", "注销账户", "退出登录"};
+    private int[] imgRes = {R.drawable.wweterys, R.drawable.jhsfgjhusrtu,
+            R.drawable.ccfghsrtu, R.drawable.srtysru, R.drawable.kdsrtusri, R.drawable.zxzfsrtus};
+    private String[] tvRes = {"意见反馈", "关于我们", "个性化推荐", "投诉邮箱", "注销账户", "退出登录"};
     private Bundle bundle;
     private NormalDialogHuiMin normalDialogHuiMin;
     private String mailStr = "", phone = "";
-
+    private ClipboardManager clipboard;
+    private ClipData clipData;
 
     @Override
     public int getLayoutId() {
@@ -77,10 +85,10 @@ public class MineHuiMinFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            StaticUtilHuiMin.getValue((XActivity) getActivity(), MoreSettingActivity.class, null);
+                            StaticUtilHuiMin.getValue((XActivity) getActivity(), FeedBackActivityHuiMin.class, null);
                             break;
                         case 1:
-                            StaticUtilHuiMin.getValue((XActivity) getActivity(), FeedBackActivityHuiMin.class, null);
+                            StaticUtilHuiMin.getValue((XActivity) getActivity(), AboutActivityHuiMin.class, null);
                             break;
                         case 2:
                             normalDialogHuiMin = new NormalDialogHuiMin(getActivity());
@@ -121,7 +129,7 @@ public class MineHuiMinFragment extends XFragment {
                     }
                 }
             });
-            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+            rvy.setLayoutManager(new LinearLayoutManager(getActivity()));
             rvy.setHasFixedSize(true);
             rvy.setAdapter(miaoJieMineAdapter1);
         }
@@ -147,7 +155,17 @@ public class MineHuiMinFragment extends XFragment {
                                 normalDialogHuiMin = new NormalDialogHuiMin(getActivity());
                                 normalDialogHuiMin.setTitle("温馨提示")
                                         .setContent(mailStr)
-                                        .showOnlyBtn().show();
+                                        .setCancelText("取消")
+                                        .setLeftListener(v -> {
+                                            normalDialogHuiMin.dismiss();
+                                        })
+                                        .setConfirmText("复制")
+                                        .setRightListener(v -> {
+                                            clipData = ClipData.newPlainText(null, mailStr);
+                                            clipboard.setPrimaryClip(clipData);
+                                            ToastUtilHuiMin.showShort("复制成功");
+                                            normalDialogHuiMin.dismiss();
+                                        }).show();;
                             }
                         }
                     }
@@ -157,6 +175,7 @@ public class MineHuiMinFragment extends XFragment {
     @Override
     public void initData(Bundle savedInstanceState) {
         list1 = new ArrayList<>();
+        clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
         mailStr = SharedPreferencesUtilisHuiMin.getStringFromPref("APP_MAIL");
         phone = SharedPreferencesUtilisHuiMin.getStringFromPref("phone");
         phoneTv.setText(phone);
@@ -167,6 +186,18 @@ public class MineHuiMinFragment extends XFragment {
             list1.add(model);
         }
         initAdapter();
+        zcxy_tv.setOnClickListener(v -> {
+            bundle = new Bundle();
+            bundle.putInt("tag", 1);
+            bundle.putString("url", Api.PRIVACY_POLICY);
+            StaticUtilHuiMin.getValue((XActivity) getActivity(), WebHuiMinActivity.class, bundle);
+        });
+        ysxy_tv.setOnClickListener(v -> {
+            bundle = new Bundle();
+            bundle.putInt("tag", 2);
+            bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
+            StaticUtilHuiMin.getValue((XActivity) getActivity(), WebHuiMinActivity.class, bundle);
+        });
     }
 
     @Override
