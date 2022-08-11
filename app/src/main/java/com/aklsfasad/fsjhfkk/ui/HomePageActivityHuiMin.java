@@ -37,8 +37,8 @@ public class HomePageActivityHuiMin extends XActivity<MainPresentHuiMin> {
     private long exitTime = 0;
     private List<Fragment> mFragments = new ArrayList<>();
     private String[] mTitles = {"首页", "产品", "设置"};
-    private int[] uncheckedIcon = {R.drawable.seryaeu, R.drawable.rssrtrtiu, R.drawable.qqryrtu};
-    private int[] checkedIcon = {R.drawable.eareyeay, R.drawable.traeru, R.drawable.ssrtudtu};
+    private int[] uncheckedIcon = {R.drawable.jesrysru, R.drawable.lluyipoiu, R.drawable.ereryxfh};
+    private int[] checkedIcon = {R.drawable.eertyxtju, R.drawable.jjrtysrtu, R.drawable.xxfghrtu};
     private ArrayList<CustomTabEntity> customTabEntities;
     private MyFragmentHuiMinAdapter miaoJieMyFragmentAdapter;
 

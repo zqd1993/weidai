@@ -12,8 +12,7 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimary">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:id="@+id/top_layout"
@@ -24,35 +23,16 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/msrtjrasu" />
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@drawable/dktysdti">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginEnd="15dp"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:text="精选贷款" />
-
-                </FrameLayout>
+                    android:src="@drawable/jjsrtyau" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp">
 
-                    <com.youth.banner.Banner
-                        android:id="@+id/goods_banner"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvy"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 

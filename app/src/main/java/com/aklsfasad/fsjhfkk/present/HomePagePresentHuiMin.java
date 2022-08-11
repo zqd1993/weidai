@@ -66,7 +66,7 @@ public class HomePagePresentHuiMin extends XPresent<HomePageFragmentHuiMin> {
                             if (gankResults.getCode() == 200 && gankResults.getData() != null) {
                                 if (gankResults.getData() != null && gankResults.getData().size() > 0) {
                                     getV().setModel(gankResults.getData().get(0));
-                                    getV().initBannerAdapter(gankResults.getData());
+                                    getV().initGoodsItemAdapter(gankResults.getData());
                                 } else {
                                     getV().noDataFl.setVisibility(View.VISIBLE);
                                 }

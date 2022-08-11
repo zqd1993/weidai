@@ -55,7 +55,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:src="@drawable/heryaeuy" />
+                        android:src="@drawable/xxdtrdru" />
 
                     <EditText
                         android:id="@+id/phone_et"
@@ -97,7 +97,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:src="@drawable/xfghsdrtuwu" />
+                        android:src="@drawable/kkdtyuxfj" />
 
                     <EditText
                         android:id="@+id/verification_et"

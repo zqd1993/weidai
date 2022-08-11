@@ -16,15 +16,14 @@ import com.aklsfasad.fsjhfkk.imageloader.ILoader;
 import com.aklsfasad.fsjhfkk.kit.KnifeKit;
 import com.aklsfasad.fsjhfkk.model.GoodsHuiMinModel;
 import com.aklsfasad.fsjhfkk.net.Api;
-import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
 
 import butterknife.BindView;
 
-public class GoodsItemHuiMinAdapter extends SimpleRecAdapter<GoodsHuiMinModel, GoodsItemHuiMinAdapter.ViewHolder> {
+public class GoodsItemHuiMinAdapter1 extends SimpleRecAdapter<GoodsHuiMinModel, GoodsItemHuiMinAdapter1.ViewHolder> {
 
     @Override
     public int getLayoutId() {
-        return R.layout.adapter_goods_item;
+        return R.layout.layout_banner_item;
     }
 
     @Override
@@ -32,25 +31,23 @@ public class GoodsItemHuiMinAdapter extends SimpleRecAdapter<GoodsHuiMinModel, G
         return new ViewHolder(itemView);
     }
 
-    public GoodsItemHuiMinAdapter(Context context) {
+    public GoodsItemHuiMinAdapter1(Context context) {
         super(context);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.parent_fl)
-        View parentFl;
-        @BindView(R.id.passing_rate_tv)
+        @BindView(R.id.shuliang_tv)
         TextView passingRateTv;
-        @BindView(R.id.tag_tv)
+        @BindView(R.id.tedian_tv)
         TextView tagTv;
-        @BindView(R.id.product_name_tv)
+        @BindView(R.id.shangpin_name_tv)
         TextView productNameTv;
-        @BindView(R.id.product_img)
+        @BindView(R.id.goods_pic)
         ImageView productImg;
-        @BindView(R.id.limit_tv)
+        @BindView(R.id.edu_tv)
         TextView limitTv;
-        @BindView(R.id.cycle_tv)
+        @BindView(R.id.shijian_tv)
         TextView cycleTv;
         @BindView(R.id.click_view)
         View clickView;
@@ -71,8 +68,8 @@ public class GoodsItemHuiMinAdapter extends SimpleRecAdapter<GoodsHuiMinModel, G
         viewHolder.tagTv.setText(model.getTag());
         viewHolder.productNameTv.setText(model.getProductName());
         ILFactory.getLoader().loadNet(viewHolder.productImg, Api.API_BASE_URL + model.getProductLogo(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-//        viewHolder.limitTv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
-        viewHolder.limitTv.setText(String.valueOf(model.getMaxAmount()));
+        viewHolder.limitTv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
+//        viewHolder.limitTv.setText(String.valueOf(model.getMaxAmount()));
         viewHolder.clickView.setOnClickListener(v -> {
             getRecItemClick().onItemClick(i, model, 1, viewHolder);
         });

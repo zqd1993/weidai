@@ -57,7 +57,8 @@ public class ImageAdapter extends BannerAdapter<GoodsHuiMinModel, ImageAdapter.I
     public void onBindView(ImageHolder holder, GoodsHuiMinModel data, int position, int size) {
         holder.shangpin_name_tv.setText(data.getProductName());
         holder.tedian_tv.setText(data.getTag());
-        holder.edu_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
+//        holder.edu_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
+        holder.edu_tv.setText(data.getMaxAmount());
         holder.shijian_tv.setText("周期" + data.getDes());
         holder.shuliang_tv.setText(data.getPassingRate() + "下款");
         ILFactory.getLoader().loadNet(holder.goods_pic, Api.API_BASE_URL + data.getProductLogo(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));

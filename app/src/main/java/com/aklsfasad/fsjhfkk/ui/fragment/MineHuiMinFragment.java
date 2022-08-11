@@ -55,8 +55,8 @@ public class MineHuiMinFragment extends XFragment {
 
     private MineHuiMinAdapter miaoJieMineAdapter1;
     private List<MineItemHuiMinModel> list1;
-    private int[] imgRes = {R.drawable.wweterys, R.drawable.jhsfgjhusrtu,
-            R.drawable.ccfghsrtu, R.drawable.srtysru, R.drawable.kdsrtusri, R.drawable.zxzfsrtus};
+    private int[] imgRes = {R.drawable.rtydfxjh, R.drawable.eertydrfj,
+            R.drawable.nnsrtsru, R.drawable.sersyertfgj, R.drawable.nndftedu, R.drawable.mxcvrtsr};
     private String[] tvRes = {"意见反馈", "关于我们", "个性化推荐", "投诉邮箱", "注销账户", "退出登录"};
     private Bundle bundle;
     private NormalDialogHuiMin normalDialogHuiMin;
@@ -129,7 +129,7 @@ public class MineHuiMinFragment extends XFragment {
                     }
                 }
             });
-            rvy.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 3));
             rvy.setHasFixedSize(true);
             rvy.setAdapter(miaoJieMineAdapter1);
         }
