@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.tergbaedd.bbbdstrga",
+  "applicationId": "com.dsudo.pfdkewrk",
   "variantName": "release",
   "elements": [
     {
@@ -12,7 +12,7 @@
       "filters": [],
       "versionCode": 100,
       "versionName": "1.0.0",
-      "outputFile": "shoujidaijiekuan_v1.0.0_build_20220711214631.apk"
+      "outputFile": "shoujidaijiekuan_v1.0.0_build_20220812135908.apk"
     }
   ]
 }

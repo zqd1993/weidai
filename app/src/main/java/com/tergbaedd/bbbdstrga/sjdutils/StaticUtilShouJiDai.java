@@ -267,7 +267,6 @@ public class StaticUtilShouJiDai {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
             ApiShouJiDai.getGankService().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -275,7 +274,7 @@ public class StaticUtilShouJiDai {
                     .subscribe(new ApiSubscriber<BaseRespModelShouJiDai<ConfigShouJiDaiModel>>() {
                         @Override
                         protected void onFail(NetError error) {
-
+                            jumpPage(activity, to, bundle, false);
                         }
 
                         @Override
@@ -283,16 +282,14 @@ public class StaticUtilShouJiDai {
                             if (configEntity != null) {
                                 if (configEntity.getData() != null) {
                                     ShouJiDaiSharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    jumpPage(activity, to, bundle, true);
+                                    jumpPage(activity, to, bundle, false);
                                 }
                             }
                         }
                     });
-        }
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-        if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
             ApiShouJiDai.getGankService().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -300,7 +297,7 @@ public class StaticUtilShouJiDai {
                     .subscribe(new ApiSubscriber<BaseRespModelShouJiDai<ConfigShouJiDaiModel>>() {
                         @Override
                         protected void onFail(NetError error) {
-
+                            jumpPage(activity, to, bundle, isFinish);
                         }
 
                         @Override
@@ -308,12 +305,11 @@ public class StaticUtilShouJiDai {
                             if (configEntity != null) {
                                 if (configEntity.getData() != null) {
                                     ShouJiDaiSharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    jumpPage(activity, to, bundle, true);
+                                    jumpPage(activity, to, bundle, isFinish);
                                 }
                             }
                         }
                     });
-        }
     }
 
     public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish){

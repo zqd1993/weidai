@@ -99,7 +99,6 @@ public class ShouJiDaiHomePagePresent extends XPresent<HomePageFragmentShouJiDai
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
             mobileType = ShouJiDaiSharedPreferencesUtilis.getIntFromPref("mobileType");
             ApiShouJiDai.getGankService().productList(mobileType)
                     .compose(XApi.<BaseRespModelShouJiDai<List<ShouJiDaiGoodsModel>>>getApiTransformer())
@@ -140,7 +139,6 @@ public class ShouJiDaiHomePagePresent extends XPresent<HomePageFragmentShouJiDai
                             }
                         }
                     });
-        }
     }
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
@@ -211,7 +209,6 @@ public class ShouJiDaiHomePagePresent extends XPresent<HomePageFragmentShouJiDai
     }
 
     public void productClick(ShouJiDaiGoodsModel model) {
-        if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
             phone = ShouJiDaiSharedPreferencesUtilis.getStringFromPref("phone");
             ApiShouJiDai.getGankService().productClick(model.getId(), phone)
                     .compose(XApi.<BaseRespModelShouJiDai>getApiTransformer())
@@ -229,7 +226,6 @@ public class ShouJiDaiHomePagePresent extends XPresent<HomePageFragmentShouJiDai
                             getV().jumpWebActivity(model);
                         }
                     });
-        }
     }
 
     /**

@@ -93,7 +93,6 @@ public class MainShouJiDaiPresent extends XPresent<HomePageActivityShouJiDai> {
     }
 
     public void login() {
-        if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
             phone = ShouJiDaiSharedPreferencesUtilis.getStringFromPref("phone");
             ip = ShouJiDaiSharedPreferencesUtilis.getStringFromPref("ip");
             ApiShouJiDai.getGankService().logins(phone, ip)
@@ -113,7 +112,6 @@ public class MainShouJiDaiPresent extends XPresent<HomePageActivityShouJiDai> {
                             }
                         }
                     });
-        }
     }
 
     /**

@@ -24,7 +24,7 @@ import com.tergbaedd.bbbdstrga.router.Router;
 
 import com.tergbaedd.bbbdstrga.sjdnet.ApiShouJiDai;
 import com.tergbaedd.bbbdstrga.sjdwidget.WelcomeDialogShouJiDai;
-import com.umeng.commonsdk.UMConfigure;
+//import com.umeng.commonsdk.UMConfigure;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -114,7 +114,7 @@ public class WelcomeActivityShouJiDai extends XActivity {
 
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         welcomeDialog = new WelcomeDialogShouJiDai(this, "温馨提示");
         welcomeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -143,26 +143,22 @@ public class WelcomeActivityShouJiDai extends XActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 1);
-                    bundle.putString("url", ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiShouJiDai.PRIVACY_POLICY);
-                    StaticUtilShouJiDai.getValue(WelcomeActivityShouJiDai.this, ShouJiDaiWebViewActivity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", ApiShouJiDai.PRIVACY_POLICY);
+                StaticUtilShouJiDai.getValue(WelcomeActivityShouJiDai.this, ShouJiDaiWebViewActivity.class, bundle);
             }
 
             @Override
             public void privacyAgreementClicked() {
-                if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 2);
-                    bundle.putString("url", ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiShouJiDai.USER_SERVICE_AGREEMENT);
-                    StaticUtilShouJiDai.getValue(WelcomeActivityShouJiDai.this, ShouJiDaiWebViewActivity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putInt("tag", 2);
+                bundle.putString("url", ApiShouJiDai.USER_SERVICE_AGREEMENT);
+                StaticUtilShouJiDai.getValue(WelcomeActivityShouJiDai.this, ShouJiDaiWebViewActivity.class, bundle);
             }
         });
         welcomeDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     /**
@@ -343,19 +339,19 @@ public class WelcomeActivityShouJiDai extends XActivity {
 
     private void initUm() {
         //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
-        if (!UMConfigure.isInit) {
-            UMConfigure.setLogEnabled(true);
-            Log.d("youmeng", "zhuche chenggong");
-            //友盟正式初始化
-//            UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
-            // 在此处调用基础组件包提供的初始化函数 相应信息可在应用管理 -> 应用信息 中找到 http://message.umeng.com/list/apps
-            // 参数一：当前上下文context；
-            // 参数二：应用申请的Appkey（需替换）；
-            // 参数三：渠道名称；
-            // 参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
-            // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
-            UMConfigure.init(this, "62c0077e05844627b5d4d240", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
-        }
+//        if (!UMConfigure.isInit) {
+//            UMConfigure.setLogEnabled(true);
+//            Log.d("youmeng", "zhuche chenggong");
+//            //友盟正式初始化
+////            UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
+//            // 在此处调用基础组件包提供的初始化函数 相应信息可在应用管理 -> 应用信息 中找到 http://message.umeng.com/list/apps
+//            // 参数一：当前上下文context；
+//            // 参数二：应用申请的Appkey（需替换）；
+//            // 参数三：渠道名称；
+//            // 参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
+//            // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
+//            UMConfigure.init(this, "62c0077e05844627b5d4d240", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+//        }
     }
 
     /**
@@ -423,7 +419,13 @@ public class WelcomeActivityShouJiDai extends XActivity {
         StatusShouJiDaiBarUtil.setTransparent(this, false);
         isAgree = ShouJiDaiSharedPreferencesUtilis.getBoolFromPref("agree");
         loginPhone = ShouJiDaiSharedPreferencesUtilis.getStringFromPref("phone");
-        sendRequestWithOkHttp();
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
     @Override
