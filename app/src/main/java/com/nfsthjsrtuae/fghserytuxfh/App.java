@@ -5,10 +5,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.nfsthjsrtuae.fghserytuxfh.net.NetError;
-import com.nfsthjsrtuae.fghserytuxfh.net.NetProvider;
-import com.nfsthjsrtuae.fghserytuxfh.net.RequestHandler;
-import com.nfsthjsrtuae.fghserytuxfh.net.XApi;
+import com.nfsthjsrtuae.fghserytuxfh.zhouzhuanzijinnet.NetError;
+import com.nfsthjsrtuae.fghserytuxfh.zhouzhuanzijinnet.NetProvider;
+import com.nfsthjsrtuae.fghserytuxfh.zhouzhuanzijinnet.RequestHandler;
+import com.nfsthjsrtuae.fghserytuxfh.zhouzhuanzijinnet.XApi;
 import okhttp3.CookieJar;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;

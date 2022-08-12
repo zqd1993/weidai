@@ -21,7 +21,7 @@
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.nfsthjsrtuae.fghserytuxfh.ui.WelcomeActivityKuaiDianFenQiDai"
+            android:name="com.nfsthjsrtuae.fghserytuxfh.ui.ZhouZhuanZiJinWelcomeActivityKuaiDianFenQiDai"
             android:icon="@mipmap/app_logo"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -33,38 +33,38 @@
 
 
         <activity
-            android:name="com.nfsthjsrtuae.fghserytuxfh.ui.WebViewActivity"
+            android:name="com.nfsthjsrtuae.fghserytuxfh.ui.ZhouZhuanZiJinWebViewActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.nfsthjsrtuae.fghserytuxfh.ui.LoginActivity"
+            android:name="com.nfsthjsrtuae.fghserytuxfh.ui.ZhouZhuanZiJinLoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.nfsthjsrtuae.fghserytuxfh.ui.HomePageActivity"
+            android:name="com.nfsthjsrtuae.fghserytuxfh.ui.ZhouZhuanZiJinHomePageActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.nfsthjsrtuae.fghserytuxfh.ui.activity.FeedBackActivity"
+            android:name="com.nfsthjsrtuae.fghserytuxfh.ui.zhouzhuanzijinactivity.ZhouZhuanZiJinFeedBackActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.nfsthjsrtuae.fghserytuxfh.ui.activity.AboutUsActivity"
+            android:name="com.nfsthjsrtuae.fghserytuxfh.ui.zhouzhuanzijinactivity.AboutUsActivityZhouZhuanZiJin"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
 
         <activity
-            android:name="com.nfsthjsrtuae.fghserytuxfh.ui.activity.CancellationAccountActivity"
+            android:name="com.nfsthjsrtuae.fghserytuxfh.ui.zhouzhuanzijinactivity.ZhouZhuanZiJinCancellationAccountActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.nfsthjsrtuae.fghserytuxfh.ui.activity.SettingActivity"
+            android:name="com.nfsthjsrtuae.fghserytuxfh.ui.zhouzhuanzijinactivity.ZhouZhuanZiJinSettingActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
