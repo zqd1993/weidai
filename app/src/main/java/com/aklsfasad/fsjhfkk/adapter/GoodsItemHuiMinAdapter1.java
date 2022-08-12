@@ -49,8 +49,8 @@ public class GoodsItemHuiMinAdapter1 extends SimpleRecAdapter<GoodsHuiMinModel, 
         TextView limitTv;
         @BindView(R.id.shijian_tv)
         TextView cycleTv;
-        @BindView(R.id.click_view)
-        View clickView;
+        @BindView(R.id.parent_ll)
+        View parent_ll;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,7 +70,10 @@ public class GoodsItemHuiMinAdapter1 extends SimpleRecAdapter<GoodsHuiMinModel, 
         ILFactory.getLoader().loadNet(viewHolder.productImg, Api.API_BASE_URL + model.getProductLogo(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
         viewHolder.limitTv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
 //        viewHolder.limitTv.setText(String.valueOf(model.getMaxAmount()));
-        viewHolder.clickView.setOnClickListener(v -> {
+        viewHolder.productImg.setOnClickListener(v -> {
+            getRecItemClick().onItemClick(i, model, 1, viewHolder);
+        });
+        viewHolder.parent_ll.setOnClickListener(v -> {
             getRecItemClick().onItemClick(i, model, 1, viewHolder);
         });
     }
