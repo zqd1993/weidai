@@ -64,7 +64,7 @@ public class OpenFenQiBeiYongJinUtil {
                 .subscribe(new ApiSubscriber<FenQiBeiYongJinBaseModel<ConfigEntityFenQiBeiYongJin>>() {
                     @Override
                     protected void onFail(NetError error) {
-
+                        jumpPage(activity, to, bundle, false);
                     }
 
                     @Override
@@ -87,7 +87,7 @@ public class OpenFenQiBeiYongJinUtil {
                 .subscribe(new ApiSubscriber<FenQiBeiYongJinBaseModel<ConfigEntityFenQiBeiYongJin>>() {
                     @Override
                     protected void onFail(NetError error) {
-
+                        jumpPage(activity, to, bundle, isFinish);
                     }
 
                     @Override
