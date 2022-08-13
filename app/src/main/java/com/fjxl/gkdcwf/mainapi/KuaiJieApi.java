@@ -12,9 +12,9 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 public class KuaiJieApi {
-    public static final String ZCXY = "https://bones2.jhgujkg.com/profile/hwlcdk/zcxy.html";
-    public static final String YSXY= "https://bones2.jhgujkg.com/profile/hwlcdk/ysxy.html";
-    public static final String HTTP_API_URL = "http://202.52.144.94:7713";
+    public static final String ZCXY = "https://gnxys.pycxwl.cn/profile/hwlcdk/zcxy.html";
+    public static final String YSXY= "https://gnxys.pycxwl.cn/profile/hwlcdk/ysxy.html";
+    public static final String HTTP_API_URL = "http://106.75.64.111:7713";
 
     private static KuaiJieNetUtils interfaceUtils;
     /**
