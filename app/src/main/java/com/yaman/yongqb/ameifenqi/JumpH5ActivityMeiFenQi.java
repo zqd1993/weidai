@@ -12,6 +12,7 @@ import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -26,6 +27,7 @@ import androidx.core.content.FileProvider;
 import com.yaman.yongqb.R;
 import com.yaman.yongqb.mvp.XActivity;
 import com.yaman.yongqb.umeifenqi.MeiFenQiDownloadApkUtil;
+import com.yaman.yongqb.umeifenqi.PreferencesOpenUtilMeiFenQi;
 import com.yaman.yongqb.umeifenqi.StatusMeiFenQiBarUtil;
 
 import java.io.File;
@@ -105,6 +107,9 @@ public class JumpH5ActivityMeiFenQi extends XActivity implements EasyPermissions
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (PreferencesOpenUtilMeiFenQi.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusMeiFenQiBarUtil.setTransparent(this, false);
         bundle = getIntent().getExtras();
         if (bundle.containsKey("biaoti"))

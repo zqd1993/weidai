@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.yaman.yongqb.R;
+import com.yaman.yongqb.apimeifenqi.MeiFenQiHttpApi;
 import com.yaman.yongqb.imageloader.ILFactory;
 import com.yaman.yongqb.imageloader.ILoader;
 import com.yaman.yongqb.mmeifenqi.ProductModelMeiFenQi;
@@ -86,10 +87,8 @@ public class ImageAdapterMeiFenQi extends BannerAdapter<ProductModelMeiFenQi, Im
         holder.edu_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
         holder.shijian_tv.setText(data.getDes() + "个月");
         holder.shuliang_tv.setText(String.valueOf(data.getPassingRate()));
-        if (!TextUtils.isEmpty(PreferencesOpenUtilMeiFenQi.getString("HTTP_API_URL"))) {
-            ILFactory.getLoader().loadNet(holder.goods_pic, PreferencesOpenUtilMeiFenQi.getString("HTTP_API_URL") + data.getProductLogo(),
+            ILFactory.getLoader().loadNet(holder.goods_pic, MeiFenQiHttpApi.HTTP_API_URL + data.getProductLogo(),
                     new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-        }
         holder.parentLl.setOnClickListener(v -> {
             if (bannerClickedListener != null){
                 bannerClickedListener.onBannerClicked(data);

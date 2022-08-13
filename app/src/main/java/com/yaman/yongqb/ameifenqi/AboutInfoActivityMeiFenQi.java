@@ -3,6 +3,7 @@ package com.yaman.yongqb.ameifenqi;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.yaman.yongqb.MeiFenQiMainApp;
 import com.yaman.yongqb.R;
 import com.yaman.yongqb.umeifenqi.OpenMeiFenQiUtil;
+import com.yaman.yongqb.umeifenqi.PreferencesOpenUtilMeiFenQi;
 import com.yaman.yongqb.umeifenqi.StatusMeiFenQiBarUtil;
 
 import java.lang.reflect.Field;
@@ -65,6 +67,9 @@ public class AboutInfoActivityMeiFenQi extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (PreferencesOpenUtilMeiFenQi.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusMeiFenQiBarUtil.setTransparent(this, false);
         setContentView(R.layout.activity_about_info_mei_fen_qi);
         ImageView backImg = findViewById(R.id.back_image);

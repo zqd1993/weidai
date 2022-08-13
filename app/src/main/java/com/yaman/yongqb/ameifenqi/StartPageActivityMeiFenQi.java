@@ -134,7 +134,7 @@ public class StartPageActivityMeiFenQi extends XActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         meiFenQiStartPageRemindDialog = new MeiFenQiStartPageRemindDialog(this);
         meiFenQiStartPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -157,12 +157,10 @@ public class StartPageActivityMeiFenQi extends XActivity {
 
             @Override
             public void zcxyClicked() {
-                if (!TextUtils.isEmpty(PreferencesOpenUtilMeiFenQi.getString("AGREEMENT"))) {
                     bundle = new Bundle();
-                    bundle.putString("url", PreferencesOpenUtilMeiFenQi.getString("AGREEMENT") + MeiFenQiHttpApi.ZCXY);
+                    bundle.putString("url", MeiFenQiHttpApi.ZCXY);
                     bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
                     OpenMeiFenQiUtil.getValue(StartPageActivityMeiFenQi.this, JumpH5ActivityMeiFenQi.class, bundle);
-                }
             }
 
             @Override
@@ -172,16 +170,14 @@ public class StartPageActivityMeiFenQi extends XActivity {
 
             @Override
             public void ysxyClicked() {
-                if (!TextUtils.isEmpty(PreferencesOpenUtilMeiFenQi.getString("AGREEMENT"))) {
                     bundle = new Bundle();
-                    bundle.putString("url", PreferencesOpenUtilMeiFenQi.getString("AGREEMENT") + MeiFenQiHttpApi.YSXY);
+                    bundle.putString("url", MeiFenQiHttpApi.YSXY);
                     bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
                     OpenMeiFenQiUtil.getValue(StartPageActivityMeiFenQi.this, JumpH5ActivityMeiFenQi.class, bundle);
-                }
             }
         });
         meiFenQiStartPageRemindDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     /**
@@ -426,7 +422,13 @@ public class StartPageActivityMeiFenQi extends XActivity {
         StatusMeiFenQiBarUtil.setTransparent(this, false);
         isSure = PreferencesOpenUtilMeiFenQi.getBool("isSure");
         phone = PreferencesOpenUtilMeiFenQi.getString("phone");
-        sendRequestWithOkHttp();
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
     @Override

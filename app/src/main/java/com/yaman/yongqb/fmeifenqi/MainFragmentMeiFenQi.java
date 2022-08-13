@@ -281,7 +281,6 @@ public class MainFragmentMeiFenQi extends XFragment {
     }
 
     public void productClick(ProductModelMeiFenQi model) {
-        if (!TextUtils.isEmpty(PreferencesOpenUtilMeiFenQi.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -301,7 +300,6 @@ public class MainFragmentMeiFenQi extends XFragment {
                             toWeb(model);
                         }
                     });
-        }
     }
 
     /**
@@ -347,7 +345,6 @@ public class MainFragmentMeiFenQi extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesOpenUtilMeiFenQi.getString("HTTP_API_URL"))) {
             mobileType = PreferencesOpenUtilMeiFenQi.getInt("mobileType");
             phone = PreferencesOpenUtilMeiFenQi.getString("phone");
             productModelMeiFenQi = null;
@@ -384,7 +381,6 @@ public class MainFragmentMeiFenQi extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     /**

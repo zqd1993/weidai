@@ -12,9 +12,9 @@ import com.yaman.yongqb.umeifenqi.PreferencesOpenUtilMeiFenQi;
 import java.lang.reflect.Field;
 
 public class MeiFenQiHttpApi {
-    public static final String ZCXY = "/profile/mfqjk/zcxy.html";
-    public static final String YSXY= "/profile/mfqjk/ysxy.html";
-    public static String HTTP_API_URL = "";
+    public static final String ZCXY = "https://gnxys.pycxwl.cn/profile/mfqjk/zcxy.html";
+    public static final String YSXY= "https://gnxys.pycxwl.cn/profile/mfqjk/ysxy.html";
+    public static String HTTP_API_URL = "http://106.75.64.111:7751";
 
     /**
      * 打开软键盘
@@ -61,10 +61,10 @@ public class MeiFenQiHttpApi {
     private static InterfaceMeiFenQiUtils interfaceMeiFenQiUtils;
 
     public static InterfaceMeiFenQiUtils getInterfaceUtils() {
-        if (interfaceMeiFenQiUtils == null && !TextUtils.isEmpty(PreferencesOpenUtilMeiFenQi.getString("HTTP_API_URL"))) {
+        if (interfaceMeiFenQiUtils == null) {
             synchronized (MeiFenQiHttpApi.class) {
                 if (interfaceMeiFenQiUtils == null) {
-                    interfaceMeiFenQiUtils = XApi.getInstance().getRetrofit(PreferencesOpenUtilMeiFenQi.getString("HTTP_API_URL"), true).create(InterfaceMeiFenQiUtils.class);
+                    interfaceMeiFenQiUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(InterfaceMeiFenQiUtils.class);
                 }
             }
         }

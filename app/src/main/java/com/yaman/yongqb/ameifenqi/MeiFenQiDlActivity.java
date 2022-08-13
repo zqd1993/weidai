@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -91,6 +92,9 @@ public class MeiFenQiDlActivity extends XActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (PreferencesOpenUtilMeiFenQi.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusMeiFenQiBarUtil.setTransparent(this, false);
         xStateController = this.findViewById(R.id.content_layout);
         mobileEt = this.findViewById(R.id.mobile_et);
@@ -104,17 +108,15 @@ public class MeiFenQiDlActivity extends XActivity {
         xStateController.loadingView(View.inflate(this, R.layout.view_mei_fen_qi_loading, null));
         getConfig();
         readTv.setText(OpenMeiFenQiUtil.createDlSpanTexts(), position -> {
-            if (!TextUtils.isEmpty(PreferencesOpenUtilMeiFenQi.getString("AGREEMENT"))) {
-                bundle = new Bundle();
-                if (position == 1) {
-                    bundle.putString("url", PreferencesOpenUtilMeiFenQi.getString("AGREEMENT") + MeiFenQiHttpApi.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                } else {
-                    bundle.putString("url", PreferencesOpenUtilMeiFenQi.getString("AGREEMENT") + MeiFenQiHttpApi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                }
-                OpenMeiFenQiUtil.getValue(MeiFenQiDlActivity.this, JumpH5ActivityMeiFenQi.class, bundle);
+            bundle = new Bundle();
+            if (position == 1) {
+                bundle.putString("url", MeiFenQiHttpApi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+            } else {
+                bundle.putString("url", MeiFenQiHttpApi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
             }
+            OpenMeiFenQiUtil.getValue(MeiFenQiDlActivity.this, JumpH5ActivityMeiFenQi.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {
@@ -198,35 +200,33 @@ public class MeiFenQiDlActivity extends XActivity {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(PreferencesOpenUtilMeiFenQi.getString("HTTP_API_URL"))) {
-            MeiFenQiHttpApi.getInterfaceUtils().getConfig()
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(this.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModelMeiFenQi<ConfigMeiFenQiEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            OpenMeiFenQiUtil.showErrorInfo(MeiFenQiDlActivity.this, error);
-                        }
+        MeiFenQiHttpApi.getInterfaceUtils().getConfig()
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModelMeiFenQi<ConfigMeiFenQiEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        OpenMeiFenQiUtil.showErrorInfo(MeiFenQiDlActivity.this, error);
+                    }
 
-                        @Override
-                        public void onNext(BaseModelMeiFenQi<ConfigMeiFenQiEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    PreferencesOpenUtilMeiFenQi.saveString("app_mail", configEntity.getData().getAppMail());
-                                    if ("0".equals(configEntity.getData().getIsCodeLogin())) {
-                                        yzmCv.setVisibility(View.GONE);
-                                    } else {
-                                        yzmCv.setVisibility(View.VISIBLE);
-                                    }
-                                    isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
-                                    isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
-                                    remindCb.setChecked(isChecked);
+                    @Override
+                    public void onNext(BaseModelMeiFenQi<ConfigMeiFenQiEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                PreferencesOpenUtilMeiFenQi.saveString("app_mail", configEntity.getData().getAppMail());
+                                if ("0".equals(configEntity.getData().getIsCodeLogin())) {
+                                    yzmCv.setVisibility(View.GONE);
+                                } else {
+                                    yzmCv.setVisibility(View.VISIBLE);
                                 }
+                                isNeedYzm = "1".equals(configEntity.getData().getIsCodeLogin());
+                                isChecked = "1".equals(configEntity.getData().getIsSelectLogin());
+                                remindCb.setChecked(isChecked);
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     /**
@@ -343,41 +343,39 @@ public class MeiFenQiDlActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (!TextUtils.isEmpty(PreferencesOpenUtilMeiFenQi.getString("HTTP_API_URL"))) {
-            if (xStateController != null)
-                xStateController.showLoading();
-            MeiFenQiHttpApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModelMeiFenQi<MeiFenQiDlModel>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            OpenMeiFenQiUtil.showErrorInfo(MeiFenQiDlActivity.this, error);
-                            if (xStateController != null)
-                                xStateController.showContent();
-                        }
+        if (xStateController != null)
+            xStateController.showLoading();
+        MeiFenQiHttpApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModelMeiFenQi<MeiFenQiDlModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        OpenMeiFenQiUtil.showErrorInfo(MeiFenQiDlActivity.this, error);
+                        if (xStateController != null)
+                            xStateController.showContent();
+                    }
 
-                        @Override
-                        public void onNext(BaseModelMeiFenQi<MeiFenQiDlModel> dlModel) {
-                            if (xStateController != null)
-                                xStateController.showContent();
-                            if (dlModel != null && dlModel.getCode() == 200) {
-                                if (dlModel.getData() != null && dlModel.getCode() == 200) {
-                                    int mobileType = dlModel.getData().getMobileType();
-                                    PreferencesOpenUtilMeiFenQi.saveString("ip", ip);
-                                    PreferencesOpenUtilMeiFenQi.saveString("phone", phone);
-                                    PreferencesOpenUtilMeiFenQi.saveInt("mobileType", mobileType);
-                                    OpenMeiFenQiUtil.getValue(MeiFenQiDlActivity.this, MainMeiFenQiActivity.class, null, true);
-                                }
-                            } else {
-                                if (dlModel.getCode() == 500) {
-                                    MyToastMeiFenQi.showShort(dlModel.getMsg());
-                                }
+                    @Override
+                    public void onNext(BaseModelMeiFenQi<MeiFenQiDlModel> dlModel) {
+                        if (xStateController != null)
+                            xStateController.showContent();
+                        if (dlModel != null && dlModel.getCode() == 200) {
+                            if (dlModel.getData() != null && dlModel.getCode() == 200) {
+                                int mobileType = dlModel.getData().getMobileType();
+                                PreferencesOpenUtilMeiFenQi.saveString("ip", ip);
+                                PreferencesOpenUtilMeiFenQi.saveString("phone", phone);
+                                PreferencesOpenUtilMeiFenQi.saveInt("mobileType", mobileType);
+                                OpenMeiFenQiUtil.getValue(MeiFenQiDlActivity.this, MainMeiFenQiActivity.class, null, true);
+                            }
+                        } else {
+                            if (dlModel.getCode() == 500) {
+                                MyToastMeiFenQi.showShort(dlModel.getMsg());
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     /**
@@ -423,29 +421,27 @@ public class MeiFenQiDlActivity extends XActivity {
     }
 
     public void getYzm(String phone) {
-        if (!TextUtils.isEmpty(PreferencesOpenUtilMeiFenQi.getString("HTTP_API_URL"))) {
-            MeiFenQiHttpApi.getInterfaceUtils().sendVerifyCode(phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModelMeiFenQi>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            OpenMeiFenQiUtil.showErrorInfo(MeiFenQiDlActivity.this, error);
-                        }
+        MeiFenQiHttpApi.getInterfaceUtils().sendVerifyCode(phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModelMeiFenQi>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        OpenMeiFenQiUtil.showErrorInfo(MeiFenQiDlActivity.this, error);
+                    }
 
-                        @Override
-                        public void onNext(BaseModelMeiFenQi baseModelMeiFenQi) {
-                            if (baseModelMeiFenQi != null) {
-                                if (baseModelMeiFenQi.getCode() == 200) {
-                                    MyToastMeiFenQi.showShort("验证码发送成功");
-                                    CountDownTimerMeiFenQi cdt = new CountDownTimerMeiFenQi(getYzmTv, 60000, 1000);
-                                    cdt.start();
-                                }
+                    @Override
+                    public void onNext(BaseModelMeiFenQi baseModelMeiFenQi) {
+                        if (baseModelMeiFenQi != null) {
+                            if (baseModelMeiFenQi.getCode() == 200) {
+                                MyToastMeiFenQi.showShort("验证码发送成功");
+                                CountDownTimerMeiFenQi cdt = new CountDownTimerMeiFenQi(getYzmTv, 60000, 1000);
+                                cdt.start();
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     /**

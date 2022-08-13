@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
@@ -18,6 +19,7 @@ import com.yaman.yongqb.fmeifenqi.ProductMeiFenQiFragment;
 import com.yaman.yongqb.fmeifenqi.MeiFenQiSetFragment;
 import com.yaman.yongqb.mvp.XActivity;
 import com.yaman.yongqb.umeifenqi.MyToastMeiFenQi;
+import com.yaman.yongqb.umeifenqi.PreferencesOpenUtilMeiFenQi;
 import com.yaman.yongqb.umeifenqi.StatusMeiFenQiBarUtil;
 
 import java.lang.reflect.Field;
@@ -85,6 +87,9 @@ public class MainMeiFenQiActivity extends XActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (PreferencesOpenUtilMeiFenQi.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusMeiFenQiBarUtil.setTransparent(this, false);
         tabModels = new ArrayList<>();
         fragments = new ArrayList<>();

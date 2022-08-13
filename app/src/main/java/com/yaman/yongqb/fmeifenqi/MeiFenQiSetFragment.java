@@ -211,20 +211,16 @@ public class MeiFenQiSetFragment extends XFragment {
         meiFenQiSetItemAdapter.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    if (!TextUtils.isEmpty(PreferencesOpenUtilMeiFenQi.getString("AGREEMENT"))) {
-                        webBundle = new Bundle();
-                        webBundle.putString("url", PreferencesOpenUtilMeiFenQi.getString("AGREEMENT") + MeiFenQiHttpApi.ZCXY);
-                        webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                        OpenMeiFenQiUtil.getValue((XActivity) getActivity(), JumpH5ActivityMeiFenQi.class, webBundle);
-                    }
+                    webBundle = new Bundle();
+                    webBundle.putString("url", MeiFenQiHttpApi.ZCXY);
+                    webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                    OpenMeiFenQiUtil.getValue((XActivity) getActivity(), JumpH5ActivityMeiFenQi.class, webBundle);
                     break;
                 case 1:
-                    if (!TextUtils.isEmpty(PreferencesOpenUtilMeiFenQi.getString("AGREEMENT"))) {
-                        webBundle = new Bundle();
-                        webBundle.putString("url", PreferencesOpenUtilMeiFenQi.getString("AGREEMENT") + MeiFenQiHttpApi.YSXY);
-                        webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                        OpenMeiFenQiUtil.getValue((XActivity) getActivity(), JumpH5ActivityMeiFenQi.class, webBundle);
-                    }
+                    webBundle = new Bundle();
+                    webBundle.putString("url", MeiFenQiHttpApi.YSXY);
+                    webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                    OpenMeiFenQiUtil.getValue((XActivity) getActivity(), JumpH5ActivityMeiFenQi.class, webBundle);
                     break;
                 case 2:
                     OpenMeiFenQiUtil.getValue((XActivity) getActivity(), FeedbackMeiFenQiActivity.class, null);
@@ -310,30 +306,28 @@ public class MeiFenQiSetFragment extends XFragment {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(PreferencesOpenUtilMeiFenQi.getString("HTTP_API_URL"))) {
-            MeiFenQiHttpApi.getInterfaceUtils().getConfig()
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(this.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModelMeiFenQi<ConfigMeiFenQiEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
+        MeiFenQiHttpApi.getInterfaceUtils().getConfig()
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModelMeiFenQi<ConfigMeiFenQiEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onNext(BaseModelMeiFenQi<ConfigMeiFenQiEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    mailStr = configEntity.getData().getAppMail();
-                                    PreferencesOpenUtilMeiFenQi.saveString("app_mail", mailStr);
-                                    dialog = new RemindMeiFenQiDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
-                                    dialog.show();
-                                }
+                    @Override
+                    public void onNext(BaseModelMeiFenQi<ConfigMeiFenQiEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                mailStr = configEntity.getData().getAppMail();
+                                PreferencesOpenUtilMeiFenQi.saveString("app_mail", mailStr);
+                                dialog = new RemindMeiFenQiDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
+                                dialog.show();
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     /**
@@ -388,31 +382,29 @@ public class MeiFenQiSetFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesOpenUtilMeiFenQi.getString("HTTP_API_URL"))) {
-            mobileType = PreferencesOpenUtilMeiFenQi.getInt("mobileType");
-            phone = PreferencesOpenUtilMeiFenQi.getString("phone");
-            MeiFenQiHttpApi.getInterfaceUtils().productList(mobileType, phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModelMeiFenQi<List<ProductModelMeiFenQi>>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            OpenMeiFenQiUtil.showErrorInfo(getActivity(), error);
-                        }
+        mobileType = PreferencesOpenUtilMeiFenQi.getInt("mobileType");
+        phone = PreferencesOpenUtilMeiFenQi.getString("phone");
+        MeiFenQiHttpApi.getInterfaceUtils().productList(mobileType, phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModelMeiFenQi<List<ProductModelMeiFenQi>>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        OpenMeiFenQiUtil.showErrorInfo(getActivity(), error);
+                    }
 
-                        @Override
-                        public void onNext(BaseModelMeiFenQi<List<ProductModelMeiFenQi>> baseModelMeiFenQi) {
-                            if (baseModelMeiFenQi != null) {
-                                if (baseModelMeiFenQi.getCode() == 200 && baseModelMeiFenQi.getData() != null) {
-                                    if (baseModelMeiFenQi.getData() != null && baseModelMeiFenQi.getData().size() > 0) {
-                                        productModelMeiFenQi = baseModelMeiFenQi.getData().get(0);
-                                    }
+                    @Override
+                    public void onNext(BaseModelMeiFenQi<List<ProductModelMeiFenQi>> baseModelMeiFenQi) {
+                        if (baseModelMeiFenQi != null) {
+                            if (baseModelMeiFenQi.getCode() == 200 && baseModelMeiFenQi.getData() != null) {
+                                if (baseModelMeiFenQi.getData() != null && baseModelMeiFenQi.getData().size() > 0) {
+                                    productModelMeiFenQi = baseModelMeiFenQi.getData().get(0);
                                 }
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     /**
@@ -458,27 +450,25 @@ public class MeiFenQiSetFragment extends XFragment {
     }
 
     public void productClick(ProductModelMeiFenQi model) {
-        if (!TextUtils.isEmpty(PreferencesOpenUtilMeiFenQi.getString("HTTP_API_URL"))) {
-            if (model == null) {
-                return;
-            }
-            phone = PreferencesOpenUtilMeiFenQi.getString("phone");
-            MeiFenQiHttpApi.getInterfaceUtils().productClick(model.getId(), phone)
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModelMeiFenQi>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            toWeb(model);
-                        }
-
-                        @Override
-                        public void onNext(BaseModelMeiFenQi baseModelMeiFenQi) {
-                            toWeb(model);
-                        }
-                    });
+        if (model == null) {
+            return;
         }
+        phone = PreferencesOpenUtilMeiFenQi.getString("phone");
+        MeiFenQiHttpApi.getInterfaceUtils().productClick(model.getId(), phone)
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModelMeiFenQi>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        toWeb(model);
+                    }
+
+                    @Override
+                    public void onNext(BaseModelMeiFenQi baseModelMeiFenQi) {
+                        toWeb(model);
+                    }
+                });
     }
 
     /**

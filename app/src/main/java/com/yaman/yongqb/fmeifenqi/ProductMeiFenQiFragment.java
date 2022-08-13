@@ -185,7 +185,6 @@ public class ProductMeiFenQiFragment extends XFragment {
     }
 
     public void productClick(ProductModelMeiFenQi model) {
-        if (!TextUtils.isEmpty(PreferencesOpenUtilMeiFenQi.getString("HTTP_API_URL"))) {
             if (model != null) {
                 phone = PreferencesOpenUtilMeiFenQi.getString("phone");
                 MeiFenQiHttpApi.getInterfaceUtils().productClick(model.getId(), phone)
@@ -204,7 +203,6 @@ public class ProductMeiFenQiFragment extends XFragment {
                             }
                         });
             }
-        }
     }
 
     /**
@@ -250,7 +248,6 @@ public class ProductMeiFenQiFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesOpenUtilMeiFenQi.getString("HTTP_API_URL"))) {
             mobileType = PreferencesOpenUtilMeiFenQi.getInt("mobileType");
             phone = PreferencesOpenUtilMeiFenQi.getString("phone");
             productModelMeiFenQi = null;
@@ -288,7 +285,6 @@ public class ProductMeiFenQiFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     /**
@@ -344,10 +340,8 @@ public class ProductMeiFenQiFragment extends XFragment {
             TextView shijian_tv = view.findViewById(R.id.shijian_tv);
             TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
             View yjsq_sl = view.findViewById(R.id.yjsq_sl);
-            if (!TextUtils.isEmpty(PreferencesOpenUtilMeiFenQi.getString("HTTP_API_URL"))) {
-                ILFactory.getLoader().loadNet(pic, PreferencesOpenUtilMeiFenQi.getString("HTTP_API_URL") + model.getProductLogo(),
+                ILFactory.getLoader().loadNet(pic, MeiFenQiHttpApi.HTTP_API_URL + model.getProductLogo(),
                         new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-            }
             shijian_tv.setText(model.getDes() + "个月");
             shuliang_tv.setText(String.valueOf(model.getPassingRate()));
             product_name_tv.setText(model.getProductName());
