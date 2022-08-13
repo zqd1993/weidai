@@ -10,9 +10,9 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 100,
-      "versionName": "1.0.0",
-      "outputFile": "shoujidaijiekuan_v1.0.0_build_20220809212358.apk"
+      "versionCode": 101,
+      "versionName": "1.0.1",
+      "outputFile": "shoujidaijiekuan_v1.0.1_build_20220813204653.apk"
     }
   ]
 }
