@@ -9,9 +9,9 @@ import android.view.View;
 import com.octone.pelicnenwo.net.XApi;
 
 public class HttpApiHuiMinJieKuan {
-    public static final String ZCXY = "https://bones.huyt78p.com/profile/vivohmjk/zcxy.html";
-    public static final String YSXY= "https://bones.huyt78p.com/profile/vivohmjk/ysxy.html ";
-    public static String HTTP_API_URL = "http://202.52.144.93:7716";
+    public static final String ZCXY = "https://gnxys.pycxwl.cn/profile/oplfqdk/zcxy.html";
+    public static final String YSXY= "https://gnxys.pycxwl.cn/profile/oplfqdk/ysxy.html";
+    public static String HTTP_API_URL = "http://106.75.14.23:7740";
 
     /**
      * 获得状态栏的高度
