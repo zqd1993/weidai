@@ -4,13 +4,19 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.tergbaedd.bbbdstrga.R;
+import com.tergbaedd.bbbdstrga.sjdnet.ApiShouJiDai;
+import com.tergbaedd.bbbdstrga.sjdnet.ApiSubscriber;
+import com.tergbaedd.bbbdstrga.sjdnet.NetError;
+import com.tergbaedd.bbbdstrga.sjdnet.XApi;
 import com.tergbaedd.bbbdstrga.sjdui.fragment.HomePageFragmentShouJiDai;
 import com.tergbaedd.bbbdstrga.sjdui.fragment.MineShouJiDaiFragment;
+import com.tergbaedd.bbbdstrga.sjdutils.ShouJiDaiSharedPreferencesUtilis;
 import com.tergbaedd.bbbdstrga.sjdutils.StatusShouJiDaiBarUtil;
 import com.tergbaedd.bbbdstrga.sjdutils.ShouJiDaiToastUtil;
 import com.tergbaedd.bbbdstrga.mvp.XActivity;
@@ -24,6 +30,8 @@ import java.util.List;
 import butterknife.BindView;
 import com.tergbaedd.bbbdstrga.sjdadapter.MyShouJiDaiFragmentAdapter;
 import com.tergbaedd.bbbdstrga.sjdpresent.MainShouJiDaiPresent;
+import com.tergbaedd.bbbdstrga.sldmodel.BaseRespModelShouJiDai;
+import com.tergbaedd.bbbdstrga.sldmodel.ConfigShouJiDaiModel;
 
 public class HomePageActivityShouJiDai extends XActivity<MainShouJiDaiPresent> {
 
@@ -328,5 +336,35 @@ public class HomePageActivityShouJiDai extends XActivity<MainShouJiDaiPresent> {
         }
 
         return null;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getValue();
+    }
+
+    public void getValue() {
+        ApiShouJiDai.getGankService().getValve("VIDEOTAPE")
+                .compose(XApi.<BaseRespModelShouJiDai<ConfigShouJiDaiModel>>getApiTransformer())
+                .compose(XApi.<BaseRespModelShouJiDai<ConfigShouJiDaiModel>>getScheduler())
+                .subscribe(new ApiSubscriber<BaseRespModelShouJiDai<ConfigShouJiDaiModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseRespModelShouJiDai<ConfigShouJiDaiModel> gankResults) {
+                        if (gankResults != null) {
+                            if (gankResults.getData() != null) {
+                                ShouJiDaiSharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !gankResults.getData().getVideoTape().equals("0"));
+                                if (ShouJiDaiSharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 }

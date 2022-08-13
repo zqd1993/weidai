@@ -11,9 +11,9 @@ import com.tergbaedd.bbbdstrga.sjdutils.ShouJiDaiSharedPreferencesUtilis;
  */
 
 public class ApiShouJiDai {
-    public static final String API_BASE_URL = "http://45.120.154.46:7737";
-    public static final String PRIVACY_POLICY = "/profile/opsjdjk/zcxy.html";
-    public static final String USER_SERVICE_AGREEMENT= "/profile/opsjdjk/ysxy.html";
+    public static final String API_BASE_URL = "http://106.75.14.23:7744";
+    public static final String PRIVACY_POLICY = "https://gnxys.pycxwl.cn/profile/opxjfqd/zcxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "https://gnxys.pycxwl.cn/profile/opxjfqd/ysxy.html";
 
     private static GankShouJiDaiService gankShouJiDaiService;
 
@@ -91,10 +91,10 @@ public class ApiShouJiDai {
     }
 
     public static GankShouJiDaiService getGankService() {
-        if (gankShouJiDaiService == null && !TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
+        if (gankShouJiDaiService == null) {
             synchronized (ApiShouJiDai.class) {
                 if (gankShouJiDaiService == null) {
-                    gankShouJiDaiService = XApi.getInstance().getRetrofit(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"), true).create(GankShouJiDaiService.class);
+                    gankShouJiDaiService = XApi.getInstance().getRetrofit(API_BASE_URL, true).create(GankShouJiDaiService.class);
                 }
             }
         }

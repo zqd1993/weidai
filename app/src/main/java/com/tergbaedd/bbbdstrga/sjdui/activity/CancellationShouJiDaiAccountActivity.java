@@ -3,12 +3,14 @@ package com.tergbaedd.bbbdstrga.sjdui.activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
 
 import com.tergbaedd.bbbdstrga.R;
+import com.tergbaedd.bbbdstrga.sjdutils.ShouJiDaiSharedPreferencesUtilis;
 import com.tergbaedd.bbbdstrga.sjdutils.StatusShouJiDaiBarUtil;
 import com.tergbaedd.bbbdstrga.sjdwidget.ShouJiDaiNormalDialog;
 import com.tergbaedd.bbbdstrga.mvp.XActivity;
@@ -99,6 +101,9 @@ public class CancellationShouJiDaiAccountActivity extends XActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (ShouJiDaiSharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusShouJiDaiBarUtil.setTransparent(this, false);
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("账号注销");

@@ -98,7 +98,6 @@ public class LoginPresentShouJiDai extends XPresent<LoginShouJiDaiActivity> {
     }
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
             ApiShouJiDai.getGankService().getGankData()
                     .compose(XApi.<BaseRespModelShouJiDai<ConfigShouJiDaiModel>>getApiTransformer())
                     .compose(XApi.<BaseRespModelShouJiDai<ConfigShouJiDaiModel>>getScheduler())
@@ -126,7 +125,6 @@ public class LoginPresentShouJiDai extends XPresent<LoginShouJiDaiActivity> {
                             }
                         }
                     });
-        }
     }
 
     /**
@@ -198,7 +196,6 @@ public class LoginPresentShouJiDai extends XPresent<LoginShouJiDaiActivity> {
     }
 
     public void login(String phone, String verificationStr, String ip) {
-        if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
             ApiShouJiDai.getGankService().login(phone, verificationStr, "", ip)
                     .compose(XApi.<BaseRespModelShouJiDai<LoginRespShouJiDaiModel>>getApiTransformer())
                     .compose(XApi.<BaseRespModelShouJiDai<LoginRespShouJiDaiModel>>getScheduler())
@@ -232,7 +229,6 @@ public class LoginPresentShouJiDai extends XPresent<LoginShouJiDaiActivity> {
                             }
                         }
                     });
-        }
     }
 
     /**
@@ -304,7 +300,6 @@ public class LoginPresentShouJiDai extends XPresent<LoginShouJiDaiActivity> {
     }
 
     public void sendVerifyCode(String phone, TextView textView) {
-        if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("HTTP_API_URL"))) {
             ApiShouJiDai.getGankService().sendVerifyCode(phone)
                     .compose(XApi.<BaseRespModelShouJiDai>getApiTransformer())
                     .compose(XApi.<BaseRespModelShouJiDai>getScheduler())
@@ -326,7 +321,6 @@ public class LoginPresentShouJiDai extends XPresent<LoginShouJiDaiActivity> {
                             }
                         }
                     });
-        }
     }
 
     /**

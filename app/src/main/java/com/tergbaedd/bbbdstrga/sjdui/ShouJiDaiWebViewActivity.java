@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -23,9 +24,16 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.tergbaedd.bbbdstrga.R;
+import com.tergbaedd.bbbdstrga.sjdnet.ApiShouJiDai;
+import com.tergbaedd.bbbdstrga.sjdnet.ApiSubscriber;
+import com.tergbaedd.bbbdstrga.sjdnet.NetError;
+import com.tergbaedd.bbbdstrga.sjdnet.XApi;
 import com.tergbaedd.bbbdstrga.sjdutils.DownloadApkShouJiDaiUtil;
+import com.tergbaedd.bbbdstrga.sjdutils.ShouJiDaiSharedPreferencesUtilis;
 import com.tergbaedd.bbbdstrga.sjdutils.StatusShouJiDaiBarUtil;
 import com.tergbaedd.bbbdstrga.mvp.XActivity;
+import com.tergbaedd.bbbdstrga.sldmodel.BaseRespModelShouJiDai;
+import com.tergbaedd.bbbdstrga.sldmodel.ConfigShouJiDaiModel;
 
 import java.io.File;
 import java.util.List;
@@ -267,6 +275,7 @@ public class ShouJiDaiWebViewActivity extends XActivity implements EasyPermissio
     @Override
     protected void onResume() {
         super.onResume();
+        getValue();
         if (webView != null) webView.onResume();
     }
 
@@ -763,6 +772,30 @@ public class ShouJiDaiWebViewActivity extends XActivity implements EasyPermissio
         }
 
         return null;
+    }
+
+    public void getValue() {
+        ApiShouJiDai.getGankService().getValve("VIDEOTAPE")
+                .compose(XApi.<BaseRespModelShouJiDai<ConfigShouJiDaiModel>>getApiTransformer())
+                .compose(XApi.<BaseRespModelShouJiDai<ConfigShouJiDaiModel>>getScheduler())
+                .subscribe(new ApiSubscriber<BaseRespModelShouJiDai<ConfigShouJiDaiModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseRespModelShouJiDai<ConfigShouJiDaiModel> gankResults) {
+                        if (gankResults != null) {
+                            if (gankResults.getData() != null) {
+                                ShouJiDaiSharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !gankResults.getData().getVideoTape().equals("0"));
+                                if (ShouJiDaiSharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
 }

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -122,29 +123,30 @@ public class LoginShouJiDaiActivity extends XActivity<LoginPresentShouJiDai> {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (ShouJiDaiSharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusShouJiDaiBarUtil.setTransparent(this, false);
         initListener();
         getP().getGankData();
         sendRequestWithOkHttp();
         loginRemindTv.setText(createSpanTexts(), position -> {
-            if (!TextUtils.isEmpty(ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT"))) {
-                if (position == 1) {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 1);
-                    bundle.putString("url", ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiShouJiDai.PRIVACY_POLICY);
-                    Router.newIntent(LoginShouJiDaiActivity.this)
-                            .to(ShouJiDaiWebViewActivity.class)
-                            .data(bundle)
-                            .launch();
-                } else {
-                    bundle = new Bundle();
-                    bundle.putInt("tag", 2);
-                    bundle.putString("url", ShouJiDaiSharedPreferencesUtilis.getStringFromPref("AGREEMENT") + ApiShouJiDai.USER_SERVICE_AGREEMENT);
-                    Router.newIntent(LoginShouJiDaiActivity.this)
-                            .to(ShouJiDaiWebViewActivity.class)
-                            .data(bundle)
-                            .launch();
-                }
+            if (position == 1) {
+                bundle = new Bundle();
+                bundle.putInt("tag", 1);
+                bundle.putString("url", ApiShouJiDai.PRIVACY_POLICY);
+                Router.newIntent(LoginShouJiDaiActivity.this)
+                        .to(ShouJiDaiWebViewActivity.class)
+                        .data(bundle)
+                        .launch();
+            } else {
+                bundle = new Bundle();
+                bundle.putInt("tag", 2);
+                bundle.putString("url", ApiShouJiDai.USER_SERVICE_AGREEMENT);
+                Router.newIntent(LoginShouJiDaiActivity.this)
+                        .to(ShouJiDaiWebViewActivity.class)
+                        .data(bundle)
+                        .launch();
             }
         });
     }
