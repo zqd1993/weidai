@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.chenqi.lecheng.R;
 import com.chenqi.lecheng.net.Api;
+import com.chenqi.lecheng.utils.SharedPreferencesYouXinUtilis;
 import com.chenqi.lecheng.utils.StaticYouXinUtil;
 import com.chenqi.lecheng.utils.StatusBarYouXinUtil;
 import com.chenqi.lecheng.utils.ToastYouXinUtil;
@@ -60,6 +62,9 @@ public class LoginYouXinActivity extends XActivity<LoginYouXinPresent> {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (SharedPreferencesYouXinUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusBarYouXinUtil.setTransparent(this, false);
         initListener();
         new Handler().postDelayed(() -> {

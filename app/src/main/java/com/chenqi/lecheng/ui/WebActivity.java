@@ -12,6 +12,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.DownloadListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -23,6 +24,13 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.chenqi.lecheng.R;
+import com.chenqi.lecheng.model.BaseRespYouXinModel;
+import com.chenqi.lecheng.model.ConfigYouXinModel;
+import com.chenqi.lecheng.net.Api;
+import com.chenqi.lecheng.net.ApiSubscriber;
+import com.chenqi.lecheng.net.NetError;
+import com.chenqi.lecheng.net.XApi;
+import com.chenqi.lecheng.utils.SharedPreferencesYouXinUtilis;
 import com.chenqi.lecheng.utils.StatusBarYouXinUtil;
 import com.chenqi.lecheng.mvp.XActivity;
 import com.chenqi.lecheng.widget.DownloadUtil;
@@ -75,7 +83,7 @@ public class WebActivity extends XActivity implements EasyPermissions.Permission
             finish();
         });
         webSettings = webView.getSettings();
-        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT); //设置缓存
+        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE); //设置缓存
         webSettings.setJavaScriptEnabled(true);//设置能够解析Javascript
         webSettings.setDomStorageEnabled(true);//设置适应Html5 重点是这个设置
         webSettings.setTextZoom(100);
@@ -224,6 +232,7 @@ public class WebActivity extends XActivity implements EasyPermissions.Permission
     @Override
     protected void onResume() {
         super.onResume();
+        getValue();
         if (webView != null) webView.onResume();
     }
 
@@ -251,6 +260,30 @@ public class WebActivity extends XActivity implements EasyPermissions.Permission
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
         intent.setData(Uri.parse(fileUrl));
         startActivity(intent);
+    }
+
+    public void getValue() {
+        Api.getGankService().getValve("VIDEOTAPE")
+                .compose(XApi.<BaseRespYouXinModel<ConfigYouXinModel>>getApiTransformer())
+                .compose(XApi.<BaseRespYouXinModel<ConfigYouXinModel>>getScheduler())
+                .subscribe(new ApiSubscriber<BaseRespYouXinModel<ConfigYouXinModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseRespYouXinModel<ConfigYouXinModel> gankResults) {
+                        if (gankResults != null) {
+                            if (gankResults.getData() != null) {
+                                SharedPreferencesYouXinUtilis.saveBoolIntoPref("NO_RECORD", !gankResults.getData().getVideoTape().equals("0"));
+                                if (SharedPreferencesYouXinUtilis.getBoolFromPref("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
 }

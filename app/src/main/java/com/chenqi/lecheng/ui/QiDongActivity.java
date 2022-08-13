@@ -30,7 +30,7 @@ public class QiDongActivity extends AppCompatActivity {
 
     private Bundle bundle;
 
-    private boolean isAgree = false;
+    private boolean isAgree = false, isResume = false;
 
     private String loginPhone = "";
 
@@ -41,10 +41,13 @@ public class QiDongActivity extends AppCompatActivity {
         StatusBarYouXinUtil.setTransparent(this, false);
         isAgree = SharedPreferencesYouXinUtilis.getBoolFromPref("agree");
         loginPhone = SharedPreferencesYouXinUtilis.getStringFromPref("phone");
-        sendRequestWithOkHttp();
-        if (!isAgree) {
-            showDialog();
-        }
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
 
@@ -62,12 +65,24 @@ public class QiDongActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    @Override
+    protected void onResume() {
+        isResume = true;
+        super.onResume();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isResume = false;
+            }
+        }, 500);
+    }
+
     private void showDialog() {
         welcomeDialog = new WelcomeYouXinDialog(this, "温馨提示");
         welcomeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && !isResume) {
                     QiDongActivity.this.finish();
                     return false;
                 }
@@ -153,6 +168,8 @@ public class QiDongActivity extends AppCompatActivity {
                         .launch();
             }
             finish();
+        } else {
+            showDialog();
         }
     }
 

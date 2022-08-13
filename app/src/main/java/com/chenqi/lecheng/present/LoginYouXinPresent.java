@@ -23,7 +23,6 @@ import com.chenqi.lecheng.net.ApiSubscriber;
 public class LoginYouXinPresent extends XPresent<LoginYouXinActivity> {
 
     public void login(String phone, String verificationStr, String ip) {
-        if (!TextUtils.isEmpty(Api.API_BASE_URL)) {
             Api.getGankService().login(phone, verificationStr, "", ip)
                     .compose(XApi.<BaseRespYouXinModel<LoginRespYouXinModel>>getApiTransformer())
                     .compose(XApi.<BaseRespYouXinModel<LoginRespYouXinModel>>getScheduler())
@@ -57,11 +56,9 @@ public class LoginYouXinPresent extends XPresent<LoginYouXinActivity> {
                             }
                         }
                     });
-        }
     }
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(Api.API_BASE_URL)) {
             Api.getGankService().getGankData()
                     .compose(XApi.<BaseRespYouXinModel<ConfigYouXinModel>>getApiTransformer())
                     .compose(XApi.<BaseRespYouXinModel<ConfigYouXinModel>>getScheduler())
@@ -89,11 +86,9 @@ public class LoginYouXinPresent extends XPresent<LoginYouXinActivity> {
                             }
                         }
                     });
-        }
     }
 
     public void sendVerifyCode(String phone, TextView textView) {
-        if (!TextUtils.isEmpty(Api.API_BASE_URL)) {
             Api.getGankService().sendVerifyCode(phone)
                     .compose(XApi.<BaseRespYouXinModel>getApiTransformer())
                     .compose(XApi.<BaseRespYouXinModel>getScheduler())
@@ -115,7 +110,6 @@ public class LoginYouXinPresent extends XPresent<LoginYouXinActivity> {
                             }
                         }
                     });
-        }
     }
 
 }

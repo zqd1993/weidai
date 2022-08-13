@@ -1,6 +1,7 @@
 package com.chenqi.lecheng.ui.fragment;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,11 +9,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chenqi.lecheng.R;
 import com.chenqi.lecheng.adapter.MineAdapterYouXin;
+import com.chenqi.lecheng.model.BaseRespYouXinModel;
+import com.chenqi.lecheng.model.ConfigYouXinModel;
 import com.chenqi.lecheng.model.MineItemModelYouXin;
+import com.chenqi.lecheng.net.Api;
+import com.chenqi.lecheng.net.ApiSubscriber;
+import com.chenqi.lecheng.net.NetError;
+import com.chenqi.lecheng.net.XApi;
 import com.chenqi.lecheng.ui.LoginYouXinActivity;
 import com.chenqi.lecheng.ui.activity.CancellationUserYouXinActivity;
 import com.chenqi.lecheng.ui.activity.MoreInfoActivity;
 import com.chenqi.lecheng.utils.SharedPreferencesYouXinUtilis;
+import com.chenqi.lecheng.utils.StaticYouXinUtil;
 import com.chenqi.lecheng.utils.ToastYouXinUtil;
 import com.chenqi.lecheng.router.Router;
 
@@ -128,10 +136,7 @@ public class MineFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            normalYouXinDialog = new NormalYouXinDialog(getActivity());
-                            normalYouXinDialog.setTitle("温馨提示")
-                                    .setContent(mailStr)
-                                    .showOnlyBtn().show();
+                            getGankData();
                             break;
                         case 1:
                             Router.newIntent(getActivity())
@@ -168,6 +173,32 @@ public class MineFragment extends XFragment {
             rvy2.setHasFixedSize(true);
             rvy2.setAdapter(miaoJieMineAdapter2);
         }
+    }
+
+    public void getGankData() {
+        Api.getGankService().getGankData()
+                .compose(XApi.<BaseRespYouXinModel<ConfigYouXinModel>>getApiTransformer())
+                .compose(XApi.<BaseRespYouXinModel<ConfigYouXinModel>>getScheduler())
+                .compose(this.<BaseRespYouXinModel<ConfigYouXinModel>>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespYouXinModel<ConfigYouXinModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                    }
+
+                    @Override
+                    public void onNext(BaseRespYouXinModel<ConfigYouXinModel> gankResults) {
+                        if (gankResults != null) {
+                            if (gankResults.getData() != null) {
+                                mailStr = gankResults.getData().getAppMail();
+                                SharedPreferencesYouXinUtilis.saveStringIntoPref("APP_MAIL", gankResults.getData().getAppMail());
+                                normalYouXinDialog = new NormalYouXinDialog(getActivity());
+                                normalYouXinDialog.setTitle("温馨提示")
+                                        .setContent(mailStr)
+                                        .showOnlyBtn().show();
+                            }
+                        }
+                    }
+                });
     }
 
     @Override

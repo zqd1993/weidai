@@ -1,9 +1,11 @@
 package com.chenqi.lecheng.ui.activity;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chenqi.lecheng.utils.SharedPreferencesYouXinUtilis;
 import com.lihang.ShadowLayout;
 import com.chenqi.lecheng.R;
 import com.chenqi.lecheng.mvp.XActivity;
@@ -31,6 +33,9 @@ public class MoreInfoActivity extends XActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (SharedPreferencesYouXinUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusBarYouXinUtil.setTransparent(this, false);
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("更多信息");

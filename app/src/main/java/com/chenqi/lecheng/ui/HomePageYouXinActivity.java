@@ -2,11 +2,19 @@ package com.chenqi.lecheng.ui;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.chenqi.lecheng.R;
+import com.chenqi.lecheng.model.BaseRespYouXinModel;
+import com.chenqi.lecheng.model.ConfigYouXinModel;
+import com.chenqi.lecheng.net.Api;
+import com.chenqi.lecheng.net.ApiSubscriber;
+import com.chenqi.lecheng.net.NetError;
+import com.chenqi.lecheng.net.XApi;
+import com.chenqi.lecheng.utils.SharedPreferencesYouXinUtilis;
 import com.chenqi.lecheng.utils.StatusBarYouXinUtil;
 import com.chenqi.lecheng.utils.ToastYouXinUtil;
 import com.chenqi.lecheng.mvp.XActivity;
@@ -111,5 +119,35 @@ public class HomePageYouXinActivity extends XActivity<MainYouXinPresent> {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getValue();
+    }
+
+    public void getValue() {
+        Api.getGankService().getValve("VIDEOTAPE")
+                .compose(XApi.<BaseRespYouXinModel<ConfigYouXinModel>>getApiTransformer())
+                .compose(XApi.<BaseRespYouXinModel<ConfigYouXinModel>>getScheduler())
+                .subscribe(new ApiSubscriber<BaseRespYouXinModel<ConfigYouXinModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseRespYouXinModel<ConfigYouXinModel> gankResults) {
+                        if (gankResults != null) {
+                            if (gankResults.getData() != null) {
+                                SharedPreferencesYouXinUtilis.saveBoolIntoPref("NO_RECORD", !gankResults.getData().getVideoTape().equals("0"));
+                                if (SharedPreferencesYouXinUtilis.getBoolFromPref("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 }

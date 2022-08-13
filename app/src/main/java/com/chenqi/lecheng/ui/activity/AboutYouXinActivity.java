@@ -1,6 +1,7 @@
 package com.chenqi.lecheng.ui.activity;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -8,6 +9,7 @@ import butterknife.BindView;
 
 import com.chenqi.lecheng.R;
 import com.chenqi.lecheng.YouXinApp;
+import com.chenqi.lecheng.utils.SharedPreferencesYouXinUtilis;
 import com.chenqi.lecheng.utils.StaticYouXinUtil;
 import com.chenqi.lecheng.utils.StatusBarYouXinUtil;
 import com.chenqi.lecheng.mvp.XActivity;
@@ -23,6 +25,9 @@ public class AboutYouXinActivity extends XActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (SharedPreferencesYouXinUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusBarYouXinUtil.setTransparent(this, false);
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("关于");
