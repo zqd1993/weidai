@@ -83,7 +83,6 @@ public class HomePageXiaoNiuPresent extends XPresent<HomePageFragmentXiaoNiu> {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("HTTP_API_URL"))) {
             mobileType = SharedPreferencesXiaoNiuUtilis.getIntFromPref("mobileType");
             ApiXiaoNiu.getGankService().productList(mobileType)
                     .compose(XApi.<BaseRespXiaoNiuModel<List<XiaoNiuGoodsModel>>>getApiTransformer())
@@ -124,7 +123,6 @@ public class HomePageXiaoNiuPresent extends XPresent<HomePageFragmentXiaoNiu> {
                             }
                         }
                     });
-        }
     }
 
     // 把json字符串变成实体类Bean并对对应参数赋值
@@ -182,7 +180,6 @@ public class HomePageXiaoNiuPresent extends XPresent<HomePageFragmentXiaoNiu> {
     }
 
     public void productClick(XiaoNiuGoodsModel model) {
-        if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("HTTP_API_URL"))) {
             phone = SharedPreferencesXiaoNiuUtilis.getStringFromPref("phone");
             ApiXiaoNiu.getGankService().productClick(model.getId(), phone)
                     .compose(XApi.<BaseRespXiaoNiuModel>getApiTransformer())
@@ -200,7 +197,6 @@ public class HomePageXiaoNiuPresent extends XPresent<HomePageFragmentXiaoNiu> {
                             getV().jumpWebActivity(model);
                         }
                     });
-        }
     }
 
 }

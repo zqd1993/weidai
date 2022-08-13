@@ -22,7 +22,7 @@ import com.rihdkauecgh.plihgnytrvfws.router.Router;
 
 import com.rihdkauecgh.plihgnytrvfws.http.ApiXiaoNiu;
 import com.rihdkauecgh.plihgnytrvfws.widget.WelcomeXiaoNiuDialog;
-import com.umeng.commonsdk.UMConfigure;
+//import com.umeng.commonsdk.UMConfigure;
 
 import java.util.List;
 import java.util.Map;
@@ -102,7 +102,13 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
         StatusXiaoNiuBarUtil.setTransparent(this, false);
         isAgree = SharedPreferencesXiaoNiuUtilis.getBoolFromPref("agree");
         loginPhone = SharedPreferencesXiaoNiuUtilis.getStringFromPref("phone");
-        sendRequestWithOkHttp();
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
     @Override
@@ -119,7 +125,7 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
 
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         welcomeXiaoNiuDialog = new WelcomeXiaoNiuDialog(this, "温馨提示");
         welcomeXiaoNiuDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -135,6 +141,7 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
             @Override
             public void topBtnClicked() {
                 initUm();
+                welcomeXiaoNiuDialog.dismiss();
                 SharedPreferencesXiaoNiuUtilis.saveStringIntoPref("uminit", "1");
                 SharedPreferencesXiaoNiuUtilis.saveBoolIntoPref("agree", true);
                 Router.newIntent(WelcomeXiaoNiuActivity.this)
@@ -150,32 +157,28 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT"))) {
                     bundle = new Bundle();
                     bundle.putInt("tag", 1);
-                    bundle.putString("url", SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT") + ApiXiaoNiu.PRIVACY_POLICY);
+                    bundle.putString("url", ApiXiaoNiu.PRIVACY_POLICY);
                     Router.newIntent(WelcomeXiaoNiuActivity.this)
                             .to(XiaoNiuWebViewActivity.class)
                             .data(bundle)
                             .launch();
-                }
             }
 
             @Override
             public void privacyAgreementClicked() {
-                if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT"))) {
                     bundle = new Bundle();
                     bundle.putInt("tag", 2);
-                    bundle.putString("url", SharedPreferencesXiaoNiuUtilis.getStringFromPref("AGREEMENT") + ApiXiaoNiu.USER_SERVICE_AGREEMENT);
+                    bundle.putString("url", ApiXiaoNiu.USER_SERVICE_AGREEMENT);
                     Router.newIntent(WelcomeXiaoNiuActivity.this)
                             .to(XiaoNiuWebViewActivity.class)
                             .data(bundle)
                             .launch();
-                }
             }
         });
         welcomeXiaoNiuDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     // 把json字符串变成实体类Bean并对对应参数赋值
@@ -403,19 +406,19 @@ public class WelcomeXiaoNiuActivity extends AppCompatActivity {
 
     private void initUm() {
         //判断是否同意隐私协议，uminit为1时为已经同意，直接初始化umsdk
-        if (!UMConfigure.isInit) {
-            UMConfigure.setLogEnabled(true);
-            Log.d("youmeng", "zhuche chenggong");
-            //友盟正式初始化
-//            UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
-            // 在此处调用基础组件包提供的初始化函数 相应信息可在应用管理 -> 应用信息 中找到 http://message.umeng.com/list/apps
-            // 参数一：当前上下文context；
-            // 参数二：应用申请的Appkey（需替换）；
-            // 参数三：渠道名称；
-            // 参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
-            // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
-            UMConfigure.init(this, "62c007d705844627b5d4d246", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
-        }
+//        if (!UMConfigure.isInit) {
+//            UMConfigure.setLogEnabled(true);
+//            Log.d("youmeng", "zhuche chenggong");
+//            //友盟正式初始化
+////            UMConfigure.init(getApplicationContext(), UMConfigure.DEVICE_TYPE_PHONE, "Umeng");
+//            // 在此处调用基础组件包提供的初始化函数 相应信息可在应用管理 -> 应用信息 中找到 http://message.umeng.com/list/apps
+//            // 参数一：当前上下文context；
+//            // 参数二：应用申请的Appkey（需替换）；
+//            // 参数三：渠道名称；
+//            // 参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
+//            // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
+//            UMConfigure.init(this, "62c007d705844627b5d4d246", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+//        }
     }
 
     // 把json字符串变成实体类Bean并对对应参数赋值

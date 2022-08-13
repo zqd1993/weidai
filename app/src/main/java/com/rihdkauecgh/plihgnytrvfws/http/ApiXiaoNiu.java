@@ -16,9 +16,9 @@ import java.util.Map;
  */
 
 public class ApiXiaoNiu {
-    public static final String API_BASE_URL = "http://45.120.154.46:7738";
-    public static final String PRIVACY_POLICY = "/profile/opxnkdk/zcxy.html";
-    public static final String USER_SERVICE_AGREEMENT= "/profile/opxnkdk/ysxy.html";
+    public static final String API_BASE_URL = "http://106.75.14.23:7747";
+    public static final String PRIVACY_POLICY = "https://gnxys.pycxwl.cn/profile/opyfqdk/zcxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "https://gnxys.pycxwl.cn/profile/opyfqdk/ysxy.html";
 
     // 把json字符串变成实体类Bean并对对应参数赋值
     public static <T> T changeGsonToBean(String gsonString, Class<T> cls) {
@@ -77,10 +77,10 @@ public class ApiXiaoNiu {
     private static GankServiceXiaoNiu gankServiceXiaoNiu;
 
     public static GankServiceXiaoNiu getGankService() {
-        if (gankServiceXiaoNiu == null && !TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("HTTP_API_URL"))) {
+        if (gankServiceXiaoNiu == null) {
             synchronized (ApiXiaoNiu.class) {
                 if (gankServiceXiaoNiu == null) {
-                    gankServiceXiaoNiu = XApi.getInstance().getRetrofit(SharedPreferencesXiaoNiuUtilis.getStringFromPref("HTTP_API_URL"), true).create(GankServiceXiaoNiu.class);
+                    gankServiceXiaoNiu = XApi.getInstance().getRetrofit(API_BASE_URL, true).create(GankServiceXiaoNiu.class);
                 }
             }
         }

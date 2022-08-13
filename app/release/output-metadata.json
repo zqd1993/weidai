@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.poie.dkhnx",
+  "applicationId": "com.zmansdjkdwhqwjsd.gfpla",
   "variantName": "release",
   "elements": [
     {
@@ -12,7 +12,7 @@
       "filters": [],
       "versionCode": 100,
       "versionName": "1.0.0",
-      "outputFile": "xiaoniu_op_v1.0.0_build_20220711213329.apk"
+      "outputFile": "xiaoniu_op_v1.0.0_build_20220813221201.apk"
     }
   ]
 }

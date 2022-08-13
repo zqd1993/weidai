@@ -21,6 +21,10 @@ public interface GankServiceXiaoNiu {
     @GET("/app/config/getConfig")
     Flowable<BaseRespXiaoNiuModel<ConfigModelXiaoNiu>> getGankData();
 
+
+    @GET("/app/config/getValue")
+    Flowable<BaseRespXiaoNiuModel<ConfigModelXiaoNiu>> getValve(@Query("key") String phone);
+
     @GET("/app/user/sendVerifyCode")
     Flowable<BaseRespXiaoNiuModel> sendVerifyCode(@Query("phone") String phone);
 

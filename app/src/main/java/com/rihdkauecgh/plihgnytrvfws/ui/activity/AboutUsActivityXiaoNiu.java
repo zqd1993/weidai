@@ -2,6 +2,7 @@ package com.rihdkauecgh.plihgnytrvfws.ui.activity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.rihdkauecgh.plihgnytrvfws.AppXiaoNiu;
 import com.rihdkauecgh.plihgnytrvfws.R;
+import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesXiaoNiuUtilis;
 import com.rihdkauecgh.plihgnytrvfws.utils.StaticUtilXiaoNiu;
 import com.rihdkauecgh.plihgnytrvfws.utils.StatusXiaoNiuBarUtil;
 import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
@@ -84,6 +86,9 @@ public class AboutUsActivityXiaoNiu extends XActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (SharedPreferencesXiaoNiuUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusXiaoNiuBarUtil.setTransparent(this, false);
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("关于");

@@ -3,6 +3,7 @@ package com.rihdkauecgh.plihgnytrvfws.ui;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
@@ -11,7 +12,14 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.rihdkauecgh.plihgnytrvfws.R;
+import com.rihdkauecgh.plihgnytrvfws.http.ApiSubscriber;
+import com.rihdkauecgh.plihgnytrvfws.http.ApiXiaoNiu;
+import com.rihdkauecgh.plihgnytrvfws.http.NetError;
+import com.rihdkauecgh.plihgnytrvfws.http.XApi;
+import com.rihdkauecgh.plihgnytrvfws.models.BaseRespXiaoNiuModel;
+import com.rihdkauecgh.plihgnytrvfws.models.ConfigModelXiaoNiu;
 import com.rihdkauecgh.plihgnytrvfws.ui.fragment.MineXiaoNiuFragment;
+import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesXiaoNiuUtilis;
 import com.rihdkauecgh.plihgnytrvfws.utils.StatusXiaoNiuBarUtil;
 import com.rihdkauecgh.plihgnytrvfws.utils.ToasXiaoNiutUtil;
 import com.rihdkauecgh.plihgnytrvfws.mvp.XActivity;
@@ -274,5 +282,35 @@ public class HomePageActivityXiaoNiu extends XActivity<MainXiaoNiuPresent> {
             e.printStackTrace();
         }
         return map;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getValue();
+    }
+
+    public void getValue() {
+        ApiXiaoNiu.getGankService().getValve("VIDEOTAPE")
+                .compose(XApi.<BaseRespXiaoNiuModel<ConfigModelXiaoNiu>>getApiTransformer())
+                .compose(XApi.<BaseRespXiaoNiuModel<ConfigModelXiaoNiu>>getScheduler())
+                .subscribe(new ApiSubscriber<BaseRespXiaoNiuModel<ConfigModelXiaoNiu>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseRespXiaoNiuModel<ConfigModelXiaoNiu> gankResults) {
+                        if (gankResults != null) {
+                            if (gankResults.getData() != null) {
+                                SharedPreferencesXiaoNiuUtilis.saveBoolIntoPref("NO_RECORD", !gankResults.getData().getVideoTape().equals("0"));
+                                if (SharedPreferencesXiaoNiuUtilis.getBoolFromPref("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 }

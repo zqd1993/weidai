@@ -15,6 +15,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.rihdkauecgh.plihgnytrvfws.R;
 import com.rihdkauecgh.plihgnytrvfws.base.SimpleRecAdapter;
+import com.rihdkauecgh.plihgnytrvfws.http.ApiXiaoNiu;
 import com.rihdkauecgh.plihgnytrvfws.imageloader.ILFactory;
 import com.rihdkauecgh.plihgnytrvfws.imageloader.ILoader;
 import com.rihdkauecgh.plihgnytrvfws.kit.KnifeKit;
@@ -105,9 +106,7 @@ public class GoodsItemAdapterXiaoNiu extends SimpleRecAdapter<XiaoNiuGoodsModel,
         viewHolder.passingRateTv.setText(String.valueOf(model.getPassingRate()));
         viewHolder.tagTv.setText(model.getTag());
         viewHolder.productNameTv.setText(model.getProductName());
-        if (!TextUtils.isEmpty(SharedPreferencesXiaoNiuUtilis.getStringFromPref("HTTP_API_URL"))) {
-            ILFactory.getLoader().loadNet(viewHolder.productImg, SharedPreferencesXiaoNiuUtilis.getStringFromPref("HTTP_API_URL") + model.getProductLogo(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-        }
+            ILFactory.getLoader().loadNet(viewHolder.productImg, ApiXiaoNiu.API_BASE_URL + model.getProductLogo(), new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
         viewHolder.limitTv.setText(model.getMinAmount() + "-" + model.getMaxAmount());
         viewHolder.clickView.setOnClickListener(v -> {
             getRecItemClick().onItemClick(i, model, 1, viewHolder);
