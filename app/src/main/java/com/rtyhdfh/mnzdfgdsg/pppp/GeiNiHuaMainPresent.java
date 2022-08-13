@@ -69,27 +69,25 @@ public class GeiNiHuaMainPresent extends XPresent<HomePageActivityGeiNiHua> {
     }
 
     public void login() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("HTTP_API_URL"))) {
-            phone = SharedPreferencesUtilisGeiNiHua.getStringFromPref("phone");
-            ip = SharedPreferencesUtilisGeiNiHua.getStringFromPref("ip");
-            ApiGeiNiHua.getGankService().logins(phone, ip)
-                    .compose(XApi.<BaseRespModelGeiNiHua<GeiNiHuaLoginRespModel>>getApiTransformer())
-                    .compose(XApi.<BaseRespModelGeiNiHua<GeiNiHuaLoginRespModel>>getScheduler())
-                    .compose(getV().<BaseRespModelGeiNiHua<GeiNiHuaLoginRespModel>>bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespModelGeiNiHua<GeiNiHuaLoginRespModel>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            GeiNiHuaStaticUtil.showError(getV(), error);
-                        }
+        phone = SharedPreferencesUtilisGeiNiHua.getStringFromPref("phone");
+        ip = SharedPreferencesUtilisGeiNiHua.getStringFromPref("ip");
+        ApiGeiNiHua.getGankService().logins(phone, ip)
+                .compose(XApi.<BaseRespModelGeiNiHua<GeiNiHuaLoginRespModel>>getApiTransformer())
+                .compose(XApi.<BaseRespModelGeiNiHua<GeiNiHuaLoginRespModel>>getScheduler())
+                .compose(getV().<BaseRespModelGeiNiHua<GeiNiHuaLoginRespModel>>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModelGeiNiHua<GeiNiHuaLoginRespModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        GeiNiHuaStaticUtil.showError(getV(), error);
+                    }
 
-                        @Override
-                        public void onNext(BaseRespModelGeiNiHua<GeiNiHuaLoginRespModel> gankResults) {
-                            if (gankResults != null) {
+                    @Override
+                    public void onNext(BaseRespModelGeiNiHua<GeiNiHuaLoginRespModel> gankResults) {
+                        if (gankResults != null) {
 
-                            }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     public static String iuyfjh(Object o) {

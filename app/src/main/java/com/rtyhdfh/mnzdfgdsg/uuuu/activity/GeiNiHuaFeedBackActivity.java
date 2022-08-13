@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rtyhdfh.mnzdfgdsg.R;
+import com.rtyhdfh.mnzdfgdsg.utils.SharedPreferencesUtilisGeiNiHua;
 import com.victor.loading.rotate.RotateLoading;
 
 import butterknife.BindView;
@@ -84,6 +86,9 @@ public class GeiNiHuaFeedBackActivity extends XActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (SharedPreferencesUtilisGeiNiHua.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusGeiNiHuaBarUtil.setTransparent(this, false);
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("意见反馈");

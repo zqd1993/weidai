@@ -138,26 +138,22 @@ public class MineGeiNiHuaFragment extends XFragment {
                     super.onItemClick(position, model, tag, holder);
                     switch (position) {
                         case 0:
-                            if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT"))) {
-                                bundle = new Bundle();
-                                bundle.putInt("tag", 1);
-                                bundle.putString("url", SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT") + ApiGeiNiHua.PRIVACY_POLICY);
-                                Router.newIntent(getActivity())
-                                        .to(GeiNiHuaWebViewActivity.class)
-                                        .data(bundle)
-                                        .launch();
-                            }
+                            bundle = new Bundle();
+                            bundle.putInt("tag", 1);
+                            bundle.putString("url", ApiGeiNiHua.PRIVACY_POLICY);
+                            Router.newIntent(getActivity())
+                                    .to(GeiNiHuaWebViewActivity.class)
+                                    .data(bundle)
+                                    .launch();
                             break;
                         case 1:
-                            if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT"))) {
-                                bundle = new Bundle();
-                                bundle.putInt("tag", 2);
-                                bundle.putString("url", SharedPreferencesUtilisGeiNiHua.getStringFromPref("AGREEMENT") + ApiGeiNiHua.USER_SERVICE_AGREEMENT);
-                                Router.newIntent(getActivity())
-                                        .to(GeiNiHuaWebViewActivity.class)
-                                        .data(bundle)
-                                        .launch();
-                            }
+                            bundle = new Bundle();
+                            bundle.putInt("tag", 2);
+                            bundle.putString("url", ApiGeiNiHua.USER_SERVICE_AGREEMENT);
+                            Router.newIntent(getActivity())
+                                    .to(GeiNiHuaWebViewActivity.class)
+                                    .data(bundle)
+                                    .launch();
                             break;
                         case 2:
                             Router.newIntent(getActivity())
@@ -280,32 +276,30 @@ public class MineGeiNiHuaFragment extends XFragment {
     }
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("HTTP_API_URL"))) {
-            ApiGeiNiHua.getGankService().getGankData()
-                    .compose(XApi.<BaseRespModelGeiNiHua<ConfigGeiNiHuaModel>>getApiTransformer())
-                    .compose(XApi.<BaseRespModelGeiNiHua<ConfigGeiNiHuaModel>>getScheduler())
-                    .compose(this.<BaseRespModelGeiNiHua<ConfigGeiNiHuaModel>>bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespModelGeiNiHua<ConfigGeiNiHuaModel>>() {
-                        @Override
-                        protected void onFail(NetError error) {
+        ApiGeiNiHua.getGankService().getGankData()
+                .compose(XApi.<BaseRespModelGeiNiHua<ConfigGeiNiHuaModel>>getApiTransformer())
+                .compose(XApi.<BaseRespModelGeiNiHua<ConfigGeiNiHuaModel>>getScheduler())
+                .compose(this.<BaseRespModelGeiNiHua<ConfigGeiNiHuaModel>>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModelGeiNiHua<ConfigGeiNiHuaModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onNext(BaseRespModelGeiNiHua<ConfigGeiNiHuaModel> gankResults) {
-                            if (gankResults != null) {
-                                if (gankResults.getData() != null) {
-                                    mailStr = gankResults.getData().getAppMail();
-                                    SharedPreferencesUtilisGeiNiHua.saveStringIntoPref("APP_MAIL", mailStr);
-                                    normalDialogGeiNiHua = new NormalDialogGeiNiHua(getActivity());
-                                    normalDialogGeiNiHua.setTitle("温馨提示")
-                                            .setContent(mailStr)
-                                            .showOnlyBtn().show();
-                                }
+                    @Override
+                    public void onNext(BaseRespModelGeiNiHua<ConfigGeiNiHuaModel> gankResults) {
+                        if (gankResults != null) {
+                            if (gankResults.getData() != null) {
+                                mailStr = gankResults.getData().getAppMail();
+                                SharedPreferencesUtilisGeiNiHua.saveStringIntoPref("APP_MAIL", mailStr);
+                                normalDialogGeiNiHua = new NormalDialogGeiNiHua(getActivity());
+                                normalDialogGeiNiHua.setTitle("温馨提示")
+                                        .setContent(mailStr)
+                                        .showOnlyBtn().show();
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     public static String ewrrdf(Object o) {

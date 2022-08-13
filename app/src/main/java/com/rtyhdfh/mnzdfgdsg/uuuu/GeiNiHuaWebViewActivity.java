@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -21,7 +22,14 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.rtyhdfh.mnzdfgdsg.R;
+import com.rtyhdfh.mnzdfgdsg.mmmm.BaseRespModelGeiNiHua;
+import com.rtyhdfh.mnzdfgdsg.mmmm.ConfigGeiNiHuaModel;
+import com.rtyhdfh.mnzdfgdsg.nnnn.ApiGeiNiHua;
+import com.rtyhdfh.mnzdfgdsg.nnnn.ApiSubscriber;
+import com.rtyhdfh.mnzdfgdsg.nnnn.NetError;
+import com.rtyhdfh.mnzdfgdsg.nnnn.XApi;
 import com.rtyhdfh.mnzdfgdsg.utils.DownloadApkUtilGeiNiHua;
+import com.rtyhdfh.mnzdfgdsg.utils.SharedPreferencesUtilisGeiNiHua;
 import com.rtyhdfh.mnzdfgdsg.utils.StatusGeiNiHuaBarUtil;
 import com.rtyhdfh.mnzdfgdsg.mvp.XActivity;
 
@@ -221,6 +229,7 @@ public class GeiNiHuaWebViewActivity extends XActivity implements EasyPermission
     @Override
     protected void onResume() {
         super.onResume();
+        getValue();
         if (webView != null) webView.onResume();
     }
 
@@ -558,5 +567,28 @@ public class GeiNiHuaWebViewActivity extends XActivity implements EasyPermission
         startActivity(intent);
     }
 
+    public void getValue() {
+        ApiGeiNiHua.getGankService().getValve("VIDEOTAPE")
+                .compose(XApi.<BaseRespModelGeiNiHua<ConfigGeiNiHuaModel>>getApiTransformer())
+                .compose(XApi.<BaseRespModelGeiNiHua<ConfigGeiNiHuaModel>>getScheduler())
+                .subscribe(new ApiSubscriber<BaseRespModelGeiNiHua<ConfigGeiNiHuaModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseRespModelGeiNiHua<ConfigGeiNiHuaModel> gankResults) {
+                        if (gankResults != null) {
+                            if (gankResults.getData() != null) {
+                                SharedPreferencesUtilisGeiNiHua.saveBoolIntoPref("NO_RECORD", !gankResults.getData().getVideoTape().equals("0"));
+                                if (SharedPreferencesUtilisGeiNiHua.getBoolFromPref("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
+    }
 
 }

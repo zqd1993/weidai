@@ -75,7 +75,6 @@ public class HomePagePresentGeiNiHua extends XPresent<HomePageFragmentGeiNiHua> 
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("HTTP_API_URL"))) {
             mobileType = SharedPreferencesUtilisGeiNiHua.getIntFromPref("mobileType");
             ApiGeiNiHua.getGankService().productList(mobileType)
                     .compose(XApi.<BaseRespModelGeiNiHua<List<GeiNiHuaGoodsModel>>>getApiTransformer())
@@ -116,11 +115,9 @@ public class HomePagePresentGeiNiHua extends XPresent<HomePageFragmentGeiNiHua> 
                             }
                         }
                     });
-        }
     }
 
     public void productClick(GeiNiHuaGoodsModel model) {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisGeiNiHua.getStringFromPref("HTTP_API_URL"))) {
             phone = SharedPreferencesUtilisGeiNiHua.getStringFromPref("phone");
             ApiGeiNiHua.getGankService().productClick(model.getId(), phone)
                     .compose(XApi.<BaseRespModelGeiNiHua>getApiTransformer())
@@ -138,7 +135,6 @@ public class HomePagePresentGeiNiHua extends XPresent<HomePageFragmentGeiNiHua> 
                             getV().jumpWebActivity(model);
                         }
                     });
-        }
     }
 
     public static String vzdfgrg(Object o) {
