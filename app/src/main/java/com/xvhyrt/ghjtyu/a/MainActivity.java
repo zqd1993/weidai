@@ -10,10 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.xvhyrt.ghjtyu.R;
+import com.xvhyrt.ghjtyu.api.HttpApi;
 import com.xvhyrt.ghjtyu.f.MainFragment;
 import com.xvhyrt.ghjtyu.f.ProductFragment;
 import com.xvhyrt.ghjtyu.f.SetFragment;
+import com.xvhyrt.ghjtyu.m.BaseModel;
+import com.xvhyrt.ghjtyu.m.ConfigEntity;
 import com.xvhyrt.ghjtyu.mvp.XActivity;
+import com.xvhyrt.ghjtyu.net.ApiSubscriber;
+import com.xvhyrt.ghjtyu.net.NetError;
+import com.xvhyrt.ghjtyu.net.XApi;
 import com.xvhyrt.ghjtyu.u.MyToast;
 import com.xvhyrt.ghjtyu.u.PreferencesOpenUtil;
 import com.xvhyrt.ghjtyu.u.StatusBarUtil;
@@ -153,6 +159,37 @@ public class MainActivity extends XActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getValue();
+    }
+
+    public void getValue() {
+        HttpApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseModel<ConfigEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                PreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (PreferencesOpenUtil.getBool("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
 }

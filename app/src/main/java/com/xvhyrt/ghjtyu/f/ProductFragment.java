@@ -189,7 +189,7 @@ public class ProductFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("title", model.getProductName());
-            OpenUtil.getValue((XActivity) getActivity(), JumpH5Activity.class, bundle);
+            OpenUtil.jumpPage(getActivity(), JumpH5Activity.class, bundle);
         }
     }
 }

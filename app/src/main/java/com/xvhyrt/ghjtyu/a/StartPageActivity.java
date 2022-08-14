@@ -66,7 +66,8 @@ public class StartPageActivity extends XActivity {
                 initUm();
                 PreferencesOpenUtil.saveBool("isSure", true);
                 startPageRemindDialog.dismiss();
-                OpenUtil.getValue(StartPageActivity.this, DlActivity.class, null, true);
+                OpenUtil.jumpPage(StartPageActivity.this, DlActivity.class);
+                finish();
             }
 
             @Override
@@ -74,7 +75,7 @@ public class StartPageActivity extends XActivity {
                     bundle = new Bundle();
                     bundle.putString("url", HttpApi.ZCXY);
                     bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpenUtil.getValue(StartPageActivity.this, JumpH5Activity.class, bundle);
+                    OpenUtil.jumpPage(StartPageActivity.this, JumpH5Activity.class, bundle);
             }
 
             @Override
@@ -87,7 +88,7 @@ public class StartPageActivity extends XActivity {
                     bundle = new Bundle();
                     bundle.putString("url", HttpApi.YSXY);
                     bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpenUtil.getValue(StartPageActivity.this, JumpH5Activity.class, bundle);
+                    OpenUtil.jumpPage(StartPageActivity.this, JumpH5Activity.class, bundle);
             }
         });
         startPageRemindDialog.show();
@@ -127,10 +128,11 @@ public class StartPageActivity extends XActivity {
         if (isSure) {
             initUm();
             if (TextUtils.isEmpty(phone)) {
-                OpenUtil.getValue(StartPageActivity.this, DlActivity.class, null, true);
+                OpenUtil.jumpPage(StartPageActivity.this, DlActivity.class);
             } else {
-                OpenUtil.getValue(StartPageActivity.this, MainActivity.class, null, true);
+                OpenUtil.jumpPage(StartPageActivity.this, MainActivity.class);
             }
+            finish();
         } else {
             showDialog();
         }

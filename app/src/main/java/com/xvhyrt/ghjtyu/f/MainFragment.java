@@ -201,7 +201,7 @@ public class MainFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            OpenUtil.getValue((XActivity) getActivity(), JumpH5Activity.class, bundle);
+            OpenUtil.jumpPage(getActivity(), JumpH5Activity.class, bundle);
         }
     }
 }

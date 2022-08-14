@@ -103,19 +103,19 @@ public class SetFragment extends XFragment {
                     webBundle = new Bundle();
                     webBundle.putString("url", HttpApi.ZCXY);
                     webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpenUtil.getValue((XActivity) getActivity(), JumpH5Activity.class, webBundle);
+                    OpenUtil.jumpPage(getActivity(), JumpH5Activity.class, webBundle);
                     break;
                 case 1:
                     webBundle = new Bundle();
                     webBundle.putString("url", HttpApi.YSXY);
                     webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpenUtil.getValue((XActivity) getActivity(), JumpH5Activity.class, webBundle);
+                    OpenUtil.jumpPage(getActivity(), JumpH5Activity.class, webBundle);
                     break;
                 case 2:
-                    OpenUtil.getValue((XActivity) getActivity(), FeedbackActivity.class, null);
+                    OpenUtil.jumpPage(getActivity(), FeedbackActivity.class);
                     break;
                 case 3:
-                    OpenUtil.getValue((XActivity) getActivity(), AboutInfoActivity.class, null);
+                    OpenUtil.jumpPage(getActivity(), AboutInfoActivity.class);
                     break;
                 case 4:
                     dialog = new RemindDialog(getActivity()).setCancelText("开启")
@@ -139,7 +139,7 @@ public class SetFragment extends XFragment {
                     getConfig();
                     break;
                 case 6:
-                    OpenUtil.getValue((XActivity) getActivity(), ZhuXiaoActivity.class, null);
+                    OpenUtil.jumpPage(getActivity(), ZhuXiaoActivity.class);
                     break;
                 case 7:
                     dialog = new RemindDialog(getActivity()).setCancelText("取消")
@@ -149,7 +149,8 @@ public class SetFragment extends XFragment {
                         public void onSureClicked() {
                             dialog.dismiss();
                             PreferencesOpenUtil.saveString("phone", "");
-                            OpenUtil.getValue((XActivity) getActivity(), DlActivity.class, null, true);
+                            OpenUtil.jumpPage(getActivity(), DlActivity.class);
+                            getActivity().finish();
                         }
 
                         @Override
@@ -195,7 +196,7 @@ public class SetFragment extends XFragment {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
             bundle.putString("biaoti", model.getProductName());
-            OpenUtil.getValue((XActivity) getActivity(), JumpH5Activity.class, bundle);
+            OpenUtil.jumpPage(getActivity(), JumpH5Activity.class, bundle);
         }
     }
 

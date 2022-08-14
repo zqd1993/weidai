@@ -25,17 +25,17 @@ public class OpenUtil {
 
     public static void showErrorInfo(Context context, NetError error) {
         if (error != null) {
-            if (error.getType() == NetError.ParseError){
+            if (error.getType() == NetError.ParseError) {
                 MyToast.showShort("数据解析异常");
-            } else if (error.getType() == NetError.AuthError){
+            } else if (error.getType() == NetError.AuthError) {
                 MyToast.showShort("身份验证异常");
-            } else if (error.getType() == NetError.BusinessError){
+            } else if (error.getType() == NetError.BusinessError) {
                 MyToast.showShort("业务异常");
-            } else if (error.getType() == NetError.NoConnectError){
+            } else if (error.getType() == NetError.NoConnectError) {
                 MyToast.showShort("网络无连接");
-            } else if (error.getType() == NetError.NoDataError){
+            } else if (error.getType() == NetError.NoDataError) {
                 MyToast.showShort("数据为空");
-            } else if (error.getType() == NetError.OtherError){
+            } else if (error.getType() == NetError.OtherError) {
                 MyToast.showShort("其他异常");
             }
         }
@@ -49,57 +49,53 @@ public class OpenUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            HttpApi.getInterfaceUtils().getValue("VIDEOTAPE")
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(activity.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
+        HttpApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onNext(BaseModel<ConfigEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    PreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    jumpPage(activity, to, bundle, false);
-                                }
+                    @Override
+                    public void onNext(BaseModel<ConfigEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                PreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, false);
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-        if (!TextUtils.isEmpty(PreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            HttpApi.getInterfaceUtils().getValue("VIDEOTAPE")
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(activity.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
+        HttpApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(activity.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onNext(BaseModel<ConfigEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    PreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    jumpPage(activity, to, bundle, isFinish);
-                                }
+                    @Override
+                    public void onNext(BaseModel<ConfigEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                PreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                jumpPage(activity, to, bundle, isFinish);
                             }
                         }
-                    });
-        }
+                    }
+                });
     }
 
-    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish){
-        if (bundle != null){
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        if (bundle != null) {
             Router.newIntent(activity)
                     .to(to)
                     .data(bundle)
@@ -109,7 +105,7 @@ public class OpenUtil {
                     .to(to)
                     .launch();
         }
-        if (isFinish){
+        if (isFinish) {
             activity.finish();
         }
     }
@@ -129,7 +125,7 @@ public class OpenUtil {
         return version;
     }
 
-    public static List<ClickTextView.SpanModel> createSpanTexts(){
+    public static List<ClickTextView.SpanModel> createSpanTexts() {
         List<ClickTextView.SpanModel> spanModels = new ArrayList<>();
         ClickTextView.ClickSpanModel spanModel = new ClickTextView.ClickSpanModel();
         ClickTextView.SpanModel textSpanModel = new ClickTextView.SpanModel();
@@ -172,14 +168,14 @@ public class OpenUtil {
         return spanModels;
     }
 
-    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle){
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle) {
         Router.newIntent(activity)
                 .to(to)
                 .data(bundle)
                 .launch();
     }
 
-    public static void jumpPage(Activity activity, Class<?> to){
+    public static void jumpPage(Activity activity, Class<?> to) {
         Router.newIntent(activity)
                 .to(to)
                 .launch();

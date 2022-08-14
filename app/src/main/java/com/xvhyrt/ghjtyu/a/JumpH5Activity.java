@@ -21,7 +21,13 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.xvhyrt.ghjtyu.R;
+import com.xvhyrt.ghjtyu.api.HttpApi;
+import com.xvhyrt.ghjtyu.m.BaseModel;
+import com.xvhyrt.ghjtyu.m.ConfigEntity;
 import com.xvhyrt.ghjtyu.mvp.XActivity;
+import com.xvhyrt.ghjtyu.net.ApiSubscriber;
+import com.xvhyrt.ghjtyu.net.NetError;
+import com.xvhyrt.ghjtyu.net.XApi;
 import com.xvhyrt.ghjtyu.u.DownloadApkUtil;
 import com.xvhyrt.ghjtyu.u.PreferencesOpenUtil;
 import com.xvhyrt.ghjtyu.u.StatusBarUtil;
@@ -32,7 +38,7 @@ import java.util.List;
 import butterknife.BindView;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class JumpH5Activity extends XActivity implements EasyPermissions.PermissionCallbacks{
+public class JumpH5Activity extends XActivity implements EasyPermissions.PermissionCallbacks {
 
     @BindView(R.id.biaoti_tv)
     TextView biaotiTv;
@@ -61,9 +67,6 @@ public class JumpH5Activity extends XActivity implements EasyPermissions.Permiss
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
-        if (PreferencesOpenUtil.getBool("NO_RECORD")) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        }
         bundle = getIntent().getExtras();
         if (bundle.containsKey("biaoti"))
             biaoti = bundle.getString("biaoti");
@@ -103,6 +106,7 @@ public class JumpH5Activity extends XActivity implements EasyPermissions.Permiss
     @Override
     protected void onResume() {
         super.onResume();
+        getValue();
         if (webView != null) {
             webView.onResume();
         }
@@ -244,6 +248,31 @@ public class JumpH5Activity extends XActivity implements EasyPermissions.Permiss
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
         intent.setData(Uri.parse(apkUrl));
         startActivity(intent);
+    }
+
+    public void getValue() {
+        HttpApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseModel<ConfigEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                PreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (PreferencesOpenUtil.getBool("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
 }
