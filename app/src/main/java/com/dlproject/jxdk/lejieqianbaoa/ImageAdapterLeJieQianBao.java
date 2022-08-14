@@ -46,7 +46,7 @@ public class ImageAdapterLeJieQianBao extends BannerAdapter<ProductModelLeJieQia
                 bannerClickedListener.onBannerClicked(data);
             }
         });
-        holder.yjsq_sl.setOnClickListener(v -> {
+        holder.product_img.setOnClickListener(v -> {
             if (bannerClickedListener != null) {
                 bannerClickedListener.onBannerClicked(data);
             }
