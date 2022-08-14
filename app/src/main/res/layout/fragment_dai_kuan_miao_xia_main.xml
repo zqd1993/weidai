@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sdyqwjqwias.fdpwejqwdjew.daikuanmiaoxiaw.ScrollYSwipeRefreshLayoutDaiKuanMiaoXia xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#faf4f0"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/main_top_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/xvnbrtuysr" />
+
+        <FrameLayout
+            android:id="@+id/click_fl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="250dp">
+
+            <com.youth.banner.Banner
+                android:id="@+id/goods_banner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:id="@+id/no_data_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/color_efefef"
+                android:gravity="center"
+                android:text="暂无数据"
+                android:textColor="@color/text_normal_color"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+    </FrameLayout>
+
+</com.sdyqwjqwias.fdpwejqwdjew.daikuanmiaoxiaw.ScrollYSwipeRefreshLayoutDaiKuanMiaoXia>
