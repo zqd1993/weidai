@@ -1,16 +1,16 @@
 ext {
 
     android = [
-            compileSdkVersion: 28,
+            compileSdkVersion: 31,
 
             minSdkVersion    : 21,
-            targetSdkVersion : 28,
+            targetSdkVersion : 31,
 
-            versionCode      : 20220607,
-            versionName      : '1.0.1',
-            keyAlias         : "ret5uyju",
+            versionCode      : 20220814,
+            versionName      : '1.8.0',
+            keyAlias         : "keysoutprinshfjsshs",
             keyPassword      : "mima112233",
-            storeFile        : "./ret5uyju.jks",
+            storeFile        : "./soutprinshfjsshs.jks",
             storePassword    : "mima112233",
             VSupportSdk      : '27.1.1',
             VRetrofitSdk     : "2.2.0",
