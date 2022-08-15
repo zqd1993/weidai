@@ -263,7 +263,6 @@ public class SheZhiFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
             mobileType = SPFile.getInt("mobileType");
             WangLuoApi.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
@@ -286,7 +285,6 @@ public class SheZhiFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     /**
@@ -335,7 +333,6 @@ public class SheZhiFragment extends XFragment {
 
 
     public void productClick(ChanPinModel model) {
-        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -355,11 +352,9 @@ public class SheZhiFragment extends XFragment {
                             toWeb(model);
                         }
                     });
-        }
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
             WangLuoApi.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -382,7 +377,6 @@ public class SheZhiFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     /**

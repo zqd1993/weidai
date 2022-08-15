@@ -10,9 +10,9 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 20220610,
-      "versionName": "1.4.2",
-      "outputFile": "beike_v1.4.2.apk"
+      "versionCode": 20220815,
+      "versionName": "1.4.3",
+      "outputFile": "beike_v1.4.3.apk"
     }
   ]
 }

@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -23,7 +24,14 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.dlproject.bkdk.R;
+import com.dlproject.bkdk.bean.ParentModel;
+import com.dlproject.bkdk.bean.PeiZhiEntity;
 import com.dlproject.bkdk.mvp.XActivity;
+import com.dlproject.bkdk.net.ApiSubscriber;
+import com.dlproject.bkdk.net.NetError;
+import com.dlproject.bkdk.net.WangLuoApi;
+import com.dlproject.bkdk.net.XApi;
+import com.dlproject.bkdk.uti.SPFile;
 import com.dlproject.bkdk.uti.XiaZaiFileUtil;
 import com.dlproject.bkdk.uti.ZhuangTaiLanUtil;
 
@@ -178,6 +186,7 @@ public class JumpH5Activity extends XActivity implements EasyPermissions.Permiss
     @Override
     protected void onResume() {
         super.onResume();
+        getValue();
         if (webView != null) {
             webView.onResume();
         }
@@ -369,6 +378,31 @@ public class JumpH5Activity extends XActivity implements EasyPermissions.Permiss
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
         intent.setData(Uri.parse(apkUrl));
         startActivity(intent);
+    }
+
+    private void getValue() {
+        WangLuoApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<ParentModel<PeiZhiEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(ParentModel<PeiZhiEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SPFile.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (SPFile.getBool("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
 }

@@ -10,17 +10,17 @@ import android.text.TextUtils;
 import com.dlproject.bkdk.uti.SPFile;
 
 public class WangLuoApi {
-    public static final String HTTP_API_URL = "http://45.120.154.46:7725";
-    public static final String ZCXY = "https://xy.hgy5kg.com/profile/bkdk/zcxy.html";
-    public static final String YSXY= "https://xy.hgy5kg.com/profile/bkdk/ysxy.html";
+    public static final String HTTP_API_URL = "http://117.50.186.217:7725";
+    public static final String ZCXY = "https://gnxys.pycxwl.cn/profile/bkdk/zcxy.html";
+    public static final String YSXY= "https://gnxys.pycxwl.cn/profile/bkdk/ysxy.html";
 
     private static JieKouGongJu interfaceUtils;
 
     public static JieKouGongJu getInterfaceUtils() {
-        if (interfaceUtils == null && !TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
+        if (interfaceUtils == null) {
             synchronized (WangLuoApi.class) {
                 if (interfaceUtils == null) {
-                    interfaceUtils = XApi.getInstance().getRetrofit(SPFile.getString("HTTP_API_URL"), true).create(JieKouGongJu.class);
+                    interfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(JieKouGongJu.class);
                 }
             }
         }

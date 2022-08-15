@@ -175,7 +175,6 @@ public class ParentFragment extends XFragment {
     }
 
     public void productClick(ChanPinModel model) {
-        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -195,7 +194,6 @@ public class ParentFragment extends XFragment {
                             toWeb(model);
                         }
                     });
-        }
     }
 
     /**
@@ -244,7 +242,6 @@ public class ParentFragment extends XFragment {
 
 
     public void productList() {
-        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
             mobileType = SPFile.getInt("mobileType");
             WangLuoApi.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
@@ -285,7 +282,6 @@ public class ParentFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     public void toWeb(ChanPinModel model) {

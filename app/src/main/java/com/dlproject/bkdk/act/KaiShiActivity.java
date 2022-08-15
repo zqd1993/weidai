@@ -65,7 +65,13 @@ public class KaiShiActivity extends AppCompatActivity {
         ZhuangTaiLanUtil.setTransparent(this, false);
         isSure = SPFile.getBool("isSure");
         phone = SPFile.getString("phone");
-        sendRequestWithOkHttp();
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
     /**
@@ -100,7 +106,7 @@ public class KaiShiActivity extends AppCompatActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         startPageRemindDialog = new KaiShiRemindDialog(this);
         startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -143,7 +149,7 @@ public class KaiShiActivity extends AppCompatActivity {
             }
         });
         startPageRemindDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {

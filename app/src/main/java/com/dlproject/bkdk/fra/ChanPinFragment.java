@@ -118,7 +118,6 @@ public class ChanPinFragment extends XFragment {
     }
 
     public void productClick(ChanPinModel model) {
-        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
             if (model != null) {
                 phone = SPFile.getString("phone");
                 WangLuoApi.getInterfaceUtils().productClick(model.getId(), phone)
@@ -137,7 +136,6 @@ public class ChanPinFragment extends XFragment {
                             }
                         });
             }
-        }
     }
 
 
@@ -187,7 +185,6 @@ public class ChanPinFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
             mobileType = SPFile.getInt("mobileType");
             WangLuoApi.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
@@ -228,7 +225,6 @@ public class ChanPinFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
 
@@ -289,10 +285,8 @@ public class ChanPinFragment extends XFragment {
             TextView time_tv = view.findViewById(R.id.time_tv);
             TextView many_tv = view.findViewById(R.id.many_tv);
             many_tv.setText(String.valueOf(model.getPassingRate()));
-            if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
-                ILFactory.getLoader().loadNet(pic, SPFile.getString("HTTP_API_URL") + model.getProductLogo(),
+                ILFactory.getLoader().loadNet(pic, WangLuoApi.HTTP_API_URL + model.getProductLogo(),
                         new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-            }
             goods_mingzi_tv.setText(model.getProductName());
             time_tv.setText(model.getDes() + "个月");
             label_tv.setText(model.getTag());

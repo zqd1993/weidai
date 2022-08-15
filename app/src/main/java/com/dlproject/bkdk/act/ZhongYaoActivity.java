@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -14,10 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.dlproject.bkdk.R;
+import com.dlproject.bkdk.bean.ParentModel;
+import com.dlproject.bkdk.bean.PeiZhiEntity;
 import com.dlproject.bkdk.fra.ParentFragment;
 import com.dlproject.bkdk.fra.ChanPinFragment;
 import com.dlproject.bkdk.fra.SheZhiFragment;
 import com.dlproject.bkdk.mvp.XActivity;
+import com.dlproject.bkdk.net.ApiSubscriber;
+import com.dlproject.bkdk.net.NetError;
+import com.dlproject.bkdk.net.WangLuoApi;
+import com.dlproject.bkdk.net.XApi;
+import com.dlproject.bkdk.uti.SPFile;
 import com.dlproject.bkdk.uti.TiShi;
 import com.dlproject.bkdk.uti.ZhuangTaiLanUtil;
 
@@ -265,6 +273,37 @@ public class ZhongYaoActivity extends XActivity {
             context.startActivity(goToMarket);
         } catch (ActivityNotFoundException e) {
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getValue();
+    }
+
+    private void getValue() {
+        WangLuoApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<ParentModel<PeiZhiEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(ParentModel<PeiZhiEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SPFile.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (SPFile.getBool("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
 }

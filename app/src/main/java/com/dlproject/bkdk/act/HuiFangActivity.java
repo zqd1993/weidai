@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dlproject.bkdk.R;
+import com.dlproject.bkdk.uti.SPFile;
 import com.dlproject.bkdk.uti.TiShi;
 import com.dlproject.bkdk.uti.ZhuangTaiLanUtil;
 
@@ -43,6 +45,9 @@ public class HuiFangActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (SPFile.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         ZhuangTaiLanUtil.setTransparent(this, false);
         setContentView(R.layout.activity_fankui);
         ImageView backImg = findViewById(R.id.back_image);

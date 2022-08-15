@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -85,6 +86,9 @@ public class DengGeLuActivity extends XActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (SPFile.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         ZhuangTaiLanUtil.setTransparent(this, false);
         xStateController = this.findViewById(R.id.content_layout);
         mobileEt = this.findViewById(R.id.mobile_et);
@@ -175,7 +179,6 @@ public class DengGeLuActivity extends XActivity {
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
             WangLuoApi.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -203,7 +206,6 @@ public class DengGeLuActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     /**
@@ -274,7 +276,6 @@ public class DengGeLuActivity extends XActivity {
     }
 
     public void login(String phone, String verificationStr) {
-        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
             if (xStateController != null)
                 xStateController.showLoading();
             WangLuoApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
@@ -309,11 +310,9 @@ public class DengGeLuActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 
     public void getYzm(String phone) {
-        if (!TextUtils.isEmpty(SPFile.getString("HTTP_API_URL"))) {
             WangLuoApi.getInterfaceUtils().sendVerifyCode(phone)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -335,6 +334,5 @@ public class DengGeLuActivity extends XActivity {
                             }
                         }
                     });
-        }
     }
 }
