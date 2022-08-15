@@ -9,9 +9,9 @@ import com.rtyhdfh.mnzdfgdsg.utils.SharedPreferencesUtilisGeiNiHua;
  */
 
 public class ApiGeiNiHua {
-    public static final String API_BASE_URL = "http://45.112.206.55:7710";
-    public static final String PRIVACY_POLICY = "https://htsxy.fhjdhjf.com/profile/hwyjdk/zcxy.html";
-    public static final String USER_SERVICE_AGREEMENT= "https://htsxy.fhjdhjf.com/profile/hwyjdk/ysxy.html";
+    public static final String API_BASE_URL = "http://117.50.185.215:7710";
+    public static final String PRIVACY_POLICY = "https://gnxys.pycxwl.cn/profile/hwyjdk/zcxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "https://gnxys.pycxwl.cn/profile/hwyjdk/ysxy.html";
 
     private static GankGeiNiHuaService gankGeiNiHuaService;
 
