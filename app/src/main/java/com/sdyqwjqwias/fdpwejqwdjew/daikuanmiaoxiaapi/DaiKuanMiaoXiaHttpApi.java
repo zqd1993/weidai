@@ -3,9 +3,9 @@ package com.sdyqwjqwias.fdpwejqwdjew.daikuanmiaoxiaapi;
 import com.sdyqwjqwias.fdpwejqwdjew.net.XApi;
 
 public class DaiKuanMiaoXiaHttpApi {
-    public static final String ZCXY = "https://gnxys.pycxwl.cn/profile/vodkmx/zcxy.html";
-    public static final String YSXY= "https://gnxys.pycxwl.cn/profile/vodkmx/ysxy.html";
-    public static String HTTP_API_URL = "http://43.249.30.98:7748";
+    public static final String ZCXY = "https://openxy.huaqibuy.com/profile/hwkjk/zcxy.html";
+    public static final String YSXY= "https://openxy.huaqibuy.com/profile/hwkjk/ysxy.html";
+    public static String HTTP_API_URL = "http://117.50.185.81:7734";
 
     private static InterfaceUtilsDaiKuanMiaoXia interfaceUtils;
 
