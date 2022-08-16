@@ -45,6 +45,10 @@ public class ProductQuFenQiFragment extends XFragment {
     View main_top_img;
     @BindView(R.id.jx_bg)
     View jx_bg;
+    @BindView(R.id.banner_click_fl)
+    View banner_click_fl;
+    @BindView(R.id.tuijian_fl)
+    View tuijian_fl;
     private ProductModelQuFenQi productModelQuFenQi;
 
     private Bundle bundle;
@@ -54,6 +58,8 @@ public class ProductQuFenQiFragment extends XFragment {
         jx_bg.setVisibility(View.VISIBLE);
         main_top_img.setVisibility(View.GONE);
         goodsListLl.setVisibility(View.VISIBLE);
+        banner_click_fl.setVisibility(View.GONE);
+        tuijian_fl.setVisibility(View.GONE);
         productList();
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.fdhsdjqqhds.ppfdzabsdvd.R;
 import com.fdhsdjqqhds.ppfdzabsdvd.qufenqif.MainFragmentQuFenQi;
+import com.fdhsdjqqhds.ppfdzabsdvd.qufenqif.ProductQuFenQiFragment;
 import com.fdhsdjqqhds.ppfdzabsdvd.qufenqif.QuFenQiSetFragment;
 import com.fdhsdjqqhds.ppfdzabsdvd.mvp.XActivity;
 import com.fdhsdjqqhds.ppfdzabsdvd.qufenqiu.QuFenQiMyToast;
@@ -62,11 +63,11 @@ public class MainActivityQuFenQi extends XActivity {
         tabModel2.setName("我的");
         tabModel2.setChecked(false);
         tabModels.add(tabModel);
-//        tabModels.add(tabModel1);
+        tabModels.add(tabModel1);
         tabModels.add(tabModel2);
         initAdapter();
         fragments.add(new MainFragmentQuFenQi());
-//        fragments.add(new ProductFragment());
+        fragments.add(new ProductQuFenQiFragment());
         fragments.add(new QuFenQiSetFragment());
         mainViewPager.setUserInputEnabled(false);
         mainViewPager.setAdapter(new FragmentAdapterQuFenQi(getSupportFragmentManager(), getLifecycle(), fragments));
@@ -88,7 +89,7 @@ public class MainActivityQuFenQi extends XActivity {
                 mainViewPager.setCurrentItem(position, false);
             });
             bottomRvy.setHasFixedSize(true);
-            bottomRvy.setLayoutManager(new GridLayoutManager(this, 2));
+            bottomRvy.setLayoutManager(new GridLayoutManager(this, 3));
             bottomRvy.setAdapter(tabAdapterQuFenQi);
         }
     }

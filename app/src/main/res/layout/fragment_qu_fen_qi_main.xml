@@ -7,117 +7,118 @@
     android:background="#f6f6f6"
     android:orientation="vertical">
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="20dp">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="20dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <FrameLayout
+            <ImageView
+                android:id="@+id/main_top_img"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/dzxfgrtyh"
+                android:visibility="gone" />
 
-                <ImageView
-                    android:id="@+id/main_top_img"
+            <com.fdhsdjqqhds.ppfdzabsdvd.qufenqiw.ProportionFrameLayoutQuFenQi
+                android:id="@+id/banner_click_fl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="20dp"
+                app:proporty="1.69">
+
+                <com.lihang.ShadowLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/dzxfgrtyh"
-                    android:visibility="gone" />
+                    android:layout_height="match_parent"
+                    app:hl_cornerRadius="10dp">
 
-                <com.fdhsdjqqhds.ppfdzabsdvd.qufenqiw.ProportionFrameLayoutQuFenQi
-                    android:id="@+id/banner_click_fl"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginEnd="20dp"
-                    app:proporty="1.69">
-
-                    <com.lihang.ShadowLayout
+                    <ImageView
+                        android:id="@+id/banner_img"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:hl_cornerRadius="10dp">
+                        android:scaleType="centerCrop" />
 
-                        <ImageView
-                            android:id="@+id/banner_img"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop" />
+                </com.lihang.ShadowLayout>
 
-                    </com.lihang.ShadowLayout>
+            </com.fdhsdjqqhds.ppfdzabsdvd.qufenqiw.ProportionFrameLayoutQuFenQi>
 
-                </com.fdhsdjqqhds.ppfdzabsdvd.qufenqiw.ProportionFrameLayoutQuFenQi>
-
-                <TextView
-                    android:id="@+id/jx_bg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
-                    android:gravity="center"
-                    android:paddingTop="30dp"
-                    android:paddingBottom="30dp"
-                    android:text="精选"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:visibility="gone" />
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/banner_fl"
+            <TextView
+                android:id="@+id/jx_bg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:visibility="gone">
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:paddingTop="30dp"
+                android:paddingBottom="30dp"
+                android:text="精选"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:visibility="gone" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/lldhxfh" />
+        </FrameLayout>
 
-            </FrameLayout>
+        <FrameLayout
+            android:id="@+id/banner_fl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:visibility="gone">
 
-            <FrameLayout
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
+                android:src="@drawable/lldhxfh" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="20dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="推荐产品"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/textSize_16"
-                    android:textStyle="bold" />
+        </FrameLayout>
 
-                <TextView
-                    android:id="@+id/mine_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="20dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="我的 >"
-                    android:textColor="@color/text_normal_color"
-                    android:textSize="@dimen/textSize_16"
-                    android:textStyle="bold" />
+        <FrameLayout
+            android:id="@+id/tuijian_fl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
-            </FrameLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="推荐产品"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/textSize_16"
+                android:textStyle="bold" />
 
-            <FrameLayout
+            <TextView
+                android:id="@+id/mine_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="我的 >"
+                android:textColor="@color/text_normal_color"
+                android:textSize="@dimen/textSize_16"
+                android:textStyle="bold" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_10">
+
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/dp_10">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:id="@+id/goods_list_ll"
@@ -128,28 +129,28 @@
                     android:paddingEnd="20dp"
                     android:visibility="gone" />
 
-                <com.youth.banner.Banner
-                    android:id="@+id/goods_banner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp" />
+            </androidx.core.widget.NestedScrollView>
 
-                <TextView
-                    android:id="@+id/no_data_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:background="@color/color_efefef"
-                    android:gravity="center"
-                    android:text="暂无数据"
-                    android:textColor="@color/text_normal_color"
-                    android:textSize="18sp"
-                    android:visibility="gone" />
+            <com.youth.banner.Banner
+                android:id="@+id/goods_banner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
 
-            </FrameLayout>
+            <TextView
+                android:id="@+id/no_data_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/color_efefef"
+                android:gravity="center"
+                android:text="暂无数据"
+                android:textColor="@color/text_normal_color"
+                android:textSize="18sp"
+                android:visibility="gone" />
 
-        </LinearLayout>
+        </FrameLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 
 </com.fdhsdjqqhds.ppfdzabsdvd.qufenqiw.QuFenQiScrollYSwipeRefreshLayout>

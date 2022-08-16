@@ -6,9 +6,9 @@ import com.fdhsdjqqhds.ppfdzabsdvd.net.XApi;
 import com.fdhsdjqqhds.ppfdzabsdvd.qufenqiu.PreferencesQuFenQiOpenUtil;
 
 public class HttpApiQuFenQi {
-    public static final String ZCXY = "https://htsxy.fhjdhjf.com/profile/xykqfq/zcxy.html";
-    public static final String YSXY= "https://htsxy.fhjdhjf.com/profile/xykqfq/ysxy.html";
-    public static String HTTP_API_URL = "http://45.112.206.58:7752";
+    public static final String ZCXY = "https://bones2.jhgujkg.com/profile/opxfq/zcxy.html";
+    public static final String YSXY= "https://bones2.jhgujkg.com/profile/opxfq/ysxy.html";
+    public static String HTTP_API_URL = "http://106.75.13.66:7759";
 
     private static QuFenQiInterfaceUtils quFenQiInterfaceUtils;
 
