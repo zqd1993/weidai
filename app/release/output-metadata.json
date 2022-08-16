@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.qwbasvsd.zmnxcmdsjsdk",
+  "applicationId": "com.zasdpqwjsdsdnfdhgaz.clp",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 101,
-      "versionName": "1.0.1",
-      "outputFile": "dazhong_v1.0.1.apk"
+      "versionCode": 100,
+      "versionName": "1.0.0",
+      "outputFile": "dazhong_v1.0.0.apk"
     }
   ]
 }

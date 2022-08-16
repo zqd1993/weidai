@@ -92,8 +92,8 @@ public class LeFenQiNewsMainActivity extends XActivity {
         tabModel.setName("首页");
         tabModel.setChecked(true);
         TabModel tabModel1 = new TabModel();
-        tabModel1.setIcon(R.drawable.msrthfgh);
-        tabModel1.setSelectedIcon(R.drawable.msrthfgh);
+        tabModel1.setIcon(R.drawable.zdrzdr);
+        tabModel1.setSelectedIcon(R.drawable.xdfthudxftu);
         tabModel1.setName("精选");
         tabModel1.setChecked(false);
         TabModel tabModel2 = new TabModel();
