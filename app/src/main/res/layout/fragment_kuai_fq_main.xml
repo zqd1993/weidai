@@ -62,11 +62,11 @@
 
 
             <FrameLayout
+                android:id="@+id/main_top_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/main_top_img"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="centerCrop"
@@ -95,20 +95,20 @@
 
                 </com.fdjqodsjfd.dfiremqms.kuaifqw.ProportionKuaiFqFrameLayout>
 
-                <TextView
-                    android:id="@+id/jx_bg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
-                    android:gravity="center"
-                    android:paddingTop="30dp"
-                    android:paddingBottom="30dp"
-                    android:text="精选"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:visibility="gone" />
-
             </FrameLayout>
+
+            <TextView
+                android:id="@+id/jx_bg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:paddingTop="30dp"
+                android:paddingBottom="30dp"
+                android:text="精选"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -169,6 +169,7 @@
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/wode_fl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"

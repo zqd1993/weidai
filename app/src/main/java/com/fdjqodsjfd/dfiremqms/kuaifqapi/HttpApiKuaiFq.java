@@ -14,9 +14,9 @@ import com.fdjqodsjfd.dfiremqms.net.XApi;
 import java.io.IOException;
 
 public class HttpApiKuaiFq {
-    public static final String ZCXY = "https://htsxy.fhjdhjf.com/profile/xyklfqdk/zcxy.html";
-    public static final String YSXY= "https://htsxy.fhjdhjf.com/profile/xyklfqdk/ysxy.html";
-    public static String HTTP_API_URL = "http://45.112.206.58:7753";
+    public static final String ZCXY = "https://gnxys.pycxwl.cn/profile/opfqhjk/zcxy.html";
+    public static final String YSXY= "https://gnxys.pycxwl.cn/profile/opfqhjk/ysxy.html";
+    public static String HTTP_API_URL = "http://106.75.13.66:6605";
 
     private static KuaiFqInterfaceUtils kuaiFqInterfaceUtils;
 

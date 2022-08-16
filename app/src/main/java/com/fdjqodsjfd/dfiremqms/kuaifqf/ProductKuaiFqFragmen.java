@@ -52,6 +52,8 @@ public class ProductKuaiFqFragmen extends XFragment {
     View main_top_img;
     @BindView(R.id.jx_bg)
     View jx_bg;
+    @BindView(R.id.wode_fl)
+    View wode_fl;
     private ProductKuaiFqModel productKuaiFqModel;
 
     public float getRatio(String imageFile) {
@@ -103,6 +105,7 @@ public class ProductKuaiFqFragmen extends XFragment {
         jx_bg.setVisibility(View.VISIBLE);
         main_top_img.setVisibility(View.GONE);
         goodsListLl.setVisibility(View.VISIBLE);
+        wode_fl.setVisibility(View.GONE);
         productList();
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

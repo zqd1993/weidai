@@ -17,6 +17,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.fdjqodsjfd.dfiremqms.R;
 import com.fdjqodsjfd.dfiremqms.kuaifqf.MainFragmentKuaiFq;
+import com.fdjqodsjfd.dfiremqms.kuaifqf.ProductKuaiFqFragmen;
 import com.fdjqodsjfd.dfiremqms.kuaifqf.SetKuaiFqFragment;
 import com.fdjqodsjfd.dfiremqms.mvp.XActivity;
 import com.fdjqodsjfd.dfiremqms.kuaifqu.KuaiFqMyToast;
@@ -69,11 +70,11 @@ public class MainActivityKuaiFq extends XActivity {
         tabModel2.setName("我的");
         tabModel2.setChecked(false);
         tabModels.add(tabModel);
-//        tabModels.add(tabModel1);
+        tabModels.add(tabModel1);
         tabModels.add(tabModel2);
         initAdapter();
         fragments.add(new MainFragmentKuaiFq());
-//        fragments.add(new ProductFragment());
+        fragments.add(new ProductKuaiFqFragmen());
         fragments.add(new SetKuaiFqFragment());
         mainViewPager.setUserInputEnabled(false);
         mainViewPager.setAdapter(new FragmentAdapterKuaiFq(getSupportFragmentManager(), getLifecycle(), fragments));
@@ -95,7 +96,7 @@ public class MainActivityKuaiFq extends XActivity {
                 mainViewPager.setCurrentItem(position, false);
             });
             bottomRvy.setHasFixedSize(true);
-            bottomRvy.setLayoutManager(new GridLayoutManager(this, 2));
+            bottomRvy.setLayoutManager(new GridLayoutManager(this, 3));
             bottomRvy.setAdapter(tabAdapterKuaiFq);
         }
     }
