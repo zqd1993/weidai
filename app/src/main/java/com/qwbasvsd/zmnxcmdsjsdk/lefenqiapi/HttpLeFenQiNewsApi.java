@@ -8,9 +8,9 @@ import com.qwbasvsd.zmnxcmdsjsdk.lefenqiutils.LeFenQiNewsPreferencesOpenUtil;
 import com.qwbasvsd.zmnxcmdsjsdk.net.XApi;
 
 public class HttpLeFenQiNewsApi {
-    public static final String ZCXY = "https://htsxy.fhjdhjf.com/profile/xyklfqjk/zcxy.html";
-    public static final String YSXY= "https://htsxy.fhjdhjf.com/profile/xyklfqjk/ysxy.html";
-    public static String HTTP_API_URL = "http://45.112.206.58:7754";
+    public static final String ZCXY = "https://gnxys.pycxwl.cn/profile/opwfqjt/zcxy.html";
+    public static final String YSXY= "https://gnxys.pycxwl.cn/profile/opwfqjt/ysxy.html";
+    public static String HTTP_API_URL = "http://43.249.30.98:7748";
 
     /**
      * sp转px

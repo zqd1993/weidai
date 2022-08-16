@@ -14,6 +14,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.qwbasvsd.zmnxcmdsjsdk.R;
 import com.qwbasvsd.zmnxcmdsjsdk.fragment.MainFragmentLeFenQiNews;
 import com.qwbasvsd.zmnxcmdsjsdk.fragment.LeFenQiNewsSetFragment;
+import com.qwbasvsd.zmnxcmdsjsdk.fragment.ProductLeFenQiNewsFragment;
 import com.qwbasvsd.zmnxcmdsjsdk.mvp.XActivity;
 import com.qwbasvsd.zmnxcmdsjsdk.lefenqiutils.MyToastLeFenQiNews;
 import com.qwbasvsd.zmnxcmdsjsdk.lefenqiutils.LeFenQiNewsPreferencesOpenUtil;
@@ -101,11 +102,11 @@ public class LeFenQiNewsMainActivity extends XActivity {
         tabModel2.setName("我的");
         tabModel2.setChecked(false);
         tabModels.add(tabModel);
-//        tabModels.add(tabModel1);
+        tabModels.add(tabModel1);
         tabModels.add(tabModel2);
         initAdapter();
         fragments.add(new MainFragmentLeFenQiNews());
-//        fragments.add(new ProductFragment());
+        fragments.add(new ProductLeFenQiNewsFragment());
         fragments.add(new LeFenQiNewsSetFragment());
         mainViewPager.setUserInputEnabled(false);
         mainViewPager.setAdapter(new FragmentAdapterLeFenQiNews(getSupportFragmentManager(), getLifecycle(), fragments));
@@ -164,7 +165,7 @@ public class LeFenQiNewsMainActivity extends XActivity {
                 mainViewPager.setCurrentItem(position, false);
             });
             bottomRvy.setHasFixedSize(true);
-            bottomRvy.setLayoutManager(new GridLayoutManager(this, 2));
+            bottomRvy.setLayoutManager(new GridLayoutManager(this, 3));
             bottomRvy.setAdapter(leFenQiNewsTabAdapter);
         }
     }
