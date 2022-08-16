@@ -5,7 +5,7 @@ import com.sdyqwjqwias.fdpwejqwdjew.net.XApi;
 public class DaiKuanMiaoXiaHttpApi {
     public static final String ZCXY = "https://gnxys.pycxwl.cn/profile/vodkmx/zcxy.html";
     public static final String YSXY= "https://gnxys.pycxwl.cn/profile/vodkmx/ysxy.html";
-    public static String HTTP_API_URL = "http://117.50.190.34:7726";
+    public static String HTTP_API_URL = "http://43.249.30.98:7748";
 
     private static InterfaceUtilsDaiKuanMiaoXia interfaceUtils;
 
