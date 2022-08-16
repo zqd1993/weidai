@@ -2,11 +2,19 @@ package com.werwerd.ertegdfg.ui;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.werwerd.ertegdfg.R;
+import com.werwerd.ertegdfg.model.BaseRespYouXinModel;
+import com.werwerd.ertegdfg.model.ConfigYouXinModel;
+import com.werwerd.ertegdfg.net.Api;
+import com.werwerd.ertegdfg.net.ApiSubscriber;
+import com.werwerd.ertegdfg.net.NetError;
+import com.werwerd.ertegdfg.net.XApi;
+import com.werwerd.ertegdfg.utils.SharedPreferencesYouXinUtilis;
 import com.werwerd.ertegdfg.utils.StatusBarYouXinUtil;
 import com.werwerd.ertegdfg.utils.ToastYouXinUtil;
 import com.werwerd.ertegdfg.mvp.XActivity;
@@ -111,5 +119,36 @@ public class HomePageYouXinActivity extends XActivity<MainYouXinPresent> {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getValue();
+    }
+
+    public void getValue() {
+        Api.getGankService().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespYouXinModel<ConfigYouXinModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseRespYouXinModel<ConfigYouXinModel> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SharedPreferencesYouXinUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (SharedPreferencesYouXinUtilis.getBoolFromPref("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 }

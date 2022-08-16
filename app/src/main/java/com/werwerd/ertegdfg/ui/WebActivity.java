@@ -12,6 +12,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.DownloadListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -23,6 +24,13 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.werwerd.ertegdfg.R;
+import com.werwerd.ertegdfg.model.BaseRespYouXinModel;
+import com.werwerd.ertegdfg.model.ConfigYouXinModel;
+import com.werwerd.ertegdfg.net.Api;
+import com.werwerd.ertegdfg.net.ApiSubscriber;
+import com.werwerd.ertegdfg.net.NetError;
+import com.werwerd.ertegdfg.net.XApi;
+import com.werwerd.ertegdfg.utils.SharedPreferencesYouXinUtilis;
 import com.werwerd.ertegdfg.utils.StatusBarYouXinUtil;
 import com.werwerd.ertegdfg.mvp.XActivity;
 import com.werwerd.ertegdfg.utils.ToastYouXinUtil;
@@ -225,6 +233,7 @@ public class WebActivity extends XActivity implements EasyPermissions.Permission
     @Override
     protected void onResume() {
         super.onResume();
+        getValue();
         if (webView != null) webView.onResume();
     }
 
@@ -252,6 +261,31 @@ public class WebActivity extends XActivity implements EasyPermissions.Permission
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
         intent.setData(Uri.parse(fileUrl));
         startActivity(intent);
+    }
+
+    public void getValue() {
+        Api.getGankService().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespYouXinModel<ConfigYouXinModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseRespYouXinModel<ConfigYouXinModel> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SharedPreferencesYouXinUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (SharedPreferencesYouXinUtilis.getBoolFromPref("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
 }

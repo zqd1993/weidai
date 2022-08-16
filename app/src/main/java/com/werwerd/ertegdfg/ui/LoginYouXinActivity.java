@@ -3,12 +3,14 @@ package com.werwerd.ertegdfg.ui;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.werwerd.ertegdfg.R;
 import com.werwerd.ertegdfg.net.Api;
+import com.werwerd.ertegdfg.utils.SharedPreferencesYouXinUtilis;
 import com.werwerd.ertegdfg.utils.StaticYouXinUtil;
 import com.werwerd.ertegdfg.utils.StatusBarYouXinUtil;
 import com.werwerd.ertegdfg.utils.ToastYouXinUtil;
@@ -58,6 +60,9 @@ public class LoginYouXinActivity extends XActivity<LoginYouXinPresent> {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (SharedPreferencesYouXinUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusBarYouXinUtil.setTransparent(this, false);
         initListener();
         getP().getGankData();

@@ -179,7 +179,6 @@ public class MineFragment extends XFragment {
     }
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(SharedPreferencesYouXinUtilis.getStringFromPref("HTTP_API_URL"))) {
             Api.getGankService().getGankData()
                     .compose(XApi.<BaseRespYouXinModel<ConfigYouXinModel>>getApiTransformer())
                     .compose(XApi.<BaseRespYouXinModel<ConfigYouXinModel>>getScheduler())
@@ -204,7 +203,6 @@ public class MineFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     @Override

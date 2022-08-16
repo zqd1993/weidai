@@ -9,17 +9,17 @@ import com.werwerd.ertegdfg.utils.SharedPreferencesYouXinUtilis;
  */
 
 public class Api {
-    public static final String PRIVACY_POLICY = "https://xy.hgy5kg.com/profile/opdejsd/zcxy.html";
-    public static final String USER_SERVICE_AGREEMENT= "https://xy.hgy5kg.com/profile/opdejsd/ysxy.html";
-    public static final String API_BASE_URL = "http://45.120.154.46:7743";
+    public static final String PRIVACY_POLICY = "https://gnxys.pycxwl.cn/profile/opdejsd/zcxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "https://gnxys.pycxwl.cn/profile/opdejsd/ysxy.html";
+    public static final String API_BASE_URL = "http://106.75.13.66:7743";
 
     private static GankService gankService;
 
     public static GankService getGankService() {
-        if (gankService == null && !TextUtils.isEmpty(SharedPreferencesYouXinUtilis.getStringFromPref("HTTP_API_URL"))) {
+        if (gankService == null) {
             synchronized (Api.class) {
                 if (gankService == null) {
-                    gankService = XApi.getInstance().getRetrofit(SharedPreferencesYouXinUtilis.getStringFromPref("HTTP_API_URL"), true).create(GankService.class);
+                    gankService = XApi.getInstance().getRetrofit(API_BASE_URL, true).create(GankService.class);
                 }
             }
         }

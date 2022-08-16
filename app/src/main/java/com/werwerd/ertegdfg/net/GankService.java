@@ -21,6 +21,9 @@ public interface GankService {
     @GET("/app/config/getConfig")
     Flowable<BaseRespYouXinModel<ConfigYouXinModel>> getGankData();
 
+    @GET("/app/config/getValue")
+    Flowable<BaseRespYouXinModel<ConfigYouXinModel>> getValue(@Query("key") String phone);
+
     @GET("/app/user/sendVerifyCode")
     Flowable<BaseRespYouXinModel> sendVerifyCode(@Query("phone") String phone);
 

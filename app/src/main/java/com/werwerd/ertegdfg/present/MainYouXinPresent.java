@@ -18,7 +18,6 @@ public class MainYouXinPresent extends XPresent<HomePageYouXinActivity> {
     private String phone, ip;
 
     public void login() {
-        if (!TextUtils.isEmpty(SharedPreferencesYouXinUtilis.getStringFromPref("HTTP_API_URL"))) {
             phone = SharedPreferencesYouXinUtilis.getStringFromPref("phone");
             ip = SharedPreferencesYouXinUtilis.getStringFromPref("ip");
             Api.getGankService().logins(phone, ip)
@@ -38,7 +37,6 @@ public class MainYouXinPresent extends XPresent<HomePageYouXinActivity> {
                             }
                         }
                     });
-        }
     }
 
 }

@@ -43,6 +43,12 @@ public class QiDongActivity extends AppCompatActivity {
         isAgree = SharedPreferencesYouXinUtilis.getBoolFromPref("agree");
         loginPhone = SharedPreferencesYouXinUtilis.getStringFromPref("phone");
         sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
     @Override
@@ -72,7 +78,7 @@ public class QiDongActivity extends AppCompatActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         welcomeDialog = new WelcomeYouXinDialog(this, "温馨提示");
         welcomeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -123,7 +129,7 @@ public class QiDongActivity extends AppCompatActivity {
             }
         });
         welcomeDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {

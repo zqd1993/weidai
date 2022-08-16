@@ -1,6 +1,7 @@
 package com.werwerd.ertegdfg.ui.activity;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,6 +11,7 @@ import com.werwerd.ertegdfg.mvp.XActivity;
 import com.werwerd.ertegdfg.net.Api;
 import com.werwerd.ertegdfg.router.Router;
 import com.werwerd.ertegdfg.ui.WebActivity;
+import com.werwerd.ertegdfg.utils.SharedPreferencesYouXinUtilis;
 import com.werwerd.ertegdfg.utils.StatusBarYouXinUtil;
 import com.werwerd.ertegdfg.widget.WelcomeYouXinDialog;
 
@@ -32,6 +34,9 @@ public class MoreInfoActivity extends XActivity {
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        if (SharedPreferencesYouXinUtilis.getBoolFromPref("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusBarYouXinUtil.setTransparent(this, false);
         backImg.setOnClickListener(v -> finish());
         titleTv.setText("更多信息");
