@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.dsjdsnashqiqwsd.dfldfpd",
+  "applicationId": "com.dsjqwjsnddfjdfm.pdlzjsdn",
   "variantName": "release",
   "elements": [
     {
@@ -12,7 +12,7 @@
       "filters": [],
       "versionCode": 100,
       "versionName": "1.0.0",
-      "outputFile": "daejisudai_op_v1.0.0_build_20220817133448.apk"
+      "outputFile": "daejisudai_op_v1.0.0_build_20220817142227.apk"
     }
   ]
 }
