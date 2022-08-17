@@ -163,7 +163,7 @@ public class ProductLeFenQiNewsFragment extends XFragment {
             View yjsqSl = view.findViewById(R.id.yjsq_sl);
             TextView shijian_tv = view.findViewById(R.id.shijian_tv);
             TextView shuliang_tv = view.findViewById(R.id.shuliang_tv);
-            shijian_tv.setText(model.getDes() + "个月");
+            shijian_tv.setText(model.getDes());
             shuliang_tv.setText(String.valueOf(model.getPassingRate()));
                 ILFactory.getLoader().loadNet(pic, HttpLeFenQiNewsApi.HTTP_API_URL + model.getProductLogo(),
                         new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
