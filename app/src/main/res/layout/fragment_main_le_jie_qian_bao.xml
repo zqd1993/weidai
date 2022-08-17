@@ -1,163 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.dlproject.jxdk.lejieqianbaow.LeJieQianBaoScrollYSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.lejieqianbaosdfwer.dfgseryaer.wlejieqianbao.LeJieQianBaoScrollYSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#1d7cff"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <FrameLayout
+        <LinearLayout
+            android:id="@+id/main_top_img"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <FrameLayout
-                android:id="@+id/main_top_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/zxxvbndrtu" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="50dp"
-                        android:layout_gravity="center_horizontal"
-                        android:textSize="25sp"
-                        android:textColor="@color/white"
-                        android:text="邀请好友   赚现金" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_gravity="center_horizontal"
-                        android:textSize="16sp"
-                        android:textColor="@color/white"
-                        android:text="专业贷款服务   门槛低安全保障" />
-
-                </LinearLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/hhaeraey" />
 
             </FrameLayout>
 
-            <LinearLayout
-                android:id="@+id/jx_bg"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:layout_height="match_parent">
 
-                <TextView
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:paddingTop="30dp"
-                    android:paddingBottom="30dp"
-                    android:text="精选"
-                    android:textColor="@color/text_normal_color"
-                    android:textSize="18sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/dividing" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_marginBottom="30dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/dxfghser" />
+                    android:background="@drawable/bg_corner_10_white">
 
-            </LinearLayout>
+                    <com.youth.banner.Banner
+                        android:id="@+id/goods_banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-        </FrameLayout>
-
-        <LinearLayout
-            android:id="@+id/msg_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                android:background="@color/white"
-                android:orientation="horizontal">
+                </FrameLayout>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_15"
-                    android:text="最新公告："
-                    android:textColor="#767674"
-                    android:textSize="@dimen/sp_14" />
-
-                <ViewFlipper
-                    android:id="@+id/view_flipper"
+                    android:id="@+id/no_data_tv"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="3dp" />
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@color/color_efefef"
+                    android:gravity="center"
+                    android:text="暂无数据"
+                    android:textColor="@color/text_normal_color"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
 
-            </LinearLayout>
+            </FrameLayout>
 
         </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/click_fl"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    </androidx.core.widget.NestedScrollView>
 
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:id="@+id/goods_list_ll"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:visibility="gone"/>
-
-            </androidx.core.widget.NestedScrollView>
-
-            <com.youth.banner.Banner
-                android:id="@+id/goods_banner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/no_data_tv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:background="@color/color_efefef"
-                android:gravity="center"
-                android:text="暂无数据"
-                android:textColor="@color/text_normal_color"
-                android:textSize="18sp"
-                android:visibility="gone" />
-
-        </FrameLayout>
-
-    </LinearLayout>
-
-</com.dlproject.jxdk.lejieqianbaow.LeJieQianBaoScrollYSwipeRefreshLayout>
+</com.lejieqianbaosdfwer.dfgseryaer.wlejieqianbao.LeJieQianBaoScrollYSwipeRefreshLayout>

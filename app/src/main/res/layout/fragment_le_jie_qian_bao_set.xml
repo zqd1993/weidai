@@ -5,12 +5,6 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:src="@drawable/wd_bg" />
-
     <LinearLayout
         android:id="@+id/parent_view"
         android:layout_width="match_parent"
@@ -20,33 +14,41 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="80dp"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/xvbnrdtusr" />
+                android:src="@drawable/wd_tx" />
 
             <TextView
                 android:id="@+id/user_phone_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:text="ANNIE123"
-                android:textColor="@color/white"
-                android:textSize="@dimen/textSize_16" />
+                android:textColor="@color/text_normal_color"
+                android:textSize="@dimen/textSize_16"
+                android:textStyle="bold"/>
 
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/goods_im"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/wd_hbzx" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/set_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="20dp"
             android:overScrollMode="never" />
 
     </LinearLayout>

@@ -42,7 +42,7 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:src="@drawable/wreyxftut" />
+                        android:src="@drawable/xvnsxrtsru" />
 
                     <EditText
                         android:id="@+id/mobile_et"
@@ -91,7 +91,7 @@
                             android:layout_marginStart="15dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
-                            android:src="@drawable/ssdgrstyu" />
+                            android:src="@drawable/fhdsrtu" />
 
                         <EditText
                             android:id="@+id/yzm_et"
@@ -179,7 +179,7 @@
                     android:layout_height="20dp"
                     android:button="@drawable/checkbox_bg" />
 
-                <com.dlproject.jxdk.lejieqianbaow.ClickTextViewLeJieQianBao
+                <com.lejieqianbaosdfwer.dfgseryaer.wlejieqianbao.ClickTextViewLeJieQianBao
                     android:id="@+id/read_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
