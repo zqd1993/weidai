@@ -187,7 +187,7 @@ public class ProductLeFenQiNewsFragment extends XFragment {
         if (model != null) {
             bundle = new Bundle();
             bundle.putString("url", model.getUrl());
-            bundle.putString("title", model.getProductName());
+            bundle.putString("biaoti", model.getProductName());
             OpenLeFenQiNewsUtil.getValue((XActivity) getActivity(), JumpLeFenQiNewsH5Activity.class, bundle);
         }
     }

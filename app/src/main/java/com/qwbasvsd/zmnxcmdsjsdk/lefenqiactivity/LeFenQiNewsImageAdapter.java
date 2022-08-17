@@ -82,7 +82,7 @@ public class LeFenQiNewsImageAdapter extends BannerAdapter<ProductLeFenQiNewsMod
         holder.shuliang_tv.setText(String.valueOf(data.getPassingRate()));
             ILFactory.getLoader().loadNet(holder.product_img, HttpLeFenQiNewsApi.HTTP_API_URL + data.getProductLogo(),
                     new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-        holder.parentLl.setOnClickListener(v -> {
+        holder.click_view.setOnClickListener(v -> {
             if (bannerClickedListener != null) {
                 bannerClickedListener.onBannerClicked(data);
             }
@@ -98,6 +98,7 @@ public class LeFenQiNewsImageAdapter extends BannerAdapter<ProductLeFenQiNewsMod
         TextView shuliang_tv;
         View parentLl;
         ImageView product_img;
+        View click_view;
 
         public ImageHolder(@NonNull View itemView) {
             super(itemView);
@@ -108,7 +109,7 @@ public class LeFenQiNewsImageAdapter extends BannerAdapter<ProductLeFenQiNewsMod
             shuliang_tv = itemView.findViewById(R.id.shuliang_tv);
             parentLl = itemView.findViewById(R.id.parent_ll);
             product_img = itemView.findViewById(R.id.product_img);
-            ;
+            click_view = itemView.findViewById(R.id.click_view);
         }
     }
 

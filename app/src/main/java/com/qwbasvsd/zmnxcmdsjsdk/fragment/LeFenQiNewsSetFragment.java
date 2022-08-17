@@ -48,6 +48,8 @@ public class LeFenQiNewsSetFragment extends XFragment {
     RecyclerView setList1;
     @BindView(R.id.edu_tv)
     TextView edu_tv;
+    @BindView(R.id.edusq_fl)
+    View edusq_fl;
 
     private ProductLeFenQiNewsModel productLeFenQiNewsModel;
 
@@ -69,6 +71,9 @@ public class LeFenQiNewsSetFragment extends XFragment {
         phone = LeFenQiNewsPreferencesOpenUtil.getString("phone");
         userPhoneTv.setText(phone);
         initSetAdapter();
+        edusq_fl.setOnClickListener(v -> {
+            productClick(productLeFenQiNewsModel);
+        });
     }
 
     @Override
