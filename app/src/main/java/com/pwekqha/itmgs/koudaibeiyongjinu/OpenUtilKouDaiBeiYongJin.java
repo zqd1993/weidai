@@ -135,7 +135,7 @@ public class OpenUtilKouDaiBeiYongJin {
                 "我们非常重视对您个人信息的保护，您需要同意");
         spanModels.add(textSpanModel);
 
-        spanModel.setStr("《注册服务协议》");
+        spanModel.setStr("《用户注册协议》");
         spanModels.add(spanModel);
 
         textSpanModel = new ClickTextViewKouDaiBeiYongJin.SpanModel();
@@ -143,7 +143,7 @@ public class OpenUtilKouDaiBeiYongJin {
         spanModels.add(textSpanModel);
 
         spanModel = new ClickTextViewKouDaiBeiYongJin.ClickSpanModel();
-        spanModel.setStr("《用户隐私协议》");
+        spanModel.setStr("《隐私政策》");
         spanModels.add(spanModel);
 
         textSpanModel = new ClickTextViewKouDaiBeiYongJin.SpanModel();
@@ -159,11 +159,11 @@ public class OpenUtilKouDaiBeiYongJin {
         textSpanModel.setStr("我已阅读并同意");
         spanModels.add(textSpanModel);
 
-        spanModel.setStr("《注册服务协议》");
+        spanModel.setStr("《用户注册协议》");
         spanModels.add(spanModel);
 
         spanModel = new ClickTextViewKouDaiBeiYongJin.ClickSpanModel();
-        spanModel.setStr("《用户隐私协议》");
+        spanModel.setStr("《隐私政策》");
         spanModels.add(spanModel);
         return spanModels;
     }

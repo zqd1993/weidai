@@ -3,9 +3,9 @@ package com.pwekqha.itmgs.koudaibeiyongjinapi;
 import com.pwekqha.itmgs.net.XApi;
 
 public class HttpKouDaiBeiYongJinApi {
-    public static final String ZCXY = "https://gnxys.pycxwl.cn/profile/vokdbyj/zcxy.html";
-    public static final String YSXY= "https://gnxys.pycxwl.cn/profile/vokdbyj/ysxy.html";
-    public static String HTTP_API_URL = "http://106.75.13.66:6604";
+    public static final String ZCXY = "https://openxy.huaqibuy.com/profile/hwkjk/zcxy.html";
+    public static final String YSXY= "https://openxy.huaqibuy.com/profile/hwkjk/ysxy.html";
+    public static String HTTP_API_URL = "http://43.249.30.98:7748";
 
     private static InterfaceKouDaiBeiYongJinUtils interfaceKouDaiBeiYongJinUtils;
 

@@ -88,8 +88,8 @@ public class SetKouDaiBeiYongJinFragment extends XFragment {
         SetKouDaiBeiYongJinModel model1 = new SetKouDaiBeiYongJinModel(R.drawable.eersruyrdu, "隐私协议");
         SetKouDaiBeiYongJinModel model2 = new SetKouDaiBeiYongJinModel(R.drawable.tytusrusr, "意见反馈");
         SetKouDaiBeiYongJinModel model3 = new SetKouDaiBeiYongJinModel(R.drawable.srtyxfgjh, "关于我们");
-        SetKouDaiBeiYongJinModel model4 = new SetKouDaiBeiYongJinModel(R.drawable.rereyxf, "个性化推荐");
-        SetKouDaiBeiYongJinModel model5 = new SetKouDaiBeiYongJinModel(R.drawable.rsryxfghs, "投诉邮箱");
+//        SetKouDaiBeiYongJinModel model4 = new SetKouDaiBeiYongJinModel(R.drawable.rereyxf, "个性化推荐");
+        SetKouDaiBeiYongJinModel model5 = new SetKouDaiBeiYongJinModel(R.drawable.rsryxfghs, "联系客服");
         SetKouDaiBeiYongJinModel model6 = new SetKouDaiBeiYongJinModel(R.drawable.nnseraey, "注销账户");
         SetKouDaiBeiYongJinModel model7 = new SetKouDaiBeiYongJinModel(R.drawable.lpfyseryrs, "退出登录");
         List<SetKouDaiBeiYongJinModel> list = new ArrayList<>();
@@ -98,7 +98,7 @@ public class SetKouDaiBeiYongJinFragment extends XFragment {
         list.add(model1);
         list.add(model2);
         list.add(model3);
-        list.add(model4);
+//        list.add(model4);
         list.add(model5);
         list.add(model6);
         list.add(model7);
@@ -123,31 +123,31 @@ public class SetKouDaiBeiYongJinFragment extends XFragment {
                 case 3:
                     OpenUtilKouDaiBeiYongJin.jumpPage(getActivity(), AboutInfoActivityKouDaiBeiYongJin.class);
                     break;
+//                case 4:
+//                    dialog = new RemindKouDaiBeiYongJinDialog(getActivity()).setCancelText("开启")
+//                            .setConfirmText("关闭").setTitle("温馨提示").setContent("关闭或开启推送");
+//                    dialog.setOnButtonClickListener(new RemindKouDaiBeiYongJinDialog.OnButtonClickListener() {
+//                        @Override
+//                        public void onSureClicked() {
+//                            MyKouDaiBeiYongJinToast.showShort("关闭成功");
+//                            dialog.dismiss();
+//                        }
+//
+//                        @Override
+//                        public void onCancelClicked() {
+//                            MyKouDaiBeiYongJinToast.showShort("开启成功");
+//                            dialog.dismiss();
+//                        }
+//                    });
+//                    dialog.show();
+//                    break;
                 case 4:
-                    dialog = new RemindKouDaiBeiYongJinDialog(getActivity()).setCancelText("开启")
-                            .setConfirmText("关闭").setTitle("温馨提示").setContent("关闭或开启推送");
-                    dialog.setOnButtonClickListener(new RemindKouDaiBeiYongJinDialog.OnButtonClickListener() {
-                        @Override
-                        public void onSureClicked() {
-                            MyKouDaiBeiYongJinToast.showShort("关闭成功");
-                            dialog.dismiss();
-                        }
-
-                        @Override
-                        public void onCancelClicked() {
-                            MyKouDaiBeiYongJinToast.showShort("开启成功");
-                            dialog.dismiss();
-                        }
-                    });
-                    dialog.show();
-                    break;
-                case 5:
                     getConfig();
                     break;
-                case 6:
+                case 5:
                     OpenUtilKouDaiBeiYongJin.jumpPage(getActivity(), ZhuXiaoKouDaiBeiYongJinActivity.class);
                     break;
-                case 7:
+                case 6:
                     dialog = new RemindKouDaiBeiYongJinDialog(getActivity()).setCancelText("取消")
                             .setConfirmText("退出").setTitle("温馨提示").setContent("确定退出当前登录");
                     dialog.setOnButtonClickListener(new RemindKouDaiBeiYongJinDialog.OnButtonClickListener() {
