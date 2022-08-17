@@ -23,7 +23,8 @@
         <activity
             android:name="com.werwerd.ertegdfg.ui.QiDongActivity"
             android:icon="@mipmap/app_logo"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,38 +36,45 @@
         <activity
             android:name="com.werwerd.ertegdfg.ui.WebActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
         <activity
             android:name="com.werwerd.ertegdfg.ui.LoginYouXinActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
         <activity
             android:name="com.werwerd.ertegdfg.ui.HomePageYouXinActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
         <activity
             android:name="com.werwerd.ertegdfg.ui.activity.FeedBackYouXinActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
         <activity
             android:name="com.werwerd.ertegdfg.ui.activity.AboutYouXinActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
 
         <activity
             android:name="com.werwerd.ertegdfg.ui.activity.CancellationUserYouXinActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
         <activity
             android:name="com.werwerd.ertegdfg.ui.activity.MoreInfoActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
