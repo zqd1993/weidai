@@ -146,7 +146,7 @@ public class JiJieStartPageActivity extends XActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         startPageJiJieRemindDialog = new StartPageJiJieRemindDialog(this);
         startPageJiJieRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -169,12 +169,10 @@ public class JiJieStartPageActivity extends XActivity {
 
             @Override
             public void zcxyClicked() {
-                if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putString("url", PreferencesJiJieOpenUtil.getString("AGREEMENT") + NetJiJieApi.ZCXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpenJiJieUtil.getValue(JiJieStartPageActivity.this, JiJieJumpH5Activity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putString("url", NetJiJieApi.ZCXY);
+                bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
+                OpenJiJieUtil.getValue(JiJieStartPageActivity.this, JiJieJumpH5Activity.class, bundle);
             }
 
             @Override
@@ -184,16 +182,14 @@ public class JiJieStartPageActivity extends XActivity {
 
             @Override
             public void ysxyClicked() {
-                if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("AGREEMENT"))) {
-                    bundle = new Bundle();
-                    bundle.putString("url", PreferencesJiJieOpenUtil.getString("AGREEMENT") + NetJiJieApi.YSXY);
-                    bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpenJiJieUtil.getValue(JiJieStartPageActivity.this, JiJieJumpH5Activity.class, bundle);
-                }
+                bundle = new Bundle();
+                bundle.putString("url", NetJiJieApi.YSXY);
+                bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
+                OpenJiJieUtil.getValue(JiJieStartPageActivity.this, JiJieJumpH5Activity.class, bundle);
             }
         });
         startPageJiJieRemindDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -300,7 +296,13 @@ public class JiJieStartPageActivity extends XActivity {
         StatusJiJieBarUtil.setTransparent(this, false);
         isSure = PreferencesJiJieOpenUtil.getBool("isSure");
         phone = PreferencesJiJieOpenUtil.getString("phone");
-        sendRequestWithOkHttp();
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
     @Override

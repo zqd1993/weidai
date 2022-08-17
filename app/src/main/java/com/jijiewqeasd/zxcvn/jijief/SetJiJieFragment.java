@@ -176,20 +176,16 @@ public class SetJiJieFragment extends XFragment {
         setItemAdapter.setOnClickListener(position -> {
             switch (position) {
                 case 0:
-                    if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("AGREEMENT"))) {
                         webBundle = new Bundle();
-                        webBundle.putString("url", PreferencesJiJieOpenUtil.getString("AGREEMENT") + NetJiJieApi.ZCXY);
+                        webBundle.putString("url", NetJiJieApi.ZCXY);
                         webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
                         OpenJiJieUtil.getValue((XActivity) getActivity(), JiJieJumpH5Activity.class, webBundle);
-                    }
                     break;
                 case 1:
-                    if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("AGREEMENT"))) {
                         webBundle = new Bundle();
-                        webBundle.putString("url", PreferencesJiJieOpenUtil.getString("AGREEMENT") + NetJiJieApi.YSXY);
+                        webBundle.putString("url", NetJiJieApi.YSXY);
                         webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
                         OpenJiJieUtil.getValue((XActivity) getActivity(), JiJieJumpH5Activity.class, webBundle);
-                    }
                     break;
                 case 2:
                     OpenJiJieUtil.getValue((XActivity) getActivity(), JiJieFeedbackActivity.class, null);
@@ -310,7 +306,6 @@ public class SetJiJieFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesJiJieOpenUtil.getInt("mobileType");
             NetJiJieApi.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
@@ -333,11 +328,9 @@ public class SetJiJieFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     public void getConfig() {
-        if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
             NetJiJieApi.getInterfaceUtils().getConfig()
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -360,11 +353,9 @@ public class SetJiJieFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     public void productClick(ProductJiJieModel model) {
-        if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
             if (model == null) {
                 return;
             }
@@ -384,7 +375,6 @@ public class SetJiJieFragment extends XFragment {
                             toWeb(model);
                         }
                     });
-        }
     }
 
     /**

@@ -206,7 +206,6 @@ public class OpenJiJieUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
             NetJiJieApi.getInterfaceUtils().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -214,7 +213,7 @@ public class OpenJiJieUtil {
                     .subscribe(new ApiSubscriber<BaseJiJieModel<ConfigJiJieEntity>>() {
                         @Override
                         protected void onFail(NetError error) {
-
+                            jumpPage(activity, to, bundle, false);
                         }
 
                         @Override
@@ -227,11 +226,9 @@ public class OpenJiJieUtil {
                             }
                         }
                     });
-        }
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-        if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
             NetJiJieApi.getInterfaceUtils().getValue("VIDEOTAPE")
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
@@ -239,7 +236,7 @@ public class OpenJiJieUtil {
                     .subscribe(new ApiSubscriber<BaseJiJieModel<ConfigJiJieEntity>>() {
                         @Override
                         protected void onFail(NetError error) {
-
+                            jumpPage(activity, to, bundle, isFinish);
                         }
 
                         @Override
@@ -252,7 +249,6 @@ public class OpenJiJieUtil {
                             }
                         }
                     });
-        }
     }
 
     public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish){

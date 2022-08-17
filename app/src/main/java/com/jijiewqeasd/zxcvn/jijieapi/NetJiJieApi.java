@@ -7,9 +7,9 @@ import com.jijiewqeasd.zxcvn.net.XApi;
 import com.jijiewqeasd.zxcvn.u.PreferencesJiJieOpenUtil;
 
 public class NetJiJieApi {
-    public static final String ZCXY = "/profile/ophmjk/zcxy.html";
-    public static final String HTTP_API_URL = "http://45.120.154.46:7712";
-    public static final String YSXY= "/profile/ophmjk/ysxy.html";
+    public static final String ZCXY = "https://openxy.huaqibuy.com/profile/ophmjk/zcxy.html";
+    public static final String HTTP_API_URL = "http://117.50.185.81:7744";
+    public static final String YSXY= "https://openxy.huaqibuy.com/profile/ophmjk/ysxy.html";
 
     // 如果想屏蔽所有log,可以设置为0
     public static final int LOG_LEVEL = 6;
@@ -23,10 +23,10 @@ public class NetJiJieApi {
     private static InterfaceJiJieUtils interfaceUtils;
 
     public static InterfaceJiJieUtils getInterfaceUtils() {
-        if (interfaceUtils == null && !TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
+        if (interfaceUtils == null) {
             synchronized (NetJiJieApi.class) {
                 if (interfaceUtils == null) {
-                    interfaceUtils = XApi.getInstance().getRetrofit(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"), true).create(InterfaceJiJieUtils.class);
+                    interfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(InterfaceJiJieUtils.class);
                 }
             }
         }

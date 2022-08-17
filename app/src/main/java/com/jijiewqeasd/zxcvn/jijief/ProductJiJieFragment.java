@@ -142,7 +142,6 @@ public class ProductJiJieFragment extends XFragment {
     }
 
     public void productClick(ProductJiJieModel model) {
-        if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
             if (model != null) {
                 phone = PreferencesJiJieOpenUtil.getString("phone");
                 NetJiJieApi.getInterfaceUtils().productClick(model.getId(), phone)
@@ -161,7 +160,6 @@ public class ProductJiJieFragment extends XFragment {
                             }
                         });
             }
-        }
     }
 
     /**
@@ -184,7 +182,6 @@ public class ProductJiJieFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = PreferencesJiJieOpenUtil.getInt("mobileType");
             productJiJieModel = null;
             NetJiJieApi.getInterfaceUtils().productList(mobileType)
@@ -221,7 +218,6 @@ public class ProductJiJieFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     /**
@@ -253,10 +249,8 @@ public class ProductJiJieFragment extends XFragment {
             View parent_layout = view.findViewById(R.id.parent_layout);
             TextView zhouqi_tv = view.findViewById(R.id.zhouqi_tv);
             TextView number_tv = view.findViewById(R.id.number_tv);
-            if (!TextUtils.isEmpty(PreferencesJiJieOpenUtil.getString("HTTP_API_URL"))) {
-                ILFactory.getLoader().loadNet(daikuan_icon, PreferencesJiJieOpenUtil.getString("HTTP_API_URL") + model.getProductLogo(),
+                ILFactory.getLoader().loadNet(daikuan_icon, NetJiJieApi.HTTP_API_URL + model.getProductLogo(),
                         new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
-            }
             daikuan_name_tv.setText(model.getProductName());
             zhouqi_tv.setText(model.getDes() + "个月");
             number_tv.setText(String.valueOf(model.getPassingRate()));
