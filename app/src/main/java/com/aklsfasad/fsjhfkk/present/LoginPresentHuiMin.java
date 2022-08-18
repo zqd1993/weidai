@@ -24,7 +24,6 @@ import com.aklsfasad.fsjhfkk.net.ApiSubscriber;
 public class LoginPresentHuiMin extends XPresent<LoginActivityHuiMin> {
 
     public void login(String phone, String verificationStr, String ip) {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("HTTP_API_URL"))) {
             Api.getGankService().login(phone, verificationStr, "", ip)
                     .compose(XApi.<BaseRespHuiMinModel<LoginRespHuiMinModel>>getApiTransformer())
                     .compose(XApi.<BaseRespHuiMinModel<LoginRespHuiMinModel>>getScheduler())
@@ -56,11 +55,9 @@ public class LoginPresentHuiMin extends XPresent<LoginActivityHuiMin> {
                             }
                         }
                     });
-        }
     }
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("HTTP_API_URL"))) {
             Api.getGankService().getGankData()
                     .compose(XApi.<BaseRespHuiMinModel<ConfigHuiMinModel>>getApiTransformer())
                     .compose(XApi.<BaseRespHuiMinModel<ConfigHuiMinModel>>getScheduler())
@@ -88,11 +85,9 @@ public class LoginPresentHuiMin extends XPresent<LoginActivityHuiMin> {
                             }
                         }
                     });
-        }
     }
 
     public void sendVerifyCode(String phone, TextView textView) {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("HTTP_API_URL"))) {
             Api.getGankService().sendVerifyCode(phone)
                     .compose(XApi.<BaseRespHuiMinModel>getApiTransformer())
                     .compose(XApi.<BaseRespHuiMinModel>getScheduler())
@@ -115,7 +110,6 @@ public class LoginPresentHuiMin extends XPresent<LoginActivityHuiMin> {
                             }
                         }
                     });
-        }
     }
 
 }

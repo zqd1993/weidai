@@ -18,7 +18,6 @@ public class MainPresentHuiMin extends XPresent<HomePageActivityHuiMin> {
     private String phone, ip;
 
     public void login() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("HTTP_API_URL"))) {
             phone = SharedPreferencesUtilisHuiMin.getStringFromPref("phone");
             ip = SharedPreferencesUtilisHuiMin.getStringFromPref("ip");
             Api.getGankService().logins(phone, ip)
@@ -38,7 +37,6 @@ public class MainPresentHuiMin extends XPresent<HomePageActivityHuiMin> {
                             }
                         }
                     });
-        }
     }
 
 }

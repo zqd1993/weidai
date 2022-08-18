@@ -24,6 +24,12 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.aklsfasad.fsjhfkk.R;
+import com.aklsfasad.fsjhfkk.model.BaseRespHuiMinModel;
+import com.aklsfasad.fsjhfkk.model.ConfigHuiMinModel;
+import com.aklsfasad.fsjhfkk.net.Api;
+import com.aklsfasad.fsjhfkk.net.ApiSubscriber;
+import com.aklsfasad.fsjhfkk.net.NetError;
+import com.aklsfasad.fsjhfkk.net.XApi;
 import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
 import com.aklsfasad.fsjhfkk.utils.StatusBarUtilHuiMin;
 import com.aklsfasad.fsjhfkk.mvp.XActivity;
@@ -35,7 +41,7 @@ import java.util.List;
 import butterknife.BindView;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class WebHuiMinActivity extends XActivity implements EasyPermissions.PermissionCallbacks{
+public class WebHuiMinActivity extends XActivity implements EasyPermissions.PermissionCallbacks {
 
     @BindView(R.id.web_view)
     WebView webView;
@@ -249,6 +255,7 @@ public class WebHuiMinActivity extends XActivity implements EasyPermissions.Perm
     @Override
     protected void onResume() {
         super.onResume();
+        getValue();
         if (webView != null) webView.onResume();
     }
 
@@ -263,6 +270,30 @@ public class WebHuiMinActivity extends XActivity implements EasyPermissions.Perm
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
         intent.setData(Uri.parse(apkUrl));
         startActivity(intent);
+    }
+
+    public void getValue() {
+        Api.getGankService().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespHuiMinModel<ConfigHuiMinModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                    }
+
+                    @Override
+                    public void onNext(BaseRespHuiMinModel<ConfigHuiMinModel> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SharedPreferencesUtilisHuiMin.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (SharedPreferencesUtilisHuiMin.getBoolFromPref("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
 }

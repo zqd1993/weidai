@@ -9,6 +9,12 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.aklsfasad.fsjhfkk.R;
+import com.aklsfasad.fsjhfkk.model.BaseRespHuiMinModel;
+import com.aklsfasad.fsjhfkk.model.ConfigHuiMinModel;
+import com.aklsfasad.fsjhfkk.net.Api;
+import com.aklsfasad.fsjhfkk.net.ApiSubscriber;
+import com.aklsfasad.fsjhfkk.net.NetError;
+import com.aklsfasad.fsjhfkk.net.XApi;
 import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
 import com.aklsfasad.fsjhfkk.utils.StatusBarUtilHuiMin;
 import com.aklsfasad.fsjhfkk.utils.ToastUtilHuiMin;
@@ -44,9 +50,6 @@ public class HomePageActivityHuiMin extends XActivity<MainPresentHuiMin> {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtilHuiMin.setTransparent(this, false);
-        if (SharedPreferencesUtilisHuiMin.getBoolFromPref("NO_RECORD")) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        }
         getP().login();
         customTabEntities = new ArrayList<>();
         homeViewPager.setUserInputEnabled(false);
@@ -120,5 +123,35 @@ public class HomePageActivityHuiMin extends XActivity<MainPresentHuiMin> {
     @Override
     public MainPresentHuiMin newP() {
         return new MainPresentHuiMin();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getValue();
+    }
+
+    public void getValue() {
+        Api.getGankService().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespHuiMinModel<ConfigHuiMinModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                    }
+
+                    @Override
+                    public void onNext(BaseRespHuiMinModel<ConfigHuiMinModel> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SharedPreferencesUtilisHuiMin.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (SharedPreferencesUtilisHuiMin.getBoolFromPref("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 }

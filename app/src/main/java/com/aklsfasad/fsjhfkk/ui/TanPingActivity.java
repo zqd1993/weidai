@@ -51,7 +51,7 @@ public class TanPingActivity extends XActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         welcomeDialog = new WelcomeDialogHuiMin(this, "温馨提示");
         welcomeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -80,26 +80,22 @@ public class TanPingActivity extends XActivity {
 
             @Override
             public void registrationAgreementClicked() {
-                if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT"))) {
                     bundle = new Bundle();
                     bundle.putInt("tag", 1);
-                    bundle.putString("url", SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT") + Api.PRIVACY_POLICY);
+                    bundle.putString("url", Api.PRIVACY_POLICY);
                     StaticUtilHuiMin.getValue(TanPingActivity.this, WebHuiMinActivity.class, bundle);
-                }
             }
 
             @Override
             public void privacyAgreementClicked() {
-                if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT"))) {
                     bundle = new Bundle();
                     bundle.putInt("tag", 2);
-                    bundle.putString("url", SharedPreferencesUtilisHuiMin.getStringFromPref("AGREEMENT") + Api.USER_SERVICE_AGREEMENT);
+                    bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
                     StaticUtilHuiMin.getValue(TanPingActivity.this, WebHuiMinActivity.class, bundle);
-                }
             }
         });
         welcomeDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -187,7 +183,13 @@ public class TanPingActivity extends XActivity {
         StatusBarUtilHuiMin.setTransparent(this, false);
         isAgree = SharedPreferencesUtilisHuiMin.getBoolFromPref("agree");
         loginPhone = SharedPreferencesUtilisHuiMin.getStringFromPref("phone");
-        sendRequestWithOkHttp();
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
     @Override

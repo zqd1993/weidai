@@ -152,7 +152,6 @@ public class MineHuiMinFragment extends XFragment {
     }
 
     public void getGankData() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("HTTP_API_URL"))) {
             Api.getGankService().getGankData()
                     .compose(XApi.<BaseRespHuiMinModel<ConfigHuiMinModel>>getApiTransformer())
                     .compose(XApi.<BaseRespHuiMinModel<ConfigHuiMinModel>>getScheduler())
@@ -176,6 +175,5 @@ public class MineHuiMinFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 }

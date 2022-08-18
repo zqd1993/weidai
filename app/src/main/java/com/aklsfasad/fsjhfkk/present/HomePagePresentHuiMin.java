@@ -25,7 +25,6 @@ public class HomePagePresentHuiMin extends XPresent<HomePageFragmentHuiMin> {
 
 
     public void productClick(GoodsHuiMinModel model) {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("HTTP_API_URL"))) {
             phone = SharedPreferencesUtilisHuiMin.getStringFromPref("phone");
             Api.getGankService().productClick(model.getId(), phone)
                     .compose(XApi.<BaseRespHuiMinModel>getApiTransformer())
@@ -43,12 +42,10 @@ public class HomePagePresentHuiMin extends XPresent<HomePageFragmentHuiMin> {
                             getV().jumpWebYouXinActivity(model);
                         }
                     });
-        }
     }
 
 
     public void productList() {
-        if (!TextUtils.isEmpty(SharedPreferencesUtilisHuiMin.getStringFromPref("HTTP_API_URL"))) {
             mobileType = SharedPreferencesUtilisHuiMin.getIntFromPref("mobileType");
             getV().goodsModel = null;
             Api.getGankService().productList(mobileType)
@@ -84,6 +81,5 @@ public class HomePagePresentHuiMin extends XPresent<HomePageFragmentHuiMin> {
                             }
                         }
                     });
-        }
     }
 }
