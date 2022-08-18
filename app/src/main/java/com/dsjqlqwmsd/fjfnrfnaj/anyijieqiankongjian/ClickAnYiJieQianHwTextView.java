@@ -114,7 +114,7 @@ public class ClickAnYiJieQianHwTextView extends androidx.appcompat.widget.AppCom
         int start = 0;
         int end = spannableString.length();
         spannableString.setSpan(new SampleClickableSpan(i), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#d68071")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#fcbb52")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(new NoUnderlineSpan(), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;
     }

@@ -125,7 +125,8 @@ public class ProductAnYiJieQianHwFragment extends XFragment {
 
     public void productList() {
         mobileType = PreferencesAnYiJieQianHwOpenUtil.getInt("mobileType");
-        AnYiJieQianHwApi.getInterfaceUtils().productList(mobileType)
+        phone = PreferencesAnYiJieQianHwOpenUtil.getString("phone");
+        AnYiJieQianHwApi.getInterfaceUtils().productList(mobileType, phone)
                 .compose(XApi.getApiTransformer())
                 .compose(XApi.getScheduler())
                 .compose(bindToLifecycle())

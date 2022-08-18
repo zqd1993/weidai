@@ -69,8 +69,8 @@ public class MainAnYiJieQianHwFragment extends XFragment {
     View root_ll;
     @BindView(R.id.shenqing_tv)
     View shenqing_tv;
-    @BindView(R.id.banner_iv)
-    View banner_iv;
+    @BindView(R.id.click_view)
+    View click_view;
 
     private Bundle bundle;
 
@@ -131,7 +131,7 @@ public class MainAnYiJieQianHwFragment extends XFragment {
         shenqing_tv.setOnClickListener(v -> {
             productClick(getGoodsModel());
         });
-        banner_iv.setOnClickListener(v -> {
+        click_view.setOnClickListener(v -> {
             productClick(getGoodsModel());
         });
     }
@@ -283,7 +283,8 @@ public class MainAnYiJieQianHwFragment extends XFragment {
     public void productList() {
         mobileType = PreferencesAnYiJieQianHwOpenUtil.getInt("mobileType");
         productModels.clear();
-        AnYiJieQianHwApi.getInterfaceUtils().productList(mobileType)
+        phone = PreferencesAnYiJieQianHwOpenUtil.getString("phone");
+        AnYiJieQianHwApi.getInterfaceUtils().productList(mobileType, phone)
                 .compose(XApi.getApiTransformer())
                 .compose(XApi.getScheduler())
                 .compose(bindToLifecycle())

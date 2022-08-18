@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dsjqlqwmsd.fjfnrfnaj.R;
@@ -98,14 +99,14 @@ public class SetAnYiJieQianHwFragment extends XFragment {
     }
 
     private void initSetAdapter() {
-        SetModelAnYiJieQianHw model3 = new SetModelAnYiJieQianHw(R.drawable.zxcerghh, "关于我们");
-        SetModelAnYiJieQianHw model4 = new SetModelAnYiJieQianHw(R.drawable.bgdeed, "个性化推荐");
-        SetModelAnYiJieQianHw model5 = new SetModelAnYiJieQianHw(R.drawable.tererf, "联系客服");
-        SetModelAnYiJieQianHw model6 = new SetModelAnYiJieQianHw(R.drawable.fgfsf, "注销账户");
-        SetModelAnYiJieQianHw model7 = new SetModelAnYiJieQianHw(R.drawable.luyth, "退出登录");
+        SetModelAnYiJieQianHw model3 = new SetModelAnYiJieQianHw(R.drawable.wd_icon_gywm, "关于我们");
+//        SetModelAnYiJieQianHw model4 = new SetModelAnYiJieQianHw(R.drawable.wd_icon_yjfk, "个性化推荐");
+        SetModelAnYiJieQianHw model5 = new SetModelAnYiJieQianHw(R.drawable.wd_tsyx, "联系客服");
+        SetModelAnYiJieQianHw model6 = new SetModelAnYiJieQianHw(R.drawable.wd_icon_xxts, "注销账户");
+        SetModelAnYiJieQianHw model7 = new SetModelAnYiJieQianHw(R.drawable.wd_icon_zczh, "退出登录");
         List<SetModelAnYiJieQianHw> list = new ArrayList<>();
         list.add(model3);
-        list.add(model4);
+//        list.add(model4);
         list.add(model5);
         list.add(model6);
         list.add(model7);
@@ -115,31 +116,31 @@ public class SetAnYiJieQianHwFragment extends XFragment {
                 case 0:
                     OpenAnYiJieQianHwUtil.getValue((XActivity) getActivity(), AboutAnYiJieQianHwInfoActivity.class, null);
                     break;
+//                case 1:
+//                    dialog = new RemindAnYiJieQianHwDialog(getActivity()).setCancelText("开启")
+//                            .setConfirmText("关闭").setTitle("温馨提示").setContent("关闭或开启推送");
+//                    dialog.setOnButtonClickListener(new RemindAnYiJieQianHwDialog.OnButtonClickListener() {
+//                        @Override
+//                        public void onSureClicked() {
+//                            AnYiJieQianHwMyToast.showShort("关闭成功");
+//                            dialog.dismiss();
+//                        }
+//
+//                        @Override
+//                        public void onCancelClicked() {
+//                            AnYiJieQianHwMyToast.showShort("开启成功");
+//                            dialog.dismiss();
+//                        }
+//                    });
+//                    dialog.show();
+//                    break;
                 case 1:
-                    dialog = new RemindAnYiJieQianHwDialog(getActivity()).setCancelText("开启")
-                            .setConfirmText("关闭").setTitle("温馨提示").setContent("关闭或开启推送");
-                    dialog.setOnButtonClickListener(new RemindAnYiJieQianHwDialog.OnButtonClickListener() {
-                        @Override
-                        public void onSureClicked() {
-                            AnYiJieQianHwMyToast.showShort("关闭成功");
-                            dialog.dismiss();
-                        }
-
-                        @Override
-                        public void onCancelClicked() {
-                            AnYiJieQianHwMyToast.showShort("开启成功");
-                            dialog.dismiss();
-                        }
-                    });
-                    dialog.show();
-                    break;
-                case 2:
                     getConfig();
                     break;
-                case 3:
+                case 2:
                     OpenAnYiJieQianHwUtil.getValue((XActivity) getActivity(), ZhuXiaoAnYiJieQianHwActivity.class, null);
                     break;
-                case 4:
+                case 3:
                     dialog = new RemindAnYiJieQianHwDialog(getActivity()).setCancelText("取消")
                             .setConfirmText("退出").setTitle("温馨提示").setContent("确定退出当前登录");
                     dialog.setOnButtonClickListener(new RemindAnYiJieQianHwDialog.OnButtonClickListener() {
@@ -159,7 +160,7 @@ public class SetAnYiJieQianHwFragment extends XFragment {
                     break;
             }
         });
-        setList.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        setList.setLayoutManager(new LinearLayoutManager(getActivity()));
         setList.setAdapter(setItemAdapter);
     }
 
@@ -199,7 +200,8 @@ public class SetAnYiJieQianHwFragment extends XFragment {
 
     public void productList() {
         mobileType = PreferencesAnYiJieQianHwOpenUtil.getInt("mobileType");
-        AnYiJieQianHwApi.getInterfaceUtils().productList(mobileType)
+        phone = PreferencesAnYiJieQianHwOpenUtil.getString("phone");
+        AnYiJieQianHwApi.getInterfaceUtils().productList(mobileType, phone)
                 .compose(XApi.getApiTransformer())
                 .compose(XApi.getScheduler())
                 .compose(bindToLifecycle())

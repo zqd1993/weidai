@@ -143,7 +143,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             app:hl_cornerRadius="50dp"
-                            app:hl_layoutBackground="#6c28e1">
+                            app:hl_layoutBackground="@color/colorPrimary">
 
                             <TextView
                                 android:id="@+id/get_yzm_tv"
@@ -192,8 +192,7 @@
                 android:layout_marginTop="70dp"
                 android:layout_marginEnd="40dp"
                 app:hl_cornerRadius="50dp"
-                app:hl_startColor="#6421e2"
-                app:hl_endColor="#a026e9">
+                app:hl_layoutBackground="@color/colorPrimary">
 
                 <TextView
                     android:id="@+id/dl_btn"
