@@ -49,7 +49,7 @@ public class OneActivity extends XActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         welcomeDialog = new OneDialog(this, "温馨提示");
         welcomeDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -93,7 +93,7 @@ public class OneActivity extends XActivity {
             }
         });
         welcomeDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     private void sendRequestWithOkHttp() {
@@ -185,7 +185,13 @@ public class OneActivity extends XActivity {
         StatusBarUtil.setTransparent(this, false);
         isAgree = SPUtilis.getBoolFromPref("agree");
         loginPhone = SPUtilis.getStringFromPref("phone");
-        sendRequestWithOkHttp();
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
     @Override

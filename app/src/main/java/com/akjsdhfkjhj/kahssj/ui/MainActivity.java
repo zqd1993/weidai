@@ -8,6 +8,12 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.akjsdhfkjhj.kahssj.R;
+import com.akjsdhfkjhj.kahssj.model.BaseModel;
+import com.akjsdhfkjhj.kahssj.model.PeiZhiModel;
+import com.akjsdhfkjhj.kahssj.net.Api;
+import com.akjsdhfkjhj.kahssj.net.ApiSubscriber;
+import com.akjsdhfkjhj.kahssj.net.NetError;
+import com.akjsdhfkjhj.kahssj.net.XApi;
 import com.akjsdhfkjhj.kahssj.ui.fragment.MainFragment;
 import com.akjsdhfkjhj.kahssj.utils.SPUtilis;
 import com.akjsdhfkjhj.kahssj.utils.StatusBarUtil;
@@ -42,9 +48,6 @@ public class MainActivity extends XActivity<MainHuiMin> {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
-        if (SPUtilis.getBoolFromPref("NO_RECORD")) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        }
         getP().login();
         customTabEntities = new ArrayList<>();
         homeViewPager.setUserInputEnabled(false);
@@ -148,5 +151,35 @@ public class MainActivity extends XActivity<MainHuiMin> {
     @Override
     public MainHuiMin newP() {
         return new MainHuiMin();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getValue();
+    }
+
+    public void getValue() {
+        Api.getGankService().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel<PeiZhiModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                    }
+
+                    @Override
+                    public void onNext(BaseModel<PeiZhiModel> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SPUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (SPUtilis.getBoolFromPref("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 }

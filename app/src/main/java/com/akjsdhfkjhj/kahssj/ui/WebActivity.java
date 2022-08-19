@@ -24,6 +24,12 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.akjsdhfkjhj.kahssj.R;
+import com.akjsdhfkjhj.kahssj.model.BaseModel;
+import com.akjsdhfkjhj.kahssj.model.PeiZhiModel;
+import com.akjsdhfkjhj.kahssj.net.Api;
+import com.akjsdhfkjhj.kahssj.net.ApiSubscriber;
+import com.akjsdhfkjhj.kahssj.net.NetError;
+import com.akjsdhfkjhj.kahssj.net.XApi;
 import com.akjsdhfkjhj.kahssj.utils.SPUtilis;
 import com.akjsdhfkjhj.kahssj.utils.StatusBarUtil;
 import com.akjsdhfkjhj.kahssj.mvp.XActivity;
@@ -61,9 +67,6 @@ public class WebActivity extends XActivity implements EasyPermissions.Permission
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtil.setTransparent(this, false);
-        if (SPUtilis.getBoolFromPref("NO_RECORD")) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        }
         bundle = getIntent().getExtras();
         if (bundle.containsKey("tag"))
             tag = bundle.getInt("tag");
@@ -290,6 +293,7 @@ public class WebActivity extends XActivity implements EasyPermissions.Permission
     @Override
     protected void onResume() {
         super.onResume();
+        getValue();
         if (webView != null) webView.onResume();
     }
 
@@ -304,6 +308,30 @@ public class WebActivity extends XActivity implements EasyPermissions.Permission
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
         intent.setData(Uri.parse(apkUrl));
         startActivity(intent);
+    }
+
+    public void getValue() {
+        Api.getGankService().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel<PeiZhiModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                    }
+
+                    @Override
+                    public void onNext(BaseModel<PeiZhiModel> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SPUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (SPUtilis.getBoolFromPref("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
 }
