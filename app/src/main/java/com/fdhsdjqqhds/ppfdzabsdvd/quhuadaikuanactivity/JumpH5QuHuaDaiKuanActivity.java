@@ -24,6 +24,12 @@ import androidx.core.content.FileProvider;
 
 import com.fdhsdjqqhds.ppfdzabsdvd.R;
 import com.fdhsdjqqhds.ppfdzabsdvd.mvp.XActivity;
+import com.fdhsdjqqhds.ppfdzabsdvd.net.ApiSubscriber;
+import com.fdhsdjqqhds.ppfdzabsdvd.net.NetError;
+import com.fdhsdjqqhds.ppfdzabsdvd.net.XApi;
+import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanapi.HttpApiQuHuaDaiKuan;
+import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanmodel.ConfigQuHuaDaiKuanEntity;
+import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanmodel.QuHuaDaiKuanBaseModel;
 import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanutils.QuHuaDaiKuanDownloadApkUtil;
 import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanutils.PreferencesOpenUtilQuHuaDaiKuan;
 import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanutils.QuHuaDaiKuanStatusBarUtil;
@@ -34,7 +40,7 @@ import java.util.List;
 import butterknife.BindView;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class JumpH5QuHuaDaiKuanActivity extends XActivity implements EasyPermissions.PermissionCallbacks{
+public class JumpH5QuHuaDaiKuanActivity extends XActivity implements EasyPermissions.PermissionCallbacks {
 
     @BindView(R.id.biaoti_tv)
     TextView biaotiTv;
@@ -111,9 +117,6 @@ public class JumpH5QuHuaDaiKuanActivity extends XActivity implements EasyPermiss
     @Override
     public void initData(Bundle savedInstanceState) {
         QuHuaDaiKuanStatusBarUtil.setTransparent(this, false);
-        if (PreferencesOpenUtilQuHuaDaiKuan.getBool("NO_RECORD")) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        }
         bundle = getIntent().getExtras();
         if (bundle.containsKey("biaoti"))
             biaoti = bundle.getString("biaoti");
@@ -201,6 +204,7 @@ public class JumpH5QuHuaDaiKuanActivity extends XActivity implements EasyPermiss
     @Override
     protected void onResume() {
         super.onResume();
+        getValue();
         if (webView != null) {
             webView.onResume();
         }
@@ -486,6 +490,31 @@ public class JumpH5QuHuaDaiKuanActivity extends XActivity implements EasyPermiss
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
         intent.setData(Uri.parse(apkUrl));
         startActivity(intent);
+    }
+
+    public void getValue() {
+        HttpApiQuHuaDaiKuan.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<QuHuaDaiKuanBaseModel<ConfigQuHuaDaiKuanEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(QuHuaDaiKuanBaseModel<ConfigQuHuaDaiKuanEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                PreferencesOpenUtilQuHuaDaiKuan.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (PreferencesOpenUtilQuHuaDaiKuan.getBool("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
 }

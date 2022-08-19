@@ -18,6 +18,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/top_ll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -48,11 +49,11 @@
             </LinearLayout>
 
             <FrameLayout
+                android:id="@+id/main_top_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/main_top_img"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="centerCrop"
@@ -75,7 +76,8 @@
                             android:id="@+id/banner_img"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="centerCrop" />
+                            android:src="@drawable/svghn"
+                            android:scaleType="fitXY" />
 
                     </com.lihang.ShadowLayout>
 
@@ -111,20 +113,20 @@
                         android:paddingBottom="10dp" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/jx_bg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
-                    android:gravity="center"
-                    android:paddingTop="30dp"
-                    android:paddingBottom="30dp"
-                    android:text="精选"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:visibility="gone" />
-
             </FrameLayout>
+
+            <TextView
+                android:id="@+id/jx_bg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:paddingTop="30dp"
+                android:paddingBottom="30dp"
+                android:text="精选"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -170,6 +172,7 @@
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/tuijian_fl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"

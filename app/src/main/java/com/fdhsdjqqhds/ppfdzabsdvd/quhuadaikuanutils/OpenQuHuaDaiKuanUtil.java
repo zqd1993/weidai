@@ -99,49 +99,11 @@ public class OpenQuHuaDaiKuanUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-            HttpApiQuHuaDaiKuan.getInterfaceUtils().getValue("VIDEOTAPE")
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(activity.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<QuHuaDaiKuanBaseModel<ConfigQuHuaDaiKuanEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-
-                        }
-
-                        @Override
-                        public void onNext(QuHuaDaiKuanBaseModel<ConfigQuHuaDaiKuanEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    PreferencesOpenUtilQuHuaDaiKuan.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    jumpPage(activity, to, bundle, false);
-                                }
-                            }
-                        }
-                    });
+        jumpPage(activity, to, bundle, false);
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-            HttpApiQuHuaDaiKuan.getInterfaceUtils().getValue("VIDEOTAPE")
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(activity.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<QuHuaDaiKuanBaseModel<ConfigQuHuaDaiKuanEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-
-                        }
-
-                        @Override
-                        public void onNext(QuHuaDaiKuanBaseModel<ConfigQuHuaDaiKuanEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    PreferencesOpenUtilQuHuaDaiKuan.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    jumpPage(activity, to, bundle, isFinish);
-                                }
-                            }
-                        }
-                    });
+        jumpPage(activity, to, bundle, isFinish);
     }
 
     public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {

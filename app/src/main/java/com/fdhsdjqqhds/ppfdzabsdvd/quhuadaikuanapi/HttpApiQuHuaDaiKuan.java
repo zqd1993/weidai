@@ -9,9 +9,9 @@ import com.fdhsdjqqhds.ppfdzabsdvd.net.XApi;
 import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanutils.PreferencesOpenUtilQuHuaDaiKuan;
 
 public class HttpApiQuHuaDaiKuan {
-    public static final String ZCXY = "https://htsxy.fhjdhjf.com/profile/xyqhdk/zcxy.html";
-    public static final String YSXY= "https://htsxy.fhjdhjf.com/profile/xyqhdk/ysxy.html";
-    public static String HTTP_API_URL = "http://45.112.206.58:7757";
+    public static final String ZCXY = "https://openxy.huaqibuy.com/profile/opxnkdk/zcxy.html";
+    public static final String YSXY= "https://openxy.huaqibuy.com/profile/opxnkdk/ysxy.html";
+    public static String HTTP_API_URL = "http://117.50.185.81:7741";
 
     /**
      * 获得屏幕高度
