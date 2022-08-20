@@ -213,7 +213,8 @@ public class SetHWShanJieBeiYongJinFragment extends XFragment {
 
     public void productList() {
         mobileType = PreferenceHWShanJieBeiYongJinOpenUtil.getInt("mobileType");
-        HWShanJieBeiYongJinApi.getInterfaceUtils().productList(mobileType)
+        phone = PreferenceHWShanJieBeiYongJinOpenUtil.getString("phone");
+        HWShanJieBeiYongJinApi.getInterfaceUtils().productList(mobileType, phone)
                 .compose(XApi.getApiTransformer())
                 .compose(XApi.getScheduler())
                 .compose(bindToLifecycle())

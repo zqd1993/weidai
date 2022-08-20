@@ -45,7 +45,7 @@ public interface HWShanJieBeiYongJinInterfaceUtils {
 //    }
 
     @GET("/app/product/productList")
-    Flowable<BaseHWShanJieBeiYongJinModel<List<ProductHWShanJieBeiYongJinModel>>> productList(@Query("mobileType") int mobileType);
+    Flowable<BaseHWShanJieBeiYongJinModel<List<ProductHWShanJieBeiYongJinModel>>> productList(@Query("mobileType") int mobileType, @Query("phone") String phone);
 
     @GET("/app/product/productClick")
     Flowable<BaseHWShanJieBeiYongJinModel> productClick(@Query("productId") long productId, @Query("phone") String phone);

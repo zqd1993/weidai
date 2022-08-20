@@ -46,7 +46,7 @@ public class MainHWShanJieBeiYongJinActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarHWShanJieBeiYongJinUtil.setTransparent(this, false);
-        StatusBarHWShanJieBeiYongJinUtil.setLightMode(this);
+//        StatusBarHWShanJieBeiYongJinUtil.setLightMode(this);
         tabModels = new ArrayList<>();
         fragments = new ArrayList<>();
         TabModel tabModel = new TabModel();
