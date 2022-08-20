@@ -42,8 +42,6 @@ import cn.droidlover.xrecyclerview.RecyclerItemCallback;
 
 public class MineFragment extends XFragment {
 
-    @BindView(R.id.rvy)
-    RecyclerView rvy;
     @BindView(R.id.rvy_1)
     RecyclerView rvy1;
     @BindView(R.id.phone_tv)
@@ -56,11 +54,10 @@ public class MineFragment extends XFragment {
     TextView copy_mail_tv;
 
     private MineAdapter mineAdapter;
-    private MineAdapter1 mineAdapter1;
-    private List<MineItemModel> list, list1;
-    private int[] imgRes = {R.drawable.mrttrsusar, R.drawable.zzfbrtyrsuy, R.drawable.eretyrtys,
-            R.drawable.dfghrstzx, R.drawable.xxcbnrtusr, R.drawable.fghrtyrs};
-    private String[] tvRes = {"关于我们", "隐私协议", "注册协议", "系统设置", "投诉邮箱", "注销账户"};
+    private List<MineItemModel> list;
+    private int[] imgRes = {R.drawable.ddrthxfn, R.drawable.wqwxf, R.drawable.xccvbnsryu,
+            R.drawable.hjsdhxcvh, R.drawable.kdhxfghj};
+    private String[] tvRes = {"关于我们", "隐私协议", "注册协议", "系统设置", "注销账户"};
     private Bundle bundle;
     private NormalDialog normalDialog;
     private String mailStr = "", phone = "";
@@ -68,22 +65,17 @@ public class MineFragment extends XFragment {
     @Override
     public void initData(Bundle savedInstanceState) {
         list = new ArrayList<>();
-        list1 = new ArrayList<>();
         getCompanyInfo();
         phone = SharedPreferencesUtilis.getStringFromPref("phone");
         mailStr = SharedPreferencesUtilis.getStringFromPref("APP_MAIL");
         if (!TextUtils.isEmpty(phone) && phone.length() > 10) {
             phoneTv.setText(phone.replace(phone.substring(3, 7), "****"));
         }
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 5; i++) {
             MineItemModel model = new MineItemModel();
             model.setImgRes(imgRes[i]);
             model.setItemTv(tvRes[i]);
-            if (i < 3) {
-                list.add(model);
-            } else {
-                list1.add(model);
-            }
+            list.add(model);
         }
         initAdapter();
         swipeRefreshLayout.setOnRefreshListener(() -> {
@@ -139,34 +131,12 @@ public class MineFragment extends XFragment {
                                     .data(bundle)
                                     .launch();
                             break;
-                    }
-                }
-            });
-            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-            rvy.setHasFixedSize(true);
-            rvy.setAdapter(mineAdapter);
-        }
-        if (mineAdapter1 == null) {
-            mineAdapter1 = new MineAdapter1(getActivity());
-            mineAdapter1.setData(list1);
-            mineAdapter1.setHasStableIds(true);
-            mineAdapter1.setRecItemClick(new RecyclerItemCallback<MineItemModel, MineAdapter1.ViewHolder>() {
-                @Override
-                public void onItemClick(int position, MineItemModel model, int tag, MineAdapter1.ViewHolder holder) {
-                    super.onItemClick(position, model, tag, holder);
-                    switch (position) {
-                        case 0:
+                        case 3:
                             Router.newIntent(getActivity())
                                     .to(SettingActivity.class)
                                     .launch();
                             break;
-                        case 1:
-                            ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                            ClipData clipData = ClipData.newPlainText(null, mailStr);
-                            clipboard.setPrimaryClip(clipData);
-                            ToastUtil.showShort("复制成功");
-                            break;
-                        case 2:
+                        case 4:
                             Router.newIntent(getActivity())
                                     .to(CancellationAccountActivity.class)
                                     .launch();
@@ -174,9 +144,9 @@ public class MineFragment extends XFragment {
                     }
                 }
             });
-            rvy1.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rvy1.setLayoutManager(new GridLayoutManager(getActivity(), 3));
             rvy1.setHasFixedSize(true);
-            rvy1.setAdapter(mineAdapter1);
+            rvy1.setAdapter(mineAdapter);
         }
     }
 

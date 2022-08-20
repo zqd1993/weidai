@@ -27,8 +27,6 @@ import cn.droidlover.xrecyclerview.RecyclerItemCallback;
 
 public class HomePageFragment extends XFragment<HomePagePresent> {
 
-    @BindView(R.id.product_bg)
-    View productBg;
     @BindView(R.id.rvy)
     RecyclerView rvy;
     @BindView(R.id.refresh_layout)
@@ -41,10 +39,10 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
     View click_view;
     @BindView(R.id.top_img)
     public ImageView topImg;
-    @BindView(R.id.view_flipper)
-    ViewFlipper viewFlipper;
-    @BindView(R.id.set_img)
-    View set_img;
+    @BindView(R.id.max_money_tv)
+    public TextView max_money_tv;
+    @BindView(R.id.shenqing_fl)
+    View shenqing_fl;
 
     private Bundle webBundle;
     public GoodsItemAdapter goodsItemAdapter;
@@ -57,18 +55,21 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        getP().aindex();
-        initViewData();
-        setViewConfig();
         swipeRefreshLayout.setOnRefreshListener(() -> {
             getP().aindex();
         });
         topImg.setOnClickListener(v -> {
             productClick(topGoodsModel);
         });
-        set_img.setOnClickListener(v -> {
-            ((HomePageActivity)getActivity()).changePage();
+        shenqing_fl.setOnClickListener(v -> {
+            productClick(topGoodsModel);
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getP().aindex();
     }
 
     @Override
@@ -95,26 +96,6 @@ public class HomePageFragment extends XFragment<HomePagePresent> {
                     .to(WebViewActivity.class)
                     .data(webBundle)
                     .launch();
-        }
-    }
-
-    private void setViewConfig() {
-        viewFlipper.setInAnimation(getActivity(), R.anim.text_anim_in);
-        viewFlipper.setOutAnimation(getActivity(), R.anim.text_anim_out);
-        viewFlipper.setFlipInterval(2000);
-        viewFlipper.startFlipping();
-    }
-
-    private void initViewData() {
-        List<String> datas = new ArrayList<>();
-        for (int i = 0; i < msg.length; i++) {
-            datas.add(msg[i]);
-        }
-        for (String data : datas) {
-            View view = getLayoutInflater().inflate(R.layout.view_three_six_one_flipper, null);
-            TextView textView = view.findViewById(R.id.msg_view);
-            textView.setText(data);
-            viewFlipper.addView(view);
         }
     }
 

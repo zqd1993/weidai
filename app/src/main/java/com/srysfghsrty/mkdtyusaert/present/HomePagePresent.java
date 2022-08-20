@@ -109,6 +109,7 @@ public class HomePagePresent extends XPresent<HomePageFragment> {
                                     if (gankResults.getTop() != null) {
                                         if (!TextUtils.isEmpty(gankResults.getTop().getImgs())) {
                                             getV().topGoodsModel = gankResults.getTop();
+                                            getV().max_money_tv.setText(String.valueOf(gankResults.getTop().getMax_money()));
                                             if (!TextUtils.isEmpty(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
                                                 Glide.with(getV()).load(SharedPreferencesUtilis.getStringFromPref("API_BASE_URL") + gankResults.getTop().getImgs()).into(getV().topImg);
                                             }

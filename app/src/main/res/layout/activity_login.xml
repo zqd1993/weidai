@@ -73,7 +73,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 app:hl_cornerRadius="50dp"
-                app:hl_layoutBackground="@color/colorPrimary">
+                app:hl_startColor="#fead3c"
+                app:hl_endColor="@color/colorPrimary">
 
                 <TextView
                     android:id="@+id/get_verification_tv"
@@ -100,12 +101,11 @@
 
         <TextView
             android:id="@+id/login_btn"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="40dp"
-            android:background="@drawable/shape_login_btn_bg"
+            android:background="@drawable/xxcvbnrtu"
             android:gravity="center"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
