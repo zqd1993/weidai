@@ -179,7 +179,7 @@
                 android:lines="1" />
         </LinearLayout>
 
-        <com.bdfhrthdfh.nzfdhredfgh.koudaiwidget.SwitchKouDaiButton
+        <com.koudaixinyongkasdafiwetr.bbadysery.koudaixinyongkawidget.SwitchKouDaiButton
             android:id="@+id/switch_btn"
             android:layout_width="40dp"
             android:layout_height="wrap_content"

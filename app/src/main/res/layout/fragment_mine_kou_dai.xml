@@ -45,14 +45,14 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="120dp"
                     android:background="@color/colorPrimary" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="60dp"
                     android:layout_marginBottom="20dp"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
@@ -84,7 +84,7 @@
                     <ImageView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:src="@drawable/wd_tx" />
+                        android:src="@drawable/nnftydzry" />
 
                 </LinearLayout>
 
@@ -144,7 +144,7 @@
                 android:id="@+id/mail_fl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:padding="15dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"

@@ -308,7 +308,7 @@
                     android:lines="1" />
             </LinearLayout>
 
-            <com.bdfhrthdfh.nzfdhredfgh.koudaiwidget.KouDaiSpanTextView
+            <com.koudaixinyongkasdafiwetr.bbadysery.koudaixinyongkawidget.KouDaiSpanTextView
                 android:id="@+id/login_remind_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
