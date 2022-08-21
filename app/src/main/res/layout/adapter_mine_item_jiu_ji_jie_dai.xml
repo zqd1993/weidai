@@ -18,7 +18,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="10dp"
-            android:src="@drawable/hzdryzu"/>
+            android:src="@drawable/lpyucv"/>
 
         <TextView
             android:id="@+id/item_title_tv"
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/mmxsrtsr" />
+            android:src="@drawable/lkdfxyer" />
 
     </LinearLayout>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jiejijiekuansdafjer.zdfgbaeryazer">
+    package="com.jiujjidaikuansdafjer.fgbnsrtyeasy">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
-        android:name="com.jiejijiekuansdafjer.zdfgbaeryazer.JiuJiJieDaiApp"
+        android:name="com.jiujjidaikuansdafjer.fgbnsrtyeasy.JiuJiJieDaiApp"
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
@@ -21,7 +21,7 @@
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.jiejijiekuansdafjer.zdfgbaeryazer.jiujijiedaiui.WelcomeActivityKuaiDianFenQiDai"
+            android:name="com.jiujjidaikuansdafjer.fgbnsrtyeasy.uijiujijiedai.WelcomeActivityKuaiDianFenQiDai"
             android:icon="@mipmap/app_logo"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -33,38 +33,38 @@
 
 
         <activity
-            android:name="com.jiejijiekuansdafjer.zdfgbaeryazer.jiujijiedaiui.JiuJiJieDaiWebViewActivity"
+            android:name="com.jiujjidaikuansdafjer.fgbnsrtyeasy.uijiujijiedai.JiuJiJieDaiWebViewActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.jiejijiekuansdafjer.zdfgbaeryazer.jiujijiedaiui.JiuJiJieDaiLoginActivity"
+            android:name="com.jiujjidaikuansdafjer.fgbnsrtyeasy.uijiujijiedai.JiuJiJieDaiLoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.jiejijiekuansdafjer.zdfgbaeryazer.jiujijiedaiui.JiuJiJieDaiHomePageActivity"
+            android:name="com.jiujjidaikuansdafjer.fgbnsrtyeasy.uijiujijiedai.JiuJiJieDaiHomePageActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.jiejijiekuansdafjer.zdfgbaeryazer.jiujijiedaiui.jiujijiedaiactivity.JiuJiJieDaiFeedBackActivity"
+            android:name="com.jiujjidaikuansdafjer.fgbnsrtyeasy.uijiujijiedai.activityjiujijiedai.JiuJiJieDaiFeedBackActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.jiejijiekuansdafjer.zdfgbaeryazer.jiujijiedaiui.jiujijiedaiactivity.JiuJiJieDaiAboutUsActivity"
+            android:name="com.jiujjidaikuansdafjer.fgbnsrtyeasy.uijiujijiedai.activityjiujijiedai.JiuJiJieDaiAboutUsActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
 
         <activity
-            android:name="com.jiejijiekuansdafjer.zdfgbaeryazer.jiujijiedaiui.jiujijiedaiactivity.JiuJiJieDaiCancellationAccountActivity"
+            android:name="com.jiujjidaikuansdafjer.fgbnsrtyeasy.uijiujijiedai.activityjiujijiedai.JiuJiJieDaiCancellationAccountActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.jiejijiekuansdafjer.zdfgbaeryazer.jiujijiedaiui.jiujijiedaiactivity.JiuJiJieDaiSettingActivity"
+            android:name="com.jiujjidaikuansdafjer.fgbnsrtyeasy.uijiujijiedai.activityjiujijiedai.JiuJiJieDaiSettingActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
