@@ -33,27 +33,17 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="40dp">
 
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="20dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/xvcbnszrtu" />
-
                         <com.lihang.ShadowLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="35dp"
-                            android:layout_marginTop="30dp"
-                            android:layout_marginEnd="35dp"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginEnd="25dp"
                             app:hl_cornerRadius="5dp">
 
                             <ImageView
                                 android:id="@+id/top_img"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/xcvbsryu" />
+                                android:layout_height="wrap_content" />
 
                         </com.lihang.ShadowLayout>
 
