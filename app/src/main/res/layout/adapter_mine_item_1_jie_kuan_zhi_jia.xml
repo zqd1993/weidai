@@ -3,33 +3,32 @@
     android:id="@+id/parent_ll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="7dp"
-    android:layout_marginEnd="7dp"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:padding="15dp"
         android:layout_gravity="center"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:gravity="center_horizontal"
+        android:background="@drawable/shape_text_bg"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/item_img"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/xbvndrtu"/>
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/errfcgjdti"/>
 
         <TextView
             android:id="@+id/item_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:text="注册协议"
-            android:textColor="@color/text_normal_color"
+            android:textColor="@color/white"
             android:textSize="14sp" />
 
     </LinearLayout>

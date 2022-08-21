@@ -4,7 +4,7 @@
     android:id="@+id/parent_fl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f4f4f4"
+    android:background="@color/color_f4f4f4"
     android:orientation="vertical">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -12,220 +12,253 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/product_bg"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="@color/colorPrimary"
-                android:gravity="center"
-                android:text="精选商品"
-                android:textColor="@color/white"
-                android:textSize="@dimen/textSize_16"
-                android:visibility="gone" />
-
-            <androidx.core.widget.NestedScrollView
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <FrameLayout
+                <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/yttyudfgj"
+                    android:scaleType="fitXY" />
 
-                    <LinearLayout
-                        android:id="@+id/top_layout"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/product_bg"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:layout_height="70dp"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:text="精选商品"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/textSize_16"
+                        android:visibility="gone" />
+
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
                         <FrameLayout
-                            android:id="@+id/home_page_bg"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:layout_height="match_parent">
 
-                            <ImageView
+                            <com.lihang.ShadowLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/mmdxfgisr" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
+                                android:layout_marginStart="15dp"
+                                android:layout_marginTop="500dp"
+                                android:layout_marginEnd="15dp"
+                                app:hl_layoutBackground="@color/white"
+                                android:layout_marginBottom="40dp"
+                                app:hl_shadowColor="@color/colorPrimary"
+                                app:hl_shadowLimit="5dp">
 
                                 <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="60dp"
-                                    android:layout_marginStart="20dp"
-                                    android:orientation="horizontal">
+                                    android:id="@+id/top_layout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical">
 
-                                    <com.lihang.ShadowLayout
-                                        android:layout_width="wrap_content"
+                                    <FrameLayout
+                                        android:id="@+id/home_page_bg"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        app:hl_cornerRadius="10dp">
-
-                                        <ImageView
-                                            android:layout_width="90dp"
-                                            android:layout_height="90dp"
-                                            android:src="@mipmap/app_logo" />
-
-                                    </com.lihang.ShadowLayout>
-
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center_vertical"
-                                        android:layout_marginStart="15dp"
                                         android:orientation="vertical">
 
-                                        <TextView
-                                            android:layout_width="wrap_content"
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:orientation="vertical">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginStart="100dp"
+                                                android:layout_marginTop="10dp"
+                                                android:text="@string/app_name"
+                                                android:textColor="@color/text_normal_color"
+                                                android:textSize="18sp"
+                                                android:textStyle="bold" />
+
+                                            <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginStart="15dp"
+                                                android:layout_marginTop="25dp"
+                                                android:layout_marginEnd="15dp"
+                                                android:background="@color/colorPrimary"
+                                                android:orientation="vertical"
+                                                android:paddingStart="10dp"
+                                                android:paddingEnd="10dp"
+                                                android:paddingBottom="20dp">
+
+                                                <LinearLayout
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginTop="15dp"
+                                                    android:orientation="horizontal">
+
+                                                    <TextView
+                                                        android:id="@+id/click_view_1"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:background="@drawable/xcvbndtur"
+                                                        android:gravity="center"
+                                                        android:paddingStart="20dp"
+                                                        android:paddingTop="7dp"
+                                                        android:paddingEnd="20dp"
+                                                        android:paddingBottom="7dp"
+                                                        android:text="立即申请"
+                                                        android:textColor="@color/white" />
+
+                                                    <FrameLayout
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_gravity="bottom"
+                                                        android:layout_marginStart="5dp">
+
+                                                        <View
+                                                            android:layout_width="50dp"
+                                                            android:layout_height="5dp"
+                                                            android:layout_gravity="bottom|center_horizontal"
+                                                            android:layout_marginBottom="3dp"
+                                                            android:background="#ff9f1a" />
+
+                                                        <TextView
+                                                            android:id="@+id/money_num_tv"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content"
+                                                            android:layout_gravity="end"
+                                                            android:text="200,0000"
+                                                            android:textColor="@color/white"
+                                                            android:textSize="16sp"
+                                                            android:textStyle="bold" />
+
+                                                    </FrameLayout>
+
+                                                    <TextView
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_gravity="bottom"
+                                                        android:layout_marginStart="3dp"
+                                                        android:layout_marginBottom="1dp"
+                                                        android:text="申请额度（元）"
+                                                        android:textColor="@color/white"
+                                                        android:textSize="12sp" />
+
+                                                </LinearLayout>
+
+                                                <TextView
+                                                    android:id="@+id/info_tv"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_gravity="center_vertical"
+                                                    android:layout_marginTop="20dp"
+                                                    android:text="年化率最高不超过36%"
+                                                    android:textColor="@color/white"
+                                                    android:textSize="13sp" />
+
+                                                <LinearLayout
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginTop="20dp"
+                                                    android:background="#20b287"
+                                                    android:orientation="horizontal"
+                                                    android:paddingTop="10dp"
+                                                    android:paddingBottom="10dp">
+
+                                                    <TextView
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_marginStart="25dp"
+                                                        android:layout_weight="1"
+                                                        android:drawableStart="@drawable/lprsydfgu"
+                                                        android:drawablePadding="5dp"
+                                                        android:text="马上拿钱"
+                                                        android:textColor="@color/white"
+                                                        android:textSize="14sp" />
+
+                                                    <TextView
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_weight="1"
+                                                        android:drawableStart="@drawable/lprsydfgu"
+                                                        android:drawablePadding="5dp"
+                                                        android:text="极速出款"
+                                                        android:textColor="@color/white"
+                                                        android:textSize="14sp" />
+
+                                                    <TextView
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_weight="1"
+                                                        android:drawableStart="@drawable/lprsydfgu"
+                                                        android:drawablePadding="5dp"
+                                                        android:text="安全保障"
+                                                        android:textColor="@color/white"
+                                                        android:textSize="14sp" />
+
+                                                </LinearLayout>
+
+                                            </LinearLayout>
+                                        </LinearLayout>
+
+                                    </FrameLayout>
+
+
+                                    <FrameLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <androidx.recyclerview.widget.RecyclerView
+                                            android:id="@+id/rvy"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:layout_marginBottom="20dp" />
+
+                                        <TextView
+                                            android:id="@+id/no_data_fl"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="200dp"
+                                            android:layout_gravity="center"
+                                            android:background="@color/white"
+                                            android:gravity="center"
+                                            android:text="暂无数据，点击刷新"
+                                            android:textColor="@color/text_normal_color"
                                             android:textSize="18sp"
-                                            android:textColor="@color/white"
-                                            android:textStyle="bold"
-                                            android:text="@string/app_name" />
+                                            android:visibility="gone" />
 
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="5dp"
-                                            android:textSize="12sp"
-                                            android:textColor="@color/white"
-                                            android:text="专业贷款服务" />
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="5dp"
-                                            android:drawableStart="@drawable/y_ico"
-                                            android:drawablePadding="10dp"
-                                            android:textSize="12sp"
-                                            android:textColor="#dabeab"
-                                            android:text="@string/app_name" />
-
-                                    </LinearLayout>
+                                    </FrameLayout>
 
                                 </LinearLayout>
 
-                                <FrameLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginEnd="20dp"
-                                    android:layout_marginStart="20dp">
+                            </com.lihang.ShadowLayout>
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center_vertical"
-                                        android:textSize="12sp"
-                                        android:textColor="@color/white"
-                                        android:text="最高可申请额度（元）" />
-
-                                    <TextView
-                                        android:id="@+id/money_num_tv"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="end"
-                                        android:textColor="@color/colorPrimary"
-                                        android:textSize="25sp"
-                                        android:textStyle="bold"
-                                        android:text="200,0000"/>
-
-                                </FrameLayout>
-
-                                <FrameLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginStart="20dp"
-                                    android:layout_marginEnd="20dp">
-
-                                    <TextView
-                                        android:id="@+id/info_tv"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center_vertical"
-                                        android:textSize="12sp"
-                                        android:textColor="@color/white"
-                                        android:text="年化率最高不超过36%" />
-
-                                    <TextView
-                                        android:id="@+id/click_view_1"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="end"
-                                        android:gravity="center"
-                                        android:text="立即申请"
-                                        android:background="@drawable/bg_corner_50_f5dbaa"
-                                        android:textColor="@color/white"
-                                        android:paddingTop="7dp"
-                                        android:paddingBottom="7dp"
-                                        android:paddingStart="20dp"
-                                        android:paddingEnd="20dp"/>
-
-                                </FrameLayout>
-                            </LinearLayout>
+                            <ImageView
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:layout_marginStart="35dp"
+                                android:layout_marginTop="480dp"
+                                android:src="@mipmap/app_logo" />
 
                         </FrameLayout>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/serdfttu"
-                            android:layout_marginTop="-50dp"
-                            android:orientation="vertical">
+                    </androidx.core.widget.NestedScrollView>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="30dp"
-                                android:layout_marginStart="20dp"
-                                android:gravity="center"
-                                android:background="@drawable/xcvbndfi"
-                                android:text="推荐产品"/>
+                </LinearLayout>
 
-                            <FrameLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
+            </FrameLayout>
 
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/rvy"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginBottom="20dp" />
-
-                                <TextView
-                                    android:id="@+id/no_data_fl"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="200dp"
-                                    android:layout_gravity="center"
-                                    android:background="@color/white"
-                                    android:gravity="center"
-                                    android:text="暂无数据，点击刷新"
-                                    android:textColor="@color/text_normal_color"
-                                    android:textSize="18sp"
-                                    android:visibility="gone" />
-
-                            </FrameLayout>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </FrameLayout>
-
-            </androidx.core.widget.NestedScrollView>
-
-        </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
