@@ -48,21 +48,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="20dp"
-                            android:layout_marginTop="50dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/rtuxfgj" />
 
                         <com.lihang.ShadowLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="80dp"
-                            android:layout_marginStart="35dp"
-                            android:layout_marginEnd="35dp"
+                            android:layout_marginTop="50dp"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginEnd="25dp"
                             app:hl_cornerRadius="5dp">
 
                             <ImageView
