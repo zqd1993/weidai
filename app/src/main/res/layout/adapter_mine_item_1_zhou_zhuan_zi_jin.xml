@@ -20,7 +20,7 @@
             android:id="@+id/item_img"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@drawable/weteryrtu"/>
+            android:src="@drawable/kkdrxdfghser"/>
 
         <TextView
             android:id="@+id/item_title_tv"

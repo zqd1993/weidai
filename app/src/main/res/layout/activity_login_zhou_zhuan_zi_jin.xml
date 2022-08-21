@@ -104,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="50dp"
-            android:background="@drawable/wwerwtrys"
+            android:background="@drawable/adrfch"
             android:gravity="center"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
@@ -127,7 +127,7 @@
                 android:layout_height="20dp"
                 android:button="@drawable/checkbox_bg" />
 
-            <com.nfsthjsrtuae.fghserytuxfh.zhouzhuanzijinwidget.SpanTextView
+            <com.zhouzhuanzijianrdgfg.haerawyry.zhouzhuanzijinwidget.SpanTextView
                 android:id="@+id/login_remind_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -59,7 +59,7 @@
             android:textColor="@color/text_normal_color"
             android:textSize="@dimen/textSize_16" />
 
-        <com.nfsthjsrtuae.fghserytuxfh.zhouzhuanzijinwidget.SwitchButton
+        <com.zhouzhuanzijianrdgfg.haerawyry.zhouzhuanzijinwidget.SwitchButton
             android:id="@+id/switch_btn"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
