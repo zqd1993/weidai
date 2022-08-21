@@ -224,7 +224,7 @@
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="提交"
-            android:textColor="@color/text_normal_color" />
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

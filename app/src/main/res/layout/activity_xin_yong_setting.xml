@@ -274,7 +274,7 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
-        <com.retdfhxfghj.bdrhrtuyfgj.xinyongwidget.SwitchButtonXinYong
+        <com.yongqianxinyongkawerdfg.rtydfjdrtu.yongqianxinyongkawidget.SwitchButtonYongQianXinYongKa
             android:id="@+id/switch_btn"
             android:layout_width="40dp"
             android:layout_height="wrap_content"

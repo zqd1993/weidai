@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/parent_fl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_f4f4f4"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <LinearLayout
@@ -163,23 +164,36 @@
                         android:layout_weight="1" />
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/top_img"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <TextView
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/white"
-                    android:paddingStart="40dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="推荐产品"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/textSize_16"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="40dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/cvvzdfhfxgh" />
+
+                    <com.lihang.ShadowLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="35dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="35dp"
+                        app:hl_cornerRadius="5dp">
+
+                        <ImageView
+                            android:id="@+id/top_img"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/tdysryxfgh" />
+
+                    </com.lihang.ShadowLayout>
+
+                </FrameLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -237,7 +251,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/sy_bg"
                         android:visibility="gone" />
 
                     <LinearLayout
@@ -341,11 +354,6 @@
                                     android:layout_weight="1" />
                             </LinearLayout>
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/icon_1" />
-
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -406,8 +414,7 @@
 
                             <ImageView
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/icon_2" />
+                                android:layout_height="wrap_content" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -470,8 +477,7 @@
 
                             <ImageView
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/icon_3" />
+                                android:layout_height="wrap_content" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -714,7 +720,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/icon_4" />
+                            android:src="@drawable/cvvzdfhfxgh" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -937,19 +943,12 @@
 
                 </LinearLayout>
 
-                <FrameLayout
-                    android:id="@+id/click_view"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvy"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#f4f4f4">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvy"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="20dp" />
-                </FrameLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp" />
 
             </LinearLayout>
 
