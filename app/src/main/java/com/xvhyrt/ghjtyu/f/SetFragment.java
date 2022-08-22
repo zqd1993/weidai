@@ -78,14 +78,14 @@ public class SetFragment extends XFragment {
     }
 
     private void initSetAdapter() {
-        SetModel model = new SetModel(R.drawable.fsd, "注册协议");
-        SetModel model1 = new SetModel(R.drawable.hdf, "隐私协议");
-        SetModel model2 = new SetModel(R.drawable.ljhk, "意见反馈");
-        SetModel model3 = new SetModel(R.drawable.ghj, "关于我们");
-        SetModel model4 = new SetModel(R.drawable.cvnvb, "个性化推荐");
-        SetModel model5 = new SetModel(R.drawable.urty, "投诉邮箱");
-        SetModel model6 = new SetModel(R.drawable.das, "注销账户");
-        SetModel model7 = new SetModel(R.drawable.pui, "退出登录");
+        SetModel model = new SetModel(R.drawable.mnxrtyse, "注册协议");
+        SetModel model1 = new SetModel(R.drawable.eertyxfjhzs, "隐私协议");
+        SetModel model2 = new SetModel(R.drawable.tuxfgser, "意见反馈");
+        SetModel model3 = new SetModel(R.drawable.mnxfveyase, "关于我们");
+        SetModel model4 = new SetModel(R.drawable.bxcvbesrya, "个性化推荐");
+        SetModel model5 = new SetModel(R.drawable.mmvbnsertys, "投诉邮箱");
+        SetModel model6 = new SetModel(R.drawable.rrxdfhareyy, "注销账户");
+        SetModel model7 = new SetModel(R.drawable.rtyfghsrsa, "退出登录");
         List<SetModel> list = new ArrayList<>();
         List<SetModel> list1 = new ArrayList<>();
         list.add(model);

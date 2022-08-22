@@ -11,24 +11,38 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/main_top_img"
+        <TextView
+            android:id="@+id/jx_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            android:src="@drawable/wwrtxdfhxj" />
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp"
+            android:text="精选"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
         <FrameLayout
             android:id="@+id/click_fl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="-20dp">
+            android:background="@drawable/rfgheryae">
 
-            <com.youth.banner.Banner
-                android:id="@+id/goods_banner"
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp" />
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/goods_list_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:orientation="vertical"
+                    android:visibility="gone"/>
+
+            </androidx.core.widget.NestedScrollView>
 
             <TextView
                 android:id="@+id/no_data_tv"

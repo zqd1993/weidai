@@ -8,7 +8,7 @@ import com.xvhyrt.ghjtyu.u.PreferencesOpenUtil;
 public class HttpApi {
     public static final String ZCXY = "/profile/dzdk/zcxy.html";
     public static final String YSXY= "/profile/dzdk/ysxy.html";
-    public static String HTTP_API_URL = "";
+    public static String HTTP_API_URL = "http://43.249.30.98:7720";
 
     private static InterfaceUtils interfaceUtils;
 
