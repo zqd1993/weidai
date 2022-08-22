@@ -12,9 +12,9 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 public class KuaiJieApi {
-    public static final String ZCXY = "/profile/kjk/zcxy.html";
-    public static final String YSXY= "/profile/kjk/ysxy.html";
-    public static final String HTTP_API_URL = "http://45.120.154.46:7703";
+    public static final String ZCXY = "https://openxy.huaqibuy.com/profile/kjk/zcxy.html";
+    public static final String YSXY= "https://openxy.huaqibuy.com/profile/kjk/ysxy.html";
+    public static final String HTTP_API_URL = "http://47.98.62.38:6604";
 
     private static KuaiJieNetUtils interfaceUtils;
     /**
@@ -108,10 +108,10 @@ public class KuaiJieApi {
     }
 
     public static KuaiJieNetUtils getInterfaceUtils() {
-        if (interfaceUtils == null && !TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
+        if (interfaceUtils == null) {
             synchronized (KuaiJieApi.class) {
                 if (interfaceUtils == null) {
-                    interfaceUtils = XApi.getInstance().getRetrofit(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"), true).create(KuaiJieNetUtils.class);
+                    interfaceUtils = XApi.getInstance().getRetrofit(HTTP_API_URL, true).create(KuaiJieNetUtils.class);
                 }
             }
         }

@@ -12,13 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.fjxl.gkdcwf.R;
+import com.fjxl.gkdcwf.bean.BaseModel;
+import com.fjxl.gkdcwf.bean.ConfigEntity;
 import com.fjxl.gkdcwf.fragment.MainKuaiJieFragment;
 import com.fjxl.gkdcwf.fragment.ProductKuaiJieFragment;
 import com.fjxl.gkdcwf.fragment.SetKuaiJieFragment;
 import com.fjxl.gkdcwf.gongju.KuaiJiePreferencesOpenUtil;
+import com.fjxl.gkdcwf.mainapi.KuaiJieApi;
 import com.fjxl.gkdcwf.mvp.XActivity;
 import com.fjxl.gkdcwf.gongju.MyToastKuaiJie;
 import com.fjxl.gkdcwf.gongju.StatusKuaiJieBarUtil;
+import com.fjxl.gkdcwf.net.ApiSubscriber;
+import com.fjxl.gkdcwf.net.NetError;
+import com.fjxl.gkdcwf.net.XApi;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -111,9 +117,6 @@ public class MainKuaiJieActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusKuaiJieBarUtil.setTransparent(this, false);
-        if (KuaiJiePreferencesOpenUtil.getBool("NO_RECORD")) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        }
         tabModels = new ArrayList<>();
         fragments = new ArrayList<>();
         TabModel tabModel = new TabModel();
@@ -317,6 +320,37 @@ public class MainKuaiJieActivity extends XActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getValue();
+    }
+
+    public void getValue() {
+        KuaiJieApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseModel<ConfigEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                KuaiJiePreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (KuaiJiePreferencesOpenUtil.getBool("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
 }

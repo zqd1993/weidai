@@ -134,7 +134,7 @@ public class KuaiJieStartPageActivity extends XActivity {
     }
 
     private void showDialog() {
-        Looper.prepare();
+//        Looper.prepare();
         startPageRemindDialog = new StartPageKuaiJieRemindDialog(this);
         startPageRemindDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
@@ -157,12 +157,10 @@ public class KuaiJieStartPageActivity extends XActivity {
 
             @Override
             public void zcxyClicked() {
-                if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
                     bundle = new Bundle();
-                    bundle.putString("url", KuaiJiePreferencesOpenUtil.getString("AGREEMENT") + KuaiJieApi.ZCXY);
+                    bundle.putString("url", KuaiJieApi.ZCXY);
                     bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
                     OpenKuaiJieUtil.getValue(KuaiJieStartPageActivity.this, KuaiJieWebViewActivity.class, bundle);
-                }
             }
 
             @Override
@@ -172,16 +170,14 @@ public class KuaiJieStartPageActivity extends XActivity {
 
             @Override
             public void ysxyClicked() {
-                if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("AGREEMENT"))) {
                     bundle = new Bundle();
-                    bundle.putString("url", KuaiJiePreferencesOpenUtil.getString("AGREEMENT") + KuaiJieApi.YSXY);
+                    bundle.putString("url", KuaiJieApi.YSXY);
                     bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
                     OpenKuaiJieUtil.getValue(KuaiJieStartPageActivity.this, KuaiJieWebViewActivity.class, bundle);
-                }
             }
         });
         startPageRemindDialog.show();
-        Looper.loop();
+//        Looper.loop();
     }
 
     @Override
@@ -204,7 +200,13 @@ public class KuaiJieStartPageActivity extends XActivity {
         StatusKuaiJieBarUtil.setTransparent(this, false);
         isSure = KuaiJiePreferencesOpenUtil.getBool("isSure");
         phone = KuaiJiePreferencesOpenUtil.getString("phone");
-        sendRequestWithOkHttp();
+//        sendRequestWithOkHttp();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jumpPage();
+            }
+        }, 500);
     }
 
     @Override
