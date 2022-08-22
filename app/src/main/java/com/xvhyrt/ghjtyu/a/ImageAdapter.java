@@ -34,8 +34,8 @@ public class ImageAdapter extends BannerAdapter<ProductModel, ImageAdapter.Image
         holder.shangpin_name_tv.setText(data.getProductName());
         holder.tedian_tv.setText(data.getTag());
         holder.edu_tv.setText(data.getMinAmount() + "-" + data.getMaxAmount());
-        holder.shijian_tv.setText(data.getDes() + "个月");
-        holder.shuliang_tv.setText(String.valueOf(data.getPassingRate()));
+        holder.shijian_tv.setText("周期" + data.getDes());
+        holder.shuliang_tv.setText(data.getPassingRate() + "下款");
         holder.parentLl.setOnClickListener(v -> {
             if (bannerClickedListener != null){
                 bannerClickedListener.onBannerClicked(data);

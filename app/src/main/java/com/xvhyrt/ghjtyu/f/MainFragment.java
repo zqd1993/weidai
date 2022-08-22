@@ -40,8 +40,6 @@ public class MainFragment extends XFragment {
     TextView noDataTv;
     @BindView(R.id.main_top_img)
     View main_top_img;
-    @BindView(R.id.jx_bg)
-    View jx_bg;
     @BindView(R.id.goods_banner)
     Banner banner;
     @BindView(R.id.click_fl)
@@ -67,9 +65,6 @@ public class MainFragment extends XFragment {
             }
         });
         main_top_img.setOnClickListener(v -> {
-            productClick(productModel);
-        });
-        jx_bg.setOnClickListener(v -> {
             productClick(productModel);
         });
         noDataTv.setOnClickListener(v -> {

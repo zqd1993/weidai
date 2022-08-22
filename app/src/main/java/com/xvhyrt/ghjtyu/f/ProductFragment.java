@@ -41,8 +41,6 @@ public class ProductFragment extends XFragment {
     LinearLayout goodsListLl;
     @BindView(R.id.no_data_tv)
     TextView noDataTv;
-    @BindView(R.id.main_top_img)
-    View main_top_img;
     @BindView(R.id.jx_bg)
     View jx_bg;
     @BindView(R.id.click_fl)
@@ -54,16 +52,12 @@ public class ProductFragment extends XFragment {
     @Override
     public void initData(Bundle savedInstanceState) {
         jx_bg.setVisibility(View.VISIBLE);
-        main_top_img.setVisibility(View.GONE);
         goodsListLl.setVisibility(View.VISIBLE);
         setRefreshing.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 productList();
             }
-        });
-        main_top_img.setOnClickListener(v -> {
-            productClick(productModel);
         });
         jx_bg.setOnClickListener(v -> {
             productClick(productModel);
@@ -87,7 +81,7 @@ public class ProductFragment extends XFragment {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_main;
+        return R.layout.fragment_product;
     }
 
     @Override
@@ -158,9 +152,11 @@ public class ProductFragment extends XFragment {
     }
 
     private void addProductView(List<ProductModel> mList) {
-        for (ProductModel model : mList) {
+        for (int i = 0; i < mList.size(); i++) {
+            ProductModel model = mList.get(i);
             View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_product_item, null);
             ImageView pic = view.findViewById(R.id.product_img);
+            ImageView pic1 = view.findViewById(R.id.product_img_1);
             TextView product_name_tv = view.findViewById(R.id.product_name_tv);
             TextView remind_tv = view.findViewById(R.id.remind_tv);
             TextView money_number_tv = view.findViewById(R.id.money_number_tv);
@@ -168,6 +164,15 @@ public class ProductFragment extends XFragment {
             View yjsqSl = view.findViewById(R.id.yjsq_sl);
                 ILFactory.getLoader().loadNet(pic, HttpApi.HTTP_API_URL + model.getProductLogo(),
                         new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+            ILFactory.getLoader().loadNet(pic1, HttpApi.HTTP_API_URL + model.getProductLogo(),
+                    new ILoader.Options(R.mipmap.app_logo, R.mipmap.app_logo));
+            if (i % 2 == 0){
+                pic.setVisibility(View.GONE);
+                pic1.setVisibility(View.VISIBLE);
+            } else {
+                pic.setVisibility(View.VISIBLE);
+                pic1.setVisibility(View.GONE);
+            }
             product_name_tv.setText(model.getProductName());
             remind_tv.setText(model.getTag());
             money_number_tv.setText(model.getMinAmount() + "-" + model.getMaxAmount());

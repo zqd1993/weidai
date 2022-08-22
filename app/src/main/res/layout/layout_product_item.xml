@@ -12,31 +12,38 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@color/white"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <FrameLayout
-            android:layout_width="match_parent"
+        <com.lihang.ShadowLayout
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="center_vertical"
+            app:hl_cornerRadius="5dp">
+
+            <ImageView
+                android:id="@+id/product_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/app_logo" />
+
+        </com.lihang.ShadowLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp">
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:background="@drawable/gbvbvseryaey">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
                 android:orientation="horizontal">
-
-                <com.lihang.ShadowLayout
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_gravity="center_vertical"
-                    app:hl_cornerRadius="@dimen/dp_10">
-
-                    <ImageView
-                        android:id="@+id/product_img"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@mipmap/app_logo" />
-
-                </com.lihang.ShadowLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -55,7 +62,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="好分期"
-                            android:textColor="@color/text_normal_color"
+                            android:textColor="@color/white"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -63,7 +70,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            app:hl_cornerRadius="50dp"
+                            app:hl_cornerRadius="3dp"
                             app:hl_layoutBackground="@color/colorPrimary">
 
                             <TextView
@@ -87,23 +94,25 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="额度申请"
-                            android:textColor="#4e4e4e"
-                            android:textSize="16sp" />
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/money_number_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp_5"
                             android:text="10000-20000"
-                            android:textColor="#4e4e4e"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
                             android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="30dp"
+                            android:text="额度申请"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
 
                     </LinearLayout>
 
@@ -115,25 +124,40 @@
                 android:id="@+id/yjsq_sl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 android:layout_gravity="end|center_vertical"
-                app:hl_cornerRadius="50dp"
-                app:hl_startColor="#fc756f"
-                app:hl_endColor="#f54339">
+                app:hl_cornerRadius="50dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
                     android:textSize="14sp"
-                    android:textColor="@color/white"
+                    android:textColor="#fec164"
                     android:text="一键申请" />
 
             </com.lihang.ShadowLayout>
 
-        </FrameLayout>
+        </LinearLayout>
+
+        <com.lihang.ShadowLayout
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="center_vertical"
+            app:hl_cornerRadius="5dp">
+
+            <ImageView
+                android:id="@+id/product_img_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/app_logo" />
+
+        </com.lihang.ShadowLayout>
 
     </LinearLayout>
 </FrameLayout>

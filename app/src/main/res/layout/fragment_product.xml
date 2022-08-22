@@ -9,7 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:src="@drawable/rfgheryae">
 
         <TextView
             android:id="@+id/jx_bg"
@@ -26,35 +27,60 @@
         <FrameLayout
             android:id="@+id/click_fl"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/rfgheryae">
+            android:layout_height="match_parent">
 
-            <androidx.core.widget.NestedScrollView
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/rfgheryae" />
 
-                <LinearLayout
-                    android:id="@+id/goods_list_ll"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="90dp"
+                android:layout_marginBottom="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="vertical"
+                android:background="@drawable/vbneryaey">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="14sp"
+                    android:text="精选产品"
+                    android:textColor="@color/white" />
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/goods_list_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:orientation="vertical"/>
+
+                </androidx.core.widget.NestedScrollView>
+
+                <TextView
+                    android:id="@+id/no_data_tv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:orientation="vertical"
-                    android:visibility="gone"/>
+                    android:layout_gravity="center"
+                    android:background="@color/color_efefef"
+                    android:gravity="center"
+                    android:text="暂无数据"
+                    android:textColor="@color/text_normal_color"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
 
-            </androidx.core.widget.NestedScrollView>
-
-            <TextView
-                android:id="@+id/no_data_tv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:background="@color/color_efefef"
-                android:gravity="center"
-                android:text="暂无数据"
-                android:textColor="@color/text_normal_color"
-                android:textSize="18sp"
-                android:visibility="gone" />
+            </LinearLayout>
 
         </FrameLayout>
 
