@@ -23,19 +23,18 @@
                 android:background="@color/colorPrimary"
                 android:paddingTop="60dp"
                 android:paddingBottom="30dp"
-                android:orientation="horizontal">
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:src="@drawable/xxcfbnrtusru" />
+                    android:src="@drawable/wetzdfh" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -55,21 +54,7 @@
                 android:id="@+id/rvy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:overScrollMode="never" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="#f4f4f4" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvy_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginTop="30dp"
                 android:overScrollMode="never" />
 
             <com.lihang.ShadowLayout

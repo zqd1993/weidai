@@ -31,7 +31,7 @@ public class GoodsItemAdapterJieKuanZhiJia1 extends SimpleRecAdapter<JieKuanZhiJ
 
     @Override
     public int getLayoutId() {
-        return R.layout.adapter_goods_item_jie_kuan_zhi_jia_1;
+        return R.layout.adapter_goods_item_jie_kuan_zhi_jia;
     }
 
     @Override
@@ -40,11 +40,6 @@ public class GoodsItemAdapterJieKuanZhiJia1 extends SimpleRecAdapter<JieKuanZhiJ
         if (!TextUtils.isEmpty(model.getFan_time()) && model.getFan_time().length() > 2) {
             viewHolder.cycleTv.setText("最长可分期" + model.getFan_time().substring(0, 2) + "期");
         }
-         if (i % 2 == 0){
-            viewHolder.parent_fl.setBackgroundResource(R.drawable.cvbndrtusr);
-        } else {
-             viewHolder.parent_fl.setBackgroundResource(R.drawable.bnzxfgusrtu);
-         }
         viewHolder.people_num_tv.setText(model.getNum() + "人申请");
         viewHolder.productNameTv.setText(model.getTitle());
         viewHolder.info_tv.setText(model.getInfo());

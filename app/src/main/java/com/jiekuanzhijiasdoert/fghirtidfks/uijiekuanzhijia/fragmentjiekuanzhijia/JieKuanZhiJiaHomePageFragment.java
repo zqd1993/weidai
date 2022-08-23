@@ -23,8 +23,6 @@ import cn.droidlover.xrecyclerview.RecyclerItemCallback;
 
 public class JieKuanZhiJiaHomePageFragment extends XFragment<JieKuanZhiJiaHomePagePresent> {
 
-    @BindView(R.id.product_bg)
-    View productBg;
     @BindView(R.id.rvy)
     RecyclerView rvy;
     @BindView(R.id.refresh_layout)

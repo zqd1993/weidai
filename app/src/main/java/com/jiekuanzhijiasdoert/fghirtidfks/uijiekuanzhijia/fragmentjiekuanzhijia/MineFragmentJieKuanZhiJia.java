@@ -49,8 +49,6 @@ public class MineFragmentJieKuanZhiJia extends XFragment {
 
     @BindView(R.id.rvy)
     RecyclerView rvy;
-    @BindView(R.id.rvy_1)
-    RecyclerView rvy1;
     @BindView(R.id.phone_tv)
     TextView phoneTv;
     @BindView(R.id.refresh_layout)
@@ -61,9 +59,8 @@ public class MineFragmentJieKuanZhiJia extends XFragment {
     View mail_sl;
 
     private JieKuanZhiJiaMineAdapter jieKuanZhiJiaMineAdapter;
-    private JieKuanZhiJiaMineAdapter1 jieKuanZhiJiaMineAdapter1;
-    private List<MineItemModelJieKuanZhiJia> list, list1;
-    private int[] imgRes = {R.drawable.weryxfgjdr, R.drawable.lpyfukdsrtu, R.drawable.xcvbnfgj, R.drawable.gjdfuji, R.drawable.llyfuiodtyui};
+    private List<MineItemModelJieKuanZhiJia> list;
+    private int[] imgRes = {R.drawable.lprthxfgh, R.drawable.nnsrtfgxn, R.drawable.kkfgnery, R.drawable.wwgdxfh, R.drawable.nxvbaerya};
     private String[] tvRes = {"注册协议", "隐私协议", "关于我们", "系统设置", "注销账户"};
     private Bundle bundle;
     private JieKuanZhiJiaNormalDialog jieKuanZhiJiaNormalDialog;
@@ -72,7 +69,6 @@ public class MineFragmentJieKuanZhiJia extends XFragment {
     @Override
     public void initData(Bundle savedInstanceState) {
         list = new ArrayList<>();
-        list1 = new ArrayList<>();
         getCompanyInfo();
         aindex();
         phone = JieKuanZhiJiaSharedPreferencesUtilis.getStringFromPref("phone");
@@ -83,11 +79,7 @@ public class MineFragmentJieKuanZhiJia extends XFragment {
             MineItemModelJieKuanZhiJia model = new MineItemModelJieKuanZhiJia();
             model.setImgRes(imgRes[i]);
             model.setItemTv(tvRes[i]);
-            if (i < 2) {
-                list.add(model);
-            } else {
-                list1.add(model);
-            }
+            list.add(model);
         }
         initAdapter();
         swipeRefreshLayout.setOnRefreshListener(() -> {
@@ -140,33 +132,17 @@ public class MineFragmentJieKuanZhiJia extends XFragment {
                                     .data(bundle)
                                     .launch();
                             break;
-                    }
-                }
-            });
-            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-            rvy.setHasFixedSize(true);
-            rvy.setAdapter(jieKuanZhiJiaMineAdapter);
-        }
-        if (jieKuanZhiJiaMineAdapter1 == null) {
-            jieKuanZhiJiaMineAdapter1 = new JieKuanZhiJiaMineAdapter1(getActivity());
-            jieKuanZhiJiaMineAdapter1.setData(list1);
-            jieKuanZhiJiaMineAdapter1.setHasStableIds(true);
-            jieKuanZhiJiaMineAdapter1.setRecItemClick(new RecyclerItemCallback<MineItemModelJieKuanZhiJia, JieKuanZhiJiaMineAdapter1.ViewHolder>() {
-                @Override
-                public void onItemClick(int position, MineItemModelJieKuanZhiJia model, int tag, JieKuanZhiJiaMineAdapter1.ViewHolder holder) {
-                    super.onItemClick(position, model, tag, holder);
-                    switch (position) {
-                        case 0:
+                        case 2:
                             Router.newIntent(getActivity())
                                     .to(JieKuanZhiJiaAboutUsActivity.class)
                                     .launch();
                             break;
-                        case 1:
+                        case 3:
                             Router.newIntent(getActivity())
                                     .to(SettingJieKuanZhiJiaActivity.class)
                                     .launch();
                             break;
-                        case 2:
+                        case 4:
                             Router.newIntent(getActivity())
                                     .to(JieKuanZhiJiaCancellationAccountActivity.class)
                                     .launch();
@@ -174,9 +150,9 @@ public class MineFragmentJieKuanZhiJia extends XFragment {
                     }
                 }
             });
-            rvy1.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-            rvy1.setHasFixedSize(true);
-            rvy1.setAdapter(jieKuanZhiJiaMineAdapter1);
+            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+            rvy.setHasFixedSize(true);
+            rvy.setAdapter(jieKuanZhiJiaMineAdapter);
         }
     }
 

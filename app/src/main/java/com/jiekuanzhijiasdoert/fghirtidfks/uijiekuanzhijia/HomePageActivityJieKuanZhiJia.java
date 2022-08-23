@@ -34,15 +34,15 @@ public class HomePageActivityJieKuanZhiJia extends XActivity<MainPresentJieKuanZ
     private long exitTime = 0;
     private List<Fragment> mFragments = new ArrayList<>();
     private String[] mTitles = {"首页", "产品", "我的"};
-    private int[] uncheckedIcon = {R.drawable.qryxfgjrtiu, R.drawable.lghjsrtu, R.drawable.xfgxujftjcg};
-    private int[] checkedIcon = {R.drawable.zhxfusru, R.drawable.dfgdtuxfgh,R.drawable.rtxfcgus};
+    private int[] uncheckedIcon = {R.drawable.vbbserae, R.drawable.kdrtary, R.drawable.fhearydfh};
+    private int[] checkedIcon = {R.drawable.vvdraery, R.drawable.lppuykjrts,R.drawable.nnsrtsdfh};
     private ArrayList<CustomTabEntity> customTabEntities;
     private MyFragmentJieKuanZhiJiaAdapter myFragmentJieKuanZhiJiaAdapter;
 
     @Override
     public void initData(Bundle savedInstanceState) {
         JieKuanZhiJiaStatusBarUtil.setTransparent(this, false);
-        JieKuanZhiJiaStatusBarUtil.setLightMode(this);
+//        JieKuanZhiJiaStatusBarUtil.setLightMode(this);
 //        getP().login();
         customTabEntities = new ArrayList<>();
         homeViewPager.setUserInputEnabled(false);

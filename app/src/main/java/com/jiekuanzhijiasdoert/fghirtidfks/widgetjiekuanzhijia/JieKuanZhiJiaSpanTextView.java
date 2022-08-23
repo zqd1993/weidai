@@ -63,7 +63,7 @@ public class JieKuanZhiJiaSpanTextView extends androidx.appcompat.widget.AppComp
         //这一行是实现局部点击效果，实现Clickable（自定义的继承ClickableSpan implements OnClickListener）
         spannableString.setSpan(new MyClickableSpan(position), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         //这一行是设置文字颜色的
-        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#24c696")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#40745e")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         //这一行主要是用来消除点击文字下划线的
         spannableString.setSpan(new NoUnderlineSpan(), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;

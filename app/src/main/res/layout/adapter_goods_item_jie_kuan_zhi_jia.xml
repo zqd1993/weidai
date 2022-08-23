@@ -8,6 +8,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/weerdfhsrtu"
         android:orientation="vertical">
 
         <FrameLayout
@@ -18,161 +21,124 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="20dp"
+                android:paddingTop="15dp"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
-                        android:layout_weight="1"
+                        android:background="@drawable/nndryaegdf"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <com.lihang.ShadowLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:hl_cornerRadius="50dp">
+
+                            <ImageView
+                                android:id="@+id/product_img"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:src="@mipmap/app_logo" />
+
+                        </com.lihang.ShadowLayout>
+
+                        <TextView
+                            android:id="@+id/product_name_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="好分期"
+                            android:textColor="#88684a"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="30dp"
                         android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/limit_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10000 - 20000"
+                            android:textColor="#ead3be"
+                            android:textStyle="bold"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="申请额度(元)"
+                            android:textColor="#ead3be"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="5dp"
+                            android:background="#ead3be" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
+                            android:layout_marginTop="10dp"
                             android:orientation="horizontal">
 
-                            <com.lihang.ShadowLayout
+                            <TextView
+                                android:id="@+id/people_num_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                app:hl_cornerRadius="5dp">
+                                android:text="123345"
+                                android:textColor="#ead3be"
+                                android:textSize="12sp" />
 
-                                <ImageView
-                                    android:id="@+id/product_img"
-                                    android:layout_width="45dp"
-                                    android:layout_height="45dp"
-                                    android:src="@mipmap/app_logo" />
-
-                            </com.lihang.ShadowLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
+                            <TextView
+                                android:id="@+id/cycle_tv"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:orientation="vertical">
-
-                                <FrameLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:id="@+id/product_name_tv"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="好分期"
-                                        android:textColor="@color/text_normal_color"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:id="@+id/info_tv"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="end"
-                                        android:layout_marginEnd="15dp"
-                                        android:text="利息低"
-                                        android:textColor="@color/colorPrimary"
-                                        android:textSize="12sp" />
-
-                                </FrameLayout>
-
-                                <View
-                                    android:layout_width="100dp"
-                                    android:layout_height="5dp"
-                                    android:layout_marginTop="10dp"
-                                    android:background="@drawable/sastexfgu" />
-
-                            </LinearLayout>
+                                android:text="36个月"
+                                android:textColor="#ead3be"
+                                android:textSize="12sp" />
 
                         </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/info_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center"
+                            android:text="利息低"
+                            android:textColor="#ead3be"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:background="@drawable/wewtzdyhrty"
+                            android:gravity="center"
+                            android:text="一键申请"
+                            android:textSize="12sp"
+                            android:textColor="#825933"/>
 
                     </LinearLayout>
 
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/limit_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="10000 - 20000"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:text="申请额度(元)"
-                        android:textColor="#999999"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/people_num_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="123345"
-                        android:textColor="#999999"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/cycle_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="36个月"
-                        android:textColor="#999999"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="15dp"
-                    android:background="@color/colorPrimary"
-                    android:gravity="center"
-                    android:layout_marginEnd="15dp"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="一键申请"
-                    android:textSize="12sp"
-                    android:textColor="@color/white"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginStart="15dp"
-                    android:background="#dcdcdc" />
 
             </LinearLayout>
 
