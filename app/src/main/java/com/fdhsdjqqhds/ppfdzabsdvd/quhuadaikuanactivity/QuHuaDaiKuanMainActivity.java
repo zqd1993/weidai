@@ -12,9 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.fdhsdjqqhds.ppfdzabsdvd.R;
+import com.fdhsdjqqhds.ppfdzabsdvd.net.ApiSubscriber;
+import com.fdhsdjqqhds.ppfdzabsdvd.net.NetError;
+import com.fdhsdjqqhds.ppfdzabsdvd.net.XApi;
+import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanapi.HttpApiQuHuaDaiKuan;
 import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanfragment.MainQuHuaDaiKuanFragment;
 import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanfragment.SetFragmentQuHuaDaiKuan;
 import com.fdhsdjqqhds.ppfdzabsdvd.mvp.XActivity;
+import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanmodel.ConfigQuHuaDaiKuanEntity;
+import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanmodel.QuHuaDaiKuanBaseModel;
 import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanutils.MyToastQuHuaDaiKuan;
 import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanutils.PreferencesOpenUtilQuHuaDaiKuan;
 import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanutils.QuHuaDaiKuanStatusBarUtil;
@@ -43,9 +49,6 @@ public class QuHuaDaiKuanMainActivity extends XActivity {
     public void initData(Bundle savedInstanceState) {
         QuHuaDaiKuanStatusBarUtil.setTransparent(this, false);
         QuHuaDaiKuanStatusBarUtil.setLightMode(this);
-        if (PreferencesOpenUtilQuHuaDaiKuan.getBool("NO_RECORD")) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        }
         tabModels = new ArrayList<>();
         fragments = new ArrayList<>();
         TabModel tabModel = new TabModel();
@@ -306,6 +309,37 @@ public class QuHuaDaiKuanMainActivity extends XActivity {
             e.printStackTrace();
         }
         return statusHeight;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getValue();
+    }
+
+    public void getValue() {
+        HttpApiQuHuaDaiKuan.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<QuHuaDaiKuanBaseModel<ConfigQuHuaDaiKuanEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(QuHuaDaiKuanBaseModel<ConfigQuHuaDaiKuanEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                PreferencesOpenUtilQuHuaDaiKuan.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (PreferencesOpenUtilQuHuaDaiKuan.getBool("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
 }
