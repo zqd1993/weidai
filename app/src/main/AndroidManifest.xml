@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fjsdkqwj.pfdioewjnsd">
+    package="com.sdjzpqasdjsdndsfhds.zms">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
-        android:name="com.fjsdkqwj.pfdioewjnsd.MainKuaiJieKuanApp"
+        android:name="com.sdjzpqasdjsdndsfhds.zms.MainKuaiJieKuanApp"
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
@@ -20,7 +20,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.fjsdkqwj.pfdioewjnsd.daikuanmiaoxiaa.StartPageActivityKuaiJieKuan"
+            android:name="com.sdjzpqasdjsdndsfhds.zms.daikuanmiaoxiaa.StartPageActivityKuaiJieKuan"
             android:icon="@mipmap/app_logo"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -31,33 +31,33 @@
         </activity>
 
         <activity
-            android:name="com.fjsdkqwj.pfdioewjnsd.daikuanmiaoxiaa.DlKuaiJieKuanActivity"
+            android:name="com.sdjzpqasdjsdndsfhds.zms.daikuanmiaoxiaa.DlKuaiJieKuanActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.fjsdkqwj.pfdioewjnsd.daikuanmiaoxiaa.JumpH5ActivityKuaiJieKuan"
+            android:name="com.sdjzpqasdjsdndsfhds.zms.daikuanmiaoxiaa.JumpH5ActivityKuaiJieKuan"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.fjsdkqwj.pfdioewjnsd.daikuanmiaoxiaa.MainKuaiJieKuanActivity"
+            android:name="com.sdjzpqasdjsdndsfhds.zms.daikuanmiaoxiaa.MainKuaiJieKuanActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.fjsdkqwj.pfdioewjnsd.daikuanmiaoxiaa.FeedbackKuaiJieKuanActivity"
+            android:name="com.sdjzpqasdjsdndsfhds.zms.daikuanmiaoxiaa.FeedbackKuaiJieKuanActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.fjsdkqwj.pfdioewjnsd.daikuanmiaoxiaa.AboutInfoActivityKuaiJieKuan"
+            android:name="com.sdjzpqasdjsdndsfhds.zms.daikuanmiaoxiaa.AboutInfoActivityKuaiJieKuan"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
 
         <activity
-            android:name="com.fjsdkqwj.pfdioewjnsd.daikuanmiaoxiaa.ZhuXiaoKuaiJieKuanActivity"
+            android:name="com.sdjzpqasdjsdndsfhds.zms.daikuanmiaoxiaa.ZhuXiaoKuaiJieKuanActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
