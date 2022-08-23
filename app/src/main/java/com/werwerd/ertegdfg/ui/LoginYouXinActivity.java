@@ -73,7 +73,7 @@ public class LoginYouXinActivity extends XActivity<LoginYouXinPresent> {
                 bundle.putInt("tag", 1);
                 bundle.putString("url", Api.PRIVACY_POLICY);
                 Router.newIntent(LoginYouXinActivity.this)
-                        .to(WebActivity.class)
+                        .to(UserServiceActivity.class)
                         .data(bundle)
                         .launch();
             } else {
@@ -81,7 +81,7 @@ public class LoginYouXinActivity extends XActivity<LoginYouXinPresent> {
                 bundle.putInt("tag", 2);
                 bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
                 Router.newIntent(LoginYouXinActivity.this)
-                        .to(WebActivity.class)
+                        .to(UserServiceActivity.class)
                         .data(bundle)
                         .launch();
             }

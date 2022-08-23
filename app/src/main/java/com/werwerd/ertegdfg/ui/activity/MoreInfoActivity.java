@@ -10,6 +10,7 @@ import com.werwerd.ertegdfg.R;
 import com.werwerd.ertegdfg.mvp.XActivity;
 import com.werwerd.ertegdfg.net.Api;
 import com.werwerd.ertegdfg.router.Router;
+import com.werwerd.ertegdfg.ui.UserServiceActivity;
 import com.werwerd.ertegdfg.ui.WebActivity;
 import com.werwerd.ertegdfg.utils.SharedPreferencesYouXinUtilis;
 import com.werwerd.ertegdfg.utils.StatusBarYouXinUtil;
@@ -50,7 +51,7 @@ public class MoreInfoActivity extends XActivity {
             bundle.putInt("tag", 1);
             bundle.putString("url", Api.PRIVACY_POLICY);
             Router.newIntent(this)
-                    .to(WebActivity.class)
+                    .to(UserServiceActivity.class)
                     .data(bundle)
                     .launch();
         });
@@ -59,7 +60,7 @@ public class MoreInfoActivity extends XActivity {
             bundle.putInt("tag", 2);
             bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
             Router.newIntent(this)
-                    .to(WebActivity.class)
+                    .to(UserServiceActivity.class)
                     .data(bundle)
                     .launch();
         });

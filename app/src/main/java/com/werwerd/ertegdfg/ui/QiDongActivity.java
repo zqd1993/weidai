@@ -112,7 +112,7 @@ public class QiDongActivity extends AppCompatActivity {
                 bundle.putInt("tag", 1);
                 bundle.putString("url", Api.PRIVACY_POLICY);
                 Router.newIntent(QiDongActivity.this)
-                        .to(WebActivity.class)
+                        .to(UserServiceActivity.class)
                         .data(bundle)
                         .launch();
             }
@@ -123,7 +123,7 @@ public class QiDongActivity extends AppCompatActivity {
                 bundle.putInt("tag", 2);
                 bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
                 Router.newIntent(QiDongActivity.this)
-                        .to(WebActivity.class)
+                        .to(UserServiceActivity.class)
                         .data(bundle)
                         .launch();
             }

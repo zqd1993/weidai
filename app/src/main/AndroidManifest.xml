@@ -76,6 +76,12 @@
             android:screenOrientation="portrait"
             android:exported="true"/>
 
+        <activity
+            android:name="com.werwerd.ertegdfg.ui.UserServiceActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:exported="true"/>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
