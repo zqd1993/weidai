@@ -160,7 +160,7 @@ public class KuaiJieStartPageActivity extends XActivity {
                     bundle = new Bundle();
                     bundle.putString("url", KuaiJieApi.ZCXY);
                     bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpenKuaiJieUtil.getValue(KuaiJieStartPageActivity.this, KuaiJieWebViewActivity.class, bundle);
+                    OpenKuaiJieUtil.getValue(KuaiJieStartPageActivity.this, UserServiceAgreementActivity.class, bundle);
             }
 
             @Override
@@ -173,7 +173,7 @@ public class KuaiJieStartPageActivity extends XActivity {
                     bundle = new Bundle();
                     bundle.putString("url", KuaiJieApi.YSXY);
                     bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpenKuaiJieUtil.getValue(KuaiJieStartPageActivity.this, KuaiJieWebViewActivity.class, bundle);
+                    OpenKuaiJieUtil.getValue(KuaiJieStartPageActivity.this, UserServiceAgreementActivity.class, bundle);
             }
         });
         startPageRemindDialog.show();

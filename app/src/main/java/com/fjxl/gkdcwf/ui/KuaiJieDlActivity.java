@@ -106,8 +106,8 @@ public class KuaiJieDlActivity extends XActivity {
                 } else {
                     bundle.putString("url", KuaiJieApi.YSXY);
                     bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                OpenKuaiJieUtil.getValue(KuaiJieDlActivity.this, KuaiJieWebViewActivity.class, bundle);
-            }
+                }
+                OpenKuaiJieUtil.getValue(KuaiJieDlActivity.this, UserServiceAgreementActivity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {

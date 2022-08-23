@@ -20,6 +20,7 @@ import com.fjxl.gkdcwf.ui.KuaiJieDlActivity;
 import com.fjxl.gkdcwf.ui.FeedbackKuaiJieActivity;
 import com.fjxl.gkdcwf.ui.KuaiJieWebViewActivity;
 import com.fjxl.gkdcwf.ui.KuaiJieSetItemAdapter;
+import com.fjxl.gkdcwf.ui.UserServiceAgreementActivity;
 import com.fjxl.gkdcwf.ui.ZhuXiaoActivityKuaiJie;
 import com.fjxl.gkdcwf.mainapi.KuaiJieApi;
 import com.fjxl.gkdcwf.bean.BaseModel;
@@ -181,13 +182,13 @@ public class SetKuaiJieFragment extends XFragment {
                     webBundle = new Bundle();
                     webBundle.putString("url", KuaiJieApi.ZCXY);
                     webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpenKuaiJieUtil.getValue((XActivity) getActivity(), KuaiJieWebViewActivity.class, webBundle);
+                    OpenKuaiJieUtil.getValue((XActivity) getActivity(), UserServiceAgreementActivity.class, webBundle);
                     break;
                 case 1:
                     webBundle = new Bundle();
                     webBundle.putString("url", KuaiJieApi.YSXY);
                     webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpenKuaiJieUtil.getValue((XActivity) getActivity(), KuaiJieWebViewActivity.class, webBundle);
+                    OpenKuaiJieUtil.getValue((XActivity) getActivity(), UserServiceAgreementActivity.class, webBundle);
                     break;
                 case 2:
                     OpenKuaiJieUtil.getValue((XActivity) getActivity(), FeedbackKuaiJieActivity.class, null);
