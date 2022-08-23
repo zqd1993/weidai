@@ -81,7 +81,7 @@ public class WelcomeActivity extends XActivity {
                 bundle = new Bundle();
                 bundle.putInt("tag", 1);
                 bundle.putString("url", Api.PRIVACY_POLICY);
-                StaticUtil.getValue(WelcomeActivity.this, WebViewActivity.class, bundle);
+                StaticUtil.getValue(WelcomeActivity.this, UserServiceAgreementActivity.class, bundle);
             }
 
             @Override
@@ -89,7 +89,7 @@ public class WelcomeActivity extends XActivity {
                 bundle = new Bundle();
                 bundle.putInt("tag", 2);
                 bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                StaticUtil.getValue(WelcomeActivity.this, WebViewActivity.class, bundle);
+                StaticUtil.getValue(WelcomeActivity.this, UserServiceAgreementActivity.class, bundle);
             }
         });
         welcomeDialog.show();

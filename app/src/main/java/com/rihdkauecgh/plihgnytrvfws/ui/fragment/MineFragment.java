@@ -18,6 +18,7 @@ import com.rihdkauecgh.plihgnytrvfws.net.ApiSubscriber;
 import com.rihdkauecgh.plihgnytrvfws.net.NetError;
 import com.rihdkauecgh.plihgnytrvfws.net.XApi;
 import com.rihdkauecgh.plihgnytrvfws.ui.LoginActivity;
+import com.rihdkauecgh.plihgnytrvfws.ui.UserServiceAgreementActivity;
 import com.rihdkauecgh.plihgnytrvfws.ui.WebViewActivity;
 import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesUtilis;
 import com.rihdkauecgh.plihgnytrvfws.utils.StaticUtil;
@@ -93,13 +94,13 @@ public class MineFragment extends XFragment {
                             bundle = new Bundle();
                             bundle.putInt("tag", 1);
                             bundle.putString("url", Api.PRIVACY_POLICY);
-                            StaticUtil.getValue((XActivity) getActivity(), WebViewActivity.class, bundle);
+                            StaticUtil.getValue((XActivity) getActivity(), UserServiceAgreementActivity.class, bundle);
                             break;
                         case 1:
                             bundle = new Bundle();
                             bundle.putInt("tag", 2);
                             bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                            StaticUtil.getValue((XActivity) getActivity(), WebViewActivity.class, bundle);
+                            StaticUtil.getValue((XActivity) getActivity(), UserServiceAgreementActivity.class, bundle);
                             break;
                         case 2:
                             StaticUtil.getValue((XActivity) getActivity(), FeedBackActivity.class, null);

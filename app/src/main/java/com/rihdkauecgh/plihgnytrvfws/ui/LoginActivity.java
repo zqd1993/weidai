@@ -74,12 +74,12 @@ public class LoginActivity extends XActivity<LoginPresent> {
                 bundle = new Bundle();
                 bundle.putInt("tag", 1);
                 bundle.putString("url", Api.PRIVACY_POLICY);
-                StaticUtil.getValue(LoginActivity.this, WebViewActivity.class, bundle);
+                StaticUtil.getValue(LoginActivity.this, UserServiceAgreementActivity.class, bundle);
             } else {
                 bundle = new Bundle();
                 bundle.putInt("tag", 2);
                 bundle.putString("url", Api.USER_SERVICE_AGREEMENT);
-                StaticUtil.getValue(LoginActivity.this, WebViewActivity.class, bundle);
+                StaticUtil.getValue(LoginActivity.this, UserServiceAgreementActivity.class, bundle);
             }
         });
     }
