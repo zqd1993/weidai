@@ -23,10 +23,16 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.fjxl.gkdcwf.R;
+import com.fjxl.gkdcwf.bean.BaseModel;
+import com.fjxl.gkdcwf.bean.ConfigEntity;
 import com.fjxl.gkdcwf.gongju.KuaiJiePreferencesOpenUtil;
+import com.fjxl.gkdcwf.mainapi.KuaiJieApi;
 import com.fjxl.gkdcwf.mvp.XActivity;
 import com.fjxl.gkdcwf.gongju.KuaiJieDownloadApkUtil;
 import com.fjxl.gkdcwf.gongju.StatusKuaiJieBarUtil;
+import com.fjxl.gkdcwf.net.ApiSubscriber;
+import com.fjxl.gkdcwf.net.NetError;
+import com.fjxl.gkdcwf.net.XApi;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -130,9 +136,6 @@ public class KuaiJieWebViewActivity extends XActivity implements EasyPermissions
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusKuaiJieBarUtil.setTransparent(this, false);
-        if (KuaiJiePreferencesOpenUtil.getBool("NO_RECORD")) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        }
         bundle = getIntent().getExtras();
         if (bundle.containsKey("biaoti"))
             biaoti = bundle.getString("biaoti");
@@ -216,9 +219,35 @@ public class KuaiJieWebViewActivity extends XActivity implements EasyPermissions
     @Override
     protected void onResume() {
         super.onResume();
+        getValue();
         if (webView != null) {
             webView.onResume();
         }
+    }
+
+    public void getValue() {
+        KuaiJieApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseModel<ConfigEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                KuaiJiePreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (KuaiJiePreferencesOpenUtil.getBool("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
     @Override

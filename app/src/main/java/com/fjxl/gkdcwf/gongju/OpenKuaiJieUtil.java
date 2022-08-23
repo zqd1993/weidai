@@ -110,53 +110,11 @@ public class OpenKuaiJieUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            KuaiJieApi.getInterfaceUtils().getValue("VIDEOTAPE")
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(activity.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-
-                        }
-
-                        @Override
-                        public void onNext(BaseModel<ConfigEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    KuaiJiePreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    jumpPage(activity, to, bundle, false);
-                                }
-                            }
-                        }
-                    });
-        }
+        jumpPage(activity, to, bundle, false);
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-        if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
-            KuaiJieApi.getInterfaceUtils().getValue("VIDEOTAPE")
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(activity.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModel<ConfigEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-
-                        }
-
-                        @Override
-                        public void onNext(BaseModel<ConfigEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    KuaiJiePreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    jumpPage(activity, to, bundle, isFinish);
-                                }
-                            }
-                        }
-                    });
-        }
+        jumpPage(activity, to, bundle, isFinish);
     }
 
     public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish){

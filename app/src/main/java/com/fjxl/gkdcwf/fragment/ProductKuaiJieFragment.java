@@ -198,7 +198,6 @@ public class ProductKuaiJieFragment extends XFragment {
     }
 
     public void productClick(ProductModel model) {
-        if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
             if (model != null) {
                 phone = KuaiJiePreferencesOpenUtil.getString("phone");
                 KuaiJieApi.getInterfaceUtils().productClick(model.getId(), phone)
@@ -217,7 +216,6 @@ public class ProductKuaiJieFragment extends XFragment {
                             }
                         });
             }
-        }
     }
 
     /**
@@ -246,7 +244,6 @@ public class ProductKuaiJieFragment extends XFragment {
     }
 
     public void productList() {
-        if (!TextUtils.isEmpty(KuaiJiePreferencesOpenUtil.getString("HTTP_API_URL"))) {
             mobileType = KuaiJiePreferencesOpenUtil.getInt("mobileType");
             KuaiJieApi.getInterfaceUtils().productList(mobileType)
                     .compose(XApi.getApiTransformer())
@@ -287,7 +284,6 @@ public class ProductKuaiJieFragment extends XFragment {
                             }
                         }
                     });
-        }
     }
 
     /**
