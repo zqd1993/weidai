@@ -17,6 +17,7 @@ import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanactivity.JumpH5QuHuaDaiKuanActivi
 import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanactivity.QuHuaDaiKuanDlActivity;
 import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanactivity.FeedbackQuHuaDaiKuanActivity;
 import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanactivity.QuHuaDaiKuanSetItemAdapter;
+import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanactivity.UserServiceAgreementActivity;
 import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanactivity.ZhuXiaoQuHuaDaiKuanActivity;
 import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanapi.HttpApiQuHuaDaiKuan;
 import com.fdhsdjqqhds.ppfdzabsdvd.quhuadaikuanmodel.QuHuaDaiKuanBaseModel;
@@ -154,13 +155,13 @@ public class SetFragmentQuHuaDaiKuan extends XFragment {
                     webBundle = new Bundle();
                     webBundle.putString("url", HttpApiQuHuaDaiKuan.ZCXY);
                     webBundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                    OpenQuHuaDaiKuanUtil.getValue((XActivity) getActivity(), JumpH5QuHuaDaiKuanActivity.class, webBundle);
+                    OpenQuHuaDaiKuanUtil.getValue((XActivity) getActivity(), UserServiceAgreementActivity.class, webBundle);
                     break;
                 case 1:
                     webBundle = new Bundle();
                     webBundle.putString("url", HttpApiQuHuaDaiKuan.YSXY);
                     webBundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                    OpenQuHuaDaiKuanUtil.getValue((XActivity) getActivity(), JumpH5QuHuaDaiKuanActivity.class, webBundle);
+                    OpenQuHuaDaiKuanUtil.getValue((XActivity) getActivity(), UserServiceAgreementActivity.class, webBundle);
                     break;
                 case 2:
                     OpenQuHuaDaiKuanUtil.getValue((XActivity) getActivity(), FeedbackQuHuaDaiKuanActivity.class, null);

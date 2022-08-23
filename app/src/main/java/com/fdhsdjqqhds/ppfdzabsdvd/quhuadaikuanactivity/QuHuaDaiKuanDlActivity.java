@@ -120,7 +120,7 @@ public class QuHuaDaiKuanDlActivity extends XActivity {
                 bundle.putString("url", HttpApiQuHuaDaiKuan.YSXY);
                 bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
             }
-            OpenQuHuaDaiKuanUtil.getValue(QuHuaDaiKuanDlActivity.this, JumpH5QuHuaDaiKuanActivity.class, bundle);
+            OpenQuHuaDaiKuanUtil.getValue(QuHuaDaiKuanDlActivity.this, UserServiceAgreementActivity.class, bundle);
         });
 
         getYzmTv.setOnClickListener(v -> {

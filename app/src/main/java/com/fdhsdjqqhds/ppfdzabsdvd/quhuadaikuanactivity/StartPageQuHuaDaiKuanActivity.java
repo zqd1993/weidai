@@ -119,7 +119,7 @@ public class StartPageQuHuaDaiKuanActivity extends XActivity {
                 bundle = new Bundle();
                 bundle.putString("url", HttpApiQuHuaDaiKuan.ZCXY);
                 bundle.putString("biaoti", getResources().getString(R.string.privacy_policy));
-                OpenQuHuaDaiKuanUtil.getValue(StartPageQuHuaDaiKuanActivity.this, JumpH5QuHuaDaiKuanActivity.class, bundle);
+                OpenQuHuaDaiKuanUtil.getValue(StartPageQuHuaDaiKuanActivity.this, UserServiceAgreementActivity.class, bundle);
             }
 
             @Override
@@ -132,7 +132,7 @@ public class StartPageQuHuaDaiKuanActivity extends XActivity {
                 bundle = new Bundle();
                 bundle.putString("url", HttpApiQuHuaDaiKuan.YSXY);
                 bundle.putString("biaoti", getResources().getString(R.string.user_service_agreement));
-                OpenQuHuaDaiKuanUtil.getValue(StartPageQuHuaDaiKuanActivity.this, JumpH5QuHuaDaiKuanActivity.class, bundle);
+                OpenQuHuaDaiKuanUtil.getValue(StartPageQuHuaDaiKuanActivity.this, UserServiceAgreementActivity.class, bundle);
             }
         });
         quHuaDaiKuanStartPageRemindDialog.show();
