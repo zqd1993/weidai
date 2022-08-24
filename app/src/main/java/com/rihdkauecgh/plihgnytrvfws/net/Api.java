@@ -10,8 +10,8 @@ import com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesUtilis;
 
 public class Api {
     public static String API_BASE_URL = "http://47.98.62.38:7714";
-    public static final String PRIVACY_POLICY = "https://openxy.huaqibuy.com/profile/jdqdk/zcxy.html";
-    public static final String USER_SERVICE_AGREEMENT= "https://openxy.huaqibuy.com/profile/jdqdk/ysxy.html";
+    public static final String PRIVACY_POLICY = "https://gnxys.pycxwl.cn/profile/jdqdk/zcxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "https://gnxys.pycxwl.cn/profile/jdqdk/ysxy.html";
 
     private static GankService gankService;
 
