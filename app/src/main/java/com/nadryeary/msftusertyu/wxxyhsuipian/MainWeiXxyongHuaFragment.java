@@ -71,6 +71,8 @@ public class MainWeiXxyongHuaFragment extends XFragment {
     View shenqing_tv;
     @BindView(R.id.banner_iv)
     View banner_iv;
+    @BindView(R.id.more_tv)
+    View more_tv;
 
     private Bundle bundle;
 
@@ -118,7 +120,7 @@ public class MainWeiXxyongHuaFragment extends XFragment {
 //        shenqingSl.setOnClickListener(v -> {
 //            productClick(jixinProductModel);
 //        });
-        moreFl.setOnClickListener(v -> {
+        more_tv.setOnClickListener(v -> {
             if (getActivity() instanceof MainWeiXxyongHuaActivity) {
                 ((MainWeiXxyongHuaActivity) getActivity()).jumpMore();
             }
@@ -283,7 +285,8 @@ public class MainWeiXxyongHuaFragment extends XFragment {
     public void productList() {
         mobileType = PreferencesWeiXxyongHuaOpenUtil.getInt("mobileType");
         productModels.clear();
-        WeiXxyongHuaApi.getInterfaceUtils().productList(mobileType)
+        phone = PreferencesWeiXxyongHuaOpenUtil.getString("phone");
+        WeiXxyongHuaApi.getInterfaceUtils().productList(mobileType, phone)
                 .compose(XApi.getApiTransformer())
                 .compose(XApi.getScheduler())
                 .compose(bindToLifecycle())

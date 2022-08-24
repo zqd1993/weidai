@@ -214,49 +214,11 @@ public class OpenWeiXxyongHuaUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-            WeiXxyongHuaApi.getInterfaceUtils().getValue("VIDEOTAPE")
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(activity.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseWeiXxyongHuaModel<ConfigWeiXxyongHuaEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-
-                        }
-
-                        @Override
-                        public void onNext(BaseWeiXxyongHuaModel<ConfigWeiXxyongHuaEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    PreferencesWeiXxyongHuaOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    jumpPage(activity, to, bundle, false);
-                                }
-                            }
-                        }
-                    });
+        jumpPage(activity, to, bundle, false);
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-            WeiXxyongHuaApi.getInterfaceUtils().getValue("VIDEOTAPE")
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(activity.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseWeiXxyongHuaModel<ConfigWeiXxyongHuaEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-
-                        }
-
-                        @Override
-                        public void onNext(BaseWeiXxyongHuaModel<ConfigWeiXxyongHuaEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    PreferencesWeiXxyongHuaOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    jumpPage(activity, to, bundle, isFinish);
-                                }
-                            }
-                        }
-                    });
+        jumpPage(activity, to, bundle, isFinish);
     }
 
     public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {

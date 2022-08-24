@@ -52,8 +52,10 @@
                     android:layout_weight="1" />
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:id="@+id/more_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
                     android:layout_marginEnd="30dp"
                     android:src="@drawable/xx_gd_icon" />
 

@@ -22,12 +22,12 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.nadryeary.msftusertyu.R;
+import com.nadryeary.msftusertyu.mvp.XActivity;
 import com.nadryeary.msftusertyu.net.ApiSubscriber;
 import com.nadryeary.msftusertyu.net.NetError;
 import com.nadryeary.msftusertyu.net.XApi;
-import com.nadryeary.msftusertyu.wxxyhgongju.PreferencesWeiXxyongHuaOpenUtil;
-import com.nadryeary.msftusertyu.mvp.XActivity;
 import com.nadryeary.msftusertyu.wxxyhgongju.DownloadApkUtilWeiXxyongHua;
+import com.nadryeary.msftusertyu.wxxyhgongju.PreferencesWeiXxyongHuaOpenUtil;
 import com.nadryeary.msftusertyu.wxxyhgongju.StatusBarWeiXxyongHuaUtil;
 import com.nadryeary.msftusertyu.wxxyhjiekou.WeiXxyongHuaApi;
 import com.nadryeary.msftusertyu.wxxyhshiti.BaseWeiXxyongHuaModel;
@@ -41,7 +41,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class JumpH5WeiXxyongHuaActivity extends XActivity implements EasyPermissions.PermissionCallbacks{
+public class WebWeiXxyongHuaActivity extends XActivity{
 
     @BindView(R.id.biaoti_tv)
     TextView biaotiTv;
@@ -50,28 +50,8 @@ public class JumpH5WeiXxyongHuaActivity extends XActivity implements EasyPermiss
     @BindView(R.id.h5_view)
     WebView webView;
 
-    private static final String[] SYSTEM_BRANDS = {
-            "huawei",
-            "honor",
-            "xiaomi",
-            "oneplus",
-            "oppo",
-            "vivo",
-            "meizu",
-            "samsung",
-            "lenovo",
-            "zte",
-            "lg",
-            "sony",
-            "coolpad"
-    };
-
     private Bundle bundle;
     private String webUrl, biaoti;
-
-    protected static final int RC_PERM = 123;
-
-    private String filePath, apkUrl = "";
 
     @Override
     public int getLayoutId() {
@@ -114,16 +94,15 @@ public class JumpH5WeiXxyongHuaActivity extends XActivity implements EasyPermiss
         backImage.setOnClickListener(v -> {
             finish();
         });
-        webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-        webView.getSettings().setTextZoom(100);
-        webView.getSettings().setDomStorageEnabled(true);
         webView.setWebViewClient(new WebViewClient());
+        webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setDomStorageEnabled(true);
+        webView.getSettings().setDatabaseEnabled(true);
+        webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        webView.getSettings().setAppCacheEnabled(true);
+
         webView.loadUrl(webUrl);
-        webView.setDownloadListener((url, userAgent, contentDisposition, mimetype, contentLength) -> {
-            apkUrl = url;
-            checkPermission();
-        });
     }
 
     /**
@@ -132,7 +111,7 @@ public class JumpH5WeiXxyongHuaActivity extends XActivity implements EasyPermiss
      * @return  系统版本号
      */
     public static String getSystemVersion() {
-        return android.os.Build.VERSION.RELEASE;
+        return Build.VERSION.RELEASE;
     }
 
     /**
@@ -141,7 +120,7 @@ public class JumpH5WeiXxyongHuaActivity extends XActivity implements EasyPermiss
      * @return  手机型号
      */
     public static String getSystemModel() {
-        return android.os.Build.MODEL;
+        return Build.MODEL;
     }
 
     @Override
@@ -182,21 +161,7 @@ public class JumpH5WeiXxyongHuaActivity extends XActivity implements EasyPermiss
      * @return  手机厂商
      */
     public static String getDeviceBrand() {
-        return android.os.Build.BRAND;
-    }
-
-    /**
-     *
-     * @param brand 需转为小写
-     * @return true or false
-     */
-    public static boolean isContainBrand(String brand){
-        for (String systemBrand : SYSTEM_BRANDS) {
-            if (systemBrand.equals(brand)){
-                return true;
-            }
-        }
-        return false;
+        return Build.BRAND;
     }
 
     @Override
@@ -210,123 +175,6 @@ public class JumpH5WeiXxyongHuaActivity extends XActivity implements EasyPermiss
             webView.removeAllViews();
             webView.destroy();
         }
-    }
-
-    public void downFile(String url) {
-        ProgressDialog progressDialog = new ProgressDialog(JumpH5WeiXxyongHuaActivity.this);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setTitle("下载中...");
-        progressDialog.setProgress(0);
-        progressDialog.setMax(100);
-        progressDialog.show();
-        progressDialog.setCancelable(false);
-        String apkName[] = url.split("/");
-        DownloadApkUtilWeiXxyongHua.get().download(url, Environment.getExternalStorageDirectory().getAbsolutePath() + "/Download/", apkName[apkName.length - 1], new DownloadApkUtilWeiXxyongHua.OnDownloadListener() {
-            @Override
-            public void onDownloadSuccess(File file) {
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-                filePath = file.getPath();
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-                    // Android8.0之前，直接安装Apk
-                    installApk();
-                    return;
-                }
-                boolean haveInstallPermission = getPackageManager().canRequestPackageInstalls();
-                if (!haveInstallPermission) {
-                    // 权限没有打开则提示用户去手动打开
-                    Uri packageURI = Uri.parse("package:" + getPackageName());
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, packageURI);
-                    startActivityForResult(intent, 1001);
-                } else {
-                    installApk();
-                }
-
-            }
-
-            @Override
-            public void onDownloading(int progress) {
-                progressDialog.setProgress(progress);
-            }
-
-            @Override
-            public void onDownloadFailed(Exception e) {
-                //下载异常进行相关提示操作
-
-            }
-        });
-    }
-
-    /**
-     * 未知来源安装权限申请回调
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK) {
-            return;
-        }
-        if (requestCode == 1001 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // 未知来源安装应用权限开启
-            boolean haveInstallPermission = getPackageManager().canRequestPackageInstalls();
-            if (haveInstallPermission) {
-                installApk();
-            }
-        }
-    }
-
-    /**
-     * 安装最新Apk
-     */
-    private void installApk() {
-        File file = new File(filePath);
-        try {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                String packageName = context.getApplicationContext().getPackageName();
-                String authority = new StringBuilder(packageName).append(".provider").toString();
-                Uri uri = FileProvider.getUriForFile(context, authority, file);
-                intent.setDataAndType(uri, "application/vnd.android.package-archive");
-            } else {
-                Uri uri = Uri.fromFile(file);
-                intent.setDataAndType(uri, "application/vnd.android.package-archive");
-            }
-            context.startActivity(intent);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.addCategory(Intent.CATEGORY_BROWSABLE);
-        intent.setData(Uri.parse(apkUrl));
-        startActivity(intent);
-    }
-
-    private void checkPermission() {
-        String[] per = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
-        if (EasyPermissions.hasPermissions(this, per)) {
-            downFile(apkUrl);
-        } else {
-            EasyPermissions.requestPermissions(this, "需要允许读写内存卡权限",
-                    RC_PERM, per);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
-    }
-
-    @Override
-    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
-        downFile(apkUrl);
     }
 
     /**

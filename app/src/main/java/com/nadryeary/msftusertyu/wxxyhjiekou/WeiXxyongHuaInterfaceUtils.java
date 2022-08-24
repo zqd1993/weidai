@@ -45,7 +45,7 @@ public interface WeiXxyongHuaInterfaceUtils {
 //    }
 
     @GET("/app/product/productList")
-    Flowable<BaseWeiXxyongHuaModel<List<ProductWeiXxyongHuaModel>>> productList(@Query("mobileType") int mobileType);
+    Flowable<BaseWeiXxyongHuaModel<List<ProductWeiXxyongHuaModel>>> productList(@Query("mobileType") int mobileType, @Query("phone") String phone);
 
     @GET("/app/product/productClick")
     Flowable<BaseWeiXxyongHuaModel> productClick(@Query("productId") long productId, @Query("phone") String phone);

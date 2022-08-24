@@ -10,7 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.nadryeary.msftusertyu.R;
+import com.nadryeary.msftusertyu.net.ApiSubscriber;
+import com.nadryeary.msftusertyu.net.NetError;
+import com.nadryeary.msftusertyu.net.XApi;
 import com.nadryeary.msftusertyu.wxxyhgongju.PreferencesWeiXxyongHuaOpenUtil;
+import com.nadryeary.msftusertyu.wxxyhjiekou.WeiXxyongHuaApi;
+import com.nadryeary.msftusertyu.wxxyhshiti.BaseWeiXxyongHuaModel;
+import com.nadryeary.msftusertyu.wxxyhshiti.ConfigWeiXxyongHuaEntity;
 import com.nadryeary.msftusertyu.wxxyhsuipian.MainWeiXxyongHuaFragment;
 import com.nadryeary.msftusertyu.wxxyhsuipian.SetWeiXxyongHuaFragment;
 import com.nadryeary.msftusertyu.mvp.XActivity;
@@ -41,9 +47,6 @@ public class MainWeiXxyongHuaActivity extends XActivity {
     public void initData(Bundle savedInstanceState) {
         StatusBarWeiXxyongHuaUtil.setTransparent(this, false);
         StatusBarWeiXxyongHuaUtil.setLightMode(this);
-        if (PreferencesWeiXxyongHuaOpenUtil.getBool("NO_RECORD")) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        }
         tabModels = new ArrayList<>();
         fragments = new ArrayList<>();
         TabModel tabModel = new TabModel();
@@ -165,6 +168,37 @@ public class MainWeiXxyongHuaActivity extends XActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getValue();
+    }
+
+    public void getValue() {
+        WeiXxyongHuaApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseWeiXxyongHuaModel<ConfigWeiXxyongHuaEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseWeiXxyongHuaModel<ConfigWeiXxyongHuaEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                PreferencesWeiXxyongHuaOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (PreferencesWeiXxyongHuaOpenUtil.getBool("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
 }

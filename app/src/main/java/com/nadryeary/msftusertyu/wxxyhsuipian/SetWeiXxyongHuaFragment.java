@@ -1,5 +1,8 @@
 package com.nadryeary.msftusertyu.wxxyhsuipian;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -63,8 +66,13 @@ public class SetWeiXxyongHuaFragment extends XFragment {
 
     private String mailStr = "";
 
+    private ClipboardManager clipboard;
+
+    private ClipData clipData;
+
     @Override
     public void initData(Bundle savedInstanceState) {
+        clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
         mailStr = PreferencesWeiXxyongHuaOpenUtil.getString("app_mail");
         phone = PreferencesWeiXxyongHuaOpenUtil.getString("phone");
         userPhoneTv.setText(phone);
@@ -189,7 +197,22 @@ public class SetWeiXxyongHuaFragment extends XFragment {
                             if (configEntity.getData() != null) {
                                 mailStr = configEntity.getData().getAppMail();
                                 PreferencesWeiXxyongHuaOpenUtil.saveString("app_mail", mailStr);
-                                dialog = new RemindWeiXxyongHuaDialog(getActivity()).setTitle("温馨提示").setContent(mailStr).showOnlyBtn();
+                                dialog = new RemindWeiXxyongHuaDialog(getActivity()).setCancelText("取消")
+                                        .setConfirmText("复制").setTitle("温馨提示").setContent(mailStr);
+                                dialog.setOnButtonClickListener(new RemindWeiXxyongHuaDialog.OnButtonClickListener() {
+                                    @Override
+                                    public void onSureClicked() {
+                                        clipData = ClipData.newPlainText(null, mailStr);
+                                        clipboard.setPrimaryClip(clipData);
+                                        WeiXxyongHuaMyToast.showShort("复制成功");
+                                        dialog.dismiss();
+                                    }
+
+                                    @Override
+                                    public void onCancelClicked() {
+                                        dialog.dismiss();
+                                    }
+                                });
                                 dialog.show();
                             }
                         }
@@ -199,7 +222,8 @@ public class SetWeiXxyongHuaFragment extends XFragment {
 
     public void productList() {
         mobileType = PreferencesWeiXxyongHuaOpenUtil.getInt("mobileType");
-        WeiXxyongHuaApi.getInterfaceUtils().productList(mobileType)
+        phone = PreferencesWeiXxyongHuaOpenUtil.getString("phone");
+        WeiXxyongHuaApi.getInterfaceUtils().productList(mobileType, phone)
                 .compose(XApi.getApiTransformer())
                 .compose(XApi.getScheduler())
                 .compose(bindToLifecycle())
