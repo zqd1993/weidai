@@ -82,7 +82,7 @@ public class WelcomeActivityXianjinChaoShi extends XActivity {
                 bundle.putInt("tag", 1);
                 bundle.putString("url", ApiXianjinChaoShi.getZc());
                 Router.newIntent(WelcomeActivityXianjinChaoShi.this)
-                        .to(XianjinChaoShiWebViewActivity.class)
+                        .to(UserWebViewActivity.class)
                         .data(bundle)
                         .launch();
             }
@@ -93,7 +93,7 @@ public class WelcomeActivityXianjinChaoShi extends XActivity {
                 bundle.putInt("tag", 2);
                 bundle.putString("url", ApiXianjinChaoShi.getYs());
                 Router.newIntent(WelcomeActivityXianjinChaoShi.this)
-                        .to(XianjinChaoShiWebViewActivity.class)
+                        .to(UserWebViewActivity.class)
                         .data(bundle)
                         .launch();
             }

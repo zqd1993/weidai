@@ -5,8 +5,10 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -20,6 +22,7 @@ import com.nfsthjsrtuae.fghserytuxfh.xianjinchaoshimodel.MineXianjinChaoShiItemM
 import com.nfsthjsrtuae.fghserytuxfh.xianjinchaoshinet.ApiSubscriber;
 import com.nfsthjsrtuae.fghserytuxfh.xianjinchaoshinet.NetError;
 import com.nfsthjsrtuae.fghserytuxfh.xianjinchaoshinet.XApi;
+import com.nfsthjsrtuae.fghserytuxfh.xianjinchaoshiui.UserWebViewActivity;
 import com.nfsthjsrtuae.fghserytuxfh.xianjinchaoshiui.XianjinChaoShiWebViewActivity;
 import com.nfsthjsrtuae.fghserytuxfh.xianjinchaoshiui.activity.AboutUsXianjinChaoShiActivity;
 import com.nfsthjsrtuae.fghserytuxfh.xianjinchaoshiui.activity.CancellationXianjinChaoShiAccountActivity;
@@ -47,12 +50,17 @@ public class XianjinChaoShiMineFragment extends XFragment {
     TextView phoneTv;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.mail_fl)
+    View mail_fl;
+    @BindView(R.id.mail_tv)
+    TextView mail_tv;
+
 
     private MineXianjinChaoShiDaiAdapter mineAdapter;
     private XianjinChaoShiDaiAdapter1 xianjinChaoShiDaiAdapter1;
     private List<MineXianjinChaoShiItemModel> list;
-    private int[] imgRes = {R.drawable.lpyfsdrtusaru, R.drawable.wwetgrey, R.drawable.klfyoidrtu, R.drawable.xxtruysrtu, R.drawable.zbzxreasu, R.drawable.xxdrydrtu};
-    private String[] tvRes = {"注册协议", "隐私协议", "关于我们", "投诉邮箱", "系统设置", "注销账户"};
+    private int[] imgRes = {R.drawable.lpyfsdrtusaru, R.drawable.wwetgrey, R.drawable.klfyoidrtu, R.drawable.zbzxreasu, R.drawable.xxdrydrtu};
+    private String[] tvRes = {"注册协议", "隐私协议", "关于我们", "系统设置", "注销账户"};
     private Bundle bundle;
     private NormalXianjinChaoShiDialog normalXianjinChaoShiDialog;
     private String mailStr = "", phone = "";
@@ -64,7 +72,7 @@ public class XianjinChaoShiMineFragment extends XFragment {
         if (!TextUtils.isEmpty(phone) && phone.length() > 10) {
             phoneTv.setText(phone.replace(phone.substring(3, 7), "****"));
         }
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 5; i++) {
             MineXianjinChaoShiItemModel model = new MineXianjinChaoShiItemModel();
             model.setImgRes(imgRes[i]);
             model.setItemTv(tvRes[i]);
@@ -73,6 +81,12 @@ public class XianjinChaoShiMineFragment extends XFragment {
         initAdapter();
         swipeRefreshLayout.setOnRefreshListener(() -> {
             getCompanyInfo();
+        });
+        mail_fl.setOnClickListener(v -> {
+            ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clipData = ClipData.newPlainText(null, mailStr);
+            clipboard.setPrimaryClip(clipData);
+            ToastUtilXianjinChaoShi.showShort("复制成功");
         });
     }
 
@@ -107,7 +121,7 @@ public class XianjinChaoShiMineFragment extends XFragment {
                             bundle.putInt("tag", 1);
                             bundle.putString("url", ApiXianjinChaoShi.getZc());
                             Router.newIntent(getActivity())
-                                    .to(XianjinChaoShiWebViewActivity.class)
+                                    .to(UserWebViewActivity.class)
                                     .data(bundle)
                                     .launch();
                             break;
@@ -116,7 +130,7 @@ public class XianjinChaoShiMineFragment extends XFragment {
                             bundle.putInt("tag", 2);
                             bundle.putString("url", ApiXianjinChaoShi.getYs());
                             Router.newIntent(getActivity())
-                                    .to(XianjinChaoShiWebViewActivity.class)
+                                    .to(UserWebViewActivity.class)
                                     .data(bundle)
                                     .launch();
                             break;
@@ -125,18 +139,18 @@ public class XianjinChaoShiMineFragment extends XFragment {
                                     .to(AboutUsXianjinChaoShiActivity.class)
                                     .launch();
                             break;
+//                        case 3:
+//                            ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+//                            ClipData clipData = ClipData.newPlainText(null, mailStr);
+//                            clipboard.setPrimaryClip(clipData);
+//                            ToastUtilXianjinChaoShi.showShort("复制成功");
+//                            break;
                         case 3:
-                            ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                            ClipData clipData = ClipData.newPlainText(null, mailStr);
-                            clipboard.setPrimaryClip(clipData);
-                            ToastUtilXianjinChaoShi.showShort("复制成功");
-                            break;
-                        case 4:
                             Router.newIntent(getActivity())
                                     .to(XianjinChaoShiSettingActivity.class)
                                     .launch();
                             break;
-                        case 5:
+                        case 4:
                             Router.newIntent(getActivity())
                                     .to(CancellationXianjinChaoShiAccountActivity.class)
                                     .launch();
@@ -144,7 +158,7 @@ public class XianjinChaoShiMineFragment extends XFragment {
                     }
                 }
             });
-            rvy.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 3));
             rvy.setHasFixedSize(true);
             rvy.setAdapter(mineAdapter);
         }
@@ -168,6 +182,7 @@ public class XianjinChaoShiMineFragment extends XFragment {
                             if (loginStatusModel != null) {
                                 if (loginStatusModel.getData() != null) {
                                     mailStr = loginStatusModel.getData().getGsmail();
+                                    mail_tv.setText(mailStr);
                                     SharedPreferencesXianjinChaoShiUtilis.saveStringIntoPref("APP_MAIL", mailStr);
                                 }
                             }

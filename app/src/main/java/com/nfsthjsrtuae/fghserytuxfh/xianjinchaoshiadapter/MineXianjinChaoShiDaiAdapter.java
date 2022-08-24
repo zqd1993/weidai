@@ -35,19 +35,14 @@ public class MineXianjinChaoShiDaiAdapter extends SimpleRecAdapter<MineXianjinCh
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         viewHolder.itemImg.setImageResource(data.get(i).getImgRes());
         viewHolder.tvItem.setText(data.get(i).getItemTv());
-        if (i == data.size() - 1){
-            viewHolder.line.setVisibility(View.GONE);
-        } else {
-            viewHolder.line.setVisibility(View.VISIBLE);
-        }
-        if (i == 3){
-            viewHolder.mail_tv.setText(SharedPreferencesXianjinChaoShiUtilis.getStringFromPref("APP_MAIL"));
-            viewHolder.mail_tv.setVisibility(View.VISIBLE);
-            viewHolder.right_img.setVisibility(View.GONE);
-        } else {
-            viewHolder.mail_tv.setVisibility(View.GONE);
-            viewHolder.right_img.setVisibility(View.VISIBLE);
-        }
+//        if (i == 3){
+//            viewHolder.mail_tv.setText(SharedPreferencesXianjinChaoShiUtilis.getStringFromPref("APP_MAIL"));
+//            viewHolder.mail_tv.setVisibility(View.VISIBLE);
+//            viewHolder.right_img.setVisibility(View.GONE);
+//        } else {
+//            viewHolder.mail_tv.setVisibility(View.GONE);
+//            viewHolder.right_img.setVisibility(View.VISIBLE);
+//        }
         viewHolder.parentLl.setOnClickListener(v -> {
             getRecItemClick().onItemClick(i, data.get(i), 1, viewHolder);
         });
@@ -62,12 +57,6 @@ public class MineXianjinChaoShiDaiAdapter extends SimpleRecAdapter<MineXianjinCh
         ImageView itemImg;
         @BindView(R.id.parent_ll)
         View parentLl;
-        @BindView(R.id.line)
-        View line;
-        @BindView(R.id.right_img)
-        View right_img;
-        @BindView(R.id.mail_tv)
-        TextView mail_tv;
 
         public ViewHolder(View itemView) {
             super(itemView);

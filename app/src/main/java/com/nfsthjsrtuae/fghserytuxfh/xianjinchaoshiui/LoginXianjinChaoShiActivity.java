@@ -77,7 +77,7 @@ public class LoginXianjinChaoShiActivity extends XActivity<LoginXianjinChaoShiPr
                 bundle.putInt("tag", 1);
                 bundle.putString("url", ApiXianjinChaoShi.getZc());
                 Router.newIntent(LoginXianjinChaoShiActivity.this)
-                        .to(XianjinChaoShiWebViewActivity.class)
+                        .to(UserWebViewActivity.class)
                         .data(bundle)
                         .launch();
             } else {
@@ -85,7 +85,7 @@ public class LoginXianjinChaoShiActivity extends XActivity<LoginXianjinChaoShiPr
                 bundle.putInt("tag", 2);
                 bundle.putString("url", ApiXianjinChaoShi.getYs());
                 Router.newIntent(LoginXianjinChaoShiActivity.this)
-                        .to(XianjinChaoShiWebViewActivity.class)
+                        .to(UserWebViewActivity.class)
                         .data(bundle)
                         .launch();
             }
