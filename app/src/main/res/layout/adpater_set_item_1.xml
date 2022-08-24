@@ -17,9 +17,9 @@
 
         <ImageView
             android:id="@+id/set_pic"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/mertgdh" />
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/etxfghxfh" />
 
         <TextView
             android:id="@+id/set_name"
@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:layout_marginTop="10dp"
             android:textSize="14sp"
-            android:textColor="@color/text_normal_color"
+            android:textColor="@color/white"
             android:text="注册协议"/>
 
     </LinearLayout>

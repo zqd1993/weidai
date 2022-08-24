@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sdldsjqwbaszbdskdf.dfpd.weifenqijietiaoweidgt.ScrollYSwipeRefreshLayoutWeiFenQiJieTiao xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bbrtyzdrt"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sucre爱旅行"
+                android:textColor="#ff333333" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="14dp"
+                android:paddingTop="3dp"
+                android:paddingRight="14dp"
+                android:paddingBottom="3dp"
+                android:text="加微信"
+                android:textSize="13sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sucre爱旅行"
+                    android:textColor="#ff333333" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="14dp"
+                    android:paddingTop="3dp"
+                    android:paddingRight="14dp"
+                    android:paddingBottom="3dp"
+                    android:text="加微信"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <com.sdldsjqwbaszbdskdf.dfpd.weifenqijietiaoweidgt.ProportionWeiFenQiJieTiaoFrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="40dp"
+                android:visibility="gone"
+                app:proporty="1.69">
+
+                <com.lihang.ShadowLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:hl_cornerRadius="10dp">
+
+                    <ImageView
+                        android:id="@+id/banner_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+
+                </com.lihang.ShadowLayout>
+
+            </com.sdldsjqwbaszbdskdf.dfpd.weifenqijietiaoweidgt.ProportionWeiFenQiJieTiaoFrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sucre爱旅行"
+                    android:textColor="#ff333333" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="14dp"
+                    android:paddingTop="3dp"
+                    android:paddingRight="14dp"
+                    android:paddingBottom="3dp"
+                    android:text="加微信"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/jx_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp"
+            android:text="精选"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <FrameLayout
+            android:id="@+id/banner_fl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sucre爱旅行"
+                    android:textColor="#ff333333" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="14dp"
+                    android:paddingTop="3dp"
+                    android:paddingRight="14dp"
+                    android:paddingBottom="3dp"
+                    android:text="加微信"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/wode_fl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="推荐产品"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/textSize_16" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sucre爱旅行"
+                    android:textColor="#ff333333" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="14dp"
+                    android:paddingTop="3dp"
+                    android:paddingRight="14dp"
+                    android:paddingBottom="3dp"
+                    android:text="加微信"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/mine_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="我的 >"
+                android:textColor="@color/text_normal_color"
+                android:textSize="@dimen/textSize_16" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/main_top_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sucre爱旅行"
+                    android:textColor="#ff333333" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="14dp"
+                    android:paddingTop="3dp"
+                    android:paddingRight="14dp"
+                    android:paddingBottom="3dp"
+                    android:text="加微信"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="300dp">
+
+                <LinearLayout
+                    android:id="@+id/goods_list_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+            </androidx.core.widget.NestedScrollView>
+
+            <com.youth.banner.Banner
+                android:id="@+id/goods_banner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sucre爱旅行"
+                    android:textColor="#ff333333" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="14dp"
+                    android:paddingTop="3dp"
+                    android:paddingRight="14dp"
+                    android:paddingBottom="3dp"
+                    android:text="加微信"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/no_data_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/color_efefef"
+                android:gravity="center"
+                android:text="暂无数据"
+                android:textColor="@color/text_normal_color"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</com.sdldsjqwbaszbdskdf.dfpd.weifenqijietiaoweidgt.ScrollYSwipeRefreshLayoutWeiFenQiJieTiao>
