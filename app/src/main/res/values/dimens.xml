@@ -6,4 +6,5 @@
     <dimen name="item_text_kid_textsize">15sp</dimen>
     <dimen name="item_title_message">12sp</dimen>
     <dimen name="textSize_16">16sp</dimen>
+    <dimen name="dp_10">10dp</dimen>
 </resources>

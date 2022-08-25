@@ -69,8 +69,6 @@ public class MainAnYiJieQianHwFragment extends XFragment {
     View root_ll;
     @BindView(R.id.shenqing_tv)
     View shenqing_tv;
-    @BindView(R.id.click_view)
-    View click_view;
 
     private Bundle bundle;
 
@@ -131,9 +129,9 @@ public class MainAnYiJieQianHwFragment extends XFragment {
         shenqing_tv.setOnClickListener(v -> {
             productClick(getGoodsModel());
         });
-        click_view.setOnClickListener(v -> {
-            productClick(getGoodsModel());
-        });
+//        click_view.setOnClickListener(v -> {
+//            productClick(getGoodsModel());
+//        });
     }
 
     @Override
@@ -193,26 +191,26 @@ public class MainAnYiJieQianHwFragment extends XFragment {
     private void initItemAdapter() {
         List<AnYiJieQianHwItemModel> list = new ArrayList<>();
         AnYiJieQianHwItemModel model = new AnYiJieQianHwItemModel();
-        model.setName("3期");
-        model.setAmount("5000");
+        model.setName("90");
+        model.setAmount("90");
         list.add(model);
         AnYiJieQianHwItemModel model1 = new AnYiJieQianHwItemModel();
-        model1.setName("6期");
-        model1.setAmount("50000");
+        model1.setName("120");
+        model1.setAmount("120");
         list.add(model1);
         AnYiJieQianHwItemModel model2 = new AnYiJieQianHwItemModel();
-        model2.setName("9期");
-        model2.setAmount("100000");
+        model2.setName("360");
+        model2.setAmount("360");
         model2.setChecked(true);
         model2.setAomuntChecked(true);
         list.add(model2);
         AnYiJieQianHwItemModel model3 = new AnYiJieQianHwItemModel();
-        model3.setName("12期");
-        model3.setAmount("150000");
+        model3.setName("720");
+        model3.setAmount("720");
         list.add(model3);
         AnYiJieQianHwItemModel model4 = new AnYiJieQianHwItemModel();
-        model4.setName("24期");
-        model4.setAmount("200000");
+        model4.setName("1080");
+        model4.setAmount("1080");
         list.add(model4);
         itemAnYiJieQianHwAdapter = new ItemAnYiJieQianHwAdapter(getActivity());
         itemAnYiJieQianHwAdapter.setHasStableIds(true);
@@ -224,7 +222,7 @@ public class MainAnYiJieQianHwFragment extends XFragment {
                 progress_tv.setText(model.getAmount());
             }
         });
-        item_list.setLayoutManager(new GridLayoutManager(getActivity(), 5));
+        item_list.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         item_list.setHasFixedSize(true);
         item_list.setAdapter(itemAnYiJieQianHwAdapter);
     }

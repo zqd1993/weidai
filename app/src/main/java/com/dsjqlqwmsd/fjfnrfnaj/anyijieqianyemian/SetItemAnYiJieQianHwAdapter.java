@@ -30,11 +30,9 @@ public class SetItemAnYiJieQianHwAdapter extends BaseQuickAdapter<SetModelAnYiJi
         helper.setText(R.id.set_name, item.getName());
         Glide.with(mContext).load(item.getPic()).into(imageView);
         View line_view = helper.getView(R.id.line_view);
-        line_view.setVisibility(View.GONE);
-        if (helper.getLayoutPosition() == 0
-                || helper.getLayoutPosition() == 2
-                || helper.getLayoutPosition() == 4) {
-            line_view.setVisibility(View.VISIBLE);
+        line_view.setVisibility(View.VISIBLE);
+        if (helper.getLayoutPosition() == getData().size() - 1) {
+            line_view.setVisibility(View.GONE);
         }
         helper.getView(R.id.parent_fl).setOnClickListener(v -> {
             if (onClickListener != null) {

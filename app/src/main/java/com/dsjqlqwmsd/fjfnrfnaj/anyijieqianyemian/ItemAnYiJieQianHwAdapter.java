@@ -36,10 +36,10 @@ public class ItemAnYiJieQianHwAdapter extends SimpleRecAdapter<AnYiJieQianHwItem
         itemViewHolder.amount_tv.setText(model.getAmount());
         if (model.isChecked()) {
             itemViewHolder.parent_fl.setBackgroundResource(R.drawable.item_bg_1);
-            itemViewHolder.item_name.setTextColor(context.getResources().getColor(R.color.text_normal_color));
+            itemViewHolder.item_name.setTextColor(context.getResources().getColor(R.color.white));
         } else {
             itemViewHolder.parent_fl.setBackgroundResource(R.drawable.item_bg);
-            itemViewHolder.item_name.setTextColor(context.getResources().getColor(R.color.white));
+            itemViewHolder.item_name.setTextColor(context.getResources().getColor(R.color.text_normal_color));
         }
         if (model.isAomuntChecked()) {
             itemViewHolder.amount_tv.setTextColor(context.getResources().getColor(R.color.text_normal_color));

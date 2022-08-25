@@ -26,7 +26,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="fitXY"
-                    android:src="@drawable/banner" />
+                    android:src="@drawable/bcheryzdfg" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -36,93 +36,141 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:textSize="16sp"
-                        android:layout_gravity="center_horizontal"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="90dp"
+                        android:textSize="20sp"
                         android:textColor="@color/white"
                         android:text="@string/app_name"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="35dp"
-                        android:textSize="16sp"
-                        android:textColor="#635f58"
-                        android:text="无忧借  闪电借"/>
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-120dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/lyupyufikdrt">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="26dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="40dp"
-                        android:layout_gravity="center_horizontal"
-                        android:textStyle="bold"
-                        android:textSize="22sp"
-                        android:textColor="#635f58"
-                        android:text="200,000" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_gravity="center_horizontal"
-                        android:textStyle="bold"
-                        android:textSize="13sp"
-                        android:textColor="#8b7d5c"
-                        android:text="最高可申请额度（元）" />
+                        android:layout_marginTop="22dp"
+                        android:text="额度和利息以机构的最终放款情况为准"
+                        android:textColor="#666666"
+                        android:textSize="13sp"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="35dp"
+                        android:layout_marginTop="25dp"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="超低利率"
-                            android:drawablePadding="5dp"
-                            android:textSize="14sp"
-                            android:textColor="#f3dba4"
-                            android:gravity="center"
-                            android:drawableTop="@drawable/icon_1" />
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="灵活分期"
-                            android:drawablePadding="5dp"
-                            android:textSize="14sp"
-                            android:textColor="#f3dba4"
-                            android:gravity="center"
-                            android:drawableTop="@drawable/icon_2" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="最高贷款金额(元)"
+                                android:textColor="#3284FF"
+                                android:textSize="13sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="超快审批"
-                            android:drawablePadding="5dp"
-                            android:textSize="14sp"
-                            android:textColor="#f3dba4"
-                            android:gravity="center"
-                            android:drawableTop="@drawable/icon_3" />
+                            <LinearLayout
+                                android:id="@+id/jine_ll"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal">
 
-                        <TextView
+                                <TextView
+                                    android:id="@+id/progress_tv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="100000"
+                                    android:textColor="#3284FF"
+                                    android:textSize="30sp"
+                                    android:textStyle="bold" />
+
+                                <ImageView
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
+                                    android:layout_gravity="bottom"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginBottom="7dp"
+                                    android:background="@drawable/dsrgtretrtg"/>
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:textSize="13sp"
+                                android:textColor="#BCBCBC"
+                                android:text="年化利率7.2%（单利）"
+                                android:visibility="gone"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="闪电放款"
-                            android:drawablePadding="5dp"
-                            android:textSize="14sp"
-                            android:textColor="#f3dba4"
-                            android:gravity="center"
-                            android:drawableTop="@drawable/icon_4" />
+                            android:layout_weight="2"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:text="贷款期限(天)"
+                                android:textColor="#3284FF"
+                                android:textSize="14sp"/>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/item_list"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"/>
+
+                        </LinearLayout>
 
                     </LinearLayout>
+
+                    <com.lihang.ShadowLayout
+                        android:id="@+id/shenqing_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="30dp"
+                        app:hl_cornerRadius="50dp"
+                        app:hl_layoutBackground="@color/colorPrimary">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:gravity="center"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="领取我的额度"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+
+                    </com.lihang.ShadowLayout>
 
                 </LinearLayout>
 
@@ -130,22 +178,26 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/bg_corner_10_white"
-                android:gravity="center_vertical"
-                android:visibility="gone">
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/lyupyufikdrt"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="26dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
+                    android:gravity="center"
+                    android:drawableStart="@drawable/nnxcvbery"
+                    android:drawablePadding="5dp"
                     android:text="消息快讯"
                     android:textColor="#2d7dff"
-                    android:textSize="@dimen/textSize_16" />
+                    android:textSize="12sp" />
 
                 <ViewFlipper
                     android:id="@+id/view_flipper"
@@ -156,126 +208,52 @@
                     android:layout_marginEnd="20dp"
                     android:layout_weight="1" />
 
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginEnd="30dp"
-                    android:src="@drawable/xx_gd_icon" />
-
             </LinearLayout>
 
-            <FrameLayout
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp">
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="40dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/sdfghsery" />
+
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/xt_bg"
-                    android:orientation="vertical">
+                    android:layout_marginTop="7dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="20dp"
-                        android:drawableStart="@drawable/hup"
-                        android:drawablePadding="5dp"
-                        android:text="@string/app_name"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:visibility="gone"/>
+                        android:textSize="15sp"
+                        android:textColor="#5269C0"
+                        android:text="随时借还" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginStart="5dp"
-                        android:text="申请额度（元）"
-                        android:textColor="#f2d9a1"
-                        android:textSize="14sp" />
-
-                    <LinearLayout
-                        android:id="@+id/jine_ll"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_gravity="center_horizontal"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/progress_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="100000"
-                            android:textColor="#f2d9a1"
-                            android:textSize="30sp"
-                            android:textStyle="bold" />
-
-                        <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_gravity="bottom"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginBottom="7dp"
-                            android:src="@drawable/xjt_icon" />
-
-                    </LinearLayout>
+                        android:layout_gravity="center"
+                        android:textSize="15sp"
+                        android:textColor="#5269C0"
+                        android:text="3秒审批" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginTop="15dp"
-                        android:text="借款期限"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        android:visibility="gone"/>
+                        android:layout_gravity="end"
+                        android:textSize="15sp"
+                        android:textColor="#5269C0"
+                        android:text="5分钟到账" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/item_list"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:visibility="gone"/>
+                </FrameLayout>
 
-                    <TextView
-                        android:id="@+id/shenqing_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="55dp"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginEnd="55dp"
-                        android:background="@drawable/button_bg"
-                        android:gravity="center"
-                        android:paddingTop="2dp"
-                        android:paddingBottom="10dp"
-                        android:text="立即申请"
-                        android:textColor="@color/text_normal_color" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="30dp"
-                        android:text="*额度和息费以持牌机构最终放款为准"
-                        android:textColor="#999999"
-                        android:textSize="14sp"/>
-
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/click_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </FrameLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -296,8 +274,7 @@
                             android:id="@+id/main_top_img"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/esccxz" />
+                            android:scaleType="centerCrop" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
