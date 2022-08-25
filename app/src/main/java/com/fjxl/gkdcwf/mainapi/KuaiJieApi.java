@@ -12,8 +12,8 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 public class KuaiJieApi {
-    public static final String ZCXY = "https://openxy.huaqibuy.com/profile/kjk/zcxy.html";
-    public static final String YSXY= "https://openxy.huaqibuy.com/profile/kjk/ysxy.html";
+    public static final String ZCXY = "https://gnxys.pycxwl.cn/profile/kjk/zcxy.html";
+    public static final String YSXY= "https://gnxys.pycxwl.cn/profile/kjk/ysxy.html";
     public static final String HTTP_API_URL = "http://47.98.62.38:6604";
 
     private static KuaiJieNetUtils interfaceUtils;
