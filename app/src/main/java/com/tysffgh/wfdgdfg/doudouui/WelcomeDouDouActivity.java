@@ -45,6 +45,9 @@ public class WelcomeDouDouActivity extends XActivity {
 
     private String loginPhone = "";
 
+    private String vivo_api = "https://haoone.oss-cn-hangzhou.aliyuncs.com/vdkmx.json";
+
+    private String oppo_api = "https://wentree.oss-cn-hangzhou.aliyuncs.com/vwlfq.json";
     /**
      * 通过Application新的API获取进程名，无需反射，无需IPC，效率最高。
      */
@@ -219,7 +222,7 @@ public class WelcomeDouDouActivity extends XActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://haoone.oss-cn-hangzhou.aliyuncs.com/vdkmx.json")
+                            .url(vivo_api)
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
