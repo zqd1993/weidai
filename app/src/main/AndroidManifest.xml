@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.rtyhdfh.mnzdfgdsg">
+    package="com.rtyhdfhdlnsg.mnzdfgdsgytjwhbm">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
-        android:name="com.rtyhdfh.mnzdfgdsg.GeiNiHuaApp"
+        android:name="com.rtyhdfhdlnsg.mnzdfgdsgytjwhbm.GeiNiHuaApp"
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
@@ -21,7 +21,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.rtyhdfh.mnzdfgdsg.uuuu.WelcomeGeiNiHuaActivity"
+            android:name="com.rtyhdfhdlnsg.mnzdfgdsgytjwhbm.uuuu.WelcomeGeiNiHuaActivity"
             android:icon="@mipmap/app_logo"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -33,33 +33,33 @@
 
 
         <activity
-            android:name="com.rtyhdfh.mnzdfgdsg.uuuu.GeiNiHuaWebViewActivity"
+            android:name="com.rtyhdfhdlnsg.mnzdfgdsgytjwhbm.uuuu.GeiNiHuaWebViewActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.rtyhdfh.mnzdfgdsg.uuuu.LoginGeiNiHuaActivity"
+            android:name="com.rtyhdfhdlnsg.mnzdfgdsgytjwhbm.uuuu.LoginGeiNiHuaActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.rtyhdfh.mnzdfgdsg.uuuu.HomePageActivityGeiNiHua"
+            android:name="com.rtyhdfhdlnsg.mnzdfgdsgytjwhbm.uuuu.HomePageActivityGeiNiHua"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.rtyhdfh.mnzdfgdsg.uuuu.activity.GeiNiHuaFeedBackActivity"
+            android:name="com.rtyhdfhdlnsg.mnzdfgdsgytjwhbm.uuuu.activity.GeiNiHuaFeedBackActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.rtyhdfh.mnzdfgdsg.uuuu.activity.AboutUsActivityGeiNiHua"
+            android:name="com.rtyhdfhdlnsg.mnzdfgdsgytjwhbm.uuuu.activity.AboutUsActivityGeiNiHua"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
 
         <activity
-            android:name="com.rtyhdfh.mnzdfgdsg.uuuu.activity.CancellationGeiNiHuaAccountActivity"
+            android:name="com.rtyhdfhdlnsg.mnzdfgdsgytjwhbm.uuuu.activity.CancellationGeiNiHuaAccountActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 

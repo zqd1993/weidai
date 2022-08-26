@@ -433,7 +433,7 @@
                 android:layout_height="20dp"
                 android:button="@drawable/checkbox_bg" />
 
-            <com.rtyhdfh.mnzdfgdsg.wwww.GeiNiHuaSpanTextView
+            <com.rtyhdfhdlnsg.mnzdfgdsgytjwhbm.wwww.GeiNiHuaSpanTextView
                 android:id="@+id/login_remind_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -105,7 +105,7 @@
                 tools:text="本公司推出了新产品，欢迎选购" />
         </LinearLayout>
 
-        <com.rtyhdfh.mnzdfgdsg.wwww.GeiNiHuaSpanTextView
+        <com.rtyhdfhdlnsg.mnzdfgdsgytjwhbm.wwww.GeiNiHuaSpanTextView
             android:id="@+id/tv_content"
             android:visibility="visible"
             android:layout_width="wrap_content"

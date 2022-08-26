@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.qhsdgsdnsdf.fkdfiwe",
+  "applicationId": "com.dlnsg.ytjwhbm",
   "variantName": "release",
   "elements": [
     {
@@ -12,7 +12,7 @@
       "filters": [],
       "versionCode": 100,
       "versionName": "1.0.0",
-      "outputFile": "yingjidaikuan_hw_v1.0.0_build_20220815151605.apk"
+      "outputFile": "yingjidaikuan_hw_v1.0.0_build_20220826103442.apk"
     }
   ]
 }
