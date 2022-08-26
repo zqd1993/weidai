@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -58,8 +59,8 @@ public class MineFragmentFenQiHuanQianBei extends XFragment {
     private FenQiHuanQianBeiMineAdapter fenQiHuanQianBeiMineAdapter;
     private MineFenQiHuanQianBeiAdapter1 mineFenQiHuanQianBeiAdapter1;
     private List<FenQiHuanQianBeiMineItemModel> list, list1;
-    private int[] imgRes = {R.drawable.xccfgutyui, R.drawable.urtyufcgj, R.drawable.erretdxyrtu,R.drawable.klkdtyrdtu,
-            R.drawable.ccghjrtu, R.drawable.llyfuoryut};
+    private int[] imgRes = {R.drawable.ewrgbfgjnhsr, R.drawable.awehftgh, R.drawable.dxgzhadg,R.drawable.ergbfgjng,
+            R.drawable.nmsfhdzt, R.drawable.mfgdrt};
     private String[] tvRes = {"注册协议", "隐私协议", "关于我们", "投诉邮箱", "系统设置", "注销账户"};
     private Bundle bundle;
     private NormalFenQiHuanQianBeiDialog normalFenQiHuanQianBeiDialog;
@@ -69,7 +70,7 @@ public class MineFragmentFenQiHuanQianBei extends XFragment {
     public void initData(Bundle savedInstanceState) {
         list = new ArrayList<>();
         list1 = new ArrayList<>();
-        getCompanyInfo();
+//        getCompanyInfo();
         phone = FenQiHuanQianBeiSharedPreferencesUtilis.getStringFromPref("phone");
         if (!TextUtils.isEmpty(phone) && phone.length() > 10) {
             phoneTv.setText(phone.replace(phone.substring(3, 7), "****"));
@@ -81,9 +82,9 @@ public class MineFragmentFenQiHuanQianBei extends XFragment {
             list.add(model);
         }
         initAdapter();
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            getCompanyInfo();
-        });
+//        swipeRefreshLayout.setOnRefreshListener(() -> {
+//            getCompanyInfo();
+//        });
         mail_sl.setOnClickListener(v -> {
             ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clipData = ClipData.newPlainText(null, mailStr);
@@ -136,10 +137,7 @@ public class MineFragmentFenQiHuanQianBei extends XFragment {
                                     .launch();
                             break;
                         case 3:
-                            ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                            ClipData clipData = ClipData.newPlainText(null, mailStr);
-                            clipboard.setPrimaryClip(clipData);
-                            ToastUtilFenQiHuanQianBei.showShort("复制成功");
+                            getCompanyInfo();
                             break;
                         case 4:
                             Router.newIntent(getActivity())
@@ -154,7 +152,7 @@ public class MineFragmentFenQiHuanQianBei extends XFragment {
                     }
                 }
             });
-            rvy.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 3));
             rvy.setHasFixedSize(true);
             rvy.setAdapter(fenQiHuanQianBeiMineAdapter);
         }
@@ -180,6 +178,21 @@ public class MineFragmentFenQiHuanQianBei extends XFragment {
                                     mailStr = loginStatusModel.getData().getGsmail();
                                     mail_tv.setText(mailStr);
                                     FenQiHuanQianBeiSharedPreferencesUtilis.saveStringIntoPref("APP_MAIL", mailStr);
+                                    normalFenQiHuanQianBeiDialog = new NormalFenQiHuanQianBeiDialog(getActivity());
+                                    normalFenQiHuanQianBeiDialog.setTitle("投诉邮箱")
+                                            .setContent(mailStr)
+                                            .setCancelText("复制")
+                                            .setLeftListener(v -> {
+                                                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                                                ClipData clipData = ClipData.newPlainText(null, mailStr);
+                                                clipboard.setPrimaryClip(clipData);
+                                                ToastUtilFenQiHuanQianBei.showShort("复制成功");
+                                                normalFenQiHuanQianBeiDialog.dismiss();
+                                            })
+                                            .setConfirmText("取消")
+                                            .setRightListener(v -> {
+                                                normalFenQiHuanQianBeiDialog.dismiss();
+                                            }).show();
                                 }
                             }
                         }

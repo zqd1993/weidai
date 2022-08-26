@@ -3,6 +3,7 @@ package com.mmaeryrusu.qqzdryty.fenqihuanqianbeiui.fragment;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -86,7 +87,7 @@ public class FenQiHuanQianBeiProductFragment extends XFragment<ProductPresentFen
             });
             goodsItemAdapterFenQiHuanQianBei.setHasStableIds(true);
             goodsItemAdapterFenQiHuanQianBei.setData(mData);
-            rvy.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 2));
             rvy.setHasFixedSize(true);
             rvy.setAdapter(goodsItemAdapterFenQiHuanQianBei);
         } else {

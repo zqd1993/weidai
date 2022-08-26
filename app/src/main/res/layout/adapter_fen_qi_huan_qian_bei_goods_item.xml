@@ -1,165 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.lihang.ShadowLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_margin="7dp"
+    app:hl_cornerRadius="10dp"
+    app:hl_layoutBackground="@color/white"
+    app:hl_shadowColor="@color/color_999999"
+    app:hl_shadowLimit="3dp">
 
     <LinearLayout
-        android:id="@+id/parent_fl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/bg_corner_10_white"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
-            <com.lihang.ShadowLayout
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:hl_cornerRadius="3dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:src="@drawable/kyhdh" />
 
-                <ImageView
-                    android:id="@+id/product_img"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY" />
-
-            </com.lihang.ShadowLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/product_name_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="好分期"
-                    android:textColor="@color/text_normal_color"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <com.lihang.ShadowLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    app:hl_cornerRadius_leftTop="5dp"
-                    app:hl_cornerRadius_rightBottom="5dp"
-                    app:hl_cornerRadius_rightTop="5dp"
-                    app:hl_layoutBackground="@color/colorPrimary">
-
-                    <TextView
-                        android:id="@+id/info_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="3dp"
-                        android:paddingBottom="3dp"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="无征信"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-
-                </com.lihang.ShadowLayout>
-
-                <com.lihang.ShadowLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|center_vertical"
-                    app:hl_cornerRadius="50dp"
-                    app:hl_layoutBackground="#7cc366">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:paddingStart="15dp"
-                        android:paddingTop="8dp"
-                        android:paddingEnd="15dp"
-                        android:paddingBottom="8dp"
-                        android:text="立即申请"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-
-                </com.lihang.ShadowLayout>
-
-
-            </FrameLayout>
-
-        </LinearLayout>
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="额度申请"
-                android:textSize="14sp" />
+            <ImageView
+                android:id="@+id/product_img"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/app_logo" />
 
             <TextView
-                android:id="@+id/limit_tv"
+                android:id="@+id/product_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="200000"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
+                android:layout_marginStart="@dimen/dp_5"
+                android:text="@string/app_name"
+                android:textColor="@color/text_normal_color"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
 
-        <FrameLayout
+        <ProgressBar
+            android:id="@+id/pb_progressbar"
+            style="@style/mProgressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:duplicateParentState="true"
+            android:max="100"
+            android:progress="60"
+            android:progressDrawable="@drawable/main_pb_bg"
+            android:thumb="@null" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/edu_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:text="100000"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-1dp"
+                android:layout_marginStart="5dp"
+                android:textSize="9sp"
+                android:textColor="@color/color_999999"
+                android:text="元" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/color_999999"
+            android:text="最高可借"
+            android:layout_gravity="center_horizontal" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="15dp">
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/cycle_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:paddingTop="3dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="3dp"
-                android:textColor="@color/text_normal_color"
-                android:textSize="14sp" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/people_num_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:layout_marginEnd="15dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:paddingStart="10dp"
-                android:paddingTop="3dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="3dp"
-                android:textColor="@color/text_normal_color"
-                android:textSize="14sp" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-        </FrameLayout>
+                    <TextView
+                        android:id="@+id/day_money_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="#ff5577"
+                        android:text="12.0" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-1dp"
+                        android:layout_marginStart="5dp"
+                        android:textSize="9sp"
+                        android:textColor="#ff5577"
+                        android:text="%" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_999999"
+                    android:text="日利率" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/cycle_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_normal_color"
+                        android:text="12" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-1dp"
+                        android:layout_marginStart="5dp"
+                        android:textSize="9sp"
+                        android:textColor="@color/text_normal_color"
+                        android:text="个月"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/color_999999"
+                    android:text="借款期限" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <View
@@ -167,4 +200,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-</FrameLayout>
+</com.lihang.ShadowLayout>

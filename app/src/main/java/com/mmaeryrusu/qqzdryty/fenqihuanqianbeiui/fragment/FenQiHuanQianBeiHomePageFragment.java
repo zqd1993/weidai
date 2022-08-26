@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -11,6 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.mmaeryrusu.qqzdryty.R;
 import com.mmaeryrusu.qqzdryty.fenqihuanqianbeiadapter.GoodsItemAdapterFenQiHuanQianBei;
 import com.mmaeryrusu.qqzdryty.fenqihuanqianbeimodel.GoodsFenQiHuanQianBeiModel;
+import com.mmaeryrusu.qqzdryty.fenqihuanqianbeiui.HomePageFenQiHuanQianBeiActivity;
 import com.mmaeryrusu.qqzdryty.fenqihuanqianbeiui.WebViewActivityFenQiHuanQianBei;
 import com.mmaeryrusu.qqzdryty.mvp.XFragment;
 import com.mmaeryrusu.qqzdryty.fenqihuanqianbeipresent.FenQiHuanQianBeiHomePagePresent;
@@ -36,16 +38,20 @@ public class FenQiHuanQianBeiHomePageFragment extends XFragment<FenQiHuanQianBei
     View topLayout;
     @BindView(R.id.click_view)
     View click_view;
-    @BindView(R.id.money_num_tv)
-    public TextView money_num_tv;
+    @BindView(R.id.edu_tv)
+    public TextView edu_tv;
     @BindView(R.id.click_view_1)
     View click_view_1;
-    @BindView(R.id.info_tv)
-    public TextView info_tv;
-    @BindView(R.id.fan_time)
-    public TextView fan_time;
-    @BindView(R.id.date_tv)
-    TextView date_tv;
+    @BindView(R.id.renshu_tv)
+    public TextView renshu_tv;
+    @BindView(R.id.month_tv)
+    public TextView month_tv;
+    @BindView(R.id.mianxi_tv)
+    public TextView mianxi_tv;
+    @BindView(R.id.lingqu_sl)
+    View lingqu_sl;
+    @BindView(R.id.more_ll)
+    View more_ll;
 
     private Bundle webBundle;
     public GoodsItemAdapterFenQiHuanQianBei goodsItemAdapterFenQiHuanQianBei;
@@ -57,8 +63,11 @@ public class FenQiHuanQianBeiHomePageFragment extends XFragment<FenQiHuanQianBei
         swipeRefreshLayout.setOnRefreshListener(() -> {
             getP().aindex();
         });
-        click_view_1.setOnClickListener(v -> {
+        lingqu_sl.setOnClickListener(v -> {
             productClick(topGoodsFenQiHuanQianBeiModel);
+        });
+        more_ll.setOnClickListener(v -> {
+            ((HomePageFenQiHuanQianBeiActivity)getActivity()).changePage();
         });
     }
 
@@ -72,7 +81,7 @@ public class FenQiHuanQianBeiHomePageFragment extends XFragment<FenQiHuanQianBei
         super.onResume();
         getP().aindex();
         sdf = new SimpleDateFormat("yyyy-MM-dd");
-        date_tv.setText(sdf.format(System.currentTimeMillis()));
+//        date_tv.setText(sdf.format(System.currentTimeMillis()));
     }
 
     @Override
@@ -109,7 +118,7 @@ public class FenQiHuanQianBeiHomePageFragment extends XFragment<FenQiHuanQianBei
             });
             goodsItemAdapterFenQiHuanQianBei.setHasStableIds(true);
             goodsItemAdapterFenQiHuanQianBei.setData(mData);
-            rvy.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 2));
             rvy.setHasFixedSize(true);
             rvy.setAdapter(goodsItemAdapterFenQiHuanQianBei);
         } else {

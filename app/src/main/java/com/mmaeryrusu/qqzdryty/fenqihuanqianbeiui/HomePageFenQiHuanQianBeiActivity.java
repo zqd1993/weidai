@@ -34,8 +34,8 @@ public class HomePageFenQiHuanQianBeiActivity extends XActivity<MainFenQiHuanQia
     private long exitTime = 0;
     private List<Fragment> mFragments = new ArrayList<>();
     private String[] mTitles = {"首页", "产品", "我的"};
-    private int[] uncheckedIcon = {R.drawable.cbnmgyi, R.drawable.xfurtiui, R.drawable.jfderiurti};
-    private int[] checkedIcon = {R.drawable.qqetxdrtyrtu, R.drawable.fghsretu,R.drawable.mcgyicfgtyi};
+    private int[] uncheckedIcon = {R.drawable.qfgbfgb, R.drawable.mdghzdf, R.drawable.dfgdfg};
+    private int[] checkedIcon = {R.drawable.wedfb, R.drawable.rthfgj,R.drawable.lhjkhgj};
     private ArrayList<CustomTabEntity> customTabEntities;
     private MyFragmentFenQiHuanQianBeiAdapter myFragmentFenQiHuanQianBeiAdapter;
 
@@ -83,6 +83,11 @@ public class HomePageFenQiHuanQianBeiActivity extends XActivity<MainFenQiHuanQia
         mFragments.add(new MineFragmentFenQiHuanQianBei());
 
         homeViewPager.setAdapter(new MyFragmentFenQiHuanQianBeiAdapter(getSupportFragmentManager(), getLifecycle(), mFragments));
+    }
+
+    public void changePage(){
+        homeViewPager.setCurrentItem(1, false);
+        tabLayout.setCurrentTab(1);
     }
 
     @Override

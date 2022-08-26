@@ -108,9 +108,10 @@ public class FenQiHuanQianBeiHomePagePresent extends XPresent<FenQiHuanQianBeiHo
                                     if (gankResults.getTop() != null) {
                                         if (!TextUtils.isEmpty(gankResults.getTop().getImgs())) {
                                             getV().topGoodsFenQiHuanQianBeiModel = gankResults.getTop();
-                                            getV().money_num_tv.setText(gankResults.getTop().getMax_money());
-                                            getV().info_tv.setText(gankResults.getTop().getInfo());
-                                            getV().fan_time.setText("周期" + gankResults.getTop().getFan_time());
+                                            getV().renshu_tv.setText(String.valueOf(gankResults.getTop().getNum()));
+                                            getV().month_tv.setText(gankResults.getTop().getFan_time().substring(0, 2));
+                                            getV().mianxi_tv.setText(String.valueOf(gankResults.getTop().getDisplay()));
+                                            getV().edu_tv.setText(String.valueOf(gankResults.getTop().getMax_money()));
                                         }
                                     }
                                 }

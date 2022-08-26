@@ -38,15 +38,17 @@ public class GoodsItemAdapterFenQiHuanQianBei extends SimpleRecAdapter<GoodsFenQ
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         GoodsFenQiHuanQianBeiModel model = data.get(i);
         if (!TextUtils.isEmpty(model.getFan_time()) && model.getFan_time().length() > 2) {
-            viewHolder.cycleTv.setText("最长可分期" + model.getFan_time().substring(0, 2) + "期");
+            viewHolder.cycleTv.setText("1-" + model.getFan_time());
         }
-        viewHolder.people_num_tv.setText(model.getNum() + "人申请");
+//        viewHolder.people_num_tv.setText(model.getNum() + "人申请");
         viewHolder.productNameTv.setText(model.getTitle());
-        viewHolder.info_tv.setText(model.getInfo());
+//        viewHolder.info_tv.setText(model.getInfo());
         if (!TextUtils.isEmpty(FenQiHuanQianBeiSharedPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
             Glide.with(context).load(FenQiHuanQianBeiSharedPreferencesUtilis.getStringFromPref("API_BASE_URL") + model.getImgs()).into(viewHolder.productImg);
         }
-        viewHolder.limitTv.setText(model.getMax_money());
+//        viewHolder.limitTv.setText(model.getMax_money());
+        viewHolder.edu_tv.setText(String.valueOf(model.getMax_money()));
+        viewHolder.day_money_tv.setText(model.getDay_money());
         viewHolder.clickView.setOnClickListener(v -> {
             getRecItemClick().onItemClick(i, model, 1, viewHolder);
         });
@@ -58,16 +60,20 @@ public class GoodsItemAdapterFenQiHuanQianBei extends SimpleRecAdapter<GoodsFenQ
         TextView productNameTv;
         @BindView(R.id.product_img)
         ImageView productImg;
-        @BindView(R.id.limit_tv)
-        TextView limitTv;
+//        @BindView(R.id.limit_tv)
+//        TextView limitTv;
         @BindView(R.id.cycle_tv)
         TextView cycleTv;
         @BindView(R.id.click_view)
         View clickView;
-        @BindView(R.id.people_num_tv)
-        TextView people_num_tv;
-        @BindView(R.id.info_tv)
-        TextView info_tv;
+//        @BindView(R.id.people_num_tv)
+//        TextView people_num_tv;
+//        @BindView(R.id.info_tv)
+//        TextView info_tv;
+        @BindView(R.id.day_money_tv)
+        TextView day_money_tv;
+        @BindView(R.id.edu_tv)
+        TextView edu_tv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

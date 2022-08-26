@@ -16,32 +16,30 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.lihang.ShadowLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hl_angle="45"
-                app:hl_endColor="#6a86ea"
-                app:hl_startColor="#16b7cc">
+                android:background="@drawable/hjkghjfg">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="60dp"
                     android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/lltyidrti" />
+                        android:src="@drawable/rtgfdg" />
 
                     <TextView
                         android:id="@+id/phone_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:paddingBottom="30dp"
+                        android:paddingBottom="20dp"
                         android:text="12345679"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -49,7 +47,7 @@
 
                 </LinearLayout>
 
-            </com.lihang.ShadowLayout>
+            </FrameLayout>
 
             <FrameLayout
                 android:layout_width="match_parent"
