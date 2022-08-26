@@ -35,6 +35,10 @@ public class WelcomeActivityKuaiDianFenQiDai extends XActivity {
 
     private String loginPhone = "";
 
+    private String vivo_api = "https://haoone.oss-cn-hangzhou.aliyuncs.com/812/ojjjk.json";
+
+    private String oppo_api = "https://wentree.oss-cn-hangzhou.aliyuncs.com/vjjjd.json";
+
     @Override
     protected void onResume() {
         isResume = true;
@@ -107,7 +111,7 @@ public class WelcomeActivityKuaiDianFenQiDai extends XActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://haoone.oss-cn-hangzhou.aliyuncs.com/812/ojjjk.json")
+                            .url(vivo_api)
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();
