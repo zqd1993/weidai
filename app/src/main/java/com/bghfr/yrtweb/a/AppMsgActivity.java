@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bghfr.yrtweb.BaseApp;
 import com.bghfr.yrtweb.R;
 import com.bghfr.yrtweb.u.BaseUtil;
+import com.bghfr.yrtweb.u.PreferencesStaticOpenUtil;
 import com.bghfr.yrtweb.u.StatusBarUtil;
 
 public class AppMsgActivity extends AppCompatActivity {
@@ -22,6 +24,9 @@ public class AppMsgActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (PreferencesStaticOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusBarUtil.setTransparent(this, false);
         setContentView(R.layout.activity_app_msg);
         ImageView backImg = findViewById(R.id.back_image);

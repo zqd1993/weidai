@@ -2,6 +2,7 @@ package com.bghfr.yrtweb.a;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -9,10 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bghfr.yrtweb.R;
+import com.bghfr.yrtweb.api.MyApi;
 import com.bghfr.yrtweb.f.ZhuYeFragment;
 import com.bghfr.yrtweb.f.ProductFragment;
 import com.bghfr.yrtweb.f.SheZhiFragment;
+import com.bghfr.yrtweb.m.MainModel;
+import com.bghfr.yrtweb.m.SetEntity;
 import com.bghfr.yrtweb.mvp.XActivity;
+import com.bghfr.yrtweb.net.ApiSubscriber;
+import com.bghfr.yrtweb.net.NetError;
+import com.bghfr.yrtweb.net.XApi;
+import com.bghfr.yrtweb.u.PreferencesStaticOpenUtil;
 import com.bghfr.yrtweb.u.StatusBarUtil;
 
 import java.util.ArrayList;
@@ -140,5 +148,35 @@ public class ZhuYeActivity extends XActivity {
         public void setChecked(boolean checked) {
             isChecked = checked;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getValue();
+    }
+
+    public void getValue() {
+        MyApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<MainModel<SetEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                    }
+
+                    @Override
+                    public void onNext(MainModel<SetEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                PreferencesStaticOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (PreferencesStaticOpenUtil.getBool("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 }

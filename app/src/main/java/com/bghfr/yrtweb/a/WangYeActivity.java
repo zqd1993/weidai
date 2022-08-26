@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -21,7 +22,14 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.bghfr.yrtweb.R;
+import com.bghfr.yrtweb.api.MyApi;
+import com.bghfr.yrtweb.m.MainModel;
+import com.bghfr.yrtweb.m.SetEntity;
 import com.bghfr.yrtweb.mvp.XActivity;
+import com.bghfr.yrtweb.net.ApiSubscriber;
+import com.bghfr.yrtweb.net.NetError;
+import com.bghfr.yrtweb.net.XApi;
+import com.bghfr.yrtweb.u.PreferencesStaticOpenUtil;
 import com.bghfr.yrtweb.u.XiaZaiApkUtil;
 import com.bghfr.yrtweb.u.StatusBarUtil;
 
@@ -114,9 +122,34 @@ public class WangYeActivity extends XActivity implements EasyPermissions.Permiss
     @Override
     protected void onResume() {
         super.onResume();
+        getValue();
         if (webView != null) {
             webView.onResume();
         }
+    }
+
+    public void getValue() {
+        MyApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<MainModel<SetEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                    }
+
+                    @Override
+                    public void onNext(MainModel<SetEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                PreferencesStaticOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (PreferencesStaticOpenUtil.getBool("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
     public static int px2sp(float pxValue) {

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bghfr.yrtweb.R;
+import com.bghfr.yrtweb.u.PreferencesStaticOpenUtil;
 import com.bghfr.yrtweb.u.StatusBarUtil;
 import com.bghfr.yrtweb.w.TshiDialog;
 
@@ -34,6 +36,9 @@ public class ZXActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (PreferencesStaticOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusBarUtil.setTransparent(this, false);
         setContentView(R.layout.activity_zhuxiao);
         ImageView backImg = findViewById(R.id.back_image);

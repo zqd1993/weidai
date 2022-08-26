@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bghfr.yrtweb.R;
 import com.bghfr.yrtweb.u.BaseToast;
+import com.bghfr.yrtweb.u.PreferencesStaticOpenUtil;
 import com.bghfr.yrtweb.u.StatusBarUtil;
 
 import cn.droidlover.xstatecontroller.XStateController;
@@ -27,6 +28,9 @@ public class FankuiActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (PreferencesStaticOpenUtil.getBool("NO_RECORD")) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         StatusBarUtil.setTransparent(this, false);
         setContentView(R.layout.activity_fankui);
         ImageView backImg = findViewById(R.id.back_image);
