@@ -79,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
                         android:textColor="@color/white"
-                        android:text="额度申请（元s）" />
+                        android:text="额度申请（元）" />
 
                 <TextView
                     android:id="@+id/info_tv"
