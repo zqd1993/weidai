@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.sdldsjqwbaszbdskdf.dfpd.weifenqijietiaoweidgt.ScrollYSwipeRefreshLayoutWeiFenQiJieTiao xmlns:android="http://schemas.android.com/apk/res/android"
+<com.biofs.lqgdkic.weifenqijietiaoweidgt.ScrollYSwipeRefreshLayoutWeiFenQiJieTiao xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
@@ -85,7 +85,7 @@
                     android:visibility="gone" />
             </LinearLayout>
 
-            <com.sdldsjqwbaszbdskdf.dfpd.weifenqijietiaoweidgt.ProportionWeiFenQiJieTiaoFrameLayout
+            <com.biofs.lqgdkic.weifenqijietiaoweidgt.ProportionWeiFenQiJieTiaoFrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
@@ -107,7 +107,7 @@
 
                 </com.lihang.ShadowLayout>
 
-            </com.sdldsjqwbaszbdskdf.dfpd.weifenqijietiaoweidgt.ProportionWeiFenQiJieTiaoFrameLayout>
+            </com.biofs.lqgdkic.weifenqijietiaoweidgt.ProportionWeiFenQiJieTiaoFrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -364,4 +364,4 @@
 
     </LinearLayout>
 
-</com.sdldsjqwbaszbdskdf.dfpd.weifenqijietiaoweidgt.ScrollYSwipeRefreshLayoutWeiFenQiJieTiao>
+</com.biofs.lqgdkic.weifenqijietiaoweidgt.ScrollYSwipeRefreshLayoutWeiFenQiJieTiao>

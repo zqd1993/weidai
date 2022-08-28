@@ -456,7 +456,7 @@
                         android:visibility="gone" />
                 </LinearLayout>
 
-                <com.sdldsjqwbaszbdskdf.dfpd.weifenqijietiaoweidgt.ClickWeiFenQiJieTiaoTextView
+                <com.biofs.lqgdkic.weifenqijietiaoweidgt.ClickWeiFenQiJieTiaoTextView
                     android:id="@+id/read_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
