@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jiujijietiaodsfwet.bsdwefhert">
+    package="com.queqianmasdfjiert.bdafgawetr">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
-        android:name="com.jiujijietiaodsfwet.bsdwefhert.JiuJiJieTiaojghsdfApp"
+        android:name="com.queqianmasdfjiert.bdafgawetr.App"
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
@@ -21,7 +21,7 @@
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.jiujijietiaodsfwet.bsdwefhert.dixidaikuanui.WelcomeJiuJiJieTiaojghsdfActivity"
+            android:name="com.queqianmasdfjiert.bdafgawetr.ui.WelcomeActivity"
             android:icon="@mipmap/app_logo"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -33,38 +33,38 @@
 
 
         <activity
-            android:name="com.jiujijietiaodsfwet.bsdwefhert.dixidaikuanui.WebViewActivityJiuJiJieTiaojghsdf"
+            android:name="com.queqianmasdfjiert.bdafgawetr.ui.WebViewActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.jiujijietiaodsfwet.bsdwefhert.dixidaikuanui.JiuJiJieTiaojghsdfLoginActivity"
+            android:name="com.queqianmasdfjiert.bdafgawetr.ui.LoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.jiujijietiaodsfwet.bsdwefhert.dixidaikuanui.HomePageJiuJiJieTiaojghsdfActivity"
+            android:name="com.queqianmasdfjiert.bdafgawetr.ui.HomePageActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.jiujijietiaodsfwet.bsdwefhert.dixidaikuanui.jiejijietiaoactivity.FeedBackJiuJiJieTiaojghsdfActivity"
+            android:name="com.queqianmasdfjiert.bdafgawetr.ui.jiejijietiaoactivity.FeedBackActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.jiujijietiaodsfwet.bsdwefhert.dixidaikuanui.jiejijietiaoactivity.AboutUsJiuJiJieTiaojghsdfActivity"
+            android:name="com.queqianmasdfjiert.bdafgawetr.ui.jiejijietiaoactivity.AboutUsActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
 
         <activity
-            android:name="com.jiujijietiaodsfwet.bsdwefhert.dixidaikuanui.jiejijietiaoactivity.JiuJiJieTiaojghsdfCancellationAccountActivity"
+            android:name="com.queqianmasdfjiert.bdafgawetr.ui.jiejijietiaoactivity.CancellationAccountActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.jiujijietiaodsfwet.bsdwefhert.dixidaikuanui.jiejijietiaoactivity.SettingActivityJiuJiJieTiaojghsdf"
+            android:name="com.queqianmasdfjiert.bdafgawetr.ui.jiejijietiaoactivity.SettingActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
