@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#F3F3F3" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingTop="15dp"
+            android:paddingRight="3dp"
+            android:paddingBottom="20dp"
+            android:text="相关作品" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingLeft="20dp"
+            android:paddingRight="50dp"
+            android:paddingBottom="10dp" />
+    </LinearLayout>
+
+    <include layout="@layout/top_layout_xiao_niu_hua_dai_kuan_op_new" />
+
+    <ImageView
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="70dp"
+        android:src="@mipmap/app_logo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/app_name"
+        android:textColor="@color/text_normal_color"
+        android:textSize="@dimen/textSize_16" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#F3F3F3" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingTop="15dp"
+            android:paddingRight="3dp"
+            android:paddingBottom="20dp"
+            android:text="相关作品" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingLeft="20dp"
+            android:paddingRight="50dp"
+            android:paddingBottom="10dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/version_code_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="当前版本号：v1.0.0"
+        android:textColor="@color/text_normal_color"
+        android:textSize="@dimen/textSize_16" />
+
+</LinearLayout>
