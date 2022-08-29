@@ -59,7 +59,8 @@ public class YjjdFqjqWebViewActivity extends XActivity implements EasyPermission
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        header_layout.setVisibility(View.GONE);
+//        header_layout.setVisibility(View.GONE);
+        YjjdFqjqStatusBarUtil.setTransparent(this, false);
         bundle = getIntent().getExtras();
         if (bundle.containsKey("tag"))
             tag = bundle.getInt("tag");
@@ -72,9 +73,6 @@ public class YjjdFqjqWebViewActivity extends XActivity implements EasyPermission
         } else if (tag == 2) {
             tvTitle.setText(getResources().getString(R.string.user_service_agreement));
         } else {
-            YjjdFqjqStatusBarUtil.setTransparent(this, false);
-            YjjdFqjqStatusBarUtil.setDarkMode(this);
-            header_layout.setVisibility(View.VISIBLE);
             tvTitle.setText(title);
         }
         imgBack.setOnClickListener(v -> {
