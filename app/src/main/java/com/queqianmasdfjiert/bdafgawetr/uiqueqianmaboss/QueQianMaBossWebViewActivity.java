@@ -59,7 +59,8 @@ public class QueQianMaBossWebViewActivity extends XActivity implements EasyPermi
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        header_layout.setVisibility(View.GONE);
+        StatusBarQueQianMaBossUtil.setTransparent(this, false);
+//        StatusBarQueQianMaBossUtil.setDarkMode(this);
         bundle = getIntent().getExtras();
         if (bundle.containsKey("tag"))
             tag = bundle.getInt("tag");
@@ -72,9 +73,6 @@ public class QueQianMaBossWebViewActivity extends XActivity implements EasyPermi
         } else if (tag == 2) {
             tvTitle.setText(getResources().getString(R.string.user_service_agreement));
         } else {
-            StatusBarQueQianMaBossUtil.setTransparent(this, false);
-            StatusBarQueQianMaBossUtil.setDarkMode(this);
-            header_layout.setVisibility(View.VISIBLE);
             tvTitle.setText(title);
         }
         imgBack.setOnClickListener(v -> {
