@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.rihdkauecgh.plihgnytrvfws">
+    package="com.zmansdjkdwhqwjsd.gfpla">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
-        android:name="com.rihdkauecgh.plihgnytrvfws.AppXiaoNiu"
+        android:name="com.zmansdjkdwhqwjsd.gfpla.AppWuYouFQdkOp"
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
@@ -21,7 +21,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.rihdkauecgh.plihgnytrvfws.ui.WelcomeXiaoNiuActivity"
+            android:name="com.zmansdjkdwhqwjsd.gfpla.wuyoufenqjkui.WelcomeWuYouFQdkOpActivity"
             android:icon="@mipmap/app_logo"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -33,33 +33,33 @@
 
 
         <activity
-            android:name="com.rihdkauecgh.plihgnytrvfws.ui.XiaoNiuWebViewActivity"
+            android:name="com.zmansdjkdwhqwjsd.gfpla.wuyoufenqjkui.WuYouFQdkOpWebViewActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.rihdkauecgh.plihgnytrvfws.ui.LoginXiaoNiuActivity"
+            android:name="com.zmansdjkdwhqwjsd.gfpla.wuyoufenqjkui.LoginWuYouFQdkOpActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.rihdkauecgh.plihgnytrvfws.ui.HomePageActivityXiaoNiu"
+            android:name="com.zmansdjkdwhqwjsd.gfpla.wuyoufenqjkui.HomePageActivityWuYouFQdkOp"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.rihdkauecgh.plihgnytrvfws.ui.activity.XiaoNiuFeedBackActivity"
+            android:name="com.zmansdjkdwhqwjsd.gfpla.wuyoufenqjkui.wuyoufenqjkactivity.WuYouFQdkOpFeedBackActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.rihdkauecgh.plihgnytrvfws.ui.activity.AboutUsActivityXiaoNiu"
+            android:name="com.zmansdjkdwhqwjsd.gfpla.wuyoufenqjkui.wuyoufenqjkactivity.AboutUsActivityWuYouFQdkOp"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
 
         <activity
-            android:name="com.rihdkauecgh.plihgnytrvfws.ui.activity.CancellationXiaoNiuAccountActivity"
+            android:name="com.zmansdjkdwhqwjsd.gfpla.wuyoufenqjkui.wuyoufenqjkactivity.CancellationWuYouFQdkOpAccountActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
