@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.haojieopdzfgvaewt.bbsdgrgdz">
+    package="com.dqlsdjdhwnew.fdhqwenhwnew">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
-        android:name="com.haojieopdzfgvaewt.bbsdgrgdz.MainFenQiXiangVioApp"
+        android:name="com.dqlsdjdhwnew.fdhqwenhwnew.MainMangGuoHWNewApp"
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
@@ -20,7 +20,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.haojieopdzfgvaewt.bbsdgrgdz.fenxiangqivioa.StartPageActivityFenQiXiangVio"
+            android:name="com.dqlsdjdhwnew.fdhqwenhwnew.mghwnewa.StartPageActivityMangGuoHWNew"
             android:icon="@mipmap/app_logo"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -31,33 +31,33 @@
         </activity>
 
         <activity
-            android:name="com.haojieopdzfgvaewt.bbsdgrgdz.fenxiangqivioa.DlFenQiXiangVioActivity"
+            android:name="com.dqlsdjdhwnew.fdhqwenhwnew.mghwnewa.DlMangGuoHWNewActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.haojieopdzfgvaewt.bbsdgrgdz.fenxiangqivioa.JumpH5FenQiXiangVioActivity"
+            android:name="com.dqlsdjdhwnew.fdhqwenhwnew.mghwnewa.JumpH5MangGuoHWNewActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.haojieopdzfgvaewt.bbsdgrgdz.fenxiangqivioa.MainFenQiXiangVioActivity"
+            android:name="com.dqlsdjdhwnew.fdhqwenhwnew.mghwnewa.MainMangGuoHWNewActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.haojieopdzfgvaewt.bbsdgrgdz.fenxiangqivioa.FeedbackFenQiXiangVioActivity"
+            android:name="com.dqlsdjdhwnew.fdhqwenhwnew.mghwnewa.FeedbackMangGuoHWNewActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.haojieopdzfgvaewt.bbsdgrgdz.fenxiangqivioa.AboutInfoActivityFenQiXiangVio"
+            android:name="com.dqlsdjdhwnew.fdhqwenhwnew.mghwnewa.AboutInfoActivityMangGuoHWNew"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
 
         <activity
-            android:name="com.haojieopdzfgvaewt.bbsdgrgdz.fenxiangqivioa.FenQiXiangVioZhuXiaoActivity"
+            android:name="com.dqlsdjdhwnew.fdhqwenhwnew.mghwnewa.MangGuoHWNewZhuXiaoActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
