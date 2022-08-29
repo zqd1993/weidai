@@ -16,7 +16,7 @@
         android:background="@drawable/rtrtyuhxfgj"
         android:orientation="vertical">
 
-        <com.qpaskjdudfmdf.ytngnds.qingsongdaiw.ProportionQingSongDaiFrameLayout
+        <com.dshqbzansdk.vpcvlsdksdhayjtop.qingsongdaiw.ProportionQingSongDaiFrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
@@ -38,7 +38,7 @@
 
             </com.lihang.ShadowLayout>
 
-        </com.qpaskjdudfmdf.ytngnds.qingsongdaiw.ProportionQingSongDaiFrameLayout>
+        </com.dshqbzansdk.vpcvlsdksdhayjtop.qingsongdaiw.ProportionQingSongDaiFrameLayout>
 
         <TextView
             android:id="@+id/shangpin_name_tv"
