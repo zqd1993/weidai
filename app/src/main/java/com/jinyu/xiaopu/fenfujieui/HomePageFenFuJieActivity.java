@@ -8,6 +8,12 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.jinyu.xiaopu.R;
+import com.jinyu.xiaopu.fenfujiemodel.BaseRespModelFenFuJie;
+import com.jinyu.xiaopu.fenfujiemodel.FenFuJieConfigModel;
+import com.jinyu.xiaopu.fenfujienet.ApiSubscriber;
+import com.jinyu.xiaopu.fenfujienet.FenFuJieApi;
+import com.jinyu.xiaopu.fenfujienet.NetError;
+import com.jinyu.xiaopu.fenfujienet.XApi;
 import com.jinyu.xiaopu.fenfujieui.fenfujiefragment.HomePageFragmentFenFuJie;
 import com.jinyu.xiaopu.fenfujieui.fenfujiefragment.MineFenFuJieFragment;
 import com.jinyu.xiaopu.fenfujieutils.SharedPreferencesUtilisFenFuJie;
@@ -43,9 +49,6 @@ public class HomePageFenFuJieActivity extends XActivity<FenFuJieMainPresent> {
     @Override
     public void initData(Bundle savedInstanceState) {
         FenFuJieStatusBarUtil.setTransparent(this, false);
-        if (SharedPreferencesUtilisFenFuJie.getBoolFromPref("NO_RECORD")) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        }
         getP().login();
         customTabEntities = new ArrayList<>();
         homeViewPager.setUserInputEnabled(false);
@@ -112,5 +115,36 @@ public class HomePageFenFuJieActivity extends XActivity<FenFuJieMainPresent> {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getValue();
+    }
+
+    public void getValue() {
+        FenFuJieApi.getGankService().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModelFenFuJie<FenFuJieConfigModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseRespModelFenFuJie<FenFuJieConfigModel> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SharedPreferencesUtilisFenFuJie.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (SharedPreferencesUtilisFenFuJie.getBoolFromPref("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 }

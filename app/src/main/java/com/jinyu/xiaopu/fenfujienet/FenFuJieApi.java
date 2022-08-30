@@ -5,9 +5,9 @@ package com.jinyu.xiaopu.fenfujienet;
  */
 
 public class FenFuJieApi {
-    public static final String API_BASE_URL = "http://45.112.206.58:7701";
-    public static final String PRIVACY_POLICY = "https://htsxy.fhjdhjf.com/profile/smjk/zcxy.html";
-    public static final String USER_SERVICE_AGREEMENT= "https://htsxy.fhjdhjf.com/profile/smjk/ysxy.html";
+    public static final String API_BASE_URL = "http://106.75.91.252:7758";
+    public static final String PRIVACY_POLICY = "https://gnxys.pycxwl.cn/profile/smjk/zcxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "https://gnxys.pycxwl.cn/profile/smjk/ysxy.html";
 
     private static GankServiceFenFuJie gankServiceFenFuJie;
 

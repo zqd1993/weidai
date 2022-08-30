@@ -59,53 +59,15 @@ public class StaticFenFuJieUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-            FenFuJieApi.getGankService().getValue("VIDEOTAPE")
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(activity.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespModelFenFuJie<FenFuJieConfigModel>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-
-                        }
-
-                        @Override
-                        public void onNext(BaseRespModelFenFuJie<FenFuJieConfigModel> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    SharedPreferencesUtilisFenFuJie.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    jumpPage(activity, to, bundle, false);
-                                }
-                            }
-                        }
-                    });
+        jumpPage(activity, to, bundle, false);
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-            FenFuJieApi.getGankService().getValue("VIDEOTAPE")
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(activity.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespModelFenFuJie<FenFuJieConfigModel>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-
-                        }
-
-                        @Override
-                        public void onNext(BaseRespModelFenFuJie<FenFuJieConfigModel> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    SharedPreferencesUtilisFenFuJie.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    jumpPage(activity, to, bundle, isFinish);
-                                }
-                            }
-                        }
-                    });
+        jumpPage(activity, to, bundle, isFinish);
     }
 
-    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish){
-        if (bundle != null){
+    public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {
+        if (bundle != null) {
             Router.newIntent(activity)
                     .to(to)
                     .data(bundle)
@@ -115,7 +77,7 @@ public class StaticFenFuJieUtil {
                     .to(to)
                     .launch();
         }
-        if (isFinish){
+        if (isFinish) {
             activity.finish();
         }
     }
