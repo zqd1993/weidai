@@ -59,7 +59,8 @@ public class WebViewActivityFenQiHuanQianBei extends XActivity implements EasyPe
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        header_layout.setVisibility(View.GONE);
+        StatusFenQiHuanQianBeiBarUtil.setTransparent(this, false);
+//        header_layout.setVisibility(View.GONE);
         bundle = getIntent().getExtras();
         if (bundle.containsKey("tag"))
             tag = bundle.getInt("tag");
@@ -72,9 +73,6 @@ public class WebViewActivityFenQiHuanQianBei extends XActivity implements EasyPe
         } else if (tag == 2) {
             tvTitle.setText(getResources().getString(R.string.user_service_agreement));
         } else {
-            StatusFenQiHuanQianBeiBarUtil.setTransparent(this, false);
-            StatusFenQiHuanQianBeiBarUtil.setDarkMode(this);
-            header_layout.setVisibility(View.VISIBLE);
             tvTitle.setText(title);
         }
         imgBack.setOnClickListener(v -> {
