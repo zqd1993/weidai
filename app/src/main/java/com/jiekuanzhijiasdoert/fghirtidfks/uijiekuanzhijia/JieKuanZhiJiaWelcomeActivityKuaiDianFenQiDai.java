@@ -108,7 +108,7 @@ public class JieKuanZhiJiaWelcomeActivityKuaiDianFenQiDai extends XActivity {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("https://haoone.oss-cn-hangzhou.aliyuncs.com/812/ojkzj.json")
+                            .url("https://wentree.oss-cn-hangzhou.aliyuncs.com/vwljt.json")
                             .build();
                     Response response = client.newCall(request).execute();
                     String responseData = response.body().string();

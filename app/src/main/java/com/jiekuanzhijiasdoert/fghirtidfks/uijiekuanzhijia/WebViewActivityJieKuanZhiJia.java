@@ -59,7 +59,7 @@ public class WebViewActivityJieKuanZhiJia extends XActivity implements EasyPermi
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        header_layout.setVisibility(View.GONE);
+        JieKuanZhiJiaStatusBarUtil.setTransparent(this, false);
         bundle = getIntent().getExtras();
         if (bundle.containsKey("tag"))
             tag = bundle.getInt("tag");
@@ -72,9 +72,6 @@ public class WebViewActivityJieKuanZhiJia extends XActivity implements EasyPermi
         } else if (tag == 2) {
             tvTitle.setText(getResources().getString(R.string.user_service_agreement));
         } else {
-            JieKuanZhiJiaStatusBarUtil.setTransparent(this, false);
-            JieKuanZhiJiaStatusBarUtil.setDarkMode(this);
-            header_layout.setVisibility(View.VISIBLE);
             tvTitle.setText(title);
         }
         imgBack.setOnClickListener(v -> {
