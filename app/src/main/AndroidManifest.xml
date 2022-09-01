@@ -21,7 +21,7 @@
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.jiujijietiaodsfwet.bsdwefhert.dixidaikuanui.WelcomeJiuJiJieTiaojghsdfActivity"
+            android:name="com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaoui.WelcomeJiuJiJieTiaojghsdfActivity"
             android:icon="@mipmap/app_logo"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -30,43 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-        <activity
-            android:name="com.jiujijietiaodsfwet.bsdwefhert.dixidaikuanui.WebViewActivityJiuJiJieTiaojghsdf"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.jiujijietiaodsfwet.bsdwefhert.dixidaikuanui.JiuJiJieTiaojghsdfLoginActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.jiujijietiaodsfwet.bsdwefhert.dixidaikuanui.HomePageJiuJiJieTiaojghsdfActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.jiujijietiaodsfwet.bsdwefhert.dixidaikuanui.jiejijietiaoactivity.FeedBackJiuJiJieTiaojghsdfActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.jiujijietiaodsfwet.bsdwefhert.dixidaikuanui.jiejijietiaoactivity.AboutUsJiuJiJieTiaojghsdfActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-
-
-        <activity
-            android:name="com.jiujijietiaodsfwet.bsdwefhert.dixidaikuanui.jiejijietiaoactivity.JiuJiJieTiaojghsdfCancellationAccountActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.jiujijietiaodsfwet.bsdwefhert.dixidaikuanui.jiejijietiaoactivity.SettingActivityJiuJiJieTiaojghsdf"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -77,6 +40,41 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_path" />
         </provider>
+
+        <activity
+            android:name="com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaoui.WebViewActivityJiuJiJieTiaojghsdf"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaoui.jiejijietiaoactivity.JiuJiJieTiaojghsdfCancellationAccountActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaoui.JiuJiJieTiaojghsdfLoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaoui.HomePageJiuJiJieTiaojghsdfActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaoui.jiejijietiaoactivity.SettingActivityJiuJiJieTiaojghsdf"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaoui.jiejijietiaoactivity.FeedBackJiuJiJieTiaojghsdfActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaoui.jiejijietiaoactivity.AboutUsJiuJiJieTiaojghsdfActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
 
     </application>
 

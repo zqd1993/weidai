@@ -1,17 +1,16 @@
 package com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaopresent;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jiujijietiaodsfwet.bsdwefhert.dixidaikuanui.HomePageJiuJiJieTiaojghsdfActivity;
+import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaoui.HomePageJiuJiJieTiaojghsdfActivity;
 import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaomodel.BaseRespModelJiuJiJieTiaojghsdf;
 import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaomodel.CompanyJiuJiJieTiaojghsdfInfoModel;
 import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaomodel.LoginJiuJiJieTiaojghsdfStatusModel;
 import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaomodel.LoginRespModelJiuJiJieTiaojghsdf;
 import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaonet.JiuJiJieTiaojghsdfApi;
-import com.jiujijietiaodsfwet.bsdwefhert.dixidaikuanui.JiuJiJieTiaojghsdfLoginActivity;
+import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaoui.JiuJiJieTiaojghsdfLoginActivity;
 import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaoutils.JiuJiJieTiaojghsdfToastUtil;
 import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaoutils.SharedJiuJiJieTiaojghsdfPreferencesUtilis;
 import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaoutils.StaticJiuJiJieTiaojghsdfUtil;
@@ -46,8 +45,6 @@ public class LoginPresentJiuJiJieTiaojghsdf extends XPresent<JiuJiJieTiaojghsdfL
                                 }
                                 getV().isNeedChecked = "0".equals(loginJiuJiJieTiaojghsdfStatusModel.getIs_agree_check());
                                 getV().isNeedVerification = "0".equals(loginJiuJiJieTiaojghsdfStatusModel.getIs_code_register());
-                                Log.d("zqd", "loginJiuJiJieTiaojghsdfStatusModel.getIs_agree_check() = " + loginJiuJiJieTiaojghsdfStatusModel.getIs_agree_check() +
-                                        "--->loginJiuJiJieTiaojghsdfStatusModel.getIs_code_register() = " + loginJiuJiJieTiaojghsdfStatusModel.getIs_code_register());
                                 getV().remindCb.setChecked(getV().isNeedChecked);
                             }
                         }

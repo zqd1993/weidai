@@ -3,7 +3,7 @@ package com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaopresent;
 import android.text.TextUtils;
 
 import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaomodel.GoodsModelJiuJiJieTiaojghsdf;
-import com.jiujijietiaodsfwet.bsdwefhert.dixidaikuanui.jiejijietiaofragment.ProductJiuJiJieTiaojghsdfFragment;
+import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaoui.jiejijietiaofragment.ProductJiuJiJieTiaojghsdfFragment;
 import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaonet.JiuJiJieTiaojghsdfApi;
 import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaoutils.SharedJiuJiJieTiaojghsdfPreferencesUtilis;
 import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaoutils.StaticJiuJiJieTiaojghsdfUtil;

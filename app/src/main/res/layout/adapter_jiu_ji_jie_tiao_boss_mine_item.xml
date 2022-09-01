@@ -20,7 +20,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="10dp"
-            android:src="@drawable/qqetdfhn"/>
+            android:src="@drawable/dfgsrtus"/>
 
         <TextView
             android:id="@+id/item_title_tv"
@@ -50,7 +50,7 @@
                 android:id="@+id/right_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/lyupdryhvbj" />
+                android:src="@drawable/nsrtus" />
 
         </FrameLayout>
 

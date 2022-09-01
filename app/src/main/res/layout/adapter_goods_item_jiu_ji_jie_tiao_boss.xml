@@ -11,42 +11,82 @@
         android:layout_marginTop="15dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:background="@drawable/weterhxfgj"
+        android:background="@drawable/shape_text_bg"
         android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center_horizontal"
+            android:textSize="22sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="精选贷款" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
             android:layout_gravity="center_vertical"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
-            <com.lihang.ShadowLayout
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_vertical"
-                app:hl_cornerRadius="5dp">
+            <com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaowidget.ProportionJiuJiJieTiaojghsdfFrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:proporty="1">
 
-                <ImageView
-                    android:id="@+id/product_img"
+                <com.lihang.ShadowLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@mipmap/app_logo"
-                    android:scaleType="fitXY" />
+                    android:layout_gravity="center_vertical"
+                    app:hl_cornerRadius="10dp">
 
-            </com.lihang.ShadowLayout>
+                    <ImageView
+                        android:id="@+id/product_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/app_logo"
+                        android:scaleType="fitXY" />
 
-            <TextView
-                android:id="@+id/product_name_tv"
+                </com.lihang.ShadowLayout>
+
+            </com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaowidget.ProportionJiuJiJieTiaojghsdfFrameLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="7sp"
-                android:textSize="14sp"
-                android:textColor="@color/white"
-                android:text="@string/app_name" />
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/product_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:text="@string/app_name" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="13sp"
+                    android:textColor="@color/white"
+                    android:text="更专业   更智能   更贴心"/>
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -54,9 +94,18 @@
             android:id="@+id/parent_fl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:text="额度申请（元）" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -65,7 +114,6 @@
                 android:layout_weight="2"
                 android:orientation="vertical">
 
-
                 <TextView
                     android:id="@+id/limit_tv"
                     android:layout_width="wrap_content"
@@ -73,13 +121,6 @@
                     android:text="200000"
                     android:textColor="@color/white"
                     android:textSize="25sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:textColor="@color/white"
-                        android:text="额度申请（元）" />
 
                 <TextView
                     android:id="@+id/info_tv"
@@ -120,20 +161,18 @@
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/vbnxftseyu"
-                android:text="一键申请"
-                android:textColor="#ff9e19"
-                android:textSize="14sp" />
-
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/nbaeryfsu"
+            android:layout_marginBottom="15dp"
+            android:text="一键申请"
+            android:textColor="#ff534c"
+            android:textSize="14sp" />
 
     </LinearLayout>
 

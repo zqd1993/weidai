@@ -1,6 +1,6 @@
 package com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaopresent;
 
-import com.jiujijietiaodsfwet.bsdwefhert.dixidaikuanui.HomePageJiuJiJieTiaojghsdfActivity;
+import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaoui.HomePageJiuJiJieTiaojghsdfActivity;
 import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaomodel.BaseRespModelJiuJiJieTiaojghsdf;
 import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaomodel.LoginRespModelJiuJiJieTiaojghsdf;
 import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaonet.JiuJiJieTiaojghsdfApi;
