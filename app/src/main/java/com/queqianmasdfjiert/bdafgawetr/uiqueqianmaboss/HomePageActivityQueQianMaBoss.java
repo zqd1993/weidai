@@ -2,6 +2,7 @@ package com.queqianmasdfjiert.bdafgawetr.uiqueqianmaboss;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
@@ -34,8 +35,8 @@ public class HomePageActivityQueQianMaBoss extends XActivity<MainQueQianMaBossPr
     private long exitTime = 0;
     private List<Fragment> mFragments = new ArrayList<>();
     private String[] mTitles = {"首页", "产品", "我的"};
-    private int[] uncheckedIcon = {R.drawable.xcvbawy, R.drawable.xfgjsrrey, R.drawable.mnxcvnsftsa};
-    private int[] checkedIcon = {R.drawable.cglyupsrth, R.drawable.xvbnaeydftui,R.drawable.zdutcyi};
+    private int[] uncheckedIcon = {R.drawable.nsxftitu, R.drawable.wwtgdxfhj, R.drawable.xcvbseryu};
+    private int[] checkedIcon = {R.drawable.nbzdaery, R.drawable.nbbzdxfghsery,R.drawable.mnnrtaey};
     private ArrayList<CustomTabEntity> customTabEntities;
     private MyFragmentAdapterQueQianMaBoss myFragmentAdapterQueQianMaBoss;
 

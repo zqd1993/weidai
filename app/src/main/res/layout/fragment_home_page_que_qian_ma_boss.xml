@@ -44,17 +44,77 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:scaleType="fitXY"
-                        android:src="@drawable/vbnaeryaseru" />
+                        android:src="@drawable/sy_banner29" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/sxxcvnsrt" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="产品亮点"
+                            android:textColor="#e4bd8d"
+                            android:textSize="30dp"
+                            android:textStyle="bold" />
+
+                    </FrameLayout>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/shape_text_bg"
+                        android:paddingStart="20dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="5dp"
+                        android:text="极速出款·尽享便利·马上拿钱"
+                        android:textColor="#e4bd8d"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
                         android:layout_marginStart="20dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginEnd="20dp"
+                        android:background="@drawable/shape_text_bg"
                         android:gravity="center_horizontal"
-                        android:background="@drawable/fdthghbe"
                         android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@mipmap/app_logo" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="10dp"
+                                android:text="@string/app_name"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/money_num_tv"
@@ -72,80 +132,63 @@
                             android:layout_marginStart="3dp"
                             android:layout_marginTop="2dp"
                             android:text="最高申请额度（元）"
-                            android:textColor="@color/white"
+                            android:textColor="@color/color_999999"
                             android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/click_view_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="20dp"
                             android:layout_marginTop="15dp"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:paddingStart="15dp"
-                            android:paddingEnd="15dp"
-                            android:background="@drawable/shape_text_bg"
+                            android:layout_marginBottom="20dp"
+                            android:background="@drawable/nnsfghserdyu"
                             android:gravity="center"
-                            android:text="立即借钱"
+                            android:paddingStart="15dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="15dp"
+                            android:paddingBottom="5dp"
+                            android:text="一键申请"
                             android:textColor="@color/white"
-                            android:textStyle="bold"
-                            android:textSize="16sp" />
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/sefghaeu"
-                        android:gravity="center"
-                        android:layout_marginTop="20dp"
-                        android:textSize="16sp"
-                        android:textColor="#f2b987"
-                        android:textStyle="bold"
-                        android:text="精选产品" />
-
-                    <LinearLayout
-                        android:id="@+id/click_view"
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginBottom="40dp"
-                        android:orientation="vertical"
-                        android:background="@drawable/bg_corner_10_bg">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <ImageView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:background="@drawable/nnsdftyuxfvbn"
-                            android:visibility="gone">
-
-
-
-                        </LinearLayout>
+                            android:layout_gravity="center"
+                            android:src="@drawable/sxxcvnsrt" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:textSize="12sp"
-                            android:textColor="#ca7435"
-                            android:text="给您绝对的安全保障"
-                            android:layout_gravity="center_horizontal" />
+                            android:layout_gravity="center"
+                            android:textSize="30dp"
+                            android:textStyle="bold"
+                            android:text="精选产品"
+                            android:textColor="#e4bd8d" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/click_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="40dp"
+                        android:orientation="vertical">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rvy"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="20dp" />
-                    </LinearLayout>
+                            android:layout_height="wrap_content" />
+                    </FrameLayout>
 
                 </LinearLayout>
 

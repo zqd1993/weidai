@@ -20,7 +20,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="10dp"
-            android:src="@drawable/qrxfgfgui"/>
+            android:src="@drawable/lpyukjdfg"/>
 
         <TextView
             android:id="@+id/item_title_tv"

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/color_f4f4f4"
     android:orientation="vertical">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -24,7 +24,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="fitXY"
-                    android:src="@drawable/rrtxfdhj" />
+                    android:src="@drawable/fvbseru" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -60,11 +60,73 @@
 
             </FrameLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="-40dp"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_corner_10_white">
+
+                <TextView
+                    android:id="@+id/set_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="50dp"
+                    android:layout_weight="1"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:drawableStart="@drawable/nnrdfhas"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_normal_color"
+                    android:text="系统设置"
+                    android:drawablePadding="15dp" />
+                
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/dividing" />
+
+                <TextView
+                    android:id="@+id/zhuxiao_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="50dp"
+                    android:layout_weight="1"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:drawableStart="@drawable/rerdfh"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_normal_color"
+                    android:text="注销账户"
+                    android:drawablePadding="15dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="20dp"
+                android:textSize="16sp"
+                android:textColor="@color/text_normal_color"
+                android:textStyle="bold"
+                android:text="我的功能" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:background="@color/dividing"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:overScrollMode="never" />
@@ -73,11 +135,11 @@
                 android:id="@+id/mail_sl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginEnd="40dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/xvbnwetsery">
+                android:background="@drawable/nnsfghserdyu">
 
                 <TextView
                     android:id="@+id/mail_tv"
@@ -85,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:textColor="#ff9e19"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/textSize_16" />
 
             </FrameLayout>

@@ -52,13 +52,16 @@ public class QueQianMaBossMineFragment extends XFragment {
     TextView mail_tv;
     @BindView(R.id.mail_sl)
     View mail_sl;
+    @BindView(R.id.set_tv)
+    View set_tv;
+    @BindView(R.id.zhuxiao_tv)
+    View zhuxiao_tv;
 
     private MineQueQianMaBossAdapter mineQueQianMaBossAdapter;
     private MineAdapterQueQianMaBoss mineAdapterQueQianMaBoss;
     private List<MineItemModelQueQianMaBoss> list, list1;
-    private int[] imgRes = {R.drawable.llpyfujxfgh, R.drawable.qrxfgfgui, R.drawable.xcvnbsdrurtaehjfxg,
-            R.drawable.xcvbseruaru, R.drawable.xcvberyrsuazdhxfgh};
-    private String[] tvRes = {"注册协议", "隐私协议", "关于我们", "系统设置", "注销账户"};
+    private int[] imgRes = {R.drawable.wdbrstfu, R.drawable.bdfhaery, R.drawable.lpyukjdfg,};
+    private String[] tvRes = {"注册协议", "隐私协议", "关于我们"};
     private Bundle bundle;
     private NormalQueQianMaBossDialog normalQueQianMaBossDialog;
     private String mailStr = "", phone = "";
@@ -71,7 +74,7 @@ public class QueQianMaBossMineFragment extends XFragment {
         if (!TextUtils.isEmpty(phone) && phone.length() > 10) {
             phoneTv.setText(phone.replace(phone.substring(3, 7), "****"));
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             MineItemModelQueQianMaBoss model = new MineItemModelQueQianMaBoss();
             model.setImgRes(imgRes[i]);
             model.setItemTv(tvRes[i]);
@@ -86,6 +89,16 @@ public class QueQianMaBossMineFragment extends XFragment {
             ClipData clipData = ClipData.newPlainText(null, mailStr);
             clipboard.setPrimaryClip(clipData);
             ToastQueQianMaBossUtil.showShort("复制成功");
+        });
+        set_tv.setOnClickListener(v -> {
+            Router.newIntent(getActivity())
+                    .to(QueQianMaBossSettingActivity.class)
+                    .launch();
+        });
+        zhuxiao_tv.setOnClickListener(v -> {
+            Router.newIntent(getActivity())
+                    .to(CancellationAccountActivityQueQianMaBoss.class)
+                    .launch();
         });
     }
 
@@ -137,20 +150,10 @@ public class QueQianMaBossMineFragment extends XFragment {
                                 .to(AboutUsQueQianMaBossActivity.class)
                                 .launch();
                         break;
-                    case 3:
-                        Router.newIntent(getActivity())
-                                .to(QueQianMaBossSettingActivity.class)
-                                .launch();
-                        break;
-                    case 4:
-                        Router.newIntent(getActivity())
-                                .to(CancellationAccountActivityQueQianMaBoss.class)
-                                .launch();
-                        break;
                 }
             }
         });
-        rvy.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        rvy.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         rvy.setHasFixedSize(true);
         rvy.setAdapter(mineAdapterQueQianMaBoss);
     }
