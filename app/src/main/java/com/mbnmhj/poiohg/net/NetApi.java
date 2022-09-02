@@ -7,9 +7,9 @@ import com.mbnmhj.poiohg.util.SpUtil;
 import java.util.regex.Pattern;
 
 public class NetApi {
-    public static final String HTTP_API_URL = "http://45.112.206.60:7724";
-    public static final String ZCXY = "https://htsxy.fhjdhjf.com/profile/xefqd/zcxy.html";
-    public static final String YSXY= "https://htsxy.fhjdhjf.com/profile/xefqd/ysxy.html";
+    public static final String HTTP_API_URL = "http://121.41.122.164:7758";
+    public static final String ZCXY = "https://gnxys.pycxwl.cn/profile/xefqd/zcxy.html";
+    public static final String YSXY= "https://gnxys.pycxwl.cn/profile/xefqd/ysxy.html";
 
     private static InterfaceObject interfaceObject;
 

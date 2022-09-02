@@ -23,7 +23,8 @@ public interface InterfaceObject {
     Flowable<MainModel<CFEntity>> getValue(@Query("key") String phone);
 
     @GET("/app/user/login")
-    Flowable<MainModel<DengLuModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
+    Flowable<MainModel<DengLuModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device,
+                                           @Query("ip") String ip, @Query("userIdType") String userIdType, @Query("userId") String userId);
 
     @GET("/app/product/productList")
     Flowable<MainModel<List<MoreModel>>> productList(@Query("mobileType") int mobileType);

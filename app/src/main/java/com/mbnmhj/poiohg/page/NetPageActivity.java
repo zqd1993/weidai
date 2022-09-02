@@ -22,7 +22,13 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.mbnmhj.poiohg.R;
+import com.mbnmhj.poiohg.entity.CFEntity;
+import com.mbnmhj.poiohg.entity.MainModel;
 import com.mbnmhj.poiohg.mvp.XActivity;
+import com.mbnmhj.poiohg.net.ApiSubscriber;
+import com.mbnmhj.poiohg.net.NetApi;
+import com.mbnmhj.poiohg.net.NetError;
+import com.mbnmhj.poiohg.net.XApi;
 import com.mbnmhj.poiohg.util.LoadFileUtil;
 import com.mbnmhj.poiohg.util.SBarUtil;
 import com.mbnmhj.poiohg.util.SpUtil;
@@ -95,9 +101,6 @@ public class NetPageActivity extends XActivity implements EasyPermissions.Permis
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        if (SpUtil.getBool("NO_RECORD")) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        }
         SBarUtil.setTransparent(this, false);
         bundle = getIntent().getExtras();
         if (bundle.containsKey("biaoti"))
@@ -166,9 +169,34 @@ public class NetPageActivity extends XActivity implements EasyPermissions.Permis
     @Override
     protected void onResume() {
         super.onResume();
+        getValue();
         if (webView != null) {
             webView.onResume();
         }
+    }
+
+    public void getValue() {
+        NetApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<MainModel<CFEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                    }
+
+                    @Override
+                    public void onNext(MainModel<CFEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SpUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (SpUtil.getBool("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
     @Override

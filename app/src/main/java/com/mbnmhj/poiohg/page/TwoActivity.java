@@ -10,6 +10,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.mbnmhj.poiohg.net.NetApi;
 import com.mbnmhj.poiohg.R;
 import com.mbnmhj.poiohg.entity.MainModel;
@@ -25,6 +27,7 @@ import com.mbnmhj.poiohg.util.SpUtil;
 import com.mbnmhj.poiohg.util.SBarUtil;
 import com.mbnmhj.poiohg.view.ClickTextView;
 import com.mbnmhj.poiohg.view.CountDownTimer;
+import com.mbnmhj.poiohg.xiaoefenqioaid.DevicesIDsHelper;
 
 import org.json.JSONObject;
 
@@ -36,7 +39,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class TwoActivity extends XActivity {
+public class TwoActivity extends XActivity implements DevicesIDsHelper.AppIdsUpdater{
 
     private XStateController xStateController;
     private EditText mobileEt, yzmEt;
@@ -45,9 +48,10 @@ public class TwoActivity extends XActivity {
     private ClickTextView readTv;
     private View yzmCv;
 
-    private String phoneStr, yzmStr, ip = "";
+    private String phoneStr, yzmStr, ip = "", oaidStr;
     private Bundle bundle;
     public boolean isChecked = true, isNeedYzm = true;
+    private DevicesIDsHelper mDevicesIDsHelper;
 
     /**
      * 设置输入框只能有两位小数
@@ -295,7 +299,7 @@ public class TwoActivity extends XActivity {
     public void login(String phone, String verificationStr) {
         if (xStateController != null)
             xStateController.showLoading();
-        NetApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
+        NetApi.getInterfaceUtils().login(phone, verificationStr, "", ip, "OAID", oaidStr)
                 .compose(XApi.getApiTransformer())
                 .compose(XApi.getScheduler())
                 .compose(bindToLifecycle())
@@ -350,5 +354,35 @@ public class TwoActivity extends XActivity {
                         }
                     }
                 });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getOAID();
+    }
+
+    /**
+     * 获取设备当前 OAID
+     *
+     */
+    public void getOAID() {
+        mDevicesIDsHelper = new DevicesIDsHelper(this);
+        mDevicesIDsHelper.getOAID(this);
+    }
+
+    @Override
+    public void OnIdsAvalid(@NonNull String ids, boolean support) {
+        if (TextUtils.isEmpty(ids)){
+            oaidStr = "";
+        } else {
+            int length = ids.length();
+            if (length < 64){
+                for (int i = 0; i < 64 - length; i++){
+                    ids = ids + "0";
+                }
+            }
+            oaidStr = ids;
+        }
     }
 }
