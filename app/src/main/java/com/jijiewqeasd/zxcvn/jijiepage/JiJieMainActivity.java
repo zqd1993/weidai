@@ -10,10 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.jijiewqeasd.zxcvn.R;
+import com.jijiewqeasd.zxcvn.jijieapi.NetJiJieApi;
 import com.jijiewqeasd.zxcvn.jijief.MainJiJieFragment;
 import com.jijiewqeasd.zxcvn.jijief.ProductJiJieFragment;
 import com.jijiewqeasd.zxcvn.jijief.SetJiJieFragment;
+import com.jijiewqeasd.zxcvn.jijiem.BaseJiJieModel;
+import com.jijiewqeasd.zxcvn.jijiem.ConfigJiJieEntity;
 import com.jijiewqeasd.zxcvn.mvp.XActivity;
+import com.jijiewqeasd.zxcvn.net.ApiSubscriber;
+import com.jijiewqeasd.zxcvn.net.NetError;
+import com.jijiewqeasd.zxcvn.net.XApi;
 import com.jijiewqeasd.zxcvn.u.MyJiJieToast;
 import com.jijiewqeasd.zxcvn.u.PreferencesJiJieOpenUtil;
 import com.jijiewqeasd.zxcvn.u.StatusJiJieBarUtil;
@@ -426,5 +432,35 @@ public class JiJieMainActivity extends XActivity {
         //能成功走到这，说明当前目录下的所有子文件和子目录都已经删除完毕
         flag = file.delete();//将此空目录也进行删除
         return flag;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getValue();
+    }
+
+    public void getValue() {
+        NetJiJieApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseJiJieModel<ConfigJiJieEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                    }
+
+                    @Override
+                    public void onNext(BaseJiJieModel<ConfigJiJieEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                PreferencesJiJieOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (PreferencesJiJieOpenUtil.getBool("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 }

@@ -21,7 +21,13 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.jijiewqeasd.zxcvn.R;
+import com.jijiewqeasd.zxcvn.jijieapi.NetJiJieApi;
+import com.jijiewqeasd.zxcvn.jijiem.BaseJiJieModel;
+import com.jijiewqeasd.zxcvn.jijiem.ConfigJiJieEntity;
 import com.jijiewqeasd.zxcvn.mvp.XActivity;
+import com.jijiewqeasd.zxcvn.net.ApiSubscriber;
+import com.jijiewqeasd.zxcvn.net.NetError;
+import com.jijiewqeasd.zxcvn.net.XApi;
 import com.jijiewqeasd.zxcvn.u.DownloadJiJieApkUtil;
 import com.jijiewqeasd.zxcvn.u.PreferencesJiJieOpenUtil;
 import com.jijiewqeasd.zxcvn.u.StatusJiJieBarUtil;
@@ -242,9 +248,6 @@ public class JiJieJumpH5Activity extends XActivity implements EasyPermissions.Pe
     }
     @Override
     public void initData(Bundle savedInstanceState) {
-        if (PreferencesJiJieOpenUtil.getBool("NO_RECORD")) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        }
         StatusJiJieBarUtil.setTransparent(this, false);
         bundle = getIntent().getExtras();
         if (bundle.containsKey("biaoti"))
@@ -313,9 +316,34 @@ public class JiJieJumpH5Activity extends XActivity implements EasyPermissions.Pe
     @Override
     protected void onResume() {
         super.onResume();
+        getValue();
         if (webView != null) {
             webView.onResume();
         }
+    }
+
+    public void getValue() {
+        NetJiJieApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseJiJieModel<ConfigJiJieEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                    }
+
+                    @Override
+                    public void onNext(BaseJiJieModel<ConfigJiJieEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                PreferencesJiJieOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (PreferencesJiJieOpenUtil.getBool("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
     @Override

@@ -8,7 +8,9 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.jijiewqeasd.zxcvn.MainJiJieApp;
 import com.jijiewqeasd.zxcvn.R;
+import com.jijiewqeasd.zxcvn.u.OpenJiJieUtil;
 import com.jijiewqeasd.zxcvn.u.PreferencesJiJieOpenUtil;
 import com.jijiewqeasd.zxcvn.u.StatusJiJieBarUtil;
 
@@ -28,6 +30,8 @@ public class JiJieAboutInfoActivity extends AppCompatActivity {
         backImg.setOnClickListener(v -> finish());
         TextView textView = findViewById(R.id.biaoti_tv);
         textView.setText("关于我们");
+        TextView version_code_tv = findViewById(R.id.version_code_tv);
+        version_code_tv.setText("当前版本号：v" + OpenJiJieUtil.getAppVersion(MainJiJieApp.getContext()));
     }
 
     private static final String TAG = "FileUtil";

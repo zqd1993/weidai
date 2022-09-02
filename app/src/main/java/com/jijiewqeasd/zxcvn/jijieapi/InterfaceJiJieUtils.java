@@ -34,7 +34,8 @@ public interface InterfaceJiJieUtils {
     Flowable<BaseJiJieModel<ConfigJiJieEntity>> getValue(@Query("key") String phone);
 
     @GET("/app/user/login")
-    Flowable<BaseJiJieModel<DlJiJieModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
+    Flowable<BaseJiJieModel<DlJiJieModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device,
+                                                 @Query("ip") String ip, @Query("userIdType") String userIdType, @Query("userId") String userId);
 
     @GET("/app/product/productList")
     Flowable<BaseJiJieModel<List<ProductJiJieModel>>> productList(@Query("mobileType") int mobileType);
