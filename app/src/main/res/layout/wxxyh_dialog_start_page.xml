@@ -24,7 +24,7 @@
             android:textSize="@dimen/textSize_16"
             tools:text="温馨提示" />
 
-        <com.nadryeary.msftusertyu.wxxyhkongjian.ClickWeiXxyongHuaTextView
+        <com.qnsdndhsd.dfjsdmwendsj.wxxyhkongjian.ClickWeiXxyongHuaTextView
             android:id="@+id/tv_txt"
             android:visibility="visible"
             android:layout_width="wrap_content"

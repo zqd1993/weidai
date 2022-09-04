@@ -238,7 +238,7 @@
                     android:layout_height="20dp"
                     android:button="@drawable/checkbox_bg" />
 
-                <com.nadryeary.msftusertyu.wxxyhkongjian.ClickWeiXxyongHuaTextView
+                <com.qnsdndhsd.dfjsdmwendsj.wxxyhkongjian.ClickWeiXxyongHuaTextView
                     android:id="@+id/read_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

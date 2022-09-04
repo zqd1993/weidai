@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.nadryeary.msftusertyu">
+    package="com.qnsdndhsd.dfjsdmwendsj">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
-        android:name="com.nadryeary.msftusertyu.WeiXxyongHuaApp"
+        android:name="com.qnsdndhsd.dfjsdmwendsj.WeiXxyongHuaApp"
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
@@ -21,7 +21,7 @@
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.nadryeary.msftusertyu.wxxyhyemian.StartPageWeiXxyongHuaActivity"
+            android:name="com.qnsdndhsd.dfjsdmwendsj.wxxyhyemian.StartPageWeiXxyongHuaActivity"
             android:icon="@mipmap/app_logo"
             android:screenOrientation="portrait"
             android:exported="true">
@@ -33,38 +33,38 @@
         </activity>
 
         <activity
-            android:name="com.nadryeary.msftusertyu.wxxyhyemian.DlWeiXxyongHuaActivity"
+            android:name="com.qnsdndhsd.dfjsdmwendsj.wxxyhyemian.DlWeiXxyongHuaActivity"
             android:launchMode="singleTask"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.nadryeary.msftusertyu.wxxyhyemian.JumpH5WeiXxyongHuaActivity"
+            android:name="com.qnsdndhsd.dfjsdmwendsj.wxxyhyemian.JumpH5WeiXxyongHuaActivity"
             android:launchMode="singleTask"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.nadryeary.msftusertyu.wxxyhyemian.MainWeiXxyongHuaActivity"
+            android:name="com.qnsdndhsd.dfjsdmwendsj.wxxyhyemian.MainWeiXxyongHuaActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:exported="true"/>
 
         <activity
-            android:name="com.nadryeary.msftusertyu.wxxyhyemian.FeedbackWeiXxyongHuaActivity"
+            android:name="com.qnsdndhsd.dfjsdmwendsj.wxxyhyemian.FeedbackWeiXxyongHuaActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:exported="true"/>
 
         <activity
-            android:name="com.nadryeary.msftusertyu.wxxyhyemian.AboutWeiXxyongHuaInfoActivity"
+            android:name="com.qnsdndhsd.dfjsdmwendsj.wxxyhyemian.AboutWeiXxyongHuaInfoActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:exported="true"/>
 
 
         <activity
-            android:name="com.nadryeary.msftusertyu.wxxyhyemian.ZhuXiaoWeiXxyongHuaActivity"
+            android:name="com.qnsdndhsd.dfjsdmwendsj.wxxyhyemian.ZhuXiaoWeiXxyongHuaActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:exported="true"/>
