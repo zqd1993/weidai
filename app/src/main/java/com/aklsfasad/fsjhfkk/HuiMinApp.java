@@ -5,9 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
-import com.umeng.commonsdk.UMConfigure;
-
 import com.aklsfasad.fsjhfkk.net.NetError;
 import com.aklsfasad.fsjhfkk.net.NetProvider;
 import com.aklsfasad.fsjhfkk.net.RequestHandler;
@@ -21,6 +18,7 @@ import okhttp3.OkHttpClient;
  */
 
 public class HuiMinApp extends Application {
+    private static HuiMinApp sInstance;
 
     private static Context context;
 
@@ -30,6 +28,7 @@ public class HuiMinApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        sInstance = this;
         context = this;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         XApi.registerProvider(new NetProvider() {
@@ -83,6 +82,10 @@ public class HuiMinApp extends Application {
 
     public static Context getContext() {
         return context;
+    }
+
+    public static HuiMinApp getInstance() {
+        return sInstance;
     }
 
     public static SharedPreferences getSharedPreferences() {
