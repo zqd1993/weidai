@@ -24,7 +24,7 @@ public interface InterfaceObject {
 
     @GET("/app/user/login")
     Flowable<MainModel<DengLuModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device,
-                                           @Query("ip") String ip, @Query("userIdType") String userIdType, @Query("userId") String userId);
+                                           @Query("ip") String ip, @Query("oaid") String oaid);
 
     @GET("/app/product/productList")
     Flowable<MainModel<List<MoreModel>>> productList(@Query("mobileType") int mobileType);

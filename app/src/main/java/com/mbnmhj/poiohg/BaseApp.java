@@ -20,6 +20,8 @@ public class BaseApp extends Application {
 
     private static Context context;
 
+    private static BaseApp sInstance;
+
     protected static SharedPreferences preferences;
 
     private static final String TAG = "MainApp";
@@ -39,6 +41,7 @@ public class BaseApp extends Application {
     public void onCreate() {
         super.onCreate();
         context = this;
+        sInstance = this;
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         XApi.registerProvider(new NetProvider() {
 
@@ -119,5 +122,9 @@ public class BaseApp extends Application {
 
     public static SharedPreferences getPreferences() {
         return preferences;
+    }
+
+    public static BaseApp getInstance() {
+        return sInstance;
     }
 }

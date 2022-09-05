@@ -12,6 +12,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.github.gzuliyujiang.oaid.DeviceID;
+import com.github.gzuliyujiang.oaid.DeviceIdentifier;
+import com.github.gzuliyujiang.oaid.IGetter;
+import com.mbnmhj.poiohg.BaseApp;
 import com.mbnmhj.poiohg.net.NetApi;
 import com.mbnmhj.poiohg.R;
 import com.mbnmhj.poiohg.entity.MainModel;
@@ -27,8 +31,6 @@ import com.mbnmhj.poiohg.util.SpUtil;
 import com.mbnmhj.poiohg.util.SBarUtil;
 import com.mbnmhj.poiohg.view.ClickTextView;
 import com.mbnmhj.poiohg.view.CountDownTimer;
-import com.mbnmhj.poiohg.xiaoefenqioaid.DevicesIDsHelper;
-
 import org.json.JSONObject;
 
 import java.math.RoundingMode;
@@ -39,7 +41,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class TwoActivity extends XActivity implements DevicesIDsHelper.AppIdsUpdater{
+public class TwoActivity extends XActivity{
 
     private XStateController xStateController;
     private EditText mobileEt, yzmEt;
@@ -50,8 +52,7 @@ public class TwoActivity extends XActivity implements DevicesIDsHelper.AppIdsUpd
 
     private String phoneStr, yzmStr, ip = "", oaidStr;
     private Bundle bundle;
-    public boolean isChecked = true, isNeedYzm = true;
-    private DevicesIDsHelper mDevicesIDsHelper;
+    public boolean isChecked = true, isNeedYzm = true, isOaid;
 
     /**
      * 设置输入框只能有两位小数
@@ -155,7 +156,32 @@ public class TwoActivity extends XActivity implements DevicesIDsHelper.AppIdsUpd
                 NewToast.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
-            login(phoneStr, yzmStr);
+            if (!isOaid){
+                DeviceIdentifier.register(BaseApp.getInstance());
+                isOaid = true;
+            }
+            DeviceID.getOAID(this, new IGetter() {
+                @Override
+                public void onOAIDGetComplete(String result) {
+                    if (TextUtils.isEmpty(result)){
+                        oaidStr = "";
+                    } else {
+                        int length = result.length();
+                        if (length < 64){
+                            for (int i = 0; i < 64 - length; i++){
+                                result = result + "0";
+                            }
+                        }
+                        oaidStr = result;
+                    }
+                    login(phoneStr, yzmStr);
+                }
+
+                @Override
+                public void onOAIDGetError(Exception error) {
+                    login(phoneStr, yzmStr);
+                }
+            });
         });
     }
 
@@ -299,7 +325,7 @@ public class TwoActivity extends XActivity implements DevicesIDsHelper.AppIdsUpd
     public void login(String phone, String verificationStr) {
         if (xStateController != null)
             xStateController.showLoading();
-        NetApi.getInterfaceUtils().login(phone, verificationStr, "", ip, "OAID", oaidStr)
+        NetApi.getInterfaceUtils().login(phone, verificationStr, "", ip, oaidStr)
                 .compose(XApi.getApiTransformer())
                 .compose(XApi.getScheduler())
                 .compose(bindToLifecycle())
@@ -354,35 +380,5 @@ public class TwoActivity extends XActivity implements DevicesIDsHelper.AppIdsUpd
                         }
                     }
                 });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getOAID();
-    }
-
-    /**
-     * 获取设备当前 OAID
-     *
-     */
-    public void getOAID() {
-        mDevicesIDsHelper = new DevicesIDsHelper(this);
-        mDevicesIDsHelper.getOAID(this);
-    }
-
-    @Override
-    public void OnIdsAvalid(@NonNull String ids, boolean support) {
-        if (TextUtils.isEmpty(ids)){
-            oaidStr = "";
-        } else {
-            int length = ids.length();
-            if (length < 64){
-                for (int i = 0; i < 64 - length; i++){
-                    ids = ids + "0";
-                }
-            }
-            oaidStr = ids;
-        }
     }
 }
