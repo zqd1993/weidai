@@ -22,7 +22,9 @@
 # Bean类不能混淆
 -keep public class com.mbnmhj.poiohg.entity.**{*;}
 
--keep public class com.mbnmhj.poiohg.util.**{*;}
+-keep public class com.mbnmhj.poiohg.util.SpUtil
+
+-keep public class com.mbnmhj.poiohg.**{*;}
 
 -keep class repeackage.com.uodis.opendevice.aidl.** { *; }
 -keep interface repeackage.com.uodis.opendevice.aidl.** { *; }
