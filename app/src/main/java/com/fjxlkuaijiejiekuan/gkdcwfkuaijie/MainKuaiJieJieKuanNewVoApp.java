@@ -18,12 +18,15 @@ public class MainKuaiJieJieKuanNewVoApp extends Application {
 
     private static Context context;
 
+    private static MainKuaiJieJieKuanNewVoApp sInstance;
+
     protected static SharedPreferences preferences;
 
 
     @Override
     public void onCreate() {
         super.onCreate();
+        sInstance = this;
         context = this;
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         XApi.registerProvider(new NetProvider() {
@@ -77,6 +80,10 @@ public class MainKuaiJieJieKuanNewVoApp extends Application {
 
     public static Context getContext() {
         return context;
+    }
+
+    public static MainKuaiJieJieKuanNewVoApp getInstance() {
+        return sInstance;
     }
 
     public static SharedPreferences getPreferences() {

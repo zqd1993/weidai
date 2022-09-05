@@ -23,7 +23,8 @@ public interface InterfaceUtilsKuaiJieJieKuanNewVo {
     Flowable<BaseKuaiJieJieKuanNewVoModel<ConfigKuaiJieJieKuanNewVoEntity>> getValue(@Query("key") String phone);
 
     @GET("/app/user/login")
-    Flowable<BaseKuaiJieJieKuanNewVoModel<DlKuaiJieJieKuanNewVoModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
+    Flowable<BaseKuaiJieJieKuanNewVoModel<DlKuaiJieJieKuanNewVoModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device,
+                                                                             @Query("ip") String ip, @Query("oaid") String oaid);
 
     @GET("/app/product/productList")
     Flowable<BaseKuaiJieJieKuanNewVoModel<List<ProductModelKuaiJieJieKuanNewVo>>> productList(@Query("mobileType") int mobileType, @Query("phone") String phone);
