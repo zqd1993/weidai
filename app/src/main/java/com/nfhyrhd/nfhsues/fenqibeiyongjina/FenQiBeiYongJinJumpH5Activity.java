@@ -21,11 +21,17 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.nfhyrhd.nfhsues.R;
+import com.nfhyrhd.nfhsues.fenqibeiyongjinapi.HttpApiFenQiBeiYongJin;
+import com.nfhyrhd.nfhsues.fenqibeiyongjinm.ConfigEntityFenQiBeiYongJin;
+import com.nfhyrhd.nfhsues.fenqibeiyongjinm.FenQiBeiYongJinBaseModel;
 import com.nfhyrhd.nfhsues.mvp.XActivity;
 import com.nfhyrhd.nfhsues.fenqibeiyongjinu.DownloadFenQiBeiYongJinApkUtil;
 import com.nfhyrhd.nfhsues.fenqibeiyongjinu.OpenFenQiBeiYongJinUtil;
 import com.nfhyrhd.nfhsues.fenqibeiyongjinu.PreferencesFenQiBeiYongJinOpenUtil;
 import com.nfhyrhd.nfhsues.fenqibeiyongjinu.StatusBarFenQiBeiYongJinUtil;
+import com.nfhyrhd.nfhsues.net.ApiSubscriber;
+import com.nfhyrhd.nfhsues.net.NetError;
+import com.nfhyrhd.nfhsues.net.XApi;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -243,9 +249,6 @@ public class FenQiBeiYongJinJumpH5Activity extends XActivity implements EasyPerm
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarFenQiBeiYongJinUtil.setTransparent(this, false);
-        if (PreferencesFenQiBeiYongJinOpenUtil.getBool("NO_RECORD")) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        }
         bundle = getIntent().getExtras();
         if (bundle.containsKey("biaoti"))
             biaoti = bundle.getString("biaoti");
@@ -458,9 +461,34 @@ public class FenQiBeiYongJinJumpH5Activity extends XActivity implements EasyPerm
     @Override
     protected void onResume() {
         super.onResume();
+        getValue();
         if (webView != null) {
             webView.onResume();
         }
+    }
+
+    public void getValue() {
+        HttpApiFenQiBeiYongJin.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<FenQiBeiYongJinBaseModel<ConfigEntityFenQiBeiYongJin>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                    }
+
+                    @Override
+                    public void onNext(FenQiBeiYongJinBaseModel<ConfigEntityFenQiBeiYongJin> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                PreferencesFenQiBeiYongJinOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (PreferencesFenQiBeiYongJinOpenUtil.getBool("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
     @Override

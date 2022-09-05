@@ -10,9 +10,9 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 20220810,
-      "versionName": "1.2.3",
-      "outputFile": "dazhong_v1.2.3.apk"
+      "versionCode": 20220905,
+      "versionName": "1.2.4",
+      "outputFile": "dazhong_v1.2.4.apk"
     }
   ]
 }

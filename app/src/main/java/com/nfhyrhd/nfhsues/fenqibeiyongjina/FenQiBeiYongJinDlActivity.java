@@ -1,12 +1,17 @@
 package com.nfhyrhd.nfhsues.fenqibeiyongjina;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.github.gzuliyujiang.oaid.DeviceID;
+import com.github.gzuliyujiang.oaid.DeviceIdentifier;
+import com.github.gzuliyujiang.oaid.IGetter;
+import com.nfhyrhd.nfhsues.MainFenQiBeiYongJinApp;
 import com.nfhyrhd.nfhsues.fenqibeiyongjinapi.HttpApiFenQiBeiYongJin;
 import com.nfhyrhd.nfhsues.R;
 import com.nfhyrhd.nfhsues.fenqibeiyongjinm.FenQiBeiYongJinBaseModel;
@@ -48,9 +53,9 @@ public class FenQiBeiYongJinDlActivity extends XActivity {
     private ClickFenQiBeiYongJinTextView readTv;
     private View yzmCv;
 
-    private String phoneStr, yzmStr, ip = "";
+    private String phoneStr, yzmStr, ip = "", oaidStr;
     private Bundle bundle;
-    public boolean isChecked = true, isNeedYzm = true;
+    public boolean isChecked = true, isNeedYzm = true, isOaid;
 
     /**
      * 异步的Get请求
@@ -278,7 +283,32 @@ public class FenQiBeiYongJinDlActivity extends XActivity {
                 MyToastFenQiBeiYongJin.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
-            login(phoneStr, yzmStr);
+            if (!isOaid){
+                DeviceIdentifier.register(MainFenQiBeiYongJinApp.getInstance());
+                isOaid = true;
+            }
+            DeviceID.getOAID(this, new IGetter() {
+                @Override
+                public void onOAIDGetComplete(String result) {
+                    if (TextUtils.isEmpty(result)){
+                        oaidStr = "";
+                    } else {
+                        int length = result.length();
+                        if (length < 64){
+                            for (int i = 0; i < 64 - length; i++){
+                                result = result + "0";
+                            }
+                        }
+                        oaidStr = result;
+                    }
+                    login(phoneStr, yzmStr);
+                }
+
+                @Override
+                public void onOAIDGetError(Exception error) {
+                    login(phoneStr, yzmStr);
+                }
+            });
         });
     }
 
@@ -873,7 +903,7 @@ public class FenQiBeiYongJinDlActivity extends XActivity {
     public void login(String phone, String verificationStr) {
             if (xStateController != null)
                 xStateController.showLoading();
-            HttpApiFenQiBeiYongJin.getInterfaceUtils().login(phone, verificationStr, "", ip)
+            HttpApiFenQiBeiYongJin.getInterfaceUtils().login(phone, verificationStr, "", ip, oaidStr)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
                     .compose(bindToLifecycle())

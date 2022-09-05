@@ -13,9 +13,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class HttpApiFenQiBeiYongJin {
-    public static final String ZCXY = "http://openss.nnbeirun.cn/profile/vohjjk/zcxy.html";
-    public static final String YSXY= "http://openss.nnbeirun.cn/profile/vohjjk/ysxy.html";
-    public static String HTTP_API_URL = "http://178.20.210.122:7735";
+    public static final String ZCXY = "https://gnxys.pycxwl.cn/profile/vohjjk/zcxy.html";
+    public static final String YSXY= "https://gnxys.pycxwl.cn/profile/vohjjk/ysxy.html";
+    public static String HTTP_API_URL = "http://117.50.190.34:7758";
 
     private static FenQiBeiYongJinInterfaceUtils fenQiBeiYongJinInterfaceUtils;
 

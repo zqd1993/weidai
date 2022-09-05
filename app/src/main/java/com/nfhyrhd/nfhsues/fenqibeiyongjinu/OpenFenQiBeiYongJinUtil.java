@@ -57,49 +57,11 @@ public class OpenFenQiBeiYongJinUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-        HttpApiFenQiBeiYongJin.getInterfaceUtils().getValue("VIDEOTAPE")
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(activity.bindToLifecycle())
-                .subscribe(new ApiSubscriber<FenQiBeiYongJinBaseModel<ConfigEntityFenQiBeiYongJin>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        jumpPage(activity, to, bundle, false);
-                    }
-
-                    @Override
-                    public void onNext(FenQiBeiYongJinBaseModel<ConfigEntityFenQiBeiYongJin> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                PreferencesFenQiBeiYongJinOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                jumpPage(activity, to, bundle, false);
-                            }
-                        }
-                    }
-                });
+        jumpPage(activity, to, bundle, false);
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-        HttpApiFenQiBeiYongJin.getInterfaceUtils().getValue("VIDEOTAPE")
-                .compose(XApi.getApiTransformer())
-                .compose(XApi.getScheduler())
-                .compose(activity.bindToLifecycle())
-                .subscribe(new ApiSubscriber<FenQiBeiYongJinBaseModel<ConfigEntityFenQiBeiYongJin>>() {
-                    @Override
-                    protected void onFail(NetError error) {
-                        jumpPage(activity, to, bundle, isFinish);
-                    }
-
-                    @Override
-                    public void onNext(FenQiBeiYongJinBaseModel<ConfigEntityFenQiBeiYongJin> configEntity) {
-                        if (configEntity != null) {
-                            if (configEntity.getData() != null) {
-                                PreferencesFenQiBeiYongJinOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                jumpPage(activity, to, bundle, isFinish);
-                            }
-                        }
-                    }
-                });
+        jumpPage(activity, to, bundle, isFinish);
     }
 
     public interface CallBack {
