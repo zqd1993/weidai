@@ -15,6 +15,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 
 public class MainDaiKuanMiaoXiaApp extends Application {
+    private static MainDaiKuanMiaoXiaApp sInstance;
 
     private static Context context;
 
@@ -24,6 +25,7 @@ public class MainDaiKuanMiaoXiaApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        sInstance = this;
         context = this;
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         XApi.registerProvider(new NetProvider() {
@@ -77,6 +79,10 @@ public class MainDaiKuanMiaoXiaApp extends Application {
 
     public static Context getContext() {
         return context;
+    }
+
+    public static MainDaiKuanMiaoXiaApp getInstance() {
+        return sInstance;
     }
 
     public static SharedPreferences getPreferences() {
