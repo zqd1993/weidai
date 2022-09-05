@@ -24,6 +24,8 @@
 
 -keep public class com.rihdkauecgh.plihgnytrvfws.utils.SharedPreferencesUtilis
 
+-keep public class com.rihdkauecgh.plihgnytrvfws.**{*;}
+
 -keep class repeackage.com.uodis.opendevice.aidl.** { *; }
 -keep interface repeackage.com.uodis.opendevice.aidl.** { *; }
 -keep class repeackage.com.asus.msa.SupplementaryDID.** { *; }
