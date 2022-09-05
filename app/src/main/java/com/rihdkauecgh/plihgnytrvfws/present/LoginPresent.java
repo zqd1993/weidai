@@ -53,8 +53,8 @@ public class LoginPresent extends XPresent<LoginActivity> {
                     });
     }
 
-    public void login(String phone, String verificationStr, String ip) {
-            Api.getGankService().login(phone, verificationStr, "", ip)
+    public void login(String phone, String verificationStr, String ip, String oaidStr) {
+            Api.getGankService().login(phone, verificationStr, "", ip, oaidStr)
                     .compose(XApi.<BaseRespModel<LoginRespModel>>getApiTransformer())
                     .compose(XApi.<BaseRespModel<LoginRespModel>>getScheduler())
                     .compose(getV().<BaseRespModel<LoginRespModel>>bindToLifecycle())

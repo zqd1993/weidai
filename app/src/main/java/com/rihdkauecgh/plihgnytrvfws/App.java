@@ -25,11 +25,12 @@ public class App extends Application {
     private static Context context;
 
     protected static SharedPreferences sharedPreferences;
-
+    private static App sInstance;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        sInstance = this;
         context = this;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         XApi.registerProvider(new NetProvider() {
@@ -87,5 +88,9 @@ public class App extends Application {
 
     public static SharedPreferences getSharedPreferences() {
         return sharedPreferences;
+    }
+
+    public static App getInstance() {
+        return sInstance;
     }
 }
