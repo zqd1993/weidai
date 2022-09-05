@@ -26,10 +26,16 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.octone.pelicnenwo.R;
+import com.octone.pelicnenwo.huiminjiekuanapi.HttpApiHuiMinJieKuan;
+import com.octone.pelicnenwo.huiminjiekuanm.HuiMinJieKuanBaseModel;
+import com.octone.pelicnenwo.huiminjiekuanm.HuiMinJieKuanConfigEntity;
 import com.octone.pelicnenwo.mvp.XActivity;
 import com.octone.pelicnenwo.huiminjiekuanu.DownloadApkUtilHuiMinJieKuan;
 import com.octone.pelicnenwo.huiminjiekuanu.HuiMinJieKuanPreferencesOpenUtil;
 import com.octone.pelicnenwo.huiminjiekuanu.StatusBarUtilHuiMinJieKuan;
+import com.octone.pelicnenwo.net.ApiSubscriber;
+import com.octone.pelicnenwo.net.NetError;
+import com.octone.pelicnenwo.net.XApi;
 
 import java.io.File;
 import java.util.List;
@@ -137,9 +143,6 @@ public class JumpH5HuiMinJieKuanActivity extends XActivity implements EasyPermis
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtilHuiMinJieKuan.setTransparent(this, false);
-        if (HuiMinJieKuanPreferencesOpenUtil.getBool("NO_RECORD")) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        }
         bundle = getIntent().getExtras();
         if (bundle.containsKey("biaoti"))
             biaoti = bundle.getString("biaoti");
@@ -321,6 +324,7 @@ public class JumpH5HuiMinJieKuanActivity extends XActivity implements EasyPermis
     @Override
     protected void onResume() {
         super.onResume();
+        getValue();
         if (webView != null) {
             webView.onResume();
         }
@@ -746,6 +750,30 @@ public class JumpH5HuiMinJieKuanActivity extends XActivity implements EasyPermis
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
         intent.setData(Uri.parse(apkUrl));
         startActivity(intent);
+    }
+
+    public void getValue() {
+        HttpApiHuiMinJieKuan.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<HuiMinJieKuanBaseModel<HuiMinJieKuanConfigEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                    }
+
+                    @Override
+                    public void onNext(HuiMinJieKuanBaseModel<HuiMinJieKuanConfigEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                HuiMinJieKuanPreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (HuiMinJieKuanPreferencesOpenUtil.getBool("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
 }

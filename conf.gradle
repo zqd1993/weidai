@@ -6,8 +6,8 @@ ext {
             minSdkVersion    : 21,
             targetSdkVersion : 31,
 
-            versionCode      : 100,
-            versionName      : '1.0.0',
+            versionCode      : 101,
+            versionName      : '1.0.1',
             keyAlias         : "laifenqiashfuetn",
             keyPassword      : "psd123456",
             storeFile        : "./laifenqiashfuetn.jks",

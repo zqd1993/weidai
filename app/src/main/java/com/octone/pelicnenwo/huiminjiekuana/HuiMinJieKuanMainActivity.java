@@ -13,10 +13,16 @@ import com.octone.pelicnenwo.R;
 import com.octone.pelicnenwo.f.HuiMinJieKuanMainFragment;
 import com.octone.pelicnenwo.f.ProductFragmentHuiMinJieKuan;
 import com.octone.pelicnenwo.f.SetHuiMinJieKuanFragment;
+import com.octone.pelicnenwo.huiminjiekuanapi.HttpApiHuiMinJieKuan;
+import com.octone.pelicnenwo.huiminjiekuanm.HuiMinJieKuanBaseModel;
+import com.octone.pelicnenwo.huiminjiekuanm.HuiMinJieKuanConfigEntity;
 import com.octone.pelicnenwo.mvp.XActivity;
 import com.octone.pelicnenwo.huiminjiekuanu.HuiMinJieKuanMyToast;
 import com.octone.pelicnenwo.huiminjiekuanu.HuiMinJieKuanPreferencesOpenUtil;
 import com.octone.pelicnenwo.huiminjiekuanu.StatusBarUtilHuiMinJieKuan;
+import com.octone.pelicnenwo.net.ApiSubscriber;
+import com.octone.pelicnenwo.net.NetError;
+import com.octone.pelicnenwo.net.XApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +47,6 @@ public class HuiMinJieKuanMainActivity extends XActivity {
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtilHuiMinJieKuan.setTransparent(this, false);
-        if (HuiMinJieKuanPreferencesOpenUtil.getBool("NO_RECORD")) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        }
         tabModels = new ArrayList<>();
         fragments = new ArrayList<>();
         TabModel tabModel = new TabModel();
@@ -163,6 +166,36 @@ public class HuiMinJieKuanMainActivity extends XActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getValue();
+    }
+
+    public void getValue() {
+        HttpApiHuiMinJieKuan.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<HuiMinJieKuanBaseModel<HuiMinJieKuanConfigEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                    }
+
+                    @Override
+                    public void onNext(HuiMinJieKuanBaseModel<HuiMinJieKuanConfigEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                HuiMinJieKuanPreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (HuiMinJieKuanPreferencesOpenUtil.getBool("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
 }

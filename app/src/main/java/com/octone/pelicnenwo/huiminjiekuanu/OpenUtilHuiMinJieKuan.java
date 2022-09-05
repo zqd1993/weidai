@@ -123,26 +123,7 @@ public class OpenUtilHuiMinJieKuan {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-            HttpApiHuiMinJieKuan.getInterfaceUtils().getValue("VIDEOTAPE")
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(activity.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<HuiMinJieKuanBaseModel<HuiMinJieKuanConfigEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            jumpPage(activity, to, bundle, false);
-                        }
-
-                        @Override
-                        public void onNext(HuiMinJieKuanBaseModel<HuiMinJieKuanConfigEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    HuiMinJieKuanPreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    jumpPage(activity, to, bundle, false);
-                                }
-                            }
-                        }
-                    });
+        jumpPage(activity, to, bundle, false);
     }
 
     /**
@@ -217,26 +198,7 @@ public class OpenUtilHuiMinJieKuan {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-            HttpApiHuiMinJieKuan.getInterfaceUtils().getValue("VIDEOTAPE")
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(activity.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<HuiMinJieKuanBaseModel<HuiMinJieKuanConfigEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            jumpPage(activity, to, bundle, isFinish);
-                        }
-
-                        @Override
-                        public void onNext(HuiMinJieKuanBaseModel<HuiMinJieKuanConfigEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    HuiMinJieKuanPreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    jumpPage(activity, to, bundle, isFinish);
-                                }
-                            }
-                        }
-                    });
+        jumpPage(activity, to, bundle, isFinish);
     }
 
     public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish){
