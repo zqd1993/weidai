@@ -9,9 +9,9 @@ import com.dfgderv.erterqweq.utils.SharedPreferencesUtilis;
  */
 
 public class Api {
-    public static final String API_BASE_URL = "http://178.20.210.122:7715";
-    public static final String PRIVACY_POLICY = "https://bones2.jhgujkg.com/profile/vivoayjq/zcxy.html";
-    public static final String USER_SERVICE_AGREEMENT= "https://bones2.jhgujkg.com/profile/vivoayjq/ysxy.html";
+    public static final String API_BASE_URL = "http://117.50.186.217:7758";
+    public static final String PRIVACY_POLICY = "https://gnxys.pycxwl.cn/profile/opjryqh/zcxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "https://gnxys.pycxwl.cn/profile/opjryqh/ysxy.html";
 
     private static GankService gankService;
 

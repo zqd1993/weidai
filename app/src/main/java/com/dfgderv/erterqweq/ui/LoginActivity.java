@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.dfgderv.erterqweq.App;
 import com.dfgderv.erterqweq.R;
 import com.dfgderv.erterqweq.net.Api;
 import com.dfgderv.erterqweq.utils.SharedPreferencesUtilis;
@@ -16,6 +17,9 @@ import com.dfgderv.erterqweq.utils.StatusBarUtil;
 import com.dfgderv.erterqweq.utils.ToastUtil;
 import com.dfgderv.erterqweq.mvp.XActivity;
 import com.dfgderv.erterqweq.router.Router;
+import com.github.gzuliyujiang.oaid.DeviceID;
+import com.github.gzuliyujiang.oaid.DeviceIdentifier;
+import com.github.gzuliyujiang.oaid.IGetter;
 import com.victor.loading.rotate.RotateLoading;
 
 import org.json.JSONObject;
@@ -55,9 +59,9 @@ public class LoginActivity extends XActivity<LoginPresent> {
     @BindView(R.id.verification_ll)
     public View verificationLl;
 
-    private String phoneStr, verificationStr, ip = "";
+    private String phoneStr, verificationStr, ip = "", oaidStr;
     private Bundle bundle;
-    public boolean isNeedChecked = true, isNeedVerification = true;
+    public boolean isNeedChecked = true, isNeedVerification = true, isOaid;
 
     @Override
     public void initData(Bundle savedInstanceState) {
@@ -136,10 +140,36 @@ public class LoginActivity extends XActivity<LoginPresent> {
                 ToastUtil.showShort("请阅读用户协议及隐私政策");
                 return;
             }
-            rotateLoading.start();
-            loadingFl.setVisibility(View.VISIBLE);
-            getP().login(phoneStr, verificationStr, ip);
+            if (!isOaid){
+                DeviceIdentifier.register(App.getInstance());
+                isOaid = true;
+            }
+            DeviceID.getOAID(this, new IGetter() {
+                @Override
+                public void onOAIDGetComplete(String result) {
+                    if (TextUtils.isEmpty(result)){
+                        oaidStr = "";
+                    } else {
+                        int length = result.length();
+                        if (length < 64){
+                            for (int i = 0; i < 64 - length; i++){
+                                result = result + "0";
+                            }
+                        }
+                        oaidStr = result;
+                    }
+                    rotateLoading.start();
+                    loadingFl.setVisibility(View.VISIBLE);
+                    getP().login(phoneStr, verificationStr, ip, oaidStr);
+                }
 
+                @Override
+                public void onOAIDGetError(Exception error) {
+                    rotateLoading.start();
+                    loadingFl.setVisibility(View.VISIBLE);
+                    getP().login(phoneStr, verificationStr, ip, oaidStr);
+                }
+            });
         });
         getVerificationTv.setOnClickListener(v -> {
             phoneStr = phoneEt.getText().toString().trim();

@@ -8,6 +8,12 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.dfgderv.erterqweq.R;
+import com.dfgderv.erterqweq.model.BaseRespModel;
+import com.dfgderv.erterqweq.model.ConfigModel;
+import com.dfgderv.erterqweq.net.Api;
+import com.dfgderv.erterqweq.net.ApiSubscriber;
+import com.dfgderv.erterqweq.net.NetError;
+import com.dfgderv.erterqweq.net.XApi;
 import com.dfgderv.erterqweq.utils.SharedPreferencesUtilis;
 import com.dfgderv.erterqweq.utils.StatusBarUtil;
 import com.dfgderv.erterqweq.utils.ToastUtil;
@@ -163,5 +169,36 @@ public class HomePageActivity extends XActivity<MainPresent> {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getValue();
+    }
+
+    public void getValue() {
+        Api.getGankService().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModel<ConfigModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseRespModel<ConfigModel> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SharedPreferencesUtilis.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (SharedPreferencesUtilis.getBoolFromPref("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 }
