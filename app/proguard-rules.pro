@@ -24,8 +24,6 @@
 
 -keep public class com.mbnmhj.poiohg.util.SpUtil
 
--keep public class com.mbnmhj.poiohg.**{*;}
-
 -keep class repeackage.com.uodis.opendevice.aidl.** { *; }
 -keep interface repeackage.com.uodis.opendevice.aidl.** { *; }
 -keep class repeackage.com.asus.msa.SupplementaryDID.** { *; }
