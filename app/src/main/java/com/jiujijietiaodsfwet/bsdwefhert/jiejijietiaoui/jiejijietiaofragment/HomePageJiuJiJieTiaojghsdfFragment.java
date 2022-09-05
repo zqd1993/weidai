@@ -2,6 +2,7 @@ package com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaoui.jiejijietiaofragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,6 +40,10 @@ public class HomePageJiuJiJieTiaojghsdfFragment extends XFragment<HomePageJiuJiJ
     public TextView money_num_tv;
     @BindView(R.id.click_view_1)
     View click_view_1;
+    @BindView(R.id.app_logo_img)
+    public ImageView app_logo_img;
+    @BindView(R.id.app_name_tv)
+    public TextView app_name_tv;
 
     private Bundle webBundle;
     public GoodsItemJiuJiJieTiaojghsdfAdapter goodsItemJiuJiJieTiaojghsdfAdapter;

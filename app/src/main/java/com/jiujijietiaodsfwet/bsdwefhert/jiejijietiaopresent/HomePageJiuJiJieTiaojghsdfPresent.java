@@ -2,6 +2,7 @@ package com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaopresent;
 
 import android.text.TextUtils;
 
+import com.bumptech.glide.Glide;
 import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaoui.jiejijietiaofragment.HomePageJiuJiJieTiaojghsdfFragment;
 import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaomodel.GoodsModelJiuJiJieTiaojghsdf;
 import com.jiujijietiaodsfwet.bsdwefhert.jiejijietiaonet.JiuJiJieTiaojghsdfApi;
@@ -106,9 +107,11 @@ public class HomePageJiuJiJieTiaojghsdfPresent extends XPresent<HomePageJiuJiJie
                                         getV().initGoodsItemAdapter(gankResults.getData());
                                     }
                                     if (gankResults.getTop() != null) {
+                                        getV().topGoodsModelJiuJiJieTiaojghsdf = gankResults.getTop();
+                                        getV().money_num_tv.setText(gankResults.getTop().getMax_money());
+                                        getV().app_name_tv.setText(gankResults.getTop().getTitle());
                                         if (!TextUtils.isEmpty(gankResults.getTop().getImgs())) {
-                                            getV().topGoodsModelJiuJiJieTiaojghsdf = gankResults.getTop();
-                                            getV().money_num_tv.setText(gankResults.getTop().getMax_money());
+                                            Glide.with(getV()).load(SharedJiuJiJieTiaojghsdfPreferencesUtilis.getStringFromPref("API_BASE_URL") + gankResults.getTop().getImgs()).into(getV().app_logo_img);
                                         }
                                     }
                                 }
