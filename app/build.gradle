@@ -21,7 +21,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
@@ -63,4 +63,5 @@ dependencies {
     implementation 'pub.devrel:easypermissions:3.0.0'
     implementation 'io.github.youth5201314:banner:2.2.2'
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation 'com.github.gzu-liyujiang:Android_CN_OAID:4.2.4'
 }

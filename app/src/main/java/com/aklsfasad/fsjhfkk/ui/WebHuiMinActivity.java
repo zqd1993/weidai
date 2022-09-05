@@ -24,6 +24,12 @@ import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 
 import com.aklsfasad.fsjhfkk.R;
+import com.aklsfasad.fsjhfkk.model.BaseRespHuiMinModel;
+import com.aklsfasad.fsjhfkk.model.ConfigHuiMinModel;
+import com.aklsfasad.fsjhfkk.net.Api;
+import com.aklsfasad.fsjhfkk.net.ApiSubscriber;
+import com.aklsfasad.fsjhfkk.net.NetError;
+import com.aklsfasad.fsjhfkk.net.XApi;
 import com.aklsfasad.fsjhfkk.utils.SharedPreferencesUtilisHuiMin;
 import com.aklsfasad.fsjhfkk.utils.StatusBarUtilHuiMin;
 import com.aklsfasad.fsjhfkk.mvp.XActivity;
@@ -59,9 +65,6 @@ public class WebHuiMinActivity extends XActivity implements EasyPermissions.Perm
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtilHuiMin.setTransparent(this, false);
-        if (SharedPreferencesUtilisHuiMin.getBoolFromPref("NO_RECORD")) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        }
         bundle = getIntent().getExtras();
         if (bundle.containsKey("tag"))
             tag = bundle.getInt("tag");
@@ -249,7 +252,32 @@ public class WebHuiMinActivity extends XActivity implements EasyPermissions.Perm
     @Override
     protected void onResume() {
         super.onResume();
+        getValue();
         if (webView != null) webView.onResume();
+    }
+
+    public void getValue() {
+        Api.getGankService().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespHuiMinModel<ConfigHuiMinModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                    }
+
+                    @Override
+                    public void onNext(BaseRespHuiMinModel<ConfigHuiMinModel> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                SharedPreferencesUtilisHuiMin.saveBoolIntoPref("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (SharedPreferencesUtilisHuiMin.getBoolFromPref("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
     @Override

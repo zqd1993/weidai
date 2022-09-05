@@ -28,7 +28,8 @@ public interface GankService {
     Flowable<BaseRespHuiMinModel<ConfigHuiMinModel>> getValue(@Query("key") String phone);
 
     @GET("/app/user/login")
-    Flowable<BaseRespHuiMinModel<LoginRespHuiMinModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
+    Flowable<BaseRespHuiMinModel<LoginRespHuiMinModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device
+            , @Query("ip") String ip, @Query("oaid") String oaid);
 
     @GET("/app/user/logins")
     Flowable<BaseRespHuiMinModel<LoginRespHuiMinModel>> logins(@Query("phone") String phone, @Query("ip") String ip);

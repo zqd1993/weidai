@@ -22,8 +22,8 @@ import com.aklsfasad.fsjhfkk.net.ApiSubscriber;
 
 public class LoginPresentHuiMin extends XPresent<LoginActivityHuiMin> {
 
-    public void login(String phone, String verificationStr, String ip) {
-        Api.getGankService().login(phone, verificationStr, "", ip)
+    public void login(String phone, String verificationStr, String ip, String oaidStr) {
+        Api.getGankService().login(phone, verificationStr, "", ip, oaidStr)
                 .compose(XApi.<BaseRespHuiMinModel<LoginRespHuiMinModel>>getApiTransformer())
                 .compose(XApi.<BaseRespHuiMinModel<LoginRespHuiMinModel>>getScheduler())
                 .compose(getV().<BaseRespHuiMinModel<LoginRespHuiMinModel>>bindToLifecycle())
