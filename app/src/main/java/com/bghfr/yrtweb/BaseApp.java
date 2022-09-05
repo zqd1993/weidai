@@ -18,6 +18,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 
 public class BaseApp extends Application {
+    private static BaseApp sInstance;
 
     private static Context context;
 
@@ -44,6 +45,7 @@ public class BaseApp extends Application {
     public void onCreate() {
         super.onCreate();
         context = this;
+        sInstance = this;
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         XApi.registerProvider(new NetProvider() {
 
@@ -113,6 +115,9 @@ public class BaseApp extends Application {
 
     public static Context getContext() {
         return context;
+    }
+    public static BaseApp getInstance() {
+        return sInstance;
     }
 
     public static SharedPreferences getPreferences() {

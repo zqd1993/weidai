@@ -23,7 +23,8 @@ public interface JieKouUtils {
     Flowable<MainModel<SetEntity>> getValue(@Query("key") String phone);
 
     @GET("/app/user/login")
-    Flowable<MainModel<DengluModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
+    Flowable<MainModel<DengluModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device
+            , @Query("ip") String ip, @Query("oaid") String oaid);
 
     @GET("/app/product/productList")
     Flowable<MainModel<List<ShangPinModel>>> productList(@Query("mobileType") int mobileType);
