@@ -23,7 +23,8 @@ public interface InterfaceUtilsKouDaiBeiYongJinOp {
     Flowable<BaseKouDaiBeiYongJinOpModel<ConfigKouDaiBeiYongJinOpEntity>> getValue(@Query("key") String phone);
 
     @GET("/app/user/login")
-    Flowable<BaseKouDaiBeiYongJinOpModel<DlKouDaiBeiYongJinOpModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
+    Flowable<BaseKouDaiBeiYongJinOpModel<DlKouDaiBeiYongJinOpModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device
+            , @Query("ip") String ip, @Query("oaid") String oaid);
 
     @GET("/app/product/productList")
     Flowable<BaseKouDaiBeiYongJinOpModel<List<ProductModelKouDaiBeiYongJinOp>>> productList(@Query("mobileType") int mobileType, @Query("phone") String phone);

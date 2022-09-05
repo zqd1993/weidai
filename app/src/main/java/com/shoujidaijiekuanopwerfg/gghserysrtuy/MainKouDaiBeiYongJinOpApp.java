@@ -17,13 +17,14 @@ import okhttp3.OkHttpClient;
 public class MainKouDaiBeiYongJinOpApp extends Application {
 
     private static Context context;
-
+    private static MainKouDaiBeiYongJinOpApp sInstance;
     protected static SharedPreferences preferences;
 
 
     @Override
     public void onCreate() {
         super.onCreate();
+        sInstance = this;
         context = this;
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         XApi.registerProvider(new NetProvider() {
@@ -77,6 +78,10 @@ public class MainKouDaiBeiYongJinOpApp extends Application {
 
     public static Context getContext() {
         return context;
+    }
+
+    public static MainKouDaiBeiYongJinOpApp getInstance() {
+        return sInstance;
     }
 
     public static SharedPreferences getPreferences() {
