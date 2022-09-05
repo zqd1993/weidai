@@ -12,7 +12,7 @@ android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
-        applicationId 'com.sdyqwjqwias.fdpwejqwdjew'
+        applicationId 'ai.fenqijiekuanw.g'
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
