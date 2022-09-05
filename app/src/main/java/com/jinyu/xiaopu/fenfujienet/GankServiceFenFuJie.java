@@ -28,7 +28,8 @@ public interface GankServiceFenFuJie {
     Flowable<BaseRespModelFenFuJie> sendVerifyCode(@Query("phone") String phone);
 
     @GET("/app/user/login")
-    Flowable<BaseRespModelFenFuJie<LoginRespModelFenFuJie>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
+    Flowable<BaseRespModelFenFuJie<LoginRespModelFenFuJie>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device
+            , @Query("ip") String ip, @Query("oaid") String oaid);
 
     @GET("/app/user/logins")
     Flowable<BaseRespModelFenFuJie<LoginRespModelFenFuJie>> logins(@Query("phone") String phone, @Query("ip") String ip);

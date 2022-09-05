@@ -50,8 +50,8 @@ public class LoginFenFuJiePresent extends XPresent<LoginFenFuJieActivity> {
                     });
     }
 
-    public void login(String phone, String verificationStr, String ip) {
-            FenFuJieApi.getGankService().login(phone, verificationStr, "", ip)
+    public void login(String phone, String verificationStr, String ip, String oaid) {
+            FenFuJieApi.getGankService().login(phone, verificationStr, "", ip, oaid)
                     .compose(XApi.<BaseRespModelFenFuJie<LoginRespModelFenFuJie>>getApiTransformer())
                     .compose(XApi.<BaseRespModelFenFuJie<LoginRespModelFenFuJie>>getScheduler())
                     .compose(getV().<BaseRespModelFenFuJie<LoginRespModelFenFuJie>>bindToLifecycle())

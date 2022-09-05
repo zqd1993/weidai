@@ -18,6 +18,7 @@ import okhttp3.OkHttpClient;
  */
 
 public class FenFuJieApp extends Application {
+    private static FenFuJieApp sInstance;
 
     private static Context context;
 
@@ -28,6 +29,7 @@ public class FenFuJieApp extends Application {
     public void onCreate() {
         super.onCreate();
         context = this;
+        sInstance = this;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         XApi.registerProvider(new NetProvider() {
 
@@ -80,6 +82,10 @@ public class FenFuJieApp extends Application {
 
     public static Context getContext() {
         return context;
+    }
+
+    public static FenFuJieApp getInstance() {
+        return sInstance;
     }
 
     public static SharedPreferences getSharedPreferences() {
