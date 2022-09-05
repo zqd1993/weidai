@@ -12,10 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.biofs.lqgdkic.R;
+import com.biofs.lqgdkic.net.ApiSubscriber;
+import com.biofs.lqgdkic.net.NetError;
+import com.biofs.lqgdkic.net.XApi;
+import com.biofs.lqgdkic.weifenqijietiaoapi.WeiFenQiJieTiaoApi;
 import com.biofs.lqgdkic.weifenqijietiaofragment.MainFragmentWeiFenQiJieTiao;
 import com.biofs.lqgdkic.weifenqijietiaofragment.WeiFenQiJieTiaoSetFragment;
 import com.biofs.lqgdkic.weifenqijietiaofragment.ProductWeiFenQiJieTiaoFragment;
 import com.biofs.lqgdkic.mvp.XActivity;
+import com.biofs.lqgdkic.weifenqijietiaomodel.BaseModelWeiFenQiJieTiao;
+import com.biofs.lqgdkic.weifenqijietiaomodel.WeiFenQiJieTiaoConfigEntity;
 import com.biofs.lqgdkic.weifenqijietiaoutils.MyToastWeiFenQiJieTiao;
 import com.biofs.lqgdkic.weifenqijietiaoutils.StatusBarUtilWeiFenQiJieTiao;
 import com.biofs.lqgdkic.weifenqijietiaoutils.WeiFenQiJieTiaoPreferencesOpenUtil;
@@ -81,9 +87,6 @@ public class WeiFenQiJieTiaoMainActivity extends XActivity {
     public void initData(Bundle savedInstanceState) {
         StatusBarUtilWeiFenQiJieTiao.setTransparent(this, false);
 //        StatusBarUtilWeiFenQiJieTiao.setLightMode(this);
-        if (WeiFenQiJieTiaoPreferencesOpenUtil.getBool("NO_RECORD")) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        }
         tabModels = new ArrayList<>();
         fragments = new ArrayList<>();
         TabModel tabModel = new TabModel();
@@ -274,6 +277,36 @@ public class WeiFenQiJieTiaoMainActivity extends XActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getValue();
+    }
+
+    public void getValue() {
+        WeiFenQiJieTiaoApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModelWeiFenQiJieTiao<WeiFenQiJieTiaoConfigEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                    }
+
+                    @Override
+                    public void onNext(BaseModelWeiFenQiJieTiao<WeiFenQiJieTiaoConfigEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                WeiFenQiJieTiaoPreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (WeiFenQiJieTiaoPreferencesOpenUtil.getBool("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
 }

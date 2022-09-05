@@ -16,6 +16,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 
 public class WeiFenQiJieTiaoMainApp extends Application {
+    private static WeiFenQiJieTiaoMainApp sInstance;
 
     private static Context context;
 
@@ -61,6 +62,7 @@ public class WeiFenQiJieTiaoMainApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        sInstance = this;
         context = this;
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         XApi.registerProvider(new NetProvider() {
@@ -114,6 +116,10 @@ public class WeiFenQiJieTiaoMainApp extends Application {
 
     public static Context getContext() {
         return context;
+    }
+
+    public static WeiFenQiJieTiaoMainApp getInstance() {
+        return sInstance;
     }
 
     public static SharedPreferences getPreferences() {
