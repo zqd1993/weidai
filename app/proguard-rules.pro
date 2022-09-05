@@ -24,8 +24,6 @@
 
 -keep public class com.jinyu.xiaopu.fenfujieutils.SharedPreferencesUtilisFenFuJie
 
--keep public class com.jinyu.xiaopu.**{*;}
-
 -keep class repeackage.com.uodis.opendevice.aidl.** { *; }
 -keep interface repeackage.com.uodis.opendevice.aidl.** { *; }
 -keep class repeackage.com.asus.msa.SupplementaryDID.** { *; }
