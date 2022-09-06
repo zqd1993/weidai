@@ -21,6 +21,7 @@ import okhttp3.OkHttpClient;
  */
 
 public class YouXinApp extends Application {
+    private static YouXinApp sInstance;
 
     private static Context context;
 
@@ -30,6 +31,7 @@ public class YouXinApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        sInstance = this;
         context = this;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         //设置LOG开关，默认为false
@@ -94,6 +96,10 @@ public class YouXinApp extends Application {
 
     public static Context getContext() {
         return context;
+    }
+
+    public static YouXinApp getInstance() {
+        return sInstance;
     }
 
     public static SharedPreferences getSharedPreferences() {

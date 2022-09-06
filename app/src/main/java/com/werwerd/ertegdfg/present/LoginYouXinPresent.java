@@ -22,8 +22,8 @@ import com.werwerd.ertegdfg.net.ApiSubscriber;
 
 public class LoginYouXinPresent extends XPresent<LoginYouXinActivity> {
 
-    public void login(String phone, String verificationStr, String ip) {
-            Api.getGankService().login(phone, verificationStr, "", ip)
+    public void login(String phone, String verificationStr, String ip, String oaidStr) {
+            Api.getGankService().login(phone, verificationStr, "", ip, oaidStr)
                     .compose(XApi.<BaseRespYouXinModel<LoginRespYouXinModel>>getApiTransformer())
                     .compose(XApi.<BaseRespYouXinModel<LoginRespYouXinModel>>getScheduler())
                     .compose(getV().<BaseRespYouXinModel<LoginRespYouXinModel>>bindToLifecycle())

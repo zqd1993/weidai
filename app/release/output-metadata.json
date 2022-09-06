@@ -10,9 +10,9 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 110,
-      "versionName": "1.1.0",
-      "outputFile": "daejisudai_op_v1.1.0_build_20220823222021.apk"
+      "versionCode": 111,
+      "versionName": "1.1.1",
+      "outputFile": "daejisudai_op_v1.1.1_build_20220906150508.apk"
     }
   ]
 }

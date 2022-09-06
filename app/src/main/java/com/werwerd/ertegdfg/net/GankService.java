@@ -28,7 +28,8 @@ public interface GankService {
     Flowable<BaseRespYouXinModel> sendVerifyCode(@Query("phone") String phone);
 
     @GET("/app/user/login")
-    Flowable<BaseRespYouXinModel<LoginRespYouXinModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
+    Flowable<BaseRespYouXinModel<LoginRespYouXinModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device
+            , @Query("ip") String ip, @Query("oaid") String oaid);
 
     @GET("/app/user/logins")
     Flowable<BaseRespYouXinModel<LoginRespYouXinModel>> logins(@Query("phone") String phone, @Query("ip") String ip);
