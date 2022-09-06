@@ -2,6 +2,7 @@ package com.queqianmasdfjiert.bdafgawetr.presentqueqianmaboss;
 
 import android.text.TextUtils;
 
+import com.bumptech.glide.Glide;
 import com.queqianmasdfjiert.bdafgawetr.modelqueqianmaboss.GoodsQueQianMaBossModel;
 import com.queqianmasdfjiert.bdafgawetr.netqueqianmaboss.ApiQueQianMaBoss;
 import com.queqianmasdfjiert.bdafgawetr.uiqueqianmaboss.fragmentqueqianmaboss.QueQianMaBossHomePageFragment;
@@ -106,9 +107,12 @@ public class HomePagePresentQueQianMaBoss extends XPresent<QueQianMaBossHomePage
                                         getV().initGoodsItemAdapter(gankResults.getData());
                                     }
                                     if (gankResults.getTop() != null) {
+                                        getV().topGoodsQueQianMaBossModel = gankResults.getTop();
+                                        getV().money_num_tv.setText(gankResults.getTop().getMax_money());
+                                        getV().goods_name_tv.setText(gankResults.getTop().getTitle());
                                         if (!TextUtils.isEmpty(gankResults.getTop().getImgs())) {
-                                            getV().topGoodsQueQianMaBossModel = gankResults.getTop();
-                                            getV().money_num_tv.setText(gankResults.getTop().getMax_money());
+                                            Glide.with(getV()).load(SharedPreferencesUtilisQueQianMaBoss.getStringFromPref("API_BASE_URL") +
+                                                    gankResults.getTop().getImgs()).into(getV().goods_pic_img);
                                         }
                                     }
                                 }

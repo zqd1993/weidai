@@ -2,6 +2,7 @@ package com.queqianmasdfjiert.bdafgawetr.uiqueqianmaboss.fragmentqueqianmaboss;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,6 +40,10 @@ public class QueQianMaBossHomePageFragment extends XFragment<HomePagePresentQueQ
     public TextView money_num_tv;
     @BindView(R.id.click_view_1)
     View click_view_1;
+    @BindView(R.id.goods_pic_img)
+    public ImageView goods_pic_img;
+    @BindView(R.id.goods_name_tv)
+    public TextView goods_name_tv;
 
     private Bundle webBundle;
     public GoodsItemQueQianMaBossAdapter goodsItemQueQianMaBossAdapter;
