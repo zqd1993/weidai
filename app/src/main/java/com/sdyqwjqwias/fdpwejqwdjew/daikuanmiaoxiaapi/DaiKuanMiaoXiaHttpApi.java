@@ -3,9 +3,15 @@ package com.sdyqwjqwias.fdpwejqwdjew.daikuanmiaoxiaapi;
 import com.sdyqwjqwias.fdpwejqwdjew.net.XApi;
 
 public class DaiKuanMiaoXiaHttpApi {
-    public static final String ZCXY = "https://gnxys.pycxwl.cn/profile/vohjjk/zcxy.html";
-    public static final String YSXY= "https://gnxys.pycxwl.cn/profile/vohjjk/ysxy.html";
-    public static String HTTP_API_URL = "http://117.50.190.34:7726";
+    public static String OPPO_URL = "http://47.98.62.38:6601";
+    public static String VIVO_URL = "http://117.50.190.34:7726";
+    public static final String VIVO_ZCXY = "https://gnxys.pycxwl.cn/profile/vohjjk/zcxy.html";
+    public static final String VIVO_YSXY = "https://gnxys.pycxwl.cn/profile/vohjjk/ysxy.html";
+    public static final String OPPO_ZCXY = "https://gnxys.pycxwl.cn/profile/vohjjk/zcxy.html";
+    public static final String OPPO_YSXY = "https://gnxys.pycxwl.cn/profile/vohjjk/ysxy.html";
+    public static final String ZCXY = VIVO_ZCXY;
+    public static final String YSXY = VIVO_YSXY;
+    public static String HTTP_API_URL = VIVO_URL;
 
     private static InterfaceUtilsDaiKuanMiaoXia interfaceUtils;
 
