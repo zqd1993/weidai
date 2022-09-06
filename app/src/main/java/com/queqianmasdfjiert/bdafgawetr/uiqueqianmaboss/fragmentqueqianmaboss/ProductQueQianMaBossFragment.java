@@ -3,6 +3,7 @@ package com.queqianmasdfjiert.bdafgawetr.uiqueqianmaboss.fragmentqueqianmaboss;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -86,7 +87,7 @@ public class ProductQueQianMaBossFragment extends XFragment<ProductPresentQueQia
             });
             goodsItemAdapterQueQianMaBossDiXiDaiKuan.setHasStableIds(true);
             goodsItemAdapterQueQianMaBossDiXiDaiKuan.setData(mData);
-            rvy.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rvy.setLayoutManager(new GridLayoutManager(getActivity(), 2));
             rvy.setHasFixedSize(true);
             rvy.setAdapter(goodsItemAdapterQueQianMaBossDiXiDaiKuan);
         } else {

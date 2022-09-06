@@ -35,8 +35,8 @@ public class HomePageActivityQueQianMaBoss extends XActivity<MainQueQianMaBossPr
     private long exitTime = 0;
     private List<Fragment> mFragments = new ArrayList<>();
     private String[] mTitles = {"首页", "产品", "我的"};
-    private int[] uncheckedIcon = {R.drawable.nsxftitu, R.drawable.wwtgdxfhj, R.drawable.xcvbseryu};
-    private int[] checkedIcon = {R.drawable.nbzdaery, R.drawable.nbbzdxfghsery,R.drawable.mnnrtaey};
+    private int[] uncheckedIcon = {R.drawable.erhfg, R.drawable.dxfbty, R.drawable.cvnery};
+    private int[] checkedIcon = {R.drawable.awedfh, R.drawable.lpyuid,R.drawable.zvcbery};
     private ArrayList<CustomTabEntity> customTabEntities;
     private MyFragmentAdapterQueQianMaBoss myFragmentAdapterQueQianMaBoss;
 

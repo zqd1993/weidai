@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -60,8 +61,8 @@ public class QueQianMaBossMineFragment extends XFragment {
     private MineQueQianMaBossAdapter mineQueQianMaBossAdapter;
     private MineAdapterQueQianMaBoss mineAdapterQueQianMaBoss;
     private List<MineItemModelQueQianMaBoss> list, list1;
-    private int[] imgRes = {R.drawable.wdbrstfu, R.drawable.bdfhaery, R.drawable.lpyukjdfg,};
-    private String[] tvRes = {"注册协议", "隐私协议", "关于我们"};
+    private int[] imgRes = {R.drawable.wefgh, R.drawable.rtfgh, R.drawable.yfgns,};
+    private String[] tvRes = {"关于我们", "系统设置", "注销账户"};
     private Bundle bundle;
     private NormalQueQianMaBossDialog normalQueQianMaBossDialog;
     private String mailStr = "", phone = "";
@@ -91,13 +92,21 @@ public class QueQianMaBossMineFragment extends XFragment {
             ToastQueQianMaBossUtil.showShort("复制成功");
         });
         set_tv.setOnClickListener(v -> {
+            bundle = new Bundle();
+            bundle.putInt("tag", 1);
+            bundle.putString("url", ApiQueQianMaBoss.getZc());
             Router.newIntent(getActivity())
-                    .to(QueQianMaBossSettingActivity.class)
+                    .to(QueQianMaBossWebViewActivity.class)
+                    .data(bundle)
                     .launch();
         });
         zhuxiao_tv.setOnClickListener(v -> {
+            bundle = new Bundle();
+            bundle.putInt("tag", 2);
+            bundle.putString("url", ApiQueQianMaBoss.getYs());
             Router.newIntent(getActivity())
-                    .to(CancellationAccountActivityQueQianMaBoss.class)
+                    .to(QueQianMaBossWebViewActivity.class)
+                    .data(bundle)
                     .launch();
         });
     }
@@ -128,32 +137,24 @@ public class QueQianMaBossMineFragment extends XFragment {
                 super.onItemClick(position, model, tag, holder);
                 switch (position) {
                     case 0:
-                        bundle = new Bundle();
-                        bundle.putInt("tag", 1);
-                        bundle.putString("url", ApiQueQianMaBoss.getZc());
                         Router.newIntent(getActivity())
-                                .to(QueQianMaBossWebViewActivity.class)
-                                .data(bundle)
+                                .to(AboutUsQueQianMaBossActivity.class)
                                 .launch();
                         break;
                     case 1:
-                        bundle = new Bundle();
-                        bundle.putInt("tag", 2);
-                        bundle.putString("url", ApiQueQianMaBoss.getYs());
                         Router.newIntent(getActivity())
-                                .to(QueQianMaBossWebViewActivity.class)
-                                .data(bundle)
+                                .to(QueQianMaBossSettingActivity.class)
                                 .launch();
                         break;
                     case 2:
                         Router.newIntent(getActivity())
-                                .to(AboutUsQueQianMaBossActivity.class)
+                                .to(CancellationAccountActivityQueQianMaBoss.class)
                                 .launch();
                         break;
                 }
             }
         });
-        rvy.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        rvy.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvy.setHasFixedSize(true);
         rvy.setAdapter(mineAdapterQueQianMaBoss);
     }

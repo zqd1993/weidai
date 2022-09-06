@@ -31,7 +31,7 @@ public class GoodsItemAdapterQueQianMaBoss extends SimpleRecAdapter<GoodsQueQian
 
     @Override
     public int getLayoutId() {
-        return R.layout.adapter_goods_item_que_qian_ma_boss;
+        return R.layout.adapter_que_qian_ma_boss_goods_item_1;
     }
 
     @Override

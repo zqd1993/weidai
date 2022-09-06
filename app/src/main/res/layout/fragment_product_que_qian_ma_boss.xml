@@ -9,7 +9,7 @@
         android:id="@+id/product_bg"
         android:layout_width="match_parent"
         android:layout_height="90dp"
-        android:background="@color/colorPrimary"
+        android:background="#e3b793"
         android:gravity="bottom|center_horizontal"
         android:paddingBottom="20dp"
         android:text="精选商品"
@@ -32,6 +32,8 @@
                     android:id="@+id/rvy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="20dp" />
 

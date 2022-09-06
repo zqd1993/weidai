@@ -27,7 +27,7 @@ public class MineAdapterQueQianMaBoss extends SimpleRecAdapter<MineItemModelQueQ
 
     @Override
     public int getLayoutId() {
-        return R.layout.adapter_que_qian_ma_boss_mine_item_1;
+        return R.layout.adapter_mine_item_que_qian_ma_boss;
     }
 
     @Override

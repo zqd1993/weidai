@@ -22,9 +22,9 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="200dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/fvbseru" />
+                    android:src="@drawable/klpytighj" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/lpyusdfhws" />
+                            android:src="@drawable/rtehfgn" />
 
                     </FrameLayout>
 
@@ -66,62 +66,79 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="-40dp"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:background="@drawable/bg_corner_10_white">
 
-                <TextView
-                    android:id="@+id/set_tv"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="50dp"
-                    android:layout_weight="1"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
-                    android:drawableStart="@drawable/nnrdfhas"
-                    android:textSize="14sp"
-                    android:textColor="@color/text_normal_color"
-                    android:text="系统设置"
-                    android:drawablePadding="15dp" />
-                
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@color/dividing" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/zhuxiao_tv"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/set_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_weight="1"
+                        android:paddingTop="15dp"
+                        android:layout_marginTop="15dp"
+                        android:paddingBottom="15dp"
+                        android:drawableTop="@drawable/ufgjh"
+                        android:gravity="center"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_normal_color"
+                        android:text="注册协议"
+                        android:drawablePadding="15dp" />
+
+                    <TextView
+                        android:id="@+id/zhuxiao_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="30dp"
+                        android:layout_weight="1"
+                        android:paddingTop="15dp"
+                        android:layout_marginTop="15dp"
+                        android:paddingBottom="15dp"
+                        android:gravity="center_horizontal"
+                        android:drawableTop="@drawable/rtyfg"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_normal_color"
+                        android:text="隐私协议"
+                        android:drawablePadding="15dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/mail_sl"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="50dp"
-                    android:layout_weight="1"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
-                    android:drawableStart="@drawable/rerdfh"
-                    android:textSize="14sp"
-                    android:textColor="@color/text_normal_color"
-                    android:text="注销账户"
-                    android:drawablePadding="15dp" />
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/mail_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/textSize_16"
+                        android:text="123456789@qq.com"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:padding="10dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/textSize_16"
+                        android:text="复制 >"/>
+
+                </LinearLayout>
 
             </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginStart="20dp"
-                android:textSize="16sp"
-                android:textColor="@color/text_normal_color"
-                android:textStyle="bold"
-                android:text="我的功能" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="20dp"
-                android:background="@color/dividing"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvy"
@@ -130,27 +147,6 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:overScrollMode="never" />
-
-            <FrameLayout
-                android:id="@+id/mail_sl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="30dp"
-                android:background="@drawable/nnsfghserdyu">
-
-                <TextView
-                    android:id="@+id/mail_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/textSize_16" />
-
-            </FrameLayout>
 
         </LinearLayout>
 
