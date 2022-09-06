@@ -87,26 +87,7 @@ public class OpenWeiFenQiJieTiaoUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle) {
-            WeiFenQiJieTiaoApi.getInterfaceUtils().getValue("VIDEOTAPE")
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(activity.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModelWeiFenQiJieTiao<WeiFenQiJieTiaoConfigEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-
-                        }
-
-                        @Override
-                        public void onNext(BaseModelWeiFenQiJieTiao<WeiFenQiJieTiaoConfigEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    WeiFenQiJieTiaoPreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    jumpPage(activity, to, bundle, false);
-                                }
-                            }
-                        }
-                    });
+        jumpPage(activity, to, bundle, false);
     }
 
     /**
@@ -147,26 +128,7 @@ public class OpenWeiFenQiJieTiaoUtil {
     }
 
     public static void getValue(XActivity activity, Class<?> to, Bundle bundle, boolean isFinish) {
-            WeiFenQiJieTiaoApi.getInterfaceUtils().getValue("VIDEOTAPE")
-                    .compose(XApi.getApiTransformer())
-                    .compose(XApi.getScheduler())
-                    .compose(activity.bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseModelWeiFenQiJieTiao<WeiFenQiJieTiaoConfigEntity>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-
-                        }
-
-                        @Override
-                        public void onNext(BaseModelWeiFenQiJieTiao<WeiFenQiJieTiaoConfigEntity> configEntity) {
-                            if (configEntity != null) {
-                                if (configEntity.getData() != null) {
-                                    WeiFenQiJieTiaoPreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
-                                    jumpPage(activity, to, bundle, isFinish);
-                                }
-                            }
-                        }
-                    });
+        jumpPage(activity, to, bundle, isFinish);
     }
 
     public static void jumpPage(Activity activity, Class<?> to, Bundle bundle, boolean isFinish) {

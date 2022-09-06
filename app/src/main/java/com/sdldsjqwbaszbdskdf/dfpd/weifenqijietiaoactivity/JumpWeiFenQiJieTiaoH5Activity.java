@@ -24,6 +24,12 @@ import androidx.core.content.FileProvider;
 
 import com.sdldsjqwbaszbdskdf.dfpd.R;
 import com.sdldsjqwbaszbdskdf.dfpd.mvp.XActivity;
+import com.sdldsjqwbaszbdskdf.dfpd.net.ApiSubscriber;
+import com.sdldsjqwbaszbdskdf.dfpd.net.NetError;
+import com.sdldsjqwbaszbdskdf.dfpd.net.XApi;
+import com.sdldsjqwbaszbdskdf.dfpd.weifenqijietiaoapi.WeiFenQiJieTiaoApi;
+import com.sdldsjqwbaszbdskdf.dfpd.weifenqijietiaomodel.BaseModelWeiFenQiJieTiao;
+import com.sdldsjqwbaszbdskdf.dfpd.weifenqijietiaomodel.WeiFenQiJieTiaoConfigEntity;
 import com.sdldsjqwbaszbdskdf.dfpd.weifenqijietiaoutils.StatusBarUtilWeiFenQiJieTiao;
 import com.sdldsjqwbaszbdskdf.dfpd.weifenqijietiaoutils.WeiFenQiJieTiaoDownloadApkUtil;
 import com.sdldsjqwbaszbdskdf.dfpd.weifenqijietiaoutils.WeiFenQiJieTiaoPreferencesOpenUtil;
@@ -100,9 +106,6 @@ public class JumpWeiFenQiJieTiaoH5Activity extends XActivity implements EasyPerm
     @Override
     public void initData(Bundle savedInstanceState) {
         StatusBarUtilWeiFenQiJieTiao.setTransparent(this, false);
-        if (WeiFenQiJieTiaoPreferencesOpenUtil.getBool("NO_RECORD")) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-        }
         bundle = getIntent().getExtras();
         if (bundle.containsKey("biaoti"))
             biaoti = bundle.getString("biaoti");
@@ -179,9 +182,35 @@ public class JumpWeiFenQiJieTiaoH5Activity extends XActivity implements EasyPerm
     @Override
     protected void onResume() {
         super.onResume();
+        getValue();
         if (webView != null) {
             webView.onResume();
         }
+    }
+
+    public void getValue() {
+        WeiFenQiJieTiaoApi.getInterfaceUtils().getValue("VIDEOTAPE")
+                .compose(XApi.getApiTransformer())
+                .compose(XApi.getScheduler())
+                .compose(this.bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseModelWeiFenQiJieTiao<WeiFenQiJieTiaoConfigEntity>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseModelWeiFenQiJieTiao<WeiFenQiJieTiaoConfigEntity> configEntity) {
+                        if (configEntity != null) {
+                            if (configEntity.getData() != null) {
+                                WeiFenQiJieTiaoPreferencesOpenUtil.saveBool("NO_RECORD", !configEntity.getData().getVideoTape().equals("0"));
+                                if (WeiFenQiJieTiaoPreferencesOpenUtil.getBool("NO_RECORD")) {
+                                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
     @Override

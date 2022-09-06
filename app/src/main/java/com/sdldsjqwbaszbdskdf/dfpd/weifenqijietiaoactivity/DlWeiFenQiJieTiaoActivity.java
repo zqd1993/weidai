@@ -2,6 +2,7 @@ package com.sdldsjqwbaszbdskdf.dfpd.weifenqijietiaoactivity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
@@ -9,6 +10,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.github.gzuliyujiang.oaid.DeviceID;
+import com.github.gzuliyujiang.oaid.DeviceIdentifier;
+import com.github.gzuliyujiang.oaid.IGetter;
+import com.sdldsjqwbaszbdskdf.dfpd.WeiFenQiJieTiaoMainApp;
 import com.sdldsjqwbaszbdskdf.dfpd.weifenqijietiaoapi.WeiFenQiJieTiaoApi;
 import com.sdldsjqwbaszbdskdf.dfpd.R;
 import com.sdldsjqwbaszbdskdf.dfpd.weifenqijietiaomodel.BaseModelWeiFenQiJieTiao;
@@ -76,9 +81,9 @@ public class DlWeiFenQiJieTiaoActivity extends XActivity {
         return (pxVal / context.getResources().getDisplayMetrics().scaledDensity);
     }
 
-    private String phoneStr, yzmStr, ip = "";
+    private String phoneStr, yzmStr, ip = "", oaidStr;
     private Bundle bundle;
-    public boolean isChecked = true, isNeedYzm = true;
+    public boolean isChecked = true, isNeedYzm = true, isOaid;
 
     @Override
     public void initData(Bundle savedInstanceState) {
@@ -133,7 +138,32 @@ public class DlWeiFenQiJieTiaoActivity extends XActivity {
                 MyToastWeiFenQiJieTiao.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
-            login(phoneStr, yzmStr);
+            if (!isOaid){
+                DeviceIdentifier.register(WeiFenQiJieTiaoMainApp.getInstance());
+                isOaid = true;
+            }
+            DeviceID.getOAID(this, new IGetter() {
+                @Override
+                public void onOAIDGetComplete(String result) {
+                    if (TextUtils.isEmpty(result)){
+                        oaidStr = "";
+                    } else {
+                        int length = result.length();
+                        if (length < 64){
+                            for (int i = 0; i < 64 - length; i++){
+                                result = result + "0";
+                            }
+                        }
+                        oaidStr = result;
+                    }
+                    login(phoneStr, yzmStr);
+                }
+
+                @Override
+                public void onOAIDGetError(Exception error) {
+                    login(phoneStr, yzmStr);
+                }
+            });
         });
     }
 
@@ -279,7 +309,7 @@ public class DlWeiFenQiJieTiaoActivity extends XActivity {
     public void login(String phone, String verificationStr) {
             if (xStateController != null)
                 xStateController.showLoading();
-            WeiFenQiJieTiaoApi.getInterfaceUtils().login(phone, verificationStr, "", ip)
+            WeiFenQiJieTiaoApi.getInterfaceUtils().login(phone, verificationStr, "", ip, oaidStr)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
                     .compose(bindToLifecycle())
