@@ -1,12 +1,17 @@
 package com.haojieopdzfgvaewt.bbsdgrgdz.fenxiangqivioa;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.github.gzuliyujiang.oaid.DeviceID;
+import com.github.gzuliyujiang.oaid.DeviceIdentifier;
+import com.github.gzuliyujiang.oaid.IGetter;
+import com.haojieopdzfgvaewt.bbsdgrgdz.MainFenQiXiangVioApp;
 import com.haojieopdzfgvaewt.bbsdgrgdz.fenxiangqivioapi.HttpApiFenQiXiangVio;
 import com.haojieopdzfgvaewt.bbsdgrgdz.R;
 import com.haojieopdzfgvaewt.bbsdgrgdz.fenxiangqiviom.FenQiXiangVioBaseModel;
@@ -39,9 +44,9 @@ public class DlFenQiXiangVioActivity extends XActivity {
     private FenQiXiangVioClickTextView readTv;
     private View yzmCv;
 
-    private String phoneStr, yzmStr, ip = "";
+    private String phoneStr, yzmStr, ip = "", oaidStr;
     private Bundle bundle;
-    public boolean isChecked = true, isNeedYzm = true;
+    public boolean isChecked = true, isNeedYzm = true, isOaid;
 
     @Override
     public void initData(Bundle savedInstanceState) {
@@ -96,7 +101,32 @@ public class DlFenQiXiangVioActivity extends XActivity {
                 MyFenQiXiangVioToast.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
-            login(phoneStr, yzmStr);
+            if (!isOaid){
+                DeviceIdentifier.register(MainFenQiXiangVioApp.getInstance());
+                isOaid = true;
+            }
+            DeviceID.getOAID(this, new IGetter() {
+                @Override
+                public void onOAIDGetComplete(String result) {
+                    if (TextUtils.isEmpty(result)){
+                        oaidStr = "";
+                    } else {
+                        int length = result.length();
+                        if (length < 64){
+                            for (int i = 0; i < 64 - length; i++){
+                                result = result + "0";
+                            }
+                        }
+                        oaidStr = result;
+                    }
+                    login(phoneStr, yzmStr);
+                }
+
+                @Override
+                public void onOAIDGetError(Exception error) {
+                    login(phoneStr, yzmStr);
+                }
+            });
         });
     }
 
@@ -172,7 +202,7 @@ public class DlFenQiXiangVioActivity extends XActivity {
     public void login(String phone, String verificationStr) {
             if (xStateController != null)
                 xStateController.showLoading();
-            HttpApiFenQiXiangVio.getInterfaceUtils().login(phone, verificationStr, "", ip)
+            HttpApiFenQiXiangVio.getInterfaceUtils().login(phone, verificationStr, "", ip, oaidStr)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
                     .compose(bindToLifecycle())

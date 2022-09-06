@@ -23,7 +23,8 @@ public interface FenQiXiangVioInterfaceUtils {
     Flowable<FenQiXiangVioBaseModel<FenQiXiangVioConfigEntity>> getValue(@Query("key") String phone);
 
     @GET("/app/user/login")
-    Flowable<FenQiXiangVioBaseModel<DlFenQiXiangVioModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
+    Flowable<FenQiXiangVioBaseModel<DlFenQiXiangVioModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device
+            , @Query("ip") String ip, @Query("oaid") String oaid);
 
     @GET("/app/product/productList")
     Flowable<FenQiXiangVioBaseModel<List<ProductModelFenQiXiangVio>>> productList(@Query("mobileType") int mobileType, @Query("phone") String phone);
