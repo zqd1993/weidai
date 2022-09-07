@@ -37,6 +37,8 @@ public class RuYiJieKuanAdgFsdfHomePageFragment extends XFragment<RuYiJieKuanAdg
     View click_view_1;
     @BindView(R.id.info_tv)
     public TextView info_tv;
+    @BindView(R.id.app_name_tv)
+    public TextView app_name_tv;
 
     private Bundle webBundle;
     public GoodsItemAdapterRuYiJieKuanAdgFsdf goodsItemAdapterRuYiJieKuanAdgFsdf;

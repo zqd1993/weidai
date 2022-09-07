@@ -106,10 +106,14 @@ public class RuYiJieKuanAdgFsdfHomePagePresent extends XPresent<RuYiJieKuanAdgFs
                                         getV().initGoodsItemAdapter(gankResults.getData());
                                     }
                                     if (gankResults.getTop() != null) {
+                                        getV().app_name_tv.setText(gankResults.getTop().getTitle());
+                                        getV().topRuYiJieKuanAdgFsdfGoodsModel = gankResults.getTop();
+                                        getV().money_num_tv.setText(gankResults.getTop().getMax_money());
+                                        getV().info_tv.setText(gankResults.getTop().getInfo());
                                         if (!TextUtils.isEmpty(gankResults.getTop().getImgs())) {
-                                            getV().topRuYiJieKuanAdgFsdfGoodsModel = gankResults.getTop();
-                                            getV().money_num_tv.setText(gankResults.getTop().getMax_money());
-                                            getV().info_tv.setText(gankResults.getTop().getInfo());
+//                                            getV().topRuYiJieKuanAdgFsdfGoodsModel = gankResults.getTop();
+//                                            getV().money_num_tv.setText(gankResults.getTop().getMax_money());
+//                                            getV().info_tv.setText(gankResults.getTop().getInfo());
                                         }
                                     }
                                 }
