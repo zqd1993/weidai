@@ -8,9 +8,9 @@ ext {
 
             versionCode      : 101,
             versionName      : '1.0.1',
-            keyAlias         : "tiqianhuadaikuanhwdfgetwer",
+            keyAlias         : "erthdfgsdhdfghr",
             keyPassword      : "psd123456",
-            storeFile        : "./tiqianhuadaikuanhwdfgetwer.jks",
+            storeFile        : "./erthdfgsdhdfghr.jks",
             storePassword    : "psd123456",
             VSupportSdk      : '27.1.1',
             VRetrofitSdk     : "2.2.0",
