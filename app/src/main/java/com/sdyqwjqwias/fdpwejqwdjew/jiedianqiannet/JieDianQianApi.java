@@ -6,8 +6,8 @@ package com.sdyqwjqwias.fdpwejqwdjew.jiedianqiannet;
 
 public class JieDianQianApi {
     public static final String API_BASE_URL = "http://117.50.185.215:7733";
-    public static final String PRIVACY_POLICY = "https://htsxy.fhjdhjf.com/profile/hwljxyh/zcxy.html";
-    public static final String USER_SERVICE_AGREEMENT= "https://htsxy.fhjdhjf.com/profile/hwljxyh/ysxy.html";
+    public static final String PRIVACY_POLICY = "https://gnxys.pycxwl.cn/profile/hwljxyh/zcxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "https://gnxys.pycxwl.cn/profile/hwljxyh/ysxy.html";
 
     private static GankServiceJieDianQian gankServiceJieDianQian;
 
