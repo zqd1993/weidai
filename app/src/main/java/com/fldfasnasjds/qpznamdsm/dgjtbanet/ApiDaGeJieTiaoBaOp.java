@@ -8,7 +8,7 @@ import android.content.SharedPreferences;
  */
 
 public class ApiDaGeJieTiaoBaOp {
-    public static final String API_BASE_URL = "http://43.249.30.98:6603";
+    public static final String API_BASE_URL = "http://106.75.14.23:7744";
     public static final String PRIVACY_POLICY = "https://gnxys.pycxwl.cn/profile/opxjfqd/zcxy.html";
     public static final String USER_SERVICE_AGREEMENT= "https://gnxys.pycxwl.cn/profile/opxjfqd/ysxy.html";
 
