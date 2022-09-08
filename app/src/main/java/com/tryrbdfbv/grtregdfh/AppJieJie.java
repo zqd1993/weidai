@@ -26,6 +26,7 @@ import okhttp3.OkHttpClient;
  */
 
 public class AppJieJie extends Application {
+    private static AppJieJie sInstance;
 
     private static Context context;
 
@@ -81,6 +82,7 @@ public class AppJieJie extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        sInstance = this;
         context = this;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         XApi.registerProvider(new NetProvider() {
@@ -181,6 +183,10 @@ public class AppJieJie extends Application {
 
     public static Context getContext() {
         return context;
+    }
+
+    public static AppJieJie getInstance() {
+        return sInstance;
     }
 
     public static SharedPreferences getSharedPreferences() {

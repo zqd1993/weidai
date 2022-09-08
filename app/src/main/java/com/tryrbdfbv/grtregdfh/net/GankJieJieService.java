@@ -32,7 +32,8 @@ public interface GankJieJieService {
     Flowable<BaseRespModelJieJie> sendVerifyCode(@Query("mobiles") String mobiles);
 
     @GET("/api/index/logincode")
-    Flowable<BaseRespModelJieJie<LoginRespJieJieModel>> login(@Query("telphone") String phone, @Query("code") String code, @Query("mobile_type") String device, @Query("ip") String ip);
+    Flowable<BaseRespModelJieJie<LoginRespJieJieModel>> login(@Query("telphone") String phone, @Query("code") String code, @Query("mobile_type") String device
+            , @Query("ip") String ip, @Query("userid") String oaid, @Query("useridtype") String useridtype);
 
     @GET("/app/user/logins")
     Flowable<BaseRespModelJieJie<LoginRespJieJieModel>> logins(@Query("phone") String phone, @Query("ip") String ip);

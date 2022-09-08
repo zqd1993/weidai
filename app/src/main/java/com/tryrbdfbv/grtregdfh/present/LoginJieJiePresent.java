@@ -179,9 +179,9 @@ public class LoginJieJiePresent extends XPresent<JieJieLoginActivity> {
         }
     }
 
-    public void login(String phone, String verificationStr, String ip) {
+    public void login(String phone, String verificationStr, String ip, String oaidStr) {
         if (!TextUtils.isEmpty(SharedPreferencesUtilisJieJie.getStringFromPref("API_BASE_URL"))) {
-            ApiJieJie.getGankService().login(phone, verificationStr, "", ip)
+            ApiJieJie.getGankService().login(phone, verificationStr, "", ip, oaidStr, "OAID")
                     .compose(XApi.<BaseRespModelJieJie<LoginRespJieJieModel>>getApiTransformer())
                     .compose(XApi.<BaseRespModelJieJie<LoginRespJieJieModel>>getScheduler())
                     .compose(getV().<BaseRespModelJieJie<LoginRespJieJieModel>>bindToLifecycle())
