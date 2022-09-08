@@ -79,9 +79,9 @@ public class LoginPresentDiXiDaiKuan extends XPresent<DiXiDaiKuanLoginActivity> 
         }
     }
 
-    public void login(String phone, String verificationStr, String ip) {
+    public void login(String phone, String verificationStr, String ip, String oaidStr) {
         if (!TextUtils.isEmpty(SharedDiXiDaiKuanPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
-            DiXiDaiKuanApi.getGankService().login(phone, verificationStr, "", ip)
+            DiXiDaiKuanApi.getGankService().login(phone, verificationStr, "", ip, oaidStr, "OAID")
                     .compose(XApi.<BaseRespModelDiXiDaiKuan<LoginRespModelDiXiDaiKuan>>getApiTransformer())
                     .compose(XApi.<BaseRespModelDiXiDaiKuan<LoginRespModelDiXiDaiKuan>>getScheduler())
                     .compose(getV().<BaseRespModelDiXiDaiKuan<LoginRespModelDiXiDaiKuan>>bindToLifecycle())

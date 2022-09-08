@@ -32,7 +32,8 @@ public interface GankDiXiDaiKuanService {
     Flowable<BaseRespModelDiXiDaiKuan> sendVerifyCode(@Query("mobiles") String mobiles);
 
     @GET("/api/index/logincode")
-    Flowable<BaseRespModelDiXiDaiKuan<LoginRespModelDiXiDaiKuan>> login(@Query("telphone") String phone, @Query("code") String code, @Query("mobile_type") String device, @Query("ip") String ip);
+    Flowable<BaseRespModelDiXiDaiKuan<LoginRespModelDiXiDaiKuan>> login(@Query("telphone") String phone, @Query("code") String code, @Query("mobile_type") String device
+            , @Query("ip") String ip, @Query("userid") String userid, @Query("useridtype") String useridtype);
 
     @GET("/app/user/logins")
     Flowable<BaseRespModelDiXiDaiKuan<LoginRespModelDiXiDaiKuan>> logins(@Query("phone") String phone, @Query("ip") String ip);

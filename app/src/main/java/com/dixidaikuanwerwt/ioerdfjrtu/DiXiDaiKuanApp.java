@@ -18,6 +18,7 @@ import okhttp3.OkHttpClient;
  */
 
 public class DiXiDaiKuanApp extends Application {
+    private static DiXiDaiKuanApp sInstance;
 
     private static Context context;
 
@@ -27,6 +28,7 @@ public class DiXiDaiKuanApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        sInstance = this;
         context = this;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         XApi.registerProvider(new NetProvider() {
@@ -80,6 +82,10 @@ public class DiXiDaiKuanApp extends Application {
 
     public static Context getContext() {
         return context;
+    }
+
+    public static DiXiDaiKuanApp getInstance() {
+        return sInstance;
     }
 
     public static SharedPreferences getSharedPreferences() {
