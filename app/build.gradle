@@ -12,7 +12,7 @@ android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
-        applicationId 'com.xiangfencqiasfew.ertaehrstyu'
+        applicationId 'com.endhvwwkfiwe.njsrtaegs'
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
@@ -21,7 +21,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
@@ -61,4 +61,5 @@ dependencies {
     implementation'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
     implementation 'io.github.youth5201314:banner:2.2.2'
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation 'com.github.gzu-liyujiang:Android_CN_OAID:4.2.4'
 }
