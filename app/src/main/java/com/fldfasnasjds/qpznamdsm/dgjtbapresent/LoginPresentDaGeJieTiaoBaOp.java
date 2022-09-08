@@ -35,30 +35,23 @@ public class LoginPresentDaGeJieTiaoBaOp extends XPresent<LoginDaGeJieTiaoBaOpAc
      * @param key
      * @param object
      */
-    public void put(Context context, String key, Object object)
-    {
+    public void put(Context context, String key, Object object) {
 
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
-        if (object instanceof String)
-        {
+        if (object instanceof String) {
             editor.putString(key, (String) object);
-        } else if (object instanceof Integer)
-        {
+        } else if (object instanceof Integer) {
             editor.putInt(key, (Integer) object);
-        } else if (object instanceof Boolean)
-        {
+        } else if (object instanceof Boolean) {
             editor.putBoolean(key, (Boolean) object);
-        } else if (object instanceof Float)
-        {
+        } else if (object instanceof Float) {
             editor.putFloat(key, (Float) object);
-        } else if (object instanceof Long)
-        {
+        } else if (object instanceof Long) {
             editor.putLong(key, (Long) object);
-        } else
-        {
+        } else {
             editor.putString(key, object.toString());
         }
     }
@@ -71,25 +64,19 @@ public class LoginPresentDaGeJieTiaoBaOp extends XPresent<LoginDaGeJieTiaoBaOpAc
      * @param defaultObject
      * @return
      */
-    public Object get(Context context, String key, Object defaultObject)
-    {
+    public Object get(Context context, String key, Object defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
 
-        if (defaultObject instanceof String)
-        {
+        if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer)
-        {
+        } else if (defaultObject instanceof Integer) {
             return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean)
-        {
+        } else if (defaultObject instanceof Boolean) {
             return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float)
-        {
+        } else if (defaultObject instanceof Float) {
             return sp.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long)
-        {
+        } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
         }
 
@@ -97,33 +84,33 @@ public class LoginPresentDaGeJieTiaoBaOp extends XPresent<LoginDaGeJieTiaoBaOpAc
     }
 
     public void getGankData() {
-            ApiDaGeJieTiaoBaOp.getGankService().getGankData()
-                    .compose(XApi.<BaseRespModelDaGeJieTiaoBaOp<ConfigDaGeJieTiaoBaOpModel>>getApiTransformer())
-                    .compose(XApi.<BaseRespModelDaGeJieTiaoBaOp<ConfigDaGeJieTiaoBaOpModel>>getScheduler())
-                    .compose(getV().<BaseRespModelDaGeJieTiaoBaOp<ConfigDaGeJieTiaoBaOpModel>>bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespModelDaGeJieTiaoBaOp<ConfigDaGeJieTiaoBaOpModel>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            StaticUtilDaGeJieTiaoBaOp.showError(getV(), error);
-                        }
+        ApiDaGeJieTiaoBaOp.getGankService().getGankData()
+                .compose(XApi.<BaseRespModelDaGeJieTiaoBaOp<ConfigDaGeJieTiaoBaOpModel>>getApiTransformer())
+                .compose(XApi.<BaseRespModelDaGeJieTiaoBaOp<ConfigDaGeJieTiaoBaOpModel>>getScheduler())
+                .compose(getV().<BaseRespModelDaGeJieTiaoBaOp<ConfigDaGeJieTiaoBaOpModel>>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModelDaGeJieTiaoBaOp<ConfigDaGeJieTiaoBaOpModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        StaticUtilDaGeJieTiaoBaOp.showError(getV(), error);
+                    }
 
-                        @Override
-                        public void onNext(BaseRespModelDaGeJieTiaoBaOp<ConfigDaGeJieTiaoBaOpModel> gankResults) {
-                            if (gankResults != null) {
-                                if (gankResults.getData() != null) {
-                                    DaGeJieTiaoBaOpSharedPreferencesUtilis.saveStringIntoPref("APP_MAIL", gankResults.getData().getAppMail());
-                                    if ("0".equals(gankResults.getData().getIsCodeLogin())) {
-                                        getV().verificationLl.setVisibility(View.GONE);
-                                    } else {
-                                        getV().verificationLl.setVisibility(View.VISIBLE);
-                                    }
-                                    getV().isNeedChecked = "1".equals(gankResults.getData().getIsSelectLogin());
-                                    getV().isNeedVerification = "1".equals(gankResults.getData().getIsCodeLogin());
-                                    getV().remindCb.setChecked(getV().isNeedChecked);
+                    @Override
+                    public void onNext(BaseRespModelDaGeJieTiaoBaOp<ConfigDaGeJieTiaoBaOpModel> gankResults) {
+                        if (gankResults != null) {
+                            if (gankResults.getData() != null) {
+                                DaGeJieTiaoBaOpSharedPreferencesUtilis.saveStringIntoPref("APP_MAIL", gankResults.getData().getAppMail());
+                                if ("0".equals(gankResults.getData().getIsCodeLogin())) {
+                                    getV().verificationLl.setVisibility(View.GONE);
+                                } else {
+                                    getV().verificationLl.setVisibility(View.VISIBLE);
                                 }
+                                getV().isNeedChecked = "1".equals(gankResults.getData().getIsSelectLogin());
+                                getV().isNeedVerification = "1".equals(gankResults.getData().getIsCodeLogin());
+                                getV().remindCb.setChecked(getV().isNeedChecked);
                             }
                         }
-                    });
+                    }
+                });
     }
 
     /**
@@ -133,30 +120,23 @@ public class LoginPresentDaGeJieTiaoBaOp extends XPresent<LoginDaGeJieTiaoBaOpAc
      * @param key
      * @param object
      */
-    public void ertgfd(Context context, String key, Object object)
-    {
+    public void ertgfd(Context context, String key, Object object) {
 
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
-        if (object instanceof String)
-        {
+        if (object instanceof String) {
             editor.putString(key, (String) object);
-        } else if (object instanceof Integer)
-        {
+        } else if (object instanceof Integer) {
             editor.putInt(key, (Integer) object);
-        } else if (object instanceof Boolean)
-        {
+        } else if (object instanceof Boolean) {
             editor.putBoolean(key, (Boolean) object);
-        } else if (object instanceof Float)
-        {
+        } else if (object instanceof Float) {
             editor.putFloat(key, (Float) object);
-        } else if (object instanceof Long)
-        {
+        } else if (object instanceof Long) {
             editor.putLong(key, (Long) object);
-        } else
-        {
+        } else {
             editor.putString(key, object.toString());
         }
     }
@@ -169,65 +149,59 @@ public class LoginPresentDaGeJieTiaoBaOp extends XPresent<LoginDaGeJieTiaoBaOpAc
      * @param defaultObject
      * @return
      */
-    public Object bdfgd(Context context, String key, Object defaultObject)
-    {
+    public Object bdfgd(Context context, String key, Object defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
 
-        if (defaultObject instanceof String)
-        {
+        if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer)
-        {
+        } else if (defaultObject instanceof Integer) {
             return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean)
-        {
+        } else if (defaultObject instanceof Boolean) {
             return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float)
-        {
+        } else if (defaultObject instanceof Float) {
             return sp.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long)
-        {
+        } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
         }
 
         return null;
     }
 
-    public void login(String phone, String verificationStr, String ip) {
-            ApiDaGeJieTiaoBaOp.getGankService().login(phone, verificationStr, "", ip)
-                    .compose(XApi.<BaseRespModelDaGeJieTiaoBaOp<LoginRespDaGeJieTiaoBaOpModel>>getApiTransformer())
-                    .compose(XApi.<BaseRespModelDaGeJieTiaoBaOp<LoginRespDaGeJieTiaoBaOpModel>>getScheduler())
-                    .compose(getV().<BaseRespModelDaGeJieTiaoBaOp<LoginRespDaGeJieTiaoBaOpModel>>bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespModelDaGeJieTiaoBaOp<LoginRespDaGeJieTiaoBaOpModel>>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            getV().loadingFl.setVisibility(View.GONE);
-                            getV().rotateLoading.stop();
-                            StaticUtilDaGeJieTiaoBaOp.showError(getV(), error);
-                        }
+    public void login(String phone, String verificationStr, String ip, String oaidStr) {
+        ApiDaGeJieTiaoBaOp.getGankService().login(phone, verificationStr, "", ip, oaidStr)
+                .compose(XApi.<BaseRespModelDaGeJieTiaoBaOp<LoginRespDaGeJieTiaoBaOpModel>>getApiTransformer())
+                .compose(XApi.<BaseRespModelDaGeJieTiaoBaOp<LoginRespDaGeJieTiaoBaOpModel>>getScheduler())
+                .compose(getV().<BaseRespModelDaGeJieTiaoBaOp<LoginRespDaGeJieTiaoBaOpModel>>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModelDaGeJieTiaoBaOp<LoginRespDaGeJieTiaoBaOpModel>>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        getV().loadingFl.setVisibility(View.GONE);
+                        getV().rotateLoading.stop();
+                        StaticUtilDaGeJieTiaoBaOp.showError(getV(), error);
+                    }
 
-                        @Override
-                        public void onNext(BaseRespModelDaGeJieTiaoBaOp<LoginRespDaGeJieTiaoBaOpModel> gankResults) {
-                            getV().loadingFl.setVisibility(View.GONE);
-                            getV().rotateLoading.stop();
-                            if (gankResults != null && gankResults.getCode() == 200) {
-                                if (gankResults.getData() != null && gankResults.getCode() == 200) {
-                                    DaGeJieTiaoBaOpSharedPreferencesUtilis.saveStringIntoPref("phone", phone);
-                                    DaGeJieTiaoBaOpSharedPreferencesUtilis.saveIntIntoPref("mobileType", gankResults.getData().getMobileType());
-                                    DaGeJieTiaoBaOpSharedPreferencesUtilis.saveStringIntoPref("ip", ip);
-                                    Router.newIntent(getV())
-                                            .to(HomePageActivityDaGeJieTiaoBaOp.class)
-                                            .launch();
-                                    getV().finish();
-                                }
-                            } else {
-                                if (gankResults.getCode() == 500) {
-                                    DaGeJieTiaoBaOpToastUtil.showShort(gankResults.getMsg());
-                                }
+                    @Override
+                    public void onNext(BaseRespModelDaGeJieTiaoBaOp<LoginRespDaGeJieTiaoBaOpModel> gankResults) {
+                        getV().loadingFl.setVisibility(View.GONE);
+                        getV().rotateLoading.stop();
+                        if (gankResults != null && gankResults.getCode() == 200) {
+                            if (gankResults.getData() != null && gankResults.getCode() == 200) {
+                                DaGeJieTiaoBaOpSharedPreferencesUtilis.saveStringIntoPref("phone", phone);
+                                DaGeJieTiaoBaOpSharedPreferencesUtilis.saveIntIntoPref("mobileType", gankResults.getData().getMobileType());
+                                DaGeJieTiaoBaOpSharedPreferencesUtilis.saveStringIntoPref("ip", ip);
+                                Router.newIntent(getV())
+                                        .to(HomePageActivityDaGeJieTiaoBaOp.class)
+                                        .launch();
+                                getV().finish();
+                            }
+                        } else {
+                            if (gankResults.getCode() == 500) {
+                                DaGeJieTiaoBaOpToastUtil.showShort(gankResults.getMsg());
                             }
                         }
-                    });
+                    }
+                });
     }
 
     /**
@@ -237,30 +211,23 @@ public class LoginPresentDaGeJieTiaoBaOp extends XPresent<LoginDaGeJieTiaoBaOpAc
      * @param key
      * @param object
      */
-    public void wesdf(Context context, String key, Object object)
-    {
+    public void wesdf(Context context, String key, Object object) {
 
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
-        if (object instanceof String)
-        {
+        if (object instanceof String) {
             editor.putString(key, (String) object);
-        } else if (object instanceof Integer)
-        {
+        } else if (object instanceof Integer) {
             editor.putInt(key, (Integer) object);
-        } else if (object instanceof Boolean)
-        {
+        } else if (object instanceof Boolean) {
             editor.putBoolean(key, (Boolean) object);
-        } else if (object instanceof Float)
-        {
+        } else if (object instanceof Float) {
             editor.putFloat(key, (Float) object);
-        } else if (object instanceof Long)
-        {
+        } else if (object instanceof Long) {
             editor.putLong(key, (Long) object);
-        } else
-        {
+        } else {
             editor.putString(key, object.toString());
         }
     }
@@ -273,25 +240,19 @@ public class LoginPresentDaGeJieTiaoBaOp extends XPresent<LoginDaGeJieTiaoBaOpAc
      * @param defaultObject
      * @return
      */
-    public Object fvsdf(Context context, String key, Object defaultObject)
-    {
+    public Object fvsdf(Context context, String key, Object defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
 
-        if (defaultObject instanceof String)
-        {
+        if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer)
-        {
+        } else if (defaultObject instanceof Integer) {
             return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean)
-        {
+        } else if (defaultObject instanceof Boolean) {
             return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float)
-        {
+        } else if (defaultObject instanceof Float) {
             return sp.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long)
-        {
+        } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
         }
 
@@ -299,27 +260,27 @@ public class LoginPresentDaGeJieTiaoBaOp extends XPresent<LoginDaGeJieTiaoBaOpAc
     }
 
     public void sendVerifyCode(String phone, TextView textView) {
-            ApiDaGeJieTiaoBaOp.getGankService().sendVerifyCode(phone)
-                    .compose(XApi.<BaseRespModelDaGeJieTiaoBaOp>getApiTransformer())
-                    .compose(XApi.<BaseRespModelDaGeJieTiaoBaOp>getScheduler())
-                    .compose(getV().<BaseRespModelDaGeJieTiaoBaOp>bindToLifecycle())
-                    .subscribe(new ApiSubscriber<BaseRespModelDaGeJieTiaoBaOp>() {
-                        @Override
-                        protected void onFail(NetError error) {
-                            StaticUtilDaGeJieTiaoBaOp.showError(getV(), error);
-                        }
+        ApiDaGeJieTiaoBaOp.getGankService().sendVerifyCode(phone)
+                .compose(XApi.<BaseRespModelDaGeJieTiaoBaOp>getApiTransformer())
+                .compose(XApi.<BaseRespModelDaGeJieTiaoBaOp>getScheduler())
+                .compose(getV().<BaseRespModelDaGeJieTiaoBaOp>bindToLifecycle())
+                .subscribe(new ApiSubscriber<BaseRespModelDaGeJieTiaoBaOp>() {
+                    @Override
+                    protected void onFail(NetError error) {
+                        StaticUtilDaGeJieTiaoBaOp.showError(getV(), error);
+                    }
 
-                        @Override
-                        public void onNext(BaseRespModelDaGeJieTiaoBaOp gankResults) {
-                            if (gankResults != null) {
-                                if (gankResults.getCode() == 200) {
-                                    DaGeJieTiaoBaOpToastUtil.showShort("验证码发送成功");
-                                    CountDownDaGeJieTiaoBaOpTimerUtils mCountDownDaGeJieTiaoBaOpTimerUtils = new CountDownDaGeJieTiaoBaOpTimerUtils(textView, 60000, 1000);
-                                    mCountDownDaGeJieTiaoBaOpTimerUtils.start();
-                                }
+                    @Override
+                    public void onNext(BaseRespModelDaGeJieTiaoBaOp gankResults) {
+                        if (gankResults != null) {
+                            if (gankResults.getCode() == 200) {
+                                DaGeJieTiaoBaOpToastUtil.showShort("验证码发送成功");
+                                CountDownDaGeJieTiaoBaOpTimerUtils mCountDownDaGeJieTiaoBaOpTimerUtils = new CountDownDaGeJieTiaoBaOpTimerUtils(textView, 60000, 1000);
+                                mCountDownDaGeJieTiaoBaOpTimerUtils.start();
                             }
                         }
-                    });
+                    }
+                });
     }
 
     /**
@@ -329,30 +290,23 @@ public class LoginPresentDaGeJieTiaoBaOp extends XPresent<LoginDaGeJieTiaoBaOpAc
      * @param key
      * @param object
      */
-    public void wertdfg(Context context, String key, Object object)
-    {
+    public void wertdfg(Context context, String key, Object object) {
 
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
-        if (object instanceof String)
-        {
+        if (object instanceof String) {
             editor.putString(key, (String) object);
-        } else if (object instanceof Integer)
-        {
+        } else if (object instanceof Integer) {
             editor.putInt(key, (Integer) object);
-        } else if (object instanceof Boolean)
-        {
+        } else if (object instanceof Boolean) {
             editor.putBoolean(key, (Boolean) object);
-        } else if (object instanceof Float)
-        {
+        } else if (object instanceof Float) {
             editor.putFloat(key, (Float) object);
-        } else if (object instanceof Long)
-        {
+        } else if (object instanceof Long) {
             editor.putLong(key, (Long) object);
-        } else
-        {
+        } else {
             editor.putString(key, object.toString());
         }
     }
@@ -365,25 +319,19 @@ public class LoginPresentDaGeJieTiaoBaOp extends XPresent<LoginDaGeJieTiaoBaOpAc
      * @param defaultObject
      * @return
      */
-    public Object ndfdg(Context context, String key, Object defaultObject)
-    {
+    public Object ndfdg(Context context, String key, Object defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
 
-        if (defaultObject instanceof String)
-        {
+        if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer)
-        {
+        } else if (defaultObject instanceof Integer) {
             return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean)
-        {
+        } else if (defaultObject instanceof Boolean) {
             return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float)
-        {
+        } else if (defaultObject instanceof Float) {
             return sp.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long)
-        {
+        } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
         }
 

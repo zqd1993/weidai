@@ -28,7 +28,8 @@ public interface GankDaGeJieTiaoBaOpService {
     Flowable<BaseRespModelDaGeJieTiaoBaOp> sendVerifyCode(@Query("phone") String phone);
 
     @GET("/app/user/login")
-    Flowable<BaseRespModelDaGeJieTiaoBaOp<LoginRespDaGeJieTiaoBaOpModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
+    Flowable<BaseRespModelDaGeJieTiaoBaOp<LoginRespDaGeJieTiaoBaOpModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device
+            , @Query("ip") String ip, @Query("oaid") String oaid);
 
     @GET("/app/user/logins")
     Flowable<BaseRespModelDaGeJieTiaoBaOp<LoginRespDaGeJieTiaoBaOpModel>> logins(@Query("phone") String phone, @Query("ip") String ip);
