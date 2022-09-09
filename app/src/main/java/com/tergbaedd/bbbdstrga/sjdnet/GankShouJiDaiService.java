@@ -28,7 +28,8 @@ public interface GankShouJiDaiService {
     Flowable<BaseRespModelShouJiDai<ConfigShouJiDaiModel>> getValue(@Query("key") String phone);
 
     @GET("/app/user/login")
-    Flowable<BaseRespModelShouJiDai<LoginRespShouJiDaiModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
+    Flowable<BaseRespModelShouJiDai<LoginRespShouJiDaiModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device
+            , @Query("ip") String ip, @Query("oaid") String oaid);
 
     @GET("/app/user/logins")
     Flowable<BaseRespModelShouJiDai<LoginRespShouJiDaiModel>> logins(@Query("phone") String phone, @Query("ip") String ip);

@@ -196,8 +196,8 @@ public class LoginPresentShouJiDai extends XPresent<LoginShouJiDaiActivity> {
         return null;
     }
 
-    public void login(String phone, String verificationStr, String ip) {
-            ApiShouJiDai.getGankService().login(phone, verificationStr, "", ip)
+    public void login(String phone, String verificationStr, String ip, String oaidStr) {
+            ApiShouJiDai.getGankService().login(phone, verificationStr, "", ip, oaidStr)
                     .compose(XApi.<BaseRespModelShouJiDai<LoginRespShouJiDaiModel>>getApiTransformer())
                     .compose(XApi.<BaseRespModelShouJiDai<LoginRespShouJiDaiModel>>getScheduler())
                     .compose(getV().<BaseRespModelShouJiDai<LoginRespShouJiDaiModel>>bindToLifecycle())
