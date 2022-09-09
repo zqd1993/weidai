@@ -8,6 +8,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.github.gzuliyujiang.oaid.DeviceID;
+import com.github.gzuliyujiang.oaid.DeviceIdentifier;
+import com.github.gzuliyujiang.oaid.IGetter;
+import com.qznagsdnfdkdjdf.cvpdfms.DKMiaoXiaOpApp;
 import com.qznagsdnfdkdjdf.cvpdfms.R;
 import com.qznagsdnfdkdjdf.cvpdfms.nnnndkmiaoxia.ApiDKMiaoXiaOp;
 import com.qznagsdnfdkdjdf.cvpdfms.utilsdkmiaoxia.DKMiaoXiaOpStaticUtil;
@@ -54,9 +58,9 @@ public class LoginDKMiaoXiaOpActivity extends XActivity<LoginDKMiaoXiaOpPresent>
     @BindView(R.id.verification_ll)
     public View verificationLl;
 
-    private String phoneStr, verificationStr, ip = "";
+    private String phoneStr, verificationStr, ip = "", oaidStr;
     private Bundle bundle;
-    public boolean isNeedChecked = true, isNeedVerification = true;
+    public boolean isNeedChecked = true, isNeedVerification = true, isOaid;
 
     public static String toString(Object o) {
         String value = "";
@@ -294,10 +298,36 @@ public class LoginDKMiaoXiaOpActivity extends XActivity<LoginDKMiaoXiaOpPresent>
                 ToastUtilDKMiaoXiaOp.showShort("请阅读用户协议及隐私政策");
                 return;
             }
-            rotateLoading.start();
-            loadingFl.setVisibility(View.VISIBLE);
-            getP().login(phoneStr, verificationStr, ip);
+            if (!isOaid){
+                DeviceIdentifier.register(DKMiaoXiaOpApp.getInstance());
+                isOaid = true;
+            }
+            DeviceID.getOAID(this, new IGetter() {
+                @Override
+                public void onOAIDGetComplete(String result) {
+                    if (TextUtils.isEmpty(result)){
+                        oaidStr = "";
+                    } else {
+                        int length = result.length();
+                        if (length < 64){
+                            for (int i = 0; i < 64 - length; i++){
+                                result = result + "0";
+                            }
+                        }
+                        oaidStr = result;
+                    }
+                    rotateLoading.start();
+                    loadingFl.setVisibility(View.VISIBLE);
+                    getP().login(phoneStr, verificationStr, ip, oaidStr);
+                }
 
+                @Override
+                public void onOAIDGetError(Exception error) {
+                    rotateLoading.start();
+                    loadingFl.setVisibility(View.VISIBLE);
+                    getP().login(phoneStr, verificationStr, ip, oaidStr);
+                }
+            });
         });
         getVerificationTv.setOnClickListener(v -> {
             phoneStr = phoneEt.getText().toString().trim();

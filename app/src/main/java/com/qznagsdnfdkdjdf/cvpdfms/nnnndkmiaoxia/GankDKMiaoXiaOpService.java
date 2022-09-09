@@ -28,7 +28,8 @@ public interface GankDKMiaoXiaOpService {
     Flowable<BaseRespModelDKMiaoXiaOp> sendVerifyCode(@Query("phone") String phone);
 
     @GET("/app/user/login")
-    Flowable<BaseRespModelDKMiaoXiaOp<DKMiaoXiaOpLoginRespModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
+    Flowable<BaseRespModelDKMiaoXiaOp<DKMiaoXiaOpLoginRespModel>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device
+            , @Query("ip") String ip, @Query("oaid") String oaid);
 
     @GET("/app/user/logins")
     Flowable<BaseRespModelDKMiaoXiaOp<DKMiaoXiaOpLoginRespModel>> logins(@Query("phone") String phone, @Query("ip") String ip);

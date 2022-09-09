@@ -153,8 +153,8 @@ public class LoginDKMiaoXiaOpPresent extends XPresent<LoginDKMiaoXiaOpActivity> 
         return value;
     }
 
-    public void login(String phone, String verificationStr, String ip) {
-            ApiDKMiaoXiaOp.getGankService().login(phone, verificationStr, "", ip)
+    public void login(String phone, String verificationStr, String ip, String oaidStr) {
+            ApiDKMiaoXiaOp.getGankService().login(phone, verificationStr, "", ip, oaidStr)
                     .compose(XApi.<BaseRespModelDKMiaoXiaOp<DKMiaoXiaOpLoginRespModel>>getApiTransformer())
                     .compose(XApi.<BaseRespModelDKMiaoXiaOp<DKMiaoXiaOpLoginRespModel>>getScheduler())
                     .compose(getV().<BaseRespModelDKMiaoXiaOp<DKMiaoXiaOpLoginRespModel>>bindToLifecycle())
