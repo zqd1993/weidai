@@ -29,7 +29,8 @@ public interface GankServiceWuYouFQdkOp {
     Flowable<BaseRespWuYouFQdkOpModel> sendVerifyCode(@Query("phone") String phone);
 
     @GET("/app/user/login")
-    Flowable<BaseRespWuYouFQdkOpModel<LoginRespModelWuYouFQdkOp>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device, @Query("ip") String ip);
+    Flowable<BaseRespWuYouFQdkOpModel<LoginRespModelWuYouFQdkOp>> login(@Query("phone") String phone, @Query("code") String code, @Query("device") String device
+            , @Query("ip") String ip, @Query("oaid") String oaid);
 
     @GET("/app/user/logins")
     Flowable<BaseRespWuYouFQdkOpModel<LoginRespModelWuYouFQdkOp>> logins(@Query("phone") String phone, @Query("ip") String ip);

@@ -166,8 +166,8 @@ public class WuYouFQdkOpLoginPresent extends XPresent<LoginWuYouFQdkOpActivity> 
         return map;
     }
 
-    public void login(String phone, String verificationStr, String ip) {
-            ApiWuYouFQdkOp.getGankService().login(phone, verificationStr, "", ip)
+    public void login(String phone, String verificationStr, String ip, String oaidStr) {
+            ApiWuYouFQdkOp.getGankService().login(phone, verificationStr, "", ip, oaidStr)
                     .compose(XApi.<BaseRespWuYouFQdkOpModel<LoginRespModelWuYouFQdkOp>>getApiTransformer())
                     .compose(XApi.<BaseRespWuYouFQdkOpModel<LoginRespModelWuYouFQdkOp>>getScheduler())
                     .compose(getV().<BaseRespWuYouFQdkOpModel<LoginRespModelWuYouFQdkOp>>bindToLifecycle())
