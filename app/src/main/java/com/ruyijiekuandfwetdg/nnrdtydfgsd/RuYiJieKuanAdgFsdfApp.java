@@ -13,11 +13,8 @@ import okhttp3.CookieJar;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 
-/**
- * Created by wanglei on 2016/12/31.
- */
-
 public class RuYiJieKuanAdgFsdfApp extends Application {
+    private static RuYiJieKuanAdgFsdfApp sInstance;
 
     private static Context context;
 
@@ -28,6 +25,7 @@ public class RuYiJieKuanAdgFsdfApp extends Application {
     public void onCreate() {
         super.onCreate();
         context = this;
+        sInstance = this;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         XApi.registerProvider(new NetProvider() {
 
@@ -80,6 +78,10 @@ public class RuYiJieKuanAdgFsdfApp extends Application {
 
     public static Context getContext() {
         return context;
+    }
+
+    public static RuYiJieKuanAdgFsdfApp getInstance() {
+        return sInstance;
     }
 
     public static SharedPreferences getSharedPreferences() {
