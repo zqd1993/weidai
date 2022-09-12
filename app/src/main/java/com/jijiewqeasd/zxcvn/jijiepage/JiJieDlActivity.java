@@ -10,9 +10,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
-import com.jijiewqeasd.zxcvn.jiedaihuaoaid.DevicesIDsHelper;
+import com.github.gzuliyujiang.oaid.DeviceID;
+import com.github.gzuliyujiang.oaid.DeviceIdentifier;
+import com.github.gzuliyujiang.oaid.IGetter;
+import com.jijiewqeasd.zxcvn.MainJiJieApp;
 import com.jijiewqeasd.zxcvn.jijieapi.NetJiJieApi;
 import com.jijiewqeasd.zxcvn.R;
 import com.jijiewqeasd.zxcvn.jijiem.BaseJiJieModel;
@@ -38,7 +39,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class JiJieDlActivity extends XActivity implements DevicesIDsHelper.AppIdsUpdater{
+public class JiJieDlActivity extends XActivity{
 
     private XStateController xStateController;
     private EditText mobileEt, yzmEt;
@@ -49,9 +50,8 @@ public class JiJieDlActivity extends XActivity implements DevicesIDsHelper.AppId
 
     private String phoneStr, yzmStr, ip = "", oaidStr;
     private Bundle bundle;
-    public boolean isChecked = true, isNeedYzm = true;
+    public boolean isChecked = true, isNeedYzm = true, isOaid;
     private static final String TAG = "FileUtil";
-    private DevicesIDsHelper mDevicesIDsHelper;
     private static final String[][] MIME_MapTable =
             {
                     // {后缀名， MIME类型}
@@ -263,7 +263,32 @@ public class JiJieDlActivity extends XActivity implements DevicesIDsHelper.AppId
                 MyJiJieToast.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
-            login(phoneStr, yzmStr);
+            if (!isOaid){
+                DeviceIdentifier.register(MainJiJieApp.getInstance());
+                isOaid = true;
+            }
+            DeviceID.getOAID(this, new IGetter() {
+                @Override
+                public void onOAIDGetComplete(String result) {
+                    if (TextUtils.isEmpty(result)){
+                        oaidStr = "";
+                    } else {
+                        int length = result.length();
+                        if (length < 64){
+                            for (int i = 0; i < 64 - length; i++){
+                                result = result + "0";
+                            }
+                        }
+                        oaidStr = result;
+                    }
+                    login(phoneStr, yzmStr);
+                }
+
+                @Override
+                public void onOAIDGetError(Exception error) {
+                    login(phoneStr, yzmStr);
+                }
+            });
         });
     }
 
@@ -383,7 +408,7 @@ public class JiJieDlActivity extends XActivity implements DevicesIDsHelper.AppId
     public void login(String phone, String verificationStr) {
             if (xStateController != null)
                 xStateController.showLoading();
-            NetJiJieApi.getInterfaceUtils().login(phone, verificationStr, "", ip, "OAID", oaidStr)
+            NetJiJieApi.getInterfaceUtils().login(phone, verificationStr, "", ip,  oaidStr)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
                     .compose(bindToLifecycle())
@@ -438,35 +463,5 @@ public class JiJieDlActivity extends XActivity implements DevicesIDsHelper.AppId
                             }
                         }
                     });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getOAID();
-    }
-
-    /**
-     * 获取设备当前 OAID
-     *
-     */
-    public void getOAID() {
-        mDevicesIDsHelper = new DevicesIDsHelper(this);
-        mDevicesIDsHelper.getOAID(this);
-    }
-
-    @Override
-    public void OnIdsAvalid(@NonNull String ids, boolean support) {
-        if (TextUtils.isEmpty(ids)){
-            oaidStr = "";
-        } else {
-            int length = ids.length();
-            if (length < 64){
-                for (int i = 0; i < 64 - length; i++){
-                    ids = ids + "0";
-                }
-            }
-            oaidStr = ids;
-        }
     }
 }
