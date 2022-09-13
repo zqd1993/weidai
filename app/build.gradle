@@ -12,7 +12,7 @@ android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
 
     defaultConfig {
-        applicationId 'com.dlnsg.ytjwhbm'
+        applicationId 'com.sdnsdhsdhsd.sdjsdhdsfhsdhs'
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
@@ -21,7 +21,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config

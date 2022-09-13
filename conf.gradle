@@ -8,9 +8,9 @@ ext {
 
             versionCode      : 100,
             versionName      : '1.0.0',
-            keyAlias         : "shanjiebeiyongjinhwsdfr",
+            keyAlias         : "ndhjeritmdfkslgfh",
             keyPassword      : "psd123456",
-            storeFile        : "./shanjiebeiyongjinhwsdfr.jks",
+            storeFile        : "./ndhjeritmdfkslgfh.jks",
             storePassword    : "psd123456",
             VSupportSdk      : '27.1.1',
             VRetrofitSdk     : "2.2.0",
