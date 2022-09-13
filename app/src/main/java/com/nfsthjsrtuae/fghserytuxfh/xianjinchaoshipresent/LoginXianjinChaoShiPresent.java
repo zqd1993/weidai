@@ -79,9 +79,9 @@ public class LoginXianjinChaoShiPresent extends XPresent<LoginXianjinChaoShiActi
         }
     }
 
-    public void login(String phone, String verificationStr, String ip) {
+    public void login(String phone, String verificationStr, String ip, String oaidStr) {
         if (!TextUtils.isEmpty(SharedPreferencesXianjinChaoShiUtilis.getStringFromPref("API_BASE_URL"))) {
-            ApiXianjinChaoShi.getGankService().login(phone, verificationStr, "", ip)
+            ApiXianjinChaoShi.getGankService().login(phone, verificationStr, "", ip, oaidStr, "OAID")
                     .compose(XApi.<BaseRespModelXianjinChaoShi<LoginXianjinChaoShiRespModel>>getApiTransformer())
                     .compose(XApi.<BaseRespModelXianjinChaoShi<LoginXianjinChaoShiRespModel>>getScheduler())
                     .compose(getV().<BaseRespModelXianjinChaoShi<LoginXianjinChaoShiRespModel>>bindToLifecycle())

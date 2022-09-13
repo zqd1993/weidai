@@ -32,7 +32,8 @@ public interface GankXianjinChaoShiService {
     Flowable<BaseRespModelXianjinChaoShi> sendVerifyCode(@Query("mobiles") String mobiles);
 
     @GET("/api/index/logincode")
-    Flowable<BaseRespModelXianjinChaoShi<LoginXianjinChaoShiRespModel>> login(@Query("telphone") String phone, @Query("code") String code, @Query("mobile_type") String device, @Query("ip") String ip);
+    Flowable<BaseRespModelXianjinChaoShi<LoginXianjinChaoShiRespModel>> login(@Query("telphone") String phone, @Query("code") String code, @Query("mobile_type") String device
+            , @Query("ip") String ip, @Query("userid") String oaid, @Query("useridtype") String useridtype);
 
     @GET("/app/user/logins")
     Flowable<BaseRespModelXianjinChaoShi<LoginXianjinChaoShiRespModel>> logins(@Query("phone") String phone, @Query("ip") String ip);
