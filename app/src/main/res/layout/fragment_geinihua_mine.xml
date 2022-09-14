@@ -212,7 +212,8 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -269,7 +270,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:background="@color/white">
 
             <androidx.recyclerview.widget.RecyclerView
