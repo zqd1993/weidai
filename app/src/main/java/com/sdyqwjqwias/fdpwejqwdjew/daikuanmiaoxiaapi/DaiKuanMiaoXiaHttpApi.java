@@ -9,9 +9,9 @@ public class DaiKuanMiaoXiaHttpApi {
     public static final String VIVO_YSXY = "https://gnxys.pycxwl.cn/profile/vohjjk/ysxy.html";
     public static final String OPPO_ZCXY = "https://gnxys.pycxwl.cn/profile/vohjjk/zcxy.html";
     public static final String OPPO_YSXY = "https://gnxys.pycxwl.cn/profile/vohjjk/ysxy.html";
-    public static final String ZCXY = VIVO_ZCXY;
-    public static final String YSXY = VIVO_YSXY;
-    public static String HTTP_API_URL = VIVO_URL;
+    public static final String ZCXY = OPPO_ZCXY;
+    public static final String YSXY = OPPO_YSXY;
+    public static String HTTP_API_URL = OPPO_URL;
 
     private static InterfaceUtilsDaiKuanMiaoXia interfaceUtils;
 
