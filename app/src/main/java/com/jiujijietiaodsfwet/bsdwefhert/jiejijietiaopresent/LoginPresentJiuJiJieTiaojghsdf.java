@@ -76,9 +76,9 @@ public class LoginPresentJiuJiJieTiaojghsdf extends XPresent<JiuJiJieTiaojghsdfL
         }
     }
 
-    public void login(String phone, String verificationStr, String ip) {
+    public void login(String phone, String verificationStr, String ip, String oaidStr) {
         if (!TextUtils.isEmpty(SharedJiuJiJieTiaojghsdfPreferencesUtilis.getStringFromPref("API_BASE_URL"))) {
-            JiuJiJieTiaojghsdfApi.getGankService().login(phone, verificationStr, "", ip)
+            JiuJiJieTiaojghsdfApi.getGankService().login(phone, verificationStr, "", ip, oaidStr, "OAID")
                     .compose(XApi.<BaseRespModelJiuJiJieTiaojghsdf<LoginRespModelJiuJiJieTiaojghsdf>>getApiTransformer())
                     .compose(XApi.<BaseRespModelJiuJiJieTiaojghsdf<LoginRespModelJiuJiJieTiaojghsdf>>getScheduler())
                     .compose(getV().<BaseRespModelJiuJiJieTiaojghsdf<LoginRespModelJiuJiJieTiaojghsdf>>bindToLifecycle())
