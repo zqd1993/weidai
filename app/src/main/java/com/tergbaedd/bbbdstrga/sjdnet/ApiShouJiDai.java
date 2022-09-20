@@ -12,8 +12,8 @@ import com.tergbaedd.bbbdstrga.sjdutils.ShouJiDaiSharedPreferencesUtilis;
 
 public class ApiShouJiDai {
     public static final String API_BASE_URL = "http://117.50.185.215:7737";
-    public static final String PRIVACY_POLICY = "https://openxy.huaqibuy.com/profile/vosdjt/zcxy.html";
-    public static final String USER_SERVICE_AGREEMENT= "https://openxy.huaqibuy.com/profile/vosdjt/ysxy.html";
+    public static final String PRIVACY_POLICY = "https://gnxys.pycxwl.cn/profile/vosdjt/zcxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "https://gnxys.pycxwl.cn/profile/vosdjt/ysxy.html";
 
     private static GankShouJiDaiService gankShouJiDaiService;
 
