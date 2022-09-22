@@ -12,8 +12,8 @@ import com.dfjsjsdndshdsmdf.fdoewjdrtygj.net.XApi;
 import java.io.IOException;
 
 public class HttpFenQiHjduFhfnrApi {
-    public static final String ZCXY = "https://opxy.leshitu.cn/profile/opfqhjk/zcxy.html";
-    public static final String YSXY= "https://opxy.leshitu.cn/profile/opfqhjk/ysxy.html";
+    public static final String ZCXY = "https://opxy1.169pfbyy.com/profile/opfqhjk/zcxy.html";
+    public static final String YSXY= "https://opxy1.169pfbyy.com/profile/opfqhjk/ysxy.html";
     public static String HTTP_API_URL = "http://106.75.13.66:6605";
 
     private static FenQiHjduFhfnrInterfaceUtils fenQiHjduFhfnrInterfaceUtils;
