@@ -8,8 +8,8 @@ import java.util.regex.Pattern;
 
 public class NetApi {
     public static final String HTTP_API_URL = "http://121.41.122.164:7758";
-    public static final String ZCXY = "https://opxy.leshitu.cn/profile/xefqd/zcxy.html";
-    public static final String YSXY= "https://opxy.leshitu.cn/profile/xefqd/ysxy.html";
+    public static final String ZCXY = "https://xyssml.yiqian888.xyz/profile/xefqd/zcxy.html";
+    public static final String YSXY= "https://xyssml.yiqian888.xyz/profile/xefqd/ysxy.html";
 
     private static InterfaceObject interfaceObject;
 

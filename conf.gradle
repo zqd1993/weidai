@@ -6,8 +6,8 @@ ext {
             minSdkVersion    : 21,
             targetSdkVersion : 28,
 
-            versionCode      : 20220920,
-            versionName      : '1.0.6',
+            versionCode      : 20220926,
+            versionName      : '1.1.0',
             keyAlias         : "mkgutnsaew",
             keyPassword      : "mima112233",
             storeFile        : "./mkgutnsaew.jks",
