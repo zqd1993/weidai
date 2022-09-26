@@ -6,8 +6,8 @@ package com.qznagsdnfdkdjdf.cvpdfms.nnnndkmiaoxia;
 
 public class ApiDKMiaoXiaOp {
     public static final String API_BASE_URL = "http://106.75.14.23:7745";
-    public static final String PRIVACY_POLICY = "https://gnxys.pycxwl.cn/profile/opbtdkh/zcxy.html";
-    public static final String USER_SERVICE_AGREEMENT= "https://gnxys.pycxwl.cn/profile/opbtdkh/ysxy.html";
+    public static final String PRIVACY_POLICY = "https://xyssml.yiqian888.xyz/profile/opbtdkh/zcxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "https://xyssml.yiqian888.xyz/profile/opbtdkh/ysxy.html";
 
     private static GankDKMiaoXiaOpService gankDKMiaoXiaOpService;
 
