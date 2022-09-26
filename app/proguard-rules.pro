@@ -18,11 +18,11 @@
 -obfuscationdictionary bt-proguard.txt
 -classobfuscationdictionary bt-proguard.txt
 -packageobfuscationdictionary bt-proguard.txt
-
+-keep class cn.hx.plugin.ui.** {*;}
 # Bean类不能混淆
--keep public class com.dlnsg.ytjwhbm.hwshanjiebeiyongshiti.**{*;}
+-keep public class com.sdnsdhsdhsddsgre.sdjsdhdsfh.hwhaojiesdfhgnurshiti.**{*;}
 
--keep public class com.dlnsg.ytjwhbm.hwshanjiebeiyongjingongju.PreferenceHWShanJieBeiYongJinOpenUtil
+-keep public class com.sdnsdhsdhsddsgre.sdjsdhdsfh.hwhaojiesdfhgnurgongju.PreferenceHWShanJieBeiYongJinOpenUtil
 -keep class com.umeng.** {*;}
 
 -keep class org.repackage.** {*;}

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.dlnsg.ytjwhbm.hwshanjiebeiyongkongjian.ScrollYSwipeHWShanJieBeiYongJinRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sdnsdhsdhsddsgre.sdjsdhdsfh.hwhaojiesdfhgnurkongjian.ScrollYSwipeHWShanJieBeiYongJinRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
@@ -351,4 +351,4 @@
 
     </androidx.core.widget.NestedScrollView>
 
-</com.dlnsg.ytjwhbm.hwshanjiebeiyongkongjian.ScrollYSwipeHWShanJieBeiYongJinRefreshLayout>
+</com.sdnsdhsdhsddsgre.sdjsdhdsfh.hwhaojiesdfhgnurkongjian.ScrollYSwipeHWShanJieBeiYongJinRefreshLayout>
