@@ -15,8 +15,8 @@ import java.util.Map;
 
 public class ApiWuYouFQdkOp {
     public static final String API_BASE_URL = "http://106.75.14.23:7747";
-    public static final String PRIVACY_POLICY = "https://gnxys.pycxwl.cn/profile/opyfqdk/zcxy.html";
-    public static final String USER_SERVICE_AGREEMENT= "https://gnxys.pycxwl.cn/profile/opyfqdk/ysxy.html";
+    public static final String PRIVACY_POLICY = "https://xyssml.yiqian888.xyz/profile/opyfqdk/zcxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "https://xyssml.yiqian888.xyz/profile/opyfqdk/ysxy.html";
 
     // 把json字符串变成实体类Bean并对对应参数赋值
     public static <T> T changeGsonToBean(String gsonString, Class<T> cls) {
