@@ -6,8 +6,8 @@ ext {
             minSdkVersion    : 21,
             targetSdkVersion : 28,
 
-            versionCode      : 101,
-            versionName      : '1.01',
+            versionCode      : 110,
+            versionName      : '1.1.0',
             keyAlias         : "koudaibeifjdfgiea",
             keyPassword      : "psd123456",
             storeFile        : "./koudaibeifjdfgiea.jks",
