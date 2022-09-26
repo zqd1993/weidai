@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.qznagsdnfdkdjdf.cvpdfms",
+  "applicationId": "com.sdnsdhsdhsd.sdjsdhdsfhsdhs",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 100,
-      "versionName": "1.0.0",
-      "outputFile": "geinihua_op_v1.0.0_build_20220926134822.apk"
+      "versionCode": 110,
+      "versionName": "1.1.0",
+      "outputFile": "geinihua_op_v1.1.0_build_20220926140157.apk"
     }
   ]
 }
