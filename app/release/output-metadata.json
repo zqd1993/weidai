@@ -10,9 +10,9 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 20220905,
-      "versionName": "1.0.5",
-      "outputFile": "kuaihuadaikuan_v1.0.5.apk"
+      "versionCode": 20220926,
+      "versionName": "1.1.0",
+      "outputFile": "kuaihuadaikuan_v1.1.0.apk"
     }
   ]
 }
