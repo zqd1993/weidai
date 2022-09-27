@@ -6,8 +6,8 @@ ext {
             minSdkVersion    : 21,
             targetSdkVersion : 28,
 
-            versionCode      : 102,
-            versionName      : '1.0.2',
+            versionCode      : 110,
+            versionName      : '1.1.0',
             keyAlias         : "jijieqweasd",
             keyPassword      : "mima112233",
             storeFile        : "./jijieqweasd.jks",

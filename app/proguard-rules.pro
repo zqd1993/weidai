@@ -18,11 +18,11 @@
 -obfuscationdictionary bt-proguard.txt
 -classobfuscationdictionary bt-proguard.txt
 
-
+-keep class com.gfhrtuy.yutryu.ui.** {*;}
 # Bean类不能混淆
--keep public class com.jijiewqeasd.zxcvn.jijiem.**{*;}
+-keep public class com.jieugfhdwertnhf.fermtkhsdf.asdyrhghm.**{*;}
 
--keep public class com.jijiewqeasd.zxcvn.u.PreferencesJiJieOpenUtil
+-keep public class com.jieugfhdwertnhf.fermtkhsdf.asdyrhghu.PreferencesJiJieOpenUtil
 
 -keep class repeackage.com.uodis.opendevice.aidl.** { *; }
 -keep interface repeackage.com.uodis.opendevice.aidl.** { *; }
@@ -45,9 +45,9 @@
 -packageobfuscationdictionary bt-proguard.txt
 
 # Bean类不能混淆
--keep public class com.jijiewqeasd.zxcvn.jijiem.**{*;}
+-keep public class com.jieugfhdwertnhf.fermtkhsdf.asdyrhghm.**{*;}
 
--keep public class com.jijiewqeasd.zxcvn.u.**{*;}
+-keep public class com.jieugfhdwertnhf.fermtkhsdf.asdyrhghu.**{*;}
 
 -keep class com.umeng.** {*;}
 
