@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sdnsdhsdhsddsgre.sdjsdhdsfh">
+    package="com.snvhretnsjggdsfd.tughuturtgf">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
-        android:name="com.sdnsdhsdhsddsgre.sdjsdhdsfh.HWShanJieBeiYongJinApp"
+        android:name="com.snvhretnsjggdsfd.tughuturtgf.HaoJJQiaHwfhsnApp"
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
@@ -21,7 +21,7 @@
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.sdnsdhsdhsddsgre.sdjsdhdsfh.hwhaojiesdfhgnuryemian.StartPageHWShanJieBeiYongJinActivity"
+            android:name="com.snvhretnsjggdsfd.tughuturtgf.haojjkuadferjtyuyemian.StartPageHaoJJQiaHwfhsnActivity"
             android:icon="@mipmap/app_logo"
             android:screenOrientation="portrait"
             android:exported="true">
@@ -33,38 +33,38 @@
         </activity>
 
         <activity
-            android:name="com.sdnsdhsdhsddsgre.sdjsdhdsfh.hwhaojiesdfhgnuryemian.DlHWShanJieBeiYongJinActivity"
+            android:name="com.snvhretnsjggdsfd.tughuturtgf.haojjkuadferjtyuyemian.DlHaoJJQiaHwfhsnActivity"
             android:launchMode="singleTask"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.sdnsdhsdhsddsgre.sdjsdhdsfh.hwhaojiesdfhgnuryemian.JumpH5HWShanJieBeiYongJinActivity"
+            android:name="com.snvhretnsjggdsfd.tughuturtgf.haojjkuadferjtyuyemian.JumpH5HaoJJQiaHwfhsnActivity"
             android:launchMode="singleTask"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.sdnsdhsdhsddsgre.sdjsdhdsfh.hwhaojiesdfhgnuryemian.MainHWShanJieBeiYongJinActivity"
+            android:name="com.snvhretnsjggdsfd.tughuturtgf.haojjkuadferjtyuyemian.MainHaoJJQiaHwfhsnActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:exported="true"/>
 
         <activity
-            android:name="com.sdnsdhsdhsddsgre.sdjsdhdsfh.hwhaojiesdfhgnuryemian.FeedbackHWShanJieBeiYongJinActivity"
+            android:name="com.snvhretnsjggdsfd.tughuturtgf.haojjkuadferjtyuyemian.FeedbackHaoJJQiaHwfhsnActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:exported="true"/>
 
         <activity
-            android:name="com.sdnsdhsdhsddsgre.sdjsdhdsfh.hwhaojiesdfhgnuryemian.AboutHWShanJieBeiYongJinInfoActivity"
+            android:name="com.snvhretnsjggdsfd.tughuturtgf.haojjkuadferjtyuyemian.AboutHaoJJQiaHwfhsnInfoActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:exported="true"/>
 
 
         <activity
-            android:name="com.sdnsdhsdhsddsgre.sdjsdhdsfh.hwhaojiesdfhgnuryemian.ZhuXiaoHWShanJieBeiYongJinActivity"
+            android:name="com.snvhretnsjggdsfd.tughuturtgf.haojjkuadferjtyuyemian.ZhuXiaoHaoJJQiaHwfhsnActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:exported="true"/>

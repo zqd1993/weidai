@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.sdnsdhsdhsd.sdjsdhdsfhsdhs",
+  "applicationId": "com.qjsdjjsdjsdjjsdjjj.dweiweooo",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 110,
-      "versionName": "1.1.0",
-      "outputFile": "jixin_v1.1.0.apk"
+      "versionCode": 120,
+      "versionName": "1.2.0",
+      "outputFile": "jixin_v1.2.0.apk"
     }
   ]
 }
