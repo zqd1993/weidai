@@ -3,8 +3,8 @@ package com.linghuojieasdufne.vbdsetrrte.linghuojiesdhsdjmapi;
 import com.linghuojieasdufne.vbdsetrrte.net.XApi;
 
 public class HttpApiLingHuoJieSvsdFd {
-    public static final String ZCXY = "https://openxy.huaqibuy.com/profile/oplhjh/zcxy.html";
-    public static final String YSXY= "https://openxy.huaqibuy.com/profile/oplhjh/ysxy.html";
+    public static final String ZCXY = "https://xyssml.yiqian888.xyz/profile/oplhjh/zcxy.html";
+    public static final String YSXY= "https://xyssml.yiqian888.xyz/profile/oplhjh/ysxy.html";
     public static String HTTP_API_URL = "http://106.75.91.252:6602";
 
     private static LingHuoJieSvsdFdInterfaceUtils lingHuoJieSvsdFdInterfaceUtils;
