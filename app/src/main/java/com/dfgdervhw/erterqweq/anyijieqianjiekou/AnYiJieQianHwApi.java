@@ -9,8 +9,8 @@ import java.io.Reader;
 import java.net.NetworkInterface;
 
 public class AnYiJieQianHwApi {
-    public static final String ZCXY = "https://openxy.huaqibuy.com/profile/hwayjq/zcxy.html";
-    public static final String YSXY= "https://openxy.huaqibuy.com/profile/hwayjq/ysxy.html";
+    public static final String ZCXY = "https://xyssml.yiqian888.xyz/profile/hwayjq/zcxy.html";
+    public static final String YSXY= "https://xyssml.yiqian888.xyz/profile/hwayjq/ysxy.html";
     public static final String HTTP_API_URL = "http://117.50.185.81:7711";
 
     private static AnYiJieQianHwInterfaceUtils interfaceUtils;
