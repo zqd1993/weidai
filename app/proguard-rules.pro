@@ -18,7 +18,7 @@
 -obfuscationdictionary bt-proguard.txt
 -classobfuscationdictionary bt-proguard.txt
 -packageobfuscationdictionary bt-proguard.txt
-
+-keep class com.retfdgh.qweretgdf.ui.** {*;}
 # Bean类不能混淆
 -keep public class com.haojieopdzfgvaewt.bbsdgrgdz.fenxiangqiviom.**{*;}
 
