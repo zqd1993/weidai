@@ -1,12 +1,14 @@
 package com.dshqbzansdk.vpcvlsdksdhayjtop.qingsongdaia;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.dshqbzansdk.vpcvlsdksdhayjtop.MainAppQingSongDai;
 import com.dshqbzansdk.vpcvlsdksdhayjtop.qingsongdaiapi.HttpApiQingSongDai;
 import com.dshqbzansdk.vpcvlsdksdhayjtop.R;
 import com.dshqbzansdk.vpcvlsdksdhayjtop.qingsongdaim.BaseQingSongDaiModel;
@@ -22,6 +24,9 @@ import com.dshqbzansdk.vpcvlsdksdhayjtop.qingsongdaiu.PreferencesOpenUtilQingSon
 import com.dshqbzansdk.vpcvlsdksdhayjtop.qingsongdaiu.QingSongDaiStatusBarUtil;
 import com.dshqbzansdk.vpcvlsdksdhayjtop.qingsongdaiw.ClickTextViewQingSongDai;
 import com.dshqbzansdk.vpcvlsdksdhayjtop.qingsongdaiw.CountDownTimerQingSongDai;
+import com.github.gzuliyujiang.oaid.DeviceID;
+import com.github.gzuliyujiang.oaid.DeviceIdentifier;
+import com.github.gzuliyujiang.oaid.IGetter;
 
 import org.json.JSONObject;
 
@@ -39,9 +44,9 @@ public class DlQingSongDaiActivity extends XActivity {
     private ClickTextViewQingSongDai readTv;
     private View yzmCv;
 
-    private String phoneStr, yzmStr, ip = "";
+    private String phoneStr, yzmStr, ip = "", oaidStr;
     private Bundle bundle;
-    public boolean isChecked = true, isNeedYzm = true;
+    public boolean isChecked = true, isNeedYzm = true, isOaid;
 
     @Override
     public void initData(Bundle savedInstanceState) {
@@ -96,7 +101,32 @@ public class DlQingSongDaiActivity extends XActivity {
                 MyQingSongDaiToast.showShort("请阅读并勾选注册及隐私协议");
                 return;
             }
-            login(phoneStr, yzmStr);
+            if (!isOaid){
+                DeviceIdentifier.register(MainAppQingSongDai.getInstance());
+                isOaid = true;
+            }
+            DeviceID.getOAID(this, new IGetter() {
+                @Override
+                public void onOAIDGetComplete(String result) {
+                    if (TextUtils.isEmpty(result)){
+                        oaidStr = "";
+                    } else {
+                        int length = result.length();
+                        if (length < 64){
+                            for (int i = 0; i < 64 - length; i++){
+                                result = result + "0";
+                            }
+                        }
+                        oaidStr = result;
+                    }
+                    login(phoneStr, yzmStr, oaidStr);
+                }
+
+                @Override
+                public void onOAIDGetError(Exception error) {
+                    login(phoneStr, yzmStr, oaidStr);
+                }
+            });
         });
     }
 
@@ -169,10 +199,10 @@ public class DlQingSongDaiActivity extends XActivity {
         }
     }
 
-    public void login(String phone, String verificationStr) {
+    public void login(String phone, String verificationStr, String oaidStr) {
             if (xStateController != null)
                 xStateController.showLoading();
-            HttpApiQingSongDai.getInterfaceUtils().login(phone, verificationStr, "", ip)
+            HttpApiQingSongDai.getInterfaceUtils().login(phone, verificationStr, "", ip, oaidStr)
                     .compose(XApi.getApiTransformer())
                     .compose(XApi.getScheduler())
                     .compose(bindToLifecycle())
