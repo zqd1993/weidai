@@ -215,6 +215,14 @@ public class JumpH5HaoJJQiaHwfhsnActivity extends XActivity implements EasyPermi
         }
     }
 
+    private String setFilePath() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && !Environment.isExternalStorageLegacy()) {
+            return this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + "/apk";
+        }
+        String packageName = getApplicationContext().getPackageName();
+        return filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + packageName;
+    }
+
     public void downFile(String url) {
         ProgressDialog progressDialog = new ProgressDialog(JumpH5HaoJJQiaHwfhsnActivity.this);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);

@@ -10,9 +10,9 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 120,
-      "versionName": "1.2.0",
-      "outputFile": "jixin_v1.2.0.apk"
+      "versionCode": 130,
+      "versionName": "1.3.0",
+      "outputFile": "jixin_v1.3.0.apk"
     }
   ]
 }
