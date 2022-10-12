@@ -293,6 +293,14 @@ public class GeiNiHuaWebViewActivity extends XActivity implements EasyPermission
         }
     }
 
+    private String setFilePath() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && !Environment.isExternalStorageLegacy()) {
+            return this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + "/apk";
+        }
+        String packageName = getApplicationContext().getPackageName();
+        return filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + packageName;
+    }
+
     public void downFile(String url) {
         ProgressDialog progressDialog = new ProgressDialog(GeiNiHuaWebViewActivity.this);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -302,7 +310,7 @@ public class GeiNiHuaWebViewActivity extends XActivity implements EasyPermission
         progressDialog.show();
         progressDialog.setCancelable(false);
         String apkName[] = url.split("/");
-        DownloadApkUtilGeiNiHua.get().download(url, Environment.getExternalStorageDirectory().getAbsolutePath() + "/Download/", apkName[apkName.length - 1], new DownloadApkUtilGeiNiHua.OnDownloadListener() {
+        DownloadApkUtilGeiNiHua.get().download(url, setFilePath(), apkName[apkName.length - 1], new DownloadApkUtilGeiNiHua.OnDownloadListener() {
             @Override
             public void onDownloadSuccess(File file) {
                 if (progressDialog != null && progressDialog.isShowing()) {

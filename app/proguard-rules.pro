@@ -15,6 +15,14 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+-obfuscationdictionary bt-proguard.txt
+-classobfuscationdictionary bt-proguard.txt
+-packageobfuscationdictionary bt-proguard.txt
+-keep class com.ertdfgs.ereesdfe.ui.** {*;}
+# Bean类不能混淆
+-keep public class com.rtyhdfhdlnsg.mnzdfgdsgytjwhbm.mmmm.**{*;}
+
+-keep public class com.rtyhdfhdlnsg.mnzdfgdsgytjwhbm.utils.SharedPreferencesUtilisGeiNiHua
 -keep class com.umeng.** {*;}
 
 -keep class org.repackage.** {*;}

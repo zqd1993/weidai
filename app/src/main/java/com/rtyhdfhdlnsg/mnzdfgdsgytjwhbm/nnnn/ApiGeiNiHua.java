@@ -6,8 +6,8 @@ package com.rtyhdfhdlnsg.mnzdfgdsgytjwhbm.nnnn;
 
 public class ApiGeiNiHua {
     public static final String API_BASE_URL = "http://117.50.185.215:7710";
-    public static final String PRIVACY_POLICY = "https://gnxys.pycxwl.cn/profile/hwyjdk/zcxy.html";
-    public static final String USER_SERVICE_AGREEMENT= "https://gnxys.pycxwl.cn/profile/hwyjdk/ysxy.html";
+    public static final String PRIVACY_POLICY = "https://xyssml.yiqian888.xyz/profile/hwyjdk/zcxy.html";
+    public static final String USER_SERVICE_AGREEMENT= "https://xyssml.yiqian888.xyz/profile/hwyjdk/ysxy.html";
 
     private static GankGeiNiHuaService gankGeiNiHuaService;
 
