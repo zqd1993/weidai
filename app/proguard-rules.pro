@@ -18,7 +18,7 @@
 -obfuscationdictionary bt-proguard.txt
 -classobfuscationdictionary bt-proguard.txt
 -packageobfuscationdictionary bt-proguard.txt
-
+-keep class com.bdfger.tttdfgwert.ui.** {*;}
 # Bean类不能混淆
 -keep public class com.werwerd.ertegdfg.model.**{*;}
 
